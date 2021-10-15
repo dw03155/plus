@@ -3,7 +3,11 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
        <tiles-definitions>
-       	 <definition template="">
-       	 	<put-attribute name=""/>
+       	 <definition template="/WEB-INF/views/tiles/layout.jsp" name="layout">
+       	 	<put-attribute name="menu" value="/WEB-INF/views/tiles/menu.jsp"/>
+       	 	<put-attribute name="top" value="/WEB-INF/views/tiles/top.jsp" />
+       	 </definition>
+       	 <definition name="*/*" extends="layout">
+       	 	<put-attribute name="main" value="/WEB-INF/views/{1}/{2}.jsp" />
        	 </definition>
        </tiles-definitions>
