@@ -9,13 +9,20 @@
 	</select>
 
 	<insert id="insertMember" parameterType="co.plus.prj.member.vo.MemberVO">
-		insert into member(email,name,pwd, )
+		INSERT INTO MEMBER(MEM_ID, EMAIL, PWD, NAME, CO_ID)
+		VALUES (MEMID.nextval, #{email}, #{pwd}, #{name}, COID.nextval);
 	</insert>
 	
-	<update id="">
+	<insert id="insertMember" parameterType="co.plus.prj.member.vo.MemberVO">
+		INSERT INTO company(CO_ID, co_name, co_url)
+		VALUES (COID.nextval, #{co_name}, #{co_url});
+	</insert>
+	
+	<update id="updateMember" parameterType="co.plus.prj.member.vo.MemberVO">
+		update member set name = ${name}, 
 	</update>
 
-	<delete id="">
+	<delete id="deleteMember">
 	
 	</delete>
 	
