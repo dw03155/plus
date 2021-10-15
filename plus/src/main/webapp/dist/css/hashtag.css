@@ -1,0 +1,35 @@
+@charset "UTF-8";
+/* 해시태그 팝업 */
+.hashtag-popup {
+    overflow: auto;
+    width: 256px;
+    max-height: 250px;
+    background: #fff;
+    box-sizing: border-box;
+    border-radius: 6px;
+}
+.hashtag-popup li + li{
+    border-top: 1px solid #eee;
+}
+.hashtag-popup li a {
+    display: block;
+  padding: 10px 20px 10px 20px;
+}
+.hashtag-popup li a:hover,
+.hashtag-popup li a:focus {
+    background: #F8F7FF;
+}
+.hashtag-popup li a:hover .hashtag-item-title,
+.hashtag-popup li a:focus .hashtag-item-title{
+    color: #6449FC;
+}
+.hashtag-item-title {
+    font-weight: bold;
+    font-size: 14px;
+    color: #555;
+}
+.hashtag-item-text{
+    margin-top: 3px;
+    font-size: 12px;
+    color: #999;
+}

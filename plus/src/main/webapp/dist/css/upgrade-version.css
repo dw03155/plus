@@ -1,0 +1,940 @@
+@charset "UTF-8";
+.width-100p-fix {
+  width: 100%;
+}
+
+.upgrade-version-wrap {
+  text-align: center;
+  overflow: auto;
+  height: calc(100vh - 150px);
+  padding: 0 0 50px 0;
+}
+
+.upgrade-version-section-1 {
+  position: relative;
+}
+
+.upgrade-version-close-1 {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 30px;
+  background: url("/flow-renewal/assets/images/upgrade-sprite-1.png") no-repeat -282px -1px;
+  background-size: 324px 41px;
+}
+
+.upgrade-version-flow-logo {
+  width: 140px;
+  height: 40px;
+  margin: 70px auto 0;
+  background: url("/flow-renewal/assets/images/upgrade-sprite-1.png") no-repeat 0 -1px;
+  background-size: 324px 41px;
+}
+.upgrade-version-text-1 {
+  font-size: 36px;
+  color: #333;
+  font-weight: bold;
+  text-align: center;
+}
+.upgrade-version-text-2 {
+  font-size: 18px;
+  color: #333;
+  text-align: center;
+  margin-top: 15px;
+}
+.upgrade-version-text-3 {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #999;
+}
+.upgrade-version-text-3 + .upgrade-version-section-2 {
+  margin-top: 40px;
+}
+.upgrade-version-button-1 {
+  width: 200px;
+  height: 50px;
+  border-radius: 160px;
+  border: 1px solid #6449fc;
+  margin: 30px auto 38px auto;
+  font-weight: bold;
+  font-size: 15px;
+  text-align: center;
+  color: #6449fc;
+}
+
+.upgrade-version-button-1:hover {
+  background: #6449fc;
+  color: #fff;
+}
+
+.upgrade-version-section-2 {
+  width: 1204px;
+  background: #fff;
+  box-sizing: border-box;
+  margin: 0 auto;
+  overflow: hidden;
+  text-align: left;
+}
+.upgrade-version-section-3 {
+  width: 100%;
+  max-width: 587px;
+  height: 665px;
+  background: #f8f8f8;
+  border-radius: 10px;
+  float: left;
+  position: relative;
+  box-sizing: border-box;
+  padding: 92px 0 92px 70px;
+}
+.upgrade-version-section-4 {
+  width: 100%;
+  max-width: 587px;
+  min-height: 665px;
+  padding: 40px;
+  float: right;
+  position: relative;
+  box-sizing: border-box;
+
+  background: #fff;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.04);
+  border-radius: 10px;
+}
+.upgrade-version-section-5 {
+  width: 1152px;
+  margin: 0 auto;
+  position: relative;
+}
+.upgrade-version-left-1 {
+  display: inline-block;
+  width: 90px;
+  height: 90px;
+  background: #514474;
+  border-radius: 30px;
+  margin-right: 30px;
+  vertical-align: middle;
+}
+.upgrade-version-left-2 {
+  display: inline-block;
+  width: 90px;
+  height: 90px;
+  background: #00b19c;
+  border-radius: 30px;
+  margin-right: 30px;
+  vertical-align: middle;
+}
+.upgrade-version-left-3 {
+  display: inline-block;
+  width: 90px;
+  height: 90px;
+  background: #f96464;
+  border-radius: 30px;
+  margin-right: 30px;
+  vertical-align: middle;
+}
+.upgrade-version-left-4 {
+  display: inline-block;
+  width: 90px;
+  height: 90px;
+  background: #2d8cff;
+  border-radius: 30px;
+  margin-right: 30px;
+  vertical-align: middle;
+}
+.upgrade-version-right-1 {
+  width: 320px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.upgrade-version-right-1 p {
+  margin-bottom: 8px;
+  color: #333;
+  font-size: 17px;
+  font-weight: bold;
+}
+.upgrade-version-right-1 span {
+  display: block;
+  line-height: 24px;
+  color: #555;
+  font-size: 14px;
+}
+.upgrade-version-right-1 em {
+  display: block;
+  width: 600px;
+  color: #555;
+  font-size: 12px;
+}
+.upgrade-version-section-3-1 {
+  margin-bottom: 40px;
+}
+.upgrade-version-section-3-2 {
+  margin-bottom: 40px;
+}
+.upgrade-version-section-3-3 {
+  margin-bottom: 40px;
+}
+/* .upgrade-version-section-3-4 {
+  height: 121px;
+} */
+.upgrade-version-icon-1 {
+  background: url("/flow-renewal//assets/images/icons/upgrade-hands.png") no-repeat;
+  width: 47px;
+  height: 39px;
+  margin: 26px auto;
+}
+.upgrade-version-icon-2 {
+  background: url("/flow-renewal//assets/images/icons/upgrade-message.png") no-repeat;
+  width: 41px;
+  height: 37px;
+  margin: 27px auto;
+}
+.upgrade-version-icon-3 {
+  background: url("/flow-renewal//assets/images/icons/upgrade-set.png") no-repeat;
+  width: 41px;
+  height: 37px;
+  margin: 27px auto;
+}
+.upgrade-version-icon-4 {
+  background: url("/flow-renewal//assets/images/icons/upgrade-gard.png") no-repeat;
+  width: 33px;
+  height: 39px;
+  margin: 26px auto;
+}
+
+.upgrade-coperation-button-1 {
+  text-align: center;
+  color: #fff;
+  display: block;
+  width: 506px;
+  padding: 23px 0;
+  background: #623ad6;
+  border-radius: 6px;
+  font-size: 16px;
+}
+.upgrade-coperation-button-1 strong {
+  display: block;
+}
+.upgrade-coperation-button-1 em {
+  display: block;
+  margin-top: 8px;
+  font-size: 13px;
+  color: #ddd;
+}
+.upgrade-coperation-button-1:hover,
+.upgrade-coperation-button-1:focus {
+  background: #7163c4;
+}
+.upgrade-coperation-section-1 {
+  color: #333;
+  margin-bottom: 20px;
+  min-height: 360px;
+}
+.upgrade-coperation-section-1 > ul {
+  min-height: 426px;
+}
+.alert-sns {
+  margin: 6px 0 0 0;
+  font-size: 16px;
+  color: #333;
+  text-align: center;
+}
+
+.upgrade-coperation-section-1 ul li + li {
+  margin-top: 20px;
+}
+.upgrade-coperation-section-1 ul li span {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+}
+.upgrade-version-bottomline-1 {
+  display: inline-block;
+  position: relative;
+}
+.upgrade-version-bottomline-1 input,
+.upgrade-version-input-1 {
+  display: inline-block;
+  width: 506px;
+  height: 52px;
+  padding: 0 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  color: #333;
+  font-size: 16px;
+}
+.upgrade-version-bottomline-1 input::placeholder {
+  color: #999;
+}
+.upgrade-select-type-1 {
+  position: relative;
+  width: 506px;
+  padding: 19px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  background: url(/flow-renewal/assets/images/section-ar-1.png) 95% 50% no-repeat;
+}
+.upgrade-select-type-1 + .upgrade-version-input-1 {
+  margin-top: 10px;
+}
+.upgrade-version-input-1 {
+  color: #333;
+  font-size: 14px;
+}
+.upgrade-version-bottomline-1 input.upgrade-version-input-2 {
+  width: 354px;
+  margin: 0 8px;
+}
+/* .upgrade-version-input-1:focus,
+.upgrade-version-input-2:focus  {
+  color: #6449fc;
+} */
+.upgrade-version-bottomline-1 em {
+  color: #333;
+  font-size: 16px;
+  font-family: Roboto;
+}
+
+.upgrade-version-input-1::placholder {
+  color: #999;
+}
+.upgrade-version-input-2::placholder {
+  color: #999;
+}
+.upgrade-version-join {
+  display: block;
+  padding: 16px;
+  margin: 27px auto 0;
+  background: #ffffff;
+  border: 1px solid #623ad6;
+  box-sizing: border-box;
+  border-radius: 900px;
+  color: #623ad6;
+  font-size: 16px;
+  font-weight: 500;
+}
+.text-version-type-1 {
+  margin-top: 60px;
+  font-weight: bold;
+  font-size: 20px;
+  color: #333;
+  text-align: center;
+}
+.upgrade-free-img {
+  display: block;
+  width: 157px;
+  margin: 102px auto 0;
+}
+.upgrade-version-bottomline-1 input.input-error {
+  color: #ff6b6b;
+  border: 1px solid #ff6b6b;
+}
+
+/* 결제 */
+/* 결제 팝업 */
+
+.label-discount {
+  height: 22px;
+  padding: 0 10px;
+  margin: 0 0 0 10px;
+  line-height: 22px;
+  display: inline-block;
+  border: 1px solid #fa6c3f;
+  border-radius: 900px;
+  color: #fa6c3f;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.popup-wr .alert-txt {
+  margin: 20px 0 45px 0;
+  color: #999;
+  font-size: 13px;
+}
+
+.btn-qna {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  font-size: 13px;
+  color: #555;
+}
+
+.btn-qna i {
+  width: 13px;
+  height: 15px;
+  display: inline-block;
+  position: relative;
+  top: 3px;
+  background: url(/flow-renewal/assets/images/payment-sprite.png) no-repeat -161px 0;
+  background-size: 299px;
+}
+
+.btn-qna:hover,
+.btn-qna:focus {
+  color: #6449fc;
+}
+
+.btn-qna:hover i,
+.btn-qna:focus i {
+  background-position: -177px 0;
+}
+
+.agreement-section {
+  height: 377px;
+  padding: 15px 30px;
+  line-height: 20px;
+  overflow-y: auto;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  color: #555;
+}
+
+.agreement-section li {
+  margin: 10px 0;
+}
+
+.popup-wr.popup-3 {
+  width: 600px;
+  height: auto;
+}
+
+.popup-wr.popup-3 .btn-wr {
+  margin: 20px auto 0;
+  text-align: center;
+}
+
+.btn-type-1 {
+  width: 182px;
+  height: 36px;
+  margin: 0 5px;
+  line-height: 36px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  color: #555;
+  font-size: 13px;
+}
+
+.btn-type-2 {
+  width: 182px;
+  height: 36px;
+  margin: 0 5px;
+  line-height: 36px;
+  background: #6449fc;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 13px;
+}
+
+.icon-mail {
+  width: 19px;
+  height: 14px;
+  margin: 0 10px 0 0;
+  display: inline-block;
+  position: relative;
+  top: 3px;
+  background: url(/flow-renewal/assets/images/payment-sprite.png) no-repeat -187px -2px;
+  background-size: 294px;
+}
+
+.account-contents li {
+  height: 61px;
+  line-height: 61px;
+  padding: 0 20px;
+  position: relative;
+  color: #555;
+  background: #eee;
+  border-radius: 6px;
+  margin: 0 0 10px 0;
+}
+
+.account-contents li:first-child {
+  background: #f8f7ff;
+  color: #6449fc;
+  font-weight: 500;
+}
+
+.account-contents li:nth-child(2) {
+  padding: 0;
+  background: #fff;
+}
+
+.account-contents .btn-qna {
+  right: 0;
+  bottom: 24px;
+}
+
+.dot:before {
+  width: 4px;
+  height: 4px;
+  margin: 0 7px 0 0;
+  content: "";
+  display: inline-block;
+  position: relative;
+  top: -2px;
+  background: #999;
+  border-radius: 50%;
+}
+
+.account-contents li:nth-child(4) {
+  height: 93px;
+  line-height: 55px;
+}
+
+.account-contents .dot:nth-child(2) {
+  margin: 0 0 0 30px;
+}
+
+.account-contents .dot:nth-child(3) {
+  display: block;
+  margin: 0 0 0 85px;
+  line-height: 10px;
+}
+
+.btn-download {
+  width: 82px;
+  height: 24px;
+  margin: 0 0 0 5px;
+  line-height: 24px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #555;
+}
+
+.btn-download:hover,
+.btn-download:focus {
+  color: #6449fc;
+  background-color: #f8f7ff;
+}
+
+.btn-download:hover .icons-download::before,
+.btn-download:focus .icons-download::before {
+  color: #6449fc;
+}
+
+.popup-wr {
+  width: 600px;
+  height: auto;
+  padding: 20px 30px;
+  margin: 0 auto;
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #999999;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-shadow: 20px 20px 30px rgb(0 0 0 / 20%);
+  box-shadow: 20px 20px 30px rgb(0 0 0 / 20%);
+  border-radius: 10px;
+}
+.popup-wr .popup-tit {
+  height: 24px;
+  line-height: 24px;
+  margin: 0 0 20px 0;
+  font-size: 16px;
+  color: #333;
+  font-weight: bold;
+}
+
+.btn-close {
+  position: absolute;
+  top: 0;
+  right: -10px;
+}
+
+.popup-wr .btn-close {
+  top: 20px;
+  right: 20px;
+}
+
+.side-wr .btn-close {
+  top: 17px;
+  right: 20px;
+}
+
+.popup-wr .payment-cycle-group {
+  top: 44px;
+}
+
+.payment-section {
+  position: relative;
+}
+
+.payment-section .section-tit {
+  height: 43px;
+  line-height: 43px;
+  display: block;
+  color: #555;
+}
+
+.payment-bill {
+  width: 100%;
+  padding: 12px 0;
+  table-layout: fixed;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.payment-bill tr:nth-child(1) input {
+  width: 120px;
+  height: 30px;
+  padding: 5px 14px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.payment-bill td:nth-child(1) {
+  width: 40%;
+  padding: 13px 0 13px 30px;
+  font-size: 15px;
+}
+
+.payment-bill td:nth-child(2) {
+  padding: 13px 30px;
+  text-align: right;
+}
+
+.payment-bill td input {
+  width: 139px;
+  text-align: right;
+  font-size: 18px;
+}
+
+.payment-bill tr:nth-child(3) {
+  color: #fa6c3f;
+}
+
+.payment-bill tr:nth-child(3) input {
+  color: #fa6c3f;
+}
+
+.payment-date {
+  width: 100%;
+  position: relative;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background: url(/flow-renewal/assets/images/section-ar-1.png) 95% 50% no-repeat;
+}
+
+.payment-date li {
+  width: 100%;
+  height: 36px;
+  line-height: 36px;
+  padding: 0 15px;
+  display: inline-block;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.payment-date li p {
+  display: inline-block;
+}
+
+.payment-contents {
+  overflow: hidden;
+  text-align: center;
+}
+
+.form-tit {
+  display: block;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.payment-info > li {
+  position: relative;
+  width: 100%;
+  font-size: 16px;
+}
+.payment-info > li + li{
+  margin: 20px 0 0 0;
+}
+.payment-left {
+  display: inline-block;
+  min-width: 587px;
+  padding: 40px;
+  text-align: left;
+}
+.payment-left.payment-change{
+  max-width: 506px;
+}
+.payment-right {
+  display: block;
+  overflow: hidden;
+  float: right;
+  text-align: left;
+  min-width: 587px;
+  border-radius: 10px;
+  background: #faf9f9;
+  border: 1px solid #eee;
+}
+
+.payment-input {
+  width: 100%;
+  height: 52px;
+  padding: 15px 20px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+.payment-input.disabled {
+  background: #eee;
+}
+.payment-info-title {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+}
+.payment-info-title span{
+  display: inline-block;
+  margin: 1px 0 0 10px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #999;
+  vertical-align: top;
+}
+.payment-input.input-type2 {
+  max-width: 119px;
+}
+.payment-input.input-type2 + .payment-input.input-type2 {
+  margin-left: 6px;
+}
+.payment-select {
+  min-width: 119px;
+  height: 52px;
+  padding: 0 0 0 20px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: url(/flow-renewal/assets/images/icons/icon_select_arrow.png) no-repeat;
+  background-position: 85px center;
+}
+.payment-select + .payment-select {
+  margin-left: 6px;
+}
+.icon-password {
+  display: inline-block;
+  margin-left: 10px;
+}
+.payment-amount-header {
+  padding: 38px 40px;
+  max-height: 100px;
+  background: linear-gradient(319.11deg, #5132c1 13.75%, #be40eb 112.22%);
+  font-weight: bold;
+  font-size: 20px;
+  color: #fff;
+}
+.payment-amount-content {
+  padding: 30px 40px 108px;
+}
+.payment-cycle {
+  padding: 12px 20px;
+  height: 52px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #333;
+  background: #fff url(/flow-renewal/assets/images/icons/icon_select_arrow.png) no-repeat;
+  background-position: 95% center;
+  cursor: pointer;
+}
+.payment-sale {
+  display: inline-block;
+  padding: 4px 10px;
+  margin-left: 6px;
+  background: #ffffff;
+  border: 1px solid #fa6c3f;
+  box-sizing: border-box;
+  border-radius: 900px;
+  color: #fa6c3f;
+  font-size: 12px;
+  vertical-align: middle;
+}
+.payment-cycle-group {
+  display: none;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  padding: 9px 12px;
+  background: #fff;
+  border: 1px solid #777;
+  border-radius: 4px;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+  color: #555;
+}
+.payment-cycle-group li{
+  cursor: pointer;
+}
+.payment-cycle-group li + li{
+  margin-top: 6px;
+}
+.payment-cycle-group li:hover{
+  color: #6449FC;
+}
+.estimated-amount{
+  padding: 23px 30px 28px 30px ;
+  background: #fff;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  border-radius: 6px;
+}
+.estimated-amount li{
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.estimated-amount li:last-child {
+  color: #FA6C3F;
+}
+
+.estimated-amount li + li {
+  margin-top: 20px;
+}
+
+.estimated-amount .tooltip-square {
+    display: none;
+    position: absolute;
+    width: 285px;
+    bottom: 39px;
+    right: -62px;
+    letter-spacing: -0.03em;
+    z-index: 1;
+    white-space: normal;
+}
+
+.estimated-amount .tooltip-square em {
+  color: #FA6C3F;
+}
+
+.estimated-amount .tooltip-square:before {
+  top: initial;
+  bottom: -6px;
+  transform: translateX(-49.9%) rotate(180deg);
+}
+
+.users-number {
+  width: 120px;
+  height: 30px;
+  padding: 5px 14px;
+  margin-right: 6px;
+  background: #eee;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  border-radius: 4px;
+  text-align: right;
+}
+
+.users-number:hover + .tooltip-square {
+  display: block;
+}
+
+.payment-button {
+  display: block;
+  width: 506px;
+  height: 52px;
+  margin-top: 60px;
+  background: #623AD6;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  color: #fff;
+}
+
+.payment-button:disabled {
+  background: #dcdedf;
+  border-color: #dcdedf;
+  cursor: default;
+}
+.payment-left .payment-button:disabled {
+  background: #eee;
+  color: #999;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.payment-agree {
+  display: block;
+  margin-top: 20px;
+  font-size: 14px;
+}
+.payment-agree a{
+  color: #623AD6;
+}
+.payment-agree-text{
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: top;
+}
+.payment-left .payment-agree-text{
+  margin: 0;
+}
+.payment-left .payment-agree-text a{
+  font-weight: 400;
+}
+
+.payment-agree-input{
+  display: none;
+}
+.payment-agree::before {
+    display: inline-block;
+    content: "";
+    width: 16px;
+    height: 16px;
+    background-image: url(/flow-renewal/assets/images/icons/icon_check.png);
+    background-size: 16px 16px;
+    cursor: pointer;
+}
+.payment-agree-input:checked + .payment-agree:before{
+  background-image: url(/flow-renewal/assets/images/icons/icon_check_on.png);
+}
+.payment-description::before{
+  position: relative;
+  top: 2px;
+  display: block;
+  content:"";
+  width: 30px;
+  height: 31px;
+  margin: 0 auto 10px auto;
+  background-image: url(/flow-renewal/assets/images/icons/icon_security.png);
+}
+
+.payment-description {
+  font-size: 13px;
+  color: #777;
+  text-align: center;
+}
+
+.payment-popup-link {
+    color: #623AD6;
+}
+
+.payment-popup-link:hover {
+    text-decoration: underline;
+}
+
+.calculator-button {
+    margin-left: 370px;
+    color: #6449fc;
+}
+
+/* //결제 */
