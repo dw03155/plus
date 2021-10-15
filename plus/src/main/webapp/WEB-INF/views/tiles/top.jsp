@@ -1,12 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
 <header class="header">
             <!-- 라이트 버전 클래스 .light -->
             <div class="top-state-wrap">
@@ -204,5 +197,3 @@
                 </li>
             </ul>
         </header>
-</body>
-</html>
