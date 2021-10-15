@@ -1,0 +1,479 @@
+@charset "UTF-8";
+.project-invite-wrap-1{
+    width: 702px;
+    margin: 70px auto;
+    position: relative;
+}
+.invite-flow-logo-1{
+    margin: 0 auto;
+    background: url('/flow-renewal/assets/images/invite-sprite-type-1.png') no-repeat 0 0;
+    background-size: 465px 181px;
+    width: 140px;
+    height: 40px;
+}
+.project-invite-content-type-1{
+    background: url(/flow-renewal/assets/images/bg-invite.png);
+    background-size: 702px 107px;
+    width: 702px;
+    height: 107px;
+    position: absolute;
+    top: 63px;
+}
+.invite-flow-text-type-1{
+    display: block;
+    font-size: 15px;
+    color: #777;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 54px;
+}
+.invite-flow-section-type-1{
+    width: 600px; 
+    height: 236px;
+    margin: 0 auto;
+    background: linear-gradient(180deg, #F0EEFB 0%, #FBEEF0 47.59%);
+    border: 1px solid #DDDDDD;
+    box-sizing: border-box;
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+}
+.invite-flow-picture-1{
+    width: 120px;
+    height: 120px;
+    border: 1px solid #DDDDDD;
+    background-size: contain;
+    box-sizing: border-box;
+    border-radius: 40px;
+    margin-top: 20px;
+    margin-left: 30px;
+    float: left;
+}
+.invite-flow-picture-1.default {
+    background-image: url(/flow-renewal/assets/images/profile-default.png);
+}
+.invite-flow-text-type-wrap-1{
+    float: left;
+    margin-top: 34px;
+    max-width: 395px;
+    margin-left: 20px;
+}
+.flow-project-popup-9 .invite-flow-text-type-wrap-1 {
+    max-width: 245px;
+}
+.invite-flow-text-type-3{
+    color: #6449fc;
+    vertical-align: middle;
+}
+.invite-flow-text-type-5{
+    display: block;
+    margin-top: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.invite-flow-button-type-wrap-1{
+    width: 540px;
+    height: 36px;
+    background: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    box-sizing: border-box;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 36px;
+    margin-top: 25px;
+    margin-left: 30px;
+}
+.invite-flow-button-type-wrap-1 em{
+    display: inline-block;
+    background: url('/flow-renewal/assets/images/invite-sprite-type-1.png') no-repeat -419px -42px;
+    background-size: 465px 181px;
+    width: 20px;
+    height: 16px;
+    position: relative;
+    top: 3px;
+    margin-right: 5px;
+}
+.invite-flow-text-type-7{
+    color: #555;
+}
+.project-invite-wrap-2{
+    overflow: hidden;
+}
+.invite-flow-text-type-2{
+    display: block;
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.invite-flow-text-type-6{
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+    margin: 0 auto;
+    margin-top: 51px;
+}
+.invite-flow-text-type-8{
+    display: block;
+    color: #555;
+    margin:0 auto;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 51px;
+}
+.invite-flow-section-type-2{
+    width: 600px; height: 50px;
+    margin:0 auto;
+    text-align: center;
+    background: #eee;
+    border-radius: 4px;
+    color: #6449fc;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 50px;
+    margin-top: 9px;
+}
+.invite-flow-text-type-9{
+    font-size: 12px;
+    color: #999;
+    font-size: 12px;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 12px;
+}
+.invite-flow-text-type-10{
+    display: block;
+    font-size: 15px;
+    color: #777;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+.invite-flow-text-type-11{
+    display: block;
+    font-size: 15px;
+    color: #777;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 5px;
+}
+.margin-top-50{
+    margin-top: 50px;
+}
+.invite-flow-section-type-3{
+    display: block;
+    width: 200px;
+    height: 30px;
+    line-height: 30px;
+    background: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #555;
+    text-align: center;
+    margin:0 auto;
+    margin-top: 50px;
+}
+.detail-popup-type-1{
+    position: relative;
+    width: 434px;
+    height: 368px;
+    margin: 0 auto;
+    background: #FFFFFF;
+    border: 1px solid #777777;
+    box-sizing: border-box;
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+.detail-popup-header-1{
+    width: 100%;
+    height: 37px;
+    box-sizing: border-box;
+    padding-top: 20px;
+    padding-left: 30px;
+    padding-right: 20px;
+}
+.detail-popup-type-1 ul{
+    margin: 20px 30px;
+}
+.detail-popup-type-1 ul li{
+    width: 100%;
+    height: 71px;
+    box-sizing: border-box;
+    padding: 15px 10px;
+    overflow:hidden;
+    border-bottom: 1px solid #eee;
+}
+.detail-popup-type-1 ul li:last-child{
+    border-bottom: 0;
+}
+.detail-popup-header-1 span{
+    font-size: 15px;
+    font-weight: bold;
+}
+.detail-popup-header-1 span i{
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    margin-right: 5px;
+    position: relative;
+    top: 2px;
+}
+.detail-popup-header-1 em{
+    float: right;
+    background: url('/flow-renewal/assets/images/project-detail-type-1.png') no-repeat -31px -1px;
+    background-size: 404px 66px;
+    width: 13px;
+    height: 13px;
+}
+.detail-popup-header-1 a:hover em,.detail-popup-header-1 a:focus em{
+    background-position: -45px -1px;
+}
+.detail-popup-icon-1{
+    width: 40px;
+    height: 40px;
+    background: #6449FC;
+    border-radius: 6px;
+    float: left;
+}
+.detail-popup-icon-2{
+    width: 40px;
+    height: 40px;
+    background: #6449FC;
+    border-radius: 6px;
+    float: left;
+}
+.detail-popup-icon-3{
+    width: 40px;
+    height: 40px;
+    background: #6449FC;
+    border-radius: 6px;
+    float: left;
+}
+.detail-popup-icon-4{
+    width: 40px;
+    height: 40px;
+    background: #6449FC;
+    border-radius: 6px;
+    float: left;
+}
+.detail-popup-icon-1 span{
+    margin: 8px;
+    display: inline-block;
+    background: url('/flow-renewal/assets/images/project-detail-type-1.png') no-repeat -92px -27px;
+    background-size: 404px 66px;
+    width: 23px;
+    height: 22px;
+}
+.detail-popup-icon-2 span{
+    margin-top: 12px;
+    margin-left: 11px;
+    display: inline-block;
+    background: url('/flow-renewal/assets/images/project-detail-type-1.png') no-repeat -63px -28px;
+    background-size: 404px 66px;
+    width: 18px;
+    height: 18px;
+}
+.detail-popup-icon-3 span{
+    margin-top: 12px;
+    margin-left: 11px;
+    display: inline-block;
+    background: url('/flow-renewal/assets/images/project-detail-type-1.png') no-repeat -35px -30px;
+    background-size: 404px 66px;
+    width: 18px;
+    height: 14px;
+}
+.detail-popup-icon-4 span{
+    margin: 11px;
+    display: inline-block;
+    background: url('/flow-renewal/assets/images/project-detail-type-1.png') no-repeat -5px -28px;
+    background-size: 404px 66px;
+    width: 18px;
+    height: 18px;
+}
+.detail-popup-icon-2{
+    width: 40px;
+    height: 40px;
+    background: #6449FC;
+    border-radius: 6px;
+    float: left;
+}
+.detail-popuplist-type-1{
+    float: left;
+    box-sizing: border-box;
+    padding-left: 10px;
+    width: 310px;
+}
+.detail-popuplist-type-1 span{
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    height: 21px;
+    display: block;
+    line-height: 21px;
+}
+.detail-popuplist-type-1 em{
+    font-size: 12px;
+    color: #999;
+    margin-top: 2px;
+}
+.detail-popuplist-type-2 span{
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    height: 21px;
+    display: block;
+    line-height: 21px;
+}
+.detail-popuplist-type-2 em{
+    font-size: 12px;
+    color: #999;
+    margin-top: 2px;
+}
+.detail-popuplist-type-2{
+    float: left;
+    box-sizing: border-box;
+    padding-left: 10px;
+    width: 310px;
+}
+.detail-popuplist-type-1 span{
+    display: block;
+}
+.detail-alarm-type-1{
+    position: absolute;
+    color: #fff;
+    line-height: 35px;
+    font-weight: normal;
+    text-align: center;
+    top: 167px;
+    left: 99px;
+    width: 235px;
+    height: 35px;
+    background: #6449FC;
+    border-radius: 600px;
+}
+.detail-list-active-1{
+    background: #f8f7ff;
+}
+
+#mainInvitePopup .invite-flow-text-type-wrap-1 {
+    max-width: 270px;
+}
+
+#mainInvitePopup .flow-pop-sub-button-1 {
+    float: initial;
+}
+#mainInvitePopup .invite-flow-text-type-3 {
+    display: inline-block;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+#mainInvitePopup .flow-project-header-1 {
+    padding: 20px 30px;
+}
+
+#mainInvitePopup .flow-project-header-1 .btn-close {
+    top: 26px;
+}
+
+.invite-flow-text-type-4 {
+    vertical-align: middle;
+}
+
+.for-Mobile {
+    display: none;
+}
+
+@media all and (max-width: 1280px) {
+# .project-invite-wrap-1 {
+    width: calc(100% - 100px);
+}
+
+    #mainInvitationLayer .project-invite-content-type-1 {
+        display: none;
+    }
+
+    #mainInvitationLayer .invite-flow-section-type-1 {
+        width: 100%;
+        max-width: 670px;
+        height: auto;
+        padding: 20px;
+    }
+    #mainInvitationLayer .invite-flow-picture-1 {
+        float: initial;
+        margin: 0 auto;
+    }
+    #mainInvitationLayer .invite-flow-text-type-wrap-1 {
+        float: initial;
+        max-width: 100%;
+        margin: 20px auto 25px 0;
+        text-align: center;
+    }
+    #mainInvitationLayer .invite-flow-button-type-wrap-1 {
+        margin: 0 auto;
+        width: 100%;
+        height: 50px;
+        font-size: 15px;
+        line-height: 48px;
+    }
+
+    #mainInvitationLayer .invite-flow-section-type-2 {
+        width: calc(100% - 100px);
+    }
+
+    .invite-flow-text-type-6 {
+        font-size: 16px;
+    }
+
+    #mainInvitationLayer .project-invite-wrap-1 {
+        width: 100%;
+        margin: 70px auto;
+        position: relative;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    .invite-flow-text-type-1,
+    .invite-flow-text-type-10,
+    .invite-flow-text-type-11 {
+        word-break: keep-all;
+    }
+
+    .invite-flow-section-type-2 {
+        width: 100%;
+    }
+
+    .invite-flow-section-type-3 {
+        height: 50px;
+        font-size: 15px;
+        line-height: 48px;
+    }
+
+}
+
+@media all and (max-width: 768px) {
+    .project-invite-wrap-1 {
+        padding: 0 20px;
+        width: 100%;
+    }
+}
+
+@media all and (max-width: 640px) {
+
+    .for-Mobile {
+        display: block;
+    }
+}
+

@@ -1,0 +1,57 @@
+@charset "UTF-8";
+/*
+
+
+body[banner1] .main-body-wrap {
+    height: calc(100% - 80px);
+}
+
+body[banner2] .main-body-wrap {
+    height: calc(100% - 120px);
+}
+
+body[banner3] .main-body-wrap {
+    height: calc(100% - 160px);
+}
+
+body[banner1] .modal-account {
+    top: 86px;
+}
+
+body[banner2] .modal-account {
+    top: 126px;
+}
+
+body[banner3] .modal-account {
+    top: 166px;
+}
+
+body[banner1] .project-participants {
+    top: 300px;
+}
+
+body[banner2] .project-participants {
+    top: 340px;
+}
+
+body[banner3] .project-participants {
+    top: 380px;
+}
+*/
+
+body[banner1] #topBanner {
+    display: block;
+}
+
+body[banner1=alarm-step-1] #topBanner .top-banner-1[banner=alarm-step-1],
+body[banner2=alarm-step-1] #topBanner .top-banner-1[banner=alarm-step-1],
+body[banner3=alarm-step-1] #topBanner .top-banner-1[banner=alarm-step-1] {
+    display: flex;
+}
+
+body[banner1=alarm-step-2] #topBanner .top-banner-1[banner=alarm-step-2],
+body[banner2=alarm-step-2] #topBanner .top-banner-1[banner=alarm-step-2],
+body[banner3=alarm-step-2] #topBanner .top-banner-1[banner=alarm-step-2] {
+    display: flex;
+}
+

@@ -1,0 +1,1285 @@
+@charset "UTF-8";
+h1 {
+    margin: 10px;
+    font-size: 24px;
+}
+
+h2 {
+    font-size: 16px;
+}
+
+section {
+    display: block;
+    /*margin: 20px;*/
+}
+
+.guide-list {
+    margin-top: 20px;
+}
+
+.guide-list > li {
+    display: inline-grid;
+    margin: 10px;
+}
+
+/* 필터버튼 */
+.filter-button:hover,
+.filter-button.active {
+    color: #6449fc;
+}
+
+.filter-button::before {
+    display: inline-block;
+    content: "";
+    width: 18px;
+    height: 18px;
+    background-image: url("/flow-renewal/assets/images/icons/icon_filter.png");
+    background-size: cover;
+}
+
+.filter-button:hover::before {
+    background-image: url("/flow-renewal/assets/images/icons/icon_filter_on.png");
+}
+
+.filter-button.active::before {
+    background-image: url("/flow-renewal/assets/images/icons/icon_filter_on.png");
+}
+
+/* 토글 버튼 20t사이즈 */
+.report-toggle-button {
+    width: 20px;
+    height: 20px;
+    background-image: url("/flow-renewal/assets/images/icons/report_arrow.png");
+    background-size: cover;
+}
+
+.report-toggle-button:hover {
+    background-image: url("/flow-renewal/assets/images/icons/report_arrow_hover.png");
+}
+
+.report-toggle-button.off {
+    transform: rotate(180deg);
+}
+
+.toggle-button.active {
+    background: #6449fc;
+}
+
+.toggle-button {
+    position: relative;
+    width: 50px;
+    height: 22px;
+    padding: 2px;
+    background: #ccc;
+    border-radius: 200px;
+    box-sizing: border-box;
+    transition: background-color 0.25s;
+    vertical-align: middle;
+}
+
+.toggle-button.active .handle {
+    background: #fff;
+    transform: translateX(28px);
+}
+
+.toggle-button .handle {
+    display: block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #eee;
+    transition: all 0.25s;
+}
+
+/* 툴팁 */
+.tooltip-square {
+    position: relative;
+    display: inline-block;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #555;
+    background: #fff;
+    border: 1px solid #555;
+    box-sizing: border-box;
+    border-radius: 4px;
+    /* max-width: 300px; */
+}
+
+.tooltip-square:not(.up-tooltip)::before {
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    display: block;
+    content: "";
+    width: 11px;
+    height: 6px;
+    background: url(/flow-renewal/assets/images/sprite-project-detail.png) no-repeat -720px -175px;
+    background-size: 844px auto;
+    transform: translateX(-49.9%);
+}
+
+.up-tooltip::before {
+    position: absolute;
+    top: 29px;
+    left: 42%;
+    display: block;
+    content: "";
+    width: 11px;
+    height: 6px;
+    background: url(/flow-renewal/assets/images/sprite-project-detail.png) no-repeat -720px -175px;
+    background-size: 844px auto;
+    transform: rotate(180deg);
+}
+
+.tooltip-title {
+    font-weight: bold;
+    color: #333333;
+}
+
+.tooltip-text {
+    margin-top: 4px;
+}
+
+/* 메뉴 팝업 */
+.check-menu-popup {
+    display: inline-block;
+    padding: 8px 12px;
+    background: #fff;
+    border: 1px solid #777;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+.check-menu-item {
+    font-size: 13px;
+    color: #555;
+}
+
+.check-menu-item:hover {
+    color: #6449fc;
+}
+
+.check-menu-item:hover::before {
+    background-image: url(/flow-renewal/assets/images/icons/icon_check_hover.png);
+}
+
+.check-menu-item::before {
+    display: inline-block;
+    content: "";
+    background: url(/flow-renewal/assets/images/icons/icon_check_hover.png) no-repeat;
+    background-size: 20px;
+    width: 20px;
+    height: 20px;
+    margin: -2px 9px 0 0;
+    vertical-align: top;
+}
+
+.check-menu-item.on::before {
+    background-image: url(/flow-renewal/assets/images/icons/icon_check_on.png);
+}
+
+/* 폰트 스타일 툴바 */
+.font-style-toolbar {
+    width: 146px;
+    position: absolute;
+    z-index: 999991;
+    padding: 13px 19px;
+    background: #6449FC;
+    border-radius: 6px;
+}
+
+.font-style-button {
+    vertical-align: top;
+    margin-right: 20px;
+}
+
+.font-style-button:last-child{
+    margin-right: 0;
+}
+
+.icon-font-style {
+    display: block;
+    width: 32px;
+    height: 32px;
+    background: url("/flow-renewal/assets/images/sprite-project-detail.png") no-repeat;
+    background-size: 844px auto;
+}
+
+.icons-font-style.bold:before{
+    content: "\e95b";
+    color: #fff;
+    font-size: 13px;
+}
+
+.icons-font-style.italic:before{
+    content: "\e95d";
+    color: #fff;
+}
+
+.icons-font-style.underline:before{
+    content: "\e95e";
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.icons-font-style.line-through:before{
+    content: "\e95c";
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+
+.icons-font-style.bold:hover:before,
+.icons-font-style.bold.active:before{
+    color: #FFCE21;
+}
+
+.icons-font-style.italic:hover:before,
+.icons-font-style.italic.active:before{
+    /*content: "\";*/
+    color: #FFCE21;
+}
+
+.icons-font-style.underline:hover:before,
+.icons-font-style.underline.active:before{
+    color: #FFCE21;
+}
+
+.icons-font-style.line-through:hover:before,
+.icons-font-style.line-through.active:before {
+    color: #FFCE21;
+}
+
+/* //폰트 스타일 툴바 */
+
+/* //해시태그 팝업 */
+/* 미니모드 설정 팝업 */
+.flow-project-popup-1 {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid #777777;
+    box-sizing: border-box;
+    box-shadow: 20px 20px 30px rgb(0 0 0 / 20%);
+    border-radius: 10px;
+    width: 600px;
+    height: auto;
+    margin: 0 auto;
+}
+
+.flow-project-header-1 {
+    height: 24px;
+    width: 100%;
+    padding: 0 30px;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-weight: 700;
+    position: relative;
+}
+
+.flow-close-type-1 {
+    display: inline-block;
+    background: url(/flow-renewal/assets/images/main-sprite-type-2.png) no-repeat -180px -20px;
+    background-size: 656px auto;
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    right: 20px;
+    top: 0;
+}
+
+.flow-content {
+    padding: 20px 30px;
+}
+
+.app-setup-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.app-setup-item::after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.app-setup-title {
+    float: left;
+    margin-top: 4px;
+    font-weight: bold;
+    font-size: 13px;
+    color: #333;
+}
+
+.app-setup-item .toggle-button {
+    float: right;
+}
+
+.app-time-set {
+    margin-top: 16px;
+    text-align: right;
+    font-size: 13px;
+    color: #333;
+}
+
+.app-time-select {
+    position: relative;
+    width: 100px;
+    height: 30px;
+    margin-left: 10px;
+    padding: 0 15px;
+    background: #fff;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    border-radius: 4px;
+    color: #333;
+    cursor: pointer;
+    background: url(/flow-renewal/assets/images/icons/select-arrow.png) no-repeat;
+    background-position: 90% center;
+}
+
+.app-time-select.disabled {
+    color: #999;
+    cursor: default;
+}
+
+.download-path-area {
+    margin-top: 42px;
+}
+
+.download-path-title {
+    font-weight: bold;
+    font-size: 13px;
+    color: #555555;
+}
+
+.download-path-box {
+    overflow: hidden;
+    padding: 12px 10px 12px 20px;
+    margin-top: 12px;
+    background: #f8f7ff;
+    border-radius: 4px;
+}
+
+.download-path {
+    float: left;
+    overflow: hidden;
+    height: 18px;
+    max-width: 400px;
+    color: #333;
+}
+
+.download-path-button {
+    float: right;
+    width: 14px;
+    height: 15px;
+    background: url(/flow-renewal/assets/images/icons/icon_mini_write.png);
+}
+
+.flow-project-popup-1.app-setup-popup {
+    width: 434px;
+}
+
+.default-screen-set {
+    position: relative;
+    display: block;
+    width: 400px;
+    height: 183px;
+    padding: 36px 0 15px;
+    margin-top: 15px;
+    background: #fff;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+}
+
+.default-screen-set:hover,
+.default-screen-set.active {
+    background: #f8f7ff;
+    border-color: #6449fc;
+    color: #6449fc;
+}
+
+.default-screen-set dt {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.default-screen-set dt:before {
+    display: block;
+    content: "";
+    margin: 0 auto 20px auto;
+}
+
+.default-screen-set.full dt:before {
+    width: 114px;
+    height: 69px;
+    background: url("/flow-renewal/assets/images/full-screen.png") no-repeat;
+}
+
+.default-screen-set.mini dt:before {
+    width: 38px;
+    height: 69px;
+    background: url("/flow-renewal/assets/images/mini-screen.png") no-repeat;
+}
+
+.flow-project-popup.screen-popup {
+    width: 460px;
+}
+
+.radio-input {
+    display: none;
+}
+
+.radio-label {
+    background-position: -586px -20px;
+}
+
+.default-scree-description {
+    color: #555;
+}
+
+.default-screen-set .radio-label {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+}
+
+.default-screen-set .radio-input:checked + .radio-label {
+    background-position: -586px -20px;
+}
+
+.default-screen-set:hover .radio-label {
+    background-position: -562px -20px;
+}
+
+.radio-label {
+    display: block;
+    background: url(/flow-renewal/assets/images/main-sprite-type-2.png) no-repeat -538px -20px;
+    background-size: 656px auto;
+    width: 22px;
+    height: 22px;
+}
+
+.popup-button-area {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-top: 20px;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+.popup-button-area .popup-button {
+    width: 180px;
+    height: 36px;
+    margin: 0 auto;
+    text-align: center;
+    background: #ffff;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+.popup-button.confirm {
+    border-color: #6449fc;
+    background: #6449fc;
+    color: #fff;
+}
+
+/* //미니모드 설정 팝업 */
+/* 제한 팝업  */
+.limit-popup {
+    position: relative;
+    width: 420px;
+    padding-bottom: 15px;
+    background: #f8f7ff;
+    border: 1px solid #6449fc;
+    box-sizing: border-box;
+    box-shadow: 27px 27px 41px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.limit-popup::before {
+    display: block;
+    content: "";
+    width: 210px;
+    height: 120px;
+    margin: -25px auto 7px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.limit-popup.project::before {
+    background-image: url(/flow-renewal/assets/images/limit/project.png);
+}
+
+.limit-popup.data500::before {
+    background-image: url(/flow-renewal/assets/images/limit/data_500mb.png);
+}
+
+.limit-popup.data10::before {
+    background-image: url(/flow-renewal/assets/images/limit/data_10mb.png);
+}
+
+.limit-popup.data50::before {
+    background-image: url(/flow-renewal/assets/images/limit/data_10mb.png);
+}
+
+.limit-popup.video::before {
+    background-image: url(/flow-renewal/assets/images/limit/video.png);
+}
+
+.limit-popup.post::before {
+    background-image: url(/flow-renewal/assets/images/limit/post.png);
+}
+
+.limit-popup.collect::before {
+    background-image: url(/flow-renewal/assets/images/limit/chat_collect.png);
+}
+
+.limit-popup.service::before {
+    background-image: url(/flow-renewal/assets/images/limit/service.png);
+}
+
+.limit-popup.flowdrive::before {
+    background-image: url(/flow-renewal/assets/images/limit/flowdrive.png);
+}
+
+.limit-popup.invite::before {
+    background-image: url(/flow-renewal/assets/images/limit/invite.png);
+}
+
+.limit-popup.timeline::before {
+    background-image: url(/flow-renewal/assets/images/limit/timeline.png);
+}
+
+.limit-popup.subtask::before {
+    background-image: url(/flow-renewal/assets/images/limit/subtask.png);
+}
+
+.limit-content {
+    margin-top: 12px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.limit-content dt {
+    margin-bottom: 7px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #6449fc;
+    line-height: 26px;
+    letter-spacing: -0.02em;
+}
+
+.limit-content dd {
+    font-size: 15px;
+    line-height: 23px;
+    color: #333;
+    white-space: inherit;
+    word-break: keep-all;
+}
+
+.btn-detail-link {
+    margin: 10px 0 -4px 0;
+    font-size: 14px;
+    text-decoration: underline;
+    line-height: 21px;
+    color: #6449fc;
+}
+
+.service .limit-content dt {
+    color: #333;
+}
+
+.limit-link-button {
+    display: block;
+    width: 380px;
+    height: 40px;
+    margin: 0 auto;
+    line-height: 40px;
+    margin-top: 24px;
+    background: #6449fc;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.limit-close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 16px;
+    height: 16px;
+    background: url(/flow-renewal/assets/images/limit/limit_close.png) no-repeat;
+    background-size: cover;
+}
+
+.chat-limit-popup {
+    width: 300px;
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+}
+
+.chat-limit-popup .limit-content dt {
+    margin-bottom: 3px;
+}
+
+.chat-limit-popup .limit-content dd {
+    font-size: 13px;
+    line-height: 21px;
+}
+
+.chat-limit-popup .btn-detail-link {
+    margin: 8px 0 -4px 0;
+    font-size: 13px;
+}
+
+.chat-limit-popup .limit-link-button {
+    width: 260px;
+    height: 34px;
+    line-height: 34px;
+    margin-top: 14px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.limit-popup.chat-limit-popup::before {
+    width: 180px;
+    height: 90px;
+    margin: -33px auto 4px;
+    background-size: contain;
+    background-position: center;
+}
+
+.limit-popup.chat-limit-popup.collect::before {
+    background-image: url(/flow-renewal/assets/images/limit/mini_collect.png);
+}
+
+.limit-popup.chat-limit-popup.data500::before {
+    background-image: url(/flow-renewal/assets/images/limit/chat_data_500mb.png);
+}
+
+.limit-popup.chat-limit-popup.data10::before {
+    background-image: url(/flow-renewal/assets/images/limit/chat_data_10mb.png);
+}
+
+.limit-popup.chat-limit-popup.data50::before {
+    background-image: url(/flow-renewal/assets/images/limit/chat_data_10mb.png);
+}
+
+.limit-popup.chat-limit-popup.video::before {
+    background-image: url(/flow-renewal/assets/images/limit/chat_video.png);
+}
+
+.limit-popup.chat-limit-popup.search::before {
+    background-image: url(/flow-renewal/assets/images/limit/chat_search.png);
+}
+
+.limit-popup.chat-limit-popup.secret::before {
+    background-image: url(/flow-renewal/assets/images/limit/chat_secret.png);
+}
+
+/* //제한 팝업  */
+
+/* 1개월 무료체험 */
+.experience-popup {
+    position: relative;
+    width: 600px;
+    padding: 30px 20px 20px;
+    background: #f8f7ff;
+    border: 1px solid #6449fc;
+    box-sizing: border-box;
+    box-shadow: 27px 27px 40px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.experience-content dt {
+    font-weight: bold;
+    font-size: 20px;
+    color: #6449fc;
+}
+
+.experience-content dd {
+    margin: 10px 0 25px 0;
+    font-size: 15px;
+    color: #333;
+}
+
+.experience-content::after {
+    display: block;
+    content: "";
+    width: 396px;
+    height: 183px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.experience-popup.timeline .experience-content::after {
+    background-image: url(/flow-renewal/assets/images/experience/timeline.png);
+}
+
+.experience-popup.subtask .experience-content::after {
+    background-image: url(/flow-renewal/assets/images/experience/subtask.png);
+}
+
+.experience-popup .limit-link-button {
+    width: auto;
+    height: 48px;
+    margin-top: 30px;
+    line-height: 48px;
+    font-size: 15px;
+}
+
+/* //1개월 무료체험 */
+/* 로딩 */
+.circle {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.circle:nth-child(1) {
+    background: #00b2ff;
+    animation-name: loading;
+    animation-duration: 0.7s;
+    animation-delay: 0.2s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+.circle:nth-child(2) {
+    background: #00b01c;
+    animation-name: loading;
+    animation-duration: 0.7s;
+    animation-delay: 0.3s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+.circle:nth-child(3) {
+    background: #fd7900;
+    animation-name: loading;
+    animation-duration: 0.7s;
+    animation-delay: 0.5s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+.circle:nth-child(4) {
+    background: #402a9d;
+    animation-name: loading;
+    animation-duration: 0.7s;
+    animation-delay: 0.6s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+@keyframes loading {
+    0% {
+        transform: translateY(0);
+    }
+    20% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(0);
+    }
+    60% {
+        transform: translateY(0);
+    }
+    80% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* 불러오기 로딩바 */
+.loading-area {
+    margin: 100px 0;
+    width: 100%;
+    text-align: center;
+}
+
+.loading.type2 {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    display: inline-block;
+}
+
+.loading.type2 .circle {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    opacity: 0.2;
+    animation: dot 1s ease-in-out infinite;
+}
+
+.loading.type2 .circle:nth-child(1) {
+    background: #00b2ff;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    animation-delay: 0;
+}
+
+.loading.type2 .circle:nth-child(2) {
+    top: 6.5px;
+    right: 0;
+    background: #00b01c;
+    animation-delay: 0.1s;
+}
+
+.loading.type2 .circle:nth-child(3) {
+    bottom: 0;
+    right: 3px;
+    background: #fd7900;
+    animation-delay: 0.2s;
+}
+
+.loading.type2 .circle:nth-child(4) {
+    bottom: 0;
+    left: 3px;
+    background: #402a9d;
+    animation-delay: 0.3s;
+}
+
+.loading.type2 .circle:nth-child(5) {
+    top: 6.5px;
+    left: 0;
+    background: #777777;
+    animation-delay: 0.4s;
+}
+
+@keyframes dot {
+    0% {
+        opacity: 0.2;
+    }
+    20% {
+        opacity: 0.2;
+    }
+    40% {
+        opacity: 1;
+    }
+    60% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.2;
+    }
+}
+
+/*  //로딩 */
+.post-update-button-area {
+    position: absolute;
+    z-index: 10;
+    max-width: 355px;
+    left: 50%;
+    top: 130px;
+    transform: translate(-50%, 0%);
+}
+
+.post-update-button {
+    height: 50px;
+    line-height: 50px;
+    padding: 0 20px 0 12px;
+    background: linear-gradient(144.89deg, #404040 5.62%, #3e3e3e 93.29%);
+    box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 900px;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: -0.02em;
+}
+
+.post-update-button::before {
+    display: inline-block;
+    content: "";
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    background: url("/flow-renewal/assets/images/icons/icon_arrow_update.png");
+    vertical-align: middle;
+}
+
+/* guick */
+.quick-guide {
+    overflow: hidden;
+    width: auto;
+    background: #fff;
+    border-radius: 25px;
+    box-shadow: 10px, 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #6449FC;
+}
+
+.quick-guide-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background: #6449FC;
+    font-weight: bold;
+    font-size: 14px;
+    color: #fff;
+}
+
+.quick-guide-title::before {
+    display: inline-block;
+    content: "";
+    width: 17px;
+    height: 17px;
+    margin: 2px 3px 0 0;
+    background: url('/flow-renewal/assets/images/icons/icon_flow.png') no-repeat;
+    background-size: cover;
+    vertical-align: top;
+}
+
+.quick-guide-contents {
+    padding: 20px 30px;
+}
+
+.quick-guide-list li {
+    margin-top: 15px;
+}
+
+.quick-guide-list li a {
+    display: block;
+    box-sizing: border-box;
+    color: #333;
+    font-size: 13px;
+    letter-spacing: -0.02em;
+    text-align: left;
+}
+
+.quick-guide-list li a:hover {
+    text-decoration: underline;
+}
+
+.quick-guide-list li a::before {
+    display: inline-block;
+    content: "";
+    width: 14px;
+    height: 14px;
+    margin: 3px 10px 0 0;
+    background: url('/flow-renewal/assets/images/icons/icon_arrow_quick.png') no-repeat;
+    background-size: cover;
+    vertical-align: top;
+}
+
+.quick-guide-list .new {
+    font-weight: 700;
+    color: #FF3D44;
+}
+
+/* guick */
+.soil-bot {
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+}
+
+.write-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(145.39deg, #575757 4.29%, #333333 91.63%);
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/*os*/
+.os-alarm {
+    position: relative;
+    width: 400px;
+    height: 125px;
+    padding: 13px 20px 20px 20px;
+    background: #fff;
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.os-alarm .flow-close-type-1 {
+    top: 18px;
+    right: 20px;
+}
+
+.os-alarm-title {
+    font-weight: bold;
+    font-size: 15px;
+    color: #333;
+}
+
+.os-alarm-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.os-alarm-content {
+    margin-left: 15px;
+}
+
+.os-alarm-content .text {
+    margin-bottom: 4px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #555;
+}
+
+.os-alarm-content .data {
+    font-family: Roboto;
+    font-weight: 500;
+    font-size: 13px;
+    color: #999;
+}
+
+.progress-bar {
+    overflow: hidden;
+    margin-top: 8px;
+    border-radius: 900px;
+    background: #ddd;
+}
+
+.progress-value {
+    height: 10px;
+    border-radius: 900px;
+    background: #6449FC;
+    transition: width 0.3s;
+}
+
+.popup-notice-employee {
+    width: 600px;
+    margin: 0 auto;
+    padding-top: 30px;
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 27px 27px 41px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    text-align: center;
+    color: #333;
+}
+
+.popup-notice-employee .tit {
+    font-size: 20px;
+    margin-left: 30px;
+}
+
+.popup-notice-employee .txt {
+    margin: 10px 0 45px 0;
+    font-size: 15px;
+}
+
+.popup-notice-employee .bottom {
+    height: 54px;
+    line-height: 54px;
+    padding: 0 30px;
+    background: #eee;
+    border-top: 1px solid #ddd;
+    font-size: 15px;
+}
+
+.popup-notice-employee .check-box {
+    margin: 0;
+    float: left;
+    color: #333;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.popup-notice-employee .txt-close {
+    float: right;
+    cursor: pointer;
+}
+
+.popup-notice-employee .url-area {
+    margin-top: 40px;
+}
+
+.invite-url {
+    display: inline-block;
+    width: 410px;
+    padding: 12px 12px;
+    margin-right: 10px;
+    background: #F8F6FF;
+    border: 1px solid #C6BEEF;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: left;
+    color: #6449FC;
+}
+
+.copy-url-button {
+    width: 120px;
+    height: 50px;
+    background: #6449FC;
+    border-radius: 4px;
+    color: #fff;
+}
+
+.other-invite {
+    display: block;
+    margin: 30px 0;
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: -0.02em;
+    text-decoration-line: underline;
+    color: #6449FC;
+    cursor: pointer;
+}
+
+.popup-mini-status {
+    background: #fff;
+    border: 1px solid #777;
+    border-radius: 4px;
+}
+
+.popup-mini-status li {
+    font-size: 13px;
+    line-height: 19px;
+    color: #555;
+    padding: 7px 15px;
+    cursor: pointer;
+}
+
+.popup-mini-status li em {
+    width: 12px;
+    height: 12px;
+    margin: 0 5px 0 0;
+    display: inline-block;
+    position: relative;
+    top: 1px;
+    border-radius: 50%;
+}
+
+.popup-mini-status .online {
+    padding: 8px 15px 7px 15px
+}
+
+.popup-mini-status .offline {
+    padding: 7px 15px 8px 15px
+}
+
+.popup-mini-status .online em {
+    background: #36CFBD;
+}
+
+.popup-mini-status .out em {
+    background: #FFCE21;
+}
+
+.popup-mini-status .business em {
+    background: #FF6B6B;
+}
+
+.popup-mini-status .offline em {
+    background: #999999;
+}
+
+.popup-mini-status .chat-self {
+    border-top: 1px solid #777;
+}
+
+.chat-self .icons-chat {
+    margin: 0 5px 0 0;
+}
+
+.popup-mini-status li:hover,
+.popup-mini-status li:focus,
+.chat-self:hover .icons-chat::before,
+.chat-self:focus .icons-chat::before {
+    color: #6449FC;
+}
+
+.popup-mini-status {
+    background: #fff;
+    border: 1px solid #777;
+    border-radius: 4px;
+}
+
+.popup-mini-status li {
+    font-size: 13px;
+    line-height: 19px;
+    color: #555;
+    padding: 7px 15px;
+    cursor: pointer;
+}
+
+.popup-mini-status li em {
+    width: 12px;
+    height: 12px;
+    margin: 0 5px 0 0;
+    display: inline-block;
+    position: relative;
+    top: 1px;
+    border-radius: 50%;
+}
+
+.popup-mini-status .online {
+    padding: 8px 15px 7px 15px
+}
+
+.popup-mini-status .offline {
+    padding: 7px 15px 8px 15px
+}
+
+.popup-mini-status .online em {
+    background: #36CFBD;
+}
+
+.popup-mini-status .out em {
+    background: #FFCE21;
+}
+
+.popup-mini-status .business em {
+    background: #FF6B6B;
+}
+
+.popup-mini-status .offline em {
+    background: #999999;
+}
+
+.popup-mini-status .chat-self {
+    border-top: 1px solid #777;
+}
+
+.chat-self .icons-chat {
+    margin: 0 5px 0 0;
+}
+
+.popup-mini-status li:hover,
+.popup-mini-status li:focus,
+.chat-self:hover .icons-chat::before,
+.chat-self:focus .icons-chat::before {
+    color: #6449FC;
+}
+
+.js-invite-employee-layer .close-invite-layer-btn em {
+    float: right;
+    background: url(/flow-renewal/assets/images/project-detail-type-1.png) no-repeat -31px -1px;
+    background-size: 404px 66px;
+    width: 13px;
+    height: 13px;
+    margin-right: 30px;
+}
