@@ -7,34 +7,36 @@
 <title>Insert title here</title>
 </head>
 <body>
-    <div id="inviteEmployeeLayer" class="flow-all-background-1" style="display:none;">
-        <div class="flow-project-make-1">
-            <div class="flow-project-make-2">
-                <div id="firstInvitePopup" class="js-invite-employee-layer popup-notice-employee" style="display: none">
-                    <div class="contents">
-                        <strong class="tit">직원 초대</strong>
-                        <a class="close-invite-layer-btn js-close-btn" href="#"><em></em></a>
-                        <p class="txt">플로우에서 직원들과 협업을 시작해보세요.</p>
-                        <img src="/flow-renewal/assets/images/invite_url.png">
-                        <div class="url-area">
-                            <span class="invite-url js-link-text"></span>
-                            <button id="copyLinkBtn" type="button" class="copy-url-button">
-                                링크 복사
-                            </button>
-                        </div>
-                        <a id="otherInviteBtn" class="other-invite">다른 방법으로 초대하기 (이메일, 엑셀 등록)</a>
-                    </div>
-                    <div id="popupBottom" class="bottom">
-                        <div id="notViewToday" class="check-box">
-                            <input type="checkbox" id="chk3">
-                            <label for="chk3"></label>
-                            오늘 하루 다시 보지 않기
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div id="inviteEmployeeLayer" class="flow-all-background-1"
+		style="display: none;">
+		<div class="flow-project-make-1">
+			<div class="flow-project-make-2">
+				<div id="firstInvitePopup"
+					class="js-invite-employee-layer popup-notice-employee"
+					style="display: none">
+					<div class="contents">
+						<strong class="tit">직원 초대</strong> <a
+							class="close-invite-layer-btn js-close-btn" href="#"><em></em></a>
+						<p class="txt">플로우에서 직원들과 협업을 시작해보세요.</p>
+						<img src="/flow-renewal/assets/images/invite_url.png">
+						<div class="url-area">
+							<span class="invite-url js-link-text"></span>
+							<button id="copyLinkBtn" type="button" class="copy-url-button">
+								링크 복사</button>
+						</div>
+						<a id="otherInviteBtn" class="other-invite">다른 방법으로 초대하기 (이메일,
+							엑셀 등록)</a>
+					</div>
+					<div id="popupBottom" class="bottom">
+						<div id="notViewToday" class="check-box">
+							<input type="checkbox" id="chk3"> <label for="chk3"></label>
+							오늘 하루 다시 보지 않기
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div id="leftArea" class="main-header-1">
 
 		<!--
