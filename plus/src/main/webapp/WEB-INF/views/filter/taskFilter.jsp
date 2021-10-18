@@ -27,7 +27,7 @@
 		<div class="logo-area">
 			<a class="js-logo logo-box">
 				<h1 class="logo-1">
-					<img src="/flow-renewal/assets/images/flow_logo.png?height=20"
+					<img src="flow-renewal/assets/images/flow_logo.png?height=20"
 						alt="flow" srcset="" />
 				</h1>
 			</a>

@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.plus.prj.member.mapper.MemberMapper">
 	
-	<select id="">
+<!-- 	<select id="selectMember">
 	</select>
 	
-	<select id="">
-	</select>
+	<select id="selectMember">
+	</select> -->
 
 	<insert id="insertMember" parameterType="co.plus.prj.member.vo.MemberVO">
 		INSERT INTO MEMBER(MEM_ID, EMAIL, PWD, NAME, CO_ID)
