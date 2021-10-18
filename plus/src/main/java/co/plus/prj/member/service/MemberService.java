@@ -2,15 +2,14 @@ package co.plus.prj.member.service;
 
 import java.util.List;
 
+import co.plus.prj.member.vo.LoginVO;
 import co.plus.prj.member.vo.MemberVO;
 
 public interface MemberService {
-	//전체목록
-	public List<MemberVO> getMembetList();
-	//1명 조회
-	public MemberVO getMember(MemberVO member);
 	//로그인
-	public MemberVO memberLogin(MemberVO member);
+	public MemberVO login(MemberVO vo);
+	//전체목록
+	public List<MemberVO> getMembetList(MemberVO member);
 	//입력
 	public int insertMember(MemberVO member);
 	//수정

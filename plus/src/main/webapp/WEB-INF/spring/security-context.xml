@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<security:http>
+		<security:intercept-url pattern="/all.jsp" access="permitAll()"/>
+		<security:intercept-url pattern="/admin/**" access="hasAutherity('ADMIN')"/>
+		<security:intercept-url pattern="/user/**" access=""/>
+		<security:form-login 
+							default-target-url="/main.jsp"
+							login-page="/login.jsp"
+							login-processing-url="/login"
+							password-parameter="password"
+							username-parameter="username"
+							/>
+		<security:access-denied-handler/>
+	</security:http>
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="select mem_id,pwd,mem_perm from member where id=?"
+				authorities-by-username-query="select mem_id,mem_perm from member where id=?"
+			/>
+			<security:password-encoder hash="bcrypt"/>
+		</security:authentication-provider>
+	</security:authentication-manager>
+</beans>

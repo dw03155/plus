@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class MemberVO {
 	//member
-	private int memId;
+	private String memId;
 	private String email;
 	private String pwd;
 	private String name;
@@ -20,5 +20,8 @@ public class MemberVO {
 	//company
 	private String coName;
 	private String coUrl;
+	
+	
+	
 
 }
