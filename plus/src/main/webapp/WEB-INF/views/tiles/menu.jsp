@@ -11,7 +11,7 @@
 		<div class="logo-area">
 			<a class="js-logo logo-box">
 				<h1 class="logo-1">
-					<img src="/flow-renewal/assets/images/flow_logo.png?height=20"
+					<img src="flow-renewal/assets/images/flow_logo.png?height=20"
 						alt="flow" srcset="" />
 				</h1>
 			</a>
@@ -93,21 +93,6 @@
 					</ul>
 				</div>
 			</li>
-			<li class="d-none">
-				<div id="RecentProjectButton"
-					class="menu-accordion-button left-menu-item"
-					data-code="recent-project-more">
-					최근 업데이트 <i class="ico-arrow"></i>
-				</div>
-				<div class="menu-accordion">
-					<ul id="RecentProjectUl" class="menu-accordion-list d-none"></ul>
-					<button id="recentProjectMore" type="button"
-						class="project-more-button ico-arrow d-none">
-						<span>펼쳐보기</span>
-					</button>
-					<!-- active 추가시 접기로 단어 변경 -->
-				</div>
-			</li>
 			<li>
 				<div id="allLabelLeftButton"
 					class="menu-accordion-button left-menu-item" data-code="label-more">
@@ -133,18 +118,8 @@
 			</div>
 		</div>
 		<ul id="leftBottomUl" class="menu-group admin">
-			<li data-code="invite-member"
-				class="d-none js-invite-employee-button left-menu-item"><a
-				href="#"><i class="ico-invite"></i>직원 초대</a></li>
-			<li data-code="manager-admin" class="d-none left-menu-item"><a
+			<li data-code="manager-admin" class="left-menu-item"><a
 				href="#"><i class="ico-admin"></i>어드민</a></li>
-			<li data-code="service-upgrade" class="d-none left-menu-item"><a
-				href="#"> <span class="ico-flow"><span class="path1"></span><span
-						class="path2"></span><span class="path3"></span><span
-						class="path4"></span><span class="path5"></span><span
-						class="path6"></span><span class="path7"></span><span
-						class="path8"></span></span>서비스 업그레이드
-			</a></li>
 		</ul>
 	</div>
 </body>
