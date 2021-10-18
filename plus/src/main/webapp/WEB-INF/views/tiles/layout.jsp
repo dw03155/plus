@@ -267,12 +267,106 @@ to {
 	src="https://maps.googleapis.com/maps-api-v3/api/js/46/8/intl/ko_ALL/util.js"></script>
 </head>
 <body>
-<div>
-		<div><tiles:insertAttribute name="top" /></div>
-	<div>
-		<div><tiles:insertAttribute name="menu" /></div>
-		<div><tiles:insertAttribute name="main" /></div>
+	<div id="allUpgradeStep"></div>
+	<div id="paymentLayer" class="d-none">
+		<div class="upgrade-top-banner-1 position-relative"></div>
+		<div class="upgrade-singup-header"></div>
+		<div class="upgrade-version-wrap js-payment-layer" id="businessLayer"></div>
+		<div class="upgrade-version-wrap d-none js-payment-layer"
+			id="freelancerLayer"></div>
+		<div id="waitPaymentPopup" class="flow-all-background-1 d-none"></div>
+		<div id="paymentPopup" tabindex="-1"
+			class="flow-all-background-1 d-none"></div>
+		<div id="paymentPopupContent" class="d-none"></div>
 	</div>
-</div>
+
+	<div id="companyJoinLayer" class="d-none">
+		<div class="upgrade-singup-header"></div>
+		<div id="companyJoinMain" class="login-wrap invite-login"></div>
+		<div id="checkJoinPopup" class="flow-all-background-1 d-none"></div>
+		<div id="companyWaitJoinLayer" class="upgrade-singup-wrap d-none"></div>
+	</div>
+
+	<div id="miniLock" style="display: none">
+		<div class="mini-mode-wrap"></div>
+	</div>
+
+	<div id="allMainContent" class="main-wrap">
+		<section id="renewalSlideNotice" class="slide-banner-wrap"
+			style="display: none"></section>
+		<!-- top바 메뉴 -->
+		<div class="main-top">
+			<tiles:insertAttribute name="top" />
+		</div>
+
+		<div class="multiLang"></div>
+
+		<div id="mainBodyWrap" class="main-body-wrap">
+			<!-- 직원초대 -->
+			<div id="inviteEmployeeLayer" class="flow-all-background-1"
+				style="display: none;">
+				<div class="flow-project-make-1">
+					<div class="flow-project-make-2">
+						<div id="firstInvitePopup"
+							class="js-invite-employee-layer popup-notice-employee"
+							style="display: none">
+							<div class="contents">
+								<strong class="tit">직원 초대</strong> <a
+									class="close-invite-layer-btn js-close-btn" href="#"><em></em></a>
+								<p class="txt">플로우에서 직원들과 협업을 시작해보세요.</p>
+								<img src="/flow-renewal/assets/images/invite_url.png" />
+								<div class="url-area">
+									<span class="invite-url js-link-text"></span>
+									<button id="copyLinkBtn" type="button" class="copy-url-button">
+										링크 복사</button>
+								</div>
+								<a id="otherInviteBtn" class="other-invite">다른 방법으로 초대하기
+									(이메일, 엑셀 등록)</a>
+							</div>
+							<div id="popupBottom" class="bottom">
+								<div id="notViewToday" class="check-box">
+									<input type="checkbox" id="chk3"> <label for="chk3"></label>
+									오늘 하루 다시 보지 않기
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 메뉴 -->
+			<div id="leftArea" class="main-header-1">
+				<tiles:insertAttribute name="menu" />
+			</div>
+			<div id="joinProjectItem" class="js-left-menu" style="display: none"></div>
+			<div id="labelItem" class="js-left-menu" style="display: none"></div>
+			<div id="labelSelectItem" class="d-none"></div>
+			<div class="main-container">
+			<tiles:insertAttribute name="main" />
+		</div>
+
+		<div id="allSendiencePopup" class="flow-all-background-1"
+			style="display: none;"></div>
+		<div id="imageViewerItem"></div>
+	</div>
+
+	<div id="bottomToolList" class="bottom-tool-list">
+		<div class="js-tool-item tool-item" id="quickGuideMenu"
+			data-code="quick" style="display: none;"></div>
+	</div>
+
+	<div id="quickGuideItem" class="d-none"></div>
+
+	<div class="d-none"></div>
+
+	<div id="inviteItem" class="d-none"></div>
+
+	<div id="postItem" class="d-none"></div>
+
+	<div id="detailItemPack" class="d-none"></div>
+
+	<div id="postAttachedItem"></div>
+
+	<div id="postDimdItem" class="d-none"></div>
+
 </body>
 </html>

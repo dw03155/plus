@@ -121,7 +121,7 @@
 </script>
 </head>
 <body>
-	<div id="allUpgradeStep"></div>
+<div id="allUpgradeStep"></div>
 
 
 	<div id="paymentLayer" class="d-none">
@@ -1232,6 +1232,7 @@
 					{txt}</li>
 			</div>
 		</div>
+		
 		<div id="mainBodyWrap" class="main-body-wrap">
 
 
@@ -2000,16 +2001,6 @@
 					</ul>
 					<!-- // 전체 파일 -->
 				</div>
-			</div>
-
-			<div id="recentProjectItem" class="js-left-menu"
-				style="display: none">
-				<li class="recent-project-item" data-project-srno="{project-srno}"
-					data-color-code="{color-code}">
-					<div class="squre-type color-code-{color-code} {new}">
-						<div class="{badge-display}"></div>
-					</div> <span class="js-mouseover ellipsis" mouseover-text="{title}">{title}</span>
-				</li>
 			</div>
 
 			<div id="joinProjectItem" class="js-left-menu" style="display: none">
@@ -8920,9 +8911,6 @@
 			</div>
 		</div>
 	</div>
-	<script async src="/flow-renewal/js/main.js?5.1.699.10767"></script>
-</body>
-</html>
-
+	<script async src="/flow-renewal/js/main.js"></script>
 </body>
 </html>
