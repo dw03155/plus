@@ -884,16 +884,6 @@
 
 			<!-- top -->
 			<div class="fl-header-wrap">
-				<!-- 상단배너 -->
-
-				<div class="top-banner" style="display: block;">
-					<div class="tb-txt">
-						<span data-langcode="FU1616">30명 이상의 회사에서 이용하실 계획이신가요?</span> <a
-							href="/consult.act" target="consult" style="color: white;"
-							data-langcode="H462">상담요청</a>
-					</div>
-				</div>
-				<!-- //상단배너 -->
 				<!-- header -->
 				<div class="fl-header">
 
@@ -1301,15 +1291,11 @@
 	</script>
 
 	<!-- Page hiding snippet (recommended) -->
-	<style>
+<style>
 .async-hide {
 	opacity: 0 !important
 }
 </style>
-
-	<script>
-		
-	</script>
 
 </body>
 </html>

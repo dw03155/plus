@@ -1,0 +1,206 @@
+@charset "utf-8";
+
+*{-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+/* basic */
+body{
+	font-size:14px;color:#505050;
+	font-family: Noto Sans KR, Malgun Gothic,"맑은 고딕", Apple SD Gothic Neo, '돋움', '굴림', Arial, sans-serif;
+	src: url('../font/MalgunGothic.eot');
+	src: url('../font/MalgunGothic.eot?#iefix') format('embedded-opentype'),
+	url('../font/MalgunGothic.woff') format('woff'),
+	url('../font/MalgunGothic.ttf') format('truetype');
+	line-height: 1;
+line-height: 1.15; /* 1 */
+-webkit-text-size-adjust: 100%; /* 2 */
+}
+dl,ul,ol{list-style:none;}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table{empty-cells:show;border-collapse: collapse;width:100%;table-layout:fixed;border-spacing: 0;}
+fieldset{border:none;}
+legend,caption,hr{display:none;}
+img{border:none;}
+img,label{vertical-align:middle;}
+label{vertical-align:middle;height:13px;}
+input{vertical-align:middle;}
+input[type=text],input[type=password]{
+	height:21px;
+	margin:0;padding:0 2px;
+	vertical-align:middle;
+	font-size:12px;
+	color:#505050;
+	line-height:23px;
+	background-color:#fff;
+	-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;behavior: url(../PIE-1.0.0/pie.htc);
+}
+input[type=file]{height:23px;margin:0;padding:0 2px;vertical-align:middle;font-size:12px;color:#505050;line-height:23px;border:1px solid #cdcdce;background-color:#fff;*line-height:21px;}
+input[type=checkbox],input[type=radio]{width:16px;height:16px;border:none;background:transparent;vertical-align:middle;-webkit-border-radius:0;}
+input.dis,select.dis{background:#f4f4f4;color:#666;}
+input,select,textarea,button,optgroup{
+	margin: 0;
+	padding: 0;
+	border:1px solid #e7e7e7;
+	font-family: Noto Sans KR ,Malgun Gothic, Apple SD Gothic Neo, '돋움', '굴림', Arial, sans-serif;
+	font-size: 100%; /* 1 */
+  line-height: 1; /* 1 */
+	src: url('../font/MalgunGothic.eot');
+	src: url('../font/MalgunGothic.eot?#iefix') format('embedded-opentype'),
+	url('../font/MalgunGothic.woff') format('woff'),
+	url('../font/MalgunGothic.ttf') format('truetype');
+}
+
+select{height:23px;}
+a, button{cursor:pointer;border:0;}
+em{font-style:normal;}
+
+/* align */
+.t_center{text-align:center !important;}
+.t_right{text-align:right !important;}
+.t_left{text-align:left !important;}
+
+.v_top{vertical-align:top !important;}
+.v_middle{vertical-align:middle !important;}
+.v_bottom{vertical-align:bottom !important;}
+
+.f_right{float:right !important;}
+.f_left{float:left !important;}
+.f_none{float:none !important;}
+
+.cboth{clear:both;*overflow:hidden;}
+.cboth:before,.cboth:after{
+	content:"";display:block;
+	width:0;height:0;line-height:0;font-size:0;
+	clear:both;overflow:hidden;
+}
+.cboth:after{clear:both;}
+
+/* text common */
+/* color */
+.txt_gray{color:#a0a0a0 !important;}
+/* default link */
+a{cursor:pointer;}
+a:link,a:visited{text-decoration:none;}
+a:hover,a:active{text-decoration:none;}
+a.blue{color: blue;}
+a.blue:hover{color: blue;}
+
+/* margin/padding */
+.mgt10{margin-top:10px !important;}
+.mgt20{margin-top:20px !important;}
+.mgb3{margin-bottom:3px !important;}
+.mgb5{margin-bottom:5px !important;}
+.mgb10{margin-bottom:10px !important;}
+.mgb15{margin-bottom:15px !important;}
+.mgb20{margin-bottom:20px !important;}
+.mgb25{margin-bottom:25px !important;}
+.mgb30{margin-bottom:30px !important;}
+
+/* etc */
+.blind{display:none !important;}
+.skip{position:absolute;top:-100000px;left:-100000px;visibility:hidden;overflow:hidden;}
+.blind{visibility:hidden;text-indent:-9999999px;font-size:0;height:0;line-height:0;overflow:hidden;}
+.grid{border:1px solid #ccc;}
+
+/* IE10 input type auto x delete */
+input[type=text]::-ms-clear,input[type=file]::-ms-clear{display:none;}
+
+/* Webkit */
+input::-webkit-input-placeholder {color: #a2a2a2;}
+.sch_title input[type=text]::-webkit-input-placeholder {line-height:22px;}
+textarea::-webkit-input-placeholder {color: #a2a2a2; }
+/* Firefox 4-18 */
+input:-moz-placeholder {color: #a2a2a2; }
+textarea:-moz-placeholder {color: #a2a2a2; }
+/* Firefox 19+ */
+input::-moz-placeholder {color: #a2a2a2; }
+textarea::-moz-placeholder {color: #a2a2a2; }
+/* IE10+ */
+input:-ms-input-placeholder {color: #a2a2a2; }
+textarea:-ms-textarea-placeholder {color: #a2a2a2; }
+
+
+/* Noto Sans KR */
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+	font-weight: 300;
+	font-display: swap;
+	src: local('Noto Sans KR Light'), local('NotoSansKR-Light'),
+			 url(/font/NotoSansKR-Light.woff2) format('woff2'),
+       url(/font/NotoSansKR-Light.woff) format('woff'),
+       url(/font/NotoSansKR-Light.otf) format('opentype');
+}
+@font-face {
+   font-family: 'Noto Sans KR';
+   font-style: normal;
+	 font-weight: 400;
+	 font-display: swap;
+	 src: local('Noto Sans KR Regular'), local('NotoSansKR-Regular'),
+				url(/font/NotoSansKR-Regular.woff2) format('woff2'),
+        url(/font/NotoSansKR-Regular.woff) format('woff'),
+        url(/font/NotoSansKR-Regular.otf) format('opentype');
+ }
+@font-face {
+   font-family: 'Noto Sans KR';
+   font-style: normal;
+	 font-weight: 500;
+	 font-display: swap;
+	 src: local('Noto Sans KR Medium'), local('NotoSansKR-Medium'), 
+	 		  url(/font/NotoSansKR-Medium.woff2) format('woff2'),
+        url(/font/NotoSansKR-Medium.woff) format('woff'),
+        url(/font/NotoSansKR-Medium.otf) format('opentype');
+ }
+@font-face {
+   font-family: 'Noto Sans KR';
+   font-style: normal;
+	 font-weight: 700;
+	 font-display: swap;
+	 src: local('Noto Sans KR Bold'), local('NotoSansKR-Bold'),
+				url(/font/NotoSansKR-Bold.woff2) format('woff2'),
+        url(/font/NotoSansKR-Bold.woff) format('woff'),
+        url(/font/NotoSansKR-Bold.otf) format('opentype');
+ }
+
+.font-Noto{font-family:Noto Sans KR !important;}
+
+/* Chrome Field Outline = None */
+input:focus{outline:none;}
+textarea:focus{outline:none;}
+select:focus{outline:none;}
+button:focus{outline:none;}
+
+
+.container:before,
+.container:after{
+	content:"";display:block;
+	clear:both;overflow:hidden;
+	width:0;height:0;line-height:0;font-size:0;
+}
+

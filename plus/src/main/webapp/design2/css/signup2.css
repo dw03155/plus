@@ -1,0 +1,139 @@
+/* 20150907 */
+body{
+	font-family:Apple SD Gothic Neo, Malgun Gothic, '돋움', Dotum, '굴림', Gulim, Arial, sans-serif;background-color:#e4e6e9;
+}
+
+/* Webkit */
+input::-webkit-input-placeholder {color: #a2a2a2;font-weight: 500;}
+textarea::-webkit-input-placeholder {color: #a2a2a2;font-weight: 500;}
+/* Firefox 4-18 */
+input:-moz-placeholder {color: #a2a2a2;font-weight: 500; }
+textarea:-moz-placeholder {color: #a2a2a2;font-weight: 500;}
+/* Firefox 19+ */
+input::-moz-placeholder {color: #a2a2a2;font-weight: 500; }
+textarea::-moz-placeholder {color: #a2a2a2;font-weight: 500;}
+/* IE10+ */
+input:-ms-input-placeholder {color: #a2a2a2;font-weight: 500; }
+textarea:-ms-textarea-placeholder {color: #a2a2a2;font-weight: 500;}
+
+/* btnstyle */
+.signup_btn_st1{
+	display:inline-block;
+	min-width:380px;
+	height:60px;
+	line-height:60px;
+	font-size:18px;
+	font-weight: 500;
+	color:#fff;
+	text-align:center;
+	background-color:#cccdd0;
+}
+.signup_btn_st1.on{background-color:#5f5ab9;}
+
+.signup_top{z-index:999;min-width:450px;position:fixed;top:0;left:0;right:0;padding:15px 30px;background-color:#f4f5f6;}/* 20160615 수정 */
+.signup_top .right_btn{float:right;}
+.signup_top .right_btn > a{
+	display:inline-block;
+	padding:0 25px;
+	height:50px;
+	line-height:50px;
+	font-size:16px;font-weight:bold;color:#5f5ab9;
+	border:1px solid #5f5ab9;
+	border-radius:48px;-moz-border-radius: 48px;-webkit-border-radius: 48px;behavior: url(../PIE-1.0.0/pie.htc);
+	box-sizing: border-box;
+}
+.signup_top .right_btn > a:first-child{margin-right:6px;}
+.signup_top .right_btn > a:hover, .signup_top .right_btn > a.on{color:#fff;background:#5f5ab9;}
+/* 20160615 추가 */
+.signup_top h2{display:inline-block;margin-left:15px;padding-left:15px;vertical-align:middle;font-weight:normal;font-size:26px;color:#505050;background:url(../img_rn/memb2/bar_h2.gif) no-repeat 0 0;}
+
+.signup_btm{position:fixed;bottom:0;left:0;right:0;margin:0;padding:20px 0 20px 40px;border-top:1px solid #dbdbdb;background-color:#f4f5f6;}/* 20160615 수정 */
+.signup_btm ul::after{display:block;content:"";clear:both;}
+.signup_btm li{
+	cursor:pointer;
+	float:left;
+	font-size:14px;color:#969696;
+}
+.signup_btm p{margin-top:3px;font-size:14px;color:#969696;}
+
+/* 로그인 */
+.login_fieldset{position:relative;}
+.login_fieldset > ul{margin-bottom:12px;}
+.login_fieldset > ul li{
+	position:relative;
+	height:50px;
+	border-bottom:1px solid #dbdbdb;
+}
+.login_fieldset > ul li input[type=text], .login_fieldset > ul li input[type=password]{
+	width:330px;height:50px;line-height:50px;
+	padding-left:10px;margin:0;
+	font-size:16px;
+	border:0;
+	background-color:#f2f3f4;
+}
+.login_fieldset > ul li input[type=password]{
+	width: 300px;
+}
+.login_fieldset > ul li .ico_chk{
+	display:block;
+	position:absolute;
+	top:20px;
+	right:10px;
+	width:16px;
+	height:12px;
+}
+.login_fieldset > ul li .ico_chk.ok{background:url(../img_rn/memb2/ico_chk_ok.png) no-repeat;}
+.login_fieldset > ul li .ico_chk.error{background:url(../img_rn/memb2/ico_chk_error.png) no-repeat;}
+.login_fieldset > p{margin-bottom:55px;font-size:13px;color:#333;}
+.login_fieldset > div > p{margin-bottom:55px;font-size:13px;color:#333;}
+.login_fieldset > p .txt_b{color:#438aff;}
+.login_fieldset .txt_b{color:#438aff;}
+.login_fieldset > .error_txt{position:absolute;bottom:74px;left:0;font-size:13px;font-weight: 500;color:#db2123;}
+
+.forgot_pw{margin:20px 0 0 0;text-align:center;}
+.forgot_pw a{padding-bottom:1px;font-size:14px;color:#111;font-style:oblique;border-bottom:1px solid #818282;}
+
+.line_through{position:relative;margin-top:22px;margin-bottom:37px;height:10px;border-bottom:1px solid #505050;}
+.line_through span{display:block;position:absolute;top:-2px;left:0;right:0;text-align:center;}
+.line_through span em{display:inline-block;width:100px;font-style:normal;font-size:16px;color:#505050;background-color:#f2f3f4;}
+
+/* .another_id li{cursor:pointer;margin-bottom:10px;height:50px;line-height:50px;font-size:16px;color:#111;text-align:center;}
+.another_id li.kakao{background:#ffe600 url(../img_rn/memb2/ico_kakao.gif) no-repeat 17px 12px;}
+.another_id li.google{height:48px;line-height:48px;border:1px solid #ebebeb;background:#fff url(../img_rn/memb2/ico_google.gif) no-repeat 17px 12px;}
+.another_id li.bizplay{color:#fff;background:#0c419a url(../img_rn/memb2/ico_bizplay.gif) no-repeat 17px 12px;} */
+.another_id li{cursor:pointer;padding-left:128px;margin-bottom:10px;height:48px;line-height:48px;font-size:16px;color:#333; border: 1px solid #ebebeb;}
+.another_id li.apple{background: #fff url(../img_rn/memb2/ico_apple.jpg) no-repeat 83px 0px;}
+.another_id li.kakao{background: #fff url(../img_rn/memb2/ico_kakao.png) no-repeat 93px 14px}
+.another_id li.google{height:48px;line-height:48px;border:1px solid #ebebeb;background:#fff url(../img_rn/memb2/ico_google.gif) no-repeat 91px 11px;}
+.another_id li.bizplay{color:#fff;background:#0c419a url(../img_rn/memb2/ico_bizplay.gif) no-repeat 93px 14px;}
+
+.signup_box{margin:150px auto 90px auto;width:380px;padding:40px 60px;background-color:#f2f3f4;}
+.signup_wrap{position:relative;margin:30px auto 150px auto;width:500px;}
+.signup_wrap .signup_box{margin:55px 0 0 0;}
+.signup_wrap > h1{margin-bottom:15px;font-size:26px;font-weight:normal;color:#5f5ab9;text-align:center;}
+.signup_wrap > p{font-size:14px;font-weight:500;color:#969696;text-align:center;}
+.signup_wrap .signup_box .login_fieldset > ul{margin-bottom:60px;}
+.signup_wrap .signup_box .login_fieldset > .error_txt{bottom:94px;}
+
+
+/* borawork */
+
+.borawork_signup_box .another_id li {
+	cursor: pointer;
+	padding-left: 128px;
+	margin-bottom: 10px;
+	height: 48px;
+	line-height: 48px;
+	font-size: 16px;
+	color: #333;
+	border: 1px solid #ebebeb;
+}
+.borawork_signup_box .another_id li.google {
+	height: 48px;
+	line-height: 48px;
+	border: 1px solid #ebebeb;
+	background: #fff url(../img_rn/memb2/ico_google.gif) no-repeat 91px 11px;
+}
+.borawork_signup_box .another_id li.apple {
+	background: #fff url(../img_rn/memb2/ico_apple.jpg) no-repeat 83px 0px;
+}
