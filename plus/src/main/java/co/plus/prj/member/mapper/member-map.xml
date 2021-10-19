@@ -10,12 +10,12 @@
 
 	<insert id="insertMember" parameterType="member">
 		INSERT INTO MEMBER(MEM_ID, EMAIL, PWD, NAME, CO_ID)
-		VALUES (MEMID.nextval, #{email}, #{pwd}, #{name}, COID.nextval);
+		VALUES (MEMID.nextval, #{email}, #{pwd}, #{name}, COID.nextval)
 	</insert>
 	
 	<insert id="insertMember" parameterType="member">
-		INSERT INTO company(CO_ID, co_name, co_url)
-		VALUES (COID.nextval, #{coName}, #{coUrl});
+		INSERT INTO company(CO_ID, co_url)
+		VALUES (COID.nextval, #{coUrl})
 	</insert>
 	
 	<update id="updateMember" parameterType="member">
@@ -28,10 +28,10 @@
 		update member set mem_perm = 
 	</delete>
 	
-	<select id="memberLogin" parameterType="member">
+	<select id="login" parameterType="member">
 		select mem_id,pwd,email,name,co_id,'ROLE_' || upper(mem_perm) role,acc_st
 		from member
-		where mem_id = #{memId}
+		where mem_id = #{memId} and pwd = #{pwd}
 	</select>
 	
 </mapper>

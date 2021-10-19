@@ -3,6 +3,7 @@ package co.plus.prj.member.web;
 import java.util.HashMap;
 import java.util.Map;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +19,11 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@RequestMapping(value ="/login.do", method= RequestMethod.GET)
+	public String loginForm(Model model) {
 	
+		return "notiles/login";
+	}
 	@RequestMapping(value ="/member/{memId}", method = RequestMethod.POST)
 	public Map memberInsert(@RequestBody MemberVO vo, Model model) {
 		memberService.insertMember(vo);
