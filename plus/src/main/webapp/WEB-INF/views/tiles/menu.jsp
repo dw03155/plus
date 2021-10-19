@@ -27,14 +27,11 @@
 					class="ico-home"></i>내 프로젝트 <em id="leftProjectHomeCount"
 					class="js-project-home-count project-total-count d-none"></em>
 			</a></li>
-			<li data-code="open" class="left-menu-item d-none"><a href="#">
-					<i class="ico-search"></i>회사 공개 프로젝트
+			<li data-code="open" class="left-menu-item"><a href="#"> <i
+					class="ico-search"></i>회사 공개 프로젝트
 			</a></li>
 			<li data-code="nokeep" class="left-menu-item d-none"><a href="#"><i
 					class="ico-not-kept"></i>미분류</a></li>
-			<li data-code="unread" class="left-menu-item d-none"><a href="#"><i
-					class="ico-letter"></i>미확인 <em id="unreadProjectHomeCount"
-					class="js-project-home-count project-total-count d-none"></em> </a></li>
 			<li data-code="star" class="left-menu-item d-none"><a href="#"><i
 					class="ico-favorite"></i>즐겨찾기</a></li>
 			<li data-code="hidden" class="left-menu-item d-none"><a href="#"><i
@@ -47,12 +44,6 @@
 					<li>
 						<button data-code="nokeep" type="button" class="left-menu-item">
 							<i class="ico-not-kept"></i>미분류
-						</button>
-					</li>
-					<li>
-						<button data-code="unread" type="button" class="left-menu-item">
-							<i class="ico-letter"></i>미확인 <em id="unreadProjectHomeCount"
-								class="js-project-home-count project-total-count d-none"></em>
 						</button>
 					</li>
 					<li>
@@ -77,17 +68,14 @@
 					<ul class="menu-accordion-list">
 						<li data-code="task" class="left-menu-item"><a href="#"><i
 								class="ico-task"></i>전체 업무 </a></li>
-						<li data-code="gantt" class="left-menu-item" id="leftMenuGantt"
-							style="display: none;"><a href="#"><i
-								class="ico-ganttchart"></i>간트차트</a></li>
+						<li data-code="gantt" class="left-menu-item" id="leftMenuGantt"><a
+							href="#"><i class="ico-ganttchart"></i>간트차트</a></li>
 						<li data-code="schd" class="left-menu-item"><a href="#"><i
 								class="ico-schedule"></i>캘린더</a></li>
 						<li data-code="file" class="left-menu-item"><a href="#"><i
 								class="ico-filebox"></i>파일함</a></li>
 						<li data-code="bookmark" class="left-menu-item"><a href="#"><i
 								class="ico-bookmark"></i>북마크</a></li>
-						<li data-code="mention" class="left-menu-item"><a href="#"><i
-								class="ico-mention"></i>나를 언급</a></li>
 						<li data-code="mypost" class="left-menu-item"><a href="#"><i
 								class="ico-my-write"></i>내 게시물</a></li>
 					</ul>
@@ -95,7 +83,9 @@
 			</li>
 			<li>
 				<div id="allLabelLeftButton"
-					class="menu-accordion-button left-menu-item" data-code="label-more">
+					class="menu-accordion-button left-menu-item active"
+					data-code="label-more" data-select-label-srno=""
+					data-select-label-name="">
 					프로젝트 폴더
 					<button class="js-label-add label-add-button">
 						<i class="ico-plus"></i>
@@ -103,7 +93,36 @@
 					<i class="ico-arrow"></i>
 				</div>
 				<div class="menu-accordion">
-					<ul id="allLabelUl" class="menu-accordion-list d-none"></ul>
+					<ul id="allLabelUl" class="menu-accordion-list d-none ui-sortable"
+						style="display: block;">
+						<li id="label-1" label-srno="1" class="label-item "><i
+							class="ico-label"></i> <span
+							class="js-label-name js-mouseover ellipsis" mouseover-text="마케팅">마케팅</span>
+							<a href="#" class="js-label-setting-button flow-dash-three">
+								<div></div>
+								<div></div>
+								<div></div>
+						</a></li>
+
+						<li id="label-2" label-srno="2" class="label-item "><i
+							class="ico-label"></i> <span
+							class="js-label-name js-mouseover ellipsis" mouseover-text="디자인">디자인</span>
+							<a href="#" class="js-label-setting-button flow-dash-three">
+								<div></div>
+								<div></div>
+								<div></div>
+						</a></li>
+
+						<li id="label-3" label-srno="3" class="label-item "><i
+							class="ico-label"></i> <span
+							class="js-label-name js-mouseover ellipsis"
+							mouseover-text="엔지니어링">엔지니어링</span> <a href="#"
+							class="js-label-setting-button flow-dash-three">
+								<div></div>
+								<div></div>
+								<div></div>
+						</a></li>
+					</ul>
 				</div>
 			</li>
 		</ul>
@@ -118,8 +137,13 @@
 			</div>
 		</div>
 		<ul id="leftBottomUl" class="menu-group admin">
-			<li data-code="manager-admin" class="left-menu-item"><a
-				href="#"><i class="ico-admin"></i>어드민</a></li>
+			<li data-code="invite-member"
+				class="d-none js-invite-employee-button left-menu-item"
+				style="display: block;"><a href="#"><i class="ico-invite"></i>직원
+					초대</a></li>
+			<li data-code="manager-admin" class="d-none left-menu-item"
+				style="display: block;"><a href="#"><i class="ico-admin"></i>어드민</a>
+			</li>
 		</ul>
 	</div>
 </body>

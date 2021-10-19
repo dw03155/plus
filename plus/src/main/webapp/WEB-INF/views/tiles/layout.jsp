@@ -195,16 +195,12 @@
 			<tiles:insertAttribute name="top" />
 		</div>
 
-
 		<div id="mainBodyWrap" class="main-body-wrap">
-
 			<!-- 메뉴 -->
 			<div id="leftArea" class="main-header-1">
 				<tiles:insertAttribute name="menu" />
 			</div>
-			<div id="joinProjectItem" class="js-left-menu" style="display: none"></div>
-			<div id="labelItem" class="js-left-menu" style="display: none"></div>
-			<div id="labelSelectItem" class="d-none"></div>
+			
 			<div class="main-container">
 				<tiles:insertAttribute name="main" />
 			</div>
