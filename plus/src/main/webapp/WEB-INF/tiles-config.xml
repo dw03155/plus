@@ -10,4 +10,11 @@
        	 <definition name="*/*" extends="layout">
        	 	<put-attribute name="main" value="/WEB-INF/views/{1}/{2}.jsp" />
        	 </definition>
+       	 
+       	 <definition name="blank"  template="/WEB-INF/views/tiles/blank.jsp">
+      		<put-attribute name="body" value="" />
+  		 </definition>
+		 <definition name="*" extends="blank">
+     		 <put-attribute name="blank" value="/WEB-INF/views/notiles/{1}.jsp" />
+  		 </definition>
        </tiles-definitions>

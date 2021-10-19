@@ -11,7 +11,8 @@
 <div align="center">
 	<h1>로그인</h1>
 		<div>
-			<form type="hidden" name="${_csrf.parmeterName }" value="${_csrf.token }"><!-- csrf 고정값 -->
+			<form action="login.do" method="post">
+<%-- 			<input  type="hidden" name="${_csrf.parmeterName }" value="${_csrf.token }"><!-- csrf 고정값 --> --%>
 				<h3>id</h3>
 				<input type="text" name="username"><br/>
 				<h3>password</h3>
