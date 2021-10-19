@@ -30,15 +30,14 @@
 					style="display: none"></i>
 			</button>
 			<button type="button" id="accountTopButton" class="btn-profile">
-				<span id="ProfileImg" class="profile-area"></span>
-			</button>
+                <span id="ProfileImg" class="profile-area" style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;);"></span>
+            </button>
 		</div>
 		<ul id="accountLayer" class="modal-account d-none">
 			<li class="user-area">
-				<p class="js-profile user-img"></p>
+				<p class="js-profile user-img" style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;);"></p>
 				<div class="user-info">
-					<strong class="js-user-name js-mouseover"></strong> <span
-						class="js-version"></span> <span>이용중</span>
+					 <strong class="js-user-name js-mouseover">cyr</strong> <span>이용중</span>
 				</div>
 			</li>
 
