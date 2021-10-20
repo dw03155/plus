@@ -26,8 +26,8 @@
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
 	
-	<context:component-scan base-package="co.plus.prj.**.mapper" />
+	<context:component-scan base-package="co.plus.prj" />
 	
-	
+	<mybatis-spring:scan base-package="co.plus.prj.**.mapper"/>
 
 </beans>
