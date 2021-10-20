@@ -50,8 +50,8 @@
 					</div>
 				</div>
 				<!-- //게스트로그인 layerpopup -->
-
 			</div>
 		</div>
+	</div>
 </body>
 </html>
