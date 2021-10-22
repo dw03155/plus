@@ -268,6 +268,48 @@
 								</div>
 
 
+								<legend data-langcode="H488">회사 이름, 회사 URL 입력</legend>
+								<!-- 입력전 -->
+								<div class="blocklabel">
+									<label class="font-Noto" data-langcode="H489">회사 이름</label>
+									<div class="inputbox">
+										<input type="text" id="teamName" tabindex="11" maxlength="50"
+											placeholder="회사 이름 입력" value="" data-langcode="H490">
+										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
+										<button type="button" class="btn-clear-text"
+											style="cursor: pointer;" data-langcode="H381">삭제</button>
+										<!-- 메시지 -->
+										<div class="error-msg">
+											<div class="error-cont font-Noto" data-langcode="H491">
+												회사 이름을 확인해 주세요 (특수문자 사용불가)</div>
+										</div>
+									</div>
+								</div>
+								<!-- ok -->
+								<div class="blocklabel url-box">
+									<label class="font-Noto" data-langcode="H492">회사 URL</label>
+									<div class="inputbox" style="width: 290px">
+										<input type="text" id="teamUrl" tabindex="12" maxlength=""
+											placeholder="URL 주소 입력" value="" style="width: 100%;"
+											data-langcode="H493"> <strong id="domain"
+											style="position: absolute; left: 300px; top: 20px; font-size: 18px;">.flow.team</strong>
+
+										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
+										<button type="button" class="btn-clear-text"
+											style="cursor: pointer;" data-langcode="H381">삭제</button>
+										<!-- 메시지 -->
+										<div class="error-msg">
+											<div class="error-cont font-Noto" data-langcode="H494">
+												3 ~ 50자의 영문, 숫자만 가능합니다.</div>
+										</div>
+									</div>
+								</div>
+
+
+								<div id="errorMsg" style="display: none;">
+									<span style="color: red; font-size: 12px;" data-langcode="H498">오류!</span>
+								</div>
+
 
 								<!-- 약관동의체크 -->
 								<div class="terms-check">
@@ -283,21 +325,6 @@
 							<div class="btn-box">
 								<button type="button" id="nextToSettingTeamInfo"
 									class="btn-bigs c-gray" data-langcode="H482">다음</button>
-
-								<!--<div class="form-chk"><a class="btn" id="goToPremiumSignUp"><span data-langcode="H483">프로젝트에 초대받아 시작하시나요?</span><span style="color:#4d7fd6;">&nbsp;<u data-langcode="H484">게스트로 시작하기</u></span></a></div>-->
-								<div class="form-chk" style="text-align: center">
-									<span data-langcode="A1857">게스트 계정 가입을 원하시나요?</span><a
-										class="btn" id="goToPremiumSignUp"><span
-										style="color: #4d7fd6;">&nbsp;<u data-langcode="H484">게스트로
-												시작하기</u></span></a>
-								</div>
-								<div>
-									<br> <a class="btn"> <span
-										style="color: #4d7fd6; display: none"> <u
-											data-langcode="A1858" id="whatIsGuest">게스트 회원이란?</u>
-									</span>
-									</a>
-								</div>
 
 							</div>
 						</fieldset>
