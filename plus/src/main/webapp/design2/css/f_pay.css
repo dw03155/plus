@@ -746,8 +746,9 @@ a.often-q-ico:hover{text-decoration:underline;}
 .calcul-result{
 	padding:25px 16px 25px 16px;margin-top:10px;margin-bottom:5px;
 	border-radius:2px;
-	background-color:#f7f8f9;.calcul-result
+	background-color:#f7f8f9;
 }
+.calcul-result{}
 .calcul-result .calcul-num{margin-bottom:12px;font-size: 30px;font-weight:bold;color:#111;font-family: Myriad Pro !important;}
 .calcul-result .calcul-num span{padding-left:0px;font-size:14px;color:#878888;}
 .calcul-result .calcul-info.off{font-size: 15px;color:#292b2c;letter-spacing:-1px;}

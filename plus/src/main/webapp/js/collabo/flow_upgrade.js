@@ -84,7 +84,7 @@ var upgrade = (function () { // 업그레이드 팝업은 무료사용자, 프�
 		// 이벤트 및 화면 초기화(최초) -------------------------------------------------------------------- 안쓰는 js
 		// intro 스크롤
 		
-		/*if(_USE_INTT_ID.indexOf("KAKAO") > -1 || _USE_INTT_ID.indexOf("APPLE") > -1)  {
+		if(_USE_INTT_ID.indexOf("KAKAO") > -1 || _USE_INTT_ID.indexOf("APPLE") > -1)  {
 			introLayer.find("#kakaoAccount").show();
 		} else {
 			introLayer.find("#flowAccount").show();
@@ -125,10 +125,10 @@ var upgrade = (function () { // 업그레이드 팝업은 무료사용자, 프�
 				goToBusinessSignUp();
 			}
 			introLayer.hide();
-		});*/
+		});
 		
 		// 비즈니스 업그레이드 계정선택 -------------------------------------------------------------------- 안쓰는 js
-		/*businessSelectAccountLayer.find("#useExistAccount").on('click', function (e) {
+		businessSelectAccountLayer.find("#useExistAccount").on('click', function (e) {
 
 			businessSelectAccountLayer.hide();
 			businessSettingTeamInfoLayer.find("#backToBusinessSignUp").parent().hide();
@@ -147,12 +147,12 @@ var upgrade = (function () { // 업그레이드 팝업은 무료사용자, 프�
 		businessSelectAccountLayer.find("#backToIntro").on('click', function (e) {
 			introLayer.fadeIn(200);
 			businessSelectAccountLayer.hide();
-		});*/
+		});
 		
 
 
 		// 비즈니스 업그레이드 계정등록 -------------------------------------------------------------------- 안쓰는 js
-/*		businessSignUpLayer.find("#nextToSettingTeamInfo").on('click', function (e) { // 다음
+		businessSignUpLayer.find("#nextToSettingTeamInfo").on('click', function (e) { // 다음
 			validIdCheck(e);
 		});
 		
@@ -167,9 +167,9 @@ var upgrade = (function () { // 업그레이드 팝업은 무료사용자, 프�
 				upgradePopupLayer.find(".f-login-wrap").mCustomScrollbar("destroy");
 			}
 			businessSignUpLayer.hide();
-		});*/
+		});
 
-		/*
+		
 		// imput validation
 		// businessSignUpLayer.find("#email").on("focus", onInputFocusEventListener).on("focusout", onInputFocusOutEventListener);
 		// businessSignUpLayer.find("#name").on("focus", onInputFocusEventListener).on("focusout", onInputFocusOutEventListener);
@@ -200,7 +200,7 @@ var upgrade = (function () { // 업그레이드 팝업은 무료사용자, 프�
 				}
 			}
 		}
-		*/
+		
 
 		businessSignUpLayer.find("#email").on('focus keyup', function (e) {
 			var emailInput = businessSignUpLayer.find("#email");
@@ -352,7 +352,7 @@ var upgrade = (function () { // 업그레이드 팝업은 무료사용자, 프�
 		eventBusinessSettingTeamInfoLayer(basicBusinessSettingTeamInfoLayer);
 		
 		
-		/*
+		
 		businessSettingTeamInfoLayer.find("#couponCode").on('keyup focus', function (e) {			
 			var couponCodeInput = businessSettingTeamInfoLayer.find("#couponCode");
 			if (e.keyCode && e.keyCode == 13) {
@@ -370,21 +370,21 @@ var upgrade = (function () { // 업그레이드 팝업은 무료사용자, 프�
 				updateNextBtnToPayment();
 			}
 		});
-		*/
+		
 		
 		businessSettingTeamInfoLayer.find("#agreeWithTheTerms").on('click focus', function (e) {
 			updateNextBtnToPayment();
 		});
 
 		// 비즈니스 업그레이드 마무리
-	/*	businessFinishedLayer.find("#copyURL").on('click', function (e) {
+		businessFinishedLayer.find("#copyURL").on('click', function (e) {
 
 			cmf_copyTextToClipboard(businessFinishedLayer.find("#teamURL").val(), cnts_Null2Void(i18n('DL165'),"팀 주소를 클립보드에 복사했습니다."));
 		});
 
 		businessFinishedLayer.find("#startNow").on('click', function (e) {
-			window.location.reload();*/
-			/*
+			window.location.reload();
+			
 			var userId = _USER_ID;
 			if (cnts_Null2Void(businessSignUpLayer.find("#email").val(), "") == "") {
 				userId = _USER_ID;
@@ -400,7 +400,7 @@ var upgrade = (function () { // 업그레이드 팝업은 무료사용자, 프�
 			window.location.reload();
 		});
 
-		isInit = true;*/
+		isInit = true;
 	}
 	
 	function eventBusinessSettingTeamInfoLayer(Layer) {
@@ -575,7 +575,7 @@ var upgrade = (function () { // 업그레이드 팝업은 무료사용자, 프�
 	 * @param {d} element : input type='email' element 
 	*/
 	function duplicationIdCheck(element){
-		
+		console.log(element);
 		//var jexAjax = jex.createAjaxUtil("COLABO2_REGISTER_R001");
 		var jexAjax = jex.createAjaxUtil("COLABO_USER_DUPLICATE_R001");
 		jexAjax.set("USER_ID", element.val());
@@ -600,7 +600,6 @@ var upgrade = (function () { // 업그레이드 팝업은 무료사용자, 프�
 						element.parent().find(".error-msg").find(".error-cont").text(dat.ERR_MSG);
 						element.parent().removeClass('ok').addClass('error');
 					}else{
-						
 						$("#main").find("#USER_ID_CHK").removeClass("ok").addClass("error");
 						$("#main").find(".signup_btn_st1").removeClass("on");
 						
@@ -845,13 +844,12 @@ var upgrade = (function () { // 업그레이드 팝업은 무료사용자, 프�
 					// 다시 아이디 수정하는 화면으로 돌려줘야함. 이거는 나올일이 없겠다! 왜냐면... 앞에서 체크를 한번 하니까!
 					currentLayer.find("#errorMsg span").html(cnts_Null2Void(i18n('DL169'),"사용중인 이메일 주소입니다. 다른 메일주소를 등록해주세요"));
 				} else if (dat.ERR_CD == "7000") {
-					/*
 					$("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#couponCode").parent().removeClass('ok');			
 					$("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#couponCode").attr("placeholder",dat.ERR_MSG);
 					$("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#couponCode").val("").focus();
 					businessSettingTeamInfoLayer.find("#errorMsg span").html(dat.ERR_MSG);
 					businessSettingTeamInfoLayer.find("#errorMsg").show();
-					*/				
+
 					currentLayer.find("#couponCode").select();
 					inputObject.setAsError(e, currentLayer.find("#couponCode"), dat.ERR_MSG);					
 				} else if (dat.ERR_CD == "9000") {

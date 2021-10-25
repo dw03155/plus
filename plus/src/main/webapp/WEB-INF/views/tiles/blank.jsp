@@ -140,9 +140,133 @@
 
 <link rel="stylesheet" href="design2/css/jquery.mCustomScrollbar.css">
 <script src="design2/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<!-- Daum -->
+<script type="text/javascript">
+	//<![CDATA[
+	var DaumConversionDctSv = "type=M,orderID=,amount=";
+	var DaumConversionAccountID = "vm23n-obXlpSYtOySbWDtA00";
+	if (typeof DaumConversionScriptLoaded == "undefined"
+			&& location.protocol != "file:") {
+		var DaumConversionScriptLoaded = true;
+		document
+				.write(unescape("%3Cscript%20type%3D%22text/javas"
+						+ "cript%22%20src%3D%22"
+						+ (location.protocol == "https:" ? "https" : "http")
+						+ "%3A//t1.daumcdn.net/cssjs/common/cts/vr200/dcts.js%22%3E%3C/script%3E"));
+	}
+	//]]>
+</script>
+<!-- Daum -->
 
+
+</head>
 <body>
+	<script>
+		var isKtWorks = false;
+		var redirectCntns = "";
+		redirectCntns += "<input type='hidden' name='T_COLABO_SRNO' id='colabo_srno' value=''/>";
+		redirectCntns += "<input type='hidden' name='T_COLABO_COMMT_SRNO' id='colabo_commt_srno' value=''/>";
+		redirectCntns += "<input type='hidden' name='T_COLABO_REMARK_SRNO' id='colabo_remark_srno' value=''/>";
+	</script>
+
+
+	<script>
+		var s_var_list = "";
+		s_var_list += "<input type='hidden' name='INVT_KEY' value=''/>";
+		var $frmObj = $("<form id='invite_form' name='invite_form'></form>");
+		$frmObj.attr("method", "post");
+		$frmObj.appendTo("body");
+		$frmObj.append(s_var_list);
+		$frmObj.append(redirectCntns);
+
+		//var objPopup = window.open(url, _CNTS_TRGT);
+		if (cf_getCookie("RENEWAL_MAINTAIN") === "Y") {
+			$frmObj.attr("action", "/signin.act");
+		} else {
+			$frmObj.attr("action", "flow_layout.act");
+		}
+
+		try {
+			var electronAppName = fn_ElectronNameCheck();
+			var electronVersion = fn_ElectronVersionCheck();
+			var isTestApp = electronVersion > "1_2_1"
+					&& electronAppName.indexOf('new') > -1;
+			var isNewFlow = electronVersion >= "1_3_1"
+					&& electronAppName === 'flow';
+
+			if (fn_getConfigsForElectron().b_fullMode
+					&& (isTestApp || isNewFlow)) {
+				$frmObj.attr("action", "signin.act");
+			}
+			$frmObj.attr("target", "_self");
+			$frmObj.submit();
+			$frmObj.remove();
+		} catch (e) {
+		}
+	</script>
+
 	<div id="fb-root"></div>
+
+	<script>
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id))
+				return;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.10";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+
+
+	<script>
+		isKtWorks = (location.hostname.indexOf("ktworks.co.kr") > -1)
+				|| (location.hostname.indexOf("ktbizworks.co.kr") > -1);
+		if (isKtWorks) {
+			Kakao.init('78fede268399651550fa35f6db597e10');
+		} else {
+			Kakao.init('d77bd9dedf121273cd1ab765d7406cb9');
+		}
+	</script>
+
+
+
+
+	<input type="hidden" id="_DEV_REAL" value="REAL" />
+	<input type="hidden" id="_STR_BASE_URL" value="http://flow.team" />
+	<input type="hidden" id="serverConnNum" value="" />
+
+	<input type="hidden" id="ELECTRON_YN" value="N" />
+	<input type="hidden" id="ELECTRON_VER" value="" />
+
+	<!-- sub domain start -->
+	<input type="hidden" id="_SUB_DOM" value="" />
+	<input type="hidden" id="_SERVICE_VERSION" value="" />
+	<input type="hidden" id="_SUB_DOMAIN_NAME" value="" />
+	<input type="hidden" id="_SUB_DOMAIN_LOGO_URL" value="" />
+	<input type="hidden" id="_SUB_DOMAIN_USE_INTT_ID" value="" />
+
+	<input type="hidden" id="_MOBILE_YN" value="N" />
+	<input type="hidden" id="_COMPANY_CODE_USEABLE" value="false" />
+
+	<input type="hidden" id="_BIS_MNGR_SIGNUP" value="Y" />
+	<input type="hidden" id="_RESAILER" value="" />
+
+	<!-- sub domain end -->
+	<input type="hidden" id="_HOMEPAGE" value="http://flow.team" />
+
+
+	<!-- invite start -->
+	<div id="INVT_KEY" style="display: none;"></div>
+	<!-- invite end -->
+
+	<!-- 회원가입 화면 direct 여부 start -->
+	<div id="JOIN" style="display: none;"></div>
+	<!-- 회원가입 화면 direct 여부 end -->
+	<!-- 비대면 바우처 SRNO 세팅  start -->
+	<input type="hidden" id="_UNTACT_VOUCHER_SRNO" value="-1" />
+	<!-- 비대면 바우처 SRNO 세팅 end -->
 
 	<div class="alert_wrap" id="layerAlert"
 		style="z-index: 99999; top: 50px; left: 40%; display: none; text-align: center;">
@@ -168,24 +292,32 @@
 	</div>
 	<!-- //top -->
 
-	<tiles:insertAttribute name="blank" />
+	<tiles:insertAttribute name="main" />
 
 	<!-- footer -->
+
 	<div class="signup_btm">
 
 		<ul>
 			<li><a style="color: #000; font-weight: bold;"
-				onclick="cmf_openWindow('/company.act', 'flowTem')"
 				data-langcode="H531">회사 소개</a>&nbsp;|&nbsp;</li>
 			<li><a style="color: #000; font-weight: bold;"
-				onclick="cmf_openWindow('/terms.act', 'flowTem')"
 				data-langcode="H84">이용약관</a>&nbsp;|&nbsp;</li>
-			<li><a style="color: #000; font-weight: bold;"
-				onclick="cmf_openWindow('/privacy.act', 'flowTem')"><b
+			<li><a style="color: #000; font-weight: bold;"><b
 					data-langcode="H85">개인정보취급방침</b></a></li>
 		</ul>
 		<p>Copyright © Madras check All Rights Reserved</p>
 	</div>
 	<!-- //footer -->
+
+	<script>
+		if (_LANG_CODE !== "") {
+			setlanguage(_LANG_CODE);
+		} else {
+			//done
+		}
+	</script>
+
+	<!-- Page hiding snippet (recommended) -->
 </body>
 </html>

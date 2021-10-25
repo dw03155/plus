@@ -164,7 +164,8 @@
 <link rel="stylesheet" href="design2/css/f_login.css" />
 <link rel="stylesheet" href="design2/css/f_pay.css" />
 
-
+<link rel="preload" href="design2/img_pay/btn/btn_input_err.png" as="image" />
+<link rel="preload" href="design2/img_pay/btn/btn_input_ok.png" as="image" />
 
 <link rel="stylesheet" href="design2/css/jquery.mCustomScrollbar.css">
 <script src="design2/js/jquery.mCustomScrollbar.concat.min.js"></script>
@@ -226,20 +227,16 @@
 
 							<!-- 전체메시지 -->
 							<div class="flk-msg-wrap">
-								<h3 class="font-Noto" data-langcode="H463">플로우 비즈니스 계정을
-									생성하세요</h3>
+								<h3 class="font-Noto" data-langcode="H463">관리자 계정을 생성하세요</h3>
 								<h4 class="font-Noto">
-									<span style="color: #4c80d6;" data-langcode="H464">비즈니스
-										베이직 버전을 30일간 무료로 체험해 볼 수 있습니다.</span> <br class="block"> <span
-										data-langcode="H465">카드 등록 없이 시작할 수 있으며,&nbsp;&nbsp;요금이
-										부과되지 않습니다.</span> <a href="/price.act" target="flowPrice"
-										style="cursor: pointer; text-decoration: underline;"
-										data-langcode="H466">요금제 확인</a><br class="block">
+									<span data-langcode="H486">아래 정보들을 입력 후, 플러스 관리자로 시작할 수
+										있습니다.</span><br class="block"> <span style="color: #4c80d6;"
+										data-langcode="H487">URL 주소는 직원들을 초대할 때 이용할 수 있습니다.</span>
 								</h4>
 							</div>
 							<!-- //전체메시지 -->
 
-							<legend data-langcode="H467">비즈니스 계정 이메일, 이름, 비밀번호 입력</legend>
+							<!-- <legend data-langcode="H467">비즈니스 계정 이메일, 이름, 비밀번호 입력</legend> -->
 							<div class="input-box-style">
 								<!-- 입력전 -->
 								<div class="blocklabel">
@@ -310,46 +307,7 @@
 										</div>
 									</div>
 								</div>
-
-
-								<!-- 약관동의체크 -->
-								<div class="terms-check">
-									<input type="checkbox" tabindex="5" id="agreeWithTheTerms">
-									<span class="terms-and-privacy"></span> <a href="/terms.html"
-										target="flowTem" data-langcode="H1857">서비스 이용약관,</a>&nbsp; <a
-										href="/privacy.html" target="flowTem" data-langcode="H85">개인정보취급방침</a>
-									<span data-langcode="H452">을 확인하였고, 이에 동의합니다.</span>
-
-								</div>
-							</div>
-							<div class="btn-box">
-								<button type="button" id="nextToSettingTeamInfo"
-									class="btn-bigs c-gray" data-langcode="H482">다음</button>
-							</div>
-						</div>
-						<!-- // business sign in content -->
-
-
-						<!-- business setting team info content -->
-						<div class="fl-content" id="businessMngrSettingTeamInfo"
-							style="display: block; padding-top: 50px;">
-							<!-- 전체메시지 -->
-							<div class="flk-msg-wrap">
-								<h3 class="font-Noto" data-langcode="H485">회사 정보 입력 후 시작하세요</h3>
-
-								<h4 class="font-Noto">
-									<span data-langcode="H486">아래 정보들을 입력 후, 플로우 관리자로 시작할 수
-										있습니다.</span><br class="block"> <span style="color: #4c80d6;"
-										data-langcode="H487">URL 주소는 직원들을 초대할 때 이용할 수 있습니다.</span>
-								</h4>
-
-							</div>
-							<!-- //전체메시지 -->
-
-
-							<legend data-langcode="H488">회사 이름, 회사 URL 입력</legend>
-							<div class="input-box-style">
-								<!-- 입력전 -->
+								
 								<div class="blocklabel">
 									<label class="font-Noto" data-langcode="H489">회사 이름</label>
 									<div class="inputbox">
@@ -389,15 +347,19 @@
 								<div id="errorMsg" style="display: none;">
 									<span style="color: red; font-size: 12px;" data-langcode="H498">오류!</span>
 								</div>
-							</div>
 
+								<!-- 약관동의체크 -->
+								<div class="terms-check">
+									<input type="checkbox" tabindex="5" id="agreeWithTheTerms">
+									<span class="terms-and-privacy"></span>
+
+								</div>
+							</div>
 							<div class="btn-box">
-								<button type="button" tabindex="14" class="btn-bigs c-gray"
-									id="nextToBusinessFinished" data-langcode="H499">1개월
-									무료 시작하기</button>
+								<button type="button" id="nextToSettingTeamInfo"
+									class="btn-bigs c-gray" data-langcode="H482">회원가입</button>
 							</div>
 						</div>
-						<!-- //  business setting team content -->
 					</fieldset>
 				</form>
 			</div>
@@ -405,14 +367,6 @@
 		<!-- //businessMngrSignUpPopup -->
 
 	</div>
-	<script>
-		if (_LANG_CODE !== "") {
-			setlanguage(_LANG_CODE);
-		} else {
-			//done
-		}
-	</script>
-
 	<!-- Page hiding snippet (recommended) -->
 </body>
 </html>

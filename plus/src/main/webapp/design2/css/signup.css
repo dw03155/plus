@@ -122,13 +122,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff ', en
 	right: 38px;
 	width: 18px;
 	height: 14px;
-	background-image: url(/joins_flow/joins_img/btn_mask_off.png);
+	background-image: url(../joins_flow/joins_img/btn_mask_off.png);
 	background-repeat: no-repeat;
 }
 .password-mask.on {
 	display: block;
 }
-.password-mask.active {background-image: url(/joins_flow/joins_img/btn_mask_on.png);}
+.password-mask.active {background-image: url(../joins_flow/joins_img/btn_mask_on.png);}
 
 .fl-content .password-mask{
 	top: 18px;

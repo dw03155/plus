@@ -316,14 +316,6 @@
 	<!-- 비대면 바우처 SRNO 세팅 end -->
 
 
-
-	<div class="alert_wrap" id="layerAlert"
-		style="z-index: 99999; top: 50px; left: 40%; display: block; text-align: center;">
-		<div class='alert_box'>
-			<p style="color: #555; font-weight: bold"></p>
-		</div>
-	</div>
-	
 	<div class="business-signup-layer">
 
 		<div id="securityAgreeLayerView"></div>
@@ -365,51 +357,8 @@
 					<a id="passWordFailPopupClose" class="btn_layerstyle4_close"><span
 						class="blind" data-langcode="H517">팝업닫기</span></a>
 				</div>
-
-
 			</div>
 		</div>
-
 	</div>
-
-	<!-- footer -->
-
-	<div class="signup_btm">
-
-		<ul>
-			<li><a style="color: #000; font-weight: bold;"
-				onclick="cmf_openWindow('/company.act', 'flowTem')"
-				data-langcode="H531">회사 소개</a>&nbsp;|&nbsp;</li>
-			<li><a style="color: #000; font-weight: bold;"
-				onclick="cmf_openWindow('/terms.act', 'flowTem')"
-				data-langcode="H84">이용약관</a>&nbsp;|&nbsp;</li>
-			<li><a style="color: #000; font-weight: bold;"
-				onclick="cmf_openWindow('/privacy.act', 'flowTem')"><b
-					data-langcode="H85">개인정보취급방침</b></a></li>
-		</ul>
-		<p>Copyright © Madras check All Rights Reserved</p>
-	</div>
-	<!-- //footer -->
-
-
-	<script>
-		if (_LANG_CODE !== "") {
-			setlanguage(_LANG_CODE);
-		} else {
-			//done
-		}
-	</script>
-
-	<!-- Page hiding snippet (recommended) -->
-	<style>
-.async-hide {
-	opacity: 0 !important
-}
-</style>
-
-	<script>
-		
-	</script>
-
 </body>
 </html>

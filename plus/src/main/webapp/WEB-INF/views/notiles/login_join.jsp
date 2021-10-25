@@ -1012,7 +1012,12 @@
 								<button type="button" id="nextToSettingTeamInfo"
 									class="btn-bigs c-gray" data-langcode="H482">다음</button>
 
-								<!--<div class="form-chk"><a class="btn" id="goToPremiumSignUp"><span data-langcode="H483">프로젝트에 초대받아 시작하시나요?</span><span style="color:#4d7fd6;">&nbsp;<u data-langcode="H484">게스트로 시작하기</u></span></a></div>-->
+								<div class="form-chk">
+									<a class="btn" id="goToPremiumSignUp"><span
+										data-langcode="H483">프로젝트에 초대받아 시작하시나요?</span><span
+										style="color: #4d7fd6;">&nbsp;<u data-langcode="H484">게스트로
+												시작하기</u></span></a>
+								</div>
 								<div class="form-chk" style="text-align: center">
 									<span data-langcode="A1857">게스트 계정 가입을 원하시나요?</span><a
 										class="btn" id="goToPremiumSignUp"><span

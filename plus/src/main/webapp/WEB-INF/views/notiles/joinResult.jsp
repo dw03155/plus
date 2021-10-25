@@ -9,7 +9,7 @@
 <body>
 	<div class="business-signup-layer">
 
-		<div class="f-login-wrap" style="display: none;" id="appDownloadDiv">
+		<div class="f-login-wrap" style="display: block;" id="appDownloadDiv">
 			<!-- content -->
 			<div class="fl-content">
 				<!-- 전체메시지 -->
