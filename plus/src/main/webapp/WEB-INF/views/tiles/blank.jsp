@@ -309,15 +309,5 @@
 		<p>Copyright © Madras check All Rights Reserved</p>
 	</div>
 	<!-- //footer -->
-
-	<script>
-		if (_LANG_CODE !== "") {
-			setlanguage(_LANG_CODE);
-		} else {
-			//done
-		}
-	</script>
-
-	<!-- Page hiding snippet (recommended) -->
 </body>
 </html>

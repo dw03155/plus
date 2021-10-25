@@ -3438,10 +3438,7 @@ var bMngrSignUp = function () {
 
                     that.goToPayment("B");
                 }
-
             });
-
-
         },
         goToPayment: function (status) {
 
