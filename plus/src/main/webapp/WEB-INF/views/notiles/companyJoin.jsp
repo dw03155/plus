@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,16 +78,26 @@
 	src="https://t1.daumcdn.net/cssjs/common/cts/vr200/dcts.js"></script>
 <script src="https://t1.kakaocdn.net/cts/__dcts__.js"></script>
 <style type="text/css">
-@-webkit-keyframes rotate {
-from { -webkit-transform:rotate(0deg);}
-to { -webkit-transform: rotate(360deg);}
+@
+-webkit-keyframes rotate {from { -webkit-transform:rotate(0deg);
+	
 }
 
-@keyframes rotate {
-from { transform:rotate(0deg);}
-to { transform: rotate(360deg);}
+to {
+	-webkit-transform: rotate(360deg);
 }
 
+}
+@
+keyframes rotate {from { transform:rotate(0deg);
+	
+}
+
+to {
+	transform: rotate(360deg);
+}
+
+}
 .dropbox-dropin-btn, .dropbox-dropin-btn:link, .dropbox-dropin-btn:hover
 	{
 	display: inline-block;
@@ -210,14 +221,18 @@ to { transform: rotate(360deg);}
 	src="https://maps.googleapis.com/maps-api-v3/api/js/46/8/intl/ko_ALL/common.js"></script>
 <script type="text/javascript" charset="UTF-8"
 	src="https://maps.googleapis.com/maps-api-v3/api/js/46/8/intl/ko_ALL/util.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+
 </head>
 <body>
 	<div id="companyJoinLayer" class="">
 		<div class="upgrade-singup-header">
 			<a href="http://" class="logo"> <img
 				src="flow-renewal/assets/images/flow_logo_small.png">
-			</a> <a href="#" id="closeBtn" class="login-close-button"></a>
+			</a> <a href="joinForm.do" id="closeBtn" class="login-close-button"></a>
 		</div>
+
+		<!-- 기존회사참여 -->
 		<div id="companyJoinMain" class="login-wrap invite-login">
 			<div class="login-text">기존회사 참여</div>
 			<div class="login-company">이미 회사에서 플로우를 사용하고 있다면 회사 URL을 입력하여
@@ -225,7 +240,7 @@ to { transform: rotate(360deg);}
 			<div class="join-contents">
 				<p class="url-tit">회사 URL</p>
 				<div class="url-wr">
-					<span>https://</span> <input id="joinInput" type="text"
+					<span>https://</span> <input id="coUrl" name="coUrl" type="text"
 						class="join-input" autocomplete="off" placeholder="회사 URL">
 					<!-- 입력 오류 시 .error 클래스 추가 -->
 					<span>.flow.team</span>
@@ -233,45 +248,116 @@ to { transform: rotate(360deg);}
 				<p id="errMeg" class="error-text d-none">3~5자 영문, 숫자만 가능합니다.</p>
 				<!-- 입력 오류 시 display: block -->
 			</div>
-			<button id="companyJoinBtn" class="btn-join">회사 참여하기</button>
+			<button id="JoinBtn" class="btn-join">회사 참여하기</button>
 		</div>
+		<!-- /기존회사참여 -->
 		
+		<!-- 기존회사정보확인 -->
 		<div id="checkJoinPopup" class="flow-all-background-1 d-none">
 			<div class="flow-project-make-1">
 				<div class="flow-project-make-2">
 					<div id="popupLayer" class="flow-login-popup popup-10">
 						<div class="flow-project-header-1">
-							회사 정보 확인 후 시작하세요! <a href="#" id="closePopupBtn"
+							회사 정보 확인 후 시작하세요! <a id="closePopupBtn"
 								class="flow-close-type-1"></a>
 						</div>
-						<div class="flow-content">
+						<form id="frm">
+						<input type="hidden" name="newCourl">
+						<div id="coInfo" class="flow-content">
 							<ul class="content-company">
 								<li id="companyLogoUrl" class="logo"></li>
 								<li id="companyName" class="name"></li>
 								<li id="companyUrl" class="url"></li>
 							</ul>
-							<button id="joinSubmit" class="btn-popup01">팀 참여하기</button>
+						<button id="joinSubmit1" class="btn-popup01">팀 참여하기</button>
+						<button id="joinSubmit2" class="btn-popup01">플러스 생성</button>
 						</div>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
-		
-		<div id="companyWaitJoinLayer" class="upgrade-singup-wrap d-none">
-			<div class="accont-wrap">
-				<div class="flow-account" id="waitCompanyName"></div>
-				<div class="join-text-bold" id="waitCompanyUrl"></div>
-				<div class="join-basic-wrap">
-					<div class="join-backgroundimage"></div>
-					<div class="guest-singup-complete">
-						<em> 관리자에게 가입요청 중입니다. </em>
-						<p>관리자 검토 후, 승인 완료 시 접속 가능합니다.</p>
-					</div>
-					<a href="#" class="join-start-button">메인 페이지 이동</a>
-				</div>
-			</div>
-		</div>
-		
+		<!-- /기존회사정보확인 -->
 	</div>
+	<script>
+		$("#JoinBtn").click(
+				function() {
+					var coUrl = $('input:text[name="coUrl"]').val();
+					console.log(coUrl)
+					$.ajax({
+						url : "getCompany.do?coUrl=" + coUrl,
+						type : "get",
+						//data:JSON.stringify({coUrl:coUrl}),
+						/* data: $("input:text[name=coUrl]").serialize(), */
+						//contentType: "application/json",
+						dataType : "json",
+						success : function(data) {
+							console.log(data);
+							/* var $coLogo = data.coLogo; */
+							var $coUrl = data.coUrl;
+							var $coName = data.coName;
+
+							if (data != null) {
+								$('#checkJoinPopup').attr('class',
+										'flow-all-background-1');
+								$('#companyName').text($coName);
+								$('#companyUrl').text($coUrl);
+								$('#joinSubmit2').attr('class','btn-popup01 d-none'); 
+								$('#joinSubmit1').attr('class','btn-popup01');
+								$('#joinSubmit1').on('click',function(){
+									$('#frm').attr("action", "exCompany.do");
+									$('[name="newCourl"]').val($("#coUrl").val());
+								});
+								
+			
+							}
+						},
+						error : function(reject) {
+							console.log(reject);
+							$('#checkJoinPopup').attr('class',
+								'flow-all-background-1');
+								$('#companyName').text('해당 회사가 존재하지않습니다');
+								$('#companyUrl').text('새로운 플러스를 만들어보세요');
+								$('#joinSubmit1').attr('class','btn-popup01 d-none');
+								$('#joinSubmit2').attr('class','btn-popup01');
+								$('#joinSubmit2').on('click',function(){
+									if($("#coUrl").val()==""){
+										alert("url을 입력하세요.")
+									}else{										
+									$('#frm').attr("action", "newCompany.do");
+									$('[name="newCourl"]').val($("#coUrl").val());
+									}
+								});
+									
+						}
+					});
+
+				});
+		$("#closePopupBtn").click(
+			function(){
+				$('#checkJoinPopup').attr('class',
+				'flow-all-background-1 d-none');
+			});	
+		
+		
+
+	</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
