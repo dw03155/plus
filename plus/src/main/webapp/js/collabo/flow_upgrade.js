@@ -81,10 +81,10 @@ var upgrade = (function () { // 업그레이드 팝업은 무료사용자, 프�
 		businessFinishedLayer = upgradePopupLayer.find("#businessFinished");
 		premiumFinishedLayer = upgradePopupLayer.find("#premiumFinished");
 
-		// 이벤트 및 화면 초기화(최초)
+		// 이벤트 및 화면 초기화(최초) -------------------------------------------------------------------- 안쓰는 js
 		// intro 스크롤
 		
-		if(_USE_INTT_ID.indexOf("KAKAO") > -1 || _USE_INTT_ID.indexOf("APPLE") > -1)  {
+		/*if(_USE_INTT_ID.indexOf("KAKAO") > -1 || _USE_INTT_ID.indexOf("APPLE") > -1)  {
 			introLayer.find("#kakaoAccount").show();
 		} else {
 			introLayer.find("#flowAccount").show();
@@ -125,10 +125,10 @@ var upgrade = (function () { // 업그레이드 팝업은 무료사용자, 프�
 				goToBusinessSignUp();
 			}
 			introLayer.hide();
-		});
+		});*/
 		
-		// 비즈니스 업그레이드 계정선택
-		businessSelectAccountLayer.find("#useExistAccount").on('click', function (e) {
+		// 비즈니스 업그레이드 계정선택 -------------------------------------------------------------------- 안쓰는 js
+		/*businessSelectAccountLayer.find("#useExistAccount").on('click', function (e) {
 
 			businessSelectAccountLayer.hide();
 			businessSettingTeamInfoLayer.find("#backToBusinessSignUp").parent().hide();
@@ -147,12 +147,12 @@ var upgrade = (function () { // 업그레이드 팝업은 무료사용자, 프�
 		businessSelectAccountLayer.find("#backToIntro").on('click', function (e) {
 			introLayer.fadeIn(200);
 			businessSelectAccountLayer.hide();
-		});
+		});*/
 		
 
 
-		// 비즈니스 업그레이드 계정등록
-		businessSignUpLayer.find("#nextToSettingTeamInfo").on('click', function (e) { // 다음
+		// 비즈니스 업그레이드 계정등록 -------------------------------------------------------------------- 안쓰는 js
+/*		businessSignUpLayer.find("#nextToSettingTeamInfo").on('click', function (e) { // 다음
 			validIdCheck(e);
 		});
 		
@@ -167,7 +167,7 @@ var upgrade = (function () { // 업그레이드 팝업은 무료사용자, 프�
 				upgradePopupLayer.find(".f-login-wrap").mCustomScrollbar("destroy");
 			}
 			businessSignUpLayer.hide();
-		});
+		});*/
 
 		/*
 		// imput validation
@@ -377,13 +377,13 @@ var upgrade = (function () { // 업그레이드 팝업은 무료사용자, 프�
 		});
 
 		// 비즈니스 업그레이드 마무리
-		businessFinishedLayer.find("#copyURL").on('click', function (e) {
+	/*	businessFinishedLayer.find("#copyURL").on('click', function (e) {
 
 			cmf_copyTextToClipboard(businessFinishedLayer.find("#teamURL").val(), cnts_Null2Void(i18n('DL165'),"팀 주소를 클립보드에 복사했습니다."));
 		});
 
 		businessFinishedLayer.find("#startNow").on('click', function (e) {
-			window.location.reload();
+			window.location.reload();*/
 			/*
 			var userId = _USER_ID;
 			if (cnts_Null2Void(businessSignUpLayer.find("#email").val(), "") == "") {
@@ -393,15 +393,14 @@ var upgrade = (function () { // 업그레이드 팝업은 무료사용자, 프�
 			}
 			
 			location.href = location.protocol + "//" + businessFinishedLayer.find("#teamURL").val() + "/login.act?USER_ID=" + userId;
-			*/
+			
 		});
-
 		// 프리미엄 업그레이드 마무리
 		premiumFinishedLayer.find("#startNow").on('click', function (e) {
 			window.location.reload();
 		});
 
-		isInit = true;
+		isInit = true;*/
 	}
 	
 	function eventBusinessSettingTeamInfoLayer(Layer) {

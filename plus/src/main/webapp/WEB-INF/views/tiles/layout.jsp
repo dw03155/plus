@@ -244,7 +244,7 @@ to {transform: rotate(360deg);}
 
 	<div id="popupDraw" class="d-none"></div>
 	<div id="itemComponent" class="d-none"></div>
+	
 	<script async src="flow-renewal/js/main.js"></script>
 </body>
-
 </html>

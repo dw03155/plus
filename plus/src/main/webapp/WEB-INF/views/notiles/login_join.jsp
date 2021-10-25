@@ -31,10 +31,8 @@
 	}
 </script>
 
-<meta name="robots" content="noindex">
-
-
 <meta charset="UTF-8">
+<meta name="robots" content="noindex">
 <meta http-equiv="Cache-Control" content="No-Cache">
 <meta http-equiv="Pragma" content="No-Cache">
 
@@ -192,7 +190,11 @@
 <!-- Daum -->
 
 
-
+<style>
+.async-hide {
+	opacity: 0 !important
+}
+</style>
 
 </head>
 <body>
@@ -344,6 +346,7 @@
 	</div>
 
 	<!-- top -->
+	<!-- 로그인 버튼 -->
 
 	<div class="signup_top">
 
@@ -1023,7 +1026,6 @@
 									</span>
 									</a>
 								</div>
-
 							</div>
 						</fieldset>
 					</form>
@@ -1093,7 +1095,9 @@
 							</div>
 
 							<div class="btn-box">
-
+								<button type="button" tabindex="14" class="btn-bigs c-gray"
+									id="nextToBusinessFinished" data-langcode="H499">1개월
+									무료 시작하기</button>
 								<div class="form-chk">
 									<a class="btn-back" id="backToBusinessCreateAccount"
 										data-langcode="H500">비즈니스 계정 정보 수정</a>
@@ -1281,7 +1285,6 @@
 	</div>
 	<!-- //footer -->
 
-
 	<script>
 		if (_LANG_CODE !== "") {
 			setlanguage(_LANG_CODE);
@@ -1291,11 +1294,6 @@
 	</script>
 
 	<!-- Page hiding snippet (recommended) -->
-<style>
-.async-hide {
-	opacity: 0 !important
-}
-</style>
 
 </body>
 </html>

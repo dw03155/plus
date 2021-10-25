@@ -185,7 +185,7 @@ to {
 	src="https://maps.googleapis.com/maps-api-v3/api/js/46/8/intl/ko_ALL/util.js"></script>
 </head>
 <body>
-	<div id="miniLock" style="display: none">
+	<div id="miniLock" style="display: block">
 		<div class="mini-mode-wrap">
 			<div class="mini-mode-background-type-1">
 				<div class="mini-mode-logo-icon-1"></div>

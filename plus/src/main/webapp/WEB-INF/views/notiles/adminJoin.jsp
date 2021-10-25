@@ -3,9 +3,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 
+<script>
+	var b_joins = false;
+	var b_flowCloud = true;
+	var b_testTeamDev = false;
+	var b_teamDev = false;
+	var b_real = true;
+	var b_testUsers = false;
+	var b_hyundaicar = false;
+	var b_enter = false;
+	var b_mobis = false;
+	var b_bgf = false
+	var b_eland = false
+	var b_sec = false;
+	var b_soil = false;
+	var b_dbfi = false;
+	var b_chatUpgrade = true;
+	var b_borawork = false;
+	var b_kimchang = false;
+	var clientIp = "180.71.250.238, 130.176.125.161";
+	var _LANG_CODE = "";
+	var touchCount = navigator.maxTouchPoints;
+
+	if ((touchCount > 1 && navigator.platform === 'MacIntel') && b_mobis) {
+		location.href = "/mobilePrevent.act";
+	}
+</script>
+
+<meta charset="UTF-8">
 <meta name="robots" content="noindex">
 
 <meta http-equiv="Cache-Control" content="No-Cache">
@@ -143,6 +169,22 @@
 <link rel="stylesheet" href="design2/css/jquery.mCustomScrollbar.css">
 <script src="design2/js/jquery.mCustomScrollbar.concat.min.js"></script>
 
+<script type="text/javascript">
+	//<![CDATA[
+	var DaumConversionDctSv = "type=M,orderID=,amount=";
+	var DaumConversionAccountID = "vm23n-obXlpSYtOySbWDtA00";
+	if (typeof DaumConversionScriptLoaded == "undefined"
+			&& location.protocol != "file:") {
+		var DaumConversionScriptLoaded = true;
+		document
+				.write(unescape("%3Cscript%20type%3D%22text/javas"
+						+ "cript%22%20src%3D%22"
+						+ (location.protocol == "https:" ? "https" : "http")
+						+ "%3A//t1.daumcdn.net/cssjs/common/cts/vr200/dcts.js%22%3E%3C/script%3E"));
+	}
+	//]]>
+</script>
+
 <style>
 .async-hide {
 	opacity: 0 !important
@@ -150,6 +192,7 @@
 </style>
 </head>
 <body>
+
 	<div class="business-signup-layer">
 
 		<!-- businessMngrSignUpPopup -->
@@ -175,26 +218,27 @@
 			<!-- //top -->
 			<div class="f-login-wrap mCustomScrollbar"
 				style="position: fixed; margin: 0px; padding: 60px 0 0 0; width: 100%; height: 100%;">
-				<!-- business sign in content -->
-				<div class="fl-content" id="businessCreateAccount"
-					style="padding-top: 50px;">
+				<form action="">
+					<fieldset style="padding-bottom: 30px;">
+						<!-- business sign in content -->
+						<div class="fl-content" id="businessCreateAccount"
+							style="padding-top: 50px;">
 
-					<!-- 전체메시지 -->
-					<div class="flk-msg-wrap">
-						<h3 class="font-Noto" data-langcode="H463">플로우 비즈니스 계정을 생성하세요</h3>
-						<h4 class="font-Noto">
-							<span style="color: #4c80d6;" data-langcode="H464">비즈니스
-								베이직 버전을 30일간 무료로 체험해 볼 수 있습니다.</span> <br class="block"> <span
-								data-langcode="H465">카드 등록 없이 시작할 수 있으며,&nbsp;&nbsp;요금이
-								부과되지 않습니다.</span> <a href="/price.act" target="flowPrice"
-								style="cursor: pointer; text-decoration: underline;"
-								data-langcode="H466">요금제 확인</a><br class="block">
-						</h4>
-					</div>
-					<!-- //전체메시지 -->
+							<!-- 전체메시지 -->
+							<div class="flk-msg-wrap">
+								<h3 class="font-Noto" data-langcode="H463">플로우 비즈니스 계정을
+									생성하세요</h3>
+								<h4 class="font-Noto">
+									<span style="color: #4c80d6;" data-langcode="H464">비즈니스
+										베이직 버전을 30일간 무료로 체험해 볼 수 있습니다.</span> <br class="block"> <span
+										data-langcode="H465">카드 등록 없이 시작할 수 있으며,&nbsp;&nbsp;요금이
+										부과되지 않습니다.</span> <a href="/price.act" target="flowPrice"
+										style="cursor: pointer; text-decoration: underline;"
+										data-langcode="H466">요금제 확인</a><br class="block">
+								</h4>
+							</div>
+							<!-- //전체메시지 -->
 
-					<form action="">
-						<fieldset style="padding-bottom: 30px;">
 							<legend data-langcode="H467">비즈니스 계정 이메일, 이름, 비밀번호 입력</legend>
 							<div class="input-box-style">
 								<!-- 입력전 -->
@@ -268,88 +312,41 @@
 								</div>
 
 
-								<legend data-langcode="H488">회사 이름, 회사 URL 입력</legend>
-								<!-- 입력전 -->
-								<div class="blocklabel">
-									<label class="font-Noto" data-langcode="H489">회사 이름</label>
-									<div class="inputbox">
-										<input type="text" id="teamName" tabindex="11" maxlength="50"
-											placeholder="회사 이름 입력" value="" data-langcode="H490">
-										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
-										<button type="button" class="btn-clear-text"
-											style="cursor: pointer;" data-langcode="H381">삭제</button>
-										<!-- 메시지 -->
-										<div class="error-msg">
-											<div class="error-cont font-Noto" data-langcode="H491">
-												회사 이름을 확인해 주세요 (특수문자 사용불가)</div>
-										</div>
-									</div>
-								</div>
-								<!-- ok -->
-								<div class="blocklabel url-box">
-									<label class="font-Noto" data-langcode="H492">회사 URL</label>
-									<div class="inputbox" style="width: 290px">
-										<input type="text" id="teamUrl" tabindex="12" maxlength=""
-											placeholder="URL 주소 입력" value="" style="width: 100%;"
-											data-langcode="H493"> <strong id="domain"
-											style="position: absolute; left: 300px; top: 20px; font-size: 18px;">.flow.team</strong>
-
-										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
-										<button type="button" class="btn-clear-text"
-											style="cursor: pointer;" data-langcode="H381">삭제</button>
-										<!-- 메시지 -->
-										<div class="error-msg">
-											<div class="error-cont font-Noto" data-langcode="H494">
-												3 ~ 50자의 영문, 숫자만 가능합니다.</div>
-										</div>
-									</div>
-								</div>
-
-
-								<div id="errorMsg" style="display: none;">
-									<span style="color: red; font-size: 12px;" data-langcode="H498">오류!</span>
-								</div>
-
-
 								<!-- 약관동의체크 -->
 								<div class="terms-check">
 									<input type="checkbox" tabindex="5" id="agreeWithTheTerms">
-									<span class="terms-and-privacy"></span>
-									<!--
-										<a href="/terms.html" target="flowTem" data-langcode="H1857">서비스 이용약관,</a >&nbsp;
-										<a href="/privacy.html" target="flowTem" data-langcode="H85">개인정보취급방침</a>
-										<span data-langcode="H452">을 확인하였고, 이에 동의합니다.</span>
-										-->
+									<span class="terms-and-privacy"></span> <a href="/terms.html"
+										target="flowTem" data-langcode="H1857">서비스 이용약관,</a>&nbsp; <a
+										href="/privacy.html" target="flowTem" data-langcode="H85">개인정보취급방침</a>
+									<span data-langcode="H452">을 확인하였고, 이에 동의합니다.</span>
+
 								</div>
 							</div>
 							<div class="btn-box">
 								<button type="button" id="nextToSettingTeamInfo"
 									class="btn-bigs c-gray" data-langcode="H482">다음</button>
+							</div>
+						</div>
+						<!-- // business sign in content -->
+
+
+						<!-- business setting team info content -->
+						<div class="fl-content" id="businessMngrSettingTeamInfo"
+							style="display: block; padding-top: 50px;">
+							<!-- 전체메시지 -->
+							<div class="flk-msg-wrap">
+								<h3 class="font-Noto" data-langcode="H485">회사 정보 입력 후 시작하세요</h3>
+
+								<h4 class="font-Noto">
+									<span data-langcode="H486">아래 정보들을 입력 후, 플로우 관리자로 시작할 수
+										있습니다.</span><br class="block"> <span style="color: #4c80d6;"
+										data-langcode="H487">URL 주소는 직원들을 초대할 때 이용할 수 있습니다.</span>
+								</h4>
 
 							</div>
-						</fieldset>
-					</form>
-				</div>
-				<!-- // business sign in content -->
+							<!-- //전체메시지 -->
 
-				<!-- business setting team info content -->
-				<div class="fl-content" id="businessMngrSettingTeamInfo"
-					style="display: none; padding-top: 50px;">
-					<!-- 전체메시지 -->
-					<div class="flk-msg-wrap">
-						<h3 class="font-Noto" data-langcode="H485">회사 정보 입력 후 시작하세요</h3>
 
-						<h4 class="font-Noto">
-							<span data-langcode="H486">아래 정보들을 입력 후, 플로우 관리자로 시작할 수
-								있습니다.</span><br class="block"> <span style="color: #4c80d6;"
-								data-langcode="H487">URL 주소는 직원들을 초대할 때 이용할 수 있습니다.</span>
-						</h4>
-
-					</div>
-					<!-- //전체메시지 -->
-
-					<form action="">
-						<fieldset>
 							<legend data-langcode="H488">회사 이름, 회사 URL 입력</legend>
 							<div class="input-box-style">
 								<!-- 입력전 -->
@@ -382,8 +379,8 @@
 											style="cursor: pointer;" data-langcode="H381">삭제</button>
 										<!-- 메시지 -->
 										<div class="error-msg">
-											<div class="error-cont font-Noto" data-langcode="H494">
-												3 ~ 50자의 영문, 숫자만 가능합니다.</div>
+											<div class="error-cont font-Noto" data-langcode="H494">3
+												~ 50자의 영문, 숫자만 가능합니다.</div>
 										</div>
 									</div>
 								</div>
@@ -395,37 +392,27 @@
 							</div>
 
 							<div class="btn-box">
-
-								<div class="form-chk">
-									<a class="btn-back" id="backToBusinessCreateAccount"
-										data-langcode="H500">비즈니스 계정 정보 수정</a>
-								</div>
+								<button type="button" tabindex="14" class="btn-bigs c-gray"
+									id="nextToBusinessFinished" data-langcode="H499">1개월
+									무료 시작하기</button>
 							</div>
-						</fieldset>
-					</form>
-				</div>
-				<!-- //  business setting team content -->
+						</div>
+						<!-- //  business setting team content -->
+					</fieldset>
+				</form>
 			</div>
 		</div>
+		<!-- //businessMngrSignUpPopup -->
+
 	</div>
+	<script>
+		if (_LANG_CODE !== "") {
+			setlanguage(_LANG_CODE);
+		} else {
+			//done
+		}
+	</script>
 
-	<!-- footer -->
-
-	<div class="signup_btm">
-
-		<ul>
-			<li><a style="color: #000; font-weight: bold;"
-				onclick="cmf_openWindow('/company.act', 'flowTem')"
-				data-langcode="H531">회사 소개</a>&nbsp;|&nbsp;</li>
-			<li><a style="color: #000; font-weight: bold;"
-				onclick="cmf_openWindow('/terms.act', 'flowTem')"
-				data-langcode="H84">이용약관</a>&nbsp;|&nbsp;</li>
-			<li><a style="color: #000; font-weight: bold;"
-				onclick="cmf_openWindow('/privacy.act', 'flowTem')"><b
-					data-langcode="H85">개인정보취급방침</b></a></li>
-		</ul>
-		<p>Copyright © Madras check All Rights Reserved</p>
-	</div>
-	<!-- //footer -->
+	<!-- Page hiding snippet (recommended) -->
 </body>
 </html>

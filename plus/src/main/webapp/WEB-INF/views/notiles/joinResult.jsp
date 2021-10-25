@@ -14,10 +14,10 @@
 			<div class="fl-content">
 				<!-- 전체메시지 -->
 				<div class="flk-msg-wrap">
-					<img src="/design2/img_login/floki_02.png">
+					<img src="design2/img_login/floki_02.png">
 					<h3 class="font-Noto">
 						<strong></strong> <br> <span data-langcode="H456">가입을
-							환영합니다!</span>]
+							환영합니다!</span>
 					</h3>
 
 					<h4 class="font-Noto font18" data-langcode="H457">플로우 앱을 다운받고
