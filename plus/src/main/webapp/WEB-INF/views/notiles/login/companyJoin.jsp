@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -222,102 +222,142 @@ to {
 <script type="text/javascript" charset="UTF-8"
 	src="https://maps.googleapis.com/maps-api-v3/api/js/46/8/intl/ko_ALL/util.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+
 </head>
 <body>
-	<div align="center">
+	<div id="companyJoinLayer" class="">
+		<div class="upgrade-singup-header">
+			<a href="http://" class="logo"> <img
+				src="flow-renewal/assets/images/flow_logo_small.png">
+			</a> <a href="joinForm.do" id="closeBtn" class="login-close-button"></a>
+		</div>
 
-		<div id="joinFrm" style="display: block;">
-			<h1>회원가입</h1>
-			<div>
-				<form action="newMail.do" name="frm" id="frm">
-					<table>
-						<tr>
-							<th>이메일</th>
-							<td><input type="text" id="email" name="email"></td>
-						</tr>
-						<tr>
-							<th>이름</th>
-							<td><input type="text" id="name" name="name"></td>
-						</tr>
-						<tr>
-							<th>비밀번호</th>
-							<td><input type="password" id="pwd" name="pwd"></td>
-						</tr>
-						<tr>
-							<th>비밀번호 확인</th>
-							<td><input type="password" id="pwdCheck" name="pwdCheck">
-								<font name="check" size="2" color="red"></font></td>
-						</tr>
-						<tr>
-							<th>회사명</th>
-							<td><input type="text" id="coName" name="coName"></td>
-						</tr>
-						<tr>
-							<th>회사URL</th>
-							<td><input type="text" id="coUrl" name="coUrl" readonly="readonly"  value="${newUrl}"></td>
-						</tr>
-					</table>
-					<div>
-						<button type="button" id="joinBtn" name="btn">이동</button>
+		<!-- 기존회사참여 -->
+		<div id="companyJoinMain" class="login-wrap invite-login">
+			<div class="login-text">기존회사 참여</div>
+			<div class="login-company">이미 회사에서 플로우를 사용하고 있다면 회사 URL을 입력하여
+				함께하세요.</div>
+			<div class="join-contents">
+				<p class="url-tit">회사 URL</p>
+				<div class="url-wr">
+					<span>https://</span> <input id="coUrl" name="coUrl" type="text"
+						class="join-input" autocomplete="off" placeholder="회사 URL">
+					<!-- 입력 오류 시 .error 클래스 추가 -->
+					<span>.flow.team</span>
+				</div>
+				<p id="errMeg" class="error-text d-none">3~5자 영문, 숫자만 가능합니다.</p>
+				<!-- 입력 오류 시 display: block -->
+			</div>
+			<button id="JoinBtn" class="btn-join">회사 참여하기</button>
+		</div>
+		<!-- /기존회사참여 -->
+		
+		<!-- 기존회사정보확인 -->
+		<div id="checkJoinPopup" class="flow-all-background-1 d-none">
+			<div class="flow-project-make-1">
+				<div class="flow-project-make-2">
+					<div id="popupLayer" class="flow-login-popup popup-10">
+						<div class="flow-project-header-1">
+							회사 정보 확인 후 시작하세요! <a id="closePopupBtn"
+								class="flow-close-type-1"></a>
+						</div>
+						<form id="frm">
+						<input type="hidden" name="newCoUrl">
+						<div id="coInfo" class="flow-content">
+							<ul class="content-company">
+								<li id="companyLogoUrl" class="logo"></li>
+								<li id="companyName" class="name"></li>
+								<li id="companyUrl" class="url"></li>
+							</ul>
+						<button id="joinSubmit1" class="btn-popup01">팀 참여하기</button>
+						<button id="joinSubmit2" class="btn-popup01">플러스 생성</button>
+						</div>
+						</form>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
+		<!-- /기존회사정보확인 -->
 	</div>
 	<script>
-		$(function() {
-			$('#pwd').keyup(function() {
-				$('font[name=check]').text('');
-			}); //#user_pass.keyup
+		$("#JoinBtn").click(
+				function() {
+					var coUrl = $('input:text[name="coUrl"]').val();
+					console.log(coUrl)
+					$.ajax({
+						url : "getCompany.do?coUrl=" + coUrl,
+						type : "get",
+						//data:JSON.stringify({coUrl:coUrl}),
+						/* data: $("input:text[name=coUrl]").serialize(), */
+						//contentType: "application/json",
+						dataType : "json",
+						success : function(data) {
+							console.log(data);
+							/* var $coLogo = data.coLogo; */
+							var $coUrl = data.coUrl;
+							var $coName = data.coName;
 
-			$('#pwdCheck').keyup(function() {
-				if ($('#pwd').val() != $('#pwdCheck').val()) {
-					$('font[name=check]').text('');
-					$('font[name=check]').css("color", "red")
-					$('font[name=check]').html("암호틀림");
-				} else {
-					$('font[name=check]').text('');
-					$('font[name=check]').css("color", "green")
-					$('font[name=check]').html("암호맞음");
-				}
-			}); //#chpass.keyup 
+							if (data != null) {
+								$('#checkJoinPopup').attr('class',
+										'flow-all-background-1');
+								$('#companyName').text($coName);
+								$('#companyUrl').text($coUrl);
+								$('#joinSubmit2').attr('class','btn-popup01 d-none'); 
+								$('#joinSubmit1').attr('class','btn-popup01');
+								$('#joinSubmit1').on('click',function(){
+									$('#frm').attr("action", "userJoin.do");
+									$('[name="newCoUrl"]').val($("#coUrl").val());
+								});
+								
+			
+							}
+						},
+						error : function(reject) {
+							console.log(reject);
+							$('#checkJoinPopup').attr('class',
+								'flow-all-background-1');
+								$('#companyName').text('해당 회사가 존재하지않습니다');
+								$('#companyUrl').text('새로운 플러스를 만들어보세요');
+								$('#joinSubmit1').attr('class','btn-popup01 d-none');
+								$('#joinSubmit2').attr('class','btn-popup01');
+								$('#joinSubmit2').on('click',function(){
+									if($("#coUrl").val()==""){
+										alert("url을 입력하세요.")
+									}else{										
+									$('#frm').attr("action", "adminJoin.do");
+									$('[name="newCoUrl"]').val($("#coUrl").val());
+									}
+								});
+									
+						}
+					});
 
-			$("#joinBtn").on("click", function(e) {
-				if ($('#pwd').val() != $('#pwdCheck').val()) {
-					alert("비밀번호를 바르게 입력하세요")
-				} else {
-					memberInsert();
-				}
-			});//memberInsert입력
-		});
+				});
+		$("#closePopupBtn").click(
+			function(){
+				$('#checkJoinPopup').attr('class',
+				'flow-all-background-1 d-none');
+			});	
+		
+		
 
-		function memberInsert() {
-			var email = $('input:text[name="email"]').val();
-			var name = $('input:text[name="name"]').val();
-			var pwd = $('input:password[name="pwd"]').val();
-			var coName = $('input:text[name="coName"]').val();
-			var coUrl = $('input:text[name="coUrl"]').val();
-			$.ajax({
-				url : "newCompanyInsert.do",
-				method : "post",
-				/* data:JSON.stringify($("#frm").serializeObject()), */
-				data : JSON.stringify({
-					email : email,
-					name : name,
-					pwd : pwd,
-					coName : coName,
-					coUrl : coUrl
-				}),
-				contentType : "application/json",
-				dataType : "json",
-				success : function(data) {
-					console.log(data);
-					frm.submit();
-				}
-
-			})
-
-		}
 	</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

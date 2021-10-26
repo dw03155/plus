@@ -27,8 +27,7 @@
 		<beans:property name="order" value="2" />
 	</beans:bean>
 
-	<context:component-scan
-		base-package="co.plus.prj" />
+	<context:component-scan	base-package="co.plus.prj" />
 
 	<!-- tiles -->
 	<beans:bean id="tilesViewResolver"
