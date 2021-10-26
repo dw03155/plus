@@ -67,6 +67,62 @@
 <meta property="og:image"
 	content="https://flow.team/design2/homepage_2019/img/flow_meta_V2.png">
 
+<script>
+	var b_joins = false;
+	var b_flowCloud = true;
+	var b_testTeamDev = false;
+	var b_teamDev = false;
+	var b_real = true;
+	var b_testUsers = false;
+	var b_hyundaicar = false;
+	var b_enter = false;
+	var b_mobis = false;
+	var b_bgf = false
+	var b_eland = false
+	var b_sec = false;
+	var b_soil = false;
+	var b_dbfi = false;
+	var b_chatUpgrade = true;
+	var b_borawork = false;
+	var b_kimchang = false;
+	var clientIp = "180.71.250.238, 130.176.125.161";
+	var _LANG_CODE = "";
+	var touchCount = navigator.maxTouchPoints;
+
+	if ((touchCount > 1 && navigator.platform === 'MacIntel') && b_mobis) {
+		location.href = "/mobilePrevent.act";
+	}
+</script>
+
+<meta charset="UTF-8">
+<meta name="robots" content="noindex">
+<meta http-equiv="Cache-Control" content="No-Cache">
+<meta http-equiv="Pragma" content="No-Cache">
+
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+<meta name="format-detection" content="telephone=no">
+
+<meta name="url" content="https://flow.team/login.act">
+<meta name="conn" content="">
+
+<meta name="theme-color" content="#5f5ab9">
+
+<title>플로우(flow) - 대한민국 NO.1 올인원 협업툴</title>
+<meta name="description"
+	content="프로젝트관리, 업무관리, 메신저, 화상회의, 파일공유&보관, 간트차트, 일정관리까지! 재택근무, 원격근무, 리모트워크, 비대면 업무환경을 구축해 보세요. 지금 무료로 시작하세요.">
+<meta name="keywords"
+	content="프로젝트관리, 업무관리, 사내메신저, 업무메신저, 업무용메신저, 기업메신저, 기업메신져, 협업, 협업툴, 협업툴추천, 협업툴순위, 국내협업툴, 협업도구, 협업툴비교, 일정관리, 업무관리, 그룹웨어, 스마트워크, 리모트워크, 바우처, 바우처지원, 중소기업바우처, 중소기업지원사업, 비대면바우처">
+
+<meta property="og:url" content="https://flow.team/login.act">
+<meta property="og:title" content="플로우(flow) - 대한민국 NO.1 올인원 협업툴">
+<meta property="og:type" content="website">
+<meta property="og:description"
+	content="프로젝트관리, 업무관리, 메신저, 화상회의, 파일공유&보관, 간트차트, 일정관리까지! 재택근무, 원격근무, 리모트워크, 비대면 업무환경을 구축해 보세요. 지금 무료로 시작하세요.">
+<meta property="og:image"
+	content="https://flow.team/design2/homepage_2019/img/flow_meta_V2.png">
+
 <meta name="author" content="Madras check">
 <meta name="subject" content="work tool">
 <meta name="copyright" content="Madras check">
@@ -174,27 +230,6 @@
 
 <link rel="stylesheet" href="design2/css/jquery.mCustomScrollbar.css">
 <script src="design2/js/jquery.mCustomScrollbar.concat.min.js"></script>
-
-
-
-
-<!-- Daum -->
-<script type="text/javascript">
-	//<![CDATA[
-	var DaumConversionDctSv = "type=M,orderID=,amount=";
-	var DaumConversionAccountID = "vm23n-obXlpSYtOySbWDtA00";
-	if (typeof DaumConversionScriptLoaded == "undefined"
-			&& location.protocol != "file:") {
-		var DaumConversionScriptLoaded = true;
-		document
-				.write(unescape("%3Cscript%20type%3D%22text/javas"
-						+ "cript%22%20src%3D%22"
-						+ (location.protocol == "https:" ? "https" : "http")
-						+ "%3A//t1.daumcdn.net/cssjs/common/cts/vr200/dcts.js%22%3E%3C/script%3E"));
-	}
-	//]]>
-</script>
-<!-- Daum -->
 
 
 

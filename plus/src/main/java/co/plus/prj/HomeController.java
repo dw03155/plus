@@ -14,6 +14,7 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 
 		return "notiles/login/login";
+
 	}
 	
 	

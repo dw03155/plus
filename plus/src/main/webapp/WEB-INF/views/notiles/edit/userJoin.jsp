@@ -4,8 +4,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
 <meta name="robots" content="noindex">
 
 <meta http-equiv="Cache-Control" content="No-Cache">

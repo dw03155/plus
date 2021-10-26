@@ -16,7 +16,7 @@
 			<div class="f-login-wrap">
 
 				<!-- 게스트로그인 layerpopup -->
-				<!-- <div
+				<!--  <div
 					style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; opacity: 0.5; filter: alpha(opacity = 50); z-index: 2000; display: block;"
 					id="guestLoginDivModal"></div> -->
 				<!-- modal -->
