@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 </head>
 <body>
-
 	<tiles:insertAttribute name="main" />
 </body>
 </html>
