@@ -1,13 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
 <meta name="robots" content="noindex">
-
 <meta http-equiv="Cache-Control" content="No-Cache">
 <meta http-equiv="Pragma" content="No-Cache">
 
@@ -65,6 +63,21 @@
 <meta property="fb:app_id" content="1491712834464733">
 
 
+<link rel="stylesheet" href="flow-renewal/assets/css/reset.css">
+<link rel="stylesheet" href="flow-renewal/dist/css/common.min.css">
+
+
+<script async=""
+	src="https://apis.google.com/js/platform.js?google-drive"
+	gapi_processed="true"></script>
+<script async="" src="https://www.dropbox.com/static/api/2/dropins.js"
+	id="dropboxjs" data-app-key="mby426ffrxlv4qn"></script>
+<script async=""
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADjbtMn46r9DGFyo_ZRz3c6fOXzuOKWCw&amp;libraries=places"
+	charset="UTF-8"></script>
+<script type="text/javascript"
+	src="https://t1.daumcdn.net/cssjs/common/cts/vr200/dcts.js"></script>
+<script src="https://t1.kakaocdn.net/cts/__dcts__.js"></script>
 
 
 <script type="text/javascript" src="js/lib/jquery-1.10.2.min.js"></script>
@@ -74,6 +87,10 @@
 <script type="text/javascript" src="js/jexPlugin/jex.loading2.js"></script>
 <script type="text/javascript" src="js/gibberish-aes.js"></script>
 <script type="text/javascript" src="js/jquery.i18n.properties.js"></script>
+<script type="text/javascript" charset="UTF-8"
+	src="https://maps.googleapis.com/maps-api-v3/api/js/46/8/intl/ko_ALL/common.js"></script>
+<script type="text/javascript" charset="UTF-8"
+	src="https://maps.googleapis.com/maps-api-v3/api/js/46/8/intl/ko_ALL/util.js"></script>
 
 
 <link href="https://fonts.googleapis.com/css?family=Roboto"
@@ -147,9 +164,118 @@
 .async-hide {
 	opacity: 0 !important
 }
+
 </style>
 </head>
 <body>
+
+	<script>
+		var isKtWorks = false;
+		var redirectCntns = "";
+		redirectCntns += "<input type='hidden' name='T_COLABO_SRNO' id='colabo_srno' value=''/>";
+		redirectCntns += "<input type='hidden' name='T_COLABO_COMMT_SRNO' id='colabo_commt_srno' value=''/>";
+		redirectCntns += "<input type='hidden' name='T_COLABO_REMARK_SRNO' id='colabo_remark_srno' value=''/>";
+	</script>
+
+
+	<script>
+		var s_var_list = "";
+		s_var_list += "<input type='hidden' name='INVT_KEY' value=''/>";
+		var $frmObj = $("<form id='invite_form' name='invite_form'></form>");
+		$frmObj.attr("method", "post");
+		$frmObj.appendTo("body");
+		$frmObj.append(s_var_list);
+		$frmObj.append(redirectCntns);
+
+		//var objPopup = window.open(url, _CNTS_TRGT);
+		if (cf_getCookie("RENEWAL_MAINTAIN") === "Y") {
+			$frmObj.attr("action", "/signin.act");
+		} else {
+			$frmObj.attr("action", "flow_layout.act");
+		}
+
+		try {
+			var electronAppName = fn_ElectronNameCheck();
+			var electronVersion = fn_ElectronVersionCheck();
+			var isTestApp = electronVersion > "1_2_1"
+					&& electronAppName.indexOf('new') > -1;
+			var isNewFlow = electronVersion >= "1_3_1"
+					&& electronAppName === 'flow';
+
+			if (fn_getConfigsForElectron().b_fullMode
+					&& (isTestApp || isNewFlow)) {
+				$frmObj.attr("action", "signin.act");
+			}
+			$frmObj.attr("target", "_self");
+			$frmObj.submit();
+			$frmObj.remove();
+		} catch (e) {
+		}
+	</script>
+
+	<div id="fb-root"></div>
+
+	<script>
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id))
+				return;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.10";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+
+
+
+
+	<input type="hidden" id="_DEV_REAL" value="REAL" />
+	<input type="hidden" id="_STR_BASE_URL" value="http://flow.team" />
+	<input type="hidden" id="serverConnNum" value="" />
+
+	<input type="hidden" id="ELECTRON_YN" value="N" />
+	<input type="hidden" id="ELECTRON_VER" value="" />
+
+	<!-- sub domain start -->
+	<input type="hidden" id="_SUB_DOM" value="" />
+	<input type="hidden" id="_SERVICE_VERSION" value="" />
+	<input type="hidden" id="_SUB_DOMAIN_NAME" value="" />
+	<input type="hidden" id="_SUB_DOMAIN_LOGO_URL" value="" />
+	<input type="hidden" id="_SUB_DOMAIN_USE_INTT_ID" value="" />
+
+	<input type="hidden" id="_MOBILE_YN" value="N" />
+	<input type="hidden" id="_COMPANY_CODE_USEABLE" value="false" />
+
+	<input type="hidden" id="_BIS_MNGR_SIGNUP" value="Y" />
+	<input type="hidden" id="_RESAILER" value="" />
+
+	<!-- sub domain end -->
+	<input type="hidden" id="_HOMEPAGE" value="http://flow.team" />
+
+
+	<!-- invite start -->
+	<div id="INVT_KEY" style="display: none;"></div>
+	<!-- invite end -->
+
+	<!-- 회원가입 화면 direct 여부 start -->
+	<div id="JOIN" style="display: none;"></div>
+	<!-- 회원가입 화면 direct 여부 end -->
+	<!-- 비대면 바우처 SRNO 세팅  start -->
+	<input type="hidden" id="_UNTACT_VOUCHER_SRNO" value="-1" />
+	<!-- 비대면 바우처 SRNO 세팅 end -->
+
+	<div class="alert_wrap" id="layerAlert"
+		style="z-index: 99999; top: 50px; left: 40%; display: none; text-align: center;">
+		<div class='alert_box'>
+			<p style="color: #555; font-weight: bold"></p>
+		</div>
+	</div>
+
+
+
+
+
 	<div class="business-signup-layer">
 
 		<!-- businessMngrSignUpPopup -->
@@ -175,34 +301,31 @@
 			<!-- //top -->
 			<div class="f-login-wrap mCustomScrollbar"
 				style="position: fixed; margin: 0px; padding: 60px 0 0 0; width: 100%; height: 100%;">
-				<!-- business sign in content -->
-				<div class="fl-content" id="businessCreateAccount"
-					style="padding-top: 50px;">
+				<form action="">
+					<fieldset style="padding-bottom: 30px;">
+						<!-- business sign in content -->
+						<div class="fl-content" id="businessCreateAccount"
+							style="padding-top: 50px;">
 
-					<!-- 전체메시지 -->
-					<div class="flk-msg-wrap">
-						<h3 class="font-Noto" data-langcode="H463">플로우 비즈니스 계정을 생성하세요</h3>
-						<h4 class="font-Noto">
-							<span style="color: #4c80d6;" data-langcode="H464">비즈니스
-								베이직 버전을 30일간 무료로 체험해 볼 수 있습니다.</span> <br class="block"> <span
-								data-langcode="H465">카드 등록 없이 시작할 수 있으며,&nbsp;&nbsp;요금이
-								부과되지 않습니다.</span> <a href="/price.act" target="flowPrice"
-								style="cursor: pointer; text-decoration: underline;"
-								data-langcode="H466">요금제 확인</a><br class="block">
-						</h4>
-					</div>
-					<!-- //전체메시지 -->
+							<!-- 전체메시지 -->
+							<div class="flk-msg-wrap">
+								<h3 class="font-Noto" data-langcode="H463">관리자 계정을 생성하세요</h3>
+								<h4 class="font-Noto">
+									<span data-langcode="H486">아래 정보들을 입력 후, 플러스 관리자로 시작할 수
+										있습니다.</span><br class="block"> <span style="color: #4c80d6;"
+										data-langcode="H487">URL 주소는 직원들을 초대할 때 이용할 수 있습니다.</span>
+								</h4>
+							</div>
+							<!-- //전체메시지 -->
 
-					<form action="">
-						<fieldset style="padding-bottom: 30px;">
-							<legend data-langcode="H467">비즈니스 계정 이메일, 이름, 비밀번호 입력</legend>
+							<!-- <legend data-langcode="H467">비즈니스 계정 이메일, 이름, 비밀번호 입력</legend> -->
 							<div class="input-box-style">
 								<!-- 입력전 -->
 								<div class="blocklabel">
 									<label class="font-Noto" data-langcode="H333">이메일</label>
 									<div class="inputbox">
-										<input type="text" name="email" maxlength="50" tabindex="1"
-											placeholder="example@gmail.com" value="" />
+										<input type="text" id="email" name="email" maxlength="50"
+											tabindex="1" placeholder="example@gmail.com" value="" />
 										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
 										<button type="button" class="btn-clear-text"
 											style="cursor: pointer;" data-langcode="H381">삭제</button>
@@ -217,8 +340,8 @@
 								<div class="blocklabel">
 									<label class="font-Noto" data-langcode="H331">이름</label>
 									<div class="inputbox">
-										<input type="text" name="name" tabindex="2" maxlength="50"
-											placeholder="이름" value="" data-langcode="H331">
+										<input type="text" name="name" id="name" tabindex="2"
+											maxlength="50" placeholder="이름" value="" data-langcode="H331">
 										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
 										<button type="button" class="btn-clear-text"
 											style="cursor: pointer;" data-langcode="H381">삭제</button>
@@ -233,10 +356,11 @@
 								<div class="blocklabel">
 									<label class="font-Noto" data-langcode="H362">비밀번호</label>
 									<div class="inputbox">
-										<input type="password" name="password" class="password-input"
-											maxlength="50" tabindex="3" placeholder="비밀번호 입력" value=""
-											data-langcode="H399"> <span class="password-mask"><em
-											class="blind">비밀번호 보이기 / 숨기기 버튼 </em></span>
+										<input type="password" name="pwd" id="pwd"
+											class="password-input" maxlength="50" tabindex="3"
+											placeholder="비밀번호 입력" value="" data-langcode="H399">
+										<span class="password-mask"><em class="blind">비밀번호
+												보이기 / 숨기기 버튼 </em></span>
 										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
 										<button type="button" class="btn-clear-text"
 											style="cursor: pointer;" data-langcode="H381">삭제</button>
@@ -251,7 +375,7 @@
 								<div class="blocklabel">
 									<label class="font-Noto" data-langcode="H383">비밀번호 확인</label>
 									<div class="inputbox">
-										<input type="password" name="passwordCheck"
+										<input type="password" name="pwdCheck" id="pwdCheck"
 											class="password-input" maxlength="50" tabindex="4"
 											placeholder="비밀번호 재입력" data-langcode="H477"> <span
 											class="password-mask"><em class="blind">비밀번호 보이기
@@ -267,70 +391,12 @@
 									</div>
 								</div>
 
-
-
-								<!-- 약관동의체크 -->
-								<div class="terms-check">
-									<input type="checkbox" tabindex="5" id="agreeWithTheTerms">
-									<span class="terms-and-privacy"></span>
-									<!--
-										<a href="/terms.html" target="flowTem" data-langcode="H1857">서비스 이용약관,</a >&nbsp;
-										<a href="/privacy.html" target="flowTem" data-langcode="H85">개인정보취급방침</a>
-										<span data-langcode="H452">을 확인하였고, 이에 동의합니다.</span>
-										-->
-								</div>
-							</div>
-							<div class="btn-box">
-								<button type="button" id="nextToSettingTeamInfo"
-									class="btn-bigs c-gray" data-langcode="H482">다음</button>
-
-								<!--<div class="form-chk"><a class="btn" id="goToPremiumSignUp"><span data-langcode="H483">프로젝트에 초대받아 시작하시나요?</span><span style="color:#4d7fd6;">&nbsp;<u data-langcode="H484">게스트로 시작하기</u></span></a></div>-->
-								<div class="form-chk" style="text-align: center">
-									<span data-langcode="A1857">게스트 계정 가입을 원하시나요?</span><a
-										class="btn" id="goToPremiumSignUp"><span
-										style="color: #4d7fd6;">&nbsp;<u data-langcode="H484">게스트로
-												시작하기</u></span></a>
-								</div>
-								<div>
-									<br> <a class="btn"> <span
-										style="color: #4d7fd6; display: none"> <u
-											data-langcode="A1858" id="whatIsGuest">게스트 회원이란?</u>
-									</span>
-									</a>
-								</div>
-
-							</div>
-						</fieldset>
-					</form>
-				</div>
-				<!-- // business sign in content -->
-
-				<!-- business setting team info content -->
-				<div class="fl-content" id="businessMngrSettingTeamInfo"
-					style="display: none; padding-top: 50px;">
-					<!-- 전체메시지 -->
-					<div class="flk-msg-wrap">
-						<h3 class="font-Noto" data-langcode="H485">회사 정보 입력 후 시작하세요</h3>
-
-						<h4 class="font-Noto">
-							<span data-langcode="H486">아래 정보들을 입력 후, 플로우 관리자로 시작할 수
-								있습니다.</span><br class="block"> <span style="color: #4c80d6;"
-								data-langcode="H487">URL 주소는 직원들을 초대할 때 이용할 수 있습니다.</span>
-						</h4>
-
-					</div>
-					<!-- //전체메시지 -->
-
-					<form action="">
-						<fieldset>
-							<legend data-langcode="H488">회사 이름, 회사 URL 입력</legend>
-							<div class="input-box-style">
-								<!-- 입력전 -->
 								<div class="blocklabel">
 									<label class="font-Noto" data-langcode="H489">회사 이름</label>
 									<div class="inputbox">
-										<input type="text" id="teamName" tabindex="11" maxlength="50"
-											placeholder="회사 이름 입력" value="" data-langcode="H490">
+										<input type="text" id="coName" name="coName" tabindex="11"
+											maxlength="50" placeholder="회사 이름 입력" value=""
+											data-langcode="H490">
 										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
 										<button type="button" class="btn-clear-text"
 											style="cursor: pointer;" data-langcode="H381">삭제</button>
@@ -345,9 +411,10 @@
 								<div class="blocklabel url-box">
 									<label class="font-Noto" data-langcode="H492">회사 URL</label>
 									<div class="inputbox" style="width: 290px">
-										<input type="text" id="teamUrl" tabindex="12" maxlength=""
-											placeholder="URL 주소 입력" value="" style="width: 100%;"
-											data-langcode="H493"> <strong id="domain"
+										<input type="text" id="coUrl" name="coUrl" tabindex="12"
+											maxlength="" readonly="readonly" value="${newUrl}"
+											style="width: 100%;" data-langcode="H493"> <strong
+											id="domain"
 											style="position: absolute; left: 300px; top: 20px; font-size: 18px;">.flow.team</strong>
 
 										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
@@ -355,8 +422,8 @@
 											style="cursor: pointer;" data-langcode="H381">삭제</button>
 										<!-- 메시지 -->
 										<div class="error-msg">
-											<div class="error-cont font-Noto" data-langcode="H494">
-												3 ~ 50자의 영문, 숫자만 가능합니다.</div>
+											<div class="error-cont font-Noto" data-langcode="H494">3
+												~ 50자의 영문, 숫자만 가능합니다.</div>
 										</div>
 									</div>
 								</div>
@@ -365,40 +432,119 @@
 								<div id="errorMsg" style="display: none;">
 									<span style="color: red; font-size: 12px;" data-langcode="H498">오류!</span>
 								</div>
-							</div>
 
-							<div class="btn-box">
+								<!-- 약관동의체크 -->
+								<div class="terms-check">
+									<input type="checkbox" tabindex="5" id="agreeWithTheTerms">
+									<span class="terms-and-privacy"></span>
 
-								<div class="form-chk">
-									<a class="btn-back" id="backToBusinessCreateAccount"
-										data-langcode="H500">비즈니스 계정 정보 수정</a>
 								</div>
 							</div>
-						</fieldset>
-					</form>
-				</div>
-				<!-- //  business setting team content -->
+							<div class="btn-box">
+								<button type="button" id="nextToSettingTeamInfo"
+									class="btn-bigs c-gray" data-langcode="H482">회원가입</button>
+							</div>
+						</div>
+
+						<!-- 인증번호 확인 -->
+						<div id="checkJoinPopup" class="flow-all-background-1 d-none">
+							<div class="flow-project-make-1">
+								<div class="flow-project-make-2">
+									<div id="popupLayer" class="flow-login-popup popup-10">
+										<div class="flow-project-header-1">
+											인증번호를 입력하세요! <a id="closePopupBtn" class="flow-close-type-1"></a>
+										</div>
+										<div id="coInfo" class="flow-content">
+											<ul id="certiNum" class="content-company">
+												<li id="companyName" class="name">인증번호: <input
+													type="text" name="joinNum" id="joinNum"></li>
+											</ul>
+											<button type="button" id="join" name="join"
+												class="btn-popup01">인증하기</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /인증번호 확인 -->
+
+					</fieldset>
+				</form>
 			</div>
 		</div>
+		<!-- //businessMngrSignUpPopup -->
+
 	</div>
+	<!-- Page hiding snippet (recommended) -->
+	<script>
+			$("#nextToSettingTeamInfo").on("click", function(e) {
+				if ($('#pwd').val() != $('#pwdCheck').val()) {
+					alert("비밀번호를 바르게 입력하세요")
+				} else {
+					$('#checkJoinPopup').attr("class","flow-all-background-1");
+					var email = $("#email").val();
+					$.ajax({
+						type : "post",
+						url : "joinMail.do",
+						data : {
+							email : email
+						},
+						/* dataType : "json", */
+						success: function(key){
+							
+							alert(email + "로 인증메일이 발송되었습니다.");
+							isCertification = true;
+							console.log(key);
+							
+							$("#joinNum").on("change keyup paste", function(){
+								if($("#joinNum").val() == key){
+									$("#certiNum").append("<li class='url'/>").text("인증");
+									isCertification = true;
+									$("#join").on("click",function(){
+										memberInsert();	
+									});
+									}
+								}else{
+									$("#certiNum").append("<li class='url'/>").text("불일치");
+									isCertification = false;
+									$("join").on("click", function(){
+										alert("인증번호를 확인하세요.");
+									})
+								}
+							})
+							}
+						});
+					});
 
-	<!-- footer -->
+		
+		
+		function memberInsert() {
+			var email = $('input:text[name="email"]').val();
+			var name = $('input:text[name="name"]').val();
+			var pwd = $('input:password[name="pwd"]').val();
+			var coName = $('input:text[name="coName"]').val();
+			var coUrl = $('input:text[name="coUrl"]').val();
+			$.ajax({
+				url : "newCompanyInsert.do",
+				method : "post",
+				/* data:JSON.stringify($("#frm").serializeObject()), */
+				data : JSON.stringify({
+					email : email,
+					name : name,
+					pwd : pwd,
+					coName : coName,
+					coUrl : coUrl
+				}),
+				contentType : "application/json",
+				dataType : "json",
+				success : function(data) {
+					console.log(data);
+					frm.submit();
+				}
 
-	<div class="signup_btm">
+			})
 
-		<ul>
-			<li><a style="color: #000; font-weight: bold;"
-				onclick="cmf_openWindow('/company.act', 'flowTem')"
-				data-langcode="H531">회사 소개</a>&nbsp;|&nbsp;</li>
-			<li><a style="color: #000; font-weight: bold;"
-				onclick="cmf_openWindow('/terms.act', 'flowTem')"
-				data-langcode="H84">이용약관</a>&nbsp;|&nbsp;</li>
-			<li><a style="color: #000; font-weight: bold;"
-				onclick="cmf_openWindow('/privacy.act', 'flowTem')"><b
-					data-langcode="H85">개인정보취급방침</b></a></li>
-		</ul>
-		<p>Copyright © Madras check All Rights Reserved</p>
-	</div>
-	<!-- //footer -->
+		}
+	</script>
 </body>
 </html>

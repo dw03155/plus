@@ -1,4 +1,4 @@
-package co.plus.prj;
+ package co.plus.prj;
 
 import java.util.Locale;
 
@@ -13,7 +13,10 @@ public class HomeController {
 	@RequestMapping(value = "/home.do", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 
-		return "adminJoin";
+		return "notiles/login/login";
+
 	}
+	
+	
 	
 }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.plus.prj.member.mapper.MemberMapper">
+    <select id="getMemberList" resultType="co.plus.prj.member.vo.MemberVO">
+    
+	</select>
+	
+	<select id="getMember" resultType="co.plus.prj.member.vo.MemberVO">
+	
+	</select>
+
+	<insert id="newCompanyInsert1" parameterType="co.plus.prj.member.vo.MemberVO">
+		INSERT INTO MEMBER(MEM_ID, EMAIL, PWD, NAME, CO_url,MEM_PERM)
+		VALUES (MEMID.nextval, #{email}, #{pwd}, #{name}, #{coUrl}, 'ADMIN')
+	</insert>
+	
+	<insert id="newCompanyInsert2" parameterType="co.plus.prj.member.vo.MemberVO">
+		INSERT INTO company(co_name, co_url)
+		VALUES (#{coName}, #{coUrl})
+	</insert>
+	
+	<insert id="exCompanyInsert" parameterType="co.plus.prj.member.vo.MemberVO">
+		INSERT INTO MEMBER(MEM_ID, EMAIL, PWD, NAME, CO_url)
+		VALUES (MEMID.nextval, #{email}, #{pwd}, #{name}, #{coUrl})
+	</insert>
+	
+	
+	<update id="memberUpdate" parameterType="co.plus.prj.member.vo.MemberVO">
+		update member set 
+		name = #{name}, 
+		
+	</update>
+
+	<delete id="memberDelete" parameterType="co.plus.prj.member.vo.MemberVO">
+		update member set mem_perm = 
+	</delete>
+	<!-- 
+	<select id="" parameterType="co.plus.prj.member.vo.MemberVO">
+		select mem_id,pwd,email,name,co_id,'ROLE_' || upper(mem_perm) role,acc_st
+		from member
+		where mem_id = #{memId} and pwd = #{pwd}
+	</select> -->
+</mapper>

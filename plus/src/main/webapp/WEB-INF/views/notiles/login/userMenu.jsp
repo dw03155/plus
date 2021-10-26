@@ -7,6 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>/login/all</h1>
+<div align="center">
+	<div>
+	<a href="myPage.do">마이페이지</a><br/>
+	<a href="myPage.do">마이페이지</a><br/>
+	<a href="myPage.do">마이페이지</a><br/>
+	</div>
+</div>
 </body>
 </html>
