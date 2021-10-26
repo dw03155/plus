@@ -16,5 +16,6 @@
   		 </definition>
 		 <definition name="*" extends="blank">
      		 <put-attribute name="main" value="/WEB-INF/views/notiles/{1}.jsp" />
+     		 <put-attribute name="main" value="/WEB-INF/views/login/{1}.jsp" />
   		 </definition>
        </tiles-definitions>
