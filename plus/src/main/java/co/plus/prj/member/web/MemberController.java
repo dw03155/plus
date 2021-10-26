@@ -66,11 +66,6 @@ public class MemberController {
 		return "notiles/login/userJoin";
 	}
 	
-	@RequestMapping(value = "/newMail.do", method = RequestMethod.GET)
-	String newMail() {
-		return "notiles/login/newMail";
-	}
-	
 	@RequestMapping(value="/exCompanyInsert.do", method = RequestMethod.POST, consumes = "application/json")
 	@ResponseBody
 	public Map exCompanyInsert(@RequestBody MemberVO vo, Model model) {
