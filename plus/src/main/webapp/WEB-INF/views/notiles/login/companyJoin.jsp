@@ -77,6 +77,7 @@
 <script type="text/javascript"
 	src="https://t1.daumcdn.net/cssjs/common/cts/vr200/dcts.js"></script>
 <script src="https://t1.kakaocdn.net/cts/__dcts__.js"></script>
+
 <style type="text/css">
 @
 -webkit-keyframes rotate {from { -webkit-transform:rotate(0deg);
@@ -262,15 +263,15 @@ to {
 								class="flow-close-type-1"></a>
 						</div>
 						<form id="frm">
-						<input type="hidden" name="newCourl">
+						<input type="hidden" name="newCoUrl">
 						<div id="coInfo" class="flow-content">
 							<ul class="content-company">
 								<li id="companyLogoUrl" class="logo"></li>
 								<li id="companyName" class="name"></li>
 								<li id="companyUrl" class="url"></li>
 							</ul>
-						<button id="joinSubmit1" class="btn-popup01">팀 참여하기</button>
-						<button id="joinSubmit2" class="btn-popup01">플러스 생성</button>
+							<button id="joinSubmit1" class="btn-popup01">팀 참여하기</button>
+							<button id="joinSubmit2" class="btn-popup01">플러스 생성</button>
 						</div>
 						</form>
 					</div>
@@ -305,8 +306,8 @@ to {
 								$('#joinSubmit2').attr('class','btn-popup01 d-none'); 
 								$('#joinSubmit1').attr('class','btn-popup01');
 								$('#joinSubmit1').on('click',function(){
-									$('#frm').attr("action", "exCompany.do");
-									$('[name="newCourl"]').val($("#coUrl").val());
+									$('#frm').attr("action", "userJoin.do");
+									$('[name="newCoUrl"]').val($("#coUrl").val());
 								});
 								
 			
@@ -324,8 +325,8 @@ to {
 									if($("#coUrl").val()==""){
 										alert("url을 입력하세요.")
 									}else{										
-									$('#frm').attr("action", "newCompany.do");
-									$('[name="newCourl"]').val($("#coUrl").val());
+									$('#frm').attr("action", "adminJoin.do");
+									$('[name="newCoUrl"]').val($("#coUrl").val());
 									}
 								});
 									

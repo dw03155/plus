@@ -79,11 +79,6 @@
 	src="https://t1.daumcdn.net/cssjs/common/cts/vr200/dcts.js"></script>
 <script src="https://t1.kakaocdn.net/cts/__dcts__.js"></script>
 
-<script type="text/javascript" charset="UTF-8"
-	src="https://maps.googleapis.com/maps-api-v3/api/js/46/8/intl/ko_ALL/common.js"></script>
-<script type="text/javascript" charset="UTF-8"
-	src="https://maps.googleapis.com/maps-api-v3/api/js/46/8/intl/ko_ALL/util.js"></script>
-<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 
 <script type="text/javascript" src="js/lib/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
@@ -165,7 +160,7 @@
 <link rel="stylesheet" href="design2/css/jquery.mCustomScrollbar.css">
 <script src="design2/js/jquery.mCustomScrollbar.concat.min.js"></script>
 
-<style type="text/css">
+<style>
 .async-hide {
 	opacity: 0 !important
 }
@@ -232,11 +227,59 @@
 	</script>
 
 
+
+
+	<input type="hidden" id="_DEV_REAL" value="REAL" />
+	<input type="hidden" id="_STR_BASE_URL" value="http://flow.team" />
+	<input type="hidden" id="serverConnNum" value="" />
+
+	<input type="hidden" id="ELECTRON_YN" value="N" />
+	<input type="hidden" id="ELECTRON_VER" value="" />
+
+	<!-- sub domain start -->
+	<input type="hidden" id="_SUB_DOM" value="" />
+	<input type="hidden" id="_SERVICE_VERSION" value="" />
+	<input type="hidden" id="_SUB_DOMAIN_NAME" value="" />
+	<input type="hidden" id="_SUB_DOMAIN_LOGO_URL" value="" />
+	<input type="hidden" id="_SUB_DOMAIN_USE_INTT_ID" value="" />
+
+	<input type="hidden" id="_MOBILE_YN" value="N" />
+	<input type="hidden" id="_COMPANY_CODE_USEABLE" value="false" />
+
+	<input type="hidden" id="_BIS_MNGR_SIGNUP" value="Y" />
+	<input type="hidden" id="_RESAILER" value="" />
+
+	<!-- sub domain end -->
+	<input type="hidden" id="_HOMEPAGE" value="http://flow.team" />
+
+
+	<!-- invite start -->
+	<div id="INVT_KEY" style="display: none;"></div>
+	<!-- invite end -->
+
+	<!-- 회원가입 화면 direct 여부 start -->
+	<div id="JOIN" style="display: none;"></div>
+	<!-- 회원가입 화면 direct 여부 end -->
+	<!-- 비대면 바우처 SRNO 세팅  start -->
+	<input type="hidden" id="_UNTACT_VOUCHER_SRNO" value="-1" />
+	<!-- 비대면 바우처 SRNO 세팅 end -->
+
+	<div class="alert_wrap" id="layerAlert"
+		style="z-index: 99999; top: 50px; left: 40%; display: none; text-align: center;">
+		<div class='alert_box'>
+			<p style="color: #555; font-weight: bold"></p>
+		</div>
+	</div>
+
+
+
+
+
 	<div class="business-signup-layer">
 
 		<!-- businessMngrSignUpPopup -->
 
-		<div class="pc-login-wrap" id="busi"
+		<div class="pc-login-wrap" id="businessMngrSignUpPopup"
 			style="top: 0px; left: 0px; z-index: 3000;">
 
 			<!-- top -->
@@ -257,7 +300,7 @@
 			<!-- //top -->
 			<div class="f-login-wrap mCustomScrollbar"
 				style="position: fixed; margin: 0px; padding: 60px 0 0 0; width: 100%; height: 100%;">
-				<form id="frm" name="frm" action="">
+				<form action="">
 					<fieldset style="padding-bottom: 30px;">
 						<!-- business sign in content -->
 						<div class="fl-content" id="businessCreateAccount"
@@ -279,11 +322,11 @@
 								<!-- 입력전 -->
 								<div class="blocklabel">
 									<label class="font-Noto" data-langcode="H333">이메일</label>
-									<div class="inputbox ok">
-
+									<div class="inputbox">
+									
 										<input type="text" id="email" name="email" maxlength="50"
 											tabindex="1" placeholder="example@gmail.com" value="" />
-
+											
 										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
 										<button type="button" class="btn-clear-text"
 											style="cursor: pointer;" data-langcode="H381">삭제</button>
@@ -297,7 +340,7 @@
 								<!-- error -->
 								<div class="blocklabel">
 									<label class="font-Noto" data-langcode="H331">이름</label>
-									<div class="inputbox ok">
+									<div class="inputbox">
 
 										<input type="text" name="name" id="name" tabindex="2"
 											maxlength="50" placeholder="이름" value="" data-langcode="H331">
@@ -315,12 +358,12 @@
 								<!-- ok -->
 								<div class="blocklabel">
 									<label class="font-Noto" data-langcode="H362">비밀번호</label>
-									<div class="inputbox ok">
-
+									<div class="inputbox">
+									
 										<input type="password" name="pwd" id="pwd"
 											class="password-input" maxlength="50" tabindex="3"
 											placeholder="비밀번호 입력" value="" data-langcode="H399">
-
+											
 										<span class="password-mask"><em class="blind">비밀번호
 												보이기 / 숨기기 버튼 </em></span>
 										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
@@ -336,12 +379,13 @@
 								<!-- ok -->
 								<div class="blocklabel">
 									<label class="font-Noto" data-langcode="H383">비밀번호 확인</label>
-									<div class="inputbox ok">
-
+									<div class="inputbox">
+									
 										<input type="password" name="pwdCheck" id="pwdCheck"
 											class="password-input" maxlength="50" tabindex="4"
-											placeholder="비밀번호 재입력" data-langcode="H477"> <span
-											class="password-mask"><em class="blind">비밀번호 보이기
+											placeholder="비밀번호 재입력" data-langcode="H477">
+											
+											 <span class="password-mask"><em class="blind">비밀번호 보이기
 												/ 숨기기 버튼 </em></span>
 										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
 										<button type="button" class="btn-clear-text"
@@ -356,7 +400,7 @@
 
 								<div class="blocklabel">
 									<label class="font-Noto" data-langcode="H489">회사 이름</label>
-									<div class="inputbox ok">
+									<div class="inputbox">
 										<input type="text" id="coName" name="coName" tabindex="11"
 											maxlength="50" placeholder="회사 이름 입력" value=""
 											data-langcode="H490">
@@ -373,21 +417,20 @@
 								<!-- ok -->
 								<div class="blocklabel url-box">
 									<label class="font-Noto" data-langcode="H492">회사 URL</label>
-									<div class="inputbox ok" style="width: 290px">
-
+									<div class="inputbox" style="width: 290px">
+									
 										<input type="text" id="coUrl" name="coUrl" tabindex="12"
-											maxlength="50" readonly="readonly" placeholder="${newUrl}"
-											value="${newUrl}" style="width: 100%;" data-langcode="H493">
-
-										<strong id="domain"
-											style="position: absolute; left: 300px; top: 20px; font-size: 18px;">.flow.team</strong>
+											maxlength="" readonly="readonly" value="${newUrl}"
+											style="width: 100%;" data-langcode="H493"> 
+											
+											<strong	id="domain" style="position: absolute; left: 300px; top: 20px; font-size: 18px;">.flow.team</strong>
 										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
 										<button type="button" class="btn-clear-text"
 											style="cursor: pointer;" data-langcode="H381">삭제</button>
 										<!-- 메시지 -->
 										<div class="error-msg">
-											<div class="error-cont font-Noto" data-langcode="H494">
-												3 ~ 50자의 영문, 숫자만 가능합니다.</div>
+											<div class="error-cont font-Noto" data-langcode="H494">3
+												~ 50자의 영문, 숫자만 가능합니다.</div>
 										</div>
 									</div>
 								</div>
@@ -405,87 +448,83 @@
 								</div>
 							</div>
 							<div class="btn-box">
-								<button type="button" id="nextToSettingTeam"
+								<button type="button" id="nextToSettingTeamInfo"
 									class="btn-bigs c-blue" data-langcode="H482">회원가입</button>
 							</div>
 						</div>
 
+						<!-- 인증번호 확인 -->
+						<div id="checkJoinPopup" class="flow-all-background-1 d-none">
+							<div class="flow-project-make-1">
+								<div class="flow-project-make-2">
+									<div id="popupLayer" class="flow-login-popup popup-10">
+										<div class="flow-project-header-1">
+											인증번호를 입력하세요! <a id="closePopupBtn" class="flow-close-type-1"></a>
+										</div>
+										<div id="coInfo" class="flow-content">
+											<ul id="certiNum" class="content-company">
+												<li id="companyName" class="name">인증번호: <input
+													type="text" name="joinNum" id="joinNum"></li>
+											</ul>
+											<button type="button" id="join" name="join"
+												class="btn-popup01">인증하기</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /인증번호 확인 -->
 
 					</fieldset>
 				</form>
 			</div>
 		</div>
-		<!-- 인증번호 확인 -->
-		<div id="checkJoinPopup" class="flow-all-background-1 d-none"
-			style="z-index: 3000">
-			<div class="flow-project-make-1">
-				<div class="flow-project-make-2">
-					<div id="popupLayer" class="flow-login-popup" style="height:180px; felx-wrap:wrap; align-center:space-around">
-						<div class="flow-project-header-1">
-							인증번호를 입력하세요! <a id="closePopupBtn" class="flow-close-type-1"></a>
-						</div>
-						<div id="coInfo" class="flow-content">
-							<div class="inputbox" style="width: 370px" align="center">
-								<ul class="content-company" align="center" style="display:inline-block">
-									<li style="display:inline-block"><input type="text" name="joinNum" id="joinNum"
-										maxlength="50" placeholder="인증번호입력" data-langcode="H490"></li>
-								</ul>
-							</div>
-							<div align="center">
-								<button type="button" id="join" name="join" class="btn-popup01">인증하기</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /인증번호 확인 -->
 		<!-- //businessMngrSignUpPopup -->
 
 	</div>
 	<!-- Page hiding snippet (recommended) -->
 	<script>
-		$("#nextToSettingTeam").on("click", function(e) {
-			/* if ($('#pwd').val() != $('#pwdCheck').val()) {
-				alert("비밀번호를 바르게 입력하세요")
-			} else { */
-			console.log("TEST")
-			$('#checkJoinPopup').attr("class", "flow-all-background-1");
-			var email = $("#email").val();
-			$.ajax({
-				type : "post",
-				url : "joinMail.do",
-				data : {
-					email : email
-				},
-				/* dataType : "json", */
-				success : function(key) {
-
-					alert(email + "로 인증메일이 발송되었습니다.");
-					isCertification = true;
-					console.log(key);
-
-					$("#joinNum").on("change keyup paste", function() {
-						if ($("#joinNum").val() == key) {
-							$("#certiNum").text("일치");
+			$("#nextToSettingTeamInfo").on("click", function(e) {
+				if ($('#pwd').val() != $('#pwdCheck').val()) {
+					alert("비밀번호를 바르게 입력하세요")
+				} else {
+					$('#checkJoinPopup').attr("class","flow-all-background-1");
+					var email = $("#email").val();
+					$.ajax({
+						type : "post",
+						url : "joinMail.do",
+						data : {
+							email : email
+						},
+						/* dataType : "json", */
+						success: function(key){
+							
+							alert(email + "로 인증메일이 발송되었습니다.");
 							isCertification = true;
-							$("#join").on("click", function() {
-								memberInsert();
-							});
-
-						} else {
-							$("#certiNum").text("불일치");
-							isCertification = false;
-							$("join").on("click", function() {
-								alert("인증번호를 확인하세요.");
+							console.log(key);
+							
+							$("#joinNum").on("change keyup paste", function(){
+								if($("#joinNum").val() == key){
+									$("#certiNum").append("<li class='url'/>").text("인증");
+									isCertification = true;
+									$("#join").on("click",function(){
+										memberInsert();	
+									});
+									}
+								}else{
+									$("#certiNum").append("<li class='url'/>").text("불일치");
+									isCertification = false;
+									$("join").on("click", function(){
+										alert("인증번호를 확인하세요.");
+									})
+								}
 							})
-						}
-					})
-				}
-			});
-			/* } */
-		});
+							}
+						});
+					});
 
+		
+		
 		function memberInsert() {
 			var email = $('input:text[name="email"]').val();
 			var name = $('input:text[name="name"]').val();
@@ -508,7 +547,6 @@
 				success : function(data) {
 					console.log(data);
 					frm.submit();
-
 				}
 
 			})

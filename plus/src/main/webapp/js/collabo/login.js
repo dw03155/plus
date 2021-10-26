@@ -2933,7 +2933,7 @@ var bMngrSignUp = function () {
                 that.updateNextBtnToSettingTeamInfoBtn();
             });
 
-            $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#nextToSettingTeamInfo").on('click', function (e) {
+          /*  $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#nextToSettingTeamInfo").on('click', function (e) {
 
 
                 //@유민호 : 가입경로 초기화 190513
@@ -2942,7 +2942,7 @@ var bMngrSignUp = function () {
 
                 that.validIdCheck();
 
-            });
+            });*/
 
             $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#domain").text("." + location.hostname);
 
