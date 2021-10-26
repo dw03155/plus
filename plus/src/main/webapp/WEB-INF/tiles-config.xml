@@ -14,8 +14,7 @@
        	 
        	 <definition template="/WEB-INF/views/tiles/blank.jsp" name="blank">
   		 </definition>
-		 <definition name="*" extends="blank">
-     		 <put-attribute name="main" value="/WEB-INF/views/notiles/{1}.jsp" />
-     		 <put-attribute name="main" value="/WEB-INF/views/login/{1}.jsp" />
+		 <definition name="*/*/*" extends="blank">
+     		 <put-attribute name="main" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
   		 </definition>
        </tiles-definitions>
