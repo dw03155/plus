@@ -262,72 +262,6 @@ to {
 								class="flow-close-type-1"></a>
 						</div>
 						<form id="frm">
-<<<<<<< HEAD
-						<input type="hidden" name="newCoUrl">
-						<div id="coInfo" class="flow-content">
-							<ul class="content-company">
-								<li id="companyLogoUrl" class="logo"></li>
-								<li id="companyName" class="name"></li>
-								<li id="companyUrl" class="url"></li>
-							</ul>
-						<button id="joinSubmit1" class="btn-popup01">팀 참여하기</button>
-						<button id="joinSubmit2" class="btn-popup01">플러스 생성</button>
-						</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /기존회사정보확인 -->
-	</div>
-	<script>
-		$("#JoinBtn").click(
-				function() {
-					var coUrl = $('input:text[name="coUrl"]').val();
-					console.log(coUrl)
-					$.ajax({
-						url : "getCompany.do?coUrl=" + coUrl,
-						type : "get",
-						//data:JSON.stringify({coUrl:coUrl}),
-						/* data: $("input:text[name=coUrl]").serialize(), */
-						//contentType: "application/json",
-						dataType : "json",
-						success : function(data) {
-							console.log(data);
-							/* var $coLogo = data.coLogo; */
-							var $coUrl = data.coUrl;
-							var $coName = data.coName;
-
-							if (data != null) {
-								$('#checkJoinPopup').attr('class',
-										'flow-all-background-1');
-								$('#companyName').text($coName);
-								$('#companyUrl').text($coUrl);
-								$('#joinSubmit2').attr('class','btn-popup01 d-none'); 
-								$('#joinSubmit1').attr('class','btn-popup01');
-								$('#joinSubmit1').on('click',function(){
-									$('#frm').attr("action", "userJoin.do");
-									$('[name="newCoUrl"]').val($("#coUrl").val());
-								});
-								
-			
-							}
-						},
-						error : function(reject) {
-							console.log(reject);
-							$('#checkJoinPopup').attr('class',
-								'flow-all-background-1');
-								$('#companyName').text('해당 회사가 존재하지않습니다');
-								$('#companyUrl').text('새로운 플러스를 만들어보세요');
-								$('#joinSubmit1').attr('class','btn-popup01 d-none');
-								$('#joinSubmit2').attr('class','btn-popup01');
-								$('#joinSubmit2').on('click',function(){
-									if($("#coUrl").val()==""){
-										alert("url을 입력하세요.")
-									}else{										
-									$('#frm').attr("action", "adminJoin.do");
-									$('[name="newCoUrl"]').val($("#coUrl").val());
-=======
 						<input type="hidden" name="newCourl">
 						<div id="coInfo" class="flow-content">
 							<ul class="content-company">
@@ -392,7 +326,6 @@ to {
 									}else{										
 									$('#frm').attr("action", "newCompany.do");
 									$('[name="newCourl"]').val($("#coUrl").val());
->>>>>>> refs/remotes/origin/main
 									}
 								});
 									
