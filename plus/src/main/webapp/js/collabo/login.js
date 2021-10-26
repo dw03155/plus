@@ -31,7 +31,7 @@ var _ID_GB = "4";
 new (Jex.extend({
     onload: function () {
         history.pushState(null, null, location.href);
-        window.addEventListener('popstate', function(event){
+        window.addEventListener('popstate', function (event) {
 
         });
 
@@ -306,9 +306,9 @@ new (Jex.extend({
             fn_viewChange("1");//Guest 로그인
         }
 
-        $(".terms-and-privacy").html(c18n("H452","<a>서비스 이용약관</a>, <a>개인정보취급방침</a>을 확인하였고, 이에 동의합니다."));
-        $(".terms-and-privacy").find("a:eq(0)").attr({'href':'/terms.html',"target":"flowTem"});
-        $(".terms-and-privacy").find("a:eq(1)").attr({'href':'/privacy.html',"target":"flowTem"});
+        $(".terms-and-privacy").html(c18n("H452", "<a>서비스 이용약관</a>, <a>개인정보취급방침</a>을 확인하였고, 이에 동의합니다."));
+        $(".terms-and-privacy").find("a:eq(0)").attr({'href': '/terms.act', "target": "flowTem"});
+        $(".terms-and-privacy").find("a:eq(1)").attr({'href': '/privacy.act', "target": "flowTem"});
         //ko - <a>서비스 이용약관</a>, <a>개인정보취급방침</a>을 확인하였고, 이에 동의합니다.
         //en - I agree to the <a>Terms and Conditions</a> and I have read the <a>Privacy Policy</a>.
     },
@@ -705,7 +705,7 @@ new (Jex.extend({
             var Browser = cmf_browser();
 
             if (Browser.ieYn) {
-                alert(c18n('ui.ie.limit','IE 브라우저에서 지원하지 않는 기능입니다. 크롬 및 다른 브라우저에서 다시 시도해주세요.'));
+                alert(c18n('ui.ie.limit', 'IE 브라우저에서 지원하지 않는 기능입니다. 크롬 및 다른 브라우저에서 다시 시도해주세요.'));
                 return;
             }
 
@@ -1135,7 +1135,7 @@ function fn_goLogin(ID_GB) {
     }
     g_post_var.g_execute = true;
 
-    if(ID_GB !== "3"){
+    if (ID_GB !== "3") {
         cf_setCookie("googleLoginYn", "", 30 * 12);
     } else {
         //pass
@@ -1237,32 +1237,56 @@ function fn_goLogin(ID_GB) {
                     //done
                 }
 
-                var s_var_list = "";
-                s_var_list += "<input type='hidden' name='INVT_KEY' value='" + cnts_Null2Void($.trim($("#INVT_KEY").html()), "") + "'/>";
-                var $frmObj = $("<form id='invite_form' name='invite_form'></form>");
-                $frmObj.attr("method", "post");
-                $frmObj.appendTo("body");
-                $frmObj.append(s_var_list);
-                $frmObj.append(redirectCntns);
-
-                //@유민호 : 프로젝트 투어 적용 190221
-                if (location.href.indexOf('PROJECT_TOUR=Y') > -1) {
-                    location.href = location.href.replace("/login.act?PROJECT_TOUR=Y&URL=", "");
-                } else {
-                    if (cf_getCookie("electronYn") === "Y") {
-                        $frmObj.attr("action", "/flow_layout.act");
-                    } else if (cf_getCookie("RENEWAL_MAINTAIN") === "Y" || isFunc("FLOW_S_MAIN_BASE")) {
-                        $frmObj.attr("action", "/main.act");
-                    } else {
-                        $frmObj.attr("action", dat.RESULT_ADDR);
-                    }
-
-                    $frmObj.attr("target", "_self");
-                    $frmObj.submit();
-                }
+                movePage(dat.RESULT_ADDR, "goLogin");
             }
         }
     });
+}
+
+function movePage(url, mode) {
+
+    if (location.href.indexOf('PROJECT_TOUR=Y') > -1) {
+        location.href = location.href.replace("/login.act?PROJECT_TOUR=Y&URL=", "");
+        return;
+    }
+
+    mode = mode || "goLogin";
+
+    var invtKey = cnts_Null2Void($.trim($("#INVT_KEY").html()), "");
+    var userId = $.trim($("#main").find("#USER_ID").val());
+    var pwd = $.trim($("#main").find("#PWD").val());
+    var $frmObj = $("<form id='invite_form' name='invite_form'></form>");
+    var s_var_list = "<input type='hidden' name='INVT_KEY' value='" + invtKey + "'/>";
+    $frmObj.attr("method", "post");
+    $frmObj.appendTo("body");
+
+    if (mode === "goBizLogin") { //비플로그인
+        s_var_list += "<input type='hidden' name='USER_ID' value='" + userId + "'/>";
+        s_var_list += "<input type='hidden' name='ORG_CLPH_NO' value='" + pwd + "'/>";
+    } else if (mode === "goAutoLogin") { //자동로그인
+        //pass
+    } else if (mode === "elogin") { //엔터로그인
+        //pass
+    } else if (mode === "blogin") { //비즈니스계정로그인
+        //pass
+    } else if (mode === "goLogin") { //일반로그인
+        //pass
+    }
+
+    $frmObj.append(s_var_list);
+    setActionUrl($frmObj, url);
+    $frmObj.attr("target", "_self");
+    $frmObj.submit();
+
+    function setActionUrl($frmObj, url) {
+        if (cf_getCookie("electronYn") === "Y") {
+            $frmObj.attr("action", "/flow_layout.act");
+        } else if (cf_getCookie("RENEWAL_MAINTAIN") === "Y" || isFunc("FLOW_S_MAIN_BASE")) {
+            $frmObj.attr("action", "/main.act");
+        } else {
+            $frmObj.attr("action", url);
+        }
+    }
 }
 
 /**
@@ -1463,7 +1487,6 @@ function fn_goBizLogin() {
     }
 
     jexAjax.execute(function (dat) {
-
         if (cnts_Null2Void(dat.RESULT_CODE, "") != "0000") {
             $("#main").find(".error_txt").text(cnts_Null2Void(dat.ERR_MSG, ""));
             $("#main").find(".error_txt").show();
@@ -1471,23 +1494,8 @@ function fn_goBizLogin() {
             _loading.stop();
         } else {
             _loading.stop();
-
             fn_getRandKey();
-
-            var s_var_list = "";
-            s_var_list += "<input type='hidden' name='INVT_KEY' value='" + cnts_Null2Void($.trim($("#INVT_KEY").html()), "") + "'/>";
-            s_var_list += "<input type='hidden' name='USER_ID' value='" + $.trim($("#main").find("#USER_ID").val()) + "'/>";
-            s_var_list += "<input type='hidden' name='ORG_CLPH_NO' value='" + $.trim($("#main").find("#PWD").val()) + "'/>";
-            var $frmObj = $("<form id='invite_form' name='invite_form'></form>");
-            $frmObj.attr("method", "post");
-            $frmObj.appendTo("body");
-            $frmObj.append(s_var_list);
-            $frmObj.append(redirectCntns);
-
-            $frmObj.attr("action", dat.RESULT_ADDR);
-            $frmObj.attr("target", "_self");
-            $frmObj.submit();
-
+            movePage(dat.RESULT_ADDR, "goBizLogin")
         }
     });
 }
@@ -1529,7 +1537,7 @@ function fn_getRandKey() {
                 var ClientId = 'web.flow';
                 if (b_joins) {
                     ClientId = 'web.joinsflow';
-                }else if (isKtWorks){
+                } else if (isKtWorks) {
                     ClientId = 'ktworks.login';
                 } else {
                     ClientId = 'web.flow';
@@ -1595,18 +1603,8 @@ function fn_goAutoLogin() {
         if (cnts_Null2Void(dat.RESULT_CODE, "") != "0000") {
             // pass.
         } else {
-            var s_var_list = "";
-            var $frmObj = $("<form id='invite_form' name='invite_form'></form>");
-            $frmObj.attr("method", "post");
-            $frmObj.appendTo("body");
-            $frmObj.append(s_var_list);
-            $frmObj.append(redirectCntns);
-
-            $frmObj.attr("action", dat.RESULT_ADDR);
-            $frmObj.attr("target", "_self");
-            $frmObj.submit();
+            movePage(dat.RESULT_ADDR, "goAutoLogin")
         }
-
     });
 
 }
@@ -1682,7 +1680,7 @@ function fn_checkPwdValidation(e) {
 }
 
 function fn_showChangePwd(user_id, rgsn_dttm) {
-    electronConfirm("알림","비밀번호 초기화(설정)를 진행 완료 후<br> 로그인 가능합니다.",function(){
+    electronConfirm("알림", "비밀번호 초기화(설정)를 진행 완료 후<br> 로그인 가능합니다.", function () {
         $("#enterpriseLoginDiv").hide();
         $("#changePassword").show();
 
@@ -1692,7 +1690,7 @@ function fn_showChangePwd(user_id, rgsn_dttm) {
         $("#changePassword").find("#pwdChangeBtn").attr('user_id', user_id);
         $("#changePassword").find("#pwdChangeBtn").attr('rgsn_dttm', rgsn_dttm);
 
-    },function(){
+    }, function () {
         $("#changePassword").hide();
         $("#enterpriseLoginDiv").show();
     });
@@ -1722,6 +1720,7 @@ function fn_changePwd() { // changePassword
     });
 
 }
+
 function fn_changePwd2() { // changePassword
     // COLABO2_PWD_U002
 
@@ -1729,7 +1728,7 @@ function fn_changePwd2() { // changePassword
     jexAjax.set("USER_ID", $("#changePassword").find("#pwdChangeBtn").attr('user_id'));
     jexAjax.set("RGSN_DTTM", $("#changePassword").find("#pwdChangeBtn").attr('rgsn_dttm'));
     jexAjax.set("PWD", $("#password1").val());
-    jexAjax.set("USER_GB","INIT");
+    jexAjax.set("USER_GB", "INIT");
     jexAjax.setAsync(false);
     jexAjax.execute(function (dat) {
 
@@ -1742,8 +1741,8 @@ function fn_changePwd2() { // changePassword
             return;
         }
 
-        cmf_layerMsg("1","성공적으로 변경되었습니다.");
-        location.href='/flow_layout.act'
+        cmf_layerMsg("1", "성공적으로 변경되었습니다.");
+        location.href = '/flow_layout.act'
     });
 
 }
@@ -1971,7 +1970,7 @@ var elogin = function () {
 
             if (result) {
                 $("#enterpriseLoginDiv").find("button[name$='loginBtn']").removeClass('c-gray');
-            } else if(b_kimchang){
+            } else if (b_kimchang) {
                 $("#enterpriseLoginDiv").find("button[name$='loginBtn']").removeClass('c-gray');
             } else {
                 $("#enterpriseLoginDiv").find("button[name$='loginBtn']").addClass('c-gray');
@@ -1999,9 +1998,9 @@ var elogin = function () {
                 return;
             }
 
-            if(b_kimchang){
-                if($("#enterpriseLoginDiv").find("input[name$='email']").val() == ""){
-                    cmf_layerMsg("2","아이디를 입력해주세요.")
+            if (b_kimchang) {
+                if ($("#enterpriseLoginDiv").find("input[name$='email']").val() == "") {
+                    cmf_layerMsg("2", "아이디를 입력해주세요.")
                     return;
                 }
             } else {
@@ -2189,17 +2188,7 @@ var elogin = function () {
                         if (cnts_Null2Void(dat.WRITTEN_AGREEMENT_YN, "") == "Y" && cnts_Null2Void(dat.ENT_FIRST_INIT_YN, "") == "Y") {
                             //$("#authLayer").css("z-index", "1100").hide();
                         } else {
-                            var s_var_list = "";
-                            s_var_list += "<input type='hidden' name='INVT_KEY' value='" + cnts_Null2Void($.trim($("#INVT_KEY").html()), "") + "'/>";
-                            var $frmObj = $("<form id='invite_form' name='invite_form'></form>");
-                            $frmObj.attr("method", "post");
-                            $frmObj.appendTo("body");
-                            $frmObj.append(s_var_list);
-                            $frmObj.append(redirectCntns);
-
-                            $frmObj.attr("action", dat.RESULT_ADDR);
-                            $frmObj.attr("target", "_self");
-                            $frmObj.submit();
+                            movePage(dat.RESULT_ADDR, "elogin");
                         }
                     }
                 }
@@ -2290,8 +2279,8 @@ var blogin = function () {
                 that.fn_goSignUp();
             });
 
-            $("#businessLoginDiv").find("input[type=checkbox]").off('change').on('change', function (e ,v) {
-                if($(this).is(":checked")){
+            $("#businessLoginDiv").find("input[type=checkbox]").off('change').on('change', function (e, v) {
+                if ($(this).is(":checked")) {
                     cf_setCookie("AutoLogin", "Y", 30 * 12);
                 } else {
                     cf_setCookie("AutoLogin", "N", 30 * 12);
@@ -2642,17 +2631,7 @@ var blogin = function () {
                             // done.
                         }
 
-                        var s_var_list = "";
-                        s_var_list += "<input type='hidden' name='INVT_KEY' value='" + cnts_Null2Void($.trim($("#INVT_KEY").html()), "") + "'/>";
-                        var $frmObj = $("<form id='invite_form' name='invite_form'></form>");
-                        $frmObj.attr("method", "post");
-                        $frmObj.appendTo("body");
-                        $frmObj.append(s_var_list);
-                        $frmObj.append(redirectCntns);
-
-                        $frmObj.attr("action", dat.RESULT_ADDR);
-                        $frmObj.attr("target", "_self");
-                        $frmObj.submit();
+                        movePage(dat.RESULT_ADDR, "blogin")
                     }
 
 
@@ -2808,7 +2787,7 @@ var bMngrSignUp = function () {
                 that.goToPremiumSignUp();
             });
 
-            $('#whatIsGuest').on('click', function(){
+            $('#whatIsGuest').on('click', function () {
                 window.open('https://support.flow.team/hc/ko/articles/234707747');
             })
 
@@ -2958,27 +2937,27 @@ var bMngrSignUp = function () {
 
 
                 //@유민호 : 가입경로 초기화 190513
-                //$("#businessMngrSignUpPopup").find("#businessCreateAccount").find("select.path_cd").find('option:first').removeAttr('selected');
-                //$("#businessMngrSignUpPopup").find("#businessCreateAccount").find("select.path_cd").find('option:first').attr('selected','selected');
+                //$("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("select.path_cd").find('option:first').removeAttr('selected');
+                //$("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("select.path_cd").find('option:first').attr('selected','selected');
 
                 that.validIdCheck();
 
             });
 
-            $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#domain").text("." + location.hostname);
+            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#domain").text("." + location.hostname);
 
-            $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#backToBusinessCreateAccount").on('click', function (e) {
+            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#backToBusinessCreateAccount").on('click', function (e) {
 
                 $("#businessMngrSignUpPopup").find("#businessCreateAccount").show();
-                $("#businessMngrSignUpPopup").find("#businessCreateAccount").hide();
+                $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").hide();
             });
 
-            $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#nextToSettingTeamInfo").on('click', function (e) {
+            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#nextTobusinessMngrFinished").on('click', function (e) {
 
                 that.registerTeamInfo();
             });
 
-            $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#teamName").on('keyup focus', function (e) {
+            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#teamName").on('keyup focus', function (e) {
 
                 if (e.keyCode && e.keyCode == 13) {
                     that.registerTeamInfo();
@@ -2998,7 +2977,7 @@ var bMngrSignUp = function () {
                 }
             });
 
-            $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#teamUrl").on('keyup focus', function (e) {
+            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#teamUrl").on('keyup focus', function (e) {
 
                 if (e.keyCode && e.keyCode == 13) {
                     that.registerTeamInfo();
@@ -3020,7 +2999,7 @@ var bMngrSignUp = function () {
             });
 
             //@유민호 : 가입경로 관련 처리 190513
-            $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("select.path_cd").on('change', function (e) {
+            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("select.path_cd").on('change', function (e) {
                 if ("Z" === $(e.target).val()) {
                     $(this).hide();
                     $(e.target).parents('.blocklabel').find('input').val('');
@@ -3036,11 +3015,11 @@ var bMngrSignUp = function () {
                         'font-size': '14px'
                     });
                     ADD_TAG.on('click', function () {
-                        $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("select.path_cd").show();
-                        $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("select.path_cd").parent().removeClass('ok').removeClass('error');
-                        $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("input.path_cd").hide();
-                        $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("select.path_cd").find('option:first').removeAttr('selected');
-                        $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("select.path_cd").find('option:first').attr('selected', 'selected');
+                        $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("select.path_cd").show();
+                        $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("select.path_cd").parent().removeClass('ok').removeClass('error');
+                        $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("input.path_cd").hide();
+                        $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("select.path_cd").find('option:first').removeAttr('selected');
+                        $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("select.path_cd").find('option:first').attr('selected', 'selected');
                         $('[data-langcode=H422]').next().css('background', 'url(../img_rn/bul/bul_arrow2_open.png?4) no-repeat 370px 22px');
                         $('[data-langcode=H421]').find('u').remove();
                     });
@@ -3054,7 +3033,7 @@ var bMngrSignUp = function () {
                     that.updateNextBtnToPayment();
                 }
             });
-            $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("input.path_cd").on('keyup focus', function (e) {
+            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("input.path_cd").on('keyup focus', function (e) {
                 if (e.keyCode && e.keyCode == 13) {
                     that.registerTeamInfo();
                 } else {
@@ -3074,7 +3053,7 @@ var bMngrSignUp = function () {
             });
             //end
 
-           /* $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#couponCode").on('keyup focus', function (e) {
+            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#couponCode").on('keyup focus', function (e) {
                 if (e.keyCode && e.keyCode == 13) {
                     that.registerTeamInfo();
                 } else {
@@ -3091,9 +3070,9 @@ var bMngrSignUp = function () {
                     }
                     that.updateNextBtnToPayment();
                 }
-            });*/
+            });
 
-            $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#nextToSettingTeamInfo").on('click', function (e) {
+            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#nextToBusinessFinished").on('click', function (e) {
                 that.registerTeamInfo();
             });
 
@@ -3115,7 +3094,7 @@ var bMngrSignUp = function () {
 
             $("body").css('overflow', 'hidden'); // main scroll
 
-            $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("input").each(function (i, v) {
+            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("input").each(function (i, v) {
 
                 $(v).val('');
             });
@@ -3128,7 +3107,7 @@ var bMngrSignUp = function () {
             $("#businessMngrSignUpPopup").find(".fl-content").hide();
             $("#businessMngrSignUpPopup").find("#businessCreateAccount").show();
 
-            $("#main").find("#REG_1").css('display','none');
+            $("#main").find("#REG_1").css('display', 'none');
 
             $("#businessMngrSignUpPopup").fadeIn(100, function () {
 
@@ -3176,9 +3155,9 @@ var bMngrSignUp = function () {
 
         updateNextBtnToPayment: function () {
 
-            var ok = $("#businessMngrSignUpPopup").find("#businessCreateAccount").find(".blocklabel").find(".inputbox").length;
+            var ok = $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find(".blocklabel").find(".inputbox").length;
 
-            $("#businessMngrSignUpPopup").find("#businessCreateAccount").find(".blocklabel").find(".inputbox").each(function (i, v) {
+            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find(".blocklabel").find(".inputbox").each(function (i, v) {
 
                 if ($(v).hasClass("ok")) {
                     ok--;
@@ -3186,39 +3165,40 @@ var bMngrSignUp = function () {
             });
 
             if (ok == 0) {
-/*                $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#nextToSettingTeamInfo").text(cnts_Null2Void(i18n('DL166'), '쿠폰 표기 기간만큼 무료로 시작하기'));
-*/                $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#nextToSettingTeamInfo").removeClass("c-gray").addClass("c-blue");
+                $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#nextToBusinessFinished").text(cnts_Null2Void(i18n('DL166'), '쿠폰 표기 기간만큼 무료로 시작하기'));
+                $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#nextToBusinessFinished").removeClass("c-gray").addClass("c-blue");
             } else if (ok == 1) {
-                if(location.hostname.indexOf("ktworks.co.kr") > -1|| location.href.indexOf("ktbizworks.co.kr") > -1) {
-                    $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#nextToSettingTeamInfo").text(cnts_Null2Void(i18n('H499'), '가입 완료'));
-                }/*else{
-                    $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#nextToSettingTeamInfo").text(cnts_Null2Void(i18n('H499'), '1개월 무료 시작하기'));
-                }*/
-                $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#nextToSettingTeamInfo").removeClass("c-gray").addClass("c-blue");
-                if ($("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#teamUrl").val() === ""
-                    || $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#teamName").val() === "") {
-                    $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#nextToSettingTeamInfo").removeClass("c-blue").addClass("c-gray");
+                if (location.hostname.indexOf("ktworks.co.kr") > -1 || location.href.indexOf("ktbizworks.co.kr") > -1) {
+                    $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#nextToBusinessFinished").text(cnts_Null2Void(i18n('H499'), '가입 완료'));
+                } else {
+                    $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#nextToBusinessFinished").text(cnts_Null2Void(i18n('H499'), '1개월 무료 시작하기'));
+                }
+                $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#nextToBusinessFinished").removeClass("c-gray").addClass("c-blue");
+                if ($("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#teamUrl").val() === ""
+                    || $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#teamName").val() === ""
+                    || $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#couponCode").val() !== "") {
+                    $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#nextToBusinessFinished").removeClass("c-blue").addClass("c-gray");
                 }
             } else {
-                if(location.hostname.indexOf("ktworks.co.kr") > -1|| location.href.indexOf("ktbizworks.co.kr") > -1) {
-                    $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#nextToSettingTeamInfo").text(cnts_Null2Void(i18n('H499'), '가입 완료'));
-                }/*else{
-                    $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#nextToSettingTeamInfo").text(cnts_Null2Void(i18n('H499'), '1개월 무료 시작하기'));
-                }*/
-                $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#nextToSettingTeamInfo").removeClass("c-blue").addClass("c-gray");
+                if (location.hostname.indexOf("ktworks.co.kr") > -1 || location.href.indexOf("ktbizworks.co.kr") > -1) {
+                    $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#nextToBusinessFinished").text(cnts_Null2Void(i18n('H499'), '가입 완료'));
+                } else {
+                    $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#nextToBusinessFinished").text(cnts_Null2Void(i18n('H499'), '1개월 무료 시작하기'));
+                }
+                $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#nextToBusinessFinished").removeClass("c-blue").addClass("c-gray");
             }
         },
 
         goToSettingTeamInfo: function () {
 
-            $("#businessMngrSignUpPopup").find("#businessCreateAccount").fadeIn(200);
+            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").fadeIn(200);
             $("#businessMngrSignUpPopup").find("#businessCreateAccount").hide();
         },
 
         goTobusinessMngrFinished: function () {
 
             $("#businessMngrSignUpPopup").find("#businessMngrFinished").fadeIn(200);
-            $("#businessMngrSignUpPopup").find("#businessCreateAccount").hide();
+            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").hide();
         },
 
         validIdCheck: function () {
@@ -3253,9 +3233,9 @@ var bMngrSignUp = function () {
             }
 
             //@유민호 : 가입경로 초기화 190513
-            //$("#businessMngrSignUpPopup").find("#businessCreateAccount").find("select.path_cd").show();
-            //$("#businessMngrSignUpPopup").find("#businessCreateAccount").find("select.path_cd").parent().removeClass('ok').removeClass('error');
-            //$("#businessMngrSignUpPopup").find("#businessCreateAccount").find("input.path_cd").hide();
+            //$("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("select.path_cd").show();
+            //$("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("select.path_cd").parent().removeClass('ok').removeClass('error');
+            //$("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("input.path_cd").hide();
 
 
             var that = this;
@@ -3305,11 +3285,11 @@ var bMngrSignUp = function () {
                 return;
             }
 
-            if (!$("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#nextToSettingTeamInfo").hasClass('c-blue') && $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#nextToSettingTeamInfo").hasClass('c-gray')) {
-                if ($("#businessMngrSignUpPopup").find("#businessCreateAccount").find(".inputbox.error:first").length > 0) {
-                    $("#businessMngrSignUpPopup").find("#businessCreateAccount").find(".inputbox.error:first").find("input").focus();
+            if (!$("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#nextTobusinessMngrFinished").hasClass('c-blue') && $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#nextTobusinessMngrFinished").hasClass('c-gray')) {
+                if ($("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find(".inputbox.error:first").length > 0) {
+                    $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find(".inputbox.error:first").find("input").focus();
                 } else {
-                    $("#businessMngrSignUpPopup").find("#businessCreateAccount").find(".inputbox").each(function (i, v) {
+                    $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find(".inputbox").each(function (i, v) {
 
                         if ($(v).find("input").val() == "") {
                             $(v).find("input").focus();
@@ -3326,25 +3306,25 @@ var bMngrSignUp = function () {
 
             var that = this;
             var jexAjax = jex.createAjaxUtil("FLOW_SUB_DOM_C001");
-            jexAjax.set("SUB_DOM", $.trim($("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#teamUrl").val()));
-            jexAjax.set("SUB_DOM_NM", $.trim($("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#teamName").val()));
+            jexAjax.set("SUB_DOM", $.trim($("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#teamUrl").val()));
+            jexAjax.set("SUB_DOM_NM", $.trim($("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#teamName").val()));
             jexAjax.set("USER_ID", $.trim($("#businessMngrSignUpPopup").find("#businessCreateAccount").find("input[name=email]").val()));
             jexAjax.set("USER_NM", cnts_Null2Void($("#businessMngrSignUpPopup").find("#businessCreateAccount").find("input[name='name']").val(), ""));
             jexAjax.set("PWD", cnts_Null2Void($("#businessMngrSignUpPopup").find("#businessCreateAccount").find("input[name=password]").val(), ""));
             jexAjax.set("RESAILER", cnts_Null2Void($("#_RESAILER").val(), ""));
             jexAjax.set("UNTACT_VOUCHER_SRNO", $('#_UNTACT_VOUCHER_SRNO').val());
-            /*var cpCd = $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#couponCode").val();
-            jexAjax.set("CP_CD", cpCd);*/
+            var cpCd = $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#couponCode").val();
+            jexAjax.set("CP_CD", cpCd);
 
             //@유민호 : 가입경로 추가 190513
-            if (cnts_Null2Void($("#businessMngrSignUpPopup").find("#businessCreateAccount").find("select.path_cd").css('display'), 'none') !== 'none'
-                && cnts_Null2Void($("#businessMngrSignUpPopup").find("#businessCreateAccount").find("input.path_cd").css('display'), 'none') === 'none') {
-                jexAjax.set("PATH_CD", $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("select.path_cd").val());
-                clog('select.path_cd ### ' + $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("select.path_cd").val());
-            } else if (cnts_Null2Void($("#businessMngrSignUpPopup").find("#businessCreateAccount").find("select.path_cd").css('display'), 'none') === 'none'
-                && cnts_Null2Void($("#businessMngrSignUpPopup").find("#businessCreateAccount").find("input.path_cd").css('display'), 'none') !== 'none') {
-                jexAjax.set("PATH_CD", $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("input.path_cd").val());
-                clog('input.path_cd ### ' + $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("input.path_cd").val());
+            if (cnts_Null2Void($("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("select.path_cd").css('display'), 'none') !== 'none'
+                && cnts_Null2Void($("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("input.path_cd").css('display'), 'none') === 'none') {
+                jexAjax.set("PATH_CD", $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("select.path_cd").val());
+                clog('select.path_cd ### ' + $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("select.path_cd").val());
+            } else if (cnts_Null2Void($("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("select.path_cd").css('display'), 'none') === 'none'
+                && cnts_Null2Void($("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("input.path_cd").css('display'), 'none') !== 'none') {
+                jexAjax.set("PATH_CD", $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("input.path_cd").val());
+                clog('input.path_cd ### ' + $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("input.path_cd").val());
             }
 
             jexAjax.execute(function (dat) {
@@ -3362,71 +3342,70 @@ var bMngrSignUp = function () {
                     if (dat.ERR_CD == "1000") {
                         clog("dat.ERR_CD ### 2" + dat.ERR_CD + "/" + dat.ERR_MSG);
                         if (cmf_browser().ieYn) {
-                            $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#teamUrl").select();
+                            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#teamUrl").select();
                             toast("2", dat.ERR_MSG);
                         } else {
-                            $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#teamUrl").select();
-                            $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#teamUrl").parent().addClass('error').removeClass('ok');
-                            $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#teamUrl").parent().find(".error-msg").find(".error-cont").text(dat.ERR_MSG);
+                            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#teamUrl").select();
+                            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#teamUrl").parent().addClass('error').removeClass('ok');
+                            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#teamUrl").parent().find(".error-msg").find(".error-cont").text(dat.ERR_MSG);
                         }
                     } else if (dat.ERR_CD == "3000") {
                         var _ERR_MSG = c18n('DL168', "한 계정으로 '한개의 회사'만 생성 가능합니다. <br /> 이 계정은 이미 다른 회사의 관리자입니다. 다른 계정을 사용해주세요.")
                         if (cmf_browser().ieYn) {
                             toast("2", _ERR_MSG);
                         } else {
-                            $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#errorMsg span").html(_ERR_MSG);
-                            $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#errorMsg").show();
+                            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#errorMsg span").html(_ERR_MSG);
+                            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#errorMsg").show();
                         }
                     } else if (dat.ERR_CD == "5000") {
                         var _ERR_MSG = c18n('DL169', "사용중인 이메일 주소입니다. 다른 메일주소를 등록해주세요");
                         if (cmf_browser().ieYn) {
                             toast("2", _ERR_MSG);
                         } else {
-                            $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#errorMsg span").html(_ERR_MSG);
-                            $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#errorMsg").show();
+                            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#errorMsg span").html(_ERR_MSG);
+                            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#errorMsg").show();
                         }
-                    /*} else if (dat.ERR_CD == "7000") {		// 쿠폰 에러일때
+                    } else if (dat.ERR_CD == "7000") {		// 쿠폰 에러일때
                         if (cmf_browser().ieYn) {
-                            $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#couponCode").select();
+                            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#couponCode").select();
                             toast("2", dat.ERR_MSG);
                         } else {
-                            $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#couponCode").select();
-                            $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#couponCode").parent().find(".error-msg").find(".error-cont").text(dat.ERR_MSG);
-                            $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#couponCode").parent().addClass('error').removeClass('ok');
-                        }*/
-                    /*} else if (dat.ERR_CD == "9000") {		// 쿠폰 에러이면서 회사도 존재일 경우
+                            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#couponCode").select();
+                            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#couponCode").parent().find(".error-msg").find(".error-cont").text(dat.ERR_MSG);
+                            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#couponCode").parent().addClass('error').removeClass('ok');
+                        }
+                    } else if (dat.ERR_CD == "9000") {		// 쿠폰 에러이면서 회사도 존재일 경우
 
                         var errMsgs = dat.ERR_MSG.split("&");
-                        $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#teamUrl").select();
-                        $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#teamUrl").parent().find(".error-msg").find(".error-cont").text(errMsgs[0]);
-                        $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#teamUrl").parent().addClass('error').removeClass('ok');
+                        $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#teamUrl").select();
+                        $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#teamUrl").parent().find(".error-msg").find(".error-cont").text(errMsgs[0]);
+                        $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#teamUrl").parent().addClass('error').removeClass('ok');
 
-                        $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#couponCode").select();
-                        $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#couponCode").parent().find(".error-msg").find(".error-cont").text(errMsgs[1]);
-                        $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#couponCode").parent().addClass('error').removeClass('ok');
+                        $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#couponCode").select();
+                        $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#couponCode").parent().find(".error-msg").find(".error-cont").text(errMsgs[1]);
+                        $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#couponCode").parent().addClass('error').removeClass('ok');
 
-                    }*/
+                    }
                     that.updateNextBtnToPayment();
                 } else {
-                    var teamUrl = $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#teamUrl").val();
-                    var teamDomain = $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#domain").text();
+                    var teamUrl = $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#teamUrl").val();
+                    var teamDomain = $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").find("#domain").text();
                     var teamUserName = $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("input[name='name']").val();
                     var companyName = $("#businessMngrSettingTeamInfo").find("#teamName").val();
                     $("#businessMngrSignUpPopup").find("#businessMngrFinished").find("#teamURL").val((_DEV_REAL == "DEV" ? "http://" : "https://") + teamUrl + teamDomain);
-                    $("#welcome-text").html(c18n('DL174','<b>$1</b>님은 <b>$2</b>의 관리자입니다.').replace('$1',teamUserName).replace('$2',companyName))
+                    $("#welcome-text").html(c18n('DL174', '<b>$1</b>님은 <b>$2</b>의 관리자입니다.').replace('$1', teamUserName).replace('$2', companyName))
 
-                    /*var fc_info = c18n('DL171', "1개월간") + " "
-                        +c18n('DL170', "무료로 이용 가능하며, 계속 이용하시려면 결제 정보 등록이 필요합니다<br class='block'>(기간 초과 시, 서비스 이용이 중지됩니다)");
+                    var fc_info = c18n('DL171', "1개월간") + " "
+                        + c18n('DL170', "무료로 이용 가능하며, 계속 이용하시려면 결제 정보 등록이 필요합니다<br class='block'>(기간 초과 시, 서비스 이용이 중지됩니다)");
 
-                    if(location.hostname.indexOf("ktworks.co.kr") > -1|| location.href.indexOf("ktbizworks.co.kr") > -1)
-                    {
+                    if (location.hostname.indexOf("ktworks.co.kr") > -1 || location.href.indexOf("ktbizworks.co.kr") > -1) {
                         fc_info = "2021년 1월 말까지 출시 프로모션 중으로 무료 이용이 가능합니다. <br class='block'>(이후, 계속 이용하시려면 결제 정보 등록이 필요합니다.)";
                     }
                     if (cpCd === "") {
                         $("#businessMngrSignUpPopup").find("#businessMngrFinished").find(".fc_gray").html(fc_info);
                     } else {
                         $("#businessMngrSignUpPopup").find("#businessMngrFinished").find(".fc_gray").html(c18n('DL172', "쿠폰 표기 기간동안") + " " + fc_info);
-                    }*/
+                    }
 
                     collectTagManager({
                         "event": "signUp3",
@@ -3438,7 +3417,10 @@ var bMngrSignUp = function () {
 
                     that.goToPayment("B");
                 }
+
             });
+
+
         },
         goToPayment: function (status) {
 
@@ -3453,7 +3435,7 @@ var bMngrSignUp = function () {
         goToBusinessFinished: function () {
 
             $("#businessMngrSignUpPopup").find("#businessMngrFinished").fadeIn(200);
-            $("#businessMngrSignUpPopup").find("#businessCreateAccount").hide();
+            $("#businessMngrSignUpPopup").find("#businessMngrSettingTeamInfo").hide();
         },
         login: function () {
             _ID_GB = 1;
