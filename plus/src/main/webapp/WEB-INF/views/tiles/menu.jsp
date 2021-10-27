@@ -149,8 +149,48 @@
 	
 <script type="text/javascript">
 $('#dash-three').on("click",function(){
-	$('#folderMenu').css("display","block");
+	if($leftScroll.next(".js-label-setting-layer").is(":visible")){
+		$('#labelSettingLayer').attr({label_srno: "", label_text: ""}).css({display: "none"});
+	}
+	$('#labelSettingLayer').css({
+        display: 'block',
+        transform: 'translate(' + e.pageX + 'px, ' + e.pageY + 'px)',
+        top: (-58 - Number($("#topBanner").css("height").replace("px", ""))) + "px",
+        left: '10px'
+    });
+	$('#labelSettingLayer').attr({
+        label_srno: $labelItem.attr("label-srno"),
+        label_text: $labelItem.find(".js-label-name").text(),
+    })
 });
+
+
+function clickAllLabelArea(e) {
+    var $eTarget = $(e.target);
+    var $leftScroll = $eTarget.findUp("#leftScroll");
+    var isThreeDot = $eTarget.hasClass("flow-dash-three");
+    var isTargetSettingPopup = $eTarget.findUp(".setting-popup").length > 0;
+    var $labelItem = $eTarget.findUp(".label-item");
+    if (isTargetSettingPopup) return false;
+
+    if (isThreeDot) {
+        var isOnSettingPopup = $leftScroll.next(".js-label-setting-layer").is(":visible");
+        var $labelSettingLayer = $leftScroll.next(".js-label-setting-layer");
+        var isSameLabelTarget = $labelSettingLayer.attr("label_srno") === $labelItem.attr("label-srno");
+        isOnSettingPopup = isOnSettingPopup && isSameLabelTarget;
+        if (isOnSettingPopup) {
+            $labelSettingLayer.attr({label_srno: "", label_text: ""}).css({display: "none"});
+            return;
+        }
+    }
+
+    if ($labelItem.length === 0) return;
+    ViewChanger.loadPageJson({
+        code: "label",
+        first: $labelItem.attr('label-srno'),
+        second: $labelItem.find(".js-label-name").text(),
+    })
+}
 </script>
 </body>
 </html>
