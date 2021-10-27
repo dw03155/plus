@@ -20,5 +20,8 @@ public class MemberVO {
 		//company
 		private String coName;
 		
+		//mem_status
+		private String memSt;
+		
 
 }

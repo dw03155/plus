@@ -24,6 +24,7 @@ public class MemberController {
 	JavaMailSender mailSender;
 	MemberService service;
 	
+	//회원가입
 	@RequestMapping(value = "/joinForm.do", method = RequestMethod.GET)
 	public String joinFrom(Model model) {
 
@@ -74,4 +75,8 @@ public class MemberController {
 		map.put("member", vo);
 		return map;
 	}
+	
+	//로그인
+	
+	//회원설정
 }
