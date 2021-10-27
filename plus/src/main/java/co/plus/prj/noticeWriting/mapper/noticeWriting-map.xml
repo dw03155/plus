@@ -4,7 +4,7 @@
 	namespace="co.plus.prj.noticeWriting.mapper.NoticeWritingMapper">
 	<select id="noticeWritingSelectList"
 		resultType="co.plus.prj.noticeWriting.vo.NoticeWritingVO">
-		select a.*, b.name																				<!-- 게시글 목록 조회 -->
+		select a.*, b.name																				<!-- 내 게시글 -->
 		from board a, member b
 		where a.mem_id = b.mem_id
 		and a.mem_id = #{memId}
