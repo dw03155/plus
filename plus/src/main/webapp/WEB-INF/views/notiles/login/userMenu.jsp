@@ -50,153 +50,104 @@ body {font-family: Arial, Helvetica, sans-serif;}
 </style>
 </head>
 <body>
-<div align="center">
-<h2>Modal Example</h2>
-
-<!-- Trigger/Open The Modal -->
-<button id="myBtn">Open Modal</button>
-
-<!-- The Modal -->
-<div id="myModal" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>Some text in the Modal..</p>
-    <div>
-    <ui>
-		<li id="myPageMenu">환경설정</li>
-		<li id="signMenu">회원상태</li>
-		<li id="lookMenu">로그아웃</li>
-	</ui>
-	</div>
-  </div>
-
+	<div align="center">
+	<h2>Modal Example</h2>
 	
-</div>
-
-<div id="myPageModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span id="close" class="close">&times;</span>
-   
-    <!-- 마이페이지 -->
-    <div>
-	    <table border="1" style="width: 700px; height: 600px;">
-	    	<tr >
-	    		<th colspan="2" height="50px;">환경설정</th>
-	    	</tr>
-	    	<tr>
-	    		<td>
-	    			<span style="color: red">마이페이지</span><br/>
-	    			<span>알림</span><br/>
-	    			<span>잠금설정</span><br/>
-	    		</td>
-	    		<td>
-	    			<span>이름</span>
-	    			<input type="text"><br/><br>
-	    			<span>회사명</span>
-	    			<input type="text"><br/><br>
-	    			<span>부서명</span>
-	    			<input type="text"><br/><br>
-	    			<span>직책</span>
-	    			<input type="text"><br/><br>
-	    			<span>휴대폰번호</span>
-	    			<input type="text"><br/><br>
-	    			<span>회사연락처</span>
-	    			<input type="text"><br/><br>
-	    			<span>현재 비밀번호</span>
-	    			<input type="text"><br/><br>
-	    			<span>변경 할 비밀번호</span>
-	    			<input type="text"><br/><br>
-	    		</td>
-	    	</tr>
-	    </table>
+	<!-- Trigger/Open The Modal -->
+	<button id="myBtn">Open Modal</button>
+	
+	<!-- The Modal -->
+	<div id="myModal" class="modal">
+	
+	  <!-- Modal content -->
+	  <div class="modal-content">
+	    <span class="close">&times;</span>
+	    <div>
+	    <ui>
+			<li id="myPageMenu">환경설정</li>
+			<li id="signMenu">회원상태</li>
+			<li id="lookMenu">로그아웃</li>
+		</ui>
+		</div>
+	  </div>
+	
+		
 	</div>
 	
-	<!-- 알림 -->
-	<div>
-	    <table border="1" style="width: 700px; height: 600px;">
-	    	<tr >
-	    		<th colspan="2" height="50px;">환경설정</th>
-	    	</tr>
-	    	<tr>
-	    		<td>
-	    			<span>마이페이지</span><br/>
-	    			<span>알림</span><br/>
-	    			<span>잠금설정</span><br/>
-	    		</td>
-	    		<td>
-	    			<span>이름</span>
-	    			<input type="text"><br/><br>
-	    			<span>회사명</span>
-	    			<input type="text"><br/><br>
-	    			<span>부서명</span>
-	    			<input type="text"><br/><br>
-	    			<span>직책</span>
-	    			<input type="text"><br/><br>
-	    			<span>휴대폰번호</span>
-	    			<input type="text"><br/><br>
-	    			<span>회사연락처</span>
-	    			<input type="text"><br/><br>
-	    			<span>현재 비밀번호</span>
-	    			<input type="text"><br/><br>
-	    			<span>변경 할 비밀번호</span>
-	    			<input type="text"><br/><br>
-	    		</td>
-	    	</tr>
-	    </table>
+	<div id="myPageModal" class="modal">
+	  <!-- Modal content -->
+	  <div class="modal-content">
+	    <span class="close">&times;</span>
+	   
+	    <!-- 마이페이지 -->
+		<div>
+		    <table border="1" style="width: 700px; height: 600px;">
+		    	<tr >
+		    		<th colspan="2" height="50px;">환경설정</th>
+		    	</tr>
+		    	<tr>
+		    		<td>
+		    			<span>마이페이지</span><br/>
+		    			<span>알림</span><br/>
+		    			<span>잠금설정</span><br/>
+		    		</td>
+		    		<td>
+		    			<span>이름</span>
+		    			<input type="text" id="name" name="name"><br/><br>
+		    			<span>회사명</span>
+		    			<input type="text" id="coName" name="coName" readonly="readonly"><br/><br>
+		    			<span>부서명</span>
+		    			<input type="text" id="dept" name="dept" ><br/><br>
+		    			<span>직책</span>
+		    			<input type="text" id="wkpo" name="wkpt" ><br/><br>
+		    			<span>휴대폰번호</span>
+		    			<input type="text" id="persTel" name="persTel" ><br/><br>
+		    			<span>회사연락처</span>
+		    			<input type="text" id="coTel" name="coTel" readonly="readonly"><br/><br>
+		    			<button type="button" id="pwdBtn" name="pwdBtn" >비밀번호 변경</button>
+		    		</td>
+		    	</tr>
+		    </table>
+		</div>
+	  </div>
+	 </div> 
+	 
+	  <div id="pwdUpdate" class="modal">
+		  <!-- Modal content -->
+		  <div class="modal-content">
+		    <span class="close">&times;</span>
+		   
+		    <!-- 마이페이지 -->
+			<div>
+			    <table border="1" style="width: 700px; height: 600px;">
+			    	<tr>
+			    		<th colspan="2" height="50px;">비밀번호 변경</th>
+			    	</tr>
+			    	<tr>
+			    		<td>
+			    			<span>현재 비밀번호</span>
+			    			<input type="password" id="pwd" name="pwd" ><br/><br>
+			    			<span>변경 할 비밀번호</span>
+			    			<input type="text"><br/><br>
+			    		</td>
+			    	</tr>
+			    </table>
+			</div>
+		  </div>
+		</div>
+		
 	</div>
-	
-	<!-- 잠금설정 -->
-	<div>
-	    <table border="1" style="width: 700px; height: 600px;">
-	    	<tr >
-	    		<th colspan="2" height="50px;">환경설정</th>
-	    	</tr>
-	    	<tr>
-	    		<td>
-	    			<span>마이페이지</span><br/>
-	    			<span>알림</span><br/>
-	    			<span>잠금설정</span><br/>
-	    		</td>
-	    		<td>
-	    			<span>이름</span>
-	    			<input type="text"><br/><br>
-	    			<span>회사명</span>
-	    			<input type="text"><br/><br>
-	    			<span>부서명</span>
-	    			<input type="text"><br/><br>
-	    			<span>직책</span>
-	    			<input type="text"><br/><br>
-	    			<span>휴대폰번호</span>
-	    			<input type="text"><br/><br>
-	    			<span>회사연락처</span>
-	    			<input type="text"><br/><br>
-	    			<span>현재 비밀번호</span>
-	    			<input type="text"><br/><br>
-	    			<span>변경 할 비밀번호</span>
-	    			<input type="text"><br/><br>
-	    		</td>
-	    	</tr>
-	    </table>
-	</div>
-  </div>
-
-	
-</div>
-	
-</div>
-
 <script>
 
 $("#myPageMenu").on("click", function(){
 	$("#myPageModal").css("display","block");
 });
 
-$("#close").on("click", function(){
-	$("#myPageModal").css("display","none");
-});
+var pwdUpdate = document.getElementById("pwdUpdate");
+var pwdBtn = document.getElementById("pwdBtn");
+pwdBtn.onclick = function(){
+	pwdUpdate.style.display = "block";
+}
 
 // Get the modal
 var modal = document.getElementById("myModal");
