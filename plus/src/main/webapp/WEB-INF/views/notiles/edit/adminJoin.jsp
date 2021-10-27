@@ -160,13 +160,11 @@
 			<div class="fl-header-wrap">
 				<!-- header -->
 				<div class="fl-header">
-
 					<h1>
 						<a href="/"><img id="headerLogoImg"
 							src="design2/img_login/bi_flow.png" style="cursor: pointer;"
 							alt="flow"></a>
 					</h1>
-
 				</div>
 				<!-- //header -->
 
@@ -182,7 +180,7 @@
 
 							<!-- 전체메시지 -->
 							<div class="flk-msg-wrap">
-								<h3 class="font-Noto" data-langcode="H463">관리자 계정을 생성하세요</h3>
+								<h3 class="font-Noto" data-langcode="H463">플러스 관리자 계정을 생성하세요</h3>
 								<h4 class="font-Noto">
 									<span data-langcode="H486">아래 정보들을 입력 후, 플러스 관리자로 시작할 수
 										있습니다.</span><br class="block"> <span style="color: #4c80d6;"

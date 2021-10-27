@@ -232,6 +232,55 @@
 	</script>
 
 
+<<<<<<< HEAD
+=======
+
+
+	<input type="hidden" id="_DEV_REAL" value="REAL" />
+	<input type="hidden" id="_STR_BASE_URL" value="http://flow.team" />
+	<input type="hidden" id="serverConnNum" value="" />
+
+	<input type="hidden" id="ELECTRON_YN" value="N" />
+	<input type="hidden" id="ELECTRON_VER" value="" />
+
+	<!-- sub domain start -->
+	<input type="hidden" id="_SUB_DOM" value="" />
+	<input type="hidden" id="_SERVICE_VERSION" value="" />
+	<input type="hidden" id="_SUB_DOMAIN_NAME" value="" />
+	<input type="hidden" id="_SUB_DOMAIN_LOGO_URL" value="" />
+	<input type="hidden" id="_SUB_DOMAIN_USE_INTT_ID" value="" />
+
+	<input type="hidden" id="_MOBILE_YN" value="N" />
+	<input type="hidden" id="_COMPANY_CODE_USEABLE" value="false" />
+
+	<input type="hidden" id="_BIS_MNGR_SIGNUP" value="Y" />
+	<input type="hidden" id="_RESAILER" value="" />
+
+	<!-- sub domain end -->
+	<input type="hidden" id="_HOMEPAGE" value="http://flow.team" />
+
+
+	<!-- invite start -->
+	<div id="INVT_KEY" style="display: none;"></div>
+	<!-- invite end -->
+
+	<!-- 회원가입 화면 direct 여부 start -->
+	<div id="JOIN" style="display: none;"></div>
+	<!-- 회원가입 화면 direct 여부 end -->
+	<!-- 비대면 바우처 SRNO 세팅  start -->
+	<input type="hidden" id="_UNTACT_VOUCHER_SRNO" value="-1" />
+	<!-- 비대면 바우처 SRNO 세팅 end -->
+
+	<div class="alert_wrap" id="layerAlert"
+		style="z-index: 99999; top: 50px; left: 40%; display: none; text-align: center;">
+		<div class='alert_box'>
+			<p style="color: #555; font-weight: bold"></p>
+		</div>
+	</div>
+
+
+
+>>>>>>> branch 'main' of https://github.com/dw03155/plus.git
 	<div class="business-signup-layer">
 
 		<!-- businessMngrSignUpPopup -->
@@ -445,47 +494,44 @@
 	</div>
 	<!-- Page hiding snippet (recommended) -->
 	<script>
-		$("#nextToSettingTeam").on("click", function(e) {
-			/* if ($('#pwd').val() != $('#pwdCheck').val()) {
-				alert("비밀번호를 바르게 입력하세요")
-			} else { */
-			console.log("TEST")
-			$('#checkJoinPopup').attr("class", "flow-all-background-1");
-			var email = $("#email").val();
-			$.ajax({
-				type : "post",
-				url : "joinMail.do",
-				data : {
-					email : email
-				},
-				/* dataType : "json", */
-				success : function(key) {
-
-					alert(email + "로 인증메일이 발송되었습니다.");
-					isCertification = true;
-					console.log(key);
-
-					$("#joinNum").on("change keyup paste", function() {
-						if ($("#joinNum").val() == key) {
-							$("#certiNum").text("일치");
+			$("#nextToSettingTeamInfo").on("click", function(e) {
+				if ($('#pwd').val() != $('#pwdCheck').val()) {
+					alert("비밀번호를 바르게 입력하세요")
+				} else {
+					$('#checkJoinPopup').attr("class","flow-all-background-1");
+					var email = $("#email").val();
+					$.ajax({
+						type : "post",
+						url : "joinMail.do",
+						data : {
+							email : email
+						},
+						/* dataType : "json", */
+						success: function(key){
+							$('#layerAlert').css("display","block").find('#alert_box').children('p').text(email + "로 인증메일이 발송되었습니다.");
+							/* alert(email + "로 인증메일이 발송되었습니다."); */
 							isCertification = true;
-							$("#join").on("click", function() {
-								memberInsert();
-							});
-
-						} else {
-							$("#certiNum").text("불일치");
-							isCertification = false;
-							$("join").on("click", function() {
-								alert("인증번호를 확인하세요.");
+							console.log(key);
+							
+							$("#joinNum").on("change keyup paste", function(){
+								if($("#joinNum").val() == key){
+									$("#certiNum").append("<li class='url'/>").text("인증");
+									isCertification = true;
+									$("#join").on("click",function(){
+										memberInsert();	
+									});
+									}
+								}else{
+									$("#certiNum").append("<li class='url'/>").text("불일치");
+									isCertification = false;
+									$("join").on("click", function(){
+										alert("인증번호를 확인하세요.");
+									})
+								}
 							})
-						}
-					})
-				}
-			});
-			/* } */
-		});
-
+							}
+						});
+					});
 		function memberInsert() {
 			var email = $('input:text[name="email"]').val();
 			var name = $('input:text[name="name"]').val();

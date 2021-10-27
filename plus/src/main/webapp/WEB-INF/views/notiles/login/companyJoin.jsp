@@ -308,6 +308,7 @@ to {
 								$('#joinSubmit1').on('click',function(){
 									$('#frm').attr("action", "userJoin.do");
 									$('[name="newCoUrl"]').val($("#coUrl").val());
+
 								});
 								
 			
@@ -327,6 +328,7 @@ to {
 									}else{										
 									$('#frm').attr("action", "adminJoin.do");
 									$('[name="newCoUrl"]').val($("#coUrl").val());
+
 									}
 								});
 									
