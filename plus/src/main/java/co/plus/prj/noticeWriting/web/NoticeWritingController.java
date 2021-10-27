@@ -16,7 +16,7 @@ public class NoticeWritingController {
 
 	@RequestMapping("/noticeWritingSelectList.do") 					// 게시글 목록 조회
 	String noticeWritingSelectList(Model model, NoticeWritingVO vo) {
-		vo.setMemId(5);
+		vo.setMemId(6);
 		model.addAttribute("notices", nwDao.noticeWritingSelectList(vo));
 		return "noticeWriting/noticeWritingSelectList";
 	}
