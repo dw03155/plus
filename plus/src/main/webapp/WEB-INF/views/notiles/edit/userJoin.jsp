@@ -19,7 +19,7 @@
 
 <meta name="theme-color" content="#5f5ab9">
 
-<title>플로우(flow) - 대한민국 NO.1 올인원 협업툴</title>
+<title>플러스(plus) - 대한민국 NO.1 올인원 협업툴</title>
 <meta name="description"
 	content="프로젝트관리, 업무관리, 메신저, 화상회의, 파일공유&보관, 간트차트, 일정관리까지! 재택근무, 원격근무, 리모트워크, 비대면 업무환경을 구축해 보세요. 지금 무료로 시작하세요.">
 <meta name="keywords"
@@ -148,6 +148,7 @@
 </style>
 </head>
 <body>
+
 	<div class="business-signup-layer">
 
 		<!-- businessMngrSignUpPopup -->
@@ -179,14 +180,11 @@
 
 					<!-- 전체메시지 -->
 					<div class="flk-msg-wrap">
-						<h3 class="font-Noto" data-langcode="H463">플로우 비즈니스 계정을 생성하세요</h3>
+						<h3 class="font-Noto" data-langcode="H463">플러스 사용자 계정을 생성하세요</h3>
 						<h4 class="font-Noto">
-							<span style="color: #4c80d6;" data-langcode="H464">비즈니스
-								베이직 버전을 30일간 무료로 체험해 볼 수 있습니다.</span> <br class="block"> <span
-								data-langcode="H465">카드 등록 없이 시작할 수 있으며,&nbsp;&nbsp;요금이
-								부과되지 않습니다.</span> <a href="/price.act" target="flowPrice"
-								style="cursor: pointer; text-decoration: underline;"
-								data-langcode="H466">요금제 확인</a><br class="block">
+							<span data-langcode="H486">아래 정보들을 입력 후, 플러스 사용자로 시작할 수
+										있습니다.</span><br class="block">URL 주소는 직원들을 초대할 때 이용할 수 있습니다.<span style="color: #4c80d6;"
+										data-langcode="H487"></span>
 						</h4>
 					</div>
 					<!-- //전체메시지 -->
@@ -281,22 +279,6 @@
 							<div class="btn-box">
 								<button type="button" id="nextToSettingTeamInfo"
 									class="btn-bigs c-gray" data-langcode="H482">다음</button>
-
-								<!--<div class="form-chk"><a class="btn" id="goToPremiumSignUp"><span data-langcode="H483">프로젝트에 초대받아 시작하시나요?</span><span style="color:#4d7fd6;">&nbsp;<u data-langcode="H484">게스트로 시작하기</u></span></a></div>-->
-								<div class="form-chk" style="text-align: center">
-									<span data-langcode="A1857">게스트 계정 가입을 원하시나요?</span><a
-										class="btn" id="goToPremiumSignUp"><span
-										style="color: #4d7fd6;">&nbsp;<u data-langcode="H484">게스트로
-												시작하기</u></span></a>
-								</div>
-								<div>
-									<br> <a class="btn"> <span
-										style="color: #4d7fd6; display: none"> <u
-											data-langcode="A1858" id="whatIsGuest">게스트 회원이란?</u>
-									</span>
-									</a>
-								</div>
-
 							</div>
 						</fieldset>
 					</form>
