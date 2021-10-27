@@ -98,7 +98,7 @@
 						<li id="label-1" label-srno="1" class="label-item "><i
 							class="ico-label"></i> <span
 							class="js-label-name js-mouseover ellipsis" mouseover-text="마케팅">마케팅</span>
-							<a href="#" class="js-label-setting-button flow-dash-three">
+							<a href="#" id="dash-three" class="js-label-setting-button flow-dash-three">
 								<div></div>
 								<div></div>
 								<div></div>
@@ -107,7 +107,7 @@
 						<li id="label-2" label-srno="2" class="label-item "><i
 							class="ico-label"></i> <span
 							class="js-label-name js-mouseover ellipsis" mouseover-text="디자인">디자인</span>
-							<a href="#" class="js-label-setting-button flow-dash-three">
+							<a href="#" id="dash-three" class="js-label-setting-button flow-dash-three">
 								<div></div>
 								<div></div>
 								<div></div>
@@ -116,7 +116,7 @@
 						<li id="label-3" label-srno="3" class="label-item "><i
 							class="ico-label"></i> <span
 							class="js-label-name js-mouseover ellipsis"
-							mouseover-text="엔지니어링">엔지니어링</span> <a href="#"
+							mouseover-text="엔지니어링">엔지니어링</span> <a href="#" id="dash-three"
 							class="js-label-setting-button flow-dash-three">
 								<div></div>
 								<div></div>
@@ -127,7 +127,7 @@
 			</li>
 		</ul>
 		<div
-			class="js-label-setting-layer setting-popup flow-small-layer-1 cursor-pointer"
+			class="js-label-setting-layer setting-popup flow-small-layer-1 cursor-pointer" id="folderMenu"
 			style="display: none">
 			<div class="label-edit flow-name-size">
 				<i></i><a href="#"><span>수정</span></a>
@@ -146,5 +146,11 @@
 			</li>
 		</ul>
 	</div>
+	
+<script type="text/javascript">
+$('#dash-three').on("click",function(){
+	$('#folderMenu').css("display","block");
+});
+</script>
 </body>
 </html>
