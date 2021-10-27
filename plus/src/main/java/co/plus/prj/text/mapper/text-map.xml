@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.plus.prj.text.service.TextMapper">
+
+	<select id="textSelectList" resultType="co.plus.prj.text.vo.TextVO">
+		select * from text
+		order by noti_id desc 
+	</select>
+	
+	<select id="textSelect" resultType="co.plus.prj.text.vo.TextVO">
+		select text, notice_writing
+		from text
+		join notice_writing
+		on text.noti_id = notice_writing.noti_id
+		where noti_id = #{noti_id}
+	</select>
+	
+	<insert id="textInsert" parameterType="co.plus.prj.text.vo.TextVO">
+		insert into text(noti_id, txt_ttl, txt_cntn, txt_pl)
+		values(noti_id.nextval, #{txt_ttl}, #{txt_cntn}, #{txt_pl})
+	</insert>
+	
+	<update id="textUpdate" parameterType="co.plus.prj.text.vo.TextVO">
+		update text set txt_ttl = #{txt_ttl}, txt_cntn = #{txt_cntn}, txt_pl = #{txt_pl}
+		where mem_id = #{mem_id}
+	</update>
+	
+	<delete id="textDelete" parameterType="co.plus.prj.text.vo.TextVO">
+		delete from text
+		where noti_id = #{noti_id}
+	</delete>
+</mapper>

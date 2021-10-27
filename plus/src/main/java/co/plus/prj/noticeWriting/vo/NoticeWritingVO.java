@@ -12,7 +12,7 @@ public class NoticeWritingVO {
 	private String notiDttm;		// 게시글 작성일시
 	private String notiOpenPerm;	// 게시글 공개권한
 	
-	private String memName;			// 회원이름
+	private String name;			// 회원이름
 	private String notiTtl;			// 게시글명
 	private String prjTtl;			// 프로젝트 제목
 	
