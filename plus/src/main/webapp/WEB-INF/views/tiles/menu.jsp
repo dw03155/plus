@@ -66,17 +66,17 @@
 				</div>
 				<div class="menu-accordion" style="display: block">
 					<ul class="menu-accordion-list">
-						<li data-code="task" class="left-menu-item"><a href="#"><i
+						<li><a href="#"><i
 								class="ico-task"></i>전체 업무 </a></li>
-						<li data-code="gantt" class="left-menu-item" id="leftMenuGantt"><a
+						<li id="leftMenuGantt"><a
 							href="#"><i class="ico-ganttchart"></i>간트차트</a></li>
-						<li data-code="schd" class="left-menu-item"><a href="#"><i
+						<li><a href="#"><i
 								class="ico-schedule"></i>캘린더</a></li>
-						<li data-code="file" class="left-menu-item"><a href="#"><i
+						<li><a href="#"><i
 								class="ico-filebox"></i>파일함</a></li>
-						<li data-code="bookmark" class="left-menu-item"><a href="#"><i
+						<li><a href="#"><i
 								class="ico-bookmark"></i>북마크</a></li>
-						<li data-code="mypost" class="left-menu-item"><a href="#"><i
+						<li><a href="noticeWritingSelectList.do"><i
 								class="ico-my-write"></i>내 게시물</a></li>
 					</ul>
 				</div>

@@ -59,9 +59,9 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/userJoin.do", method = RequestMethod.GET)
-	public String exCompany(@RequestParam(required = false) String newCourl, Model model) {
-		model.addAttribute("exUrl",newCourl);
-		System.out.println(newCourl);
+	public String exCompany(@RequestParam(required = false) String newCoUrl, Model model) {
+		model.addAttribute("exUrl",newCoUrl);
+		System.out.println(newCoUrl);
 		
 		return "notiles/login/userJoin";
 	}

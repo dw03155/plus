@@ -1292,7 +1292,7 @@ function movePage(url, mode) {
 /**
  * ID 중복체크
  * @param {d} element : input type='email' element
-
+ **/
  function duplicationIdCheck(element){
 	//var jexAjax = jex.createAjaxUtil("COLABO2_REGISTER_R001");
 	var jexAjax = jex.createAjaxUtil("COLABO_USER_DUPLICATE_R001");
@@ -1323,7 +1323,7 @@ function movePage(url, mode) {
 		}
 	});
 }
- */
+
 
 /**
  * 구글 로그인 API.
@@ -2933,7 +2933,7 @@ var bMngrSignUp = function () {
                 that.updateNextBtnToSettingTeamInfoBtn();
             });
 
-            $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#nextToSettingTeamInfo").on('click', function (e) {
+          /*  $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#nextToSettingTeamInfo").on('click', function (e) {
 
 
                 //@유민호 : 가입경로 초기화 190513
@@ -2942,7 +2942,7 @@ var bMngrSignUp = function () {
 
                 that.validIdCheck();
 
-            });
+            });*/
 
             $("#businessMngrSignUpPopup").find("#businessCreateAccount").find("#domain").text("." + location.hostname);
 
