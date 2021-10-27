@@ -3,13 +3,13 @@ package co.plus.prj.noticeWriting.serviceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
-import co.plus.prj.noticeWriting.service.NoticeWritingMapper;
+import co.plus.prj.noticeWriting.mapper.NoticeWritingMapper;
 import co.plus.prj.noticeWriting.service.NoticeWritingService;
 import co.plus.prj.noticeWriting.vo.NoticeWritingVO;
 
-@Repository("nwDao")
+@Service("nwDao")
 public class NoticeWritingServiceImpl implements NoticeWritingService {
 	@Autowired
 	private NoticeWritingMapper map;

@@ -1,4 +1,4 @@
-package co.plus.prj.noticeWriting.service;
+package co.plus.prj.noticeWriting.mapper;
 
 import java.util.List;
 

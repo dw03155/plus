@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>게시물</title>
+<title>프로젝트 상세보기</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <script src="js/jquery-latest.min.js"></script>
@@ -44,8 +44,22 @@
 .dropdown:hover .dropdown-content {
 	display: block;
 }
-
 </style>
+<script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
 </head>
 <div>
 	<h2>내 게시물</h2>
@@ -58,6 +72,14 @@
 		</form>
 	</div>
 	<br>
+	<!-- 게시물 작성폼 호출 -->
+	<div class="tab">
+		<button class="tablinks" onclick="openForm(event, 'Text')">글</button>
+		<button class="tablinks" onclick="openForm(event, 'Task')">업무</button>
+		<button class="tablinks" onclick="openForm(event, 'Schedule')">일정</button>
+		<button class="tablinks" onclick="openForm(event, 'Todo')">할
+			일</button>
+	</div>
 	<!-- 게시물 목록 -->
 	<table>
 		<c:forEach var="notices" items="${notices }">
@@ -80,8 +102,10 @@
 					<div class="dropdown" align="left">
 						<button type="button" id="more_btn">더보기</button>
 						<div class="dropdown-content">
-							<p id="retouch">수정<p>
-							<p id="delete">삭제<p>
+							<p id="retouch">수정
+							<p>
+							<p id="delete">삭제
+							<p>
 						</div>
 					</div>
 				</div>
