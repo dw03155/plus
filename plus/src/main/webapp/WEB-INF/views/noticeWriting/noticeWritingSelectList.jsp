@@ -11,6 +11,7 @@
 <script src="js/jquery-latest.min.js"></script>
 <style type="text/css">
 #modal {
+	z-index: 2000;
 	display: none;
 }
 
@@ -45,56 +46,7 @@
 	display: block;
 }
 </style>
-
-</head>
-<div>
-	<h2>내 게시물</h2>
-</div>
-<body>
-	<!-- 검색 -->
-	<div>
-		<form id="frm" name="frm" method="post">
-			<input type="text" name="notiTtl" id="notiTtl" placeholder="게시물 명 입력">
-		</form>
-	</div>
-	<br>
-	<!--내 게시물 목록 -->
-	<table>
-		<c:forEach var="notices" items="${notices }">
-			<!-- 전체 목록 -->
-			<tr data-notiid="${notices.notiId}" data-kind="${notices.notiKnd }">
-				<td>${notices.notiKnd}</td>
-				<td>${notices.notiTtl }</td>
-				<td>${notices.name }</td>
-				<td>${notices.notiDttm}</td>
-			</tr>
-		</c:forEach>
-	</table>
-	<!-- 상세보기 -->
-	<div id="modal">
-		<div class="modal_content">
-			<label>프로젝트명</label> <span id="modal_close_btn">&times;</span>
-			<div id="subModal">
-				<div align="right">
-					<button type="button">핀셋</button>
-					<div class="dropdown" align="left">
-						<button type="button" id="more_btn">더보기</button>
-						<div class="dropdown-content">
-							<p id="retouch">수정
-							<p>
-							<p id="delete">삭제
-							<p>
-						</div>
-					</div>
-				</div>
-				<div>
-					<div id="modalBody"></div>
-				</div>
-				<div class="modal_layer"></div>
-			</div>
-		</div>
-	</div>
-	<!-- 모달창 JS -->
+<!-- 모달창 JS -->
 	<script>
 		
 		$("tr").click(function() { // 모달창 열고 닫기
@@ -149,5 +101,55 @@
 			$("#modal").css("display", "none");
 		});
 	</script>
+</head>
+<body>
+<div>
+	<h2>내 게시물</h2>
+</div>
+	<!-- 상세보기 -->
+	<div id="modal">
+		<div class="modal_content">
+			<label>프로젝트명</label> <span id="modal_close_btn">&times;</span>
+			<div id="subModal">
+				<div align="right">
+					<button type="button">핀셋</button>
+					<div class="dropdown" align="left">
+						<button type="button" id="more_btn">더보기</button>
+						<div class="dropdown-content">
+							<p id="retouch">수정
+							<p>
+							<p id="delete">삭제
+							<p>
+						</div>
+					</div>
+				</div>
+				<div>
+					<div id="modalBody"></div>
+				</div>
+				<div class="modal_layer"></div>
+			</div>
+		</div>
+	</div>
+	<!-- 검색 -->
+	<div>
+		<form id="frm" name="frm" method="post">
+			<input type="text" name="notiTtl" id="notiTtl" placeholder="게시물 명 입력">
+		</form>
+	</div>
+	<br>
+	<!--내 게시물 목록 -->
+	<table>
+		<c:forEach var="notices" items="${notices }">
+			<!-- 전체 목록 -->
+			<tr data-notiid="${notices.notiId}" data-kind="${notices.notiKnd }">
+				<td>${notices.notiKnd}</td>
+				<td>${notices.notiTtl }</td>
+				<td>${notices.name }</td>
+				<td>${notices.notiDttm}</td>
+			</tr>
+		</c:forEach>
+	</table>
+	
+	
 </body>
 </html>
