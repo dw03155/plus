@@ -160,13 +160,11 @@
 			<div class="fl-header-wrap">
 				<!-- header -->
 				<div class="fl-header">
-
 					<h1>
 						<a href="/"><img id="headerLogoImg"
 							src="design2/img_login/bi_flow.png" style="cursor: pointer;"
 							alt="flow"></a>
 					</h1>
-
 				</div>
 				<!-- //header -->
 

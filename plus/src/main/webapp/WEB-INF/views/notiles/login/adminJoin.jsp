@@ -274,8 +274,6 @@
 
 
 
-
-
 	<div class="business-signup-layer">
 
 		<!-- businessMngrSignUpPopup -->
@@ -491,8 +489,8 @@
 						},
 						/* dataType : "json", */
 						success: function(key){
-							
-							alert(email + "로 인증메일이 발송되었습니다.");
+							$('#layerAlert').css("display","block").find('#alert_box').children('p').text(email + "로 인증메일이 발송되었습니다.");
+							/* alert(email + "로 인증메일이 발송되었습니다."); */
 							isCertification = true;
 							console.log(key);
 							

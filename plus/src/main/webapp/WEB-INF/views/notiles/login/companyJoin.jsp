@@ -305,7 +305,7 @@ to {
 								$('#joinSubmit2').attr('class','btn-popup01 d-none'); 
 								$('#joinSubmit1').attr('class','btn-popup01');
 								$('#joinSubmit1').on('click',function(){
-									$('#frm').attr("action", "exCompany.do");
+									$('#frm').attr("action", "userJoin.do");
 									$('[name="newCourl"]').val($("#coUrl").val());
 								});
 								
@@ -324,7 +324,7 @@ to {
 									if($("#coUrl").val()==""){
 										alert("url을 입력하세요.")
 									}else{										
-									$('#frm').attr("action", "newCompany.do");
+									$('#frm').attr("action", "adminJoin.do");
 									$('[name="newCourl"]').val($("#coUrl").val());
 									}
 								});
