@@ -6,14 +6,14 @@ import co.plus.prj.noticeWriting.vo.NoticeWritingVO;
 
 public interface NoticeWritingMapper {
 
-	List<NoticeWritingVO> noticeWritingSelectList(NoticeWritingVO vo);		// 게시글 목록 조회
+	List<NoticeWritingVO> noticeWritingSelectList(NoticeWritingVO vo);		// 내 게시뮬 메뉴
 	
-	NoticeWritingVO noticeWritingSelectTxt(NoticeWritingVO vo); 				// 게시글 글 상세보기
-	NoticeWritingVO noticeWritingSelectTsk(NoticeWritingVO vo); 				// 게시글 업무 상세보기
-	NoticeWritingVO noticeWritingSelectSubtsk(NoticeWritingVO vo); 				// 게시글 하위업무 상세보기
-	NoticeWritingVO noticeWritingSelectSche(NoticeWritingVO vo); 				// 게시글 일정 상세보기
-	NoticeWritingVO noticeWritingSelectTodo(NoticeWritingVO vo); 				// 게시글 할일 상세보기
+	NoticeWritingVO noticeWritingSelectTxt(NoticeWritingVO vo); 			// 내 게시물 글 상세보기
+	NoticeWritingVO noticeWritingSelectTsk(NoticeWritingVO vo); 			// 내 게시글 업무 상세보기
+	NoticeWritingVO noticeWritingSelectSubtsk(NoticeWritingVO vo); 			// 내 게시글 하위업무 상세보기
+	NoticeWritingVO noticeWritingSelectSche(NoticeWritingVO vo); 			// 내 게시글 일정 상세보기
+	NoticeWritingVO noticeWritingSelectTodo(NoticeWritingVO vo); 			// 내 게시글 할일 상세보기
 	
-	 public int noticeCount(NoticeWritingVO vo); 									// 게시글 개수 표기
+	 public int noticeCount(NoticeWritingVO vo); 							// 내 게시물 개수 
 	
 }

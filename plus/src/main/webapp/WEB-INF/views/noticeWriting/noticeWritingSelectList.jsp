@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +10,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <script src="js/jquery-latest.min.js"></script>
+<script type="text/javascript">
+		var callMem = '5';
+		$('input[name=memId]').attr('value',callMem);
+	</script>
 <style type="text/css">
 #modal {
 	z-index: 2000;
@@ -138,17 +143,23 @@
 	</div>
 	<br>
 	<!--내 게시물 목록 -->
-	<table>
+	<div>
+	<table border="1">
 		<c:forEach var="notices" items="${notices }">
 			<!-- 전체 목록 -->
 			<tr data-notiid="${notices.notiId}" data-kind="${notices.notiKnd }">
 				<td>${notices.notiKnd}</td>
 				<td>${notices.notiTtl }</td>
 				<td>${notices.name }</td>
-				<td>${notices.notiDttm}</td>
+				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${notices.notiDttm}" /></td>
 			</tr>
 		</c:forEach>
 	</table>
+	</div>
+	<form name="callFrm" action="/noticeWritingSelectList.do" method="post">
+		<input type="hidden" name="memId" value="">
+	</form>
+	
 	
 	
 </body>

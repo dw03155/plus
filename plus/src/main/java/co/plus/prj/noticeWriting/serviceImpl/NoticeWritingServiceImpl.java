@@ -16,38 +16,38 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 	
 
 	@Override
-	public List<NoticeWritingVO> noticeWritingSelectList(NoticeWritingVO vo) {		// 게시글 목록 조회
+	public List<NoticeWritingVO> noticeWritingSelectList(NoticeWritingVO vo) {	// 내 게시물 메뉴
 		return map.noticeWritingSelectList(vo);
 	}
 
 
 	@Override
-	public NoticeWritingVO noticeWritingSelectTxt(NoticeWritingVO vo) {				// 글 상세보기
+	public NoticeWritingVO noticeWritingSelectTxt(NoticeWritingVO vo) {			// 내 게시물 상세보기
 		return map.noticeWritingSelectTxt(vo);
 	}
 
 	@Override
-	public NoticeWritingVO noticeWritingSelectTsk(NoticeWritingVO vo) {				// 업무 상세보기
+	public NoticeWritingVO noticeWritingSelectTsk(NoticeWritingVO vo) {			// 내 게시물 업무 상세보기
 		return map.noticeWritingSelectTsk(vo);
 	}
 
 	@Override
-	public NoticeWritingVO noticeWritingSelectSubtsk(NoticeWritingVO vo) {			// 하위업무 상세보기
+	public NoticeWritingVO noticeWritingSelectSubtsk(NoticeWritingVO vo) {		// 내 게시물 하위업무 상세보기
 		return map.noticeWritingSelectSubtsk(vo);
 	}
 
 	@Override
-	public NoticeWritingVO noticeWritingSelectSche(NoticeWritingVO vo) {			// 일정 상세보기
+	public NoticeWritingVO noticeWritingSelectSche(NoticeWritingVO vo) {		// 내 게시물 일정 상세보기
 		return map.noticeWritingSelectSche(vo);
 	}
 
 	@Override
-	public NoticeWritingVO noticeWritingSelectTodo(NoticeWritingVO vo) {			// 할일 상세보기
+	public NoticeWritingVO noticeWritingSelectTodo(NoticeWritingVO vo) {		// 내 게시물 할일 상세보기
 		return map.noticeWritingSelectTodo(vo);
 	}
 	
 	@Override
-	public int noticeCount(NoticeWritingVO vo) {									// 게시글 개수
+	public int noticeCount(NoticeWritingVO vo) {								// 내 게시물 개수
 		return map.noticeCount(vo);
 	}
 

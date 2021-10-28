@@ -16,7 +16,7 @@ public class NoticeWritingController {
 
 	@RequestMapping("/noticeWritingSelectList.do") 					// 게시글 목록 조회
 	String noticeWritingSelectList(Model model, NoticeWritingVO vo) {
-		vo.setMemId(6);
+		
 		model.addAttribute("notices", nwDao.noticeWritingSelectList(vo));
 		return "noticeWriting/noticeWritingSelectList";
 	}
@@ -51,7 +51,7 @@ public class NoticeWritingController {
 		return "noticeWriting/noticeWritingSelectTodo"; 
 	 }
 	
-	@RequestMapping("/noticeCount.do")
+	@RequestMapping("/noticeCount.do")		// 게시글 개수
 	String noticeCount() {
 		return "redirect:noticeWritingSelectList";
 		

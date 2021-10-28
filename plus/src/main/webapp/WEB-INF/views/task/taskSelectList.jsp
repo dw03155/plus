@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,23 +26,23 @@
 		</form>
 	</div>
 	<div>
-		<form action="">
+		<form action="" method="post">
 			<div>
-				<table>
+				<table border="1">
 					<tr>
 						<td>상태</td>
 						<td>업무명</td>
 						<td>담당자</td>
+						<td>시작일</td>
 						<td>마감일</td>
-						<td>등록일</td>
 					</tr>
 					<c:forEach var="tasks" items="${tasks }">
 						<tr>
 							<td>${tasks.tskPrgs }</td>
 							<td>${tasks.notiTtl }</td>
 							<td>${tasks.name }</td>
-							<td>${tasks.tskEndDt }</td>
-							<td>${tasks.notiDttm }</td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${tasks.tskBgnDt }" /></td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${tasks.tskEndDt }" /></td>
 						</tr>
 					</c:forEach>
 				</table>
