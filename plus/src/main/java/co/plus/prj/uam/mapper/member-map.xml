@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="co.plus.prj.member.mapper.MemberMapper">
+<mapper namespace="co.plus.prj.uam.mapper.MemberMapper">
     <select id="getMemberList" resultType="co.plus.prj.uam.vo.MemberVO">
     
 	</select>
@@ -53,6 +53,7 @@
 		update member set mem_perm = 
 	</delete>
 	
+	<!-- 회사URL 가져오기 -->
 	<select id="getCompany" resultType="co.plus.prj.uam.vo.MemberVO">
 		select co_url, co_name 
 		from company
