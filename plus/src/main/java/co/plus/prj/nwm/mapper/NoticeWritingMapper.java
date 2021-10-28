@@ -43,4 +43,5 @@ public interface NoticeWritingMapper {
 	 NoticeWritingVO UpdateTodo(NoticeWritingVO vo);		// 할일 수정
 	 NoticeWritingVO DeleteTodo(NoticeWritingVO vo);		// 할일 삭제
 	 
+	 
 }
