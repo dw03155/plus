@@ -1,13 +1,13 @@
-package co.plus.prj.member.service.Impl;
+package co.plus.prj.uam.service.Impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import co.plus.prj.member.mapper.MemberMapper;
-import co.plus.prj.member.service.MemberService;
-import co.plus.prj.member.vo.MemberVO;
+import co.plus.prj.uam.mapper.MemberMapper;
+import co.plus.prj.uam.service.MemberService;
+import co.plus.prj.uam.vo.MemberVO;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -24,6 +24,13 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO getMember(MemberVO member) {
 		// 한명조회
 		return map.getMember(member);
+	}
+	
+	@Override
+	public MemberVO login(MemberVO memvber) {
+		// 로그인(+회원상태업데이트)
+		map.login1(memvber);
+		return map.login2(memvber);
 	}
 
 	@Override
@@ -51,5 +58,12 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return map.memberDelete(member);
 	}
+
+	@Override
+	public MemberVO getCompany(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return map.getCompany(vo);
+	}
+
 
 }
