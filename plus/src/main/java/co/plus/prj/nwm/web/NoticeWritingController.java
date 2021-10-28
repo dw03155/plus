@@ -1,4 +1,4 @@
-package co.plus.prj.noticeWriting.web;
+package co.plus.prj.nwm.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -6,31 +6,31 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import co.plus.prj.noticeWriting.service.NoticeWritingService;
-import co.plus.prj.noticeWriting.vo.NoticeWritingVO;
+import co.plus.prj.nwm.service.NoticeWritingService;
+import co.plus.prj.nwn.vo.NoticeWritingVO;
 
 @Controller
 public class NoticeWritingController {
 	@Autowired
 	private NoticeWritingService nwDao;
 
-	@RequestMapping("/noticeWritingSelectList.do") 					// 게시글 목록 조회
+	@RequestMapping("/nwList.do") 					// 내 게시물 
 	String noticeWritingSelectList(Model model, NoticeWritingVO vo) {
-		vo.setMemId(6);
+		vo.setMemId(5); // 구문
 		model.addAttribute("notices", nwDao.noticeWritingSelectList(vo));
-		return "noticeWriting/noticeWritingSelectList";
+		return "nwm/nwList";
 	}
 
-	@RequestMapping("/noticeWritingSelectTxt.do") 					// 글 상세보기 파업
+	@RequestMapping("/nwTxt.do") 					// 내 게시물 글 상세보기 팝업 호출
 	public String noticeWritingSelectTxt(Model model, NoticeWritingVO vo) {
 		model.addAttribute("texts", nwDao.noticeWritingSelectTxt(vo));
-		return "noticeWriting/noticeWritingSelectTxt"; 
+		return "nwm/nwTxt"; 
 	 }
 	
-	@RequestMapping("/noticeWritingSelectTsk.do") 					// 업무 상세보기 팝업
+	@RequestMapping("/nwTsk.do") 					// 내 게시물 업무 상세보기 팝업 호출
 	public String noticeWritingSelectTsk(Model model, NoticeWritingVO vo) {
 		model.addAttribute("tasks", nwDao.noticeWritingSelectTsk(vo));
-		return "noticeWriting/noticeWritingSelectTsk"; 
+		return "nwm/nwTsk"; 
 	 }
 	
 	@RequestMapping("/noticeWritingSelectSubtsk.do") 				// 하위 상세보기 팝업
@@ -39,21 +39,28 @@ public class NoticeWritingController {
 		return nwDao.noticeWritingSelectSubtsk(vo); 
 	 }
 	
-	@RequestMapping("/noticeWritingSelectSche.do") 					// 일정 상세보기 팝업
+	@RequestMapping("/nwSche.do") 					// 내 게시물 일정 상세보기 팝업 호출
 	public String noticeWritingSelectSche(Model model, NoticeWritingVO vo) {
 		model.addAttribute("schedules", nwDao.noticeWritingSelectSche(vo));
-		return "noticeWriting/noticeWritingSelectSche"; 
+		return "nwm/nwSche"; 
 	 }
 	
-	@RequestMapping("/noticeWritingSelectTodo.do") 					// 할일 상세보기 팝업
+	@RequestMapping("/nwTodo.do") 					// 내 게시물 할일 상세보기 팝업 호출
 	public String noticeWritingSelectTodo(Model model, NoticeWritingVO vo) {
 		model.addAttribute("todos", nwDao.noticeWritingSelectTodo(vo));
-		return "noticeWriting/noticeWritingSelectTodo"; 
+		return "nwm/nwTodo"; 
 	 }
 	
-	@RequestMapping("/noticeCount.do")
+	@RequestMapping("/noticeCount.do")		// 게시글 개수
 	String noticeCount() {
-		return "redirect:noticeWritingSelectList";
+		return "redirect:nwList";
 		
 	}
+	
+	@RequestMapping("/totalNotice.do")
+	String totalNotice() {
+		return "nwm/totalNotice";
+	}
+	
+	
 }

@@ -21,6 +21,7 @@
 			<div class="button" onclick="onclick=document.all.file.click()">사진추가</div>
 		</form>
 		<button type="button" onclick="OpneInput()">장소</button>
+		<div id="map" style="width:500px;height:400px;"></div>
 		<select>
 			<option>전체공개</option>
 			<option>프로젝트 관리자만</option>
@@ -28,5 +29,7 @@
 		<button type="button"
 			onclick="location.href='noticeWritingSelectList.do'">올리기</button>
 	</div>
+	
+	
 </body>
 </html>

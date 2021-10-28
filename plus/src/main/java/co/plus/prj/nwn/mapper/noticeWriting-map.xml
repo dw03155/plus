@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper
-	namespace="co.plus.prj.noticeWriting.mapper.NoticeWritingMapper">
+<mapper namespace="co.plus.prj.nwn.mapper.NoticeWritingMapper">
 	<select id="noticeWritingSelectList"
-		resultType="co.plus.prj.noticeWriting.vo.NoticeWritingVO">
-		select a.*, b.name																				<!-- 내 게시글 -->
+		resultType="co.plus.prj.nwn.vo.NoticeWritingVO">
+		select a.*, b.name, b.co_url																				<!-- 게시글 목록 조회 -->
 		from board a, member b
 		where a.mem_id = b.mem_id
 		and a.mem_id = #{memId}
@@ -26,17 +25,18 @@
 		f.noti_ttl from notice_writing a, subtask f where a.noti_id = f.noti_id; -->
 
 	<select id="noticeWritingSelectTxt"
-		resultType="co.plus.prj.noticeWriting.vo.NoticeWritingVO">		<!-- 글 상세보기 -->
+		resultType="co.plus.prj.nwn.vo.NoticeWritingVO">		<!-- 글 상세보기 -->
 		select a. noti_knd as 게시글종류, b.name as 작성자, c.*, d.prj_ttl as 프로젝트제목,
 		a.noti_dttm as 작성일자
 		from notice_writing a, member b, text c, project d
 		where a.mem_id = b.mem_id
 		and a.prj_id = d.prj_id
-		and a.noti_id = c.noti_id
+		and a.noti_id =
+		c.noti_id
 		and a.noti_id= #{notiId}
 	</select>
 	<select id="noticeWritingSelectTsk"
-		resultType="co.plus.prj.noticeWriting.vo.NoticeWritingVO"> 		<!-- 업무 상세보기 -->
+		resultType="co.plus.prj.nwn.vo.NoticeWritingVO"> 		<!-- 업무 상세보기 -->
 		select a. noti_knd as 게시글종류, b.name as 작성자, c.*, d.prj_ttl as 프로젝트제목,
 		a.noti_dttm as 작성일자
 		from notice_writing a, member b, task c, project d
@@ -47,7 +47,7 @@
 		and a.noti_id= #{notiId}
 	</select>
 	<select id="noticeWritingSelectSubtsk"
-		resultType="co.plus.prj.noticeWriting.vo.NoticeWritingVO">	<!-- 하위업무 상세보기 -->
+		resultType="co.plus.prj.nwn.vo.NoticeWritingVO">	<!-- 하위업무 상세보기 -->
 		select a.*, b.name, c.subtsk_cntn
 		from board a, member b, subtask c
 		where a.mem_id = b.mem_id
@@ -58,15 +58,16 @@
 		#{memId}
 	</select>
 	<select id="noticeWritingSelectSche"
-		resultType="co.plus.prj.noticeWriting.vo.NoticeWritingVO">		<!-- 일정 상세보기 -->
+		resultType="co.plus.prj.nwn.vo.NoticeWritingVO">		<!-- 일정 상세보기 -->
 		select a.*, b.name, c.sche_cntn
 		from board a, member b, schedule c
 		where a.mem_id = b.mem_id
 		and a.noti_id = c.noti_id
-		and a.noti_id = #{notiId}
+		and a.noti_id =
+		#{notiId}
 	</select>
 	<select id="noticeWritingSelectTodo"
-		resultType="co.plus.prj.noticeWriting.vo.NoticeWritingVO">		<!-- 할일 상세보기 -->
+		resultType="co.plus.prj.nwn.vo.NoticeWritingVO">		<!-- 할일 상세보기 -->
 		select a. noti_knd as 게시글종류, b.name as 작성자, c.*, d.prj_ttl as 프로젝트제목,
 		a.noti_dttm as 작성일자
 		from notice_writing a, member b, todo c, project d
@@ -82,5 +83,13 @@
 		select count(*)
 		from notice_writing
 		where mem_id = #{memId}
+	</select>
+
+	<select id="totalNotice">
+		select a.*, b.name, c.prj_id
+		from notice_writing a, member b, project c
+		where a.mem_id = b.mem_id
+		and a.prj_id = c.prj_id
+		and a.prj_id = #{prjId}
 	</select>
 </mapper>
