@@ -33,8 +33,10 @@
 <link rel="SHORTCUT ICON" href="design2/favicon.ico">
 <link rel="icon" type="image/x-icon" href="design2/favicon.ico">
 
+<link rel="stylesheet" href="flow-renewal/dist/css/mini-mode.css">
 <link rel="stylesheet" href="flow-renewal/assets/css/reset.css">
-<link rel="stylesheet" href="flow-renewal/dist/css/common.min.css">
+<link rel="stylesheet" href="flow-renewal/dist/css/icon-contents.css">
+<!-- <link rel="stylesheet" href="flow-renewal/dist/css/common.min.css"> -->
 
 <script
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADjbtMn46r9DGFyo_ZRz3c6fOXzuOKWCw&amp;libraries=places"
@@ -197,7 +199,7 @@ to {
 						<div class="mini-mode-picture-1 mini-lock-profile"></div>
 					</div>
 					<div class="mini-mode-wrap-5">
-						<span class="mini-lock-userNm"></span>
+						<span class="mini-lock-userNm"></span> <!-- 사용자이름 받아야함 -->
 					</div>
 				</div>
 				<div class="mini-mode-login-section-1">
@@ -215,7 +217,6 @@ to {
 					<span id="miniLockErrorMsg" class="mini-mode-text-position-fix"></span>
 					<div id="miniConfirmBtn" class="mini-mode-button-type-1">확인</div>
 				</div>
-
 				<div id="miniLockLogoutBtn"
 					class="mini-mode-button-type-1 trans-background-button-type-1">로그아웃</div>
 			</div>
