@@ -19,25 +19,28 @@ public class NoticeWritingVO {
 	private String notiTtl;			// 게시글명
 	private String prjTtl;			// 프로젝트 제목
 	
+	// 글
 	private String txtCntn; 		// 글 내용
 	private String txtPl;			// 글 장소
 	private String txtFile;			// 글 첨부파일
 	
+	// 업무
 	private String tskCntn; 		// 업무 내용
 	private String tskPrgs;			// 업무 진행상태
-	private Date tskBgnDt;		// 업무 시작일
-	private Date tskEndDt;		// 업무 마감일
+	private Date tskBgnDt;			// 업무 시작일
+	private Date tskEndDt;			// 업무 마감일
 	private String tskFile; 		// 업무 첨부파일
-	
 	private String subtaskCntn;		// 하위 업무 내용
 	
+	// 할 일
 	private String todoCntn;		// 할 일 내용
 	private Date todoEndDate;		// 할 일 마감일
 	private String todoYn;			// 할 일 완료 여부
 	private String todoId;			// 할 일 번호
 	
+	// 일정
 	private String scheCntn;		// 일정 내용
 	private String schePl;			// 일정 장소
-	private Date scheDttm; 		// 일정 작성 일시
+	private Date scheDttm; 			// 일정 작성 일시
 	 
 }

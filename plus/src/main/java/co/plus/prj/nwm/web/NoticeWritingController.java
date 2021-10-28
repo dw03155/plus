@@ -15,9 +15,9 @@ public class NoticeWritingController {
 	private NoticeWritingService nwDao;
 
 	@RequestMapping("/nwList.do") 					// 내 게시물 
-	String nwList(Model model, NoticeWritingVO vo) {
+	String noticeWritingSelectList(Model model, NoticeWritingVO vo) {
 		vo.setMemId(5); // 구문
-		model.addAttribute("notices", nwDao.nwList(vo));
+		model.addAttribute("notices", nwDao.noticeWritingSelectList(vo));
 		return "nwm/nwList";
 	}
 
@@ -57,8 +57,9 @@ public class NoticeWritingController {
 		
 	}
 	
-	@RequestMapping("/totalNotice.do")
-	String totalNotice() {
+	@RequestMapping("/totalNotice.do")		// 프로젝트 상세조회 홈 전체 게시물
+	String totalNotice(Model model, NoticeWritingVO vo) {
+		model.addAttribute("totals", nwDao.totalNotice(vo));
 		return "nwm/totalNotice";
 	}
 	

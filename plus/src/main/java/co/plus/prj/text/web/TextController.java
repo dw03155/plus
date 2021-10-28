@@ -13,11 +13,7 @@ public class TextController {
 	@Autowired
 	private TextService textDao;
 	
-	@RequestMapping("/textSelectList.do")		// 글 목록 조회
-	String textSelectList(Model model) {
-		model.addAttribute("texts", textDao.textSelectList());
-		return "text/textSelectList";
-	}
+	
 	
 	@RequestMapping("/textSelect.do")			// 글 상세보기
 	String textSelect(TextVO vo, Model model) {

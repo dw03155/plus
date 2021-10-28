@@ -10,10 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <script src="js/jquery-latest.min.js"></script>
-<script type="text/javascript">
-		var callMem = '5';
-		$('input[name=memId]').attr('value',callMem);
-	</script>
+
 <style type="text/css">
 #modal {
 	z-index: 2000;
@@ -139,7 +136,6 @@
 	<div>
 		<form id="frm" name="frm" method="post">
 			<input type="text" name="notiTtl" id="notiTtl" placeholder="게시물 명 입력">
-			
 			<input type="hidden" value="" name="mId" id="memId">
 		</form>
 	</div>
@@ -158,8 +154,6 @@
 				</tr>
 			</c:forEach>
 		</table>
-		
-		
 	</div>
 	
 	<!-- 전체 게시물 목록 -->
