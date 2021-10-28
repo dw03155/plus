@@ -28,13 +28,13 @@ public class MemberController {
 	MemberService service;
 	
 	
-	//회원가입=URL입력페이지
+	//회사URL입력페이지(companyJoin.jsp)
 	@RequestMapping(value = "/companyJoin.do", method = RequestMethod.GET)
 	public String companyJoin(Model model) {
 
 		return "uam/join/companyJoin";
 	}
-	//회원가입=URL정보가져오기
+	//회사URL정보가져오기(팝업)
 	@RequestMapping(value = "/getCompany.do", method = RequestMethod.GET)
 	@ResponseBody
 	public MemberVO getCompany(@RequestParam("coUrl") String coUrl,
@@ -44,7 +44,7 @@ public class MemberController {
 		return temp;
 		
 	}
-	//회원가입=새로운 회사가입페이지(companyJoin에 입력한 url정보전달)
+	//새로운 회사 회원가입폼(companyJoin에 입력한 url정보전달)
 	@RequestMapping(value = "/adminJoin.do", method = RequestMethod.GET)
 	public String newCompany(@RequestParam(required = false) String newCoUrl, Model model) {
 		model.addAttribute("newUrl",newCoUrl);
@@ -52,7 +52,7 @@ public class MemberController {
 		
 		return "uam/join/adminJoin";
 	}
-	//회원가입=새로운 회사가입 입력
+	//새로운 회사 회원가입완료
 	@RequestMapping(value = "/newCompanyInsert.do", method = RequestMethod.POST, consumes="application/json")
 	@ResponseBody
 	public Map newCompanyInsert(@RequestBody MemberVO vo, Model model) {
@@ -61,7 +61,7 @@ public class MemberController {
 		map.put("member", vo);
 		return map;
 	}
-	//회원가입=기존 회사가입페이지(companyJoin에 입력한 url정보전달)
+	//기존 회원가입폼(companyJoin에 입력한 url정보전달)
 	@RequestMapping(value="/userJoin.do", method = RequestMethod.GET)
 	public String exCompany(@RequestParam(required = false) String newCoUrl, Model model) {
 		model.addAttribute("exUrl",newCoUrl);
@@ -69,7 +69,7 @@ public class MemberController {
 		
 		return "uam/join/userJoin";
 	}
-	//회원가입=기존 회사가입 입력
+	//기존 회사가입 회원가입완료
 	@RequestMapping(value="/exCompanyInsert.do", method = RequestMethod.POST, consumes = "application/json")
 	@ResponseBody
 	public Map exCompanyInsert(@RequestBody MemberVO vo, Model model) {
@@ -78,7 +78,7 @@ public class MemberController {
 		map.put("member", vo);
 		return map;
 	}
-	//회원가입=인증번호 메일발송
+	//회원가입 인증번호 메일발송
 	@RequestMapping(value="/joinMail.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String joinMail(String email, HttpSession session,Model model) {

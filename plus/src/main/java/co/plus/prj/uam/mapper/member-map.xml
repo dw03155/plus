@@ -20,11 +20,6 @@
   		where a.email = #{email}
   		 and mem_st <> 'online' ]]>
 	</update>
-	<select id="loginCheck" resultType="co.plus.prj.uam.vo.MemberVO">
-		select mem_id, co_url
-		from member
-		where mem_id = ${memId} and co_url = 
-	</select>
 	
 	<!-- 회사 URL -->
 	<select id="getCompany" resultType="co.plus.prj.uam.vo.MemberVO">

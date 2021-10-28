@@ -2,6 +2,8 @@ package co.plus.prj.uam.service.Impl;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,27 +28,19 @@ public class MemberServiceImpl implements MemberService {
 		return map.getMember(member);
 	}
 	
-	@Override
-	public MemberVO login(MemberVO member) {
-		// 로그인(+회원상태업데이트)
-		map.login1(member);
-		return map.login2(member);
-	}
-
+	//회원가입
 	@Override
 	public int newCompanyInsert(MemberVO member) {
 		// 새 회원입력
 		map.newCompanyInsert1(member);
 		return map.newCompanyInsert2(member);
 	}
-	
 	@Override
 	public int exCompanyInsert(MemberVO member) {
 		// 기존회사 입력
-		map.exCompanyInsert(member);
-		return 0;
+		return map.exCompanyInsert(member);;
 	}
-
+	
 	@Override
 	public int memberUpdate(MemberVO member) {
 		// TODO Auto-generated method stub
@@ -61,8 +55,16 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public MemberVO getCompany(MemberVO vo) {
-		// TODO Auto-generated method stub
+		// 회사Url
 		return map.getCompany(vo);
+	}
+
+	@Override
+	public boolean login(MemberVO vo, HttpSession session) {
+		// 로그인
+		boolean reault = map.login(vo);
+		
+		return false;
 	}
 
 
