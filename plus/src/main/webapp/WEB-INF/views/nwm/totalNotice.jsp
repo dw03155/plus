@@ -33,16 +33,12 @@ body, html {
 
 /* Style the tab content (and add height:100% for full page content) */
 .tabcontent {
-  color: white;
   display: none;
   padding: 100px 20px;
   height: 100%;
 }
 
-#Home {background-color: red;}
-#News {background-color: green;}
-#Contact {background-color: blue;}
-#About {background-color: orange;}
+
 </style>
 </head>
 
@@ -50,10 +46,10 @@ body, html {
 <div><h1>프로젝트명</h1></div> <!-- 프로젝트 목록에서 선택 -->
 <div>
 
-<button class="tablink" onclick="openPage('Home', this, 'red')">Home</button>
-<button class="tablink" onclick="openPage('News', this, 'green')" id="defaultOpen">News</button>
-<button class="tablink" onclick="openPage('Contact', this, 'blue')">Contact</button>
-<button class="tablink" onclick="openPage('About', this, 'orange')">About</button>
+<button class="tablink" onclick="openPage('Home', this, 'red')" id="defaultOpen">홈</button>
+<button class="tablink" onclick="openPage('News', this, 'green')" >업무</button>
+<button class="tablink" onclick="openPage('Contact', this, 'blue')">캘린더</button>
+<button class="tablink" onclick="openPage('About', this, 'orange')">파일</button>
 </div>
 
 <div id="Home" class="tabcontent">

@@ -6,7 +6,7 @@ import co.plus.prj.nwm.vo.NoticeWritingVO;
 
 public interface NoticeWritingMapper {
 
-	List<NoticeWritingVO> noticeWritingSelectList(NoticeWritingVO vo);		// 내 게시뮬 메뉴
+	List<NoticeWritingVO> nwList(NoticeWritingVO vo);		// 내 게시뮬 메뉴
 	
 	NoticeWritingVO noticeWritingSelectTxt(NoticeWritingVO vo); 			// 내 게시물 글 상세보기
 	NoticeWritingVO noticeWritingSelectTsk(NoticeWritingVO vo); 			// 내 게시글 업무 상세보기

@@ -6,7 +6,7 @@ import co.plus.prj.nwm.vo.NoticeWritingVO;
 
 public interface NoticeWritingService {
 
-	List<NoticeWritingVO> noticeWritingSelectList(NoticeWritingVO vo);		// 내 게시물 메뉴
+	List<NoticeWritingVO> nwList(NoticeWritingVO vo);		// 내 게시물 메뉴
 	
 	NoticeWritingVO noticeWritingSelectTxt(NoticeWritingVO vo); 			// 내 게시글 글 상세보기
 	NoticeWritingVO noticeWritingSelectTsk(NoticeWritingVO vo); 			// 내 게시글 업무 상세보기
@@ -15,7 +15,6 @@ public interface NoticeWritingService {
 	NoticeWritingVO noticeWritingSelectTodo(NoticeWritingVO vo); 			// 내 게시글 할일 상세보기
 										
 	 public int noticeCount(NoticeWritingVO vo);							// 내 게시글 개수 
-	 
 	 
 	 List<NoticeWritingVO> totalNotice(NoticeWritingVO vo);					// (임시) 전체 게시물 목록조회
 

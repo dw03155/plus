@@ -16,8 +16,8 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 	
 
 	@Override
-	public List<NoticeWritingVO> noticeWritingSelectList(NoticeWritingVO vo) {	// 내 게시물 메뉴
-		return map.noticeWritingSelectList(vo);
+	public List<NoticeWritingVO> nwList(NoticeWritingVO vo) {	// 내 게시물 메뉴
+		return map.nwList(vo);
 	}
 
 

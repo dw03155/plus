@@ -62,7 +62,7 @@
 			
 			if(notiKnd == "text"){
 					$.ajax({
-						url : "noticeWritingSelectTxt.do",
+						url : "nwTxt.do",
 						type : 'GET',
 						data : {notiId : tr.data("notiid"), notiKnd},
 						dataType : "html",
@@ -72,7 +72,7 @@
 					}); 
 			} else if (notiKnd == "task"){
 					$.ajax({
-						url : "noticeWritingSelectTsk.do",
+						url : "nwTsk.do",
 						type : 'GET',
 						data : {notiId : tr.data("notiid"), notiKnd},
 						dataType : "html",
@@ -82,7 +82,7 @@
 					}); 
 			}else if (notiKnd == "schedule"){
 				$.ajax({
-					url : "noticeWritingSelectSche.do",
+					url : "nwSche.do",
 					type : 'GET',
 					data : {notiId : tr.data("notiid"), notiKnd},
 					dataType : "html",
@@ -92,7 +92,7 @@
 				}); 
 			}else if (notiKnd == "todo"){
 				$.ajax({
-					url : "noticeWritingSelectTodo.do",
+					url : "nwTodo.do",
 					type : 'GET',
 					data : {notiId : tr.data("notiid"), notiKnd},
 					dataType : "html",

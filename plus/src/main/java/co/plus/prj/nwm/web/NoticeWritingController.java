@@ -15,9 +15,9 @@ public class NoticeWritingController {
 	private NoticeWritingService nwDao;
 
 	@RequestMapping("/nwList.do") 					// 내 게시물 
-	String noticeWritingSelectList(Model model, NoticeWritingVO vo) {
+	String nwList(Model model, NoticeWritingVO vo) {
 		vo.setMemId(5); // 구문
-		model.addAttribute("notices", nwDao.noticeWritingSelectList(vo));
+		model.addAttribute("notices", nwDao.nwList(vo));
 		return "nwm/nwList";
 	}
 
