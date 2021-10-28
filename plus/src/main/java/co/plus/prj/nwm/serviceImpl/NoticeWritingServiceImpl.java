@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.plus.prj.nwm.mapper.NoticeWritingMapper;
 import co.plus.prj.nwm.service.NoticeWritingService;
-import co.plus.prj.nwn.mapper.NoticeWritingMapper;
-import co.plus.prj.nwn.vo.NoticeWritingVO;
+import co.plus.prj.nwm.vo.NoticeWritingVO;
 
 @Service("nwDao")
 public class NoticeWritingServiceImpl implements NoticeWritingService {
