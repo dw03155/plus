@@ -79,6 +79,11 @@
 	src="https://t1.daumcdn.net/cssjs/common/cts/vr200/dcts.js"></script>
 <script src="https://t1.kakaocdn.net/cts/__dcts__.js"></script>
 
+<script type="text/javascript" charset="UTF-8"
+	src="https://maps.googleapis.com/maps-api-v3/api/js/46/8/intl/ko_ALL/common.js"></script>
+<script type="text/javascript" charset="UTF-8"
+	src="https://maps.googleapis.com/maps-api-v3/api/js/46/8/intl/ko_ALL/util.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 
 <script type="text/javascript" src="js/lib/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
@@ -160,7 +165,7 @@
 <link rel="stylesheet" href="design2/css/jquery.mCustomScrollbar.css">
 <script src="design2/js/jquery.mCustomScrollbar.concat.min.js"></script>
 
-<style>
+<style type="text/css">
 .async-hide {
 	opacity: 0 !important
 }
@@ -227,6 +232,8 @@
 	</script>
 
 
+<<<<<<< HEAD
+=======
 
 
 	<input type="hidden" id="_DEV_REAL" value="REAL" />
@@ -273,13 +280,12 @@
 
 
 
-
-
+>>>>>>> branch 'main' of https://github.com/dw03155/plus.git
 	<div class="business-signup-layer">
 
 		<!-- businessMngrSignUpPopup -->
 
-		<div class="pc-login-wrap" id="businessMngrSignUpPopup"
+		<div class="pc-login-wrap" id="busi"
 			style="top: 0px; left: 0px; z-index: 3000;">
 
 			<!-- top -->
@@ -300,7 +306,7 @@
 			<!-- //top -->
 			<div class="f-login-wrap mCustomScrollbar"
 				style="position: fixed; margin: 0px; padding: 60px 0 0 0; width: 100%; height: 100%;">
-				<form action="">
+				<form id="frm" name="frm" action="">
 					<fieldset style="padding-bottom: 30px;">
 						<!-- business sign in content -->
 						<div class="fl-content" id="businessCreateAccount"
@@ -322,11 +328,11 @@
 								<!-- 입력전 -->
 								<div class="blocklabel">
 									<label class="font-Noto" data-langcode="H333">이메일</label>
-									<div class="inputbox">
-									
+									<div class="inputbox ok">
+
 										<input type="text" id="email" name="email" maxlength="50"
 											tabindex="1" placeholder="example@gmail.com" value="" />
-											
+
 										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
 										<button type="button" class="btn-clear-text"
 											style="cursor: pointer;" data-langcode="H381">삭제</button>
@@ -340,7 +346,7 @@
 								<!-- error -->
 								<div class="blocklabel">
 									<label class="font-Noto" data-langcode="H331">이름</label>
-									<div class="inputbox">
+									<div class="inputbox ok">
 
 										<input type="text" name="name" id="name" tabindex="2"
 											maxlength="50" placeholder="이름" value="" data-langcode="H331">
@@ -358,12 +364,12 @@
 								<!-- ok -->
 								<div class="blocklabel">
 									<label class="font-Noto" data-langcode="H362">비밀번호</label>
-									<div class="inputbox">
-									
+									<div class="inputbox ok">
+
 										<input type="password" name="pwd" id="pwd"
 											class="password-input" maxlength="50" tabindex="3"
 											placeholder="비밀번호 입력" value="" data-langcode="H399">
-											
+
 										<span class="password-mask"><em class="blind">비밀번호
 												보이기 / 숨기기 버튼 </em></span>
 										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
@@ -379,13 +385,12 @@
 								<!-- ok -->
 								<div class="blocklabel">
 									<label class="font-Noto" data-langcode="H383">비밀번호 확인</label>
-									<div class="inputbox">
-									
+									<div class="inputbox ok">
+
 										<input type="password" name="pwdCheck" id="pwdCheck"
 											class="password-input" maxlength="50" tabindex="4"
-											placeholder="비밀번호 재입력" data-langcode="H477">
-											
-											 <span class="password-mask"><em class="blind">비밀번호 보이기
+											placeholder="비밀번호 재입력" data-langcode="H477"> <span
+											class="password-mask"><em class="blind">비밀번호 보이기
 												/ 숨기기 버튼 </em></span>
 										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
 										<button type="button" class="btn-clear-text"
@@ -400,7 +405,7 @@
 
 								<div class="blocklabel">
 									<label class="font-Noto" data-langcode="H489">회사 이름</label>
-									<div class="inputbox">
+									<div class="inputbox ok">
 										<input type="text" id="coName" name="coName" tabindex="11"
 											maxlength="50" placeholder="회사 이름 입력" value=""
 											data-langcode="H490">
@@ -417,20 +422,21 @@
 								<!-- ok -->
 								<div class="blocklabel url-box">
 									<label class="font-Noto" data-langcode="H492">회사 URL</label>
-									<div class="inputbox" style="width: 290px">
-									
+									<div class="inputbox ok" style="width: 290px">
+
 										<input type="text" id="coUrl" name="coUrl" tabindex="12"
-											maxlength="" readonly="readonly" value="${newUrl}"
-											style="width: 100%;" data-langcode="H493"> 
-											
-											<strong	id="domain" style="position: absolute; left: 300px; top: 20px; font-size: 18px;">.flow.team</strong>
+											maxlength="50" readonly="readonly" placeholder="${newUrl}"
+											value="${newUrl}" style="width: 100%;" data-langcode="H493">
+
+										<strong id="domain"
+											style="position: absolute; left: 300px; top: 20px; font-size: 18px;">.flow.team</strong>
 										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
 										<button type="button" class="btn-clear-text"
 											style="cursor: pointer;" data-langcode="H381">삭제</button>
 										<!-- 메시지 -->
 										<div class="error-msg">
-											<div class="error-cont font-Noto" data-langcode="H494">3
-												~ 50자의 영문, 숫자만 가능합니다.</div>
+											<div class="error-cont font-Noto" data-langcode="H494">
+												3 ~ 50자의 영문, 숫자만 가능합니다.</div>
 										</div>
 									</div>
 								</div>
@@ -448,37 +454,41 @@
 								</div>
 							</div>
 							<div class="btn-box">
-								<button type="button" id="nextToSettingTeamInfo"
+								<button type="button" id="nextToSettingTeam"
 									class="btn-bigs c-blue" data-langcode="H482">회원가입</button>
 							</div>
 						</div>
 
-						<!-- 인증번호 확인 -->
-						<div id="checkJoinPopup" class="flow-all-background-1 d-none">
-							<div class="flow-project-make-1">
-								<div class="flow-project-make-2">
-									<div id="popupLayer" class="flow-login-popup popup-10">
-										<div class="flow-project-header-1">
-											인증번호를 입력하세요! <a id="closePopupBtn" class="flow-close-type-1"></a>
-										</div>
-										<div id="coInfo" class="flow-content">
-											<ul id="certiNum" class="content-company">
-												<li id="companyName" class="name">인증번호: <input
-													type="text" name="joinNum" id="joinNum"></li>
-											</ul>
-											<button type="button" id="join" name="join"
-												class="btn-popup01">인증하기</button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- /인증번호 확인 -->
 
 					</fieldset>
 				</form>
 			</div>
 		</div>
+		<!-- 인증번호 확인 -->
+		<div id="checkJoinPopup" class="flow-all-background-1 d-none"
+			style="z-index: 3000">
+			<div class="flow-project-make-1">
+				<div class="flow-project-make-2">
+					<div id="popupLayer" class="flow-login-popup" style="height:180px; felx-wrap:wrap; align-center:space-around">
+						<div class="flow-project-header-1">
+							인증번호를 입력하세요! <a id="closePopupBtn" class="flow-close-type-1"></a>
+						</div>
+						<div id="coInfo" class="flow-content">
+							<div class="inputbox" style="width: 370px" align="center">
+								<ul class="content-company" align="center" style="display:inline-block">
+									<li style="display:inline-block"><input type="text" name="joinNum" id="joinNum"
+										maxlength="50" placeholder="인증번호입력" data-langcode="H490"></li>
+								</ul>
+							</div>
+							<div align="center">
+								<button type="button" id="join" name="join" class="btn-popup01">인증하기</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /인증번호 확인 -->
 		<!-- //businessMngrSignUpPopup -->
 
 	</div>
@@ -498,8 +508,8 @@
 						},
 						/* dataType : "json", */
 						success: function(key){
-							
-							alert(email + "로 인증메일이 발송되었습니다.");
+							$('#layerAlert').css("display","block").find('#alert_box').children('p').text(email + "로 인증메일이 발송되었습니다.");
+							/* alert(email + "로 인증메일이 발송되었습니다."); */
 							isCertification = true;
 							console.log(key);
 							
@@ -509,22 +519,18 @@
 									isCertification = true;
 									$("#join").on("click",function(){
 										memberInsert();	
-									});
-									}
+									});//insert 끝
 								}else{
 									$("#certiNum").append("<li class='url'/>").text("불일치");
 									isCertification = false;
 									$("join").on("click", function(){
 										alert("인증번호를 확인하세요.");
-									})
-								}
-							})
-							}
-						});
-					});
-
-		
-		
+									})//인증번호 확인끝
+								}//안에ELSE끝
+							});//joinNum function end
+						  }//success end
+						});//ajax end
+					});//nextToSettingTeamInfo function end
 		function memberInsert() {
 			var email = $('input:text[name="email"]').val();
 			var name = $('input:text[name="name"]').val();
@@ -547,6 +553,7 @@
 				success : function(data) {
 					console.log(data);
 					frm.submit();
+
 				}
 
 			})

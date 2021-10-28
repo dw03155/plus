@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="co.plus.prj.member.mapper.MemberMapper">
+<mapper namespace="co.plus.prj.uam.mapper.MemberMapper">
     <select id="getMemberList" resultType="co.plus.prj.uam.vo.MemberVO">
     
 	</select>
@@ -10,12 +10,12 @@
 	</select>
 	
 	<!-- 회원로그인 -->
-	<select id="login1" resultType="co.plus.prj.uam.vo.MemberVO">
+	<select id="login" resultType="co.plus.prj.uam.vo.MemberVO">
 		 select a.mem_id, a.name, a.pwd, a.email, a.mem_perm, b.mem_st
 		 from member a, mem_status b
 		 where a.mem_id = b.mem_id and a.email = #{email} and a.pwd = ${pwd}
 	</select>
-	<update id="login2" parameterType="co.plus.prj.uam.vo.MemberVO">
+	<update id="loginStUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">
 		<![CDATA[update mem_status set mem_st = 'online'
   		where a.email = #{email}
   		 and mem_st <> 'online' ]]>
@@ -24,6 +24,13 @@
 		select mem_id, co_url
 		from member
 		where mem_id = ${memId} and co_url = 
+	</select>
+	
+	<!-- 회사 URL -->
+	<select id="getCompany" resultType="co.plus.prj.uam.vo.MemberVO">
+		select co_url, co_name 
+		from company
+		where co_url = #{coUrl}
 	</select>
 
 	<!-- 어드민회원입력 -->
@@ -52,11 +59,5 @@
 	<delete id="memberDelete" parameterType="co.plus.prj.uam.vo.MemberVO">
 		update member set mem_perm = 
 	</delete>
-	
-	<select id="getCompany" resultType="co.plus.prj.uam.vo.MemberVO">
-		select co_url, co_name 
-		from company
-		where co_url = #{coUrl}
-	</select>
 	
 </mapper>

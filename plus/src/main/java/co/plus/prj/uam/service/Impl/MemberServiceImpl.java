@@ -27,10 +27,10 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public MemberVO login(MemberVO memvber) {
+	public MemberVO login(MemberVO member) {
 		// 로그인(+회원상태업데이트)
-		map.login1(memvber);
-		return map.login2(memvber);
+		map.login1(member);
+		return map.login2(member);
 	}
 
 	@Override

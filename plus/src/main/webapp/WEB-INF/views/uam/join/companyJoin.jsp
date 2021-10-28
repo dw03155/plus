@@ -77,6 +77,7 @@
 <script type="text/javascript"
 	src="https://t1.daumcdn.net/cssjs/common/cts/vr200/dcts.js"></script>
 <script src="https://t1.kakaocdn.net/cts/__dcts__.js"></script>
+
 <style type="text/css">
 @
 -webkit-keyframes rotate {from { -webkit-transform:rotate(0deg);
@@ -229,115 +230,129 @@ to {
 		<div class="upgrade-singup-header">
 			<a href="http://" class="logo"> <img
 				src="flow-renewal/assets/images/flow_logo_small.png">
-			</a>
+			</a> <a href="joinForm.do" id="closeBtn" class="login-close-button"></a>
 		</div>
 		
-		<div id="for" align="center">
+		<!-- 빨간 알람창 -->
+		<div id="toastWrap" class="d-none">
+        <div class="alert-wrap d-none">
+            <div class="alert-type">
+                <div class="text"></div>
+            </div>
+        </div>
+    </div>
 
-		<div id="joinFrm" style="display: block;">
-			<h1>회원가입</h1>
-			<div>
-				<form action="exCompanyInsert.do" name="frm" id="frm">
-					<table>
-						<tr>
-							<th>이메일</th>
-							<td><input type="text" id="email" name="email"></td>
-						</tr>
-						<tr>
-							<th>이름</th>
-							<td><input type="text" id="name" name="name"></td>
-						</tr>
-						<tr>
-							<th>비밀번호</th>
-							<td><input type="password" id="pwd" name="pwd"></td>
-						</tr>
-						<tr>
-							<th>비밀번호 확인</th>
-							<td><input type="password" id="pwdCheck" name="pwdCheck">
-								<font name="check" size="2" color="red"></font></td>
-						</tr>
-					</table>
-							<input type="hidden" id="coUrl" name="coUrl" value="${exUrl}">
-					<div>
-						<button type="button" id="joinBtn" name="btn">이동</button>
-					</div>
-				</form>
+		<!-- 기존회사참여 -->
+		<div id="companyJoinMain" class="login-wrap invite-login">
+			<div class="login-text">기존회사 참여</div>
+			<div class="login-company">이미 회사에서 플로우를 사용하고 있다면 회사 URL을 입력하여
+				함께하세요.</div>
+			<div class="join-contents">
+				<p class="url-tit">회사 URL</p>
+				<div class="url-wr">
+					<span>https://</span> <input id="coUrl" name="coUrl" type="text"
+						class="join-input" autocomplete="off" placeholder="회사 URL">
+					<!-- 입력 오류 시 .error 클래스 추가 -->
+					<span>.flow.team</span>
+				</div>
+				<p id="errMeg" class="error-text d-none">3~5자 영문, 숫자만 가능합니다.</p>
+				<!-- 입력 오류 시 display: block -->
 			</div>
+			<button id="JoinBtn" class="btn-join">회사 참여하기</button>
 		</div>
-	</div>
-
-		<div id="companyWaitJoinLayer" class="upgrade-singup-wrap d-none">
-			<div class="accont-wrap">
-				<div class="flow-account" id="waitCompanyName"></div>
-				<div class="join-text-bold" id="waitCompanyUrl"></div>
-				<div class="join-basic-wrap">
-					<div class="join-backgroundimage"></div>
-					<div class="guest-singup-complete">
-						<em> 관리자에게 가입요청 중입니다. </em>
-						<p>관리자 검토 후, 승인 완료 시 접속 가능합니다.</p>
+		<!-- /기존회사참여 -->
+		
+		<!-- 기존회사정보확인 -->
+		<div id="checkJoinPopup" class="flow-all-background-1 d-none">
+			<div class="flow-project-make-1">
+				<div class="flow-project-make-2">
+					<div id="popupLayer" class="flow-login-popup popup-10">
+						<div class="flow-project-header-1">
+							회사 정보 확인 후 시작하세요! <a id="closePopupBtn"
+								class="flow-close-type-1"></a>
+						</div>
+						<form id="frm">
+						<input type="hidden" name="newCoUrl">
+						<div id="coInfo" class="flow-content">
+							<ul class="content-company">
+								<li id="companyLogoUrl" class="logo"></li>
+								<li id="companyName" class="name"></li>
+								<li id="companyUrl" class="url"></li>
+							</ul>
+							<button id="joinSubmit1" class="btn-popup01">팀 참여하기</button>
+							<button id="joinSubmit2" class="btn-popup01">플러스 생성</button>
+						</div>
+						</form>
 					</div>
-					<a href="#" class="join-start-button">메인 페이지 이동</a>
 				</div>
 			</div>
 		</div>
-
+		<!-- /기존회사정보확인 -->
 	</div>
 	<script>
-	$(function() {
-		$('#pwd').keyup(function() {
-			$('font[name=check]').text('');
-		}); //#user_pass.keyup
+		$("#JoinBtn").click(
+				function() {
+					var coUrl = $('input:text[name="coUrl"]').val();
+					console.log(coUrl)
+					$.ajax({
+						url : "getCompany.do?coUrl=" + coUrl,
+						type : "get",
+						//data:JSON.stringify({coUrl:coUrl}),
+						/* data: $("input:text[name=coUrl]").serialize(), */
+						//contentType: "application/json",
+						dataType : "json",
+						success : function(data) {
+							console.log(data);
+							/* var $coLogo = data.coLogo; */
+							var $coUrl = data.coUrl;
+							var $coName = data.coName;
 
-		$('#pwdCheck').keyup(function() {
-			if ($('#pwd').val() != $('#pwdCheck').val()) {
-				$('font[name=check]').text('');
-				$('font[name=check]').css("color", "red")
-				$('font[name=check]').html("암호틀림");
-			} else {
-				$('font[name=check]').text('');
-				$('font[name=check]').css("color", "green")
-				$('font[name=check]').html("암호맞음");
-			}
-		}); //#chpass.keyup 
+							if (data != null) {
+								$('#checkJoinPopup').attr('class',
+										'flow-all-background-1');
+								$('#companyName').text($coName);
+								$('#companyUrl').text($coUrl);
+								$('#joinSubmit2').attr('class','btn-popup01 d-none'); 
+								$('#joinSubmit1').attr('class','btn-popup01');
+								$('#joinSubmit1').on('click',function(){
+									$('#frm').attr("action", "userJoin.do");
+									$('[name="newCoUrl"]').val($("#coUrl").val());
 
-		$("#joinBtn").on("click", function(e) {
-			if ($('#pwd').val() != $('#pwdCheck').val()) {
-				alert("비밀번호를 바르게 입력하세요")
-			} else {
-				exMemberInsert();
-				$('#for').css("display", "none");
-				$('#companyWaitJoinLayer').attr("class", "upgrade-singup-wrap")
-			}
-		});//memberInsert입력
-	});
+								});
+								
+			
+							}
+						},
+						error : function(reject) {
+							console.log(reject);
+							$('#checkJoinPopup').attr('class',
+								'flow-all-background-1');
+								$('#companyName').text('해당 회사가 존재하지않습니다');
+								$('#companyUrl').text('새로운 플러스를 만들어보세요');
+								$('#joinSubmit1').attr('class','btn-popup01 d-none');
+								$('#joinSubmit2').attr('class','btn-popup01');
+								$('#joinSubmit2').on('click',function(){
+									if($("#coUrl").val()==""){
+										alert("url을 입력하세요.")
+									}else{										
+									$('#frm').attr("action", "adminJoin.do");
+									$('[name="newCoUrl"]').val($("#coUrl").val());
 
-	function exMemberInsert() {
-		var email = $('input:text[name="email"]').val();
-		var name = $('input:text[name="name"]').val();
-		var pwd = $('input:password[name="pwd"]').val();
-		var coUrl = $('input:hidden[name="coUrl"]').val();
-		$.ajax({
-			url : "exCompanyInsert.do",
-			method : "post",
-			/* data:JSON.stringify($("#frm").serializeObject()), */
-			data : JSON.stringify({
-				email : email,
-				name : name,
-				pwd : pwd,
-				coUrl : coUrl
-			}),
-			contentType : "application/json",
-			dataType : "json",
-			success : function(data) {
-				console.log(data);
-				frm.submit();
+									}
+								});
+									
+						}
+					});
 
-			}
-
-		})
-
-	}
+				});
+		$("#closePopupBtn").click(
+			function(){
+				$('#checkJoinPopup').attr('class',
+				'flow-all-background-1 d-none');
+			});	
 		
+		
+
 	</script>
 </body>
 </html>

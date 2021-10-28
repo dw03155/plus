@@ -24,6 +24,7 @@ import co.plus.prj.uam.vo.MemberVO;
 public class MemberController {
 	@Autowired
 	JavaMailSender mailSender;
+	@Autowired
 	MemberService service;
 	
 	
@@ -31,7 +32,7 @@ public class MemberController {
 	@RequestMapping(value = "/companyJoin.do", method = RequestMethod.GET)
 	public String companyJoin(Model model) {
 
-		return "notiles/login/companyJoin";
+		return "uam/join/companyJoin";
 	}
 	//회원가입=URL정보가져오기
 	@RequestMapping(value = "/getCompany.do", method = RequestMethod.GET)
@@ -49,7 +50,7 @@ public class MemberController {
 		model.addAttribute("newUrl",newCoUrl);
 		System.out.println(newCoUrl);
 		
-		return "notiles/login/adminJoin";
+		return "uam/join/adminJoin";
 	}
 	//회원가입=새로운 회사가입 입력
 	@RequestMapping(value = "/newCompanyInsert.do", method = RequestMethod.POST, consumes="application/json")
@@ -66,7 +67,7 @@ public class MemberController {
 		model.addAttribute("exUrl",newCoUrl);
 		System.out.println(newCoUrl);
 		
-		return "notiles/login/userJoin";
+		return "uam/join/userJoin";
 	}
 	//회원가입=기존 회사가입 입력
 	@RequestMapping(value="/exCompanyInsert.do", method = RequestMethod.POST, consumes = "application/json")
@@ -112,7 +113,7 @@ public class MemberController {
 			request = "home/main";
 		}else {
 			model.addAttribute("message", "일치하는 정보가 없습니다.");
-			request = "notiles/login/login";
+			request = "uam/login/login";
 		}
 		
 		return request;
