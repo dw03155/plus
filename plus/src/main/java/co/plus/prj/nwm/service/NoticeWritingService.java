@@ -1,8 +1,8 @@
-package co.plus.prj.noticeWriting.service;
+package co.plus.prj.nwm.service;
 
 import java.util.List;
 
-import co.plus.prj.noticeWriting.vo.NoticeWritingVO;
+import co.plus.prj.nwn.vo.NoticeWritingVO;
 
 public interface NoticeWritingService {
 
@@ -17,6 +17,6 @@ public interface NoticeWritingService {
 	 public int noticeCount(NoticeWritingVO vo);							// 내 게시글 개수 
 	 
 	 
-
+	 List<NoticeWritingVO> totalNotice(NoticeWritingVO vo);					// (임시) 전체 게시물 목록조회
 
 }

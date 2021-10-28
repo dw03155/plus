@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,7 +52,7 @@
 }
 </style>
 <!-- 모달창 JS -->
-	<script>
+<script>
 		
 		$("tr").click(function() { // 모달창 열고 닫기
 			$("#modal").css("display", "block");
@@ -108,9 +108,9 @@
 	</script>
 </head>
 <body>
-<div>
-	<h2>내 게시물</h2>
-</div>
+	<div>
+		<h2>내 게시물</h2>
+	</div>
 	<!-- 상세보기 -->
 	<div id="modal">
 		<div class="modal_content">
@@ -139,28 +139,32 @@
 	<div>
 		<form id="frm" name="frm" method="post">
 			<input type="text" name="notiTtl" id="notiTtl" placeholder="게시물 명 입력">
+			
+			<input type="hidden" value="" name="mId" id="memId">
 		</form>
 	</div>
 	<br>
 	<!--내 게시물 목록 -->
 	<div>
-	<table border="1">
-		<c:forEach var="notices" items="${notices }">
-			<!-- 전체 목록 -->
-			<tr data-notiid="${notices.notiId}" data-kind="${notices.notiKnd }">
-				<td>${notices.notiKnd}</td>
-				<td>${notices.notiTtl }</td>
-				<td>${notices.name }</td>
-				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${notices.notiDttm}" /></td>
-			</tr>
-		</c:forEach>
-	</table>
+		<table border="1">
+			<c:forEach var="notices" items="${notices }">
+				<!-- 전체 목록 -->
+				<tr data-notiid="${notices.notiId}" data-kind="${notices.notiKnd }">
+					<td>${notices.notiKnd}</td>
+					<td>${notices.notiTtl }</td>
+					<td>${notices.name }</td>
+					<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
+							value="${notices.notiDttm}" /></td>
+				</tr>
+			</c:forEach>
+		</table>
+		
+		
 	</div>
-	<form name="callFrm" action="/noticeWritingSelectList.do" method="post">
-		<input type="hidden" name="memId" value="">
-	</form>
 	
-	
-	
+	<!-- 전체 게시물 목록 -->
+	<button type="button" onclick="location.href='totalNotice.do'">전체 게시글 목록</button>
+
+
 </body>
 </html>

@@ -1,13 +1,13 @@
-package co.plus.prj.noticeWriting.serviceImpl;
+package co.plus.prj.nwm.serviceImpl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import co.plus.prj.noticeWriting.mapper.NoticeWritingMapper;
-import co.plus.prj.noticeWriting.service.NoticeWritingService;
-import co.plus.prj.noticeWriting.vo.NoticeWritingVO;
+import co.plus.prj.nwm.service.NoticeWritingService;
+import co.plus.prj.nwn.mapper.NoticeWritingMapper;
+import co.plus.prj.nwn.vo.NoticeWritingVO;
 
 @Service("nwDao")
 public class NoticeWritingServiceImpl implements NoticeWritingService {
@@ -49,6 +49,12 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 	@Override
 	public int noticeCount(NoticeWritingVO vo) {								// 내 게시물 개수
 		return map.noticeCount(vo);
+	}
+
+
+	@Override
+	public List<NoticeWritingVO> totalNotice(NoticeWritingVO vo) {				// (임시) 전체 게시물 목록
+		return map.totalNotice(vo);
 	}
 
 

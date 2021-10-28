@@ -1,8 +1,8 @@
-package co.plus.prj.noticeWriting.mapper;
+package co.plus.prj.nwn.mapper;
 
 import java.util.List;
 
-import co.plus.prj.noticeWriting.vo.NoticeWritingVO;
+import co.plus.prj.nwn.vo.NoticeWritingVO;
 
 public interface NoticeWritingMapper {
 
@@ -16,4 +16,6 @@ public interface NoticeWritingMapper {
 	
 	 public int noticeCount(NoticeWritingVO vo); 							// 내 게시물 개수 
 	
+	 List<NoticeWritingVO> totalNotice(NoticeWritingVO vo);					// (임시) 전체 게시물 목록조회
+
 }

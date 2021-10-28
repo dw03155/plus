@@ -32,8 +32,8 @@
 			<option>전체공개</option>
 			<option>프로젝트 관리자만</option>
 		</select>
-		<button type="button"
-			onclick="location.href='noticeWritingSelectList.do'">올리기</button>
+		<input type="submit" onclick="location.href='noticeWritingSelectList.do'" value="올리기">
+			
 	</div>
 
 </body>
