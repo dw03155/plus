@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.plus.prj.member.mapper.MemberMapper">
-    <select id="getMemberList" resultType="co.plus.prj.member.vo.MemberVO">
+    <select id="getMemberList" resultType="co.plus.prj.uam.vo.MemberVO">
     
 	</select>
 	
-	<select id="getMember" resultType="co.plus.prj.member.vo.MemberVO">
+	<select id="getMember" resultType="co.plus.prj.uam.vo.MemberVO">
 	
 	</select>
 	
 	<!-- 회원로그인 -->
-	<select id="login1" resultType="co.plus.prj.member.vo.MemberVO">
+	<select id="login1" resultType="co.plus.prj.uam.vo.MemberVO">
 		 select a.mem_id, a.name, a.pwd, a.email, a.mem_perm, b.mem_st
 		 from member a, mem_status b
 		 where a.mem_id = b.mem_id and a.email = #{email} and a.pwd = ${pwd}
 	</select>
-	<update id="login2" parameterType="co.plus.prj.member.vo.MemberVO">
+	<update id="login2" parameterType="co.plus.prj.uam.vo.MemberVO">
 		<![CDATA[update mem_status set mem_st = 'online'
   		where a.email = #{email}
   		 and mem_st <> 'online' ]]>
 	</update>
-	<select id="loginCheck" resultType="co.plus.prj.member.vo.MemberVO">
+	<select id="loginCheck" resultType="co.plus.prj.uam.vo.MemberVO">
 		select mem_id, co_url
 		from member
 		where mem_id = ${memId} and co_url = 
 	</select>
 
 	<!-- 어드민회원입력 -->
-	<insert id="newCompanyInsert1" parameterType="co.plus.prj.member.vo.MemberVO">
+	<insert id="newCompanyInsert1" parameterType="co.plus.prj.uam.vo.MemberVO">
 		INSERT INTO MEMBER(MEM_ID, EMAIL, PWD, NAME, CO_url,MEM_PERM)
 		VALUES (MEMID.nextval, #{email}, #{pwd}, #{name}, #{coUrl}, 'ADMIN')
 	</insert>
-	<insert id="newCompanyInsert2" parameterType="co.plus.prj.member.vo.MemberVO">
+	<insert id="newCompanyInsert2" parameterType="co.plus.prj.uam.vo.MemberVO">
 		INSERT INTO company(co_name, co_url)
 		VALUES (#{coName}, #{coUrl})
 	</insert>
 	
 	<!-- 기존회사 회원입력 -->
-	<insert id="exCompanyInsert" parameterType="co.plus.prj.member.vo.MemberVO">
+	<insert id="exCompanyInsert" parameterType="co.plus.prj.uam.vo.MemberVO">
 		INSERT INTO MEMBER(MEM_ID, EMAIL, PWD, NAME, CO_url)
 		VALUES (MEMID.nextval, #{email}, #{pwd}, #{name}, #{coUrl})
 	</insert>
 	
 	<!-- 회원정보수정(회원마이페이지) -->
-	<update id="nameUpdate" parameterType="co.plus.prj.member.vo.MemberVO">
+	<update id="nameUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">
 		update member set 
 		name = #{name}
 	</update>
 
 	<!-- 탈퇴 -->
-	<delete id="memberDelete" parameterType="co.plus.prj.member.vo.MemberVO">
+	<delete id="memberDelete" parameterType="co.plus.prj.uam.vo.MemberVO">
 		update member set mem_perm = 
 	</delete>
 	
-	<select id="getCompany" resultType="co.plus.prj.member.vo.MemberVO">
+	<select id="getCompany" resultType="co.plus.prj.uam.vo.MemberVO">
 		select co_url, co_name 
 		from company
 		where co_url = #{coUrl}
