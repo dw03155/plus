@@ -129,7 +129,7 @@
 	</div>
 	<!-- //top -->
 	
-	<div id="main" class="signup_box">
+	<div id="main" class="signup_box" >
 
 		<div class="login_fieldset">
 			<ul>
