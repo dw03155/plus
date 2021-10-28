@@ -74,7 +74,7 @@
 						<li><a href="#"><i class="ico-schedule"></i>캘린더</a></li>
 						<li><a href="#"><i class="ico-filebox"></i>파일함</a></li>
 						<li><a href="#"><i class="ico-bookmark"></i>북마크</a></li>
-						<li><a href="noticeWritingSelectList.do"><i
+						<li><a href="nwList.do"><i
 								class="ico-my-write"></i>내 게시물</a></li>
 					</ul>
 				</div>

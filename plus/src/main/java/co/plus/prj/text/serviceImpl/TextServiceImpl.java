@@ -14,11 +14,7 @@ public class TextServiceImpl implements TextService {
 	@Autowired
 	private TextMapper map;
 
-	@Override
-	public List<TextVO> textSelectList() {		// 글 목록 조회
-		return map.textSelectList();
-	}
-
+	
 	@Override
 	public TextVO textSelect(TextVO vo) {		// 글 상세보기
 		return map.textSelect(vo);
