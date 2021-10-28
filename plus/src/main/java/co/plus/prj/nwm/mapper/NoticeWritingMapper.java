@@ -1,8 +1,8 @@
-package co.plus.prj.nwn.mapper;
+package co.plus.prj.nwm.mapper;
 
 import java.util.List;
 
-import co.plus.prj.nwn.vo.NoticeWritingVO;
+import co.plus.prj.nwm.vo.NoticeWritingVO;
 
 public interface NoticeWritingMapper {
 

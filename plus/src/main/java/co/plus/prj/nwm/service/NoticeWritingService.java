@@ -2,7 +2,7 @@ package co.plus.prj.nwm.service;
 
 import java.util.List;
 
-import co.plus.prj.nwn.vo.NoticeWritingVO;
+import co.plus.prj.nwm.vo.NoticeWritingVO;
 
 public interface NoticeWritingService {
 

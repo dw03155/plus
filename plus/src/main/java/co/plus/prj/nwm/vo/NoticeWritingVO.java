@@ -1,4 +1,4 @@
-package co.plus.prj.nwn.vo;
+package co.plus.prj.nwm.vo;
 
 import java.util.Date;
 

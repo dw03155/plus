@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.plus.prj.nwm.service.NoticeWritingService;
-import co.plus.prj.nwn.vo.NoticeWritingVO;
+import co.plus.prj.nwm.vo.NoticeWritingVO;
 
 @Controller
 public class NoticeWritingController {
