@@ -112,6 +112,7 @@
 	<link rel="stylesheet" href="/design2/css/jquery.mCustomScrollbar.css">
 	<script src="design2/js/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+	
 <style>
 	.signup{
 		    margin: 280px auto 90px auto;
@@ -201,26 +202,9 @@
 			</div>
 		</div>
 	</div>
-	<div>
-		<form id="loginOk" action="main.do">
-		</form>
-	</div>
 <script>
-	$("#loginBtn").on("click", function(){
-		var email = $("input:text[name='email']");
-		var pwd = $("input:password[name='pwd']");
-		$.ajax({
-			url: "login.do",
-			type: "post",
-			dataType: "json",
-			success: function(data) {
-				console.log(data);
-			},
-			error: function(){
-				alert(${message });
-			}
-		
-		})
+	$("#email").on("change keyup paste", function(){
+		var email = $("email")
 	})
 </script>
 	
