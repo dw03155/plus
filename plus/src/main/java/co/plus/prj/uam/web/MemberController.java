@@ -128,7 +128,7 @@ public class MemberController {
 	//로그아웃
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session, MemberVO vo) {
-		vo = service.loginoutStUpdate();
+		session.getAttribute("memId");
 		session.invalidate();
 		
 		return "uam/login/login";		
