@@ -62,5 +62,5 @@
 	<delete id="memberDelete" parameterType="co.plus.prj.uam.vo.MemberVO">
 		update member set mem_perm = 
 	</delete>
-	
+
 </mapper>

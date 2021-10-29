@@ -10,7 +10,7 @@
 <div class="main-container">
 	<!-- 프로젝트 상세페이지 Top -->
 	<div id="topSettingBar" class="main-header">
-		<div id="detailTop" class="project-detail title-1 d-none">
+		<div id="detailTop" class="project-detail title-1">
 			<div class="project-detail-header">
 				<div class="project-color-area">
 					<i id="projectColor" class="project-color color-code-2"></i>
@@ -100,7 +100,7 @@
 				</div>
 			</div>
 			<button id="openInviteLayerBtn" type="button"
-				class="project-invite-button color-type-1">
+				class="project-invite-button color-code-6">
 				<i class="icons-invite"></i>초대하기
 			</button>
 		</div>
@@ -109,7 +109,7 @@
 
 
 
-
+<!-- 전체 업무 페이지 -->
 	<div id="mainContent" class="main-content scroll-mask"
 		scroll-direction="0">
 		<div id="detailLayer"

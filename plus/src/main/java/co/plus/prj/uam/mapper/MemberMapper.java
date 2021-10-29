@@ -32,8 +32,10 @@ public interface MemberMapper {
 	//회원 로그인 체크
 	public MemberVO memberLogin(MemberVO vo);
 	public int loginStUpdate(MemberVO vo);
+
 	//로그아웃
 	public MemberVO loginoutStUpdate(MemberVO vo);
+
 
 
 	

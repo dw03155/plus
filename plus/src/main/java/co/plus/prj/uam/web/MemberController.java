@@ -110,8 +110,10 @@ public class MemberController {
 	//로그인
 	@RequestMapping(value = "memberLogin.do")
 	public String login(MemberVO vo, Model model, HttpSession session) {
+
 		String views = null;
 		vo = service.loginStUpdate(vo);
+
 		
 		if(vo != null) {
 			session.setAttribute("memId", vo.getMemId());
