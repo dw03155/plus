@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,26 +12,25 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import co.plus.prj.uam.service.MemberService;
 import co.plus.prj.uam.vo.MemberVO;
 
 @Controller
 public class MemberController {
-<<<<<<< HEAD
+
 	@Autowired
 	JavaMailSender mailSender;
 	@Autowired
 	MemberService service;
-=======
-	@Autowired JavaMailSender mailSender;
-	@Autowired MemberService service;
->>>>>>> refs/remotes/origin/main
+
 	
 	
 	//회사URL입력페이지(companyJoin.jsp)
@@ -108,21 +108,32 @@ public class MemberController {
 	}
 	
 	//로그인
-	@RequestMapping(value = "login.do", method = RequestMethod.POST)
+	@RequestMapping(value = "memberLogin.do")
 	public String login(MemberVO vo, Model model, HttpSession session) {
-		String request = null;
-		vo = service.login(vo);
+		String views = null;
+		vo = service.loginStUpdate(vo);
 		
 		if(vo != null) {
-			session.setAttribute("email", vo.getMemId());
+			session.setAttribute("memId", vo.getMemId());
+			session.setAttribute("name", vo.getName());
 			session.setAttribute("memPerm", vo.getMemPerm());
-			request = "home/main";
+			model.addAttribute("name", vo.getName());
+			views = "home/myProject";
 		}else {
-			model.addAttribute("message", "일치하는 정보가 없습니다.");
-			request = "uam/login/login";
+			model.addAttribute("message", "일치하는 회원 정보가 없습니다.");
+			views = "uam/login/login";
 		}
 		
-		return request;
+		return views;
+	}
+	//로그아웃
+	@RequestMapping("logout.do")
+	public ModelAndView logout(HttpSession session) {
+		session.invalidate();
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("uam/login/login");
+		
+		return mav;
 	}
 	
 	
