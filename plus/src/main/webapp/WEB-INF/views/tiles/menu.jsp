@@ -71,7 +71,7 @@
 								업무 </a></li>
 						<li id="leftMenuGantt"><a href="#"><i
 								class="ico-ganttchart"></i>간트차트</a></li>
-						<li><a href="#"><i class="ico-schedule"></i>캘린더</a></li>
+						<li><a href="totalSchedule.do"><i class="ico-schedule"></i>캘린더</a></li>
 						<li><a href="#"><i class="ico-filebox"></i>파일함</a></li>
 						<li><a href="#"><i class="ico-bookmark"></i>북마크</a></li>
 						<li><a href="nwList.do"><i

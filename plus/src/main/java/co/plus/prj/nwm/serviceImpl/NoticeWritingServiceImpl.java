@@ -188,7 +188,7 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 	@Override
 	public List<NoticeWritingVO> totalSchedule(NoticeWritingVO vo) {
 		// 전체 일정 메뉴
-		return null;
+		return map.totalSchedule(vo);
 	}
 
 
