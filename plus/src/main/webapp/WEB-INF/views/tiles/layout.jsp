@@ -15,7 +15,6 @@
 
 <meta name="theme-color" content="#5f5ab9">
 
-
 <meta name="subject" content="work tool">
 <meta name="content-language" content="ko">
 
@@ -58,8 +57,8 @@ to { transform: rotate(360deg);}
 
 		<div id="mainBodyWrap" class="main-body-wrap">
 
-			<!-- 왼쪽 메뉴 -->
-			<div id="leftArea" class="main-header-1">
+			<!-- 왼쪽 메뉴 id="leftArea"-->
+			<div id="leftMenu" class="main-header-1">
 				<tiles:insertAttribute name="menu" />
 			</div>
 			
