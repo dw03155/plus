@@ -185,11 +185,11 @@
 			<div id="AUTO_LOGIN" style="display: block; margin-bottom: 60px;">
 
 				<input id="AUTO_BOX" type="checkbox">&nbsp;<span
-					data-langcode="H365">자동 로그인</span>
+					data-langcode="H365">자동 로그인</span><br/><br/><br/>
+					<span id="result" style="color: red">${message }</span>
 
 			</div>
-			<a id="loginBtn" class="signup_btn_st1" data-langcode="H76" >로그인</a>
-			<span id="result">${message }</span>
+			<a id="loginBtn" class="signup_btn_st1 on" data-langcode="H76" >로그인</a>
 		  </div>
 		 </form>
 		<div id="REG_3" class="forgot_pw">
