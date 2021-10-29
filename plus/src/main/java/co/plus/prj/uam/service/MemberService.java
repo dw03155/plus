@@ -2,7 +2,6 @@ package co.plus.prj.uam.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
 
 import co.plus.prj.uam.vo.MemberVO;
 

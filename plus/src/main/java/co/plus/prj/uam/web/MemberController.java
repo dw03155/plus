@@ -117,7 +117,6 @@ public class MemberController {
 			session.setAttribute("memId", vo.getMemId());
 			session.setAttribute("name", vo.getName());
 			session.setAttribute("memPerm", vo.getMemPerm());
-			model.addAttribute("name", vo.getName());
 			views = "home/myProject";
 		}else {
 			model.addAttribute("message", "일치하는 회원 정보가 없습니다.");
@@ -128,12 +127,11 @@ public class MemberController {
 	}
 	//로그아웃
 	@RequestMapping("logout.do")
-	public ModelAndView logout(HttpSession session) {
+	public String logout(HttpSession session, MemberVO vo) {
+		vo = service.loginoutStUpdate();
 		session.invalidate();
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("uam/login/login");
 		
-		return mav;
+		return "uam/login/login";		
 	}
 	
 	

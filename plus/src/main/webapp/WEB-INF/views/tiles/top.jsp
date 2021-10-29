@@ -79,7 +79,7 @@
 				<p class="js-profile user-img"
 					style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;);"></p>
 				<div class="user-info">
-					<strong class="js-user-name js-mouseover">${name }</strong> <span>이용중</span>
+					<strong class="js-user-name js-mouseover"> <%=(String)session.getAttribute("name")%>     </strong> <span>이용중</span>
 				</div>
 			</li>
 
