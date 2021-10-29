@@ -23,8 +23,8 @@
 			</div>
 		</a>
 		<ul id="leftMenuUl" class="menu-group js-left-menu mgt-20">
-			<li data-code="main" class="left-menu-item"><a
-				href="#"> <i class="ico-home"></i>내 프로젝트 <em
+			<li class="left-menu-item"><a
+				href="myProject.do"> <i class="ico-home"></i>내 프로젝트 <em
 					id="leftProjectHomeCount"
 					class="js-project-home-count project-total-count d-none"></em>
 			</a></li>
