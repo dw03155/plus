@@ -79,7 +79,7 @@
 				<p class="js-profile user-img"
 					style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;);"></p>
 				<div class="user-info">
-					<strong class="js-user-name js-mouseover">cyr</strong> <span>이용중</span>
+					<strong class="js-user-name js-mouseover"> <%=(String)session.getAttribute("name")%>     </strong> <span>이용중</span>
 				</div>
 			</li>
 
@@ -87,7 +87,7 @@
 			<li id="topProfile" class="user-profile"><i
 				class="icons-person-3"></i> 내 프로필</li>
 			<li id="mySettingOpenBtn"><i class="icons-set"></i> 환경설정</li>
-			<li id="logoutBtn"><i class="icons-logout"></i> 로그아웃</li>
+			<li id="logoutBtn" onclick="location.href='logout.do'"><i class="icons-logout"></i> 로그아웃</li>
 		</ul>
 	</header>
 
@@ -831,6 +831,9 @@
 			$("#mySet").css("display", "none");
 			$("#pushAlamGroup").css("display", "none");
 		});
+		$("#mySettingOpenBtn").onclick(function(){
+			
+		})
 	</script>
 </body>
 </html>

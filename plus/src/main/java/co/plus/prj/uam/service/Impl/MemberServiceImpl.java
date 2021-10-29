@@ -59,36 +59,25 @@ public class MemberServiceImpl implements MemberService {
 		return map.getCompany(vo);
 	}
 
+
 	@Override
-	public boolean loginCheck(MemberVO vo, HttpSession session) {
-		// 로그인 정보 일치 확인
-		boolean reault = map.loginCheck(vo);
-		if(reault) {
-			MemberVO vo2 = viewMember(vo);
-			
-			session.setAttribute("memId", vo2.getMemId());
-			session.setAttribute("memPerm", vo2.getMemPerm());
+	public MemberVO loginStUpdate(MemberVO vo) {
+		// 멤버로그인
+		MemberVO vo2 = map.memberLogin(vo);
+		if(vo2 != null) {			
+			map.loginStUpdate(vo2);
 		}
-		return reault;
+		return vo2;
 	}
 
 	@Override
-	public MemberVO viewMember(MemberVO vo) {
-		// 회원 로그인 정보 불러오기
-		return map.viewMember(vo);
+	public MemberVO loginoutStUpdate(MemberVO vo) {
+		// 로그아웃시 회원상태 오프라인으로 바꿔줌
+		return map.loginoutStUpdate(vo);
 	}
 
-	@Override
-	public void logout(HttpSession session) {
-		// 세션정보 삭제
-		session.invalidate();
-	}
 
-	@Override
-	public int loginStUpdate(MemberVO vo) {
-		// 회원상태 온라인으로 수정
-		return map.loginStUpdate(vo);
-	}
+
 
 
 }

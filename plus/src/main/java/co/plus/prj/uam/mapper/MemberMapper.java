@@ -2,7 +2,6 @@ package co.plus.prj.uam.mapper;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
 
 import co.plus.prj.uam.vo.MemberVO;
 
@@ -31,10 +30,13 @@ public interface MemberMapper {
 		
 	//로그인
 	//회원 로그인 체크
-	public boolean loginCheck(MemberVO vo);
-	public MemberVO viewMember(MemberVO vo);
+	public MemberVO memberLogin(MemberVO vo);
 	public int loginStUpdate(MemberVO vo);
-	public void logout(HttpSession session);
+
+	//로그아웃
+	public MemberVO loginoutStUpdate(MemberVO vo);
+
+
 
 	
 }

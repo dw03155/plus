@@ -120,6 +120,17 @@
 		    background-color: #f2f3f4;
 	}
 </style>
+<script>
+	$(document).ready(function(){
+		$("#loginBtn").click(function(){
+			var email = $("#email").val();
+			var pwd = $("#pwd").val();
+			console.log(email)
+			document.loginForm.action="memberLogin.do"
+			document.loginForm.submit();
+		})
+	})
+</script>
 </head>
 <body>
 <!-- top -->
@@ -140,6 +151,7 @@
 	
 	<div id="main" class="signup">
 
+		<form name="loginForm" method="post">
 		   <div class="login_fieldset">
 			<ul>
 				<li id="REG_1" style="display: none;"><input id="USER_NM"
@@ -147,19 +159,17 @@
 					<span id="USER_NM_CHK" class="ico_chk"></span>
 				</li>
 				<li>
-				<input id="memId" name="memId" type="text" placeholder="이메일 또는 아이디"
+				<input id="email" name="email" type="text" placeholder="이메일"
 					value="" spellcheck="false" data-langcode="H361">
 					<span id="USER_ID_CHK" class="ico_chk"></span>
 				</li>
 				<li>
-				<input id="pwd" id="pwd" class="password-input" type="password"
+				<input id="pwd" name="pwd" class="password-input" type="password"
 					placeholder="비밀번호" data-langcode="H362"> 
 					<span class="password-mask"><em class="blind">비밀번호 보이기 / 숨기기
 							버튼 </em></span> 
 					<span id="PWD_CHK" class="ico_chk"></span>
 				</li>
-				<input id="PRFL_PHTG" type="hidden" />
-				<input id="KAKAO_EMAIL" type="hidden" />
 			</ul>
 			<div id="REG_2" style="display: none; margin-bottom: 30px;">
 				<input id="CONF_BOX" type="checkbox"> <span
@@ -175,11 +185,13 @@
 			<div id="AUTO_LOGIN" style="display: block; margin-bottom: 60px;">
 
 				<input id="AUTO_BOX" type="checkbox">&nbsp;<span
-					data-langcode="H365">자동 로그인</span>
+					data-langcode="H365">자동 로그인</span><br/><br/><br/>
+					<span id="result" style="color: red">${message }</span>
 
 			</div>
-			<a id="loginBtn" class="signup_btn_st1" data-langcode="H76" >로그인</a>
+			<a id="loginBtn" class="signup_btn_st1 on" data-langcode="H76" >로그인</a>
 		  </div>
+		 </form>
 		<div id="REG_3" class="forgot_pw">
 			<a data-langcode="H372">비밀번호를 잊어버리셨나요?</a>
 		</div>
@@ -205,24 +217,5 @@
 		<form id="loginOk" action="main.do">
 		</form>
 	</div>
-<script>
-	$("#loginBtn").on("click", function(){
-		var email = $("input:text[name='email']");
-		var pwd = $("input:password[name='pwd']");
-		$.ajax({
-			url: "login.do",
-			type: "post",
-			dataType: "json",
-			success: function(data) {
-				console.log(data);
-			},
-			error: function(){
-				alert(${message });
-			}
-		
-		})
-	})
-</script>
-	
 </body>
 </html>
