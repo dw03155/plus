@@ -59,6 +59,7 @@ public class NoticeWritingController {
 	
 	@RequestMapping("/totalNotice.do")		// 프로젝트 상세조회 홈 전체 게시물
 	String totalNotice(Model model, NoticeWritingVO vo) {
+		vo.setPrjId(5);
 		model.addAttribute("totals", nwDao.totalNotice(vo));
 		return "nwm/totalNotice";
 	}
@@ -67,5 +68,11 @@ public class NoticeWritingController {
 	String totalTask(Model model, NoticeWritingVO vo) {
 		model.addAttribute("tasks",nwDao.totalTask(vo));
 		return "nwm/totalTask"; 		
+	}
+	
+	@RequestMapping("/totalSchedule.do")	// 전체업무 메뉴
+	String totalSchedule(Model model, NoticeWritingVO vo) {
+		model.addAttribute("sches",nwDao.totalSchedule(vo));
+		return "nwm/totalSchedule"; 		
 	}
 }

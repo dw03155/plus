@@ -53,13 +53,6 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 		return map.noticeCount(vo);
 	}
 	
-	
-	@Override
-	public List<NoticeWritingVO> totalNotice(NoticeWritingVO vo) {				
-		// 전체 게시물 목록
-		return map.totalNotice(vo);
-	}
-
 
 	@Override
 	public NoticeWritingVO txtSelect(NoticeWritingVO vo) {
@@ -148,6 +141,12 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 		return null;
 	}
 
+	
+	@Override
+	public List<NoticeWritingVO> totalNotice(NoticeWritingVO vo) {				
+		// 프로젝트 게시물 
+		return map.totalNotice(vo);
+	}
 
 	@Override
 	public List<NoticeWritingVO> totalTask(NoticeWritingVO vo) {
@@ -188,7 +187,7 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 	@Override
 	public List<NoticeWritingVO> totalSchedule(NoticeWritingVO vo) {
 		// 전체 일정 메뉴
-		return null;
+		return map.totalSchedule(vo);
 	}
 
 

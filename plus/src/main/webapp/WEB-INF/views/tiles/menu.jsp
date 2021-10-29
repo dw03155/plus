@@ -61,6 +61,7 @@
 				</ul></li>
 		</ul>
 		<ul id="leftScroll" class="menu-accordion-group scroll-mask">
+<<<<<<< HEAD
             <li>
                 <div class="menu-accordion-button active left-menu-item" data-code="collect-more">
                     모아보기<i class="ico-arrow"></i>
@@ -89,6 +90,7 @@
                     </ul>
                 </div>
             </li>
+
 			<li>
 				<div id="allLabelLeftButton"
 					class="menu-accordion-button left-menu-item active"

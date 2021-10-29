@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.plus.prj.nwm.mapper.NoticeWritingMapper">
+
 	<select id="noticeWritingSelectList" resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select a.*, b.name, b.co_url																				<!-- 게시글 목록 조회 -->
-		from board a, member b
-		where a.mem_id = b.mem_id
-		and a.mem_id = #{memId}
+		select  a.*, b.name, b.co_url																				<!-- 내 게시글 목록 조회 -->
+		from 	board a, member b
+		where 	a.mem_id = b.mem_id
+		and 	a.mem_id = #{memId}
 		<if test="notiTtl != null and notiTtl != ''">													<!-- 내 게시글 제목 검색 후 목록 출력 -->
 			and noti_ttl like '%' || #{notiTtl} || '%'
 		</if>
@@ -25,60 +26,50 @@
 
 	<select id="noticeWritingSelectTxt"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">		<!-- 글 상세보기 -->
-		select a. noti_knd as 게시글종류, b.name as 작성자, c.*, d.prj_ttl as 프로젝트제목,
-		a.noti_dttm as 작성일자
-		from notice_writing a, member b, text c, project d
-		where a.mem_id = b.mem_id
-		and a.prj_id = d.prj_id
-		and a.noti_id =
-		c.noti_id
-		and a.noti_id= #{notiId}
+		select  a. noti_knd as 게시글종류, b.name as 작성자, c.*, d.prj_ttl as 프로젝트제목, a.noti_dttm as 작성일자
+		from    notice_writing a, member b, text c, project d
+		where 	a.mem_id = b.mem_id
+		and 	a.prj_id = d.prj_id
+		and		a.noti_id = c.noti_id
+		and 	a.noti_id= #{notiId}
 	</select>
 	<select id="noticeWritingSelectTsk"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO"> 		<!-- 업무 상세보기 -->
-		select a. noti_knd as 게시글종류, b.name as 작성자, c.*, d.prj_ttl as 프로젝트제목,
-		a.noti_dttm as 작성일자
-		from notice_writing a, member b, task c, project d
-		where a.mem_id = b.mem_id
-		and a.prj_id=d.prj_id
-		and a.noti_id =
-		c.noti_id
-		and a.noti_id= #{notiId}
+		select  a. noti_knd as 게시글종류, b.name as 작성자, c.*, d.prj_ttl as 프로젝트제목, a.noti_dttm as 작성일자
+		from 	notice_writing a, member b, task c, project d
+		where 	a.mem_id = b.mem_id
+		and 	a.prj_id=d.prj_id
+		and 	a.noti_id = c.noti_id
+		and 	a.noti_id= #{notiId}
 	</select>
 	<select id="noticeWritingSelectSubtsk"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">	<!-- 하위업무 상세보기 -->
-		select a.*, b.name, c.subtsk_cntn
-		from board a, member b, subtask c
-		where a.mem_id = b.mem_id
-		and a.noti_id = c.noti_id
-		and a.mem_id =
-		#{notiId}
-
-		#{memId}
+		select 	a.*, b.name, c.subtsk_cntn
+		from 	board a, member b, subtask c
+		where 	a.mem_id = b.mem_id
+		and 	a.noti_id = c.noti_id
+		and 	a.mem_id = #{memId}
 	</select>
 	<select id="noticeWritingSelectSche"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">		<!-- 일정 상세보기 -->
-		select a.*, b.name, c.sche_cntn
-		from board a, member b, schedule c
-		where a.mem_id = b.mem_id
-		and a.noti_id = c.noti_id
-		and a.noti_id =
-		#{notiId}
+		select  a.*, b.name, c.sche_cntn
+		from 	board a, member b, schedule c
+		where 	a.mem_id = b.mem_id
+		and 	a.noti_id = c.noti_id
+		and 	a.noti_id = #{notiId}
 	</select>
 	<select id="noticeWritingSelectTodo"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">		<!-- 할일 상세보기 -->
-		select a. noti_knd as 게시글종류, b.name as 작성자, c.*, d.prj_ttl as 프로젝트제목,
-		a.noti_dttm as 작성일자
-		from notice_writing a, member b, todo c, project d
-		where a.mem_id = b.mem_id
-		and a.prj_id=d.prj_id
-		and a.noti_id =
-		c.noti_id
-		and b.mem_id = c.mem_id
-		and a.noti_id= #{notiId}
+		select  a. noti_knd as 게시글종류, b.name as 작성자, c.*, d.prj_ttl as 프로젝트제목, a.noti_dttm as 작성일자
+		from 	notice_writing a, member b, todo c, project d
+		where 	a.mem_id = b.mem_id
+		and 	a.prj_id=d.prj_id
+		and 	a.noti_id = c.noti_id
+		and 	b.mem_id = c.mem_id
+		and 	a.noti_id= #{notiId}
 	</select>
 
-	<select id="noticeCount" resultType="int">									<!-- 게시글 개수 출력 -->
+	<select id="noticeCount" resultType="int">					<!-- 게시글 개수 출력 (미구현) -->
 		select count(*)
 		from notice_writing
 		where mem_id = #{memId}
@@ -86,26 +77,33 @@
 
 	<select id="totalNotice"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">	<!-- 프로젝트의 전체 게시물 목록 -->
-		select a.*, b.name
-		from notice_writing a, member b
-		where a.mem_id =
-		b.mem_id
-		and a.prj_id = #{prjId}
+		select  a.*, b.name																		
+		from 	board a, member b
+		where 	a.mem_id = b.mem_id
+		and 	a.prj_id = #{prjId}
+		<if test="notiTtl != null and notiTtl != ''">			<!-- 프로젝트 전체 게시물 목록 중 제목 검색 후 목록 출력 -->
+			where noti_ttl like '%' || #{notiTtl} || '%'
+		</if>
 	</select>
 
 	<select id="totalTask"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">		<!-- 업무 목록 조회 -->
-		select * from task
-		<if test="notiTtl != null and notiTtl != ''">							<!-- 게시글 제목 검색 후 목록 출력 -->
+		select  a.*, b.name
+		from 	task a, member b
+		where 	a.mem_id = b.mem_id
+		<if test="notiTtl != null and notiTtl != ''">			<!-- 업무 제목 검색 후 목록 출력 -->
 			where noti_ttl like '%' || #{notiTtl} || '%'
 		</if>
 	</select>
 
 	<select id="totalSchedule"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select a.*, b.name
-		from task a, member b
-		where a.mem_id = b.mem_id
+		select  a.*, b.name
+		from  	schedule a, member b
+		where 	a.mem_id = b.mem_id
+		<if test="notiTtl != null and notiTtl != ''">			<!-- 업무 제목 검색 후 목록 출력 -->
+			where noti_ttl like '%' || #{notiTtl} || '%'
+		</if>
 	</select>
 
 </mapper>
