@@ -42,134 +42,17 @@
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADjbtMn46r9DGFyo_ZRz3c6fOXzuOKWCw&amp;libraries=places"
 	charset="UTF-8"></script>
 <style type="text/css">
-@-webkit-keyframes rotate{
+@-webkit-keyframes rotate {
 from { -webkit-transform:rotate(0deg);}
-to {-webkit-transform: rotate(360deg);}
+to { -webkit-transform: rotate(360deg);}
 }
+
 @keyframes rotate {
 from { transform:rotate(0deg);}
-to {transform: rotate(360deg);}
-}
-
-.dropbox-dropin-btn, .dropbox-dropin-btn:link, .dropbox-dropin-btn:hover
-	{
-	display: inline-block;
-	height: 14px;
-	font-family: "Lucida Grande", "Segoe UI", "Tahoma", "Helvetica Neue",
-		"Helvetica", sans-serif;
-	font-size: 11px;
-	font-weight: 600;
-	color: #636363;
-	text-decoration: none;
-	padding: 1px 7px 5px 3px;
-	border: 1px solid #ebebeb;
-	border-radius: 2px;
-	border-bottom-color: #d4d4d4;
-	background: #fcfcfc;
-	background: -moz-linear-gradient(top, #fcfcfc 0%, #f5f5f5 100%);
-	background: -webkit-linear-gradient(top, #fcfcfc 0%, #f5f5f5 100%);
-	background: linear-gradient(to bottom, #fcfcfc 0%, #f5f5f5 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fcfcfc',
-		endColorstr='#f5f5f5', GradientType=0);
-}
-
-.dropbox-dropin-default:hover, .dropbox-dropin-error:hover {
-	border-color: #dedede;
-	border-bottom-color: #cacaca;
-	background: #fdfdfd;
-	background: -moz-linear-gradient(top, #fdfdfd 0%, #f5f5f5 100%);
-	background: -webkit-linear-gradient(top, #fdfdfd 0%, #f5f5f5 100%);
-	background: linear-gradient(to bottom, #fdfdfd 0%, #f5f5f5 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fdfdfd',
-		endColorstr='#f5f5f5', GradientType=0);
-}
-
-.dropbox-dropin-default:active, .dropbox-dropin-error:active {
-	border-color: #d1d1d1;
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
-}
-
-.dropbox-dropin-btn .dropin-btn-status {
-	display: inline-block;
-	width: 15px;
-	height: 14px;
-	vertical-align: bottom;
-	margin: 0 5px 0 2px;
-	background: transparent
-		url('https://www.dropbox.com/static/images/widgets/dbx-saver-status.png')
-		no-repeat;
-	position: relative;
-	top: 2px;
-}
-
-.dropbox-dropin-default .dropin-btn-status {
-	background-position: 0px 0px;
-}
-
-.dropbox-dropin-progress .dropin-btn-status {
-	width: 18px;
-	margin: 0 4px 0 0;
-	background:
-		url('https://www.dropbox.com/static/images/widgets/dbx-progress.png')
-		no-repeat center center;
-	-webkit-animation-name: rotate;
-	-webkit-animation-duration: 1.7s;
-	-webkit-animation-iteration-count: infinite;
-	-webkit-animation-timing-function: linear;
-	animation-name: rotate;
-	animation-duration: 1.7s;
-	animation-iteration-count: infinite;
-	animation-timing-function: linear;
-}
-
-.dropbox-dropin-success .dropin-btn-status {
-	background-position: -15px 0px;
-}
-
-.dropbox-dropin-disabled {
-	background: #e0e0e0;
-	border: 1px #dadada solid;
-	border-bottom: 1px solid #ccc;
-	box-shadow: none;
-}
-
-.dropbox-dropin-disabled .dropin-btn-status {
-	background-position: -30px 0px;
-}
-
-.dropbox-dropin-error .dropin-btn-status {
-	background-position: -45px 0px;
-}
-
-@media only screen and (-webkit-min-device-pixel-ratio: 1.4) {
-	.dropbox-dropin-btn .dropin-btn-status {
-		background-image:
-			url('https://www.dropbox.com/static/images/widgets/dbx-saver-status-2x.png');
-		background-size: 60px 14px;
-		-webkit-background-size: 60px 14px;
-	}
-	.dropbox-dropin-progress .dropin-btn-status {
-		background:
-			url('https://www.dropbox.com/static/images/widgets/dbx-progress-2x.png')
-			no-repeat center center;
-		background-size: 20px 20px;
-		-webkit-background-size: 20px 20px;
-	}
-}
-
-.dropbox-saver:hover, .dropbox-chooser:hover {
-	text-decoration: none;
-	cursor: pointer;
-}
-
-.dropbox-chooser, .dropbox-dropin-btn {
-	line-height: 11px !important;
-	text-decoration: none !important;
-	box-sizing: content-box !important;
-	-webkit-box-sizing: content-box !important;
-	-moz-box-sizing: content-box !important;
+to { transform: rotate(360deg);}
 }
 </style>
+
 <script type="text/javascript" charset="UTF-8"
 	src="https://maps.googleapis.com/maps-api-v3/api/js/46/8/intl/ko_ALL/common.js"></script>
 <script type="text/javascript" charset="UTF-8"
@@ -185,19 +68,73 @@ to {transform: rotate(360deg);}
 		</div>
 
 		<div id="mainBodyWrap" class="main-body-wrap">
-			<!-- 메뉴 -->
+
+			<!-- 왼쪽 메뉴 -->
 			<div id="leftArea" class="main-header-1">
 				<tiles:insertAttribute name="menu" />
 			</div>
-
-			<div class="main-container">
-				<tiles:insertAttribute name="main" />
-			</div>
-
-			<div id="allSendiencePopup" class="flow-all-background-1"
-				style="display: none;"></div>
-			<div id="imageViewerItem"></div>
+			
+			<!-- //main-container  -->
+			<tiles:insertAttribute name="main" />
+			<!-- //main-container -->
 		</div>
+
+		<!-- 프로젝트의 참여자 관리 -->
+		<!-- allSendiencePopup -->
+		<!-- //allSendiencePopup -->
+
+		<div id="imageViewerItem">
+			<div class="image-viewer-wrap js-image-viewer-item d-none"
+				tabindex="1" style="overflow: hidden;">
+				<div class="image-viewer-header">
+					<div class="image-title-area">
+						<div class="image- title-top" style="color: white;">
+							<span class="js-img-title image-title"></span> <span
+								class="image-size"></span> <span class="image-resolution"></span>
+							<span class="secret-image"></span>
+						</div>
+						<div class="image-title-bottom" style="color: #999;">
+							<span class="image-user-name"></span> <span
+								class="image-upload-date"></span>
+						</div>
+					</div>
+					<a href="#" role="button" class="viewer-close-button"> <span
+						class="blind">close</span>
+					</a>
+				</div>
+				<div class="js-container image-viewer-container">
+					<a href="#" role="button" class="viewer-button left"
+						data-img-idx="-1"> <span class="blind">left</span>
+					</a>
+					<div class="image-group">
+						<div class="js-img-back image-bg"></div>
+					</div>
+					<a href="#" role="button" class="viewer-button right"
+						data-img-idx="1"> <span class="blind">right</span>
+					</a>
+				</div>
+
+				<div class="image-viewer-footer">
+					<div class="btn-editbox left-fix" style="display: block;">
+						<span class="img-now">1</span>/<span class="js-total-count">2</span>
+					</div>
+					<div class="btn-editbox">
+						<a href="#" role="button" class="image-edit-btn rotate"><span>회전</span></a>
+						<a href="#" role="button" class="image-edit-btn plus"> <span>확대</span></a>
+						<a href="#" role="button" class="image-edit-btn minus"> <span>축소</span></a>
+						<a href="#" role="button" class="image-edit-btn autosize"> <span>초기화</span></a>
+					</div>
+					<div class="btn-editbox right-fix">
+						<a href="#" id="btnDownPic" class="viewer-save"
+							data-langcode="CT927">저장</a> <a href="#" role="button"
+							class="viewer-save" id="btnAllDownPic"> 전체 저장 </a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
 	</div>
 	<div id="bottomToolList" class="bottom-tool-list">
 		<div class="js-tool-item tool-item" id="quickGuideMenu"
@@ -205,6 +142,8 @@ to {transform: rotate(360deg);}
 	</div>
 
 	<div id="quickGuideItem" class="d-none"></div>
+
+<!-- 여기서부터 시작 -->
 
 	<div class="d-none"></div>
 
@@ -244,7 +183,7 @@ to {transform: rotate(360deg);}
 
 	<div id="popupDraw" class="d-none"></div>
 	<div id="itemComponent" class="d-none"></div>
-	
+
 	<script async src="flow-renewal/js/main.js"></script>
 </body>
 </html>
