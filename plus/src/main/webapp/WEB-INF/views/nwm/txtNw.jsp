@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!-- 내 게시물 메뉴에서 글 상세보기 팝업 -->
+<!-- 내 게시물 목록 -> 글 상세보기(팝업) -->
 <table border="1">			
 	<tr>
 		<td id="memId">${texts.memName }작성자</td>
