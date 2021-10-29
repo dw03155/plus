@@ -63,9 +63,9 @@ public class NoticeWritingController {
 		return "nwm/totalNotice";
 	}
 	
-	@RequestMapping("/taskSelectList.do")	// 전체업무 메뉴
-	String taskSelectList(Model model, NoticeWritingVO vo) {
-		model.addAttribute("tasks",nwDao.taskSelectList(vo));
-		return "nwm/taskSelectList"; 		
+	@RequestMapping("/totalTask.do")	// 전체업무 메뉴
+	String totalTask(Model model, NoticeWritingVO vo) {
+		model.addAttribute("tasks",nwDao.totalTask(vo));
+		return "nwm/totalTask"; 		
 	}
 }

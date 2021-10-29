@@ -67,7 +67,7 @@
 				</div>
 				<div class="menu-accordion" style="display: block">
 					<ul class="menu-accordion-list">
-						<li><a href="taskSelectList.do"><i class="ico-task"></i>전체
+						<li><a href="totalTask.do"><i class="ico-task"></i>전체
 								업무 </a></li>
 						<li id="leftMenuGantt"><a href="#"><i
 								class="ico-ganttchart"></i>간트차트</a></li>

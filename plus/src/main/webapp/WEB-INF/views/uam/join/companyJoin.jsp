@@ -232,6 +232,15 @@ to {
 				src="flow-renewal/assets/images/flow_logo_small.png">
 			</a> <a href="joinForm.do" id="closeBtn" class="login-close-button"></a>
 		</div>
+		
+		<!-- 빨간 알람창 -->
+		<div id="toastWrap" class="d-none">
+        <div class="alert-wrap d-none">
+            <div class="alert-type">
+                <div class="text"></div>
+            </div>
+        </div>
+    </div>
 
 		<!-- 기존회사참여 -->
 		<div id="companyJoinMain" class="login-wrap invite-login">
