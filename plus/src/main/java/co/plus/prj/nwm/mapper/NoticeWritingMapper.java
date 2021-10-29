@@ -19,10 +19,11 @@ public interface NoticeWritingMapper {
 	 
 	 List<NoticeWritingVO> totalNotice(NoticeWritingVO vo);				// 전체 게시물 목록조회
 	 
-	 List<NoticeWritingVO> taskSelectList(NoticeWritingVO vo); 			// 전체 업무 메뉴
+	 List<NoticeWritingVO> totalTask(NoticeWritingVO vo); 			// 전체 업무 메뉴
 	 NoticeWritingVO taskSelect(NoticeWritingVO vo);					// 업무 상세조회 (팝업)
 	 
 	 // 캘린더 메뉴
+	 List<NoticeWritingVO> totalSchedule(NoticeWritingVO vo);			// 전제 일정 조회
 	 
 	 // 파일함 메뉴
 	 List<NoticeWritingVO> scheSelectList(NoticeWritingVO vo); 			// 전체 파일 조회
