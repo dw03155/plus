@@ -38,7 +38,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int exCompanyInsert(MemberVO member) {
 		// 기존회사 입력
-		return map.exCompanyInsert(member);;
+		return map.exCompanyInsert(member);
 	}
 	
 	@Override
@@ -60,11 +60,34 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public boolean login(MemberVO vo, HttpSession session) {
-		// 로그인
-		boolean reault = map.login(vo);
-		
-		return false;
+	public boolean loginCheck(MemberVO vo, HttpSession session) {
+		// 로그인 정보 일치 확인
+		boolean reault = map.loginCheck(vo);
+		if(reault) {
+			MemberVO vo2 = viewMember(vo);
+			
+			session.setAttribute("memId", vo2.getMemId());
+			session.setAttribute("memPerm", vo2.getMemPerm());
+		}
+		return reault;
+	}
+
+	@Override
+	public MemberVO viewMember(MemberVO vo) {
+		// 회원 로그인 정보 불러오기
+		return map.viewMember(vo);
+	}
+
+	@Override
+	public void logout(HttpSession session) {
+		// 세션정보 삭제
+		session.invalidate();
+	}
+
+	@Override
+	public int loginStUpdate(MemberVO vo) {
+		// 회원상태 온라인으로 수정
+		return map.loginStUpdate(vo);
 	}
 
 

@@ -10,12 +10,17 @@
 	</select>
 	
 	<!-- 회원로그인 -->
-	<select id="login" resultType="co.plus.prj.uam.vo.MemberVO">
+	<select id="loginCheck" resultType="co.plus.prj.uam.vo.MemberVO">			<!-- 로그인정보일치여부확인 -->
+		 select mem_id, pwd, email
+		 from member
+		 where email = #{email} and pwd = ${pwd}
+	</select>
+	<select id="viewMember" resultType="co.plus.prj.uam.vo.MemberVO">			<!-- 세션에 저장할 회원정보 -->
 		 select a.mem_id, a.name, a.pwd, a.email, a.mem_perm, b.mem_st
 		 from member a, mem_status b
 		 where a.mem_id = b.mem_id and a.email = #{email} and a.pwd = ${pwd}
 	</select>
-	<update id="loginStUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">
+	<update id="loginStUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">		<!-- 회원 상태 온라인으로 -->
 		<![CDATA[update mem_status set mem_st = 'online'
   		where a.email = #{email}
   		 and mem_st <> 'online' ]]>

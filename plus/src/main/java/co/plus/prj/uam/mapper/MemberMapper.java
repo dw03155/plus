@@ -30,6 +30,9 @@ public interface MemberMapper {
 		
 	//로그인
 	//회원 로그인 체크
-	public boolean login(MemberVO vo);
+	public boolean loginCheck(MemberVO vo);
+	public MemberVO viewMember(MemberVO vo);
+	public int loginStUpdate(MemberVO vo);
+	public void logout(HttpSession session);
 	
 }
