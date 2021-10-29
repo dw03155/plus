@@ -18,9 +18,9 @@
 	<!-- 프로젝트 목록에서 선택 -->
 	<div>
 		<button class="tablink" onclick="openPage('Home', this)"id="defaultOpen">홈</button>
-		<button class="tablink" onclick="openPage('News', this)">업무</button>
-		<button class="tablink" onclick="openPage('Contact', this)">캘린더</button>
-		<button class="tablink" onclick="openPage('About', this)">파일</button>
+		<button class="tablink" onclick="openPage('Task', this)">업무</button>
+		<button class="tablink" onclick="openPage('Calendar', this)">캘린더</button>
+		<button class="tablink" onclick="openPage('File', this)">파일</button>
 	</div>
 	
 	<!-- 프로젝트 상세조회 홈 전체 게시물 -->
@@ -60,15 +60,15 @@
 	</div>
 	
 
-	<div id="News" class="tabcontent">
+	<div id="Task" class="tabcontent">
 		<h3>프로젝트 내 업무 목록</h3>
 	</div>
 
-	<div id="Contact" class="tabcontent">
+	<div id="Calendar" class="tabcontent">
 		<h3>프로젝트 내 일정</h3>
 	</div>
 
-	<div id="About" class="tabcontent">
+	<div id="File" class="tabcontent">
 		<h3>프레적트 내 파일함</h3>
 	</div>
 

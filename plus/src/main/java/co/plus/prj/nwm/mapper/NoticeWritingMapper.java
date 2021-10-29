@@ -17,7 +17,7 @@ public interface NoticeWritingMapper {
 										
 	 public int noticeCount(NoticeWritingVO vo);						// 내 게시글 개수 
 	 
-	 List<NoticeWritingVO> totalNotice(NoticeWritingVO vo);				// 전체 게시물 목록조회
+	 List<NoticeWritingVO> totalNotice(NoticeWritingVO vo);				// 프로젝트 내 전체 게시물 목록조회
 	 
 	 List<NoticeWritingVO> totalTask(NoticeWritingVO vo); 			// 전체 업무 메뉴
 	 NoticeWritingVO taskSelect(NoticeWritingVO vo);					// 업무 상세조회 (팝업)
