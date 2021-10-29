@@ -22,15 +22,11 @@ import co.plus.prj.uam.vo.MemberVO;
 
 @Controller
 public class MemberController {
-<<<<<<< HEAD
 	@Autowired
 	JavaMailSender mailSender;
 	@Autowired
 	MemberService service;
-=======
-	@Autowired JavaMailSender mailSender;
-	@Autowired MemberService service;
->>>>>>> refs/remotes/origin/main
+
 	
 	
 	//회사URL입력페이지(companyJoin.jsp)
@@ -111,7 +107,6 @@ public class MemberController {
 	@RequestMapping(value = "login.do", method = RequestMethod.POST)
 	public String login(MemberVO vo, Model model, HttpSession session) {
 		String request = null;
-		vo = service.login(vo);
 		
 		if(vo != null) {
 			session.setAttribute("email", vo.getMemId());

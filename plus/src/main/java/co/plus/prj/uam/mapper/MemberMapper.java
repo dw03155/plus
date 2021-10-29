@@ -27,7 +27,7 @@ public interface MemberMapper {
 	//회사mapper
 	//회사url로 단일회사정보 가져오기
 	public MemberVO getCompany(MemberVO vo);
-<<<<<<< HEAD
+
 		
 	//로그인
 	//회원 로그인 체크
@@ -35,7 +35,6 @@ public interface MemberMapper {
 	public MemberVO viewMember(MemberVO vo);
 	public int loginStUpdate(MemberVO vo);
 	public void logout(HttpSession session);
-=======
->>>>>>> refs/remotes/origin/main
+
 	
 }

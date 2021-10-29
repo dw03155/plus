@@ -59,15 +59,5 @@
 	<delete id="memberDelete" parameterType="co.plus.prj.uam.vo.MemberVO">
 		update member set mem_perm = 
 	</delete>
-	
-<<<<<<< HEAD
-=======
-	<!-- 회사URL 가져오기 -->
-	<select id="getCompany" resultType="co.plus.prj.uam.vo.MemberVO">
-		select co_url, co_name 
-		from company
-		where co_url = #{coUrl}
-	</select>
-	
->>>>>>> refs/remotes/origin/main
+
 </mapper>
