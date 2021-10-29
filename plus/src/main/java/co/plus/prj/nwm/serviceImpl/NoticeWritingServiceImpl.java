@@ -27,38 +27,33 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 		// 내 게시물 상세보기
 		return map.noticeWritingSelectTxt(vo);
 	}
-
 	@Override
 	public NoticeWritingVO noticeWritingSelectTsk(NoticeWritingVO vo) {			
 		// 내 게시물 업무 상세보기
 		return map.noticeWritingSelectTsk(vo);
 	}
-
 	@Override
 	public NoticeWritingVO noticeWritingSelectSubtsk(NoticeWritingVO vo) {		
 		// 내 게시물 하위업무 상세보기
 		return map.noticeWritingSelectSubtsk(vo);
 	}
-
 	@Override
 	public NoticeWritingVO noticeWritingSelectSche(NoticeWritingVO vo) {		
 		// 내 게시물 일정 상세보기
 		return map.noticeWritingSelectSche(vo);
 	}
-
 	@Override
 	public NoticeWritingVO noticeWritingSelectTodo(NoticeWritingVO vo) {		
 		// 내 게시물 할일 상세보기
 		return map.noticeWritingSelectTodo(vo);
 	}
-	
 	@Override
 	public int noticeCount(NoticeWritingVO vo) {								
 		// 내 게시물 개수
 		return map.noticeCount(vo);
 	}
-
-
+	
+	
 	@Override
 	public List<NoticeWritingVO> totalNotice(NoticeWritingVO vo) {				
 		// 전체 게시물 목록
@@ -155,9 +150,9 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 
 
 	@Override
-	public List<NoticeWritingVO> taskSelectList(NoticeWritingVO vo) {
+	public List<NoticeWritingVO> totalTask(NoticeWritingVO vo) {
 		// 전체 업무 메뉴
-		return map.taskSelectList(vo);
+		return map.totalTask(vo);
 	}
 	@Override
 	public NoticeWritingVO taskSelect(NoticeWritingVO vo) {
@@ -186,6 +181,13 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 	@Override
 	public NoticeWritingVO bookMarkSelect(NoticeWritingVO vo) {
 		// 북마크 상세보기 (팝업)
+		return null;
+	}
+
+
+	@Override
+	public List<NoticeWritingVO> totalSchedule(NoticeWritingVO vo) {
+		// 전체 일정 메뉴
 		return null;
 	}
 
