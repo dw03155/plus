@@ -77,11 +77,13 @@
 
 	<select id="totalNotice"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">	<!-- 프로젝트의 전체 게시물 목록 -->
-		select  a.*, b.name, c.noti_ttl
-		from 	notice_writing a, member b, task c
+		select  a.*, b.name																		
+		from 	board a, member b
 		where 	a.mem_id = b.mem_id
-        and     a.noti_id = c.noti_id
 		and 	a.prj_id = #{prjId}
+		<if test="notiTtl != null and notiTtl != ''">			<!-- 프로젝트 전체 게시물 목록 중 제목 검색 후 목록 출력 -->
+			where noti_ttl like '%' || #{notiTtl} || '%'
+		</if>
 	</select>
 
 	<select id="totalTask"

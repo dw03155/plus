@@ -1,16 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <title>프르젝트 상세목록</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style type="text/css">
-.table {
-	z-index: 1000
-}
-</style>
+
 </head>
 
 <body>
@@ -50,10 +47,11 @@
 				
 					<c:forEach var="totals" items="${totals }">
 						<tr>
-							<td>dd${notices.notiTtl} </td>
-							<td>ddtotals.notiTtl </td>
-							<td>ddtotals.notiId </td>
-							<td>ddtotals.notiTtl</td>
+							<td>${totals.notiKnd} </td>
+							<td>${totals.notiTtl} </td>
+							<td>${totals.name} </td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
+							value="${totals.notiDttm}" /></td>
 						</tr>
 					</c:forEach>
 				</table>
