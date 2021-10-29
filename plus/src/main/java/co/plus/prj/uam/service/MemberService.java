@@ -2,7 +2,6 @@ package co.plus.prj.uam.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
 
 import co.plus.prj.uam.vo.MemberVO;
 
@@ -28,8 +27,8 @@ public interface MemberService {
 	
 	//로그인
 	//회원 로그인 체크
-	public boolean loginCheck(MemberVO vo, HttpSession session);
-	public MemberVO viewMember(MemberVO vo);
-	public int loginStUpdate(MemberVO vo);
-	public void logout(HttpSession session);
+	public MemberVO loginStUpdate(MemberVO vo);
+	//로그아웃
+	public MemberVO loginoutStUpdate(MemberVO vo);
+
 }
