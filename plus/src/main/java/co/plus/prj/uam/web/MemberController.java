@@ -130,7 +130,7 @@ public class MemberController {
 	//로그아웃
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session, MemberVO vo) {
-		MemberVO vo2 = session.getAttribute("memId");
+		session.getAttribute("memId");
 		
 		session.invalidate();
 		
