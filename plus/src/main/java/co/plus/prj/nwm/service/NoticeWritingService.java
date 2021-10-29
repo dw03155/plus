@@ -19,7 +19,7 @@ public interface NoticeWritingService {
 	 
 	 List<NoticeWritingVO> totalNotice(NoticeWritingVO vo);				// 전체 게시물 목록조회
 	 
-	 List<NoticeWritingVO> totalTask(NoticeWritingVO vo); 			// 전체 업무 메뉴
+	 List<NoticeWritingVO> totalTask(NoticeWritingVO vo); 				// 전체 업무 메뉴
 	 NoticeWritingVO taskSelect(NoticeWritingVO vo);					// 업무 상세조회 (팝업)
 	 
 	 // 캘린더 메뉴
