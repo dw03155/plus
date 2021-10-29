@@ -59,29 +59,29 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 	
 	
 	@Override
-	public NoticeWritingVO noticeWritingSelectTxt(NoticeWritingVO vo) {			
+	public NoticeWritingVO myPostTxt(NoticeWritingVO vo) {			
 		// 내 게시물 목록 -> 글 상세보기(팝업)
-		return map.noticeWritingSelectTxt(vo);
+		return map.myPostTxt(vo);
 	}
 	@Override
-	public NoticeWritingVO noticeWritingSelectTsk(NoticeWritingVO vo) {			
+	public NoticeWritingVO myPostTsk(NoticeWritingVO vo) {			
 		// 내 게시물 목록 -> 업무 상세보기(팝업)
-		return map.noticeWritingSelectTsk(vo);
+		return map.myPostTsk(vo);
 	}
 	@Override
-	public NoticeWritingVO noticeWritingSelectSubtsk(NoticeWritingVO vo) {		
+	public NoticeWritingVO myPostSubtsk(NoticeWritingVO vo) {		
 		//  내 게시물 목록 -> 하위업무 상세보기(팝업)
-		return map.noticeWritingSelectSubtsk(vo);
+		return map.myPostSubtsk(vo);
 	}
 	@Override
-	public NoticeWritingVO noticeWritingSelectSche(NoticeWritingVO vo) {		
+	public NoticeWritingVO myPostSche(NoticeWritingVO vo) {		
 		// 내 게시물 목록 -> 일정 상세보기(팝업)
-		return map.noticeWritingSelectSche(vo);
+		return map.myPostSche(vo);
 	}
 	@Override
-	public NoticeWritingVO noticeWritingSelectTodo(NoticeWritingVO vo) {		
+	public NoticeWritingVO myPostTodo(NoticeWritingVO vo) {		
 		// 내 게시물 목록 -> 할일 상세보기(팝업)
-		return map.noticeWritingSelectTodo(vo);
+		return map.myPostTodo(vo);
 	}
 	
 	@Override

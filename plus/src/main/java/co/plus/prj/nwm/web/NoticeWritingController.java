@@ -34,34 +34,34 @@ public class NoticeWritingController {
 		return "nwm/myPost";
 	}
 
-	@RequestMapping("/nwTxt.do") // 내 게시물 목록 -> 글 상세보기(팝업)
-	public String noticeWritingSelectTxt(Model model, NoticeWritingVO vo) {
-		model.addAttribute("texts", nwDao.noticeWritingSelectTxt(vo));
-		return "nwm/nwTxt"; 
+	@RequestMapping("/myPostTxt.do") // 내 게시물 목록 -> 글 상세보기(팝업)
+	public String myPostTxt(Model model, NoticeWritingVO vo) {
+		model.addAttribute("texts", nwDao.myPostTxt(vo));
+		return "nwm/myPostTxt"; 
 	 }
 	
-	@RequestMapping("/nwTsk.do") // 내 게시물 목록 -> 업무 상세보기(팝업)
-	public String noticeWritingSelectTsk(Model model, NoticeWritingVO vo) {
-		model.addAttribute("tasks", nwDao.noticeWritingSelectTsk(vo));
-		return "nwm/nwTsk"; 
+	@RequestMapping("/myPostTsk.do") // 내 게시물 목록 -> 업무 상세보기(팝업)
+	public String myPostTsk(Model model, NoticeWritingVO vo) {
+		model.addAttribute("tasks", nwDao.myPostTsk(vo));
+		return "nwm/myPostTsk"; 
 	 }
 	
-	@RequestMapping("/noticeWritingSelectSubtsk.do") // 내 게시물 목록 -> 하위업무 상세보기(팝업)
+	@RequestMapping("/myPostSubtsk.do") // 내 게시물 목록 -> 하위업무 상세보기(팝업)
 	@ResponseBody
-	public NoticeWritingVO noticeWritingSelectSubtsk(Model model, NoticeWritingVO vo) {
-		return nwDao.noticeWritingSelectSubtsk(vo); 
+	public NoticeWritingVO myPostSubtsk(Model model, NoticeWritingVO vo) {
+		return nwDao.myPostSubtsk(vo); 
 	 }
 	
-	@RequestMapping("/nwSche.do") // 내 게시물 목록 -> 일정 상세보기(팝업)
-	public String noticeWritingSelectSche(Model model, NoticeWritingVO vo) {
-		model.addAttribute("schedules", nwDao.noticeWritingSelectSche(vo));
-		return "nwm/nwSche"; 
+	@RequestMapping("/myPostSche.do") // 내 게시물 목록 -> 일정 상세보기(팝업)
+	public String myPostSche(Model model, NoticeWritingVO vo) {
+		model.addAttribute("schedules", nwDao.myPostSche(vo));
+		return "nwm/myPostSche"; 
 	 }
 	
-	@RequestMapping("/nwTodo.do") // 내 게시물 목록 -> 할일 상세보기(팝업)
+	@RequestMapping("/myPostTodo.do") // 내 게시물 목록 -> 할일 상세보기(팝업)
 	public String noticeWritingSelectTodo(Model model, NoticeWritingVO vo) {
-		model.addAttribute("todos", nwDao.noticeWritingSelectTodo(vo));
-		return "nwm/nwTodo"; 
+		model.addAttribute("todos", nwDao.myPostTodo(vo));
+		return "nwm/myPostTodo"; 
 	 }
 	
 	@RequestMapping("/noticeCount.do")	// 게시글 개수
