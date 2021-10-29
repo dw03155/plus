@@ -13,4 +13,10 @@ public class menuController {
 
 	}
 
+	@RequestMapping(value = "/myProject.do", method = RequestMethod.GET)
+	public String myProject() {
+		return "home/myProject";
+
+	}
+	
 }
