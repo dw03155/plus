@@ -1,5 +1,3 @@
-@charset "UTF-8";
-
 /*
 * Prefixed by https://autoprefixer.github.io
 * PostCSS: v7.0.29,
@@ -87,6 +85,14 @@ section.dimmed{
 .scroll-mask_v2:hover {
   overflow: overlay;
 }
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .scroll-for-ie{
+    padding-right: 20px !important;
+  }
+}
+
+
 
 .alarm-banner {
   display: flex;
@@ -3542,7 +3548,7 @@ input::placeholder {
 }
 
 .project-blue-button i {
-  display: inline-block;
+  display: grid;
   margin-left: 5px;
   background: url("/flow-renewal/assets/images/allseach-sprite-type-1.png") no-repeat -535px 0;
   background-size: 593px 31px;
@@ -5423,6 +5429,10 @@ input::placeholder {
   padding: 0;
 }
 
+.all-seach-popup-type-2.input-popup .search-null{
+  display: none;
+}
+
 .all-seach-popup-type-2.input-popup .js-worker-list li:hover{
   background-color: #f8f8ff;
 }
@@ -5839,8 +5849,8 @@ a:focus .all-seach-popup-write-1-1 {
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0);
-  z-index: 9;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 10;
 }
 .flow-all-background-1 .name-type-seach-popup-type-1 {
   display: -webkit-box;
@@ -6239,6 +6249,9 @@ a:focus .all-seach-popup-write-1-1 {
   margin-top: 70px;
   margin-bottom: 200px;
 }
+.connect-post-link-1 {
+  margin-bottom: 80px;
+}
 .error-2 {
   background: url("/flow-renewal/assets/images/error-sprite-1.png") no-repeat -180px -45px;
   background-size: 612px auto;
@@ -6246,6 +6259,14 @@ a:focus .all-seach-popup-write-1-1 {
   height: 230px;
   margin: 0 auto;
   margin-bottom: 93px;
+}
+.connect-post-link-2 {
+  background: url(/flow-renewal/assets/images/link.png) no-repeat;
+  background-size: 246px auto;
+  width: 246px;
+  height: 144px;
+  margin: 0 auto;
+  margin-bottom: 80px;
 }
 .error-3 {
   color: #333;
@@ -6272,6 +6293,9 @@ a:focus .all-seach-popup-write-1-1 {
   text-align: center;
   margin: 0 auto;
 }
+.connect-post-link-5 {
+  width: 200px;
+}
 .error-6 {
   background: url(/flow-renewal/assets/images/error-sprite-1.png) no-repeat 1px -284px;
   background-size: 612px auto;
@@ -6280,6 +6304,16 @@ a:focus .all-seach-popup-write-1-1 {
   margin: 0 auto;
   margin-bottom: 67px;
 }
+.connect-post-link-6 {
+  display: block;
+  height: 22px;
+  margin: 16px auto;
+  width: 140px;
+  text-align: center;
+  line-height: 22px;
+  font-weight: bold;
+  color: #6449FC;
+}
 @media all and (max-width: 900px) {
   .error-1 {
     margin-bottom: 50px;
@@ -6287,6 +6321,9 @@ a:focus .all-seach-popup-write-1-1 {
 }
 @media all and (max-width: 500px) {
   .error-1 {
+    margin: 50px auto;
+  }
+  .error-2 {
     margin: 50px auto;
   }
 }
@@ -8685,7 +8722,7 @@ span.flatpickr-weekday {
   background-position-x: -432px;
 }
 
-#organizationChart .department-item.active em..group-circle-type-1{
+#organizationChart .department-item.active em.group-circle-type-1{
   background: #6449FC;
 }
 
@@ -8791,7 +8828,7 @@ span.flatpickr-weekday {
 .side-wr .name-setup-type-2 {
   margin: 0;
   overflow: auto;
-  height: calc(100% - 86px);
+  height: calc(100% - 60px);
 }
 .side-wr .name-setup-type-2 ul {
   overflow: auto;
@@ -8800,7 +8837,7 @@ span.flatpickr-weekday {
 }
 .side-wr .participants-list {
   overflow: auto;
-  height: calc(100% - 72px);
+  height: calc(100% - 65px);
 }
 .side-wr .all-setup-detail-text-1 {
   top: 50%;
@@ -9425,7 +9462,7 @@ background-position: -440px -274px;
 }
 
 @media all and (max-width: 1680px) {
-  .allTaskLayer .filter-tit li {.menu-group > li > a
+  .allTaskLayer .filter-tit li, .menu-group > li > a {
     min-width: 156px;
   }
 
@@ -9565,7 +9602,7 @@ background-position: -440px -274px;
 .help-wr {
   position: absolute;
   left: -1px;
-  bottom: 0;
+  bottom: -1px;
   width: 40px;
   height: 40px;
   line-height: 40px;
@@ -9910,9 +9947,6 @@ background-position: -440px -274px;
   }
   /* 통합검색 */
 
-  .name-type-shift-txt {
-    margin-left: 30px;
-  }
   .all-seach-list-type-1 li {
     position: relative;
   }
@@ -9924,7 +9958,7 @@ background-position: -440px -274px;
   }
 }
 
-@media \0screen\, screen\9 {
+@media screen and (min-width:0\0) {
   .main-header-1 {
     float: left;
     height: 100%;
@@ -10114,7 +10148,7 @@ background-position: -440px -274px;
 
 /* renewal 공지 슬라이드 배너 */
 .slide-banner-wrap{
-  display: none;
+  display: flex;
   align-items: center;
   z-index: 9999999;
   position: fixed;
@@ -10292,6 +10326,7 @@ background-position: -440px -274px;
   height: 35px;
   padding: 7px 30px 7px 20px;
   border: 1px solid #fff;
+  background: #683BA2;
   border-radius: 18px;
   font-size: 14px;
   color: #fff;
@@ -10393,7 +10428,7 @@ background-position: -440px -274px;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  width: 640px;
+  width: 650px;
   height: 680px;
   padding:0;
   background: #fff;
