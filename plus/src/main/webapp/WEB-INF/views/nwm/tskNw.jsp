@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!-- 내 게시물 메뉴에서 업무 상세보기 팝업 -->
+<!-- 내 게시물 목록 -> 업무 상세보기(팝업) -->
 <table border="1">
 	<tr>
 		<td id="memId">작성자명</td>
