@@ -22,10 +22,15 @@ import co.plus.prj.uam.vo.MemberVO;
 
 @Controller
 public class MemberController {
+<<<<<<< HEAD
 	@Autowired
 	JavaMailSender mailSender;
 	@Autowired
 	MemberService service;
+=======
+	@Autowired JavaMailSender mailSender;
+	@Autowired MemberService service;
+>>>>>>> refs/remotes/origin/main
 	
 	
 	//회사URL입력페이지(companyJoin.jsp)
@@ -39,6 +44,7 @@ public class MemberController {
 	@ResponseBody
 	public MemberVO getCompany(@RequestParam("coUrl") String coUrl,
 			MemberVO vo,Model model) {
+		System.out.println(coUrl);
 		vo.setCoUrl(coUrl);
 		MemberVO temp = service.getCompany(vo);
 		return temp;

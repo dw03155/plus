@@ -1,4 +1,4 @@
- package co.plus.prj;
+package co.plus.prj;
 
 import java.util.Locale;
 
@@ -16,7 +16,5 @@ public class HomeController {
 		return "uam/login/login";
 
 	}
-	
-	
-	
+
 }
