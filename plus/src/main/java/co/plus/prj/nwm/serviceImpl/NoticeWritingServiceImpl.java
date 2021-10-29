@@ -61,14 +61,14 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 
 	@Override
 	public List<NoticeWritingVO> totalNotice(NoticeWritingVO vo) {				
-		// (임시) 전체 게시물 목록
+		// 전체 게시물 목록
 		return map.totalNotice(vo);
 	}
 
 
 	@Override
 	public NoticeWritingVO txtSelect(NoticeWritingVO vo) {
-		// 글 자세히보기(펼침)
+		// 글 자세히보기(아코디언)
 		return null;
 	}
 	@Override
@@ -90,12 +90,12 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 
 	@Override
 	public NoticeWritingVO tskSelect(NoticeWritingVO vo) {
-		// 업무 자세히보기(펼침)
+		// 업무 자세히보기(아코디언)
 		return null;
 	}
 	@Override
 	public NoticeWritingVO insertTsk(NoticeWritingVO vo) {
-		// 업무 입력업무 입력
+		// 업무 입력
 		return null;
 	}
 	@Override
@@ -112,56 +112,80 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 	
 	@Override
 	public NoticeWritingVO scheSelect(NoticeWritingVO vo) {
-		// 일정 자세히보기(펼침)
+		// 일정 자세히보기(아코디언)
 		return null;
 	}
-
-
 	@Override
 	public NoticeWritingVO insertSche(NoticeWritingVO vo) {
-		// TODO Auto-generated method stub
+		// 일정 입력
 		return null;
 	}
-
-
 	@Override
 	public NoticeWritingVO UpdateSche(NoticeWritingVO vo) {
-		// TODO Auto-generated method stub
+		// 일정 수정
 		return null;
 	}
-
-
 	@Override
 	public NoticeWritingVO DeleteSche(NoticeWritingVO vo) {
-		// TODO Auto-generated method stub
+		// 일정 삭제
 		return null;
 	}
 
 
 	@Override
 	public NoticeWritingVO todoSelect(NoticeWritingVO vo) {
-		// TODO Auto-generated method stub
+		// 할일 상세보기 (아코디언)
 		return null;
 	}
-
-
 	@Override
 	public NoticeWritingVO insertTodo(NoticeWritingVO vo) {
-		// TODO Auto-generated method stub
+		// 할일 입력
 		return null;
 	}
-
-
 	@Override
 	public NoticeWritingVO UpdateTodo(NoticeWritingVO vo) {
-		// TODO Auto-generated method stub
+		// 할일 수정
+		return null;
+	}
+	@Override
+	public NoticeWritingVO DeleteTodo(NoticeWritingVO vo) {
+		// 할일 삭제
 		return null;
 	}
 
 
 	@Override
-	public NoticeWritingVO DeleteTodo(NoticeWritingVO vo) {
-		// TODO Auto-generated method stub
+	public List<NoticeWritingVO> taskSelectList(NoticeWritingVO vo) {
+		// 전체 업무 메뉴
+		return map.taskSelectList(vo);
+	}
+	@Override
+	public NoticeWritingVO taskSelect(NoticeWritingVO vo) {
+		// 업무 상세보기 (팝업)
+		return null;
+	}
+	
+	
+	@Override
+	public List<NoticeWritingVO> scheSelectList(NoticeWritingVO vo) {
+		// 전체 일정 메뉴
+		return null;
+	}
+	@Override
+	public NoticeWritingVO scheduleSelect(NoticeWritingVO vo) {
+		// 일정 상세보기 (팝업)
+		return null;
+	}
+
+
+	@Override
+	public List<NoticeWritingVO> bookMarkSelectList(NoticeWritingVO vo) {
+		// 북마크 메뉴
+		return null;
+	}
+	@Override
+	public NoticeWritingVO bookMarkSelect(NoticeWritingVO vo) {
+		// 북마크 상세보기 (팝업)
 		return null;
 	}
 
