@@ -1,3 +1,4 @@
+<%@page import="java.awt.print.Printable"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -107,11 +108,11 @@
 						<!-- 환경설정 메뉴 -->
 						<div class="my-left-style">
 							<ul class="my-popup-left-header" id="mySettingLeftMenu">
-								<li class="js-my-setting-left"><a id="accountSettingBtn"
+								<li id="myPageBtn" class="js-my-setting-left" style="color: #6449FC"><a id="accountSettingBtn"
 									href="#">마이페이지</a></li>
-								<li class="js-my-setting-left"><a id="preferencesBtn"
+								<li id="pushAlamBtn" class="js-my-setting-left"><a id="preferencesBtn"
 									href="#">알림</a></li>
-								<li class="js-my-setting-left"><a id="deviceManagementBtn"
+								<li id="lookBtn" class="js-my-setting-left"><a id="deviceManagementBtn"
 									href="#">잠금설정</a></li>
 							</ul>
 						</div>
@@ -130,14 +131,20 @@
 										<li class="edit-input adjust">
 											<div class="my-right-list-1">이름</div>
 											<div class="read-mode d-block">
-												<div class="js-user-name my-right-list-2"></div>
-											</div> <a href="#" class="poly-icon-1 change-editor-btn"></a>
+												<div class="js-user-name my-right-list-2">
+												<div class="editor-mode d-none">
+												<div class="my-right-list-2 my-type-text-1">
+													<input id="name" type="text" maxlength="20" readonly="readonly">
+													<div class="btn-fr-wrap">
+													</div>
+												</div>
+												</div>
+											</div>
+											</div> 
+											<a href="#" class="poly-icon-1 change-editor-btn"></a>
 											<div class="editor-mode d-none">
 												<div class="my-right-list-2 my-type-text-1">
-													<input id="editor_user_name" type="text" maxlength="20"
-														autocomplete="off" data-required-yn="Y" data-valid="name"
-														data-empty-msg="이름을 입력해주세요!" data-over-msg=""
-														data-un-valid-msg="특수문자를 사용할 수 없습니다">
+													<input id="editor_user_name" type="text" maxlength="20" value=<%=(String)session.getAttribute("name")%>>
 													<div class="btn-fr-wrap">
 														<a href="#">
 															<div class="my-button-cc cancel-change">취소</div>
@@ -802,12 +809,42 @@
 		</div>
 	</article>
 
+<%
+	String memId = null;
+	if (session.getAttribute("memId") != null){
+		memId = (String)session.getAttribute("memId");
+	 System.out.print(memId);
+	}
+%>
 	<script>
 		$("#mySettingOpenBtn").on("click", function() {
 			$("#MySettiong").css("display", "block");
 			$("#pushAlamGroup").css("display", "none");
 			$("#mylock").css("display", "none");
 			$("#mySet").css("display", "block");
+			var memId = <%=memId%>;
+			console.log(memId);
+			
+			$.ajax({
+				url: "memberInfo.do",
+				type: "Get",
+				date:{memId:memId},
+				datatype: "json",
+				success: function(data){
+					var $email = data.email;
+					var $pwd = data.pwd;
+					var $name = data.name;
+					var $wkpo = data.wkpo;
+					var $persTel = data.persTel;
+					var $coTel = data.coTel;
+					var $dept = data.dapt;
+					console.log(date);
+					if(data != null){
+						
+					}
+				}
+				
+			})
 
 		});
 		$(".my-button-close-1").on("click", function() {
@@ -815,21 +852,30 @@
 		});
 
 		$("#accountSettingBtn").on("click", function() {
+			$("#myPageBtn").css("color", "#6449FC");
+			$("#pushAlamBtn").css("color", "black");
+			$("#lookBtn").css("color", "black");
 			$("#mySet").css("display", "block");
 			$("#pushAlamGroup").css("display", "none");
 			$("#mylock").css("display", "none");
 		});
 
 		$("#preferencesBtn").on("click", function() {
+			$("#pushAlamBtn").css("color", "#6449FC");
+			$("#myPageBtn").css("color", "black");
+			$("#lookBtn").css("color", "black");
 			$("#pushAlamGroup").css("display", "block");
 			$("#mySet").css("display", "none");
 			$("#mylock").css("display", "none");
 		});
 
 		$("#deviceManagementBtn").on("click", function() {
-			$("#mylock").css("display", "block");
+			$("#lookBtn").css("display", "#6449FC");
+			$("#myPageBtn").css("color", "black")
+			$("#pushAlamBtn").css("color", "black");
 			$("#mySet").css("display", "none");
 			$("#pushAlamGroup").css("display", "none");
+			$("#mylock").css("display", "block");
 		});
 		$("#mySettingOpenBtn").onclick(function(){
 			
