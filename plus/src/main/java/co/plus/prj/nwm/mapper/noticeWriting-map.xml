@@ -3,11 +3,11 @@
 <mapper namespace="co.plus.prj.nwm.mapper.NoticeWritingMapper">
 	<select id="noticeWritingSelectList"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select  a.*, b.name, b.co_url																				<!-- 게시글 목록 조회 -->
-		from    board a, member b
-		where   a.mem_id = b.mem_id
-		and     a.mem_id = #{memId}
-		<if test="notiTtl != null and notiTtl != ''">													<!-- 게시글 제목 검색 후 목록 출력 -->
+		select a.*, b.name, b.co_url																<!-- 내 게시글 목록 조회 -->
+		from board a, member b
+		where a.mem_id = b.mem_id
+		and a.mem_id = #{memId}
+		<if test="notiTtl != null and notiTtl != ''">													<!-- 내 게시글 제목 검색 후 목록 출력 -->
 			and noti_ttl like '%' || #{notiTtl} || '%'
 		</if>
 	</select>
@@ -26,12 +26,14 @@
 
 	<select id="noticeWritingSelectTxt"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">		<!-- 글 상세보기 -->
-		select  a. noti_knd as 게시글종류, b.name as 작성자, c.*, d.prj_ttl as 프로젝트제목, a.noti_dttm as 작성일자
-		from    notice_writing a, member b, text c, project d
-		where   a.mem_id = b.mem_id
-		and     a.prj_id = d.prj_id
-		and     a.noti_id = c.noti_id
-		and     a.noti_id= #{notiId}
+		select a. noti_knd as 게시글종류, b.name as 작성자, c.*, d.prj_ttl as 프로젝트제목,
+		a.noti_dttm as 작성일자
+		from notice_writing a, member b, text c, project d
+		where a.mem_id = b.mem_id
+		and a.prj_id = d.prj_id
+		and a.noti_id =
+		c.noti_id
+		and a.noti_id= #{notiId}
 	</select>
 	<select id="noticeWritingSelectTsk"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO"> 		<!-- 업무 상세보기 -->
@@ -92,16 +94,19 @@
 		and a.prj_id = #{prjId}
 	</select>
 
-	<select id="totalTask" resultType="co.plus.prj.nwm.vo.NoticeWritingVO">		<!-- 업무 목록 조회 -->
- 		select * from task
- 		<if test="notiTtl != null and notiTtl != ''">							<!-- 게시글 제목 검색 후 목록 출력 -->
+	<select id="totalTask"
+		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">		<!-- 업무 목록 조회 -->
+		select * from task
+		<if test="notiTtl != null and notiTtl != ''">							<!-- 게시글 제목 검색 후 목록 출력 -->
 			where noti_ttl like '%' || #{notiTtl} || '%'
 		</if>
-	 </select>
+	</select>
 
 	<select id="totalSchedule"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select * from schedule
+		select a.*, b.name
+		from task a, member b
+		where a.mem_id = b.mem_id
 	</select>
 
 </mapper>
