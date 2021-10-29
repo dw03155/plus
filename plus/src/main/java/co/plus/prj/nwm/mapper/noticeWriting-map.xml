@@ -69,7 +69,7 @@
 		and 	a.noti_id= #{notiId}
 	</select>
 
-	<select id="noticeCount" resultType="int">									<!-- 게시글 개수 출력 -->
+	<select id="noticeCount" resultType="int">					<!-- 게시글 개수 출력 (미구현) -->
 		select count(*)
 		from notice_writing
 		where mem_id = #{memId}
@@ -98,6 +98,9 @@
 		select  a.*, b.name
 		from  	schedule a, member b
 		where 	a.mem_id = b.mem_id
+		<if test="notiTtl != null and notiTtl != ''">			<!-- 업무 제목 검색 후 목록 출력 -->
+			where noti_ttl like '%' || #{notiTtl} || '%'
+		</if>
 	</select>
 
 </mapper>
