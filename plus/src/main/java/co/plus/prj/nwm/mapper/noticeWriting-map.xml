@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.plus.prj.nwm.mapper.NoticeWritingMapper">
 	<!-- 전체 메뉴 -> 내 게시물 목록 -->
-	<select id="noticeWritingSelectList" resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
+	<select id="myPost" resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
 		select  a.*, b.name, b.co_url																				
 		from 	board a, member b
 		where 	a.mem_id = b.mem_id
@@ -12,7 +12,34 @@
 			and noti_ttl like '%' || #{notiTtl} || '%'
 		</if>
 	</select>
+	<!-- 전체 메뉴 -> 전체 업무 -->
+	<select id="allTask"
+		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">		
+		select  a.*, b.name
+		from 	task a, member b
+		where 	a.mem_id = b.mem_id
+		<!-- 업무 ->ㅣ 업무 명으로 검색 -->
+		<if test="notiTtl != null and notiTtl != ''">			
+			and noti_ttl like '%' || #{notiTtl} || '%'
+		</if>
+	</select>
+	<!-- 전체 메뉴 -> 캘린더 -->
+	<select id="allSche"
+		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
+		select  a.*, b.name
+		from  	schedule a, member b
+		where 	a.mem_id = b.mem_id
+		<!-- 일정 -> 일정 명으로 검색 -->
+		<if test="notiTtl != null and notiTtl != ''">			
+			and noti_ttl like '%' || #{notiTtl} || '%'
+		</if>
+	</select>
+	<!-- 전체 메뉴 -> 파일 -->
+	
+	<!-- 전체 메뉴 -> 북마크 -->
 
+	
+	
 	<!-- CREATE OR REPLACE FORCE VIEW "PLUS"."BOARD" ("NOTI_ID", "PRJ_ID", "NOTI_KND", 
 		"MEM_ID", "NOTI_DTTM", "NOTI_OPEN_PERM", "NOTI_TTL") AS select a."NOTI_ID",a."PRJ_ID",a."NOTI_KND",a."MEM_ID",a."NOTI_DTTM",a."NOTI_OPEN_PERM", 
 		b.noti_ttl from notice_writing a, task b where a.noti_id = b.noti_id union 
@@ -96,27 +123,6 @@
 			and noti_ttl like '%' || #{notiTtl} || '%'
 		</if>
 	</select>
-	<!-- 프로젝트 선택 후 -> 업무 (1개 프로젝트) -->
-	<select id="totalTask"
-		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">		
-		select  a.*, b.name
-		from 	task a, member b
-		where 	a.mem_id = b.mem_id
-		<!-- 업무 ->ㅣ 업무 명으로 검색 -->
-		<if test="notiTtl != null and notiTtl != ''">			
-			and noti_ttl like '%' || #{notiTtl} || '%'
-		</if>
-	</select>
-	<!-- 프로젝트 선택 후 -> 일정 (1개 프로젝트) -->
-	<select id="totalSchedule"
-		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select  a.*, b.name
-		from  	schedule a, member b
-		where 	a.mem_id = b.mem_id
-		<!-- 일정 -> 일정 명으로 검색 -->
-		<if test="notiTtl != null and notiTtl != ''">			
-			and noti_ttl like '%' || #{notiTtl} || '%'
-		</if>
-	</select>
+	
 
 </mapper>

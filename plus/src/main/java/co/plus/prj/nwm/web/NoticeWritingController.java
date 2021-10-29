@@ -15,23 +15,23 @@ public class NoticeWritingController {
 	private NoticeWritingService nwDao;
 
 	// 전체 메뉴
-	@RequestMapping("/totalTask.do")	// 전체 메뉴 -> 전체 업무
-	String totalTask(Model model, NoticeWritingVO vo) {
-		model.addAttribute("tasks",nwDao.totalTask(vo));
-		return "nwm/totalTask"; 		
+	@RequestMapping("/allTask.do")	// 전체 메뉴 -> 전체 업무
+	String allTask(Model model, NoticeWritingVO vo) {
+		model.addAttribute("tasks",nwDao.allTask(vo));
+		return "nwm/allTask"; 		
 	}
 	
-	@RequestMapping("/totalSchedule.do") // 전체 메뉴 -> 캘린더
-	String totalSchedule(Model model, NoticeWritingVO vo) {
-		model.addAttribute("sches",nwDao.totalSchedule(vo));
-		return "nwm/totalSchedule"; 		
+	@RequestMapping("/allSche.do") // 전체 메뉴 -> 캘린더
+	String allSche(Model model, NoticeWritingVO vo) {
+		model.addAttribute("sches",nwDao.allSche(vo));
+		return "nwm/allSche"; 		
 	}
 	
-	@RequestMapping("/nwList.do") // 전체 메뉴 -> 내 게시물 목록 
+	@RequestMapping("/myPost.do") // 전체 메뉴 -> 내 게시물 목록 
 	String noticeWritingSelectList(Model model, NoticeWritingVO vo) {
 		vo.setMemId(5); // 구문
-		model.addAttribute("notices", nwDao.noticeWritingSelectList(vo));
-		return "nwm/nwList";
+		model.addAttribute("notices", nwDao.myPost(vo));
+		return "nwm/myPost";
 	}
 
 	@RequestMapping("/nwTxt.do") // 내 게시물 목록 -> 글 상세보기(팝업)

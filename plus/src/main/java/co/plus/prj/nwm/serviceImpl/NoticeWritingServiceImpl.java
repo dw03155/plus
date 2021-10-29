@@ -17,14 +17,14 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 	
 	// 전체 메뉴
 	@Override
-	public List<NoticeWritingVO> noticeWritingSelectList(NoticeWritingVO vo) {
+	public List<NoticeWritingVO> myPost(NoticeWritingVO vo) {
 		// 전체 메뉴 -> 내 게시물 목록
-		return map.noticeWritingSelectList(vo);
+		return map.myPost(vo);
 	}
 	@Override
-	public List<NoticeWritingVO> totalTask(NoticeWritingVO vo) {
+	public List<NoticeWritingVO> allTask(NoticeWritingVO vo) {
 		// 전체 메뉴 -> 전체 업무
-		return map.totalTask(vo);
+		return map.allTask(vo);
 	}
 	@Override
 	public NoticeWritingVO taskSelect(NoticeWritingVO vo) {
@@ -32,12 +32,12 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 		return null;
 	}
 	@Override
-	public List<NoticeWritingVO> totalSchedule(NoticeWritingVO vo) {
+	public List<NoticeWritingVO> allSche(NoticeWritingVO vo) {
 		// 전체 메뉴 -> 캘린더
-		return map.totalSchedule(vo);
+		return map.allSche(vo);
 	}
 	@Override
-	public List<NoticeWritingVO> totalFile(NoticeWritingVO vo) {
+	public List<NoticeWritingVO> allFile(NoticeWritingVO vo) {
 		// 전체 메뉴 -> 파일
 		return null;
 	}
