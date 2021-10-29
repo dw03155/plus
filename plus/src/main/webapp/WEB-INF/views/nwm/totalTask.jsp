@@ -40,7 +40,7 @@
 						<tr>
 							<td>${tasks.tskPrgs }</td>
 							<td>${tasks.notiTtl }</td>
-							<td>${tasks.name }</td>
+							<td>${tasks.name}</td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${tasks.tskBgnDt }" /></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${tasks.tskEndDt }" /></td>
 						</tr>

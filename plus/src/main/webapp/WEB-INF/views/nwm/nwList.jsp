@@ -9,7 +9,7 @@
 <title>내 게시물</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<script src="js/jquery-latest.min.js"></script>
+<script src="../js/jquery-latest.min.js"></script>
 
 <style type="text/css">
 #modal {
@@ -59,7 +59,7 @@
 			
 			if(notiKnd == "text"){
 					$.ajax({
-						url : "nwTxt.do",
+						url : "txtNw.do",
 						type : 'GET',
 						data : {notiId : tr.data("notiid"), notiKnd},
 						dataType : "html",
@@ -69,7 +69,7 @@
 					}); 
 			} else if (notiKnd == "task"){
 					$.ajax({
-						url : "nwTsk.do",
+						url : "tskNw.do",
 						type : 'GET',
 						data : {notiId : tr.data("notiid"), notiKnd},
 						dataType : "html",
@@ -79,7 +79,7 @@
 					}); 
 			}else if (notiKnd == "schedule"){
 				$.ajax({
-					url : "nwSche.do",
+					url : "scheNw.do",
 					type : 'GET',
 					data : {notiId : tr.data("notiid"), notiKnd},
 					dataType : "html",
@@ -89,7 +89,7 @@
 				}); 
 			}else if (notiKnd == "todo"){
 				$.ajax({
-					url : "nwTodo.do",
+					url : "todoNw.do",
 					type : 'GET',
 					data : {notiId : tr.data("notiid"), notiKnd},
 					dataType : "html",
