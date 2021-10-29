@@ -100,7 +100,7 @@
 					</div>
 				</div>
 				<button id="openInviteLayerBtn" type="button"
-					class="project-invite-button color-type-1">
+					class="project-invite-button color-code-6">
 					<i class="icons-invite"></i>초대하기
 				</button>
 			</div>
@@ -112,7 +112,7 @@
 		<div id="mainContent" class="main-content scroll-mask"
 			scroll-direction="0">
 			<div id="allPostsLayer" class="me-post-wrap layer-scroll d-none"
-				style="display: none;">
+				style="display: block;">
 				<div class="my-search-area">
 					<div class="project-search-area all-file-header-type-3">
 						<div class="project-search">
@@ -170,6 +170,8 @@
 						</button>
 					</div>
 				</div>
+				
+				
 				<div class="small-style-wrap-2">
 					<div class="feed-content me-content">
 						<div class="search-title-area">
@@ -198,8 +200,7 @@
 										<div class="js-tmpl-type check-menu-item" data-code="3">일정</div>
 									</li>
 									<li>
-										<div class="js-tmpl-type check-menu-item" data-code="2">할
-											일</div>
+										<div class="js-tmpl-type check-menu-item" data-code="2">할일</div>
 									</li>
 									<li>
 										<div class="js-tmpl-type js-remark-tmpl-type check-menu-item"
@@ -301,6 +302,7 @@
 									class="js-search-post-ul all-seach-list-type-1 scroll-mask"></ul>
 							</div>
 						</div>
+						
 						<div class="all-search-filter">
 							<form action="">
 								<fieldset>

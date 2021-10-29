@@ -8,99 +8,42 @@
 </head>
 <body>
 	<div class="main-container">
+		<div id="topSettingBar" class="main-header">
+			<div id="mainTop" class="title-1" style="display: block">
+				<div>전체 업무</div>
+			</div>
+
+			<span id="allCollectionCount"
+				class="js-collection-total-count js-collection-count top-task-num"
+				style="display: block">50</span>
+		</div>
+
+
+		<!-- 전체 업무 페이지 -->
 		<div id="mainContent" class="main-content scroll-mask"
 			scroll-direction="0">
 			<div id="allCollectView" class="all-collect-wrap d-none"
-				style="height: 100%; display: none;">
+				style="height: 100%; display: block;">
 				<div id="mainScroll" class="main-scroll padding-left-right-30 type3">
 
 					<div class="allTaskLayer full-width small-style-wrap-2 d-none"
-						style="display: none;">
+						style="display: block;">
 						<div class="btns-wr">
 							<div class="project-search-area all-file-header-type-3">
 								<div class="project-search">
 									<i class="icons-search"></i> <input type="text"
-										placeholder="업무명 또는 업무번호를 검색하세요!" autocomplete="off"
-										maxlength="20"
+										placeholder="업무명을 검색하세요!" autocomplete="off" maxlength="20"
 										class="js-task-search-input project-search-input">
-									<button type="button"
-										class="js-task-detail-search-button search-set-button">옵션</button>
-									<div
-										class="js-task-detail-search-layer name-type-seach-popup d-none"
-										data-search-area-code="IN_TASK" style="top: 40px; left: 0px;">
-
-										<p>옵션</p>
-										<div class="detail-search-conditions">
-											<ul class="conditions-group">
-												<li class="js-project-name-search-filter">
-													<div class="condition-cell title">프로젝트</div>
-													<div class="condition-cell">
-														<input type="text" placeholder="프로젝트명 입력">
-													</div>
-												</li>
-												<li class="js-register-name-search-filter">
-													<div class="condition-cell title">작성자</div>
-													<div class="condition-cell">
-														<input type="text" placeholder="작성자 입력 (여러명 입력시, 콤마로 구분)">
-													</div>
-												</li>
-												<li class="js-participant-name-search-filter d-none">
-													<div class="condition-cell title">담당자</div>
-													<div class="condition-cell">
-														<input type="text" placeholder="담당자 입력 (여러명 입력시, 콤마로 구분)">
-													</div>
-												</li>
-												<li class="js-period-type-search-filter">
-													<div class="condition-cell title">검색기간</div>
-													<div class="condition-cell">
-														<ul class="target-select-group"></ul>
-													</div>
-												</li>
-												<li class="js-tmpl-type-search-filter">
-													<div class="condition-cell title">대상</div>
-													<div class="condition-cell">
-														<ul class="target-select-group"></ul>
-													</div>
-												</li>
-												<li class="js-file-type-search-filter" style="display: none">
-													<div class="condition-cell title">파일종류</div>
-													<div class="condition-cell">
-														<ul class="target-select-group"></ul>
-													</div>
-												</li>
-											</ul>
-											<div class="condition-button-area">
-												<div class="condition-left">
-													<button type="button"
-														class="js-filter-reset condition-reset">초기화</button>
-												</div>
-												<div class="condition-right">
-													<button class="js-filter-cancel condition-button cancel">취소</button>
-													<button class="js-filter-search condition-button search">검색</button>
-												</div>
-											</div>
-										</div>
-									</div>
 								</div>
 							</div>
 
 							<ul class="btns-area">
 								<li>
-									<button id="excelDownButton"
-										class="task-nav-button task-excel-down">
-										<i class="icon-excel-download"></i> 다운로드
-									</button>
-								</li>
-								<li>
-									<button
-										class="js-task-add-btn collect-add-button task-add-button"></button>
-								</li>
-								<li>
 									<button id="taskSettingButton"
 										class="task-nav-button task-setting js-alltask-setting-button">
 										<i class="icon-setting"></i>
 									</button>
-									<ul class="js-alltask-setting-layer menu-popup-wrap">
+									<ul class="js-alltask-setting-layer menu-popup-wrap"><!-- taskSettingButton 누르면 style="display:block" 추가-->
 										<li id="bundleButton"
 											class="js-task-bundle-button js-bundle-list"><span>묶어보기</span><i
 											class="icons-right-3"></i></li>
@@ -121,7 +64,8 @@
 							<h3 class="blind">모든업무 목록</h3>
 							<div id="taskSortHeader" class="all-task-header"></div>
 							<ul id="taskContentUl"
-								class="js-all-task-ul all-task-content layer-scroll padding-zero scroll-mask"></ul>
+								class="js-all-task-ul all-task-content layer-scroll padding-zero scroll-mask">
+							</ul>
 						</section>
 					</div>
 
