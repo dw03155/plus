@@ -20,17 +20,6 @@
 <!-- 타이틀 고치기 -->
 <title>플로우(flow) - 대한민국 NO.1 올인원 협업툴</title>
 
-<!-- url 전송시 뜨는 제목, 이미지, 설명 -->
-<meta property="og:url" content="https://flow.team/login.act">
-<meta property="og:title" content="플로우(flow) - 대한민국 NO.1 올인원 협업툴">
-<meta property="og:type" content="website">
-<meta property="og:description"
-	content="프로젝트관리, 업무관리, 메신저, 화상회의, 파일공유&보관, 간트차트, 일정관리까지! 재택근무, 원격근무, 리모트워크, 비대면 업무환경을 구축해 보세요. 지금 무료로 시작하세요.">
-<meta property="og:image"
-	content="https://flow.team/design2/homepage_2019/img/flow_meta_V2.png">
-<meta property="og:locale" content="ko_KR" />
-<meta property="og:site_name" content="플로우(flow) - 대한민국 NO.1 올인원 협업툴">
-
 <meta name="subject" content="work tool">
 <meta name="content-language" content="ko">
 
