@@ -120,16 +120,30 @@
 		    background-color: #f2f3f4;
 	}
 </style>
+<%
+	String memId = null;
+	if (session.getAttribute("memId") != null){
+		memId = (String)session.getAttribute("memId");
+	}
+	out.print(memId);
+%>
 <script>
 	$(document).ready(function(){
-		$("#loginBtn").click(function(){
+		
+		if(<%=memId%> != null){
+			sessionOk.submit();	
+		}else{
+			
+			$("#loginBtn").click(function(){
 			var email = $("#email").val();
 			var pwd = $("#pwd").val();
 			console.log(email)
 			document.loginForm.action="memberLogin.do"
 			document.loginForm.submit();
-		})
-	})
+			});
+		}
+	
+	});
 </script>
 </head>
 <body>
@@ -137,7 +151,7 @@
 
 	<div class="signup_top">
 
-
+	<form id="sessionOk" action="myProject.do"></form>
 		<a href="/index.act"><img src="img_rn/memb2/bi_flow.png"
 			alt="flow"></a>
 		<h2 id="title" data-langcode="H76">로그인</h2>
@@ -189,7 +203,7 @@
 					<span id="result" style="color: red">${message }</span>
 
 			</div>
-			<a id="loginBtn" class="signup_btn_st1 on" data-langcode="H76" >로그인</a>
+			<a id="loginBtn" class="signup_btn_st1" data-langcode="H76" >로그인</a>
 		  </div>
 		 </form>
 		<div id="REG_3" class="forgot_pw">

@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +11,11 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import co.plus.prj.uam.service.MemberService;
 import co.plus.prj.uam.vo.MemberVO;
@@ -119,7 +116,7 @@ public class MemberController {
 			session.setAttribute("memId", vo.getMemId());
 			session.setAttribute("name", vo.getName());
 			session.setAttribute("memPerm", vo.getMemPerm());
-			views = "home/myProject";
+			views = "redirect:myProject.do";
 		}else {
 			model.addAttribute("message", "일치하는 회원 정보가 없습니다.");
 			views = "uam/login/login";
@@ -130,8 +127,8 @@ public class MemberController {
 	//로그아웃
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session, MemberVO vo) {
-		session.getAttribute("memId");
-		
+		vo.setMemId((String)session.getAttribute("memId"));
+		service.loginoutStUpdate(vo);
 		session.invalidate();
 		
 		return "uam/login/login";		
@@ -140,6 +137,13 @@ public class MemberController {
 	
 	
 	//회원설정
+	@RequestMapping("memberInfo.do")
+	public MemberVO memberInfo(@RequestParam("memId") String memId, MemberVO vo) {
+		System.out.println(memId);
+		vo.setMemId(memId);
+		MemberVO info = service.memberInfo(vo);
+		return info;
+	}
 	
 	
 	
