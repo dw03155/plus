@@ -4,7 +4,7 @@ import java.util.List;
 
 import co.plus.prj.pnw.vo.PNWVO;
 
-public interface NoticeWritingMapper {
+public interface PNWMapper {
 
 	// 전체 메뉴
 	List<PNWVO> 
