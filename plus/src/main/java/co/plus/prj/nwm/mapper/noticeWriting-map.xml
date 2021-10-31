@@ -124,5 +124,13 @@
 		</if>
 	</select>
 	
+	<!-- 프로젝트 선택 후 -> 업무 (1개 프로젝트) -->
+	<select id="tskList" resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
+		select  a.*, b.name
+		from 	board a, member b
+		where 	a.mem_id = b.mem_id
+		and 	a.noti_knd = 'task'
+		and 	a.prj_id = #{prjId}
+	</select>
 
 </mapper>

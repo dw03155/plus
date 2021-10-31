@@ -123,7 +123,7 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 	@Override
 	public NoticeWritingVO tskList(NoticeWritingVO vo) {
 		// 프로젝트 선택 후 -> 업무 (1개 프로젝트)
-		return null;
+		return map.tskList(vo);
 	}
 	@Override
 	public NoticeWritingVO tskSelect(NoticeWritingVO vo) {

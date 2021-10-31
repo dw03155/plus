@@ -79,4 +79,10 @@ public class NoticeWritingController {
 		return "nwm/totalNotice";
 	}
 	
+	@RequestMapping("/tskList.do") 		// 프로젝트 선택 후 -> 업무 (1개 프로젝트)
+	String tskList(Model model, NoticeWritingVO vo) {
+		vo.setPrjId(5);
+		model.addAttribute("tsk", nwDao.tskList(vo));
+		return "nwm/totalNotice";
+	}
 }

@@ -22,9 +22,12 @@
 }
 
 #modal .modal_content {
-	width: 100%;
 	max-width: 400px;
-	overflow: hidden;
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
 }
 
 #modal .modal_layer {
@@ -48,61 +51,7 @@
 	display: block;
 }
 </style>
-<!-- 모달창 JS -->
-<script>
-		
-		$("tr").click(function() { // 모달창 열고 닫기
-			$("#modal").css("display", "block");
-		   
-			var tr = $(this);
-			var notiKnd = tr.data("kind");
-			
-			if(notiKnd == "text"){
-					$.ajax({
-						url : "txtNw.do",
-						type : 'GET',
-						data : {notiId : tr.data("notiid"), notiKnd},
-						dataType : "html",
-						success : function(data) {
-							$("#modalBody").html(data);
-						}
-					}); 
-			} else if (notiKnd == "task"){
-					$.ajax({
-						url : "tskNw.do",
-						type : 'GET',
-						data : {notiId : tr.data("notiid"), notiKnd},
-						dataType : "html",
-						success : function(data) {
-							$("#modalBody").html(data);
-						}
-					}); 
-			}else if (notiKnd == "schedule"){
-				$.ajax({
-					url : "scheNw.do",
-					type : 'GET',
-					data : {notiId : tr.data("notiid"), notiKnd},
-					dataType : "html",
-					success : function(data) {
-						$("#modalBody").html(data);
-					}
-				}); 
-			}else if (notiKnd == "todo"){
-				$.ajax({
-					url : "todoNw.do",
-					type : 'GET',
-					data : {notiId : tr.data("notiid"), notiKnd},
-					dataType : "html",
-					success : function(data) {
-						$("#modalBody").html(data);
-					}
-				}); 
-			}
-		});
-		$("#modal_close_btn").click(function() {
-			$("#modal").css("display", "none");
-		});
-	</script>
+
 </head>
 <body>
 	<div>
@@ -145,7 +94,7 @@
 		<table border="1">
 			<c:forEach var="notices" items="${notices }">
 				<!-- 전체 목록 -->
-				<tr data-notiid="${notices.notiId}" data-kind="${notices.notiKnd }">
+				<tr data-notiId="${notices.notiId}" data-kind="${notices.notiKnd }">
 					<td>${notices.notiKnd}</td>
 					<td>${notices.notiTtl }</td>
 					<td>${notices.name }</td>
@@ -155,11 +104,66 @@
 			</c:forEach>
 		</table>
 	</div>
-	
-	
-	
+
+	<!-- 모달창 JS -->
+	<script>
+		
+		$("tr").click(function() { // 모달창 열고 닫기
+			$("#modal").css("display", "block");
+		   
+			var tr = $(this);
+			var notiKnd = tr.data("kind");
+			
+			if(notiKnd == "text"){
+					$.ajax({
+						url : "myPostTxt.do",
+						type : 'GET',
+						data : {notiId : tr.data("notiId"), notiKnd},
+						dataType : "html",
+						success : function(data) {
+							$("#modalBody").html(data);
+						}
+					}); 
+			} else if (notiKnd == "task"){
+					$.ajax({
+						url : "myPostTsk.do",
+						type : 'GET',
+						data : {notiId : tr.data("notiId"), notiKnd},
+						dataType : "html",
+						success : function(data) {
+							$("#modalBody").html(data);
+						}
+					}); 
+			}else if (notiKnd == "schedule"){
+				$.ajax({
+					url : "myPostSche.do",
+					type : 'GET',
+					data : {notiId : tr.data("notiId"), notiKnd},
+					dataType : "html",
+					success : function(data) {
+						$("#modalBody").html(data);
+					}
+				}); 
+			}else if (notiKnd == "todo"){
+				$.ajax({
+					url : "myPostTodo.do",
+					type : 'GET',
+					data : {notiId : tr.data("notiId"), notiKnd},
+					dataType : "html",
+					success : function(data) {
+						$("#modalBody").html(data);
+					}
+				}); 
+			}
+		});
+		$("#modal_close_btn").click(function() {
+			$("#modal").css("display", "none");
+		});
+	</script>
+
 	<!-- 전체 게시물 목록 -->
-	<button type="button" onclick="location.href='totalNotice.do'">프로젝트 상세목록</button>
+	<button type="button" onclick="location.href='totalNotice.do'">프로젝트
+		상세목록</button>
 
 
 </body>
