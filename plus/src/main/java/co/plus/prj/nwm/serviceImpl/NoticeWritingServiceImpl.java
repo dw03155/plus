@@ -39,7 +39,7 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 	@Override
 	public List<NoticeWritingVO> allFile(NoticeWritingVO vo) {
 		// 전체 메뉴 -> 파일
-		return null;
+		return map.allFile(vo);
 	}
 	@Override
 	public NoticeWritingVO fileSelect(NoticeWritingVO vo) {
@@ -49,7 +49,7 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 	@Override
 	public List<NoticeWritingVO> bookMarkList(NoticeWritingVO vo) {
 		// 전체 메뉴 -> 북마크
-		return null;
+		return map.bookMarkList(vo);
 	}
 	@Override
 	public NoticeWritingVO bookMarkSelect(NoticeWritingVO vo) {

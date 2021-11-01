@@ -30,12 +30,24 @@ public class NoticeWritingController {
 	}
 	
 	@RequestMapping("/myPost.do") // 전체 메뉴 -> 내 게시물 목록 
-	String noticeWritingSelectList(Model model, NoticeWritingVO vo) {
+	String myPost(Model model, NoticeWritingVO vo) {
 		vo.setMemId(5); // 구문
 		model.addAttribute("notices", nwDao.myPost(vo));
 		return "nwm/myPost";
 	}
+	
+	@RequestMapping("/allFile.do") // 전체 메뉴 -> 파일함
+	String allFile(Model model, NoticeWritingVO vo) {
+		
+		return "nwm/allFile";
+	}
 
+	@RequestMapping("/bookmark.do") // 전체 메뉴 -> 북마크
+	String bookmark(Model model, NoticeWritingVO vo) {
+		model.addAttribute("bookmarks", nwDao.bookMarkList(vo));
+		return "nwm/bookmark";
+	}
+	
 	@RequestMapping("/myPostTxt.do") // 내 게시물 목록 -> 글 상세보기(팝업)
 	public String myPostTxt(Model model, NoticeWritingVO vo) {
 		model.addAttribute("texts", nwDao.myPostTxt(vo));
@@ -61,7 +73,7 @@ public class NoticeWritingController {
 	 }
 	
 	@RequestMapping("/myPostTodo.do") // 내 게시물 목록 -> 할일 상세보기(팝업)
-	public String noticeWritingSelectTodo(Model model, NoticeWritingVO vo) {
+	public String myPostTodo(Model model, NoticeWritingVO vo) {
 		model.addAttribute("todos", nwDao.myPostTodo(vo));
 		return "nwm/modal/myPostTodo"; 
 	 }
@@ -92,4 +104,6 @@ public class NoticeWritingController {
 		model.addAttribute("txtF", nwDao.UpdateTxt(notiId));
 		return "nwm/textForm";
 	}
+	
+	
 }
