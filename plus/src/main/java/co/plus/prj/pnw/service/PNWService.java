@@ -2,62 +2,40 @@ package co.plus.prj.pnw.service;
 
 import java.util.List;
 
-import co.plus.prj.nwm.vo.NoticeWritingVO;
+import co.plus.prj.pnw.vo.PNWVO;
 
 public interface PNWService {
 	
-	// 전체 메뉴
-	List<NoticeWritingVO> myPost(NoticeWritingVO vo);	// 전체 메뉴 -> 내 게시물 목록	
-	
-	NoticeWritingVO myPostTxt(NoticeWritingVO vo); 		// 내 게시물 목록 -> 글 상세보기(팝업)
-	NoticeWritingVO myPostTsk(NoticeWritingVO vo); 		// 내 게시물 목록 -> 업무 상세보기(팝업)
-	NoticeWritingVO myPostSubtsk(NoticeWritingVO vo); 		// 내 게시물 목록 -> 하위업무 상세보기(팝업)
-	NoticeWritingVO myPostSche(NoticeWritingVO vo); 		// 내 게시물 목록 -> 일정 상세보기(팝업)
-	NoticeWritingVO myPostTodo(NoticeWritingVO vo); 		// 내 게시물 목록 -> 할일 상세보기(팝업)
-										
-	 public int noticeCount(NoticeWritingVO vo);						// 내 게시물 개수 
-	 
-	 List<NoticeWritingVO> allTask(NoticeWritingVO vo); 				// 전체 메뉴 -> 전체 업무
-	 NoticeWritingVO taskSelect(NoticeWritingVO vo);					// 전체 업무 -> 업무 상세보기(팝업)
-	 
-	 List<NoticeWritingVO> allSche(NoticeWritingVO vo);					// 전체 메뉴 -> 캘린더
-	 
-	 List<NoticeWritingVO> allFile(NoticeWritingVO vo); 				// 전체 메뉴 -> 파일
-	 NoticeWritingVO fileSelect(NoticeWritingVO vo);					// 파일 -> 파일 상세보기(팝업)
-	 
-	 List<NoticeWritingVO> bookMarkList(NoticeWritingVO vo);			// 전체 메뉴 -> 북마크
-	 NoticeWritingVO bookMarkSelect(NoticeWritingVO vo);				// 북마크 -> 북마크 상세보기(팝업)
-	 
-	 
-	 // 프로젝트 선택 후 메뉴 
-	 List<NoticeWritingVO> totalNotice(NoticeWritingVO vo);				// 프로젝트 선택 -> 홈 (게시물 목록 조회)
-	 	
-		 NoticeWritingVO txtSelect(NoticeWritingVO vo);    	// 글 자세히보기(아코디언)
-		 int insertTxt(NoticeWritingVO vo);		// 글 입력
-		 int UpdateTxt(NoticeWritingVO vo);		// 글 생성
-		 int DeleteTxt(NoticeWritingVO vo);		// 글 삭제
-		 
-		 NoticeWritingVO tskList(NoticeWritingVO vo);		// 프로젝트 선택 후 -> 업무 (1개 프로젝트)
-		 NoticeWritingVO tskSelect(NoticeWritingVO vo);		// 업무 자세히보기(아코디언)
-		 int insertTsk(NoticeWritingVO vo);		// 업무 생성
-		 int UpdateTsk(NoticeWritingVO vo);		// 업무 수정
-		 int DeleteTsk(NoticeWritingVO vo);		// 업무 삭제
-		 
-		 NoticeWritingVO scheList(NoticeWritingVO vo);		// 프로젝트 선택 후 -> 일정 (1개 프로젝트)
-		 NoticeWritingVO scheSelect(NoticeWritingVO vo);	// 일정 자세히보기(아코디언)
-		 int insertSche(NoticeWritingVO vo);	// 일정 생성
-		 int UpdateSche(NoticeWritingVO vo);	// 일정 수정
-		 int DeleteSche(NoticeWritingVO vo);	// 일정 삭제
-		 
-		 NoticeWritingVO todoSelect(NoticeWritingVO vo);	// 할일 자세히보기(아코디언)
-		 int insertTodo(NoticeWritingVO vo);	// 할일 생성
-		 int UpdateTodo(NoticeWritingVO vo);	// 할일 수정
-		 int DeleteTodo(NoticeWritingVO vo);	// 할일 삭제
-		 
-		// 프로젝트 선택 후
-		 int replyInsert(NoticeWritingVO vo);   // 댓글 생성		 
-		 int replyUpdate(NoticeWritingVO vo);   // 댓글 수정		 
-		 int replyDelete(NoticeWritingVO vo);   // 댓글 삭제		 
-	
+		// 전체메뉴
+		int prjInsert(PNWVO vo);			// 새 프로젝트
+		List<PNWVO> myProject();			// 내 프로젝트
+		List<PNWVO> openProject();			// 회사 프로젝트(전체공개 프로젝트)
+		
+		List<PNWVO> prjFolder();			// 프로젝트 폴더 메뉴
+		int prjFoldInsert(PNWVO vo);		// 프로젝트 폴더 생성
+		int prjFoldUpdate(PNWVO vo);		// 프로젝트 폴더 수정(폴더명)
+		int prjFoldDelete(PNWVO vo);		// 프로젝트 폴더 삭제
+		
+		// 프로젝트
+		int prjUpdate(PNWVO vo);			// 프로젝트 수정(프로젝트명, 색깔, 공개권한)
+		int prjDelete(PNWVO vo);			// 프로젝트 삭제
+		List<PNWVO> home();					// 프로젝트 홈탭 (게시글 목록, 참여자 목록)
+		List<PNWVO> tskList();				// 프로젝트 업무탭
+		List<PNWVO> scheList();				// 프로젝트 일정탭
+		List<PNWVO> fileList();				// 프로젝트 파일탭
+		
+		int txtInsert(PNWVO vo);			// 글 입력
+		int txtUpdate(PNWVO vo);			// 글 생성
+		int tskInsert(PNWVO vo);			// 업무 생성
+		int tskUpdate(PNWVO vo);			// 업무 수정
+		int scheInsert(PNWVO vo);			// 일정 생성
+		int scheUpdate(PNWVO vo);			// 일정 수정
+		int todoInsert(PNWVO vo);			// 할일 생성
+		int todoUpdate(PNWVO vo);			// 할일 수정
+		int nwDelete(PNWVO vo);				// 게시글 삭제
+		
+		int replyInsert(PNWVO vo);			// 댓글 생성
+		int replyUpdate(PNWVO vo);			// 댓글 수정
+		int replyDelete(PNWVO vo);			// 댓글 삭제
 
 }

@@ -6,48 +6,39 @@ import co.plus.prj.pnw.vo.PNWVO;
 
 public interface PNWMapper {
 
-	// 전체 메뉴
-	List<PNWVO> 
+		// 전체메뉴
+		int prjInsert(PNWVO vo);			// 새 프로젝트
+		List<PNWVO> myProject();			// 내 프로젝트
+		List<PNWVO> openProject();			// 회사 프로젝트(전체공개 프로젝트)
 	
+		List<PNWVO> prjFolder();			// 프로젝트 폴더 메뉴
+		int prjFoldInsert(PNWVO vo);		// 프로젝트 폴더 생성
+		int prjFoldUpdate(PNWVO vo);		// 프로젝트 폴더 수정(폴더명)
+		int prjFoldDelete(PNWVO vo);		// 프로젝트 폴더 삭제
+		
+		// 프로젝트
+		int prjUpdate(PNWVO vo);			// 프로젝트 수정(프로젝트명, 색깔, 공개권한)
+		int prjDelete(PNWVO vo);			// 프로젝트 삭제
+		List<PNWVO> pnwList();				// 프로젝트 홈탭 (게시글 목록)
+		List<PNWVO> partiList();			// 프로젝트 홈탭 (참여자 목록)
+		List<PNWVO> tskList();				// 프로젝트 업무탭
+		List<PNWVO> scheList();				// 프로젝트 일정탭
+		List<PNWVO> fileList();				// 프로젝트 파일탭
 	
-	// 프로젝트 홈
-	List<PNWVO> pnwList(PNWVO vo); // 프로젝트 홈 (게시글 목록)
+		int txtInsert(PNWVO vo);			// 글 입력
+		int txtUpdate(PNWVO vo);			// 글 수정
+		int tskInsert(PNWVO vo);			// 업무 입력
+		int tskUpdate(PNWVO vo);			// 업무 수정
+		int scheInsert(PNWVO vo);			// 일정 입력
+		int scheUpdate(PNWVO vo);			// 일정 수정
+		int todoInsert(PNWVO vo);			// 할일 입력
+		int todoUpdate(PNWVO vo);			// 할일 수정
+		int nwDelete(PNWVO vo);				// 게시글 삭제
+		
+		List<PNWVO> replyList();			// 댓글 목록
+		int replyInsert(PNWVO vo);			// 댓글 생성
+		int replyUpdate(PNWVO vo);			// 댓글 수정
+		int replyDelete(PNWVO vo);			// 댓글 삭제
 
-	PNWVO tskList(PNWVO vo); // 프로젝트 업무탭
-	PNWVO scheList(PNWVO vo); // 프로젝트 일정탭
-	PNWVO todoSelect(PNWVO vo); // 할일 자세히보기(아코디언)
-	List<PNWVO> replyList(PNWVO vo);
-	
-	int txtInsert(PNWVO vo); // 글 입력
-
-	int UpdateTxt(PNWVO vo); // 글 생성
-
-	int DeleteTxt(PNWVO vo); // 글 삭제
-
-	int insertTsk(PNWVO vo); // 업무 생성
-
-	int UpdateTsk(PNWVO vo); // 업무 수정
-
-	int DeleteTsk(PNWVO vo); // 업무 삭제
-
-	int insertSche(PNWVO vo); // 일정 생성
-
-	int UpdateSche(PNWVO vo); // 일정 수정
-
-	int DeleteSche(PNWVO vo); // 일정 삭제
-
-	int insertTodo(PNWVO vo); // 할일 생성
-
-	int UpdateTodo(PNWVO vo); // 할일 수정
-
-	int DeleteTodo(PNWVO vo); // 할일 삭제
-
-	// 프로젝트 선택 후
-	
-	int replyInsert(PNWVO vo); // 댓글 생성
-
-	int replyUpdate(PNWVO vo); // 댓글 수정
-
-	int replyDelete(PNWVO vo); // 댓글 삭제
 
 }
