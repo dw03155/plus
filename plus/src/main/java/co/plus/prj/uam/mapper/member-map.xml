@@ -62,10 +62,31 @@
 		from Member a , company b
 		where a.co_url = b.co_url and a.mem_id = #{memId}
 	</select>
-	
+	<!--  수정 -->
 	<update id="nameUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">
-		update member set 
-		name = #{name}
+		update member 
+		set name = #{name}
+		where mem_id = #{memId}
+	</update>
+		<update id="wkpoUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update member 
+		set wkpo = #{wkpo}
+		where mem_id = #{memId}
+	</update>
+		<update id="persTelUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update member 
+		set pers_Tel = #{persTel}
+		where mem_id = #{memId}
+	</update>
+		<update id="coTelUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update member 
+		set co_tel = #{coTel}
+		where mem_id = #{memId}
+	</update>
+		<update id="deptUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update member 
+		set dept = #{dept}
+		where mem_id = #{memId}
 	</update>
 
 	<!-- 탈퇴 -->
