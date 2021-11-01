@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-latest.js"></script>
-<title>Insert title here</title>
+<title>전체 업무 메뉴</title>
 <script src="js/jquery-latest.min.js"></script>
 <style type="text/css">
 #modal {
