@@ -10,8 +10,6 @@ public interface MemberMapper {
 	//회원가입 mapper
 	//전체목록
 	public List<MemberVO> getMemberList();
-	//1명 조회
-	public MemberVO getMember(MemberVO member);
 	//새로운 회사 입력
 	public int newCompanyInsert1(MemberVO member);
 	public int newCompanyInsert2(MemberVO member);
@@ -26,15 +24,17 @@ public interface MemberMapper {
 	//회사mapper
 	//회사url로 단일회사정보 가져오기
 	public MemberVO getCompany(MemberVO vo);
-
 		
 	//로그인
 	//회원 로그인 체크
 	public MemberVO memberLogin(MemberVO vo);
 	public int loginStUpdate(MemberVO vo);
-
 	//로그아웃
-	public MemberVO loginoutStUpdate(MemberVO vo);
+	public int loginoutStUpdate(MemberVO vo);
+	
+	//회원정보 수정
+	//회원정보가져오기
+	public MemberVO memberInfo(MemberVO vo);
 
 
 

@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>내 게시물</title>
+<title>전체 메뉴 -> 내 게시물 목록</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <script src="../js/jquery-latest.min.js"></script>
@@ -106,7 +106,7 @@
 </head>
 <body>
 	<div>
-		<h2>내 게시물</h2>
+		<h1>내 게시물</h1>
 	</div>
 	<!-- 상세보기 -->
 	<div id="modal">
@@ -156,8 +156,10 @@
 		</table>
 	</div>
 	
+	
+	
 	<!-- 전체 게시물 목록 -->
-	<button type="button" onclick="location.href='totalNotice.do'">전체 게시글 목록</button>
+	<button type="button" onclick="location.href='totalNotice.do'">프로젝트 상세목록</button>
 
 
 </body>
