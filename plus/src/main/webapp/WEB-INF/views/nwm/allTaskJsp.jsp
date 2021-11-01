@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,12 +95,20 @@
 								<li class="js-gubun-li">
 									<div class="js-gubun-button all-task-project">
 										<!-- active 클래스 추가시  -->
-										<span class="project-title">프로젝트 타이틀</span> <span
-											class="project-task-count">50</span>
+										<c:forEach var="tasks" items="${tasks }">
+										<span class="project-title">${tasks.prjTtl }</span> 
+										</c:forEach>
+										<span class="project-task-count">50</span>
 										<!-- 갯수 -->
 									</div>
 									<ul class="js-inner-task project-inner-task active"
 										style="display: block">
+										<c:forEach var="tasks" items="${tasks }">
+											<li class="task-item {LI_STTS}">${tasks.tskPrgs }</li>
+											<li class="task-item {LI_STTS}">${tasks.notiTtl }</li>
+											<li class="task-item {LI_STTS}"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${tasks.tskBgnDt }" /></li>
+											<li class="task-item {LI_STTS}"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${tasks.tskEndDt }" /></li>
+										</c:forEach>
 										<!-- style="display: none" -->
 										<!-- li 태그 넣기 : 상세보기시에는 class="highlight" 추가-->
 									</ul>
@@ -107,12 +117,12 @@
 
 
 							<!-- li 태그 넣기 -->
-							<ul id="taskListItem" class="d-none">
+							<!-- <ul id="taskListItem" class="d-none">
 								<li id="allTask-{COLABO_COMMT_SRNO}" class="task-item {LI_STTS}"
 									data-project-srno="{COLABO_SRNO}"
 									data-post-srno="{COLABO_COMMT_SRNO}"
 									data-task-srno="{TASK_SRNO}" data-post-code="4">업무 넣기</li>
-							</ul>
+							</ul> -->
 
 
 							<!-- 전체 업무 > 설정 아이콘 > 보기설정 -->
@@ -230,5 +240,13 @@
 			</div>
 		</div>
 	</div>
+
+	
+	<script type="text/javascript">
+	
+	 	var li = $("#taskListItem").find("li");
+	 	var ul = $("");
+	 
+	</script>
 </body>
 </html>

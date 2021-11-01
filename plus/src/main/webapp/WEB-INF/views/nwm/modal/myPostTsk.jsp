@@ -4,6 +4,9 @@
 <!-- 내 게시물 목록 -> 업무 상세보기(팝업) -->
 <table border="1">
 	<tr>
+	  <td colspan="3">${tasks.prjTtl }</td>
+	</tr>
+	<tr>
 		<td id="memId">${tasks.name }</td>
 		<td id="notiDttm"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${tasks.notiDttm}" /></td>
 		<td>

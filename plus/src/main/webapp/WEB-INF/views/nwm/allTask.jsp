@@ -38,6 +38,7 @@
 					</tr>
 					<c:forEach var="tasks" items="${tasks }">
 						<tr data-notiId="${tasks.notiId}" data-kind="${tasks.notiKnd }">
+							
 							<td>${tasks.tskPrgs }</td>
 							<td>${tasks.notiTtl }</td>
 							<td>${tasks.name}</td>

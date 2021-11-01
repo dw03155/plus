@@ -20,7 +20,7 @@ public class NoticeWritingController {
 	@RequestMapping("/allTask.do")	// 전체 메뉴 -> 전체 업무
 	String allTask(Model model, NoticeWritingVO vo) {
 		model.addAttribute("tasks",nwDao.allTask(vo));
-		return "nwm/allTask"; 		
+		return "nwm/allTaskJsp"; 		
 	}
 	
 	@RequestMapping("/allSche.do") // 전체 메뉴 -> 캘린더
