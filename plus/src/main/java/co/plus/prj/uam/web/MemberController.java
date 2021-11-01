@@ -137,9 +137,9 @@ public class MemberController {
 	
 	
 	//회원설정
-	@RequestMapping("memberInfo.do")
+	@RequestMapping(value="memberInfo.do", method = RequestMethod.GET)
 	@ResponseBody
-	public MemberVO memberInfo(@RequestParam("memId") String memId, MemberVO vo) {
+	public MemberVO memberInfo(@RequestParam(required=false) String memId, MemberVO vo) {
 		System.out.println(memId);
 		vo.setMemId(memId);
 		MemberVO info = service.memberInfo(vo);

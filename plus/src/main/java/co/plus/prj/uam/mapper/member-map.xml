@@ -57,9 +57,10 @@
 																						<!-- 회원정보수정(회원마이페이지) -->
 	<!-- 회원정보 가져오기 -->
 	<select id="memberInfo" resultType="co.plus.prj.uam.vo.MemberVO">
-		select mem_id, email, pwd, name, wkpo, pers_tel, co_tel, dept
-		from Member
-		where mem_id = #{memId}
+		select a.mem_id, a.email, a.pwd, a.name, a.wkpo
+        , a.pers_tel, a.co_tel, a.dept, b.co_name
+		from Member a , company b
+		where a.co_url = b.co_url and a.mem_id = #{memId}
 	</select>
 	
 	<update id="nameUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">

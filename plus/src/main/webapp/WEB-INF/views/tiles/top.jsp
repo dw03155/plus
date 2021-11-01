@@ -45,7 +45,6 @@
 	overflow: auto;
 }
 </style>
-
 </head>
 <body>
 	<header class="header">
@@ -124,33 +123,23 @@
 									<ul>
 										<li class="edit-input js-email-set adjust">
 											<div class="my-right-list-1">이메일</div>
-											<div class="read-mode d-block">
 												<div id="email" class="my-right-list-2"></div>
-											</div>
 										</li>
 										<li class="edit-input adjust">
 											<div class="my-right-list-1">이름</div>
-											<div class="read-mode d-block">
-												<div class="js-user-name my-right-list-2">
-												<div class="editor-mode d-none">
-												<div class="my-right-list-2 my-type-text-1">
-													<input id="name" type="text" maxlength="20" readonly="readonly">
-													<div class="btn-fr-wrap">
-													</div>
-												</div>
-												</div>
+											<div id="nameForm" class="read-mode">
+												<div id="name" class="my-right-list-2"></div>
+												<a href="#" class="poly-icon-1 change-editor-btn" id="nameUpdate"></a>
 											</div>
-											</div> 
-											<a href="#" class="poly-icon-1 change-editor-btn"></a>
-											<div class="editor-mode d-none">
+											<div id="nameUpdateForm" class="editor-mode d-none">
 												<div class="my-right-list-2 my-type-text-1">
-													<input id="editor_user_name" type="text" maxlength="20" value=<%=(String)session.getAttribute("name")%>>
+													<input id="editor_name" type="text" maxlength="20" >
 													<div class="btn-fr-wrap">
 														<a href="#">
 															<div class="my-button-cc cancel-change">취소</div>
-														</a><a href="#">
-															<div
-																class="js-account-set-button js-account-set-button my-button-ok change-ok"
+														</a>
+														<a href="#">
+															<div class="js-account-set-button js-account-set-button my-button-ok change-ok"
 																gubun="1">확인</div>
 														</a>
 													</div>
@@ -160,34 +149,17 @@
 										<li class="edit-input js-company-set adjust">
 											<div>
 												<div class="my-right-list-1">회사명</div>
-												<div class="read-mode d-block">
-													<div id="companyName" class="my-right-list-2"></div>
-												</div>
-												<a href="#" class="poly-icon-1 change-editor-btn"></a>
-												<div class="editor-mode d-none">
-													<div class="my-right-list-2 my-type-text-1">
-														<input id="editor_companyNm" type="text"
-															autocomplete="off" maxlength="50" data-valid="name"
-															data-un-valid-msg="특수문자를 사용할 수 없습니다">
-														<div class="btn-fr-wrap">
-															<a href="#">
-																<div class="my-button-cc cancel-change">취소</div>
-															</a><a href="#">
-																<div
-																	class="js-account-set-button my-button-ok change-ok"
-																	gubun="7">확인</div>
-															</a>
-														</div>
-													</div>
+												<div class="read-mode">
+													<div id="coName" class="my-right-list-2"></div>
 												</div>
 											</div>
 
 										</li>
 										<li class="edit-input js-dvsn-set adjust">
 											<div class="my-right-list-1">부서명</div>
-											<div class="read-mode d-block">
-												<div id="dvsnName" class="my-right-list-2"></div>
-												<a href="#" class="poly-icon-1 change-editor-btn"></a>
+											<div class="read-mode">
+												<div id="dept" class="my-right-list-2"></div>
+												<a href="#" class="poly-icon-1 change-editor-btn" id="deptUpdate" ></a>
 											</div>
 											<div class="editor-mode d-none">
 												<div class="my-right-list-2 my-type-text-1">
@@ -207,9 +179,9 @@
 										</li>
 										<li class="edit-input adjust">
 											<div class="my-right-list-1">직책</div>
-											<div class="read-mode d-block">
-												<div id="position" class="my-right-list-2"></div>
-												<a href="#" class="poly-icon-1 change-editor-btn"></a>
+											<div class="read-mode">
+												<div id="wkpo" class="my-right-list-2"></div>
+												<a href="#" class="poly-icon-1 change-editor-btn" id="wkpoUpdate"></a>
 											</div>
 											<div class="editor-mode d-none">
 												<div class="my-right-list-2 my-type-text-1">
@@ -228,9 +200,9 @@
 										</li>
 										<li class="edit-input adjust">
 											<div class="my-right-list-1">휴대폰 번호</div>
-											<div class="read-mode d-block">
-												<div id="phoneNum" class="my-right-list-2"></div>
-												<a href="#" class="poly-icon-1 change-editor-btn"></a>
+											<div class="read-mode">
+												<div id="persTel" class="my-right-list-2"></div>
+												<a href="#" class="poly-icon-1 change-editor-btn" id="persTelUpdate"></a>
 											</div>
 											<div class="editor-mode d-none">
 												<div class="my-right-list-2 my-type-text-1">
@@ -259,9 +231,9 @@
 										</li>
 										<li class="edit-input adjust">
 											<div class="my-right-list-1">회사 연락처</div>
-											<div class="read-mode d-block">
-												<div id="companyPhoneNum" class="my-right-list-2"></div>
-												<a href="#" class="poly-icon-1 change-editor-btn"></a>
+											<div class="read-mode">
+												<div id="coTel" class="my-right-list-2"></div>
+												<a href="#" class="poly-icon-1 change-editor-btn" id="coTelUpdate"></a>
 											</div>
 											<div class="editor-mode d-none">
 												<div class="my-right-list-2 my-type-text-1">
@@ -825,10 +797,10 @@
 			var memId = <%=memId%>;
 			console.log(memId);
 			
+			$ 
 			$.ajax({
-				url: "memberInfo.do",
+				url: "memberInfo.do?memId=" + memId,
 				type: "Get",
-				date:{memId:memId},
 				datatype: "json",
 				success: function(data){
 					var $email = data.email;
@@ -837,16 +809,49 @@
 					var $wkpo = data.wkpo;
 					var $persTel = data.persTel;
 					var $coTel = data.coTel;
-					var $dept = data.dapt;
-					console.log(date);
-					if(data != null){
-						
+					var $dept = data.dept;
+					var $coName = data.coName;
+					
+					if($wkpo == null){
+						$('#wkpo').text('');
+					}else{						
+						$('#wkpo').text($wkpo);
 					}
+					if($persTel == null){
+						$('#persTel').text('');
+					}else{						
+						$('#persTel').text($persTel);
+					}
+					if($coTel == null){
+						$('#coTel').text('');
+					}else{						
+						$('#coTel').text($coTel);
+					}
+					if($dept == null){
+						$('#dept').text('');
+					}else{						
+						$('#dept').text($dept);
+					}
+					
+						$('#email').text($email);
+						$('#name').text($name);
+						$('#coName').text($coName);
+				
+				
 				}
 				
 			})
 
 		});
+		
+		$("#nameUpdate").on("click", function(){
+			$("#nameForm").toggleClass("d-none");
+			$("#nameUpdateForm").toggleClass("d-none");
+			
+			
+			
+		});
+		
 		$(".my-button-close-1").on("click", function() {
 			$("#MySettiong").css("display", "none");
 		});
