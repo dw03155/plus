@@ -20,17 +20,17 @@ public class PNWServiceImpl implements PNWService {
 	}
 
 	@Override
-	public List<PNWVO> myProject() {	// 내 프로젝트
+	public List<PNWVO> myProject() {			// 내 프로젝트
 		return map.myProject();
 	}
 
 	@Override
-	public List<PNWVO> openProject() {	// 회사 프로젝트
+	public List<PNWVO> openProject() {			// 회사 프로젝트
 		return map.openProject();
 	}
 
 	@Override
-	public List<PNWVO> prjFolder() {	// 프로젝트 폴더 메뉴
+	public List<PNWVO> prjFolder() {			// 프로젝트 폴더 메뉴
 		return map.prjFolder();
 	}
 

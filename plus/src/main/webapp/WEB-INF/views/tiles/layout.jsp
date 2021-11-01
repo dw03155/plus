@@ -24,6 +24,7 @@
 
 <link rel="stylesheet" href="flow-renewal/assets/css/reset.css">
 <link rel="stylesheet" href="flow-renewal/dist/css/common.min.css">
+<link rel="stylesheet" href="flow-renewal/dist/css/calrendar.css">
 
 <script src="flow-renewal/js/common/MobileApp.js"></script>
 <script
