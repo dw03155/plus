@@ -56,21 +56,19 @@
 <body>
 	<div>
 		<h1>내 게시물</h1>
-	</div>
+	
 	<!-- 상세보기 -->
 	<div id="modal">
 		<div class="modal_content">
-			<label>프로젝트명</label> <span id="modal_close_btn">&times;</span>
+			<span id="modal_close_btn">&times;</span>
 			<div id="subModal">
 				<div align="right">
 					<button type="button">핀셋</button>
 					<div class="dropdown" align="left">
 						<button type="button" id="more_btn">더보기</button>
 						<div class="dropdown-content">
-							<p id="retouch">수정
-							<p>
-							<p id="delete">삭제
-							<p>
+							<button type="button" id="modify" onclick="location.href='textForm.do'">수정</button>
+							<button type="button" id="delect">삭제</button>
 						</div>
 					</div>
 				</div>
@@ -104,7 +102,7 @@
 			</c:forEach>
 		</table>
 	</div>
-
+</div>
 	<!-- 모달창 JS -->
 	<script>
 		
@@ -118,7 +116,7 @@
 					$.ajax({
 						url : "myPostTxt.do",
 						type : 'GET',
-						data : {notiId : tr.data("notiId"), notiKnd},
+						data : {notiId : tr.data("notiid"), notiKnd},
 						dataType : "html",
 						success : function(data) {
 							$("#modalBody").html(data);
@@ -128,7 +126,7 @@
 					$.ajax({
 						url : "myPostTsk.do",
 						type : 'GET',
-						data : {notiId : tr.data("notiId"), notiKnd},
+						data : {notiId : tr.data("notiid"), notiKnd},
 						dataType : "html",
 						success : function(data) {
 							$("#modalBody").html(data);
@@ -138,7 +136,7 @@
 				$.ajax({
 					url : "myPostSche.do",
 					type : 'GET',
-					data : {notiId : tr.data("notiId"), notiKnd},
+					data : {notiId : tr.data("notiid"), notiKnd},
 					dataType : "html",
 					success : function(data) {
 						$("#modalBody").html(data);
@@ -148,7 +146,7 @@
 				$.ajax({
 					url : "myPostTodo.do",
 					type : 'GET',
-					data : {notiId : tr.data("notiId"), notiKnd},
+					data : {notiId : tr.data("notiid"), notiKnd},
 					dataType : "html",
 					success : function(data) {
 						$("#modalBody").html(data);

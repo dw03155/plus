@@ -36,7 +36,7 @@ public class NoticeWritingVO {
 	private String todoCntn;		// 할 일 내용
 	private Date todoEndDate;		// 할 일 마감일
 	private String todoYn;			// 할 일 완료 여부
-	private String todoId;			// 할 일 번호
+	private int todoId;			// 할 일 번호
 	
 	// 일정
 	private String scheCntn;		// 일정 내용

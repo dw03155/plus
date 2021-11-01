@@ -55,7 +55,7 @@
 	<!-- 내 게시물 목록 -> 글 상세보기(팝업) -->
 	<select id="myPostTxt"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">		
-		select  a. noti_knd as 게시글종류, b.name as 작성자, c.*, d.prj_ttl as 프로젝트제목, a.noti_dttm as 작성일자
+		select  a. noti_knd, b.name, c.*, d.prj_ttl, a.noti_dttm
 		from    notice_writing a, member b, text c, project d
 		where 	a.mem_id = b.mem_id
 		and 	a.prj_id = d.prj_id
@@ -65,7 +65,7 @@
 	<!-- 내 게시물 목록 -> 업무 상세보기(팝업) -->
 	<select id="myPostTsk"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO"> 		
-		select  a. noti_knd as 게시글종류, b.name as 작성자, c.*, d.prj_ttl as 프로젝트제목, a.noti_dttm as 작성일자
+		select  a. noti_knd, b.name, c.*, d.prj_ttl, a.noti_dttm
 		from 	notice_writing a, member b, task c, project d
 		where 	a.mem_id = b.mem_id
 		and 	a.prj_id=d.prj_id
@@ -93,13 +93,13 @@
 	<!-- 내 게시물 목록 -> 할일 상세보기(팝업) -->
 	<select id="myPostTodo"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">		
-		select  a. noti_knd as 게시글종류, b.name as 작성자, c.*, d.prj_ttl as 프로젝트제목, a.noti_dttm as 작성일자
+		select  a. noti_knd, b.name, c.*, d.prj_ttl, a.noti_dttm
 		from 	notice_writing a, member b, todo c, project d
 		where 	a.mem_id = b.mem_id
 		and 	a.prj_id=d.prj_id
 		and 	a.noti_id = c.noti_id
 		and 	b.mem_id = c.mem_id
-		and 	a.noti_id= #{notiId}
+		and 	c.noti_id = #{notiId}
 	</select>
 
 	<!-- 게시글 개수 출력 (미구현) -->
@@ -132,5 +132,11 @@
 		and 	a.noti_knd = 'task'
 		and 	a.prj_id = #{prjId}
 	</select>
+	
+	<update id="UpdateTxt" parameterType="co.plus.prj.nwm.vo.NoticeWritingVO">
+		update 	text 
+		set 	noti_ttl = #{notiTtl}, txt_cntn = #{txtCntn}, txt_pl = #{txtPl}, txt_file = #{file}
+		where 	noti_id = #{notiId}
+	</update>
 
 </mapper>

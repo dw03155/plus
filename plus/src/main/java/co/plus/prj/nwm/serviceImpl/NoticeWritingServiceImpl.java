@@ -79,7 +79,7 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 		return map.myPostSche(vo);
 	}
 	@Override
-	public NoticeWritingVO myPostTodo(NoticeWritingVO vo) {		
+	public List<NoticeWritingVO> myPostTodo(NoticeWritingVO vo) {		
 		// 내 게시물 목록 -> 할일 상세보기(팝업)
 		return map.myPostTodo(vo);
 	}
@@ -109,9 +109,9 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 		return 0;
 	}
 	@Override
-	public int UpdateTxt(NoticeWritingVO vo) {
+	public int UpdateTxt(int notiId) {
 		// 글 수정
-		return 0;
+		return map.UpdateTxt(notiId);
 	}
 	@Override
 	public int DeleteTxt(NoticeWritingVO vo) {
