@@ -4,10 +4,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<%
+	String memId = null;
+	if (session.getAttribute("memId") != null){
+		memId = (String)session.getAttribute("memId");
+	}
+%>
+<script>
+	$(document).ready(function(){
+		
+		if(<%=memId%> == null){
+			sessionNo.submit();
+		}
+	});
+</script>
 </head>
 <body>
 	<div class="main-container">
-	
+	<form id="sessionNo" action="home.do"></form>
 	
 		<!-- 새글 업데이트 팝업, 동작시 ::before -->
 		<div id="newUpdate" class="post-update-button-area d-none"

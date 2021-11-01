@@ -10,8 +10,6 @@ public interface MemberService {
 	//회원가입 service
 	// 회원전체목록
 	public List<MemberVO> getMembetList();
-	// 회원 1명 조회
-	public MemberVO getMember(MemberVO member);
 	// 새로운 회사 입력
 	public int newCompanyInsert(MemberVO member);
 	// 기존 회사 입력
@@ -29,6 +27,10 @@ public interface MemberService {
 	//회원 로그인 체크
 	public MemberVO loginStUpdate(MemberVO vo);
 	//로그아웃
-	public MemberVO loginoutStUpdate(MemberVO vo);
+	public int loginoutStUpdate(MemberVO vo);
+	
+	//회원정보 수정
+	//회원정보가져오기
+	public MemberVO memberInfo(MemberVO vo);
 
 }
