@@ -7,22 +7,22 @@ import co.plus.prj.nwm.vo.NoticeWritingVO;
 public interface NoticeWritingMapper {
 
 	// 전체 메뉴
-		List<NoticeWritingVO> noticeWritingSelectList(NoticeWritingVO vo);	// 전체 메뉴 -> 내 게시물 목록	
+		List<NoticeWritingVO> myPost(NoticeWritingVO vo);	// 전체 메뉴 -> 내 게시물 목록	
 		
-		NoticeWritingVO noticeWritingSelectTxt(NoticeWritingVO vo); 		// 내 게시물 목록 -> 글 상세보기(팝업)
-		NoticeWritingVO noticeWritingSelectTsk(NoticeWritingVO vo); 		// 내 게시물 목록 -> 업무 상세보기(팝업)
-		NoticeWritingVO noticeWritingSelectSubtsk(NoticeWritingVO vo); 		// 내 게시물 목록 -> 하위업무 상세보기(팝업)
-		NoticeWritingVO noticeWritingSelectSche(NoticeWritingVO vo); 		// 내 게시물 목록 -> 일정 상세보기(팝업)
-		NoticeWritingVO noticeWritingSelectTodo(NoticeWritingVO vo); 		// 내 게시물 목록 -> 할일 상세보기(팝업)
+		NoticeWritingVO myPostTxt(NoticeWritingVO vo); 		// 내 게시물 목록 -> 글 상세보기(팝업)
+		NoticeWritingVO myPostTsk(NoticeWritingVO vo); 		// 내 게시물 목록 -> 업무 상세보기(팝업)
+		NoticeWritingVO myPostSubtsk(NoticeWritingVO vo); 		// 내 게시물 목록 -> 하위업무 상세보기(팝업)
+		NoticeWritingVO myPostSche(NoticeWritingVO vo); 		// 내 게시물 목록 -> 일정 상세보기(팝업)
+		NoticeWritingVO myPostTodo(NoticeWritingVO vo); 		// 내 게시물 목록 -> 할일 상세보기(팝업)
 											
 		 public int noticeCount(NoticeWritingVO vo);						// 내 게시물 개수 
 		 
-		 List<NoticeWritingVO> totalTask(NoticeWritingVO vo); 				// 전체 메뉴 -> 전체 업무
+		 List<NoticeWritingVO> allTask(NoticeWritingVO vo); 				// 전체 메뉴 -> 전체 업무
 		 NoticeWritingVO taskSelect(NoticeWritingVO vo);					// 전체 업무 -> 업무 상세보기(팝업)
 		 
-		 List<NoticeWritingVO> totalSchedule(NoticeWritingVO vo);			// 전체 메뉴 -> 캘린더
+		 List<NoticeWritingVO> allSche(NoticeWritingVO vo);					// 전체 메뉴 -> 캘린더
 		 
-		 List<NoticeWritingVO> totalFile(NoticeWritingVO vo); 				// 전체 메뉴 -> 파일
+		 List<NoticeWritingVO> allFile(NoticeWritingVO vo); 				// 전체 메뉴 -> 파일
 		 NoticeWritingVO fileSelect(NoticeWritingVO vo);					// 파일 -> 파일 상세보기(팝업)
 		 
 		 List<NoticeWritingVO> bookMarkList(NoticeWritingVO vo);			// 전체 메뉴 -> 북마크

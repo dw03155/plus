@@ -17,14 +17,14 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 	
 	// 전체 메뉴
 	@Override
-	public List<NoticeWritingVO> noticeWritingSelectList(NoticeWritingVO vo) {
+	public List<NoticeWritingVO> myPost(NoticeWritingVO vo) {
 		// 전체 메뉴 -> 내 게시물 목록
-		return map.noticeWritingSelectList(vo);
+		return map.myPost(vo);
 	}
 	@Override
-	public List<NoticeWritingVO> totalTask(NoticeWritingVO vo) {
+	public List<NoticeWritingVO> allTask(NoticeWritingVO vo) {
 		// 전체 메뉴 -> 전체 업무
-		return map.totalTask(vo);
+		return map.allTask(vo);
 	}
 	@Override
 	public NoticeWritingVO taskSelect(NoticeWritingVO vo) {
@@ -32,12 +32,12 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 		return null;
 	}
 	@Override
-	public List<NoticeWritingVO> totalSchedule(NoticeWritingVO vo) {
+	public List<NoticeWritingVO> allSche(NoticeWritingVO vo) {
 		// 전체 메뉴 -> 캘린더
-		return map.totalSchedule(vo);
+		return map.allSche(vo);
 	}
 	@Override
-	public List<NoticeWritingVO> totalFile(NoticeWritingVO vo) {
+	public List<NoticeWritingVO> allFile(NoticeWritingVO vo) {
 		// 전체 메뉴 -> 파일
 		return null;
 	}
@@ -59,29 +59,29 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 	
 	
 	@Override
-	public NoticeWritingVO noticeWritingSelectTxt(NoticeWritingVO vo) {			
+	public NoticeWritingVO myPostTxt(NoticeWritingVO vo) {			
 		// 내 게시물 목록 -> 글 상세보기(팝업)
-		return map.noticeWritingSelectTxt(vo);
+		return map.myPostTxt(vo);
 	}
 	@Override
-	public NoticeWritingVO noticeWritingSelectTsk(NoticeWritingVO vo) {			
+	public NoticeWritingVO myPostTsk(NoticeWritingVO vo) {			
 		// 내 게시물 목록 -> 업무 상세보기(팝업)
-		return map.noticeWritingSelectTsk(vo);
+		return map.myPostTsk(vo);
 	}
 	@Override
-	public NoticeWritingVO noticeWritingSelectSubtsk(NoticeWritingVO vo) {		
+	public NoticeWritingVO myPostSubtsk(NoticeWritingVO vo) {		
 		//  내 게시물 목록 -> 하위업무 상세보기(팝업)
-		return map.noticeWritingSelectSubtsk(vo);
+		return map.myPostSubtsk(vo);
 	}
 	@Override
-	public NoticeWritingVO noticeWritingSelectSche(NoticeWritingVO vo) {		
+	public NoticeWritingVO myPostSche(NoticeWritingVO vo) {		
 		// 내 게시물 목록 -> 일정 상세보기(팝업)
-		return map.noticeWritingSelectSche(vo);
+		return map.myPostSche(vo);
 	}
 	@Override
-	public NoticeWritingVO noticeWritingSelectTodo(NoticeWritingVO vo) {		
+	public NoticeWritingVO myPostTodo(NoticeWritingVO vo) {		
 		// 내 게시물 목록 -> 할일 상세보기(팝업)
-		return map.noticeWritingSelectTodo(vo);
+		return map.myPostTodo(vo);
 	}
 	
 	@Override
