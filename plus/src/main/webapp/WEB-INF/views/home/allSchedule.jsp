@@ -79,7 +79,6 @@
 												<thead>
 													<tr>
 														<td class="fc-head-container fc-widget-header">
-															<!-- table 1 -->
 															<div class="fc-row fc-widget-header">
 																<table>
 																	<thead>
@@ -108,7 +107,7 @@
 																	<div class="fc-row fc-week fc-widget-content fc-rigid"
 																		style="overflow: hidden; height: 113px">
 																		<!-- 전체 일때는 height: 113px 값 추가, 화면에 따라 달라짐 -->
-																		<!-- table 2 -->
+																		<!-- table 1 -->
 																		<div class="fc-bg">
 																			<table class="">
 																				<tbody>
@@ -140,7 +139,7 @@
 																			</table>
 																		</div>
 
-																		<!-- table 3 -->
+																		<!-- table 2 -->
 																		<div class="fc-content-skeleton">
 																			<table>
 																				<thead>
@@ -216,24 +215,8 @@
 		</div>
 	</div>
 
-	<!-- table 1 -->
-	<!--<div class="fc-row fc-widget-header">
-		<table class="">
-			<thead>
-				<tr>
-					<th class="fc-day-header fc-widget-header fc-sun"><span>일</span></th>
-					<th class="fc-day-header fc-widget-header fc-mon"><span>월</span></th>
-					<th class="fc-day-header fc-widget-header fc-tue"><span>화</span></th>
-					<th class="fc-day-header fc-widget-header fc-wed"><span>수</span></th>
-					<th class="fc-day-header fc-widget-header fc-thu"><span>목</span></th>
-					<th class="fc-day-header fc-widget-header fc-fri"><span>금</span></th>
-					<th class="fc-day-header fc-widget-header fc-sat"><span>토</span></th>
-				</tr>
-			</thead>
-		</table>
-	</div>-->
 
-	<!-- table 2 -->
+	<!-- table 1 -->
 	<!--<div class="fc-bg">
 		<table class="">
 			<tbody>
@@ -258,7 +241,7 @@
 		</table>
 	</div>-->
 
-	<!-- table 3 -->
+	<!-- table 2 -->
 	<!--<div class="fc-content-skeleton">
 		<table>
 			<thead>
