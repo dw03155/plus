@@ -83,9 +83,8 @@ public class NoticeWritingController {
 		return "nwm/modal/myPostTodo"; 
 	 }
 	
-	@RequestMapping("/noticeCount.do")	// 게시글 개수
-	String noticeCount() {
-		return "redirect:nwList";
+	@RequestMapping("/allTask.do")	// 게시글 개수
+	public String 
 		
 	}
 	

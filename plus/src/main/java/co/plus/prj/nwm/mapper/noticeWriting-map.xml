@@ -141,7 +141,7 @@
 	<select id="noticeCount" resultType="int">					
 		select count(*)
 		from notice_writing
-		where mem_id = #{memId}
+		where noti_id = #{notiId}
 	</select>
 
 
