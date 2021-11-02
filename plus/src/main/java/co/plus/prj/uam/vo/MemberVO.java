@@ -9,7 +9,7 @@ public class MemberVO {
 		private String email; 			//이메일
 		private String pwd;				//비밀번호
 		private String name;			//회원이름
-		private String deptName;		//부서이름
+		private String dept;			//부서이름
 		private String wkpo;			//회원 직위
 		private String persTel;			//회원전화번호
 		private String coTel;			//회사전화번호

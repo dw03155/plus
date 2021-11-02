@@ -203,7 +203,7 @@
 					<span id="result" style="color: red">${message }</span>
 
 			</div>
-			<a id="loginBtn" class="signup_btn_st1" data-langcode="H76" >로그인</a>
+			<a id="loginBtn" class="signup_btn_st1 on" data-langcode="H76" >로그인</a>
 		  </div>
 		 </form>
 		<div id="REG_3" class="forgot_pw">
@@ -217,13 +217,13 @@
 		<div class="signup_box">
 			<div class="login_fieldset">
 				<ul>
-					<li><input id="EMAIL" type="text" maxlength="50"
-						placeholder="아이디" value=""> <span id="EMAIL_CHK"
+					<li><input id="forgetEmail" type="text" maxlength="50"
+						placeholder="이메일" value=""> <span id="EMAIL_CHK"
 						class="ico_chk"></span></li>
 				</ul>
 				<div class="error_txt" style="display: none; text-align: left;"
 					data-langcode="H374">이메일 형식에 맞지 않습니다.</div>
-				<a class="signup_btn_st1" data-langcode="H375">비밀번호 변경메일받기 </a>
+				<a class="signup_btn_st" data-langcode="H375">비밀번호 변경메일받기 </a>
 			</div>
 		</div>
 	</div>
@@ -231,5 +231,9 @@
 		<form id="loginOk" action="main.do">
 		</form>
 	</div>
+	
+	<script>
+		
+	</script>
 </body>
 </html>

@@ -62,16 +62,41 @@ public class MemberServiceImpl implements MemberService {
 		return map.memberInfo(vo);
 	}
 	
-	// TODO Auto-generated method stub
-	@Override
-	public int memberUpdate(MemberVO member) {
-		return map.memberUpdate(member);
-	}
-	
-	// TODO Auto-generated method stub
+														// 회원삭제
 	@Override
 	public int memberDelete(MemberVO member) {
 		return map.memberDelete(member);
+	}
+
+														//회원 정보 수정
+	@Override
+	public int nameUpdate(MemberVO vo) {
+		// 회원 이름 수정
+		return map.nameUpdate(vo);
+	}
+
+	@Override
+	public int wkpoUpdate(MemberVO vo) {
+		// 회원 직위 수정
+		return map.wkpoUpdate(vo);
+	}
+
+	@Override
+	public int persTelUpdate(MemberVO vo) {
+		// 회원 전화번호 수정
+		return map.persTelUpdate(vo);
+	}
+
+	@Override
+	public int coTelUpdate(MemberVO vo) {
+		// 회원 회사번호 수정
+		return coTelUpdate(vo);
+	}
+
+	@Override
+	public int deptUpdate(MemberVO vo) {
+		// 회원 부서 수정
+		return deptUpdate(vo);
 	}
 
 

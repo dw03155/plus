@@ -128,40 +128,36 @@
 												<div id="email" class="my-right-list-2"></div>
 											</div>
 										</li>
-										<li class="edit-input adjust">
-											<div class="my-right-list-1">이름</div>
-											<div class="read-mode d-block">
-												<div class="js-user-name my-right-list-2">
-												<div class="editor-mode d-none">
-												<div class="my-right-list-2 my-type-text-1">
-													<input id="name" type="text" maxlength="20" readonly="readonly">
-													<div class="btn-fr-wrap">
-													</div>
+										<li class="edit-input js-company-set adjust">
+											<div>
+												<div class="my-right-list-1">이름</div>
+												<div id="nameInput" class="read-mode d-block">
+													<div id="name" class="my-right-list-2"></div>
 												</div>
-												</div>
-											</div>
-											</div> 
-											<a href="#" class="poly-icon-1 change-editor-btn"></a>
-											<div class="editor-mode d-none">
-												<div class="my-right-list-2 my-type-text-1">
-													<input id="editor_user_name" type="text" maxlength="20" value=<%=(String)session.getAttribute("name")%>>
-													<div class="btn-fr-wrap">
-														<a href="#">
-															<div class="my-button-cc cancel-change">취소</div>
-														</a><a href="#">
-															<div
-																class="js-account-set-button js-account-set-button my-button-ok change-ok"
-																gubun="1">확인</div>
-														</a>
+												<a id="nameUpdateBtn" href="#" class="poly-icon-1 change-editor-btn"></a>
+												<div id="nameUpdateForm" class="editor-mode d-none">
+													<div class="my-right-list-2 my-type-text-1">
+														<input type="hidden" id="memIdHidden" value='${sessionScope.memId}'>
+														<input id="editor_name" type="text"
+															autocomplete="off" maxlength="50" data-valid="name"
+															data-un-valid-msg="특수문자를 사용할 수 없습니다">
+														<div class="btn-fr-wrap">
+															<a href="#">
+																<div id="noNameUpdate" class="my-button-cc cancel-change">취소</div>
+															</a><a href="#">
+																<div id="nameUpdate" class="js-account-set-button my-button-ok" gubun="7">확인</div>
+															</a>
+														</div>
 													</div>
 												</div>
 											</div>
+
 										</li>
 										<li class="edit-input js-company-set adjust">
 											<div>
 												<div class="my-right-list-1">회사명</div>
 												<div class="read-mode d-block">
-													<div id="companyName" class="my-right-list-2"></div>
+													<div id="coName" class="my-right-list-2"></div>
 												</div>
 												<a href="#" class="poly-icon-1 change-editor-btn"></a>
 												<div class="editor-mode d-none">
@@ -186,7 +182,7 @@
 										<li class="edit-input js-dvsn-set adjust">
 											<div class="my-right-list-1">부서명</div>
 											<div class="read-mode d-block">
-												<div id="dvsnName" class="my-right-list-2"></div>
+												<div id="dept" class="my-right-list-2"></div>
 												<a href="#" class="poly-icon-1 change-editor-btn"></a>
 											</div>
 											<div class="editor-mode d-none">
@@ -208,7 +204,7 @@
 										<li class="edit-input adjust">
 											<div class="my-right-list-1">직책</div>
 											<div class="read-mode d-block">
-												<div id="position" class="my-right-list-2"></div>
+												<div id="wkpo" class="my-right-list-2"></div>
 												<a href="#" class="poly-icon-1 change-editor-btn"></a>
 											</div>
 											<div class="editor-mode d-none">
@@ -229,7 +225,7 @@
 										<li class="edit-input adjust">
 											<div class="my-right-list-1">휴대폰 번호</div>
 											<div class="read-mode d-block">
-												<div id="phoneNum" class="my-right-list-2"></div>
+												<div id="persTel" class="my-right-list-2"></div>
 												<a href="#" class="poly-icon-1 change-editor-btn"></a>
 											</div>
 											<div class="editor-mode d-none">
@@ -260,7 +256,7 @@
 										<li class="edit-input adjust">
 											<div class="my-right-list-1">회사 연락처</div>
 											<div class="read-mode d-block">
-												<div id="companyPhoneNum" class="my-right-list-2"></div>
+												<div id="coTel" class="my-right-list-2"></div>
 												<a href="#" class="poly-icon-1 change-editor-btn"></a>
 											</div>
 											<div class="editor-mode d-none">
@@ -809,44 +805,55 @@
 		</div>
 	</article>
 
-<%
-	String memId = null;
-	if (session.getAttribute("memId") != null){
-		memId = (String)session.getAttribute("memId");
-	 System.out.print(memId);
-	}
-%>
 	<script>
-		$("#mySettingOpenBtn").on("click", function() {
-			$("#MySettiong").css("display", "block");
-			$("#pushAlamGroup").css("display", "none");
-			$("#mylock").css("display", "none");
-			$("#mySet").css("display", "block");
-			var memId = <%=memId%>;
-			console.log(memId);
-			
-			$.ajax({
-				url: "memberInfo.do",
-				type: "Get",
-				date:{memId:memId},
-				datatype: "json",
-				success: function(data){
+	//화면에 출력, 회원정보 가져오기	
+	$("#mySettingOpenBtn").on("click", function() {
+		$("#MySettiong").css("display", "block");
+		$("#pushAlamGroup").css("display", "none");
+		$("#mylock").css("display", "none");
+		$("#mySet").css("display", "block");
+		var memId = "${sessionScope.memId}";
+		console.log(memId);
+		$.ajax({
+			url: "memberInfo.do?memId=" + memId,
+			type: "Get",
+			datatype: "json",
+			success: function(data){
 					var $email = data.email;
 					var $pwd = data.pwd;
 					var $name = data.name;
 					var $wkpo = data.wkpo;
 					var $persTel = data.persTel;
 					var $coTel = data.coTel;
-					var $dept = data.dapt;
-					console.log(date);
-					if(data != null){
-						
-					}
-				}
-				
-			})
-
+					var $dept = data.dept;
+					var $coName = data.coName;
+					
+					if($wkpo == null){
+						$('#wkpo').text('');
+					}else{						
+						$('#wkpo').text($wkpo);
+					};
+					if($persTel == null){
+						$('#persTel').text('');
+					}else{						
+						$('#persTel').text($persTel);
+					};
+					if($coTel == null){
+						$('#coTel').text('');
+					}else{						
+						$('#coTel').text($coTel);
+					};
+					if($dept == null){
+						$('#dept').text('');
+					}else{						
+						$('#dept').text($dept);
+					};
+					$('#email').text($email);
+					$('#name').text($name);
+					$('#coName').text($coName);
+			}
 		});
+	});
 		$(".my-button-close-1").on("click", function() {
 			$("#MySettiong").css("display", "none");
 		});
@@ -877,9 +884,34 @@
 			$("#pushAlamGroup").css("display", "none");
 			$("#mylock").css("display", "block");
 		});
-		$("#mySettingOpenBtn").onclick(function(){
-			
-		})
+
+
+		// 이름수정
+		$("#nameUpdateBtn").on("click", function(){
+			$("#nameInput").toggleClass("d-none");
+			$("#nameUpdateForm").toggleClass("d-none");
+			$("#editor_name").val($("#name").text());			
+		});
+		$("#noNameUpdate").on("click",function(){
+			$("#nameInput").toggleClass("d-none");
+			$("#nameUpdateForm").toggleClass("d-none");
+		});
+		$("#nameUpdate").on("click", function(){
+			var name = $("#editor_name").val();
+			var memId = $("#memIdHidden").val();
+			console.log(name);
+			console.log(memId);
+			$.ajax({
+				url: "nameUpdate.do",
+				method: "put",
+				data: {memId:memId,name:name},
+				contentType: "application/json",
+				contentType: "json",
+				success: function(data){
+					console.log(data);
+				}
+			});
+		});
 	</script>
 </body>
 </html>

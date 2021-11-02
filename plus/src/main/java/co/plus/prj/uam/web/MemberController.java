@@ -116,6 +116,7 @@ public class MemberController {
 			session.setAttribute("memId", vo.getMemId());
 			session.setAttribute("name", vo.getName());
 			session.setAttribute("memPerm", vo.getMemPerm());
+			session.setAttribute("coUrl", vo.getCoUrl());
 			views = "redirect:myProject.do";
 		}else {
 			model.addAttribute("message", "일치하는 회원 정보가 없습니다.");
@@ -137,12 +138,20 @@ public class MemberController {
 	
 	
 	//회원설정
-	@RequestMapping("memberInfo.do")
-	public MemberVO memberInfo(@RequestParam("memId") String memId, MemberVO vo) {
-		System.out.println(memId);
+	@RequestMapping(value="memberInfo.do", method = RequestMethod.GET)
+	@ResponseBody
+	public MemberVO memberInfo(@RequestParam(required=false) String memId, MemberVO vo) {
+		System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"+memId);
 		vo.setMemId(memId);
 		MemberVO info = service.memberInfo(vo);
 		return info;
+	}
+	//회원이름 수정
+	@RequestMapping(value="/nameUpdate.do", method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseBody
+	public MemberVO nameUpdate(@RequestBody MemberVO vo, Model model) {
+		service.nameUpdate(vo);
+		return vo;
 	}
 	
 	
