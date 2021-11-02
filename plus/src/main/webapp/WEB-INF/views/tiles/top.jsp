@@ -38,6 +38,25 @@
 	box-sizing: border-box;
 	overflow: auto;
 }
+
+.st_img{
+	width: 17px;
+}
+.st_modal{
+	min-width: 115px;
+    padding: 14px;
+    position: absolute;
+    top: 160px;
+    right: 238px;
+    z-index: 13;
+    background: #fff;
+    border: 1px solid #777;
+    border-radius: 8px;
+    font-size: 13px;
+    text-align: left;
+    color: #555;
+    display: none;
+}
 </style>
 </head>
 <body>
@@ -77,11 +96,16 @@
 				</div>
 			</li>
 
-			<li class="user-status"><i class="icon-status"></i> 상태 변경</li>
-			<li id="topProfile" class="user-profile"><i
-				class="icons-person-3"></i> 내 프로필</li>
+			<li id="statusChange" class="user-status"><i class="icon-status"></i> 상태 변경</li>
+			<li id="topProfile" class="user-profile"><i class="icons-person-3"></i> 내 프로필</li>
 			<li id="mySettingOpenButton"><i class="icons-set"></i> 환경설정</li>
 			<li id="logoutBtn" onclick="location.href='logout.do'"><i class="icons-logout"></i> 로그아웃</li>
+		</ul>
+		<ul id="status" class="st_modal">
+			<li id="online" ><img alt="onlineImg" src="/img/status_icn/online.png" class="st_img"> 온라인</li>
+			<li id="notdesk"><img alt="notdeskImg" src="/img/status_icn/notdesk.png" class="st_img"> 자리비움</li>
+			<li id="other" ><img alt="otherImg" src="/img/status_icn/other.png" class="st_img"> 다른용무중</li>
+			<li id="offline" ><img alt="offlineImg" src="/img/status_icn/offline.png" class="st_img"> 오프라인</li>
 		</ul>
 	</header>
 
@@ -781,7 +805,9 @@
 			</li>
 		</div>
 	</article>
-
+	
+	<form id="frm" action="home.do"></form>
+	
 	<script>
 		
 	//화면에 출력, 회원정보 가져오기		
@@ -1061,17 +1087,28 @@
 		//탈퇴
 		$("#leavePlusBtn").on("click",function(){
 			$('#leaveplus').toggleClass("d-none");
+		});
+		$("#stay").on("click", function(){
+			$('#leaveplus').toggleClass("d-none");
+		})
+		$("#leave").on("click", function(){
 			var memId = "${sessionScope.memId}";
+			var jsondata = {"memId": memId};
 			$.ajax({
 				url: "memberDelete.do",
-				type: "put",
+				method: "put",
+				data: JSON.stringify(jsondata),
 				contentType: "application/json",
 				dataType: "json",
-				data: {memId: memId},
 				success: function(){
-					
+					frm.submit();
 				}
 			});
+		});
+		
+		//회원상태
+		 $("#statusChange").on("click", function(){
+			 $("#status").css("display", "block");
 		});
 	</script>
 </body>

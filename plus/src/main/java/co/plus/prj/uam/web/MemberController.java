@@ -181,12 +181,30 @@ public class MemberController {
 		return vo;
 	}
 	//회사전화번호 수정
-		@RequestMapping(value = "/pwdUpdate.do",  method = RequestMethod.PUT, consumes = "application/json")
-		@ResponseBody
-		public MemberVO pwdUpdate(@RequestBody MemberVO vo, Model model) {
-			service.pwdUpdate(vo);
-			return vo;
-		}
+	@RequestMapping(value = "/pwdUpdate.do",  method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseBody
+	public MemberVO pwdUpdate(@RequestBody MemberVO vo, Model model) {
+		service.pwdUpdate(vo);
+		return vo;
+	}
+	
+		
+	//회원 탈퇴
+	@RequestMapping(value="/memberDelete.do", method = RequestMethod.PUT,  consumes = "application/json")
+	@ResponseBody
+	public MemberVO memberDelete(@RequestBody MemberVO vo, Model model, HttpSession session) {
+		service.memberDelete(vo);
+		session.invalidate();
+		return vo;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
