@@ -807,53 +807,55 @@
 
 	<script>
 	//화면에 출력, 회원정보 가져오기	
-	$("#mySettingOpenBtn").on("click", function() {
-		$("#MySettiong").css("display", "block");
-		$("#pushAlamGroup").css("display", "none");
-		$("#mylock").css("display", "none");
-		$("#mySet").css("display", "block");
-		var memId = "${sessionScope.memId}";
-		console.log(memId);
-		$.ajax({
-			url: "memberInfo.do?memId=" + memId,
-			type: "Get",
-			datatype: "json",
-			success: function(data){
-					var $email = data.email;
-					var $pwd = data.pwd;
-					var $name = data.name;
-					var $wkpo = data.wkpo;
-					var $persTel = data.persTel;
-					var $coTel = data.coTel;
-					var $dept = data.dept;
-					var $coName = data.coName;
-					
-					if($wkpo == null){
-						$('#wkpo').text('');
-					}else{						
-						$('#wkpo').text($wkpo);
-					};
-					if($persTel == null){
-						$('#persTel').text('');
-					}else{						
-						$('#persTel').text($persTel);
-					};
-					if($coTel == null){
-						$('#coTel').text('');
-					}else{						
-						$('#coTel').text($coTel);
-					};
-					if($dept == null){
-						$('#dept').text('');
-					}else{						
-						$('#dept').text($dept);
-					};
-					$('#email').text($email);
-					$('#name').text($name);
-					$('#coName').text($coName);
-			}
+	function memberInfo(){
+		$("#mySettingOpenBtn").on("click", function() {
+			$("#MySettiong").css("display", "block");
+			$("#pushAlamGroup").css("display", "none");
+			$("#mylock").css("display", "none");
+			$("#mySet").css("display", "block");
+			var memId = "${sessionScope.memId}";
+			console.log(memId);
+			$.ajax({
+				url: "memberInfo.do?memId=" + memId,
+				type: "Get",
+				datatype: "json",
+				success: function(data){
+						var $email = data.email;
+						var $pwd = data.pwd;
+						var $name = data.name;
+						var $wkpo = data.wkpo;
+						var $persTel = data.persTel;
+						var $coTel = data.coTel;
+						var $dept = data.dept;
+						var $coName = data.coName;
+						
+						if($wkpo == null){
+							$('#wkpo').text('');
+						}else{						
+							$('#wkpo').text($wkpo);
+						};
+						if($persTel == null){
+							$('#persTel').text('');
+						}else{						
+							$('#persTel').text($persTel);
+						};
+						if($coTel == null){
+							$('#coTel').text('');
+						}else{						
+							$('#coTel').text($coTel);
+						};
+						if($dept == null){
+							$('#dept').text('');
+						}else{						
+							$('#dept').text($dept);
+						};
+						$('#email').text($email);
+						$('#name').text($name);
+						$('#coName').text($coName);
+				}
+			});
 		});
-	});
+	};
 		$(".my-button-close-1").on("click", function() {
 			$("#MySettiong").css("display", "none");
 		});
@@ -899,12 +901,11 @@
 		$("#nameUpdate").on("click", function(){
 			var name = $("#editor_name").val();
 			var memId = $("#memIdHidden").val();
-			console.log(name);
-			console.log(memId);
+			var jsondata = {"memId":memid,"name":name};
 			$.ajax({
 				url: "nameUpdate.do",
 				method: "put",
-				data: {memId:memId,name:name},
+				data: JSON.stringify(jsondata),
 				contentType: "application/json",
 				contentType: "json",
 				success: function(data){
