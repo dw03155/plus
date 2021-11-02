@@ -15,9 +15,24 @@
 	<!-- 전체 메뉴 -> 전체 업무 -->
 	<select id="allTask"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">		
-		select  a.*, b.name
-		from 	task a, member b
-		where 	a.mem_id = b.mem_id
+		SELECT 	prj_id, prj_ttl
+		FROM 	project
+		where 	prj_knd = 'C' 
+		and 	co_url = #{coUrl} 
+		union 
+		SELECT  a.prj_id, a.prj_ttl
+		FROM 	project a, prj_parti b
+		where 	a.prj_knd = 'N'
+		and 	a.prj_id = b.prj_id 
+		and 	b.mem_id = #{memId} 
+		and 	a.co_url = #{coUrl}  
+		union 
+		SELECT  c.prj_id, c.prj_ttl
+		FROM 	project c, prj_parti d
+		where  	c.prj_knd = 'N' 
+		and 	c.prj_open_perm = 'all' 
+		and 	c.prj_id = d.prj_id 
+		and 	c.co_url = #{coUrl} 
 		<!-- 업무 ->ㅣ 업무 명으로 검색 -->
 		<if test="notiTtl != null and notiTtl != ''">			
 			and noti_ttl like '%' || #{notiTtl} || '%'
