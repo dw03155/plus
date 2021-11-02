@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 
 <link rel="stylesheet" href="flow-renewal/assets/css/reset.css">
 <link rel="stylesheet" href="flow-renewal/dist/css/common.min.css">
