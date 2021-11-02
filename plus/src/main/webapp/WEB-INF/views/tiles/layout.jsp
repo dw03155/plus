@@ -26,7 +26,9 @@
 <link rel="stylesheet" href="flow-renewal/dist/css/common.min.css">
 <link rel="stylesheet" href="flow-renewal/dist/css/calrendar.css">
 
-<script src="flow-renewal/js/common/MobileApp.js"></script>
+<script src="flow-renewal/dist/js/commonLib.min.js"></script>
+<script src="flow-renewal/dist/js/mainLib.min.js"></script>
+
 <script
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADjbtMn46r9DGFyo_ZRz3c6fOXzuOKWCw&amp;libraries=places"
 	charset="UTF-8"></script>
@@ -34,19 +36,28 @@
 	src="https://maps.googleapis.com/maps-api-v3/api/js/46/8/intl/ko_ALL/common.js"></script>
 <script type="text/javascript" charset="UTF-8"
 	src="https://maps.googleapis.com/maps-api-v3/api/js/46/8/intl/ko_ALL/util.js"></script>
-	
+
 <style type="text/css">
-@-webkit-keyframes rotate {
-from { -webkit-transform:rotate(0deg);}
-to { -webkit-transform: rotate(360deg);}
+@
+-webkit-keyframes rotate {from { -webkit-transform:rotate(0deg);
+	
 }
 
-@keyframes rotate {
-from { transform:rotate(0deg);}
-to { transform: rotate(360deg);}
+to {
+	-webkit-transform: rotate(360deg);
+}
+
+}
+@
+keyframes rotate {from { transform:rotate(0deg);
+	
+}
+
+to {
+	transform: rotate(360deg);
+}
 }
 </style>
-
 </head>
 <body>
 
@@ -62,7 +73,7 @@ to { transform: rotate(360deg);}
 			<div id="leftMenu" class="main-header-1">
 				<tiles:insertAttribute name="menu" />
 			</div>
-			
+
 			<!-- //main-container  -->
 			<tiles:insertAttribute name="main" />
 			<!-- //main-container -->
@@ -132,7 +143,7 @@ to { transform: rotate(360deg);}
 
 	<div id="quickGuideItem" class="d-none"></div>
 
-<!-- 여기서부터 시작 -->
+	<!-- 여기서부터 시작 -->
 
 	<div class="d-none"></div>
 
