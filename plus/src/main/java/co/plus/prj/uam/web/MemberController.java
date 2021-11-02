@@ -116,6 +116,7 @@ public class MemberController {
 			session.setAttribute("memId", vo.getMemId());
 			session.setAttribute("name", vo.getName());
 			session.setAttribute("memPerm", vo.getMemPerm());
+			session.setAttribute("coUrl", vo.getCoUrl());
 			views = "redirect:myProject.do";
 		}else {
 			model.addAttribute("message", "일치하는 회원 정보가 없습니다.");
