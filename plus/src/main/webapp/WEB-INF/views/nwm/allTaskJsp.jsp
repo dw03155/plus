@@ -32,9 +32,10 @@
 						<div class="btns-wr">
 							<div class="project-search-area all-file-header-type-3">
 								<div class="project-search">
-									<i class="icons-search"></i> <input type="text"
+									<i class="icons-search"></i> <input type="text" name="notiTtl" id="notiTtl"
 										placeholder="업무명을 검색하세요!" autocomplete="off" maxlength="20"
-										class="js-task-search-input project-search-input">
+										class="js-task-search-input project-search-input">			
+										<input type="hidden" value="" name="mId" id="memId">
 								</div>
 							</div>
 
