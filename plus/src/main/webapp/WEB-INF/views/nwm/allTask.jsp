@@ -16,7 +16,7 @@
 </style>
 </head>
 <body>
-	<h2>전체 업무</h2>
+	<div><h2>전체 업무</h2>
 	<!-- 검색 -->
 	<div>
 		<form id="frm" name="frm" method="post">
@@ -29,7 +29,7 @@
 		<form action="" method="post">
 			<div>
 				<table border="1">
-					<tr>
+					<tr >
 						<td>상태</td>
 						<td>업무명</td>
 						<td>담당자</td>
@@ -37,7 +37,8 @@
 						<td>마감일</td>
 					</tr>
 					<c:forEach var="tasks" items="${tasks }">
-						<tr>
+						<tr data-notiId="${tasks.notiId}" data-kind="${tasks.notiKnd }">
+							
 							<td>${tasks.tskPrgs }</td>
 							<td>${tasks.notiTtl }</td>
 							<td>${tasks.name}</td>
@@ -60,14 +61,33 @@
 			
 		</div>
 	</div>
+	</div>
 	
 	<script>
 		
 		$("tr").click(function() { // 모달창 열고 닫기
 			$("#modal").css("display", "block");
-			$("#modal_close_btn").click(function() {
-				$("#modal").css("display", "none");
-			});
-		</script>
+		   
+			var tr = $(this);
+			var notiKnd = tr.data("kind");
+			
+		
+		
+					$.ajax({
+						url : "myPostTsk.do",
+						type : 'GET',
+						data : {notiId : tr.data("notiid"), notiKnd},
+						dataType : "html",
+						success : function(data) {
+							$("#modalBody").html(data);
+						}
+					}); 
+			
+			
+		});
+		$("#modal_close_btn").click(function() {
+			$("#modal").css("display", "none");
+		});
+	</script>
 </body>
 </html>

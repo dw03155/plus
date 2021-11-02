@@ -1,16 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>전체 메뉴 -> 내 게시물 목록</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
 <script src="../js/jquery-latest.min.js"></script>
-
+<title>Insert title here</title>
 <style type="text/css">
 #modal {
 	z-index: 2000;
@@ -51,12 +49,10 @@
 	display: block;
 }
 </style>
-
 </head>
 <body>
-	<div>
-		<h1>내 게시물</h1>
-	
+<div>
+	<h2>북마크</h2>
 	<!-- 상세보기 -->
 	<div id="modal">
 		<div class="modal_content">
@@ -86,24 +82,24 @@
 			<input type="hidden" value="" name="mId" id="memId">
 		</form>
 	</div>
-	<br>
-	<!--내 게시물 목록 -->
+
+	<!--북마크 목록 -->
 	<div>
 		<table border="1">
-			<c:forEach var="notices" items="${notices }">
+			<c:forEach var="bookmarks" items="${bookmarks }">
 				<!-- 전체 목록 -->
-				<tr data-notiId="${notices.notiId}" data-kind="${notices.notiKnd }">
-					<td>${notices.notiKnd}</td>
-					<td>${notices.notiTtl }</td>
-					<td>${notices.name }</td>
+				<tr data-notiId="${bookmarks.notiId}" data-kind="${bookmarks.notiKnd }">
+					<td>${bookmarks.notiKnd}</td>
+					<td>${bookmarks.notiTtl }</td>
+					<td>${bookmarks.name }</td>
 					<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
-							value="${notices.notiDttm}" /></td>
+							value="${bookmarks.notiDttm}" /></td>
 				</tr>
 			</c:forEach>
 		</table>
 	</div>
 </div>
-	<!-- 모달창 JS -->
+<!-- 모달창 JS -->
 	<script>
 		
 		$("tr").click(function() { // 모달창 열고 닫기
@@ -158,11 +154,6 @@
 			$("#modal").css("display", "none");
 		});
 	</script>
-
-	<!-- 전체 게시물 목록 -->
-	<button type="button" onclick="location.href='totalNotice.do'">프로젝트
-		상세목록</button>
-
 
 </body>
 </html>
