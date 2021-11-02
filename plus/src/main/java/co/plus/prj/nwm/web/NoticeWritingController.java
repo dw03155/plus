@@ -1,5 +1,7 @@
 package co.plus.prj.nwm.web;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +20,9 @@ public class NoticeWritingController {
 
 	// 전체 메뉴
 	@RequestMapping("/allTask.do")	// 전체 메뉴 -> 전체 업무
-	String allTask(Model model, NoticeWritingVO vo) {
+	String allTask(HttpSession session,Model model, NoticeWritingVO vo) {
+		vo.setCoUrl((String)session.getAttribute("coUrl"));
+		vo.setMemId((String)session.getAttribute("memId"));
 		model.addAttribute("tasks",nwDao.allTask(vo));
 		return "nwm/allTaskJsp"; 		
 	}
