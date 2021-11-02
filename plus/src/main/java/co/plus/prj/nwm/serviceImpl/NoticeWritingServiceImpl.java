@@ -9,7 +9,7 @@ import co.plus.prj.nwm.mapper.NoticeWritingMapper;
 import co.plus.prj.nwm.service.NoticeWritingService;
 import co.plus.prj.nwm.vo.NoticeWritingVO;
 
-@Service("nwDao")
+@Service
 public class NoticeWritingServiceImpl implements NoticeWritingService {
 	@Autowired
 	private NoticeWritingMapper map;

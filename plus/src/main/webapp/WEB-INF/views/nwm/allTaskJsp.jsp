@@ -95,16 +95,18 @@
 
 							<ul id="taskListProjectItem"
 								class="js-all-task-ul all-task-content layer-scroll padding-zero scroll-mask scroll-for-ie">
+										<c:forEach var="task" items="${tasks }">
 								<li class="js-gubun-li">
 									<div id="main" class="js-gubun-button all-task-project">
 										<!-- active 클래스 추가시  -->
-										<c:forEach var="task" items="${tasks }">
-											<span class="project-title">${tasks.prjTtl }</span>
+										
+											<span class="project-title">${task.prjTtl }</span>
 											<span class="project-task-count">50</span>
-										</c:forEach>
+										
 										<!-- 갯수 -->
 									</div>
 									<ul id="sub" class="js-inner-task project-inner-task active"
+										
 										style="display: block">
 										<li>ddd</li>
 										<%-- <c:forEach var="tasks" items="${tasks }">
@@ -135,6 +137,7 @@
 									</ul>
 
 								</li>
+								</c:forEach>
 							</ul>
 
 
@@ -269,6 +272,7 @@
 			$("#main").toggleClass("active");
 			$("#sub").toggle();
 		});
+		$
 	</script>
 </body>
 </html>

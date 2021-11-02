@@ -10,7 +10,7 @@ public class NoticeWritingVO {
 	private int notiId;				// 게시글 번호
 	private int prjId;				// 프로젝트 번호
 	private String notiKnd;			// 게시글 종류
-	private int memId;				// 회원 번호
+	private String memId;				// 회원 번호
 	private Date notiDttm;			// 게시글 작성일시
 	private String notiOpenPerm;	// 게시글 공개권한
 	private String coUrl;			// 회사URL
@@ -36,7 +36,7 @@ public class NoticeWritingVO {
 	private String todoCntn;		// 할 일 내용
 	private Date todoEndDate;		// 할 일 마감일
 	private String todoYn;			// 할 일 완료 여부
-	private int todoId;			// 할 일 번호
+	private int todoId;			    // 할 일 번호
 	
 	// 일정
 	private String scheCntn;		// 일정 내용

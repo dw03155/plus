@@ -15,7 +15,8 @@
 		 		a.pwd, 
 		 		a.email, 
 		 		a.mem_perm, 
-		 		b.mem_st
+		 		b.mem_st,
+		 		a.co_url
 		 from member a, mem_status b
 		 where a.mem_id = b.mem_id and a.email = #{email} and a.pwd = #{pwd} and a.acc_st = 'using'
 	</select>
