@@ -81,10 +81,19 @@
 									</p>
 								</div>
 								<div class="post-list-right">
-								<div class="post-list name">{글쓴이}</div><div class="post-list date">{게시물 작성날짜}</div>
+									<div class="post-list name">{글쓴이}</div>
+									<div class="post-list date">{게시물 작성날짜}</div>
+
+									<div class="fixed-value">
+										<span class="state request" style="display: none" data>-1%</span>
+										<span class="js-task-state state hold">보류</span>
+										<div class="date-time" style="display: none" data>
+											<em class="date">-</em> <span>-</span>
+										</div>
+									</div>
 								</div>
 							</li>
-
+							---------------------------------------
 						</ul>
 					</div>
 				</div>

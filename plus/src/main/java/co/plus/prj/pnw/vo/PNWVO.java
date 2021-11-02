@@ -1,6 +1,7 @@
 package co.plus.prj.pnw.vo;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -26,7 +27,7 @@ public class PNWVO {
 	//
 	private String notiTtl;			// 게시글명
 	
-	//Project
+	// Project
 	private String prjTtl;			// 프로젝트 제목
 	
 	// Text
@@ -63,8 +64,11 @@ public class PNWVO {
 	private String repCntn;			// 댓글 내용
 	private Date repDttm;			// 댓글 일시
 	
-	//Bookmark
+	// Bookmark
 	
-	//Finset
+	// Finset
+	
+	// 프로젝트 홈 : 업무
+	private List<PNWVO> tsks;		// 업무탭
 	
 }
