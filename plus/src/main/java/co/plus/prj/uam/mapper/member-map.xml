@@ -17,7 +17,7 @@
 		 		a.mem_perm, 
 		 		b.mem_st
 		 from member a, mem_status b
-		 where a.mem_id = b.mem_id and a.email = #{email} and a.pwd = #{pwd}
+		 where a.mem_id = b.mem_id and a.email = #{email} and a.pwd = #{pwd} and a.acc_st = 'using'
 	</select>
 	<!-- 회원 상태 온라인으로 -->
 	<update id="loginStUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">				
@@ -41,8 +41,8 @@
 	</select>
 	<!-- 어드민회원입력 -->
 	<insert id="newCompanyInsert1" parameterType="co.plus.prj.uam.vo.MemberVO">
-		INSERT INTO MEMBER(MEM_ID, EMAIL, PWD, NAME, CO_url,MEM_PERM)
-		VALUES (MEMID.nextval, #{email}, #{pwd}, #{name}, #{coUrl}, 'ADMIN')
+		INSERT INTO MEMBER(MEM_ID, EMAIL, PWD, NAME, CO_url,MEM_PERM,acc_st)
+		VALUES (MEMID.nextval, #{email}, #{pwd}, #{name}, #{coUrl}, 'ADMIN', 'using')
 	</insert>
 	<insert id="newCompanyInsert2" parameterType="co.plus.prj.uam.vo.MemberVO">
 		INSERT INTO company(co_name, co_url)
@@ -50,8 +50,8 @@
 	</insert>
 	<!-- 기존회사 회원입력 -->
 	<insert id="exCompanyInsert" parameterType="co.plus.prj.uam.vo.MemberVO">
-		INSERT INTO MEMBER(MEM_ID, EMAIL, PWD, NAME, CO_url)
-		VALUES (MEMID.nextval, #{email}, #{pwd}, #{name}, #{coUrl})
+		INSERT INTO MEMBER(MEM_ID, EMAIL, PWD, NAME, CO_url,acc_st)
+		VALUES (MEMID.nextval, #{email}, #{pwd}, #{name}, #{coUrl},'using')
 	</insert>
 	
 																						<!-- 회원정보수정(회원마이페이지) -->
@@ -83,15 +83,22 @@
 		set co_tel = #{coTel}
 		where mem_id = #{memId}
 	</update>
-		<update id="deptUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">
+	<update id="deptUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">
 		update member 
 		set dept = #{dept}
 		where mem_id = #{memId}
 	</update>
+	<update id="pwdUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update member 
+		set pwd = #{pwd}
+		where mem_id = #{memId}
+	</update>
 
-	<!-- 탈퇴 -->
-	<delete id="memberDelete" parameterType="co.plus.prj.uam.vo.MemberVO">
-		update member set mem_perm = 
-	</delete>
+																						<!-- 탈퇴(계정상태 변환) -->
+	<update id="memberDelete" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update member 
+		set acc_st = 'notused'
+		where mem_id = #{memId}
+	</update>
 
 </mapper>

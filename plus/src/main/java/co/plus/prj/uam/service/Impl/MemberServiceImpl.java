@@ -62,7 +62,7 @@ public class MemberServiceImpl implements MemberService {
 		return map.memberInfo(vo);
 	}
 	
-														// 회원삭제
+														// 회원탈퇴
 	@Override
 	public int memberDelete(MemberVO member) {
 		return map.memberDelete(member);
@@ -90,13 +90,19 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int coTelUpdate(MemberVO vo) {
 		// 회원 회사번호 수정
-		return coTelUpdate(vo);
+		return map.coTelUpdate(vo);
 	}
 
 	@Override
 	public int deptUpdate(MemberVO vo) {
 		// 회원 부서 수정
-		return deptUpdate(vo);
+		return map.deptUpdate(vo);
+	}
+
+	@Override
+	public int pwdUpdate(MemberVO vo) {
+		// 회원 비밀번호 수정
+		return map.pwdUpdate(vo);
 	}
 
 
