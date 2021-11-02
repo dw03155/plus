@@ -25,7 +25,7 @@ public class NoticeWritingController {
 		vo.setCoUrl((String)session.getAttribute("coUrl"));
 		vo.setMemId((String)session.getAttribute("memId"));
 		model.addAttribute("tasks",nwDao.allTask(vo));
-		return "nwm/allTaskJsp"; 		
+		return "nwm/allTask"; 		
 	}
 	
 	@RequestMapping("/allSche.do") // 전체 메뉴 -> 캘린더
