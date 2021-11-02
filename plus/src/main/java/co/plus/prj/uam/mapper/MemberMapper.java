@@ -15,11 +15,6 @@ public interface MemberMapper {
 	public int newCompanyInsert2(MemberVO member);
 	//기존 회사 입력
 	public int exCompanyInsert(MemberVO member);
-	//수정
-	public int memberUpdate(MemberVO member);
-	//삭제
-	public int memberDelete(MemberVO member);
-	
 	
 	//회사mapper
 	//회사url로 단일회사정보 가져오기
@@ -35,7 +30,15 @@ public interface MemberMapper {
 	//회원정보 수정
 	//회원정보가져오기
 	public MemberVO memberInfo(MemberVO vo);
-
+	public int nameUpdate(MemberVO vo);
+	public int wkpoUpdate(MemberVO vo);
+	public int persTelUpdate(MemberVO vo);
+	public int coTelUpdate(MemberVO vo);
+	public int deptUpdate(MemberVO vo);
+	public int pwdUpdate(MemberVO vo);
+	
+	//탈퇴
+	public int memberDelete(MemberVO vo);
 
 
 	

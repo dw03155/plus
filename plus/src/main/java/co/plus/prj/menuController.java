@@ -13,4 +13,10 @@ public class menuController {
 
 	}
 	
+	@RequestMapping(value = "/allSchedule.do", method = RequestMethod.GET)
+	public String allSchedule() {
+		return "home/allSchedule";
+
+	}
+	
 }

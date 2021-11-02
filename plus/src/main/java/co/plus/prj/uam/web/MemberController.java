@@ -116,6 +116,7 @@ public class MemberController {
 			session.setAttribute("memId", vo.getMemId());
 			session.setAttribute("name", vo.getName());
 			session.setAttribute("memPerm", vo.getMemPerm());
+			session.setAttribute("coUrl", vo.getCoUrl());
 			views = "redirect:myProject.do";
 		}else {
 			model.addAttribute("message", "일치하는 회원 정보가 없습니다.");
@@ -137,14 +138,55 @@ public class MemberController {
 	
 	
 	//회원설정
-	@RequestMapping("memberInfo.do")
-	public MemberVO memberInfo(@RequestParam("memId") String memId, MemberVO vo) {
-		System.out.println(memId);
+	@RequestMapping(value="memberInfo.do", method = RequestMethod.GET)
+	@ResponseBody
+	public MemberVO memberInfo(@RequestParam(required=false) String memId, MemberVO vo) {
 		vo.setMemId(memId);
 		MemberVO info = service.memberInfo(vo);
 		return info;
 	}
-	
+	//회원이름 수정
+	@RequestMapping(value="/nameUpdate.do", method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseBody
+	public MemberVO nameUpdate(@RequestBody MemberVO vo, Model model) {
+		service.nameUpdate(vo);
+		return vo;
+	}
+	//회원부서 수정
+	@RequestMapping(value = "/deptUpdate.do",  method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseBody
+	public MemberVO deptUpdate(@RequestBody MemberVO vo, Model model) {
+		service.deptUpdate(vo);
+		return vo;
+	}
+	//회원직책 수정
+	@RequestMapping(value = "/wkpoUpdate.do",  method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseBody
+	public MemberVO wkpoUpdate(@RequestBody MemberVO vo, Model model) {
+		service.wkpoUpdate(vo);
+		return vo;
+	}
+	//회원전화번호 수정
+	@RequestMapping(value = "/persTelUpdate.do",  method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseBody
+	public MemberVO persTelUpdate(@RequestBody MemberVO vo, Model model) {
+		service.persTelUpdate(vo);
+		return vo;
+	}
+	//회사전화번호 수정
+	@RequestMapping(value = "/coTelUpdate.do",  method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseBody
+	public MemberVO coTelUpdate(@RequestBody MemberVO vo, Model model) {
+		service.coTelUpdate(vo);
+		return vo;
+	}
+	//회사전화번호 수정
+		@RequestMapping(value = "/pwdUpdate.do",  method = RequestMethod.PUT, consumes = "application/json")
+		@ResponseBody
+		public MemberVO pwdUpdate(@RequestBody MemberVO vo, Model model) {
+			service.pwdUpdate(vo);
+			return vo;
+		}
 	
 	
 	

@@ -25,7 +25,7 @@
 			<div id="allCollectView" class="all-collect-wrap d-none"
 				style="height: 100%; display: block;">
 				<div id="mainScroll" class="main-scroll padding-left-right-30 type3">
-				
+
 					<div class="allCalendarLayer full-width small-style-wrap-2 d-none"
 						style="display: block;">
 						<div class="all-schedule">
@@ -37,17 +37,14 @@
 											class="js-calendar-search-input project-search-input">
 									</div>
 								</div>
-								<div class="btns-area">
-
-									<button id="scheduleAdd" type="button"
-										class="collect-add-button" data-post-code="2"></button>
-								</div>
 							</div>
 							<div class="all-calendar-wrap">
-								<!-- calendar -->
-								<div id="calendar"
-									class="all-calendar all-calendar-nav layer-scroll"></div>
-								<!-- calendar-popup -->
+								<div class="all-calendar-wrap">
+									<!-- calendar -->
+									<div id="calendar"
+										class="all-calendar all-calendar-nav layer-scroll"></div>
+									<!-- calendar-popup -->
+								</div>
 							</div>
 						</div>
 					</div>
@@ -55,5 +52,8 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		$('#calendar').fullCalendar();
+	</script>
 </body>
 </html>

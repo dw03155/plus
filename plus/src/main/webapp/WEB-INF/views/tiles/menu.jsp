@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
 	<div id="leftTask" class="left-task active">
@@ -23,15 +22,13 @@
 			</div>
 		</a>
 		<ul id="leftMenuUl" class="menu-group js-left-menu mgt-20">
-            <li data-code="main" class="left-menu-item">
-                <a href="myProject.do">
-                    <i class="ico-home"></i>내 프로젝트
-                    <em id="leftProjectHomeCount" class="js-project-home-count project-total-count d-none"></em>
-                </a>
-            </li>
-			<li data-code="open" class="left-menu-item"><a href="openProject.do"><i
-					class="ico-search"></i>회사 프로젝트
+			<li data-code="main" class="left-menu-item"><a
+				href="myProject.do"> <i class="ico-home"></i>내 프로젝트 <em
+					id="leftProjectHomeCount"
+					class="js-project-home-count project-total-count d-none"></em>
 			</a></li>
+			<li data-code="open" class="left-menu-item"><a
+				href="allSchedule.do"><i class="ico-search"></i>회사 프로젝트 </a></li>
 			<li data-code="nokeep" class="left-menu-item d-none"><a href="#"><i
 					class="ico-not-kept"></i>미분류</a></li>
 			<li data-code="star" class="left-menu-item d-none"><a href="#"><i
@@ -91,7 +88,6 @@
                 </div>
             </li>
 
-
 			<li>
 				<div id="allLabelLeftButton"
 					class="menu-accordion-button left-menu-item active"
@@ -109,7 +105,8 @@
 						<li id="label-1" label-srno="1" class="label-item "><i
 							class="ico-label"></i> <span
 							class="js-label-name js-mouseover ellipsis" mouseover-text="마케팅">마케팅</span>
-							<a href="#" id="dash-three" class="js-label-setting-button flow-dash-three">
+							<a href="#" id="dash-three"
+							class="js-label-setting-button flow-dash-three">
 								<div></div>
 								<div></div>
 								<div></div>
@@ -118,7 +115,8 @@
 						<li id="label-2" label-srno="2" class="label-item "><i
 							class="ico-label"></i> <span
 							class="js-label-name js-mouseover ellipsis" mouseover-text="디자인">디자인</span>
-							<a href="#" id="dash-three" class="js-label-setting-button flow-dash-three">
+							<a href="#" id="dash-three"
+							class="js-label-setting-button flow-dash-three">
 								<div></div>
 								<div></div>
 								<div></div>
@@ -138,8 +136,8 @@
 			</li>
 		</ul>
 		<div
-			class="js-label-setting-layer setting-popup flow-small-layer-1 cursor-pointer" id="folderMenu"
-			style="display: none">
+			class="js-label-setting-layer setting-popup flow-small-layer-1 cursor-pointer"
+			id="folderMenu" style="display: none">
 			<div class="label-edit flow-name-size">
 				<i></i><a href="#"><span>수정</span></a>
 			</div>
@@ -153,55 +151,76 @@
 				style="display: block"><a href=""><i class="ico-invite"></i>직원
 					초대</a></li>
 			<li data-code="manageradmin" class="d-none left-menu-item"
-				style="display: block"><a id="managerAdmin" href=""><i class="ico-admin"></i>어드민</a>
-			</li>
+				style="display: block"><a id="managerAdmin" href=""><i
+					class="ico-admin"></i>어드민</a></li>
 		</ul>
 	</div>
-	
-<script type="text/javascript">
-	$('#dash-three').on("click",function(){
-	if($leftScroll.next(".js-label-setting-layer").is(":visible")){
-		$('#labelSettingLayer').attr({label_srno: "", label_text: ""}).css({display: "none"});
-	}
-	$('#labelSettingLayer').css({
-        display: 'block',
-        transform: 'translate(' + e.pageX + 'px, ' + e.pageY + 'px)',
-        top: (-58 - Number($("#topBanner").css("height").replace("px", ""))) + "px",
-        left: '10px'
-    });
-	$('#labelSettingLayer').attr({
-        label_srno: $labelItem.attr("label-srno"),
-        label_text: $labelItem.find(".js-label-name").text(),
-    })
-});
 
+	<script type="text/javascript">
+		$('#dash-three').on(
+				"click",
+				function() {
+					if ($leftScroll.next(".js-label-setting-layer").is(
+							":visible")) {
+						$('#labelSettingLayer').attr({
+							label_srno : "",
+							label_text : ""
+						}).css({
+							display : "none"
+						});
+					}
+					$('#labelSettingLayer').css(
+							{
+								display : 'block',
+								transform : 'translate(' + e.pageX + 'px, '
+										+ e.pageY + 'px)',
+								top : (-58 - Number($("#topBanner").css(
+										"height").replace("px", "")))
+										+ "px",
+								left : '10px'
+							});
+					$('#labelSettingLayer').attr({
+						label_srno : $labelItem.attr("label-srno"),
+						label_text : $labelItem.find(".js-label-name").text(),
+					})
+				});
 
-function clickAllLabelArea(e) {
-    var $eTarget = $(e.target);
-    var $leftScroll = $eTarget.findUp("#leftScroll");
-    var isThreeDot = $eTarget.hasClass("flow-dash-three");
-    var isTargetSettingPopup = $eTarget.findUp(".setting-popup").length > 0;
-    var $labelItem = $eTarget.findUp(".label-item");
-    if (isTargetSettingPopup) return false;
+		function clickAllLabelArea(e) {
+			var $eTarget = $(e.target);
+			var $leftScroll = $eTarget.findUp("#leftScroll");
+			var isThreeDot = $eTarget.hasClass("flow-dash-three");
+			var isTargetSettingPopup = $eTarget.findUp(".setting-popup").length > 0;
+			var $labelItem = $eTarget.findUp(".label-item");
+			if (isTargetSettingPopup)
+				return false;
 
-    if (isThreeDot) {
-        var isOnSettingPopup = $leftScroll.next(".js-label-setting-layer").is(":visible");
-        var $labelSettingLayer = $leftScroll.next(".js-label-setting-layer");
-        var isSameLabelTarget = $labelSettingLayer.attr("label_srno") === $labelItem.attr("label-srno");
-        isOnSettingPopup = isOnSettingPopup && isSameLabelTarget;
-        if (isOnSettingPopup) {
-            $labelSettingLayer.attr({label_srno: "", label_text: ""}).css({display: "none"});
-            return;
-        }
-    }
+			if (isThreeDot) {
+				var isOnSettingPopup = $leftScroll.next(
+						".js-label-setting-layer").is(":visible");
+				var $labelSettingLayer = $leftScroll
+						.next(".js-label-setting-layer");
+				var isSameLabelTarget = $labelSettingLayer.attr("label_srno") === $labelItem
+						.attr("label-srno");
+				isOnSettingPopup = isOnSettingPopup && isSameLabelTarget;
+				if (isOnSettingPopup) {
+					$labelSettingLayer.attr({
+						label_srno : "",
+						label_text : ""
+					}).css({
+						display : "none"
+					});
+					return;
+				}
+			}
 
-    if ($labelItem.length === 0) return;
-    ViewChanger.loadPageJson({
-        code: "label",
-        first: $labelItem.attr('label-srno'),
-        second: $labelItem.find(".js-label-name").text(),
-    })
-}
-</script>
+			if ($labelItem.length === 0)
+				return;
+			ViewChanger.loadPageJson({
+				code : "label",
+				first : $labelItem.attr('label-srno'),
+				second : $labelItem.find(".js-label-name").text(),
+			})
+		}
+	</script>
 </body>
 </html>

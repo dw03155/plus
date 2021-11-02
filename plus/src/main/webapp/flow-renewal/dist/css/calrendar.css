@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /* calendar */
 /*.all-calendar-wrap{*/
 /*    height: 500px;*/
@@ -64,7 +63,7 @@
 }
 
 .all-calendar-wrap .fc-view-container:hover{
-  -webkit-mask-position: left top;
+-webkit-mask-position: left top;
 }
 
 .fc-month-view .fc-day-header {
