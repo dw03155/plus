@@ -83,10 +83,7 @@ public class NoticeWritingController {
 		return "nwm/modal/myPostTodo"; 
 	 }
 	
-	@RequestMapping("/allTask.do")	// 게시글 개수
-	public String 
-		
-	}
+	
 	
 	
 	// 프로젝트 선택 후 메뉴
