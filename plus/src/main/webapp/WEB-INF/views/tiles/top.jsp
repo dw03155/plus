@@ -5,11 +5,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
-<link rel="stylesheet" href="flow-renewal/assets/css/reset.css">
-<link rel="stylesheet" href="flow-renewal/dist/css/common.min.css">
-<link rel="stylesheet" href="flow-renewal/dist/css/mini.min.css">
-
 <title>Insert title here</title>
 <style>
 .model {
@@ -85,7 +80,7 @@
 			<li class="user-status"><i class="icon-status"></i> 상태 변경</li>
 			<li id="topProfile" class="user-profile"><i
 				class="icons-person-3"></i> 내 프로필</li>
-			<li id="mySettingOpenBtn"><i class="icons-set"></i> 환경설정</li>
+			<li id="mySettingOpenButton"><i class="icons-set"></i> 환경설정</li>
 			<li id="logoutBtn" onclick="location.href='logout.do'"><i class="icons-logout"></i> 로그아웃</li>
 		</ul>
 	</header>
@@ -790,7 +785,7 @@
 	<script>
 		
 	//화면에 출력, 회원정보 가져오기		
-		$("#mySettingOpenBtn").on("click", function() {
+		$("#mySettingOpenButton").on("click", function() {
 			$("#MySettiong").css("display", "block");
 			$("#pushAlamGroup").css("display", "none");
 			$("#mylock").css("display", "none");
@@ -1072,7 +1067,7 @@
 				type: "put",
 				contentType: "application/json",
 				dataType: "json",
-				data: {memId: memId}
+				data: {memId: memId},
 				success: function(){
 					
 				}
