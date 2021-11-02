@@ -9,7 +9,7 @@
 <title>전체 메뉴 -> 내 게시물 목록</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<script src="../js/jquery-latest.min.js"></script>
+
 
 <style type="text/css">
 #modal {

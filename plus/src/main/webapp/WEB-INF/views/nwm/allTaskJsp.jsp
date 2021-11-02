@@ -99,17 +99,15 @@
 								<li class="js-gubun-li">
 									<div id="main" class="js-gubun-button all-task-project">
 										<!-- active 클래스 추가시  -->
-										
 											<span class="project-title">${task.prjTtl }</span>
 											<span class="project-task-count">50</span>
-										
 										<!-- 갯수 -->
 									</div>
 									<ul id="sub" class="js-inner-task project-inner-task active"
 										
 										style="display: block">
-										<li>ddd</li>
-										<%-- <c:forEach var="tasks" items="${tasks }">
+										
+									 <c:forEach var="tasks" items="${tasks }">
 											<li class="task-item {LI_STTS}">
 												<div class="task-item {LI_STTS}">${tasks.notiId }</div>
 												<div class="task-item {LI_STTS}">${tasks.tskPrgs }</div>
@@ -130,8 +128,9 @@
 														value="${tasks.notiDttm}" />
 												</div>
 											</li>
-										</c:forEach>  --%>
-
+										</c:forEach>  
+										
+										
 										<!-- style="display: none" -->
 										<!-- li 태그 넣기 : 상세보기시에는 class="highlight" 추가-->
 									</ul>
@@ -272,7 +271,8 @@
 			$("#main").toggleClass("active");
 			$("#sub").toggle();
 		});
-		$
+		
+
 	</script>
 </body>
 </html>
