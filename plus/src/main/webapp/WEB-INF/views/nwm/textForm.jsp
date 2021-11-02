@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+	
 	<div id="Text" class="tabcontent">
 		<div>
 			<input type="text" placeholder="제목을 입력하세요.">
@@ -14,7 +8,7 @@
 		<div>
 			<textarea placeholder="내용을 입력하세요."></textarea>
 		</div>
-		<button type="file">클립</button>
+		
 		<form action="upload" id="uploadForm" method="post"
 			enctype="multipart/form-data">
 			<input type="file" name="file" id="file" style="display: none" />클립
@@ -29,7 +23,3 @@
 		<button type="button"
 			onclick="location.href='noticeWritingSelectList.do'">올리기</button>
 	</div>
-	
-	
-</body>
-</html>

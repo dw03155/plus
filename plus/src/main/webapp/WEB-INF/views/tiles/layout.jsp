@@ -18,24 +18,25 @@
 <meta name="subject" content="work tool">
 <meta name="content-language" content="ko">
 
-
 <link rel="SHORTCUT ICON" href="design2/favicon.ico">
 <link rel="icon" type="image/x-icon" href="design2/favicon.ico">
 
 <link rel="stylesheet" href="flow-renewal/assets/css/reset.css">
 <link rel="stylesheet" href="flow-renewal/dist/css/common.min.css">
 <link rel="stylesheet" href="flow-renewal/dist/css/calrendar.css">
+<link rel="stylesheet" href="flow-renewal/dist/css/mini.min.css">
 
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="flow-renewal/dist/js/commonLib.min.js"></script>
 <script src="flow-renewal/dist/js/mainLib.min.js"></script>
 
-<script
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADjbtMn46r9DGFyo_ZRz3c6fOXzuOKWCw&amp;libraries=places"
-	charset="UTF-8"></script>
+<!-- oauth -->
 <script type="text/javascript" charset="UTF-8"
 	src="https://maps.googleapis.com/maps-api-v3/api/js/46/8/intl/ko_ALL/common.js"></script>
 <script type="text/javascript" charset="UTF-8"
 	src="https://maps.googleapis.com/maps-api-v3/api/js/46/8/intl/ko_ALL/util.js"></script>
+
+<script async="" src="flow-renewal/js/main.js"></script><!-- 제일 밑에 있던 js -->
 
 <style type="text/css">
 @

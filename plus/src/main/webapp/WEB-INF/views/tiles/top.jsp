@@ -5,11 +5,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
-<link rel="stylesheet" href="flow-renewal/assets/css/reset.css">
-<link rel="stylesheet" href="flow-renewal/dist/css/common.min.css">
-<link rel="stylesheet" href="flow-renewal/dist/css/mini.min.css">
-
 <title>Insert title here</title>
 <style>
 .model {
@@ -44,7 +39,6 @@
 	overflow: auto;
 }
 </style>
-
 </head>
 <body>
 	<header class="header">
@@ -79,14 +73,14 @@
 				<p class="js-profile user-img"
 					style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;);"></p>
 				<div class="user-info">
-					<strong class="js-user-name js-mouseover"> <%=(String)session.getAttribute("name")%>     </strong> <span>이용중</span>
+					<strong id="sessionName" class="js-user-name js-mouseover">${sessionScope.name}</strong> <span>이용중</span>
 				</div>
 			</li>
 
 			<li class="user-status"><i class="icon-status"></i> 상태 변경</li>
 			<li id="topProfile" class="user-profile"><i
 				class="icons-person-3"></i> 내 프로필</li>
-			<li id="mySettingOpenBtn"><i class="icons-set"></i> 환경설정</li>
+			<li id="mySettingOpenButton"><i class="icons-set"></i> 환경설정</li>
 			<li id="logoutBtn" onclick="location.href='logout.do'"><i class="icons-logout"></i> 로그아웃</li>
 		</ul>
 	</header>
@@ -128,29 +122,25 @@
 											</div>
 										</li>
 										<li class="edit-input js-company-set adjust">
-											<div>
-												<div class="my-right-list-1">이름</div>
-												<div id="nameInput" class="read-mode d-block">
-													<div id="name" class="my-right-list-2"></div>
-												</div>
-												<a id="nameUpdateBtn" href="#" class="poly-icon-1 change-editor-btn"></a>
-												<div id="nameUpdateForm" class="editor-mode d-none">
-													<div class="my-right-list-2 my-type-text-1">
-														<input type="hidden" id="memIdHidden" value='${sessionScope.memId}'>
-														<input id="editor_name" type="text"
-															autocomplete="off" maxlength="50" data-valid="name"
-															data-un-valid-msg="특수문자를 사용할 수 없습니다">
-														<div class="btn-fr-wrap">
-															<a href="#">
-																<div id="noNameUpdate" class="my-button-cc cancel-change">취소</div>
-															</a><a href="#">
-																<div id="nameUpdate" class="js-account-set-button my-button-ok" gubun="7">확인</div>
-															</a>
-														</div>
+											<div class="my-right-list-1">이름</div>
+											<div id="nameInput" class="read-mode d-block">
+												<div id="name" class="my-right-list-2"></div>
+											<a id="nameUpdateBtn" href="#" class="poly-icon-1 change-editor-btn"></a>
+											</div>
+											<div id="nameUpdateForm" class="editor-mode d-none">
+												<div class="my-right-list-2 my-type-text-1">
+													<input id="editor_name" type="text"
+														autocomplete="off" maxlength="50" data-valid="name"
+														data-un-valid-msg="특수문자를 사용할 수 없습니다">
+													<div class="btn-fr-wrap">
+														<a href="#">
+															<div id="noNameUpdate" class="my-button-cc cancel-change">취소</div>
+														</a><a href="#">
+															<div id="nameUpdate" class="js-account-set-button my-button-ok" gubun="7">확인</div>
+														</a>
 													</div>
 												</div>
 											</div>
-
 										</li>
 										<li class="edit-input js-company-set adjust">
 											<div>
@@ -158,64 +148,45 @@
 												<div class="read-mode d-block">
 													<div id="coName" class="my-right-list-2"></div>
 												</div>
-												<a href="#" class="poly-icon-1 change-editor-btn"></a>
-												<div class="editor-mode d-none">
-													<div class="my-right-list-2 my-type-text-1">
-														<input id="editor_companyNm" type="text"
-															autocomplete="off" maxlength="50" data-valid="name"
-															data-un-valid-msg="특수문자를 사용할 수 없습니다">
-														<div class="btn-fr-wrap">
-															<a href="#">
-																<div class="my-button-cc cancel-change">취소</div>
-															</a><a href="#">
-																<div
-																	class="js-account-set-button my-button-ok change-ok"
-																	gubun="7">확인</div>
-															</a>
-														</div>
-													</div>
-												</div>
 											</div>
-
 										</li>
 										<li class="edit-input js-dvsn-set adjust">
 											<div class="my-right-list-1">부서명</div>
-											<div class="read-mode d-block">
+											<div id="deptInput" class="read-mode d-block">
 												<div id="dept" class="my-right-list-2"></div>
-												<a href="#" class="poly-icon-1 change-editor-btn"></a>
+												<a id="deptUpdateBtn" href="#" class="poly-icon-1 change-editor-btn"></a>
 											</div>
-											<div class="editor-mode d-none">
+											<div id="deptUpdateForm" class="editor-mode d-none">
 												<div class="my-right-list-2 my-type-text-1">
-													<input id="editor_dvsnNm" type="text" autocomplete="off"
+													<input id="editor_dept" type="text" autocomplete="off"
 														maxlength="50" data-valid="name"
 														data-un-valid-msg="특수문자를 사용할 수 없습니다">
 													<div class="btn-fr-wrap">
 														<a href="#">
-															<div class="my-button-cc cancel-change">취소</div>
-														</a><a href="#">
-															<div class="js-account-set-button my-button-ok change-ok"
-																gubun="8">확인</div>
+															<div id="noDeptUpdate" class="my-button-cc cancel-change">취소</div>
+														</a>
+														<a href="#">
+															<div id="deptUpdate" class="js-account-set-button my-button-ok change-ok" gubun="8">확인</div>
 														</a>
 													</div>
 												</div>
 											</div>
 										</li>
-										<li class="edit-input adjust">
+										<li class="edit-input js-dvsn-set adjust">
 											<div class="my-right-list-1">직책</div>
-											<div class="read-mode d-block">
+											<div id="wkpoInput" class="read-mode d-block">
 												<div id="wkpo" class="my-right-list-2"></div>
-												<a href="#" class="poly-icon-1 change-editor-btn"></a>
+												<a id="wkpoUpdateBtn" href="#" class="poly-icon-1 change-editor-btn"></a>
 											</div>
-											<div class="editor-mode d-none">
+											<div id="wkpoUpdateForm" class="editor-mode d-none">
 												<div class="my-right-list-2 my-type-text-1">
-													<input id="editor_position" type="text" autocomplete="off"
+													<input id="editor_wkpo" type="text" autocomplete="off"
 														maxlength="50" data-over-msg="">
 													<div class="btn-fr-wrap">
 														<a href="#">
-															<div class="my-button-cc cancel-change">취소</div>
+															<div id="noWkpoUpdate" class="my-button-cc cancel-change">취소</div>
 														</a><a href="#">
-															<div class="js-account-set-button my-button-ok change-ok"
-																gubun="4">확인</div>
+															<div id="wkpoUpdate" class="js-account-set-button my-button-ok change-ok" gubun="4">확인</div>
 														</a>
 													</div>
 												</div>
@@ -223,30 +194,25 @@
 										</li>
 										<li class="edit-input adjust">
 											<div class="my-right-list-1">휴대폰 번호</div>
-											<div class="read-mode d-block">
+											<div id="persTelInput" class="read-mode d-block">
 												<div id="persTel" class="my-right-list-2"></div>
-												<a href="#" class="poly-icon-1 change-editor-btn"></a>
+												<a id="persTelUpdateBtn" href="#" class="poly-icon-1 change-editor-btn"></a>
 											</div>
-											<div class="editor-mode d-none">
+											<div id="persTelUpdateForm" class="editor-mode d-none">
 												<div class="my-right-list-2 my-type-text-1">
-													<select class="my-select-1" id="editor_contury_code">
-														<option>+82</option>
-														<option>+855</option>
-														<option>+1</option>
-														<option>+81</option>
-														<option>+86</option>
-														<option>+852</option>
-													</select> <input id="editor_phoneNum" type="text"
+													<input id="editor_persTel" type="text"
 														class="my-text-input-1" autocomplete="off"
 														data-valid="number" maxlength="20" data-over-msg=""
 														data-un-valid-msg="전화번호는 숫자만 입력해주세요!"
+														placeholder="숫자만 입력해주세요!"
+														onkeyup="this.value=this.value.replace(/[^0-9]/g,'');"
 														style="min-width: 150px;">
 													<div class="btn-fr-wrap">
 														<a href="#">
-															<div class="my-button-cc cancel-change">취소</div>
-														</a> <a href="#">
-															<div class="js-account-set-button my-button-ok change-ok"
-																gubun="3">확인</div>
+															<div id="noPersTelUpdate" class="my-button-cc cancel-change">취소</div>
+														</a> 
+														<a href="#">
+															<div id="persTelUpdate" class="js-account-set-button my-button-ok change-ok" gubun="3">확인</div>
 														</a>
 													</div>
 												</div>
@@ -254,65 +220,52 @@
 										</li>
 										<li class="edit-input adjust">
 											<div class="my-right-list-1">회사 연락처</div>
-											<div class="read-mode d-block">
+											<div id="coTelInput" class="read-mode d-block">
 												<div id="coTel" class="my-right-list-2"></div>
-												<a href="#" class="poly-icon-1 change-editor-btn"></a>
+												<a id="coTelUpdateBtn" href="#" class="poly-icon-1 change-editor-btn"></a>
 											</div>
-											<div class="editor-mode d-none">
+											<div id="coTelUpdateForm" class="editor-mode d-none">
 												<div class="my-right-list-2 my-type-text-1">
-													<select id="editor_company_contury_code"
-														class="my-select-1">
-														<option>+82</option>
-														<option>+855</option>
-														<option>+1</option>
-														<option>+81</option>
-														<option>+86</option>
-														<option>+852</option>
-													</select> <input id="editor_companyPhoneNum" class="my-text-input-1"
+													<input id="editor_coTel" class="my-text-input-1"
 														type="text" autocomplete="off" maxlength="20"
 														data-over-msg="" data-valid="number"
 														data-un-valid-msg="전화번호는 숫자만 입력해주세요!"
+														placeholder="숫자만 입력해주세요!"
+														onkeyup="this.value=this.value.replace(/[^0-9]/g,'');"
 														style="min-width: 150px;">
 													<div class="btn-fr-wrap">
 														<a href="#">
-															<div class="my-button-cc cancel-change">취소</div>
-														</a> <a href="#">
-															<div class="js-account-set-button my-button-ok change-ok"
-																gubun="5">확인</div>
+															<div id="noCoTelUpdate" class="my-button-cc cancel-change">취소</div>
+														</a> 
+														<a href="#">
+															<div id="coTelUpdate" class="js-account-set-button my-button-ok change-ok" gubun="5">확인</div>
 														</a>
 													</div>
 												</div>
 											</div>
 										</li>
 										<li class="edit-input adjust" id="passwordArea">
-											<div class="read-mode d-block">
+											<div id="pwdInput" class="read-mode d-block">
 												<div class="my-right-list-1">비밀번호</div>
 												<div class="my-right-list-password">
-													<strong class="password-alert">비밀번호 재설정이 가능합니다.</strong> <input
-														type="password" id="normalPasswordInput"
-														class="my-input-password-1 d-none" disabled
-														placeholder="영문과 숫자를 포함한 6자리 이상"> <input
-														type="password" id="bizplayPasswordInput"
-														class="my-input-password-1 d-none" disabled
-														placeholder="Bizplay 계정은 아래 버튼을 통해 비밀번호를 변경 하실 수 있습니다.">
-													<button class="js-myset-password change-editor-btn">비밀번호
-														재설정</button>
+													<strong class="password-alert">비밀번호 재설정이 가능합니다.</strong> 
+													<span id="pwdUpdateSussacc" class="my-txt-t-1" style="display: none">비밀번호가 변경되었습니다.</span>
+													<button id="pwdUpdateBtn" class="js-myset-password change-editor-btn">비밀번호 재설정</button>
 												</div>
 											</div>
-											<div class="editor-mode d-none">
+											<div id="pwdUpdateForm" class="editor-mode d-none">
 												<ul>
 													<li>
 														<div class="my-right-list-1">비밀번호</div>
 														<div class="my-right-list-2 edit-password">
-															<a href="#"></a><span class="my-txt-t-1">비밀번호는 영문,
+															<a href="#"></a><span id="message" class="my-txt-t-1">비밀번호는 영문,
 																숫자 포함 6자리 이상이어야 합니다.</span>
 															<div class="btn-fr-wrap">
 																<a href="#">
-																	<div id="changePasswordCancel" class="my-button-cc">
-																		취소</div>
-																</a><a href="#">
-																	<div id="changePasswordBtn" class="my-button-ok">확인
-																	</div>
+																	<div id="noPwdUpdate" class="my-button-cc">취소</div>
+																</a>
+																<a href="#">
+																	<div id="pwdUpdate" class="my-button-ok">확인</div>
 																</a>
 															</div>
 														</div>
@@ -320,8 +273,23 @@
 													<li>
 														<div class="my-right-list-1"></div>
 														<div class="my-right-list-2">
-															<span class="edit-tit">비밀번호</span> <input type="password"
+															<span class="edit-tit">현재 비밀번호</span> 
+															<input type="hidden" id="hiddenpwd">
+															<input type="password"
 																id="myPassword" class="my-input-password-2"
+																autocomplete="off" data-required-yn="Y" maxlength="20"
+																data-valid="password" data-empty-msg="비밀번호를 입력해주세요"
+																data-over-msg=""
+																data-un-valid-msg="6자 이상의 영문,숫자를 입력하세요."
+																placeholder="현재 비밀번호를 입력해주세요">
+														</div>
+													</li>
+													<li>
+														<div class="my-right-list-1"></div>
+														<div class="my-right-list-2">
+															<span class="edit-tit">비밀번호</span> 
+															<input type="password"
+																id="pwd" class="my-input-password-2"
 																autocomplete="off" data-required-yn="Y" maxlength="20"
 																data-valid="password" data-empty-msg="비밀번호를 입력해주세요"
 																data-over-msg=""
@@ -332,9 +300,9 @@
 													<li>
 														<div class="my-right-list-1"></div>
 														<div class="my-right-list-2">
-															<span class="edit-tit">비밀번호 확인</span> <input
-																type="password" class="my-input-password-2"
-																id="myPassword2" autocomplete="off" data-required-yn="Y"
+															<span class="edit-tit">비밀번호 확인</span> 
+															<input type="password" class="my-input-password-2"
+																id="newPassword" autocomplete="off" data-required-yn="Y"
 																maxlength="20" data-valid="password"
 																data-empty-msg="비밀번호를 입력해주세요" data-over-msg=""
 																data-un-valid-msg="6자 이상의 영문,숫자를 입력하세요."
@@ -505,8 +473,18 @@
 									</ul>
 								</div>
 
-								<button id="leaveFlowBtn" class="btn-leave">탈퇴</button>
+								<button id="leavePlusBtn" class="btn-leave">탈퇴</button>
 							</div>
+						</div>
+						
+						<div id="leaveplus" class="my-popup-pro-1-1 d-none" style="left: 35%">
+							<div class="my-right-list-1">탈퇴하시겠습니까?</div>
+							<a href="#">
+								<div id="stay" class="my-button-cc">취소</div>
+							</a>
+							<a href="">
+								<div id="leave" class="my-button-ok">확인</div>
+							</a>
 						</div>
 
 						<div id="editorProfilePhoto" class="my-popup-pro-1-1 d-none">
@@ -805,56 +783,59 @@
 	</article>
 
 	<script>
-	//화면에 출력, 회원정보 가져오기	
-	$("#mySettingOpenBtn").on("click", function() {
-		$("#MySettiong").css("display", "block");
-		$("#pushAlamGroup").css("display", "none");
-		$("#mylock").css("display", "none");
-		$("#mySet").css("display", "block");
-		var memId = "${sessionScope.memId}";
-		console.log(memId);
-		$.ajax({
-			url: "memberInfo.do?memId=" + memId,
-			type: "Get",
-			datatype: "json",
-			success: function(data){
-					var $email = data.email;
-					var $pwd = data.pwd;
-					var $name = data.name;
-					var $wkpo = data.wkpo;
-					var $persTel = data.persTel;
-					var $coTel = data.coTel;
-					var $dept = data.dept;
-					var $coName = data.coName;
-					
-					if($wkpo == null){
-						$('#wkpo').text('');
-					}else{						
-						$('#wkpo').text($wkpo);
-					};
-					if($persTel == null){
-						$('#persTel').text('');
-					}else{						
-						$('#persTel').text($persTel);
-					};
-					if($coTel == null){
-						$('#coTel').text('');
-					}else{						
-						$('#coTel').text($coTel);
-					};
-					if($dept == null){
-						$('#dept').text('');
-					}else{						
-						$('#dept').text($dept);
-					};
-					$('#email').text($email);
-					$('#name').text($name);
-					$('#coName').text($coName);
-			}
+		
+	//화면에 출력, 회원정보 가져오기		
+		$("#mySettingOpenButton").on("click", function() {
+			$("#MySettiong").css("display", "block");
+			$("#pushAlamGroup").css("display", "none");
+			$("#mylock").css("display", "none");
+			$("#mySet").css("display", "block");
+			var memId = "${sessionScope.memId}";
+			console.log(memId);
+			$.ajax({
+				url: "memberInfo.do?memId=" + memId,
+				type: "Get",
+				datatype: "json",
+				success: function(data){
+						var $email = data.email;
+						var $pwd = data.pwd;
+						var $name = data.name;
+						var $wkpo = data.wkpo;
+						var $persTel = data.persTel;
+						var $coTel = data.coTel;
+						var $dept = data.dept;
+						var $coName = data.coName;
+						console.log($pwd);
+						if($wkpo == null){
+							$('#wkpo').text('');
+						}else{						
+							$('#wkpo').text($wkpo);
+						};
+						if($persTel == null){
+							$('#persTel').text('');
+						}else{						
+							$('#persTel').text($persTel);
+						};
+						if($coTel == null){
+							$('#coTel').text('');
+						}else{						
+							$('#coTel').text($coTel);
+						};
+						if($dept == null){
+							$('#dept').text('');
+						}else{						
+							$('#dept').text($dept);
+						};
+						$('#email').text($email);
+						$('#name').text($name);
+						$('#coName').text($coName);
+						$('#hiddenpwd').val($pwd);
+				}
+			});
 		});
-	});
 		$(".my-button-close-1").on("click", function() {
 			$("#MySettiong").css("display", "none");
+			$("#pwdUpdateSussacc").css("display","none");
 		});
 
 		$("#accountSettingBtn").on("click", function() {
@@ -885,7 +866,7 @@
 		});
 
 
-		// 이름수정
+		// 이름 수정
 		$("#nameUpdateBtn").on("click", function(){
 			$("#nameInput").toggleClass("d-none");
 			$("#nameUpdateForm").toggleClass("d-none");
@@ -897,17 +878,198 @@
 		});
 		$("#nameUpdate").on("click", function(){
 			var name = $("#editor_name").val();
-			var memId = $("#memIdHidden").val();
-			console.log(name);
-			console.log(memId);
+			var memId = "${sessionScope.memId}";
+			var jsondata = {"memId":memId,"name":name};
 			$.ajax({
 				url: "nameUpdate.do",
 				method: "put",
-				data: {memId:memId,name:name},
+				data: JSON.stringify(jsondata),
 				contentType: "application/json",
-				contentType: "json",
+				dataType: "json",
 				success: function(data){
 					console.log(data);
+					$("#nameInput").toggleClass("d-none");
+					$("#nameUpdateForm").toggleClass("d-none");
+					$("#name").text($("#editor_name").val());
+					$("#sessionName").text($("#editor_name").val());
+				}
+			});
+		});
+		
+		//부서명 수정
+		$("#deptUpdateBtn").on("click", function(){
+			$("#deptInput").toggleClass("d-none");
+			$("#deptUpdateForm").toggleClass("d-none");
+			$("#editor_dept").val($("#dept").text());			
+		});
+					
+		$("#noDeptUpdate").on("click",function(){
+			$("#deptInput").toggleClass("d-none");
+			$("#deptUpdateForm").toggleClass("d-none");
+		});
+		$("#deptUpdate").on("click", function(){
+			var dept = $("#editor_dept").val();
+			var memId = "${sessionScope.memId}";
+			var jsondata = {"memId":memId,"dept":dept};
+			$.ajax({
+				url: "deptUpdate.do",
+				method: "put",
+				data: JSON.stringify(jsondata),
+				contentType: "application/json",
+				dataType: "json",
+				success: function(data){
+					console.log(data);
+					$("#deptInput").toggleClass("d-none");
+					$("#deptUpdateForm").toggleClass("d-none");
+					$("#dept").text($("#editor_dept").val());
+				}
+			});
+		});
+		
+		//직책 수정
+		$("#wkpoUpdateBtn").on("click", function(){
+			$("#wkpoInput").toggleClass("d-none");
+			$("#wkpoUpdateForm").toggleClass("d-none");
+			$("#editor_wkpo").val($("#wkpo").text());			
+		});
+					
+		$("#noWkpoUpdate").on("click",function(){
+			$("#wkpoInput").toggleClass("d-none");
+			$("#wkpoUpdateForm").toggleClass("d-none");
+		});
+		$("#wkpoUpdate").on("click", function(){
+			var wkpo = $("#editor_wkpo").val();
+			var memId = "${sessionScope.memId}";
+			var jsondata = {"memId":memId,"wkpo":wkpo};
+			$.ajax({
+				url: "wkpoUpdate.do",
+				method: "put",
+				data: JSON.stringify(jsondata),
+				contentType: "application/json",
+				dataType: "json",
+				success: function(data){
+					console.log(data);
+					$("#wkpoInput").toggleClass("d-none");
+					$("#wkpoUpdateForm").toggleClass("d-none");
+					$("#wkpo").text($("#editor_wkpo").val());
+				}
+			});
+		});
+		
+		//회원 전화번호 수정
+		$("#persTelUpdateBtn").on("click", function(){
+			$("#persTelInput").toggleClass("d-none");
+			$("#persTelUpdateForm").toggleClass("d-none");
+			$("#editor_persTel").val($("#persTel").text());			
+		});
+					
+		$("#noPersTelUpdate").on("click",function(){
+			$("#persTelInput").toggleClass("d-none");
+			$("#persTelUpdateForm").toggleClass("d-none");
+		});
+		$("#persTelUpdate").on("click", function(){
+			var persTel = $("#editor_persTel").val();
+			var memId = "${sessionScope.memId}";
+			var jsondata = {"memId":memId,"persTel":persTel};
+			$.ajax({
+				url: "persTelUpdate.do",
+				method: "put",
+				data: JSON.stringify(jsondata),
+				contentType: "application/json",
+				dataType: "json",
+				success: function(data){
+					console.log(data);
+					$("#persTelInput").toggleClass("d-none");
+					$("#persTelUpdateForm").toggleClass("d-none");
+					$("#persTel").text($("#editor_persTel").val());
+				}
+			});
+		});
+		
+		//회사 전화번호 수정
+		$("#coTelUpdateBtn").on("click", function(){
+			$("#coTelInput").toggleClass("d-none");
+			$("#coTelUpdateForm").toggleClass("d-none");
+			$("#editor_coTel").val($("#coTel").text());			
+		});
+					
+		$("#noCoTelUpdate").on("click",function(){
+			$("#coTelInput").toggleClass("d-none");
+			$("#coTelUpdateForm").toggleClass("d-none");
+		});
+		$("#coTelUpdate").on("click", function(){
+			var coTel = $("#editor_coTel").val();
+			var memId = "${sessionScope.memId}";
+			var jsondata = {"memId":memId,"coTel":coTel};
+			$.ajax({
+				url: "coTelUpdate.do",
+				method: "put",
+				data: JSON.stringify(jsondata),
+				contentType: "application/json",
+				dataType: "json",
+				success: function(data){
+					console.log(data);
+					$("#coTelInput").toggleClass("d-none");
+					$("#coTelUpdateForm").toggleClass("d-none");
+					$("#coTel").text($("#editor_coTel").val());
+				}
+			});
+		});
+		
+		//비밀번호 수정
+		$('#pwdUpdateBtn').on("click",function(){
+			$("#pwdInput").toggleClass("d-none");
+			$("#pwdUpdateForm").toggleClass("d-none");
+		});
+		
+		$("#noPwdUpdate").on("click",function(){
+			$("#pwdInput").toggleClass("d-none");
+			$("#pwdUpdateForm").toggleClass("d-none");
+		})
+		$("#pwdUpdate").on("click",function(){
+			var hiddenpwd = $("#hiddenpwd").val();
+			var myPwd = $("#myPassword").val();
+			var pwd = $("#pwd").val();
+			var newPwd = $("#newPassword").val();
+			var memId = "${sessionScope.memId}";
+			var jsondata = {"memId":memId,"pwd":pwd};
+			if (hiddenpwd != myPwd){
+				$("#message").text("현재 비밀번호가 일치하지않습니다.")
+						     .css("color","red");
+			}else{
+				if(pwd == newPwd){
+					$.ajax({
+						url: "pwdUpdate.do",
+						method: "put",
+						data: JSON.stringify(jsondata),
+						contentType: "application/json",
+						dataType: "json",
+						success: function(data){
+							console.log(data);
+							$("#pwdInput").toggleClass("d-none");
+							$("#pwdUpdateForm").toggleClass("d-none");
+							$("#pwdUpdateSussacc").css("display","block");
+						}
+					});
+				}else{
+					$("#message").text("새로운 비밀번호가 일치하지않습니다.")
+						       	.css("color","red");
+				}
+			}
+		});
+		
+		//탈퇴
+		$("#leavePlusBtn").on("click",function(){
+			$('#leaveplus').toggleClass("d-none");
+			var memId = "${sessionScope.memId}";
+			$.ajax({
+				url: "memberDelete.do",
+				type: "put",
+				contentType: "application/json",
+				dataType: "json",
+				data: {memId: memId},
+				success: function(){
+					
 				}
 			});
 		});

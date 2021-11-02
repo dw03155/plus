@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
 	<div id="leftTask" class="left-task active">
@@ -60,29 +59,34 @@
 		</ul>
 		<ul id="leftScroll" class="menu-accordion-group scroll-mask">
 
-			<li>
-				<div class="menu-accordion-button active left-menu-item"
-					data-code="collect-more">
-					모아보기<i class="ico-arrow"></i>
-				</div>
-				<div class="menu-accordion" style="display: block">
-					<ul class="menu-accordion-list">
-						<li data-code="task" class="left-menu-item"><a
-							href="allTask.do"><i class="ico-task"></i>전체 업무 </a></li>
-						<li data-code="gantt" class="left-menu-item" id="leftMenuGantt"
-							style="display: none"><a href=""><i
-								class="ico-ganttchart"></i>간트차트</a></li>
-						<li data-code="schd" class="left-menu-item"><a
-							href="allSche.do"><i class="ico-schedule"></i>캘린더</a></li>
-						<li data-code="file" class="left-menu-item"><a
-							href="allFile.do"><i class="ico-filebox"></i>파일함</a></li>
-						<li data-code="bookmark" class="left-menu-item"><a
-							href="bookmark.do"><i class="ico-bookmark"></i>북마크</a></li>
-						<li data-code="mypost" class="left-menu-item"><a
-							href="myPost.do"><i class="ico-my-write"></i>내 게시물</a></li>
-					</ul>
-				</div>
-			</li>
+            <li>
+                <div class="menu-accordion-button active left-menu-item" data-code="collect-more">
+                    모아보기<i class="ico-arrow"></i>
+                </div>
+                <div class="menu-accordion" style="display: block">
+                    <ul class="menu-accordion-list">
+                        <li data-code="task" class="left-menu-item">
+                            <a href="allTask.do"><i class="ico-task"></i>전체 업무
+                            </a>
+                        </li>
+                        <li data-code="gantt" class="left-menu-item" id="leftMenuGantt" style="display: none;">
+                            <a href=""><i class="ico-ganttchart"></i>간트차트</a>
+                        </li>
+                        <li data-code="schd" class="left-menu-item">
+                            <a href="allSche.do"><i class="ico-schedule"></i>캘린더</a>
+                        </li>
+                        <li data-code="file" class="left-menu-item">
+                            <a  href="allFile.do"><i class="ico-filebox"></i>파일함</a>
+                        </li>
+                        <li data-code="bookmark" class="left-menu-item">
+                            <a  href="bookmark.do"><i class="ico-bookmark"></i>북마크</a>
+                        </li>
+                        <li data-code="mypost" class="left-menu-item">
+                            <a href="myPost.do"><i class="ico-my-write"></i>내 게시물</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
 
 			<li>
 				<div id="allLabelLeftButton"

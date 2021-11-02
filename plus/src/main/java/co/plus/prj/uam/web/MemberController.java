@@ -141,7 +141,6 @@ public class MemberController {
 	@RequestMapping(value="memberInfo.do", method = RequestMethod.GET)
 	@ResponseBody
 	public MemberVO memberInfo(@RequestParam(required=false) String memId, MemberVO vo) {
-		System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"+memId);
 		vo.setMemId(memId);
 		MemberVO info = service.memberInfo(vo);
 		return info;
@@ -153,7 +152,41 @@ public class MemberController {
 		service.nameUpdate(vo);
 		return vo;
 	}
-	
+	//회원부서 수정
+	@RequestMapping(value = "/deptUpdate.do",  method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseBody
+	public MemberVO deptUpdate(@RequestBody MemberVO vo, Model model) {
+		service.deptUpdate(vo);
+		return vo;
+	}
+	//회원직책 수정
+	@RequestMapping(value = "/wkpoUpdate.do",  method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseBody
+	public MemberVO wkpoUpdate(@RequestBody MemberVO vo, Model model) {
+		service.wkpoUpdate(vo);
+		return vo;
+	}
+	//회원전화번호 수정
+	@RequestMapping(value = "/persTelUpdate.do",  method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseBody
+	public MemberVO persTelUpdate(@RequestBody MemberVO vo, Model model) {
+		service.persTelUpdate(vo);
+		return vo;
+	}
+	//회사전화번호 수정
+	@RequestMapping(value = "/coTelUpdate.do",  method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseBody
+	public MemberVO coTelUpdate(@RequestBody MemberVO vo, Model model) {
+		service.coTelUpdate(vo);
+		return vo;
+	}
+	//회사전화번호 수정
+		@RequestMapping(value = "/pwdUpdate.do",  method = RequestMethod.PUT, consumes = "application/json")
+		@ResponseBody
+		public MemberVO pwdUpdate(@RequestBody MemberVO vo, Model model) {
+			service.pwdUpdate(vo);
+			return vo;
+		}
 	
 	
 	

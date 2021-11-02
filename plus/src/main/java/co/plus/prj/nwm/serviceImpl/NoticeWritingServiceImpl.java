@@ -39,7 +39,7 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 	@Override
 	public List<NoticeWritingVO> allFile(NoticeWritingVO vo) {
 		// 전체 메뉴 -> 파일
-		return null;
+		return map.allFile(vo);
 	}
 	@Override
 	public NoticeWritingVO fileSelect(NoticeWritingVO vo) {
@@ -49,7 +49,7 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 	@Override
 	public List<NoticeWritingVO> bookMarkList(NoticeWritingVO vo) {
 		// 전체 메뉴 -> 북마크
-		return null;
+		return map.bookMarkList(vo);
 	}
 	@Override
 	public NoticeWritingVO bookMarkSelect(NoticeWritingVO vo) {
@@ -79,7 +79,7 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 		return map.myPostSche(vo);
 	}
 	@Override
-	public NoticeWritingVO myPostTodo(NoticeWritingVO vo) {		
+	public List<NoticeWritingVO> myPostTodo(NoticeWritingVO vo) {		
 		// 내 게시물 목록 -> 할일 상세보기(팝업)
 		return map.myPostTodo(vo);
 	}
@@ -109,9 +109,9 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 		return 0;
 	}
 	@Override
-	public int UpdateTxt(NoticeWritingVO vo) {
+	public int UpdateTxt(int notiId) {
 		// 글 수정
-		return 0;
+		return map.UpdateTxt(notiId);
 	}
 	@Override
 	public int DeleteTxt(NoticeWritingVO vo) {
@@ -123,7 +123,7 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 	@Override
 	public NoticeWritingVO tskList(NoticeWritingVO vo) {
 		// 프로젝트 선택 후 -> 업무 (1개 프로젝트)
-		return null;
+		return map.tskList(vo);
 	}
 	@Override
 	public NoticeWritingVO tskSelect(NoticeWritingVO vo) {
