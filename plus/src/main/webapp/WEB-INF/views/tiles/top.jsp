@@ -851,7 +851,7 @@
 			contentType: "application/json",
 			dataType: "json",
 			success: function(){
-				$("#mem_st_icon").
+				$("#mem_st_icon").attr("src", "")
 			}
 		});
 	});
