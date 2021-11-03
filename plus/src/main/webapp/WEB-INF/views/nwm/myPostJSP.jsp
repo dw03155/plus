@@ -147,6 +147,7 @@
 								<li id=""
 									class="js-all-post-item post-search-item post-list-wrapper">
 									<div class="fixed-kind">
+									<!-- 글 class="icons-write2" 할일 class="icons-todo" 일정 class="icons-schedule"-->
 										<i class="icons-task"></i> <span class="post-type">${notices.notiKnd}</span>
 									</div>
 									<div class="search-sub-text-wrap">
