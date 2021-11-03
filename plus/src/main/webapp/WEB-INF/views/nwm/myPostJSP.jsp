@@ -74,17 +74,20 @@
 	</div>
 
 
+	<!-- 내 게시물 -->
 	<div class="main-container">
 		<div id="topSettingBar" class="main-header">
 			<div id="mainTop" class="title-1" style="display: block">
 				<div>내 게시물</div>
 			</div>
 		</div>
-		
+
 		<div id="mainContent" class="main-content scroll-mask"
 			scroll-direction="0">
 			<div id="allPostsLayer" class="me-post-wrap layer-scroll d-none"
 				style="display: block;">
+
+				<!-- 내 게시물 검색창 -->
 				<div class="my-search-area">
 					<div class="project-search-area all-file-header-type-3">
 						<form id="frm" name="frm" method="post">
@@ -96,7 +99,7 @@
 							</div>
 						</form>
 						<!-- 검색화면시 돌아가기 display:block-->
-						<button type="button"
+						<button id="backBtn" type="button"
 							class="js-search-back-button js-all-posts-back result-back-button d-none"
 							style="display: none">
 							<i class="icons-back"></i> 돌아가기
@@ -105,12 +108,12 @@
 				</div>
 
 				<!-- 내 게시물 화면 -->
-				<div class="small-style-wrap-2">
+				<div id="myPostList" class="small-style-wrap-2" style="display: block;">
 					<div class="feed-content me-content">
 						<div class="search-title-area">
 							<span id="allPostsFilterTitle" class="search-result-title">전체</span>
 							<!--전체 + 갯수 카운트-->
-							<span id="postCount" class="count-number">0</span>
+							<span id="postCount" class="count-number"></span>
 							<!-- 필터 선택 후 취소 버튼 노출 display: inline-block -->
 							<span class="js-filter-reset filter-reset" style="display: none">취소</span>
 							<!--필터-->
@@ -147,8 +150,20 @@
 								<li id=""
 									class="js-all-post-item post-search-item post-list-wrapper">
 									<div class="fixed-kind">
-									<!-- 글 class="icons-write2" 할일 class="icons-todo" 일정 class="icons-schedule"-->
-										<i class="icons-task"></i> <span class="post-type">${notices.notiKnd}</span>
+										<!-- 글 class="icons-write2" 할일 class="icons-todo" 일정 class="icons-schedule"-->
+										<c:if test="${notices.notiKnd=='text'}">
+											<c:set var="notiKnd" value="icons-write2" />
+										</c:if>
+										<c:if test="${notices.notiKnd=='task'}">
+											<c:set var="notiKnd" value="icons-task" />
+										</c:if>
+										<c:if test="${notices.notiKnd=='todo'}">
+											<c:set var="notiKnd" value="icons-todo" />
+										</c:if>
+										<c:if test="${notices.notiKnd=='schedule'}">
+											<c:set var="notiKnd" value="icons-schedule" />
+										</c:if>
+										<i class="${notiKnd }"></i> <span class="post-type">${notices.notiKnd}</span>
 									</div>
 									<div class="search-sub-text-wrap">
 										<div class="contents-cmt">
@@ -159,17 +174,32 @@
 													class="js-post-comment-count">0</span>
 											</div>
 										</div>
+
 										<p class="search-text-type-3 contents-project">
-											<em class="ellipsis"><i class="search-type-2"></i>{프로젝트
-												명}</em>
+											<em class="ellipsis"><i class="seach-type-2"></i>${notices.prjTtl }</em>
 										</p>
 									</div>
 									<div class="post-list-right">
 										<div class="post-list name">${notices.name }</div>
 										<div class="post-list date">
-											<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
+											<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 												value="${notices.notiDttm}" />
 										</div>
+
+										<!-- <!-- 글 종류에 따라 display : block -->
+										<div class="fixed-value">
+											할일 완료도 <span class="state request" style="display: block"
+												data>50%</span> 업무 진행상항 class="progress" 진행 /
+											class="request" 요청 / class="completion"완료 /
+											class="feedback"피드백 <span
+												class="js-task-state state d-none hold"
+												style="display: inline-block">보류</span> 일정
+											<div class="date-time" style="display: block" data>
+												일정 날짜 <em class="date">11/03</em> 일정 시간 <span>오전
+													10:00</span>
+											</div>
+										</div>
+
 									</div>
 								</li>
 								<!-- 반복 끝 -->
@@ -180,7 +210,7 @@
 
 				<!-- 내 게시물 검색 화면 -->
 				<!-- 검색시 display:block -->
-				<div
+				<div id="myPostSearch"
 					class="js-post-search-result all-search-section d-none me-post-wrap"
 					style="display: none">
 					<div class="all-search-container">
@@ -194,23 +224,39 @@
 								</div>
 								<ul id="allPostsSearchUl"
 									class="js-search-post-ul all-seach-list-type-1 scroll-mask">
-									<li id="allPostsSearchUl"
-										class="js-all-post-item post-search-item js-search-item">
-										<!-- icon 태그 : icon-post-type write2(글), icon-post-type todo(할일), icon-post-type schedule(일정)-->
-										<i class="icon-post-type task"></i>
-										<div class="search-sub-text-wrap">
-											<a href="" class="search-text-type-3 contents-tit"><p>
-													<span class="post-type">{업무}</span>
-												</p>{업무 제목}</a>
-											<p class="search-text-type-3 contents-project">
-												<span class="search-name ellipsis">{작성자}</span><span
-													class="date">{작성일자}</span> <em
-													class="project-title ellipsis"><i
-													class="icons-project-1"></i>{프로젝트 제목}</em>
-											</p>
-										</div>
-									<li>
+
+									<!-- 반복 시작 -->
+									<c:forEach var="notices" items="${notices }">
+										<li id="allPostsSearchUl"
+											class="js-all-post-item post-search-item js-search-item">
+											<!-- icon 태그 : icon-post-type write2(글), icon-post-type todo(할일), icon-post-type schedule(일정)-->
+											<c:if test="${notices.notiKnd=='text'}">
+												<c:set var="notiKnd" value="icon-post-type write2" />
+											</c:if> <c:if test="${notices.notiKnd=='task'}">
+												<c:set var="notiKnd" value="icon-post-type task" />
+											</c:if> <c:if test="${notices.notiKnd=='todo'}">
+												<c:set var="notiKnd" value="icon-post-type todo" />
+											</c:if> <c:if test="${notices.notiKnd=='schedule'}">
+												<c:set var="notiKnd" value="icon-post-type schedule" />
+											</c:if> <i class="${notiKnd }"></i>
+											<div class="search-sub-text-wrap">
+												<a href="" class="search-text-type-3 contents-tit">
+													<p>
+														<span class="post-type">${notices.notiKnd }</span>${notices.notiTtl }
+													</p>
+												</a>
+												<p class="search-text-type-3 contents-project">
+													<span class="search-name ellipsis">${notices.name }</span><span
+														class="date"><fmt:formatDate
+															pattern="yyyy-MM-dd HH:mm" value="${notices.notiDttm}" /></span>
+													<em class="project-title ellipsis"><i
+														class="icons-project-1"></i>${notices.prjTtl }</em>
+												</p>
+											</div>
+										</li>
+									</c:forEach>
 								</ul>
+								<!-- 반복 끝 -->
 							</div>
 						</div>
 					</div>
@@ -219,8 +265,8 @@
 		</div>
 	</div>
 
+	<!-- 내 게시물 모달창 JS -->
 	<script>
-	<!-- 모달창 JS -->
 		$("tr").click(function() { // 모달창 열고 닫기
 			$("#modal").css("display", "block");
 		   
@@ -272,6 +318,24 @@
 		$("#modal_close_btn").click(function() {
 			$("#modal").css("display", "none");
 		});
+	</script>
+
+	<!-- 내 게시물 개수 JS -->
+	<script>
+	var cnt = $("li#myPostList").length;
+	$("#postCount").html(cnt);
+	</script>
+
+	<!-- 내 게시물검색 화면 JS -->
+	<script>
+	$("#notiTtl").keydown(function(key) {
+        if (key.keyCode == 13) {
+	  		$("#myPostSearch").css("display","block");
+	  		$("#myPostList").css("display","none");
+        }
+    });
+
+
 	</script>
 
 	<!-- 전체 게시물 목록 -->

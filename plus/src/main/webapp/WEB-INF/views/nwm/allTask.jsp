@@ -110,7 +110,7 @@
 											
 												<li class="task-item {LI_STTS}">
 
-													<div class="task-item {LI_STTS}">${dtask.notiId }ddd</div>
+													<%-- <div class="task-item {LI_STTS}">${dtask.notiId }ddd</div>
 													<div class="task-item {LI_STTS}">${dtask.tskPrgs }</div>
 													<div class="task-item {LI_STTS}">${dtask.notiTtl }</div>
 													<div class="task-item {LI_STTS}">${dtask.memId}</div>
@@ -127,7 +127,7 @@
 													<div class="task-item {LI_STTS}">
 														<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
 															value="${dtask.notiDttm}" />
-													</div>
+													</div> --%>
 												</li>
 											
 

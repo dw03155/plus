@@ -3,10 +3,11 @@
 <mapper namespace="co.plus.prj.nwm.mapper.NoticeWritingMapper">
 	<!-- 전체 메뉴 -> 내 게시물 목록 -->
 	<select id="myPost" resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select  a.*, b.name, b.co_url																				
-		from 	board a, member b
+		select  a.*, b.name, b.co_url, c.prj_ttl																			
+		from 	board a, member b, project c
 		where 	a.mem_id = b.mem_id
-		and 	a.mem_id = #{memId}
+        and     a.prj_id = c.prj_id 
+        and 	a.mem_id =  #{memId}
 		<!-- 게시물 명으로 검색  -->
 		<if test="notiTtl != null and notiTtl != ''">													
 			and noti_ttl like '%' || #{notiTtl} || '%'
