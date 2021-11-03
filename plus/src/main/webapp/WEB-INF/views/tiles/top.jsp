@@ -110,10 +110,10 @@
 			<li id="logoutBtn" onclick="location.href='logout.do'"><i class="icons-logout"></i> 로그아웃</li>
 		</ul>
 		<ul id="status" class="st_modal">
-			<li id="online" ><img alt="onlineImg" src="/img/status_icn/online.png" class="st_img"> 온라인</li>
-			<li id="notdesk"><img alt="notdeskImg" src="/img/status_icn/notdesk.png" class="st_img"> 자리비움</li>
-			<li id="other" ><img alt="otherImg" src="/img/status_icn/other.png" class="st_img"> 다른용무중</li>
-			<li id="offline" ><img alt="offlineImg" src="/img/status_icn/offline.png" class="st_img"> 오프라인</li>
+			<li id="online" ><a href="#"></a><img alt="onlineImg" src="/img/status_icn/online.png" class="st_img"> 온라인</li>
+			<li id="notdesk"><a href="#"></a><img alt="notdeskImg" src="/img/status_icn/notdesk.png" class="st_img"> 자리비움</li>
+			<li id="other"><a href="#"></a><img alt="otherImg" src="/img/status_icn/other.png" class="st_img"> 다른용무중</li>
+			<li id="offline"><a href="#"></a><img alt="offlineImg" src="/img/status_icn/offline.png" class="st_img"> 오프라인</li>
 		</ul>
 	</header>
 
@@ -835,7 +835,7 @@
 		});
 	
 	//회원모달
-	$("#accountTopButton").on("click", function(){
+	$("#ProfileImg").on("click", function(){
 		$("#accountModal").toggleClass("d-none");
 	})
 	
@@ -844,14 +844,59 @@
 	$("#online").on("click",function(){
 		var memId = "${sessionScope.memId}";
 		var jsondata = {"memId": memId};
-		$ajax({
+		$.ajax({
 			url: "memberOnline.do",
 			method: "put",
 			data: JSON.stringify(jsondata),
 			contentType: "application/json",
 			dataType: "json",
 			success: function(){
-				$("#mem_st_icon").attr("src", "")
+				$("#mem_st_icon").attr("src", "/img/status_icn/online.png")
+			}
+		});
+	});
+	//다른용무
+	$("#other").on("click",function(){
+		var memId = "${sessionScope.memId}";
+		var jsondata = {"memId": memId};
+		$.ajax({
+			url: "memberOther.do",
+			method: "put",
+			data: JSON.stringify(jsondata),
+			contentType: "application/json",
+			dataType: "json",
+			success: function(){
+				$("#mem_st_icon").attr("src", "/img/status_icn/other.png")
+			}
+		});
+	});
+	//자리비움
+	$("#notdesk").on("click",function(){
+		var memId = "${sessionScope.memId}";
+		var jsondata = {"memId": memId};
+		$.ajax({
+			url: "memberNotdesk.do",
+			method: "put",
+			data: JSON.stringify(jsondata),
+			contentType: "application/json",
+			dataType: "json",
+			success: function(){
+				$("#mem_st_icon").attr("src", "/img/status_icn/notdesk.png")
+			}
+		});
+	});
+	//오프라인
+	$("#offline").on("click",function(){
+		var memId = "${sessionScope.memId}";
+		var jsondata = {"memId": memId};
+		$.ajax({
+			url: "memberOffline.do",
+			method: "put",
+			data: JSON.stringify(jsondata),
+			contentType: "application/json",
+			dataType: "json",
+			success: function(){
+				$("#mem_st_icon").attr("src", "/img/status_icn/offline.png")
 			}
 		});
 	});

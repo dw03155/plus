@@ -189,13 +189,35 @@ public class MemberController {
 	}
 	
 	
-	//회원상태표시
+	//회원상태 온라인
 	@RequestMapping(value = "/memberOnline.do",  method = RequestMethod.PUT, consumes = "application/json")
 	@ResponseBody
 	public MemberVO memberOnline(@RequestBody MemberVO vo, Model model) {
 		service.memberOnline(vo);
 		return vo;
 	}
+	//회원상태 다른용무
+	@RequestMapping(value = "/memberOther.do",  method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseBody
+	public MemberVO memberOther(@RequestBody MemberVO vo, Model model) {
+		service.memberOther(vo);
+		return vo;
+	}
+	//회원상태 자리비움
+	@RequestMapping(value = "/memberNotdesk.do",  method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseBody
+	public MemberVO memberNotdesk(@RequestBody MemberVO vo, Model model) {
+		service.memberOther(vo);
+		return vo;
+	}
+	//회원상태 오프라인
+	@RequestMapping(value = "/memberOffline.do",  method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseBody
+	public MemberVO memberOffline(@RequestBody MemberVO vo, Model model) {
+		service.memberOther(vo);
+		return vo;
+	}
+		
 		
 	//회원 탈퇴
 	@RequestMapping(value="/memberDelete.do", method = RequestMethod.PUT,  consumes = "application/json")
