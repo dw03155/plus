@@ -36,6 +36,7 @@ public interface MemberService {
 	public int pwdUpdate(MemberVO vo);
 	
 	//회원상태 변경
+	public MemberVO memberStatus(MemberVO vo);
 	public int memberOnline(MemberVO vo);
 	public int memberOther(MemberVO vo);
 	public int memberNotdesk(MemberVO vo);
@@ -43,5 +44,8 @@ public interface MemberService {
 	
 	//탈퇴
 	public int memberDelete(MemberVO vo);
+	
+	//회사 정보 수정
+	public int companyNameUpdate(MemberVO vo);
 
 }

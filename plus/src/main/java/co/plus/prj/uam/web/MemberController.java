@@ -188,7 +188,14 @@ public class MemberController {
 		return vo;
 	}
 	
-	
+	//현재 회원상태확인
+	@RequestMapping(value="/memberStatus.do", method = RequestMethod.GET)
+	@ResponseBody
+	public MemberVO memberStatus(@RequestParam(required=false) String memId, MemberVO vo) {
+		vo.setMemId(memId);
+		MemberVO status = service.memberStatus(vo);
+		return status;
+	}
 	//회원상태 온라인
 	@RequestMapping(value = "/memberOnline.do",  method = RequestMethod.PUT, consumes = "application/json")
 	@ResponseBody
@@ -207,14 +214,14 @@ public class MemberController {
 	@RequestMapping(value = "/memberNotdesk.do",  method = RequestMethod.PUT, consumes = "application/json")
 	@ResponseBody
 	public MemberVO memberNotdesk(@RequestBody MemberVO vo, Model model) {
-		service.memberOther(vo);
+		service.memberNotdesk(vo);
 		return vo;
 	}
 	//회원상태 오프라인
 	@RequestMapping(value = "/memberOffline.do",  method = RequestMethod.PUT, consumes = "application/json")
 	@ResponseBody
 	public MemberVO memberOffline(@RequestBody MemberVO vo, Model model) {
-		service.memberOther(vo);
+		service.memberOffline(vo);
 		return vo;
 	}
 		
@@ -226,6 +233,26 @@ public class MemberController {
 		service.memberDelete(vo);
 		session.invalidate();
 		return vo;
+	}
+	
+	//관리자 회사설정
+	@RequestMapping(value="/companyInfo.do", method = RequestMethod.GET)
+	public String companyInfo(Model model) {
+		return "uam/admin/menu/companyInfo";
+	}
+	//회사이름 변경
+	@RequestMapping(value = "/coNameUpdate.do", method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseBody 
+	public MemberVO coNameUpdate(@RequestBody MemberVO vo) {
+		service.companyNameUpdate(vo);
+		return vo;
+	}
+	
+	
+	//관리자 사용자 관리
+	@RequestMapping(value="/userManagement.do", method = RequestMethod.GET)
+	public String userManagement(Model model) {
+		return "uam/admin/menu/userManagement";
 	}
 	
 	

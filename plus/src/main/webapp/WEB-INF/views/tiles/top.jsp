@@ -63,10 +63,14 @@
     color: #555;
     display: none;
 }
+.statusStyle:hover{
+	color: #6449FC;
+}
 </style>
 </head>
 <body>
 	<header class="header">
+		<div id="userSetting">
 		<div id="rightTopMenu" class="top-btns">
 			<button type="button" id="organizationTopButton"
 				class="btn-organization js-mouseover
@@ -92,29 +96,30 @@
 			<button type="button" id="accountTopButton" class="btn-profile">
 				<span id="ProfileImg" class="profile-area"
 					style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;);"></span>
-				<img id="mem_st_icon" alt="on" src="/img/status_icn/online.png" class="st_icn">
+				<img id="mem_st_icon" alt="on" src="/img/status_icn/offline.png" class="st_icn">
 			</button>
 		</div>
-		<ul id="accountModal" class="modal-account d-none">
-			<li class="user-area">
-				<p class="js-profile user-img"
-					style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;);"></p>
-				<div class="user-info">
-					<strong id="sessionName" class="js-user-name js-mouseover">${sessionScope.name}</strong> <span>이용중</span>
-				</div>
-			</li>
-
-			<li id="statusChange" class="user-status"><i class="icon-status"></i> 상태 변경</li>
-			<li id="topProfile" class="user-profile"><i class="icons-person-3"></i> 내 프로필</li>
-			<li id="mySettingOpenButton"><i class="icons-set"></i> 환경설정</li>
-			<li id="logoutBtn" onclick="location.href='logout.do'"><i class="icons-logout"></i> 로그아웃</li>
-		</ul>
-		<ul id="status" class="st_modal">
-			<li id="online" ><a href="#"></a><img alt="onlineImg" src="/img/status_icn/online.png" class="st_img"> 온라인</li>
-			<li id="notdesk"><a href="#"></a><img alt="notdeskImg" src="/img/status_icn/notdesk.png" class="st_img"> 자리비움</li>
-			<li id="other"><a href="#"></a><img alt="otherImg" src="/img/status_icn/other.png" class="st_img"> 다른용무중</li>
-			<li id="offline"><a href="#"></a><img alt="offlineImg" src="/img/status_icn/offline.png" class="st_img"> 오프라인</li>
-		</ul>
+			<ul id="accountModal" class="modal-account d-none">
+				<li class="user-area">
+					<p class="js-profile user-img"
+						style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;);"></p>
+					<div class="user-info">
+						<strong id="sessionName" class="js-user-name js-mouseover">${sessionScope.name}</strong> <span>이용중</span>
+					</div>
+				</li>
+	
+				<li id="statusChange" class="user-status"><i class="icon-status"></i> 상태 변경</li>
+				<li id="topProfile" class="user-profile"><i class="icons-person-3"></i> 내 프로필</li>
+				<li id="mySettingOpenButton"><i class="icons-set"></i> 환경설정</li>
+				<li id="logoutBtn" onclick="location.href='logout.do'"><i class="icons-logout"></i> 로그아웃</li>
+			</ul>
+			<ul id="status" class="st_modal">
+				<li id="online" class="statusStyle"><img alt="onlineImg" src="/img/status_icn/online.png" class="st_img"><a href="#">온라인</a></li>
+				<li id="notdesk" class="statusStyle"><img alt="notdeskImg" src="/img/status_icn/notdesk.png" class="st_img"><a href="#"> 자리비움</a></li>
+				<li id="other" class="statusStyle"><img alt="otherImg" src="/img/status_icn/other.png" class="st_img"><a href="#"> 다른용무중</a></li>
+				<li id="offline" class="statusStyle"><img alt="offlineImg" src="/img/status_icn/offline.png" class="st_img"><a href="#"> 오프라인</a></li>
+			</ul>
+		</div>
 	</header>
 
 	<div id="MySettiong" class="model" style="display: none">
@@ -817,20 +822,39 @@
 	<form id="frm" action="home.do"></form>
 	
 	<script>
+	//회원상태 가져오기
+	$(function(){
+		var memId = "${sessionScope.memId}";
+		$.ajax({
+			url: "memberStatus.do?memId=" + memId,
+			type: "Get",
+			datatype: "json",
+			success: function(data){
+				var $memSt = data.memSt;
+				console.log($memSt);
+				if($memSt == 'online'){
+					$("#mem_st_icon").attr("src", "/img/status_icn/online.png")
+				}else if($memSt == 'offline'){
+					$("#mem_st_icon").attr("src", "/img/status_icn/offline.png")
+				}else if($memSt == 'notdesk'){
+					$("#mem_st_icon").attr("src", "/img/status_icn/notdesk.png")
+				}else if($memSt == 'other'){
+					$("#mem_st_icon").attr("src", "/img/status_icn/other.png")
+				}
+			}
+		});
+	});
+	
 	//모달 자동 닫기
-		$(document).mouseup(function (e){
+		 $(document).mouseup(function (e){
 			var MySettiong = $("#MySettiong");
-			var status = $("#status");
-			var accountModal = $("#accountModal");
-			if(status.has(e.target).length === 0){
-				status.css("display", "none");
+			var userSetting = $("#userSetting");
+			if(userSetting.has(e.target).length === 0){
+				$("#status").css("display", "none");
+				$("#accountModal").attr("class", "modal-account d-none");
 			}
 			if(MySettiong.has(e.target).length === 0){
 				MySettiong.css("display", "none");
-			}
-			if(accountModal.has(e.target).length === 0){
-				accountModal.css("display", "none");
-				status.css("display", "none");
 			}
 		});
 	

@@ -94,7 +94,13 @@
 		set pwd = #{pwd}
 		where mem_id = #{memId}
 	</update>
+	
 	<!-- 회원상태 표시 -->
+	<select id="memberStatus" resultType="co.plus.prj.uam.vo.MemberVO">
+		select mem_st
+		from mem_status
+		where mem_id = #{memId}
+	</select>
 	<update id="memberOnline" parameterType="co.plus.prj.uam.vo.MemberVO">
 		update mem_status
 		set mem_st = 'online'
@@ -123,4 +129,23 @@
 		where mem_id = #{memId}
 	</update>
 
+																						<!-- 회사정보 수정 -->
+	<!-- 회사 이름 수정 -->																					
+	<update id="companyNameUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update company set co_name = #{coName}
+		where co_url = #{coUrl}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

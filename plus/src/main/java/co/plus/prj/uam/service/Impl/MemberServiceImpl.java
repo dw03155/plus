@@ -99,6 +99,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 														//회원상태 변경
+	// 회원 현재 상태
+	@Override
+	public MemberVO memberStatus(MemberVO vo) {
+		return map.memberStatus(vo);
+	}
+	
 	// 온라인
 	@Override
 	public int memberOnline(MemberVO vo) {
@@ -122,13 +128,19 @@ public class MemberServiceImpl implements MemberService {
 	public int memberOffline(MemberVO vo) {
 		return map.memberOffline(vo);
 	}
-
-
 														// 회원탈퇴
 	@Override
 	public int memberDelete(MemberVO member) {
 		return map.memberDelete(member);
 	}
+														//회원정보 수정
+	//회사이름 수정
+	@Override
+	public int companyNameUpdate(MemberVO vo) {
+		return map.companyNameUpdate(vo);
+	}
+
+
 
 
 
