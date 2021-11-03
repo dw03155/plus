@@ -75,7 +75,12 @@
 
 
 	<div class="main-container">
-
+		<div id="topSettingBar" class="main-header">
+			<div id="mainTop" class="title-1" style="display: block">
+				<div>내 게시물</div>
+			</div>
+		</div>
+		
 		<div id="mainContent" class="main-content scroll-mask"
 			scroll-direction="0">
 			<div id="allPostsLayer" class="me-post-wrap layer-scroll d-none"
@@ -163,14 +168,6 @@
 										<div class="post-list date">
 											<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
 												value="${notices.notiDttm}" />
-										</div>
-
-										<div class="fixed-value">
-											<span class="state request" style="display: block" data>-1%</span>
-											<span class="js-task-state state hold">{보류}</span>
-											<div class="date-time" style="display: block" data>
-												<em class="date">-</em> <span>-</span>
-											</div>
 										</div>
 									</div>
 								</li>
