@@ -33,11 +33,20 @@
 		and 	c.prj_open_perm = 'all' 
 		and 	c.prj_id = d.prj_id 
 		and 	c.co_url = #{coUrl} 
+	
+	</select>
+	
+	<select id="detailTask">
+		select e.*, f.name, g.noti_dttm
+        from task e, member f, board g
+        WHERE e.mem_id = f.mem_id
+        and e.noti_id = g.noti_id
 		<!-- 업무 ->ㅣ 업무 명으로 검색 -->
 		<if test="notiTtl != null and notiTtl != ''">			
 			and noti_ttl like '%' || #{notiTtl} || '%'
 		</if>
 	</select>
+	
 	<!-- 전체 메뉴 -> 캘린더 -->
 	<select id="allSche"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
@@ -140,8 +149,7 @@
 	<!-- 게시글 개수 출력 (미구현) -->
 	<select id="noticeCount" resultType="int">					
 		select count(*)
-		from notice_writing
-		where mem_id = #{memId}
+		from notice_writing <!-- 전체 게시글 조회 -->
 	</select>
 
 
