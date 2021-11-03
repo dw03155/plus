@@ -105,10 +105,10 @@
 											<!-- 갯수 -->
 											<%-- <div>${cnt }</div> --%>
 										</div>
-										<ul id="sub" class="js-inner-task project-inner-task active"
+										<ul class="js-inner-task project-inner-task active"
 											style="display: block">
 
-											<c:forEach var="dtask" items="${dtask }" >
+											
 												<li class="task-item {LI_STTS}">
 
 													<div class="task-item {LI_STTS}">${dtask.notiId }ddd</div>
@@ -130,7 +130,7 @@
 															value="${dtask.notiDttm}" />
 													</div>
 												</li>
-											</c:forEach>
+											
 
 
 											<!-- style="display: none" -->
@@ -269,9 +269,12 @@
 	</div>
 	<!-- 전체 업무 -> 목록 접고 펼치기 -->
 	<script type="text/javascript">
-		$("#main").click(function() {
-			$("#main").toggleClass("active");
-			$("#sub").toggle();
+	 var main = document.querySelectorAll("#main");
+		$(main).click(function(event) {
+			console.log(event);
+			var et = $(event.target);
+			et.toggleClass("active");
+			et.next("ul").toggle();
 		});
 	</script>
 </body>

@@ -275,7 +275,7 @@
 	</script>
 
 	<!-- 전체 게시물 목록 -->
-	<button type="button" onclick="location.href='totalNotice.do'">프로젝트
-		상세목록</button>
+	<!-- <button type="button" onclick="location.href='totalNotice.do'">프로젝트
+		상세목록</button> -->
 </body>
 </html>
