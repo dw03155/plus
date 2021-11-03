@@ -17,6 +17,8 @@ public interface PNWMapper {
 		int prjFoldDelete(PNWVO vo);		// 프로젝트 폴더 삭제
 		
 		// 프로젝트
+		
+		List<PNWVO> tskPrgList();
 		int prjUpdate(PNWVO vo);			// 프로젝트 수정(프로젝트명, 색깔, 공개권한)
 		int prjDelete(PNWVO vo);			// 프로젝트 삭제
 		List<PNWVO> pnwList();				// 프로젝트 홈탭 (게시글 목록)

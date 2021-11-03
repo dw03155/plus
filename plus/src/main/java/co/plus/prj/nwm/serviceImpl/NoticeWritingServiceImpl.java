@@ -1,6 +1,7 @@
 package co.plus.prj.nwm.serviceImpl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,11 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 	public List<NoticeWritingVO> allTask(NoticeWritingVO vo) {
 		// 전체 메뉴 -> 전체 업무
 		return map.allTask(vo);
+	}
+	@Override
+	public List<NoticeWritingVO> detailTask(NoticeWritingVO vo) {
+		// TODO Auto-generated method stub
+		return map.detailTask(vo);
 	}
 	@Override
 	public NoticeWritingVO taskSelect(NoticeWritingVO vo) {
@@ -84,11 +90,7 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 		return map.myPostTodo(vo);
 	}
 	
-	@Override
-	public int noticeCount(NoticeWritingVO vo) {								
-		// 내 게시물 개수
-		return map.noticeCount(vo);
-	}
+	
 	
 
 	 // 프로젝트 선택 후 메뉴
@@ -211,7 +213,7 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 		// 댓글 수정
 		return 0;
 	}
-
+	
 	
 	
 

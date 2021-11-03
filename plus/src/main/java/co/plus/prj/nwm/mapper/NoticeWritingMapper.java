@@ -15,9 +15,10 @@ public interface NoticeWritingMapper {
 		NoticeWritingVO myPostSche(NoticeWritingVO vo); 		// 내 게시물 목록 -> 일정 상세보기(팝업)
 		List<NoticeWritingVO> myPostTodo(NoticeWritingVO vo); 		// 내 게시물 목록 -> 할일 상세보기(팝업)
 											
-		 public int noticeCount(NoticeWritingVO vo);						// 내 게시물 개수 
+			// 내 게시물 개수 
 		 
 		 List<NoticeWritingVO> allTask(NoticeWritingVO vo); 				// 전체 메뉴 -> 전체 업무
+		 List<NoticeWritingVO> detailTask(NoticeWritingVO vo);				// 임시) 전체 업무 
 		 NoticeWritingVO taskSelect(NoticeWritingVO vo);					// 전체 업무 -> 업무 상세보기(팝업)
 		 
 		 List<NoticeWritingVO> allSche(NoticeWritingVO vo);					// 전체 메뉴 -> 캘린더
