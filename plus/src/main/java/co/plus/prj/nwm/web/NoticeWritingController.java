@@ -28,7 +28,7 @@ public class NoticeWritingController {
 	}
 	@RequestMapping("/detailTask") // 전체 업무 목록 내 항목들 출력
 	String detailTask(Model model, NoticeWritingVO vo) {
-		model.addAttribute("dtask",nwDao.detailTask(vo));
+		model.addAttribute("tasks",nwDao.detailTask(vo));
 		return "nwm/allTask";
 	}
 	

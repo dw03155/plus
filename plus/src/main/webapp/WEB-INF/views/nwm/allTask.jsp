@@ -96,7 +96,7 @@
 
 							<ul id="taskListProjectItem"
 								class="js-all-task-ul all-task-content layer-scroll padding-zero scroll-mask scroll-for-ie">
-								<c:forEach var="task" items="${tasks }" >
+								<c:forEach var="task" items="${tasks }" varStatus="status">
 									<li class="js-gubun-li">
 										<div id="main" class="js-gubun-button all-task-project">
 											<!-- active 클래스 추가시  -->
@@ -107,40 +107,29 @@
 										</div>
 										<ul id="sub" class="js-inner-task project-inner-task active"
 											style="display: block">
+											<li class="task-item {LI_STTS}">
+												<div class="task-item {LI_STTS}">${tasks[status.index].notiId }</div>
+												<div class="task-item {LI_STTS}">${tasks[status.index].tskPrgs }</div>
+												<div class="task-item {LI_STTS}">${tasks[status.index].notiTtl }</div>
+												<div class="task-item {LI_STTS}">${tasks[status.index].memId}</div>
+												<div class="task-item {LI_STTS}">${tasks[status.index].name}</div>
 
-											<c:forEach var="dtask" items="${dtask }" >
-												<li class="task-item {LI_STTS}">
-
-													<div class="task-item {LI_STTS}">${dtask.notiId }ddd</div>
-													<div class="task-item {LI_STTS}">${dtask.tskPrgs }</div>
-													<div class="task-item {LI_STTS}">${dtask.notiTtl }</div>
-													<div class="task-item {LI_STTS}">${dtask.memId}</div>
-													<div class="task-item {LI_STTS}">${dtask.name}</div>
-
-													<div class="task-item {LI_STTS}">
-														<fmt:formatDate pattern="yyyy-MM-dd"
-															value="${dtask.tskBgnDt }" />
-													</div>
-													<div class="task-item {LI_STTS}">
-														<fmt:formatDate pattern="yyyy-MM-dd"
-															value="${dtask.tskEndDt }" />
-													</div>
-													<div class="task-item {LI_STTS}">
-														<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
-															value="${dtask.notiDttm}" />
-													</div>
-												</li>
-											</c:forEach>
-
-
-											<!-- style="display: none" -->
-											<!-- li 태그 넣기 : 상세보기시에는 class="highlight" 추가-->
+												<div class="task-item {LI_STTS}">
+													<fmt:formatDate pattern="yyyy-MM-dd"
+														value="${tasks[status.index].tskBgnDt }" />
+												</div>
+												<div class="task-item {LI_STTS}">
+													<fmt:formatDate pattern="yyyy-MM-dd"
+														value="${tasks[status.index].tskEndDt }" />
+												</div>
+												<div class="task-item {LI_STTS}">
+													<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
+														value="${tasks[status.index].notiDttm}" />
+												</div> <!-- style="display: none" --> <!-- li 태그 넣기 : 상세보기시에는 class="highlight" 추가-->
 										</ul>
-
 									</li>
 								</c:forEach>
 							</ul>
-
 
 							<!-- li 태그 넣기 -->
 							<ul id="taskListItem" class="d-none">
@@ -269,10 +258,11 @@
 	</div>
 	<!-- 전체 업무 -> 목록 접고 펼치기 -->
 	<script type="text/javascript">
-		$("#main").click(function() {
+	  $("#main").on ("click",function() {
 			$("#main").toggleClass("active");
 			$("#sub").toggle();
-		});
+		}); 
+	
 	</script>
 </body>
 </html>
