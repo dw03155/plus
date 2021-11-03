@@ -94,6 +94,27 @@
 		set pwd = #{pwd}
 		where mem_id = #{memId}
 	</update>
+	<!-- 회원상태 표시 -->
+	<update id="memberOnline" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update mem_status
+		set mem_st = 'online'
+		where mem_id = #{memId}
+	</update>
+	<update id="memberOther" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update mem_status
+		set mem_st = 'other'
+		where mem_id = #{memId}
+	</update>
+	<update id="memberNotdesk" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update mem_status
+		set mem_st = 'notdesk'
+		where mem_id = #{memId}
+	</update>
+	<update id="memberOffline" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update mem_status
+		set mem_st = 'offline'
+		where mem_id = #{memId}
+	</update>
 
 																						<!-- 탈퇴(계정상태 변환) -->
 	<update id="memberDelete" parameterType="co.plus.prj.uam.vo.MemberVO">

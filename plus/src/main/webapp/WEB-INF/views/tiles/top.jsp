@@ -42,6 +42,12 @@
 .st_img{
 	width: 17px;
 }
+.st_icn{
+	width: 15px;
+	position: absolute;
+	top: 17px;
+    right: -4px;
+}
 .st_modal{
 	min-width: 115px;
     padding: 14px;
@@ -82,12 +88,14 @@
 				<i class="icon-alarm"></i> <i id="alarmTopCount" class="label-alarm"
 					style="display: none"></i>
 			</button>
+			<!-- 회원상태표시 -->
 			<button type="button" id="accountTopButton" class="btn-profile">
 				<span id="ProfileImg" class="profile-area"
 					style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;);"></span>
+				<img id="mem_st_icon" alt="on" src="/img/status_icn/online.png" class="st_icn">
 			</button>
 		</div>
-		<ul id="accountLayer" class="modal-account d-none">
+		<ul id="accountModal" class="modal-account d-none">
 			<li class="user-area">
 				<p class="js-profile user-img"
 					style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;);"></p>
@@ -809,6 +817,44 @@
 	<form id="frm" action="home.do"></form>
 	
 	<script>
+	//모달 자동 닫기
+		$(document).mouseup(function (e){
+			var MySettiong = $("#MySettiong");
+			var status = $("#status");
+			var accountModal = $("#accountModal");
+			if(status.has(e.target).length === 0){
+				status.css("display", "none");
+			}
+			if(MySettiong.has(e.target).length === 0){
+				MySettiong.css("display", "none");
+			}
+			if(accountModal.has(e.target).length === 0){
+				accountModal.css("display", "none");
+				status.css("display", "none");
+			}
+		});
+	
+	//회원모달
+	$("#accountTopButton").on("click", function(){
+		$("#accountModal").toggleClass("d-none");
+	})
+	
+	//회원상태변경
+	//온라인
+	$("#online").on("click",function(){
+		var memId = "${sessionScope.memId}";
+		var jsondata = {"memId": memId};
+		$ajax({
+			url: "memberOnline.do",
+			method: "put",
+			data: JSON.stringify(jsondata),
+			contentType: "application/json",
+			dataType: "json",
+			success: function(){
+				$("#mem_st_icon").
+			}
+		});
+	});
 		
 	//화면에 출력, 회원정보 가져오기		
 		$("#mySettingOpenButton").on("click", function() {
@@ -863,6 +909,7 @@
 			$("#MySettiong").css("display", "none");
 			$("#pwdUpdateSussacc").css("display","none");
 		});
+		
 
 		$("#accountSettingBtn").on("click", function() {
 			$("#myPageBtn").css("color", "#6449FC");

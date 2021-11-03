@@ -191,7 +191,7 @@ var AccountSetting = (function () {
 
     function updateUserName(userName) {
         $("#accountSettingLayer").find(".js-user-name").text(userName)
-        $("#accountLayer").find(".js-user-name").text(userName);
+        $("#acconutModal").find(".js-user-name").text(userName);
         _USER_NM = userName;
     }
 
@@ -199,7 +199,7 @@ var AccountSetting = (function () {
         var profileImage = ImageUtil.removeDomain("PROFILE", imageUrl);
         var defaultImage = ImageUtil.removeDomain("PROFILE", "");
         var urlText = 'url(' + profileImage + '), url(' + defaultImage + ')'; //이미지 로드 실패시 디폴트 처리
-        $("#accountLayer").find(".js-profile").css('background-image', urlText);
+        $("#acconutModal").find(".js-profile").css('background-image', urlText);
         $("#ProfileImg").css('background-image', urlText);
         $("#mySettingPopup").find("#myPicture").css('background-image', urlText);
         _PRFL_PHTG = profileImage;

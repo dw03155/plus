@@ -56,56 +56,79 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 														//회원정보 수정
+	// 회원정보 가져오기
 	@Override
 	public MemberVO memberInfo(MemberVO vo) {
-		// 회원정보 가져오기
 		return map.memberInfo(vo);
 	}
-	
+
+	// 회원 이름 수정
+	@Override
+	public int nameUpdate(MemberVO vo) {
+		return map.nameUpdate(vo);
+	}
+
+	// 회원 직위 수정
+	@Override
+	public int wkpoUpdate(MemberVO vo) {
+		return map.wkpoUpdate(vo);
+	}
+
+	// 회원 전화번호 수정
+	@Override
+	public int persTelUpdate(MemberVO vo) {
+		return map.persTelUpdate(vo);
+	}
+
+	// 회원 회사번호 수정
+	@Override
+	public int coTelUpdate(MemberVO vo) {
+		return map.coTelUpdate(vo);
+	}
+
+	// 회원 부서 수정
+	@Override
+	public int deptUpdate(MemberVO vo) {
+		return map.deptUpdate(vo);
+	}
+
+	// 회원 비밀번호 수정
+	@Override
+	public int pwdUpdate(MemberVO vo) {
+		return map.pwdUpdate(vo);
+	}
+
+														//회원상태 변경
+	// 온라인
+	@Override
+	public int memberOnline(MemberVO vo) {
+		return map.memberOnline(vo);
+	}
+
+	// 다른용무
+	@Override
+	public int memberOther(MemberVO vo) {
+		return map.memberOther(vo);
+	}
+
+	// 자리비움
+	@Override
+	public int memberNotdesk(MemberVO vo) {
+		return map.memberNotdesk(vo);
+	}
+
+	// 오프라인
+	@Override
+	public int memberOffline(MemberVO vo) {
+		return map.memberOffline(vo);
+	}
+
+
 														// 회원탈퇴
 	@Override
 	public int memberDelete(MemberVO member) {
 		return map.memberDelete(member);
 	}
-
-														//회원 정보 수정
-	@Override
-	public int nameUpdate(MemberVO vo) {
-		// 회원 이름 수정
-		return map.nameUpdate(vo);
-	}
-
-	@Override
-	public int wkpoUpdate(MemberVO vo) {
-		// 회원 직위 수정
-		return map.wkpoUpdate(vo);
-	}
-
-	@Override
-	public int persTelUpdate(MemberVO vo) {
-		// 회원 전화번호 수정
-		return map.persTelUpdate(vo);
-	}
-
-	@Override
-	public int coTelUpdate(MemberVO vo) {
-		// 회원 회사번호 수정
-		return map.coTelUpdate(vo);
-	}
-
-	@Override
-	public int deptUpdate(MemberVO vo) {
-		// 회원 부서 수정
-		return map.deptUpdate(vo);
-	}
-
-	@Override
-	public int pwdUpdate(MemberVO vo) {
-		// 회원 비밀번호 수정
-		return map.pwdUpdate(vo);
-	}
-
-
 
 
 

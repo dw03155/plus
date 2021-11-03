@@ -188,6 +188,14 @@ public class MemberController {
 		return vo;
 	}
 	
+	
+	//회원상태표시
+	@RequestMapping(value = "/memberOnline.do",  method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseBody
+	public MemberVO memberOnline(@RequestBody MemberVO vo, Model model) {
+		service.memberOnline(vo);
+		return vo;
+	}
 		
 	//회원 탈퇴
 	@RequestMapping(value="/memberDelete.do", method = RequestMethod.PUT,  consumes = "application/json")

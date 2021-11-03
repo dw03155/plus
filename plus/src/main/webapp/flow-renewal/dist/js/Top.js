@@ -4,7 +4,7 @@ var Top = (function () {
 
     return {
         addClickEvent: addClickEvent,
-        closeAccountLayer: closeAccountLayer,
+        closeacconutModal: closeacconutModal,
         closeHelpCenterLayer: closeHelpCenterLayer,
         setBanner: setBanner,
         removeBanner: removeBanner,
@@ -129,8 +129,8 @@ var Top = (function () {
             ElectronEvent.clickNaviBar($(e.target));
         });
 
-        $("#accountTopButton").off("click").on("click", toggleAccountLayer);
-        $("#accountLayer").off("click").on("click", clickAccount);
+        $("#accountTopButton").off("click").on("click", toggleacconutModal);
+        $("#acconutModal").off("click").on("click", clickAccount);
         $("#searchPopupTopButton").off("click").on("click", SearchEvent.clickTopSearchBar);
         $("#recommendEvtTopBtn").off("click").on("click", function (e) {location.href = "/event"});
 
@@ -163,16 +163,16 @@ var Top = (function () {
         if ($recommendEvtListBtn.length > 0) { location.href = "/event"; }
     }
 
-    function toggleAccountLayer() {
-        var $accountLayer = $("#accountLayer");
+    function toggleacconutModal() {
+        var $acconutModal = $("#acconutModal");
         $("#accountTopButton").addClass('active')
-        if ($accountLayer.is(":visible")) return closeAccountLayer();
-        $accountLayer.fadeIn(200);
+        if ($acconutModal.is(":visible")) return closeacconutModal();
+        $acconutModal.fadeIn(200);
     }
 
-    function closeAccountLayer() {
+    function closeacconutModal() {
         $("#accountTopButton").removeClass('active')
-        $("#accountLayer").fadeOut(200);
+        $("#acconutModal").fadeOut(200);
     }
 
     function closeHelpCenterLayer() {

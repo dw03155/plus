@@ -293,7 +293,7 @@ const Often = (function () {
         const isElectronLoginView = Electron.isElectronApp() && (isAct('signin.act') || isAct('signIn.act'));
         if (isElectronLoginView) return;
         const isGoogleAuth = "Y" === Often.getCookie("googleLoginYn");
-        $("#accountLayer").fadeOut(200);
+        $("#acconutModal").fadeOut(200);
         const confirmJson = {};
         confirmJson.contents = ({
             main: i18next.t("front.alert.logout"),
