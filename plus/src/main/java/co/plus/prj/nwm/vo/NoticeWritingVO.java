@@ -43,9 +43,7 @@ public class NoticeWritingVO {
 	private String schePl;			// 일정 장소
 	private Date scheDttm; 			// 일정 작성 일시
 	 
-	//글 개수
-	private String col;
-	private String word;
+	
 
 
 }

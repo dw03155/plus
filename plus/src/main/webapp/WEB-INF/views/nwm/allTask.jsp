@@ -96,45 +96,38 @@
 
 							<ul id="taskListProjectItem"
 								class="js-all-task-ul all-task-content layer-scroll padding-zero scroll-mask scroll-for-ie">
-								<c:forEach var="task" items="${tasks }">
+								<c:forEach var="task" items="${tasks }" >
 									<li class="js-gubun-li">
 										<div id="main" class="js-gubun-button all-task-project">
 											<!-- active 클래스 추가시  -->
 											<span class="project-title">${task.prjTtl }</span> <span
 												class="project-task-count">50</span>
 											<!-- 갯수 -->
-											<%
-											int totalRecord = NoticeWritingVO.count(col, word); // BbsDAO.java에 count() 함수 만들어야 함 
-											out.println("<tr>"); 
-											out.println(" <td colspan='4' style='text-align : right;'>"); 
-											out.println(" 글 개수 : <strong>"); out.println(totalRecord); //위에서 지정한 변수 
-											out.println(" </strong>"); out.println(" </td>"); out.println("</tr>");
-											%>
-
-
+											<%-- <div>${cnt }</div> --%>
 										</div>
 										<ul id="sub" class="js-inner-task project-inner-task active"
 											style="display: block">
 
-											<c:forEach var="tasks" items="${tasks }">
+											<c:forEach var="dtask" items="${dtask }" >
 												<li class="task-item {LI_STTS}">
-													<div class="task-item {LI_STTS}">${tasks.notiId }</div>
-													<div class="task-item {LI_STTS}">${tasks.tskPrgs }</div>
-													<div class="task-item {LI_STTS}">${tasks.notiTtl }</div>
-													<div class="task-item {LI_STTS}">${tasks.memId}</div>
-													<div class="task-item {LI_STTS}">${tasks.name}</div>
+
+													<div class="task-item {LI_STTS}">${dtask.notiId }ddd</div>
+													<div class="task-item {LI_STTS}">${dtask.tskPrgs }</div>
+													<div class="task-item {LI_STTS}">${dtask.notiTtl }</div>
+													<div class="task-item {LI_STTS}">${dtask.memId}</div>
+													<div class="task-item {LI_STTS}">${dtask.name}</div>
 
 													<div class="task-item {LI_STTS}">
 														<fmt:formatDate pattern="yyyy-MM-dd"
-															value="${tasks.tskBgnDt }" />
+															value="${dtask.tskBgnDt }" />
 													</div>
 													<div class="task-item {LI_STTS}">
 														<fmt:formatDate pattern="yyyy-MM-dd"
-															value="${tasks.tskEndDt }" />
+															value="${dtask.tskEndDt }" />
 													</div>
 													<div class="task-item {LI_STTS}">
 														<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
-															value="${tasks.notiDttm}" />
+															value="${dtask.notiDttm}" />
 													</div>
 												</li>
 											</c:forEach>
