@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.plus.prj.pnw.mapper.PNWMapper">
-	
+
 	<!-- 새 프로젝트 -->
 	<insert id="prjInsert">
 	
@@ -54,6 +54,23 @@
 	
 	<select id="partiList">		<!-- 참여자 목록 -->
 	</select>
+
+	<!-- <resultMap id="tskList" type="co.plus.prj.pnw.vo.PNWVO">
+		<result property="" />
+		<result property="" />
+		<result property="" />
+		<collection property="" />
+	</resultMap>
+	
+	<select id="tskPrgList" resultMap="tskList">
+		select a.*
+		from project a, member b, prj_parti c
+		where a.prj_id
+	</select>
+
+	<select id="tskList" resultMap="tskList">
+		select 1 from dual
+	</select> -->
 	
 	<!-- 프로젝트 : 업무 -->
 	<select id="tskList">
@@ -176,7 +193,6 @@
 		from notice_writing
 		where mem_id = #{memId}
 	</select>
-
 
 
 </mapper>

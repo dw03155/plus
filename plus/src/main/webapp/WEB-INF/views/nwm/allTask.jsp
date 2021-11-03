@@ -105,27 +105,35 @@
 											<!-- 갯수 -->
 											<%-- <div>${cnt }</div> --%>
 										</div>
-										<ul id="sub" class="js-inner-task project-inner-task active"
+										<ul class="js-inner-task project-inner-task active"
 											style="display: block">
-											<li class="task-item {LI_STTS}">
-												<div class="task-item {LI_STTS}">${tasks[status.index].notiId }</div>
-												<div class="task-item {LI_STTS}">${tasks[status.index].tskPrgs }</div>
-												<div class="task-item {LI_STTS}">${tasks[status.index].notiTtl }</div>
-												<div class="task-item {LI_STTS}">${tasks[status.index].memId}</div>
-												<div class="task-item {LI_STTS}">${tasks[status.index].name}</div>
+											
+												<li class="task-item {LI_STTS}">
 
-												<div class="task-item {LI_STTS}">
-													<fmt:formatDate pattern="yyyy-MM-dd"
-														value="${tasks[status.index].tskBgnDt }" />
-												</div>
-												<div class="task-item {LI_STTS}">
-													<fmt:formatDate pattern="yyyy-MM-dd"
-														value="${tasks[status.index].tskEndDt }" />
-												</div>
-												<div class="task-item {LI_STTS}">
-													<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
-														value="${tasks[status.index].notiDttm}" />
-												</div> <!-- style="display: none" --> <!-- li 태그 넣기 : 상세보기시에는 class="highlight" 추가-->
+													<div class="task-item {LI_STTS}">${dtask.notiId }ddd</div>
+													<div class="task-item {LI_STTS}">${dtask.tskPrgs }</div>
+													<div class="task-item {LI_STTS}">${dtask.notiTtl }</div>
+													<div class="task-item {LI_STTS}">${dtask.memId}</div>
+													<div class="task-item {LI_STTS}">${dtask.name}</div>
+
+													<div class="task-item {LI_STTS}">
+														<fmt:formatDate pattern="yyyy-MM-dd"
+															value="${dtask.tskBgnDt }" />
+													</div>
+													<div class="task-item {LI_STTS}">
+														<fmt:formatDate pattern="yyyy-MM-dd"
+															value="${dtask.tskEndDt }" />
+													</div>
+													<div class="task-item {LI_STTS}">
+														<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
+															value="${dtask.notiDttm}" />
+													</div>
+												</li>
+											
+
+
+											<!-- style="display: none" -->
+											<!-- li 태그 넣기 : 상세보기시에는 class="highlight" 추가-->
 										</ul>
 									</li>
 								</c:forEach>
@@ -258,11 +266,14 @@
 	</div>
 	<!-- 전체 업무 -> 목록 접고 펼치기 -->
 	<script type="text/javascript">
-	  $("#main").on ("click",function() {
-			$("#main").toggleClass("active");
-			$("#sub").toggle();
-		}); 
-	
+	 var main = document.querySelectorAll("#main");
+		$(main).click(function(event) {
+			console.log(event);
+			var et = $(event.target);
+			et.toggleClass("active");
+			et.next("ul").toggle();
+		});
+
 	</script>
 </body>
 </html>
