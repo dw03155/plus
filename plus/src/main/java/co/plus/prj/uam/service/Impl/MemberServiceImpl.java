@@ -14,12 +14,6 @@ import co.plus.prj.uam.vo.MemberVO;
 public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberMapper map;
-
-	// 목록
-	@Override
-	public List<MemberVO> getMembetList() {
-		return map.getMemberList();
-	}
 	
 														//회원가입
 	// 새 회원입력
@@ -27,6 +21,11 @@ public class MemberServiceImpl implements MemberService {
 	public int newCompanyInsert(MemberVO member) {
 		map.newCompanyInsert1(member);
 		return map.newCompanyInsert2(member);
+	}
+	// 메일 중복 테스트
+	@Override
+	public MemberVO getMailCheck(MemberVO vo) {
+		return map.getMailCheck(vo);
 	}
 	// 기존회사 입력
 	@Override
@@ -140,6 +139,34 @@ public class MemberServiceImpl implements MemberService {
 		return map.companyNameUpdate(vo);
 	}
 
+	// 회사로고 수정
+	@Override
+	public int companyLogoUpdate(MemberVO vo) {
+		return map.companyLogoUpdate(vo);
+	}
+
+														// 사용자관리
+	// 정상 사용자 조회
+	@Override
+	public List<MemberVO> getUsingMemberList(MemberVO vo) {
+		return map.getUsingMemberList(vo);
+	}
+	// 사용중지 사용자 조회
+	@Override
+	public List<MemberVO> getNotusedMemberList(MemberVO vo) {
+		return map.getNotusedMemberList(vo);
+	}
+	// 가입대기 사용자
+	@Override
+	public List<MemberVO> getOutstandMemberList(MemberVO vo) {
+		return map.getOutstandMemberList(vo);
+	}
+	// 게스트
+	@Override
+	public List<MemberVO> getGuestMemberList(MemberVO vo) {
+		return map.getGuestMemberList(vo);
+	}
+	
 
 
 

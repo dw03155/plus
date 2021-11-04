@@ -2,10 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.plus.prj.uam.mapper.MemberMapper">
     
-    <select id="getMemberList" resultType="co.plus.prj.uam.vo.MemberVO">
-    
-	</select>
-	
 																						<!-- 회원로그인 -->
 	<!-- 회원정보 -->																					
 	<select id="memberLogin" resultType="co.plus.prj.uam.vo.MemberVO">					
@@ -39,6 +35,12 @@
 		select co_url, co_name 
 		from company
 		where co_url = #{coUrl}
+	</select>
+	<!-- 메일 중복 테스트-->
+	<select id="getMailCheck" resultType="co.plus.prj.uam.vo.MemberVO">
+		select email
+		from member
+		where email = #{email}
 	</select>
 	<!-- 어드민회원입력 -->
 	<insert id="newCompanyInsert1" parameterType="co.plus.prj.uam.vo.MemberVO">
@@ -135,8 +137,36 @@
 		update company set co_name = #{coName}
 		where co_url = #{coUrl}
 	</update>
+	<!-- 회원로고 수정 -->
+	<update id="companyLogoUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update company set co_logo = #{coLogo}
+		where co_url = #{coUrl}
+	</update>
 	
-	
+																						<!-- 사용자 관리 -->
+    <!-- 정상사용자 -->
+    <select id="getUsingMemberList" resultType="co.plus.prj.uam.vo.MemberVO">
+	   	select mem_id, name, dept, wkpo, pers_tel, acc_st, mem_perm, email
+		from member
+		where co_url = #{coUrl} and acc_st = 'using'
+	</select>
+	<!-- 사용중지 사용자 -->
+	 <select id="getNotusedMemberList" resultType="co.plus.prj.uam.vo.MemberVO">
+	   	select mem_id, name, dept, wkpo, pers_tel, acc_st, mem_perm, email
+		from member
+		where co_url = #{coUrl} and acc_st = 'notused'
+	</select>
+	<!-- 가입대기 사용자 -->
+	<select id="getOutstandMemberList" resultType="co.plus.prj.uam.vo.MemberVO">
+		select mem_id, name, dept, wkpo, pers_tel, acc_st, mem_perm, email
+		from member
+		where co_url = #{coUrl} and acc_st = 'outstand'
+	</select>
+	<select id="getGuestMemberList" resultType="co.plus.prj.uam.vo.MemberVO">
+		select mem_id, name, dept, wkpo, pers_tel, acc_st, mem_perm, email
+		from member
+		where co_url = #{coUrl} and mem_perm = 'GUEST'
+	</select>
 	
 	
 	

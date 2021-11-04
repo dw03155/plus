@@ -76,28 +76,7 @@
 			}
 		})
 		
-	});
-	
-	//파일 업로드
-	$("#logoIn").on("click",function(e){
-		var formData = new FormData();
-		var logoInput = $("#logoInput");
-		var files = logoInput[0].files;
-	});
-	$("#logoInput").change(function(){
-		$("#showfiles").empty();
-		var tb = $("<table border='1'/>");
-		var fileInput = $("input[name='uploadFile']");
-		var files = fileInput[0].files;
-		for(var i= 0; i<files.length; i++){
-			var row = $("<tr/>").append(
-			$("<tb width='150'/>").text(files[i].name));
-			tb.append(row);
-		}
-		
-		$("#showfiles").append(tb);
-	});
-		
+	});		
 	$("#btn").on("click", function(){
 		var coUrl = "${sessionScope.coUrl}";
 		var coName = $("#coNameSer").val();
@@ -120,6 +99,69 @@
 			});
 		}
 	});
+	
+	//파일 업로드
+	$("#logoIn").on("click",function(e){
+		var formData = new FormData();
+		var coLogo = null;
+		var coUrl = "${sessionScope.coUrl}";
+		var logoInput = $("#logoInput");
+		var files = logoInput[0].files;
+		console.log(files);
+		for(var i= 0; i<files.length; i++){
+			formData.append("logoInput", files[i]);
+			coLogo = files[i].name;
+		}
+		var jsondata = {"coUrl": coUrl,"coLogo":coLogo};
+			$.ajax({
+				url: 'uploadLogo.do',
+				processData: false,
+				contentType: false,
+				data: formData,
+				type: 'POST',
+				success: function(result){
+					$("#logoInput").val();
+					$("#showfiles").empty();//<div>리셋
+					alert("Uploaded");
+					$.ajax({
+						url: 'companyLogoUpdate.do',
+						type: 'put',
+						data: JSON.stringify(jsondata),
+						contentType: "application/json",
+						dataType: "json",
+						success: function(){
+							alert("로고를 변경했습니다");
+						},
+						error:function(){
+							alert(${message });
+						}
+					})
+				},
+				error: function(){
+					alert("파일의 용량이 너무 큽니다.")
+				}
+			}); //end of $.ajax
+		
+		
+	});
+	//파일보기
+	$().ready(function(){
+		$("#logoInput").change(function(){
+			$("#showfiles").empty();
+			var tb = $("<table border='1'/>");
+			var logoInput = $("input[name='logoInput']");
+			var files = logoInput[0].files;
+			for(var i= 0; i<files.length; i++){
+				var row = $("<tr/>").append(
+				$("<tb width='150'/>").text(files[i].name));
+				tb.append(row);
+			}
+			
+			$("#showfiles").append(tb);
+		});
+	});
+	
+	
 </script>
 
 </body>
