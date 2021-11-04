@@ -96,7 +96,7 @@
 
 							<ul id="taskListProjectItem"
 								class="js-all-task-ul all-task-content layer-scroll padding-zero scroll-mask scroll-for-ie">
-								<c:forEach var="task" items="${tasks }" >
+								<c:forEach var="task" items="${tasks }" varStatus="status">
 									<li class="js-gubun-li">
 										<div id="main" class="js-gubun-button all-task-project">
 											<!-- active 클래스 추가시  -->
@@ -107,11 +107,10 @@
 										</div>
 										<ul class="js-inner-task project-inner-task active"
 											style="display: block">
-
 											
 												<li class="task-item {LI_STTS}">
 
-													<div class="task-item {LI_STTS}">${dtask.notiId }ddd</div>
+													<%-- <div class="task-item {LI_STTS}">${dtask.notiId }ddd</div>
 													<div class="task-item {LI_STTS}">${dtask.tskPrgs }</div>
 													<div class="task-item {LI_STTS}">${dtask.notiTtl }</div>
 													<div class="task-item {LI_STTS}">${dtask.memId}</div>
@@ -128,7 +127,7 @@
 													<div class="task-item {LI_STTS}">
 														<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
 															value="${dtask.notiDttm}" />
-													</div>
+													</div> --%>
 												</li>
 											
 
@@ -136,11 +135,9 @@
 											<!-- style="display: none" -->
 											<!-- li 태그 넣기 : 상세보기시에는 class="highlight" 추가-->
 										</ul>
-
 									</li>
 								</c:forEach>
 							</ul>
-
 
 							<!-- li 태그 넣기 -->
 							<ul id="taskListItem" class="d-none">
@@ -276,6 +273,7 @@
 			et.toggleClass("active");
 			et.next("ul").toggle();
 		});
+
 	</script>
 </body>
 </html>
