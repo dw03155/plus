@@ -12,7 +12,7 @@ public class PNWVO {
 	private int notiId;				// 게시글 번호
 	private int prjId;				// 프로젝트 번호
 	private String notiKnd;			// 게시글 종류
-	private int memId;				// 회원 번호
+	private String memId;			// 회원 번호
 	private Date notiDttm;			// 게시글 작성일시
 	private String notiOpenPerm;	// 게시글 공개권한
 	
@@ -23,6 +23,7 @@ public class PNWVO {
 	// PrjParti
 	private String prjColor;		// 프로젝트 컬러
 	private String prjPerm;			// 프로젝트 권한
+	private String PartiCnt;		// 프로젝트 참여자 수
 	
 	//
 	private String notiTtl;			// 게시글명

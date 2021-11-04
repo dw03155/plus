@@ -27,8 +27,6 @@ public class MemberController {
 	JavaMailSender mailSender;
 	@Autowired
 	MemberService service;
-
-	
 	
 	//회사URL입력페이지(companyJoin.jsp)
 	@RequestMapping(value = "/companyJoin.do", method = RequestMethod.GET)

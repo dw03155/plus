@@ -39,24 +39,13 @@
 <script async="" src="flow-renewal/js/main.js"></script><!-- 제일 밑에 있던 js -->
 
 <style type="text/css">
-@
--webkit-keyframes rotate {from { -webkit-transform:rotate(0deg);
-	
+@-webkit-keyframes rotate {
+from { -webkit-transform:rotate(0deg);}
+to { -webkit-transform: rotate(360deg);}
 }
-
-to {
-	-webkit-transform: rotate(360deg);
-}
-
-}
-@
-keyframes rotate {from { transform:rotate(0deg);
-	
-}
-
-to {
-	transform: rotate(360deg);
-}
+@keyframes rotate{
+from { transform:rotate(0deg);}
+to { transform: rotate(360deg);}
 }
 </style>
 </head>
