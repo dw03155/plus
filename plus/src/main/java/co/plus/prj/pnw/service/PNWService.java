@@ -4,14 +4,16 @@ import java.util.List;
 
 import co.plus.prj.pnw.vo.PNWVO;
 
-public interface PNWService {
+public interface PNWService { //mapper합치기
 	
 		// 전체메뉴
-		int prjInsert(PNWVO vo);			// 새 프로젝트
-		List<PNWVO> myProject();			// 내 프로젝트
-		List<PNWVO> openProject();			// 회사 프로젝트(전체공개 프로젝트)
+		int cPrjInsert(PNWVO vo);			// 새 프로젝트(회사)
+		int nPrjInsert(PNWVO vo);			// 새 프로젝트(일반)
+		List<PNWVO> favorMyPrj(PNWVO vo);	// 내 프로젝트(즐겨찾기)
+		List<PNWVO> noMyPrj(PNWVO vo);		// 내 프로젝트(즐겨찾기x)
+		List<PNWVO> openProject(PNWVO vo);	// 회사 프로젝트(전체공개 프로젝트)
 		
-		List<PNWVO> prjFolder();			// 프로젝트 폴더 메뉴
+		List<PNWVO> prjFolder(PNWVO vo);	// 프로젝트 폴더 메뉴
 		int prjFoldInsert(PNWVO vo);		// 프로젝트 폴더 생성
 		int prjFoldUpdate(PNWVO vo);		// 프로젝트 폴더 수정(폴더명)
 		int prjFoldDelete(PNWVO vo);		// 프로젝트 폴더 삭제
@@ -19,10 +21,10 @@ public interface PNWService {
 		// 프로젝트
 		int prjUpdate(PNWVO vo);			// 프로젝트 수정(프로젝트명, 색깔, 공개권한)
 		int prjDelete(PNWVO vo);			// 프로젝트 삭제
-		List<PNWVO> home();					// 프로젝트 홈탭 (게시글 목록, 참여자 목록)
-		List<PNWVO> tskList();				// 프로젝트 업무탭
-		List<PNWVO> scheList();				// 프로젝트 일정탭
-		List<PNWVO> fileList();				// 프로젝트 파일탭
+		List<PNWVO> home(PNWVO vo);			// 프로젝트 홈탭 (게시글 목록, 참여자 목록)
+		List<PNWVO> tskList(PNWVO vo);		// 프로젝트 업무탭
+		List<PNWVO> scheList(PNWVO vo);		// 프로젝트 일정탭
+		List<PNWVO> fileList(PNWVO vo);		// 프로젝트 파일탭
 		
 		int txtInsert(PNWVO vo);			// 글 입력
 		int txtUpdate(PNWVO vo);			// 글 생성

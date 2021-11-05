@@ -7,136 +7,145 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="main-container">
-	<!-- 프로젝트 상세페이지 Top -->
-	<div id="topSettingBar" class="main-header">
-		<div id="detailTop" class="project-detail title-1">
-			<div class="project-detail-header">
-				<div class="project-color-area">
-					<i id="projectColor" class="project-color color-code-2"></i>
-				</div>
-				<div class="project-header-group">
-					<div class="project-title-area">
-						<div class="project-option-area">
-							<button id="projectStar" class="bookmark-button unstar">
-								<span class="blind">즐겨찾기</span>
-							</button>
-							<button id="detailSettingTopButton" class="set-btn">
-								<span></span> <span></span> <span></span>
-							</button>
-							<div id="detailSettingLayer" class="project-setup-wrap"
-								style="display: none">
-								<div class="project-setup-header">
-									<span>프로젝트 번호</span> <em id="detailSettingProjectSrno"></em>
+	<div class="main-container">
+		<!-- 프로젝트 상세페이지 Top -->
+		<div id="topSettingBar" class="main-header">
+			<div id="detailTop" class="project-detail title-1">
+				<div class="project-detail-header">
+					<div class="project-color-area">
+						<i id="projectColor" class="project-color color-code-2"></i>
+					</div>
+					<div class="project-header-group">
+						<div class="project-title-area">
+							<div class="project-option-area">
+								<button id="projectStar" class="bookmark-button unstar">
+									<span class="blind">즐겨찾기</span>
+								</button>
+								<button id="detailSettingTopButton" class="set-btn">
+									<span></span> <span></span> <span></span>
+								</button>
+								<div id="detailSettingLayer" class="project-setup-wrap"
+									style="display: none">
+									<div class="project-setup-header">
+										<span>프로젝트 번호</span> <em id="detailSettingProjectSrno"></em>
+									</div>
+									<ul id="detailSettingGroup" class="setup-group">
+										<li id="detailSettingColorBtn"><a href="#"> <i
+												class="icon-set-color"></i>색상 설정
+										</a></li>
+										<li id="detailSettingLabelBtn"><a href="#"> <i
+												class="icon-set-label"></i>프로젝트 폴더 설정
+										</a></li>
+										<li id="detailSettingPushAlarmBtn"><a href="#"> <i
+												class="icon-set-alarm"></i>알림 설정
+										</a></li>
+										<li id="detailSettingHideBtn"><a id="hideText" href="#">
+												<i class="icon-set-hide"></i>
+										</a></li>
+										<li id="detailSettingProjectExitBtn"><a href="#"> <i
+												class="icon-set-out"></i>프로젝트 나가기
+										</a></li>
+										<li id="detailSettingProjectUpdateBtn"><a href="#"> <i
+												class="icon-set-modify"></i>프로젝트 수정
+										</a></li>
+										<li id="detailSettingProjectDeleteBtn"><a href="#"> <i
+												class="icon-set-delete"></i>프로젝트 삭제
+										</a></li>
+									</ul>
 								</div>
-								<ul id="detailSettingGroup" class="setup-group">
-									<li id="detailSettingColorBtn"><a href="#"> <i
-											class="icon-set-color"></i>색상 설정
-									</a></li>
-									<li id="detailSettingLabelBtn"><a href="#"> <i
-											class="icon-set-label"></i>프로젝트 폴더 설정
-									</a></li>
-									<li id="detailSettingPushAlarmBtn"><a href="#"> <i
-											class="icon-set-alarm"></i>알림 설정
-									</a></li>
-									<li id="detailSettingHideBtn"><a id="hideText" href="#">
-											<i class="icon-set-hide"></i>
-									</a></li>
-									<li id="detailSettingProjectExitBtn"><a href="#"> <i
-											class="icon-set-out"></i>프로젝트 나가기
-									</a></li>
-									<li id="detailSettingProjectUpdateBtn"><a href="#"> <i
-											class="icon-set-modify"></i>프로젝트 수정
-									</a></li>
-									<li id="detailSettingProjectDeleteBtn"><a href="#"> <i
-											class="icon-set-delete"></i>프로젝트 삭제
-									</a></li>
-								</ul>
+							</div>
+							<h3 id="projectTitle" class="project-title ellipsis js-mouseover"
+								mouseover-text=""></h3>
+							<ul class="project-status-group">
+								<li id="lockIcon" class="d-none"><i
+									class="sprite-detail icon-locked js-icon-locked"><span
+										class="blind">관리자 승인 필요</span></i>
+									<div class="tooltip-square">
+										<em class="tooltip-title">관리자 승인 필요</em>
+										<p class="tooltip-text">프로젝트 관리자의 승인 후 참여가 가능한 프로젝트입니다.</p>
+									</div></li>
+								<li id="companyIcon" class="d-none"><i
+									class="sprite-detail icon-company js-icon-company"><span
+										class="blind">회사 프로젝트</span></i>
+									<div class="tooltip-square">
+										<em class="tooltip-title">회사 프로젝트</em>
+										<p class="tooltip-text">회사 직원 모두가 자동 참여되는 프로젝트로 임의로 참여자를
+											내보내거나 외부 직원을 초대할 수 없습니다.</p>
+									</div></li>
+								<li id="openProjIcon" class="d-none"><i
+									class="sprite-detail icon-open-project js-icon-open-project"><span
+										class="blind">회사 공개 프로젝트</span></i>
+									<div class="tooltip-square">
+										<em class="tooltip-title">회사 공개 프로젝트</em>
+										<p class="tooltip-text">우리 회사 직원이라면 누구나 직접 참여를 요청할 수 있습니다.</p>
+									</div></li>
+								<li id="unalarmIcon" class="d-none"><i
+									class="sprite-detail icon-unalarm js-icon-un-alarm"><span
+										class="blind">푸시 알림 OFF</span></i>
+									<div class="tooltip-square">
+										<em class="tooltip-title">푸시 알림 OFF</em>
+										<p class="tooltip-text">휴대폰 푸시 또는 브라우저에 알림이 가지 않습니다. 프로젝트
+											[알림 설정]메뉴에서 변경할 수 있습니다.</p>
+									</div></li>
+								<li style="display: none"><i class="icons-public"></i></li>
+								<li id="externalIcon" style="display: none"><span
+									class="icon-out-display js-mouseover"
+									mouseover-text="프로젝트에 외부 사용자가 있습니다">외부</span></li>
+							</ul>
+						</div>
+						<div class="project-description">
+							<p id="projectContents" class="description-text">...</p>
+							<!--<div class="tooltip-square"></div>-->
+						</div>
+					</div>
+				</div>
+				<button id="openInviteLayerBtn" type="button"
+					class="project-invite-button color-code-6">
+					<i class="icons-invite"></i>초대하기
+				</button>
+			</div>
+		</div>
+
+
+
+
+		<!-- 전체 게시글-->
+		<div id="mainContent" class="main-content scroll-mask"
+			scroll-direction="0">
+			<div id="detailLayer"
+				class="main-sub-header project-detail-wrap d-none">
+				<div class="project-detail-top clearfix">
+					<ul id="detailTab" class="project-detail-menu">
+						<li class="js-tab-item" data-code="home"><a>홈</a></li>
+						<li class="js-tab-item" data-code="task"><a>업무</a></li>
+						<li class="js-tab-item" data-code="calendar"><a>캘린더</a></li>
+						<li class="js-tab-item" data-code="file"><a>파일</a></li>
+						<li class="js-tab-item" data-code="history"><a>히스토리</a></li>
+					</ul>
+					<div id="detailTopSearch"
+						class="project-search-area all-file-header-type-3">
+						<i class="icons-search"></i>
+						<div class="project-search">
+							<input id="projectSearchInput" type="text"
+								placeholder="검색어를 입력해주세요" class="project-search-input"
+								autocomplete="off" maxlength="50" />
+							<div class="condition-button-area">
+								<div class="condition-left">
+									<button type="button" class="js-filter-reset condition-reset">초기화</button>
+								</div>
+								<div class="condition-right">
+									<button class="js-filter-cancel condition-button cancel">취소</button>
+									<button class="js-filter-search condition-button search">검색</button>
+								</div>
 							</div>
 						</div>
-						<h3 id="projectTitle" class="project-title ellipsis js-mouseover"
-							mouseover-text=""></h3>
-						<ul class="project-status-group">
-							<li id="lockIcon" class="d-none"><i
-								class="sprite-detail icon-locked js-icon-locked"><span
-									class="blind">관리자 승인 필요</span></i>
-								<div class="tooltip-square">
-									<em class="tooltip-title">관리자 승인 필요</em>
-									<p class="tooltip-text">프로젝트 관리자의 승인 후 참여가 가능한 프로젝트입니다.</p>
-								</div></li>
-							<li id="companyIcon" class="d-none"><i
-								class="sprite-detail icon-company js-icon-company"><span
-									class="blind">회사 프로젝트</span></i>
-								<div class="tooltip-square">
-									<em class="tooltip-title">회사 프로젝트</em>
-									<p class="tooltip-text">회사 직원 모두가 자동 참여되는 프로젝트로 임의로 참여자를
-										내보내거나 외부 직원을 초대할 수 없습니다.</p>
-								</div></li>
-							<li id="openProjIcon" class="d-none"><i
-								class="sprite-detail icon-open-project js-icon-open-project"><span
-									class="blind">회사 공개 프로젝트</span></i>
-								<div class="tooltip-square">
-									<em class="tooltip-title">회사 공개 프로젝트</em>
-									<p class="tooltip-text">우리 회사 직원이라면 누구나 직접 참여를 요청할 수 있습니다.</p>
-								</div></li>
-							<li id="unalarmIcon" class="d-none"><i
-								class="sprite-detail icon-unalarm js-icon-un-alarm"><span
-									class="blind">푸시 알림 OFF</span></i>
-								<div class="tooltip-square">
-									<em class="tooltip-title">푸시 알림 OFF</em>
-									<p class="tooltip-text">휴대폰 푸시 또는 브라우저에 알림이 가지 않습니다. 프로젝트
-										[알림 설정]메뉴에서 변경할 수 있습니다.</p>
-								</div></li>
-							<li style="display: none"><i class="icons-public"></i></li>
-							<li id="externalIcon" style="display: none"><span
-								class="icon-out-display js-mouseover"
-								mouseover-text="프로젝트에 외부 사용자가 있습니다">외부</span></li>
-						</ul>
-					</div>
-					<div class="project-description">
-						<p id="projectContents" class="description-text">...</p>
-						<!--<div class="tooltip-square"></div>-->
 					</div>
 				</div>
-			</div>
-			<button id="openInviteLayerBtn" type="button"
-				class="project-invite-button color-code-6">
-				<i class="icons-invite"></i>초대하기
-			</button>
-		</div>
-	</div>
-
-
-
-
-<!-- 전체 업무 페이지 -->
-	<div id="mainContent" class="main-content scroll-mask"
-		scroll-direction="0">
-		<div id="detailLayer"
-			class="main-sub-header project-detail-wrap d-none"
-			style="display: none;">
-			<div class="project-detail-top clearfix">
-				<ul id="detailTab" class="project-detail-menu">
-					<li class="js-tab-item" data-code="home"><a>홈</a></li>
-					<li class="js-tab-item" data-code="task"><a>업무</a></li>
-					<li class="js-tab-item gantt" data-code="gantt"><a>간트차트</a> <span
-						class="tooltip-square">클릭 시, 새 창으로 이동합니다.</span></li>
-					<li class="js-tab-item" data-code="calendar"><a>캘린더</a></li>
-					<li class="js-tab-item" data-code="file"><a>파일</a></li>
-					<!-- <li class="js-tab-item" data-code="history">
-                <a>히스토리</a>
-            </li> -->
-				</ul>
-
 				<div id="projectCollectionCount"
-					class="js-collection-count project-num-wrap" style="display: none;">
+					class="js-collection-count project-num-wrap">
 					<span>건수 : </span> <span class="js-collection-total-count"></span>
 				</div>
-
 			</div>
-
-
-
 
 
 
@@ -1607,39 +1616,39 @@
 		</a></li>
 	</div>
 	</div>
-	
-	
-	
-	
-	
+
+
+
+
+
 	<!-- 참여자 관리 -->
 	<div id="allSendiencePopup" class="flow-all-background-1"
-			style="display: none;">
-			<div class="flow-project-make-1">
-				<div class="flow-project-make-2">
-					<div id="allSendienceLayer" class="project-invite-popup-1">
-						<div class="name-type-seach-popup-header-type-1">
-							<span>참여자 관리</span>
-							<button class="js-sendience-service-helper js-mouseover">
-								<i class="icons-help"></i>
-							</button>
-							<button id="closeButton" class="btn-close">
-								<i class="icons-close-1"></i>
-							</button>
-						</div>
-						<div class="all-setup-type-2">
-							<i class="icons-search"></i> <input type="text"
-								id="allSendienceSearch" class="coperate-input-type-1"
-								placeholder="참여자명으로 검색">
-						</div>
-						<div
-							class="sub-drag-picture-section-1 overflow-scroll-type-1  scroll-mask">
-							<ul id="allSendienceUl" class="all-sendience-ul">
-							</ul>
-						</div>
+		style="display: none;">
+		<div class="flow-project-make-1">
+			<div class="flow-project-make-2">
+				<div id="allSendienceLayer" class="project-invite-popup-1">
+					<div class="name-type-seach-popup-header-type-1">
+						<span>참여자 관리</span>
+						<button class="js-sendience-service-helper js-mouseover">
+							<i class="icons-help"></i>
+						</button>
+						<button id="closeButton" class="btn-close">
+							<i class="icons-close-1"></i>
+						</button>
+					</div>
+					<div class="all-setup-type-2">
+						<i class="icons-search"></i> <input type="text"
+							id="allSendienceSearch" class="coperate-input-type-1"
+							placeholder="참여자명으로 검색">
+					</div>
+					<div
+						class="sub-drag-picture-section-1 overflow-scroll-type-1  scroll-mask">
+						<ul id="allSendienceUl" class="all-sendience-ul">
+						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 </body>
 </html>

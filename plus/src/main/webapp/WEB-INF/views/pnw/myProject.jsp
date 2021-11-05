@@ -1,19 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<%
-	String memId = null;
-	if (session.getAttribute("memId") != null){
-		memId = (String)session.getAttribute("memId");
-	}
-%>
 <script>
-	$(document).ready(function(){
-		
-		if(<%=memId%> == null){
+<!-- Id가 없을때 로그인화면으로 돌아감 -->
+	var memId = "${sessionScope.memId}";
+	$(document).ready(function() {
+		if (memId == null) {
 			sessionNo.submit();
 		}
 	});
@@ -21,11 +17,11 @@
 </head>
 <body>
 	<div class="main-container">
-	<form id="sessionNo" action="home.do"></form>
-	
+		<form id="sessionNo" action="home.do"></form>
+
 		<!-- 새글 업데이트 팝업, 동작시 ::before -->
 		<div id="newUpdate" class="post-update-button-area d-none"
-			style="display: none;">
+			style="display: none">
 			<button type="button" class="post-update-button">새 글 업데이트</button>
 		</div>
 
@@ -112,106 +108,98 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- 프로젝트 조회 -->
 		<div id="mainContent" class="main-content scroll-mask"
 			scroll-direction="0">
 			<div id="projectHomeLayer" class="project-home-wrap"
-				style="display: block;">
+				style="display: block">
 				<div class="small-style-wrap">
-					<div id="joinArea" style="display: none">
-						<a href="#" id="joinProjectTopButton"
-							class="content-group join-list-wr"> <span>가입요청</span><strong
-							class="badge-count">0</strong>
-							<div class="givc-ico-1 down"></div>
-						</a>
-						<div id="joinProjectLayer" class="popup-group-1"
-							style="display: none">
-							<div class="group-header"></div>
-							<div class="content-group-1">
-								<span>가입요청</span><strong class="badge-count">0</strong>
-								<div class="givc-ico-1"></div>
-							</div>
-							<ul id="joinProjectUl"></ul>
-						</div>
-					</div>
 					<div class="section-wrap">
 						<div id="BoardArea" class="project-board-wr"
-							style="display: block;">
+							style="display: block">
 							<div class="section-1">
 								<ul id="projectBoardUl" class="project-group clearfix">
+									<c:if test="${not empty favorPrjs}">
+										<div class="section-1 js-project-section js-label-section">
+											<p class="project-class">즐겨찾기</p>
+										</div>
+									<c:forEach var="favorPrj" items="${favorPrjs}">
+										<li id="project" class="project-item ui-state-default"><a
+											href="#"> <!-- 업데이트된 글 개수 -->
+												<div class="flow-content-ct project-badge"
+													style="display: none">0</div> <!-- 체크버튼 -->
+												<button class="edit-check flow-content-chk"
+													style="display: none"></button>
+												<div
+													class="color-code left-menu-type-1 color-code-${favorPrj.prjColor}"></div>
+												<div class="left-menu-type-con">
+													<div
+														class="project-star flow-content-star flow-content-star"></div>
+													<div class="flow-content-txt project-ttl">${favorPrj.prjTtl}</div>
+													<div class="flow-content-b-c">
+														<div class="flow-content-hm-txt">
+															<i class="icons-person-2"></i>
+														</div>
+														<span class="member-cnt">${favorPrj.partiCnt}</span>
+														<div class="flow-content-fl-r">
+															<div
+																class="project-stat-ico flow-content-jms-ico js-mouseover"
+																mouseover-text="관리자 승인 필요" style="display: none"></div>
+															<div
+																class="project-stat-ico flow-content-bl-ico js-mouseover"
+																mouseover-text="푸시 알림 OFF" style="display: none"></div>
+															<div
+																class="project-stat-ico icon-open-project js-mouseover"
+																mouseover-text="회사 공개 프로젝트" style="display: none"></div>
+															<div class="project-stat-ico icon-company js-mouseover"
+																mouseover-text="회사 프로젝트" style="display: none"></div>
+														</div>
+													</div>
+												</div>
+										</a></li>
+									</c:forEach>
+									</c:if>
+
 									<div
 										class="section-2 middle-line js-project-section js-label-section">
 										<p class="project-class join">참여중</p>
 									</div>
-									<li id="project-1072161" class="project-item ui-state-default"
-										label-srnos="" project-srno="1072161"><a href="#">
-											<div class="flow-content-ct project-badge"
-												style="display: none" data="">0</div>
-											<button class="edit-check flow-content-chk"
-												style="display: none"></button>
-											<div class="color-code left-menu-type-1 color-code-2"
-												data-color="2"></div>
-											<div class="left-menu-type-con">
+									<c:forEach var="noPrj" items="${noPrjs}">
+										<li id="project" class="project-item ui-state-default"><a
+											href="#"> <!-- 업데이트된 글 개수 -->
+												<div class="flow-content-ct project-badge"
+													style="display: none">0</div> <!-- 체크버튼 -->
+												<button class="edit-check flow-content-chk"
+													style="display: none"></button>
 												<div
-													class="project-star flow-content-star flow-content-star-un"></div>
-												<div class="flow-content-txt project-ttl">1:1 문의하기</div>
-												<div class="flow-content-b-c">
-													<div class="flow-content-hm-txt">
-														<i class="icons-person-2"></i>
-													</div>
-													<span class="member-cnt">2</span>
-													<div class="flow-content-fl-r">
-														<div
-															class="project-stat-ico flow-content-jms-ico js-mouseover"
-															mouseover-text="관리자 승인 필요" style="display: none" data=""></div>
-														<div
-															class="project-stat-ico flow-content-bl-ico js-mouseover"
-															mouseover-text="푸시 알림 OFF" style="display: none" data=""></div>
-														<div
-															class="project-stat-ico icon-open-project js-mouseover"
-															mouseover-text="회사 공개 프로젝트" style="display: none" data=""></div>
-														<div class="project-stat-ico icon-company js-mouseover"
-															mouseover-text="회사 프로젝트" style="display: none" data=""></div>
+													class="color-code left-menu-type-1 color-code-${noPrj.prjColor}"></div>
+												<div class="left-menu-type-con">
+													<div
+														class="project-star flow-content-star flow-content-star-un"></div>
+													<div class="flow-content-txt project-ttl">${noPrj.prjTtl}</div>
+													<div class="flow-content-b-c">
+														<div class="flow-content-hm-txt">
+															<i class="icons-person-2"></i>
+														</div>
+														<span class="member-cnt">${noPrj.partiCnt}</span>
+														<div class="flow-content-fl-r">
+															<div
+																class="project-stat-ico flow-content-jms-ico js-mouseover"
+																mouseover-text="관리자 승인 필요" style="display: none"></div>
+															<div
+																class="project-stat-ico flow-content-bl-ico js-mouseover"
+																mouseover-text="푸시 알림 OFF" style="display: none"></div>
+															<div
+																class="project-stat-ico icon-open-project js-mouseover"
+																mouseover-text="전체 공개 프로젝트" style="display: none"></div>
+															<div class="project-stat-ico icon-company js-mouseover"
+																mouseover-text="회사 프로젝트" style="display: none"></div>
+														</div>
 													</div>
 												</div>
-											</div>
-									</a></li>
-
-
-									<li id="project-1072160" class="project-item ui-state-default"
-										label-srnos="" project-srno="1072160"><a href="#">
-											<div class="flow-content-ct project-badge"
-												style="display: none" data="">0</div>
-											<button class="edit-check flow-content-chk"
-												style="display: none"></button>
-											<div class="color-code left-menu-type-1 color-code-0"
-												data-color="0"></div>
-											<div class="left-menu-type-con">
-												<div
-													class="project-star flow-content-star flow-content-star-un"></div>
-												<div class="flow-content-txt project-ttl">플로우 이용 가이드</div>
-												<div class="flow-content-b-c">
-													<div class="flow-content-hm-txt">
-														<i class="icons-person-2"></i>
-													</div>
-													<span class="member-cnt">2</span>
-													<div class="flow-content-fl-r">
-														<div
-															class="project-stat-ico flow-content-jms-ico js-mouseover"
-															mouseover-text="관리자 승인 필요" style="display: none" data=""></div>
-														<div
-															class="project-stat-ico flow-content-bl-ico js-mouseover"
-															mouseover-text="푸시 알림 OFF" style="display: none" data=""></div>
-														<div
-															class="project-stat-ico icon-open-project js-mouseover"
-															mouseover-text="회사 공개 프로젝트" style="display: none" data=""></div>
-														<div class="project-stat-ico icon-company js-mouseover"
-															mouseover-text="회사 프로젝트" style="display: none" data=""></div>
-													</div>
-												</div>
-											</div>
-									</a></li>
+										</a></li>
+									</c:forEach>
 								</ul>
 							</div>
 						</div>
@@ -219,6 +207,9 @@
 							<ul id="projectListUl"></ul>
 						</div>
 					</div>
+
+
+
 
 					<ul id="allProjectBoardItem" style="display: none">
 						{label}
@@ -228,7 +219,7 @@
 								<div class="flow-content-ct project-badge" {badge-display}="">{badge-count}</div>
 								<button class="edit-check flow-content-chk"
 									style="display: none"></button>
-								<div class="color-code left-menu-type-1 color-code-{color-code}"
+								<div class="color-code left-menu-type-1 color-code-${prjColor}"
 									data-color="{color-code}"></div>
 								<div class="left-menu-type-con">
 									<div class="project-star flow-content-star {star-class}"></div>

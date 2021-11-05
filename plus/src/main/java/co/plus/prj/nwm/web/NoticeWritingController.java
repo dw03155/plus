@@ -5,7 +5,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,14 +17,19 @@ public class NoticeWritingController {
 	@Autowired
 	private NoticeWritingService nwDao;
 
-	// 전체 메뉴
+	// 전체 메뉴	
 	@RequestMapping("/allTask.do")	// 전체 메뉴 -> 전체 업무
 	String allTask(HttpSession session, Model model, NoticeWritingVO vo) {
 
 		vo.setCoUrl((String)session.getAttribute("coUrl"));
 		vo.setMemId((String)session.getAttribute("memId"));
 		model.addAttribute("tasks",nwDao.allTask(vo));
-		return "nwm/allTaskJsp"; 		
+		return "nwm/allTask"; 		
+	}
+	@RequestMapping("/detailTask") // 전체 업무 목록 내 항목들 출력
+	String detailTask(Model model, NoticeWritingVO vo) {
+		model.addAttribute("tasks",nwDao.detailTask(vo));
+		return "nwm/allTask";
 	}
 	
 	@RequestMapping("/allSche.do") // 전체 메뉴 -> 캘린더
@@ -38,7 +42,7 @@ public class NoticeWritingController {
 	String myPost(HttpSession session, Model model, NoticeWritingVO vo) {
 		vo.setMemId((String)session.getAttribute("memId"));
 		model.addAttribute("notices", nwDao.myPost(vo));
-		return "nwm/myPost";
+		return "nwm/myPostJSP";
 	}
 	
 	@RequestMapping("/allFile.do") // 전체 메뉴 -> 파일함
@@ -83,12 +87,7 @@ public class NoticeWritingController {
 		return "nwm/modal/myPostTodo"; 
 	 }
 	
-	@RequestMapping("/noticeCount.do")	// 게시글 개수
-	String noticeCount() {
-		return "redirect:nwList";
-		
-	}
-	
+
 	
 	// 프로젝트 선택 후 메뉴
 	@RequestMapping("/totalNotice.do")	// 프로젝트 선택 -> 홈 (게시물 목록 조회)

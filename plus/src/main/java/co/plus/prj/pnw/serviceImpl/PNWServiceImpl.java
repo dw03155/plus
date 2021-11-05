@@ -15,23 +15,33 @@ public class PNWServiceImpl implements PNWService {
 	private PNWMapper map;
 
 	@Override
-	public int prjInsert(PNWVO vo) { 			// 새 프로젝트
-		return map.prjInsert(vo);
+	public int cPrjInsert(PNWVO vo) { 			// 새 프로젝트(회사)
+		return map.cPrjInsert(vo);
+	}
+	
+	@Override
+	public int nPrjInsert(PNWVO vo) { 			// 새 프로젝트(일반)
+		return map.nPrjInsert(vo);
+	}
+	
+	@Override
+	public List<PNWVO> favorMyPrj(PNWVO vo) {	// 내 프로젝트 (즐겨찾기)
+		return map.favorMyPrj(vo);
+	}
+	
+	@Override
+	public List<PNWVO> noMyPrj(PNWVO vo) {		// 내 프로젝트 (즐겨찾기X)
+		return map.noMyPrj(vo);	//
 	}
 
 	@Override
-	public List<PNWVO> myProject() {			// 내 프로젝트
-		return map.myProject();
+	public List<PNWVO> openProject(PNWVO vo) {	// 회사 프로젝트
+		return map.openProject(vo);
 	}
 
 	@Override
-	public List<PNWVO> openProject() {			// 회사 프로젝트
-		return map.openProject();
-	}
-
-	@Override
-	public List<PNWVO> prjFolder() {			// 프로젝트 폴더 메뉴
-		return map.prjFolder();
+	public List<PNWVO> prjFolder(PNWVO vo) {	// 프로젝트 폴더 메뉴
+		return map.prjFolder(vo);
 	}
 
 	@Override
@@ -61,25 +71,28 @@ public class PNWServiceImpl implements PNWService {
 	
 	
 	@Override
-	public List<PNWVO> home() {					// 프로젝트 홈탭
-		map.pnwList();			// 게시글 리스트
-		map.partiList();		// 참여자 리스트
-		return map.replyList();	// 댓글 리스트
+	public List<PNWVO> home(PNWVO vo) {					// 프로젝트 홈탭
+		map.pnwList(vo);			// 게시글 리스트
+		map.partiPM(vo);			// 참여자 리스트(PM)
+		map.partiUser(vo);		// 참여자 리스트(User)
+		map.partiGuest(vo);		// 참여자 리스트(Guest)
+		return map.replyList(vo);	// 댓글 리스트
 	}
 
 	@Override
-	public List<PNWVO> tskList() {				// 프로젝트 업무탭
-		return map.tskList();
+	public List<PNWVO> tskList(PNWVO vo) {				// 프로젝트 업무탭
+		map.tskPrgList(vo);		// 업무 진행상태 리스트
+		return map.tskNWList(vo);	// 업무 게시글 리스트
 	}
 
 	@Override
-	public List<PNWVO> scheList() {				// 프로젝트 일정탭
-		return map.scheList();
+	public List<PNWVO> scheList(PNWVO vo) {				// 프로젝트 일정탭
+		return map.scheList(vo);
 	}
 
 	@Override
-	public List<PNWVO> fileList() {				// 프로젝트 파일탭
-		return map.fileList();
+	public List<PNWVO> fileList(PNWVO vo) {				// 프로젝트 파일탭
+		return map.fileList(vo);
 	}
 
 	@Override
