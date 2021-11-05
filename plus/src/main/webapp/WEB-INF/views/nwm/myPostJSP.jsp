@@ -28,16 +28,16 @@
 		<div class="modal_content">
 			<div id="subModal"></div>
 			<div>
-			<div align="right">
-				<div class="js-post-nav card-item post-card-wrapper write2  side">
-					<button type="button" class="post-popup-button left"></button>
-					<div class="post-popup-header card-popup-header d-none"
-						style="display: block;">
-						<button id="modal_close_btn" class="btn-close card-popup-close">
-							<i class="icons-close-1"></i>
-						</button>
+				<div align="right">
+					<div class="js-post-nav card-item post-card-wrapper write2  side">
+						<button type="button" class="post-popup-button left"></button>
+						<div class="post-popup-header card-popup-header d-none"
+							style="display: block;">
+							<button id="modal_close_btn" class="btn-close card-popup-close">
+								<i class="icons-close-1"></i>
+							</button>
+						</div>
 					</div>
-				</div>
 				</div>
 				<div>
 					<div id="modalBody"></div>
@@ -86,7 +86,7 @@
 
 				<!-- 내 게시물 화면 -->
 				<c:if test="${ empty param.notiTtl }">
-					<div id="myPostList" class="small-style-wrap-2" 
+					<div id="myPostList" class="small-style-wrap-2"
 						style="display: block;">
 						<div class="feed-content me-content">
 							<div class="search-title-area">
@@ -101,7 +101,7 @@
 									style="display: block;">
 									<button id="filterBtn" type="button"
 										class="js-all-posts-filter-button filter-button">필터</button>
-									<ul id="filterSelect" 
+									<ul id="filterSelect"
 										class="js-all-posts-filter-layer check-menu-popup my-popup"
 										style="display: none; position: absolute; top: 24px; right: 0;">
 										<li>
@@ -133,8 +133,8 @@
 
 								<!-- 반복 시작 -->
 								<c:forEach var="notice" items="${notices}">
-									<li id="myPcontent" 
-										class="js-all-post-item post-search-item post-list-wrapper" >
+									<li id="myPcontent"
+										class="js-all-post-item post-search-item post-list-wrapper">
 										<div class="fixed-kind">
 											<!-- 글 class="icons-write2" 할일 class="icons-todo" 일정 class="icons-schedule"-->
 											<c:if test="${notice.notiKnd=='text'}">
@@ -149,7 +149,7 @@
 											<c:if test="${notice.notiKnd=='schedule'}">
 												<c:set var="notiKnd" value="icons-schedule" />
 											</c:if>
-											<i class="${notiKnd }"  ></i> <span class="post-type" >${notice.notiKnd}</span>
+											<i class="${notiKnd }"></i> <span class="post-type">${notice.notiKnd}</span>
 										</div>
 										<div class="search-sub-text-wrap">
 											<div class="contents-cmt">
@@ -255,7 +255,7 @@
 	</div>
 	<!-- 내 게시물 모달창 JS -->
 	<script>
-		$("#myPostList").click(function() { // 모달창 열고 닫기
+		$("#myPostContentUl").click(function() { // 모달창 열고 닫기
 			$("#modal").css("display", "block");
 		   
 			var tr = $(this);
@@ -313,12 +313,40 @@
 
 	<!-- 필터 버튼 JS -->
 	<script>
-	$("#filterBtn").on("click",function(){
-	 	$("#filterBtn").addClass("active");
-		$("#filterSelect").toggle(); 
-		
 	
+	
+	$(document).ready(function() {
+		$("#filterBtn").on("click",function(){
+		 	$("#filterBtn").addClass("active");
+			$("#filterSelect").toggle(); 
+		});
 	});
+	
+	$(document).ready(function(){
+	    // 버튼 생성과 이벤트 핸들러 추가를 분리합니다.
+		   $("#all").button();
+		    $("#all").click(function(event) {
+		        $("#all").toggleClass("on");
+		    });
+		    $("#write").button();
+		    $("#write").click(function(event) {
+		    	$("#write").toggleClass("on");
+		    });
+		    $("#task").button();
+		    $("#task").click(function(event) {
+		    	$("#task").toggleClass("on");
+		    });
+		    $("#sche").button();
+		    $("#sche").click(function(event) {
+		    	$("#sche").toggleClass("on");
+		    });
+		    $("#todo").button();
+		    $("#todo").click(function(event) {
+		    	$("#todo").toggleClass("on");
+		    });
+	});
+	
+	
 	</script>
 	<!-- 돌아가기 버튼 JS -->
 
