@@ -134,13 +134,16 @@
 								<!-- 반복 시작 -->
 								<c:forEach var="notice" items="${notices}">
 									<li id="myPcontent"
-										class="js-all-post-item post-search-item post-list-wrapper">
+										class="js-all-post-item post-search-item post-list-wrapper ${notice.notiKnd}">
 										<div class="fixed-kind">
 											<!-- 글 class="icons-write2" 할일 class="icons-todo" 일정 class="icons-schedule"-->
 											<c:if test="${notice.notiKnd=='text'}">
 												<c:set var="notiKnd" value="icons-write2" />
 											</c:if>
 											<c:if test="${notice.notiKnd=='task'}">
+												<c:set var="notiKnd" value="icons-task" />
+											</c:if>
+											<c:if test="${notice.notiKnd=='subtask'}">
 												<c:set var="notiKnd" value="icons-task" />
 											</c:if>
 											<c:if test="${notice.notiKnd=='todo'}">
@@ -155,9 +158,14 @@
 											<div class="contents-cmt">
 												<p class="search-text-type-3 contents-tit">${notice.notiTtl }</p>
 												<!-- 댓글 있으면 표시-->
-												<div class="post-list comment" style="display: none" data>
+												<div class="post-list comment" style="display: none">
 													<i class="icons-comment2"></i><span
 														class="js-post-comment-count">0</span>
+												</div>
+												<div class="post-list subtask" style="display: none">
+													<em class="subtask-item"> <i class="icons-subtask"></i>
+														<span class="subtask-number">0</span>
+													</em>
 												</div>
 											</div>
 
@@ -172,20 +180,44 @@
 													value="${notice.notiDttm}" />
 											</div>
 
-											<!-- 글 종류에 따라 display : block-->
+											<!-- 글 종류에 따라 display :block-->
 											<div class="fixed-value">
-												할일 완료도 <span class="state request" style="display: none"
-													data>50%</span> 업무 진행상항 class="progress" 진행 /
+												<c:if test="${notice.notiKnd=='task'}">
+													<span class="js-task-state state d-none hold"
+														style="display: none">보류</span>
+													<span class="js-task-state state d-none progress"
+														style="display: none">진행</span>
+													<span class="js-task-state state d-none request"
+														style="display: none">요청</span>
+													<span class="js-task-state state d-none completion"
+														style="display: none">완료</span>
+													<span class="js-task-state state d-none feedback"
+														style="display: none">피드백</span>
+												</c:if>
+												<c:if test="${notice.notiKnd=='schedule'}">
+													<div class="p" style="display: inline-block">
+														<em class="date"><fmt:formatDate pattern="MM/dd "
+																value="${notice.notiDttm}" /></em> <span><fmt:formatDate
+																pattern="HH:mm" value="${notice.notiDttm}" /></span>
+													</div>
+												</c:if>
+												<c:if test="${notice.notiKnd=='todo'}">
+													<span class="state request" style="display: inline-block">50%</span>
+												</c:if>
+												<!-- 할일 완료도  업무 진행상항 class="progress" 진행 /
 												class="request" 요청 / class="completion"완료 /
-												class="feedback"피드백 <span
-													class="js-task-state state d-none hold"
-													style="display: inline-block">보류</span> 일정
-												<div class="date-time" style="display: none" data>
-													일정 날짜 <em class="date">11/03</em> 일정 시간 <span>오전
-														10:00</span>
-												</div>
+												class="feedback"피드백  일정 -->
+												<!--
+									            <div class="fixed-value">
+									                <span class="state request" style="display:none" data>-1%</span>
+									                <span class="js-task-state state request" >요청</span>
+									                <div class="date-time" style="display:none" data>
+									                    <em class="date">-</em>
+									                    <span>-</span>
+									                </div>
+									            </div>
+									            -->
 											</div>
-
 										</div>
 									</li>
 									<!-- 반복 끝 -->
@@ -215,18 +247,22 @@
 
 										<!-- 반복 시작 -->
 										<c:forEach var="notices" items="${notices }">
+											<c:if test="${notices.notiKnd=='text'}">
+												<c:set var="notiKnd" value="icon-post-type write2" />
+											</c:if>
+											<c:if test="${notices.notiKnd=='task'}">
+												<c:set var="notiKnd" value="icon-post-type task" />
+											</c:if>
+											<c:if test="${notices.notiKnd=='todo'}">
+												<c:set var="notiKnd" value="icon-post-type todo" />
+											</c:if>
+											<c:if test="${notices.notiKnd=='schedule'}">
+												<c:set var="notiKnd" value="icon-post-type schedule" />
+											</c:if>
 											<li id="allPostsSearchUl"
-												class="js-all-post-item post-search-item js-search-item">
+												class="js-all-post-item post-search-item js-search-item  ${notices.notiKnd}">
 												<!-- icon 태그 : icon-post-type write2(글), icon-post-type todo(할일), icon-post-type schedule(일정)-->
-												<c:if test="${notices.notiKnd=='text'}">
-													<c:set var="notiKnd" value="icon-post-type write2" />
-												</c:if> <c:if test="${notices.notiKnd=='task'}">
-													<c:set var="notiKnd" value="icon-post-type task" />
-												</c:if> <c:if test="${notices.notiKnd=='todo'}">
-													<c:set var="notiKnd" value="icon-post-type todo" />
-												</c:if> <c:if test="${notices.notiKnd=='schedule'}">
-													<c:set var="notiKnd" value="icon-post-type schedule" />
-												</c:if> <i class="${notiKnd }"></i>
+												<i class="${notiKnd }"></i>
 												<div class="search-sub-text-wrap">
 													<a href="" class="search-text-type-3 contents-tit">
 														<p>
@@ -313,8 +349,6 @@
 
 	<!-- 필터 버튼 JS -->
 	<script>
-	
-	
 	$(document).ready(function() {
 		$("#filterBtn").on("click",function(){
 		 	$("#filterBtn").addClass("active");
@@ -324,28 +358,67 @@
 	
 	$(document).ready(function(){
 	    // 버튼 생성과 이벤트 핸들러 추가를 분리합니다.
-		   $("#all").button();
-		    $("#all").click(function(event) {
-		        $("#all").toggleClass("on");
+		   $("#all").button().click(function(event) {
+			   $("#write, #task, #sche, #todo").removeClass("on");
+		        $("#all").addClass("on");
+		        $(".text, .task, .schedule, .todo").show();
+			   var count = $("#myPostContentUl").find('li:visible').length;
+			   console.log(count + "");
 		    });
+	    
 		    $("#write").button();
 		    $("#write").click(function(event) {
-		    	$("#write").toggleClass("on");
-		    });
+		    	$("#all, #task, #sche, #todo").removeClass("on");
+		    	$("#write").addClass("on");
+		    	$(".text").show();
+		    	$(".task, .schedule, .todo").hide();
+		    	 var count = $("#myPostContentUl").find('li:visible').length;
+				   console.log(count + "====");
+		    });	
+		    
 		    $("#task").button();
 		    $("#task").click(function(event) {
-		    	$("#task").toggleClass("on");
+		    	 var count = $("#myPostContentUl").find('li:visible').length;
+				   console.log(count + "====");
+		    	$("#all, #write, #sche, #todo").removeClass("on");
+		    	$("#task").addClass("on");
+		    	$(".task").show();
+		    	$(".text, .schedule, .todo").hide();
 		    });
+		    
 		    $("#sche").button();
 		    $("#sche").click(function(event) {
-		    	$("#sche").toggleClass("on");
+		    	 var count = $("#myPostContentUl").find('li:visible').length;
+				   console.log(count + "====");
+		    	$("#all, #task, #write, #todo").removeClass("on");
+		    	$("#sche").addClass("on");
+		    	$(".schedule").show();
+		    	$(".task, .text, .todo").hide();
 		    });
+		    
 		    $("#todo").button();
 		    $("#todo").click(function(event) {
-		    	$("#todo").toggleClass("on");
+		    	 var count = $("#myPostContentUl").find('li:visible').length;
+				   console.log(count + "====");
+		    	$("#all, #task, #sche, #write").removeClass("on");
+		    	$("#todo").addClass("on");
+		    	$(".todo").show();
+		    	$(".task, .schedule, .text").hide();
 		    });
 	});
 	
+	</script>
+
+	<script>
+	
+	
+		$(document).ready(function(){
+			/* $(".post-type").is("span:contains('task')");
+			$(".post-list.subtask").show(); // style : block */
+			
+			
+		}); 
+			
 	
 	</script>
 	<!-- 돌아가기 버튼 JS -->
