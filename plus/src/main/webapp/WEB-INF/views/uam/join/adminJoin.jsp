@@ -164,7 +164,38 @@
 .async-hide {
 	opacity: 0 !important
 }
+.email_modal{
 
+	min-width: 115px;
+    padding: 14px; 
+    z-index: 10;
+    border-radius: 4px;
+    font-size: 13px;
+    text-align: left;
+    color: #555;
+    float: right;
+	width:250px;
+	background-color: white;
+	border-radius: 2px;
+	position: absolute;
+	left: 86%;
+	display: none;
+	border: 1px solid;
+}
+.email_modal:after {
+ border-top:0px solid transparent;
+ border-left: 10px solid transparent;
+ border-right: 10px solid transparent;
+ border-bottom: 10px solid;
+ content:"";
+ position:absolute;
+ top:-10px;
+ left:20px;
+}
+
+.fl-content{
+	z-index: 1
+}
 </style>
 </head>
 <body>
@@ -177,12 +208,8 @@
 		</div>
 	</div>
 
-
-
-
-
 	<div class="business-signup-layer">
-
+		
 		<!-- businessMngrSignUpPopup -->
 
 		<div class="pc-login-wrap" id="businessMngrSignUpPopup"
@@ -208,7 +235,6 @@
 				style="position: fixed; margin: 0px; padding: 60px 0 0 0; width: 100%; height: 100%;">
 					<fieldset style="padding-bottom: 30px;">
 						<!-- business sign in content -->
-				<form action="">
 						<div class="fl-content" id="businessCreateAccount"
 							style="padding-top: 50px;">
 
@@ -231,17 +257,19 @@
 									<div class="inputbox">
 										<input type="text" id="email" name="email" maxlength="50"
 											tabindex="1" placeholder="example@gmail.com" value=""  required/>
-										<button id="emailCheck" type="button" class="btn-ok-text" style="display: block;">확인</button>
-										<button type="button" class="btn-clear-text"
-											style="cursor: pointer;" data-langcode="H381">삭제</button>
-										<!-- 메시지 -->
-										<div class="error-msg">
-											<div class="error-cont font-Noto" data-langcode="H397">
-												이미 사용 중인 이메일주소입니다.</div>
-										</div>
+										
+										<button id="emailCheckOk" type="button" class="btn-ok-text">확인</button>
+										<button id="emailCheck" type="button" class="btn-clear-text" style="cursor: pointer; display: block;" >미확인</button>
+									</div>
+									<div id="emailModal" class="email_modal" >
+										<div id="email_msg" style="color: red">이메일을 확인해주세요(click)</div>
+									</div>
+									<div id="emailModal" class="email_modal" style="display: none;">
+										<div id="email_msg" style="color: green">이메일이 확인되었습니다</div>
 									</div>
 								</div>
-								<!-- error -->
+							
+										
 								<div class="blocklabel">
 									<label class="font-Noto" data-langcode="H331">이름</label>
 									<div class="inputbox">
@@ -341,16 +369,19 @@
 								<!-- 약관동의체크 -->
 								<div class="terms-check">
 									<input type="checkbox" tabindex="5" id="agreeWithTheTerms">
-									<span class="terms-and-privacy"></span>
+									<span class="terms-and-privacy"><a>서비스 이용약관에 동의하시겠습니까?</a></span>
 
 								</div>
 							</div>
-							<div class="btn-box">
-								<button type="button" id="nextToSettingTeamInfo"
-									class="btn-bigs c-blue" data-langcode="H482">회원가입</button>
+							<div class="btn-box" id="joinTry1">
+								<button type="button"
+									class="btn-bigs c-gray">회원가입</button>
+							</div>
+							<div class="btn-box" id="joinTry2" style="display: none">
+								<button type="button" id="joinSuccess"
+									class="btn-bigs c-blue">회원가입</button>
 							</div>
 						</div>
-					</form>
 						<!-- 인증번호 확인 -->
 						<div id="checkJoinPopup" class="flow-all-background-1 d-none">
 							<div class="flow-project-make-1">
@@ -362,7 +393,7 @@
 										<div id="coInfo" class="flow-content" align="center">
 											<ul class="content-company" align="center" style="display:inline-block; width: 350px">
 												<div id="companyName" class="name"  style="font-size: 20px; margin-top: 10px;">
-												인증번호:&nbsp;<input type="text" name="joinNum" id="joinNum" style="border: 1px solid gray; font-size: 25px; width: 120px; height: 22px;">
+												인증번호:&nbsp;<input type="text" name="joinNum" id="joinNum" style="border: 1px solid gray; font-size: 13px; width: 120px; height: 22px;">
 												</div><br/>
 											<button type="button" id="join" name="join" style="border: 1px solid gray;
 												  border-radius: 5px; width: 80px; height: 25px;">인증하기</button>
@@ -379,32 +410,86 @@
 			</div>
 		</div>
 		<!-- //businessMngrSignUpPopup -->
-		<form id="frm" ></form>
+		<form id="success" action="home.do" ></form>
 	</div>
 	<!-- Page hiding snippet (recommended) -->
 	<script>
-			$("#nextToSettingTeamInfo").on("click", function(e) {
-				if ($('#pwd').val() != $('#pwdCheck').val()) {
-					alert("비밀번호를 바르게 입력하세요")
-				} else {
-					var email = $('input:text[name="email"]').val();
-					$.ajax({
-						url: "getMailCheck.do?email=" + email,
-						type: "get",
-						dataType: "json",
-						succecc: function(data){
-							var $email = data.email;
-							if($email != email){
-								postMail();
-							};
-						},
-						error: function(){
-							alert("내용을 입력해주세요.")
+		var newValue;
+	
+		$("#emailCheck").mouseover(function(){
+			$("#emailModal").css("display","block");
+		});
+		$("#emailCheck").mouseout(function(){
+			$("#emailModal").css("display","none");
+		});
+		$("#emailCheck").click(function(){
+			var email = $('input:text[name="email"]').val();
+			$('#emailPaste').val(email);
+			$.ajax({
+				url: "getMailCheck.do?email=" + email,
+				type: "get",
+				dataType: "json",
+				success: function(data){
+					var $email = data.email;
+					if($email == email){
+						alert("이미 존재하는 이메일입니다.")
+					}
+				},
+				error:function(){
+					$("#email_ok_Msg").css("display","block");
+					$("#email_msg").css("display","none");
+					$("#joinTry2").css("display","block");
+					$("#joinTry1").css("display","none");
+					$("#emailCheck").css("display","none");
+					$("#emailCheckOk").css("display","block");
+					$("<input type=\'hidden\' id=\'emailPaste\'>")
+					
+					$("#email").off("propertychange change keyup paste input")
+					$("#email").on("propertychange change keyup paste input",function(){
+						if($("#email").val()!=$('#emailPaste').val()){
+							$("#joinTry2").css("display","none");
+							$("#joinTry1").css("display","block");
+							$("#emailCheck").css("display","block");
+							$("#emailCheckOk").css("display","none");
+							$("#email_msg").css("display","block");
+							$("#email_ok_Msg").css("display","none");
 						}
 
 					});
-				};
+				}
 			});
+			
+		});
+
+		$("#joinSuccess").on("click", function() {
+			if ($('#email').val() == "") {
+				alert("이메일을 입력하세요")
+				
+			}else if ($('#name').val() == "" ){
+				alert("이름을 입력하세요")
+				
+			}else if ($('#pwd').val() != $('#pwdCheck').val()|| $('#pwd').val() == ""){
+				alert("비밀번호를 바르게 입력하세요")
+				
+			}else if ($('#coName').val() == ""){
+				alert("회사이름을 입력하세요")
+				
+			}else {
+				var email = $('input:text[name="email"]').val();
+				$.ajax({
+					url: "getMailCheck.do?email=" + email,
+					type: "get",
+					dataType: "json",
+					success: function(data){
+						alert("실패")
+					},
+					error: function(){
+						postMail();
+					}
+
+				});
+			};
+		});
 
 		function postMail(){
 			$('#checkJoinPopup').attr("class","flow-all-background-1");
@@ -422,10 +507,12 @@
 					isCertification = true;
 					console.log(key);
 					
+					$("#joinNum").off("change keyup paste");
 					$("#joinNum").on("change keyup paste", function(){
 						if($("#joinNum").val() == key){
 							$("#request").append("<li class='url'/>").text("일치");
 							isCertification = true;
+							$("#join").off("click");
 							$("#join").on("click",function(){
 								memberInsert();	
 							});
@@ -461,14 +548,15 @@
 				contentType : "application/json",
 				dataType : "json",
 				success : function(data) {
-					console.log(data);
-					frm.submit();
+					alert("회원가입 되었습니다")
+					success.submit();
 				}
 
 			})
 
 		}
 		
+
 		$('#closePopupBtn').on("click", function(){
 			$('#checkJoinPopup').attr("class","flow-all-background-1 d-none");
 		})

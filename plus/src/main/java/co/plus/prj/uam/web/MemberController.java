@@ -46,9 +46,9 @@ public class MemberController {
 	@ResponseBody
 	public MemberVO getMailCheck(@RequestParam("email") String email,
 			MemberVO vo,Model model) {
-		System.out.println(email);
 		vo.setEmail(email);
 		MemberVO temp = service.getMailCheck(vo);
+		System.out.println(temp);
 		return temp;
 		
 	}

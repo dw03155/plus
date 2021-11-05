@@ -53,7 +53,7 @@
 			<div class="section-2 middle-line js-project-section js-label-section">
 				<p class="project-class join">로고설정</p>
 				<div class="coInput">
-						<input id="logoInput" name="logoInput" type="file" class="coInputTag" multiple>
+						<input id="logoInput" name="logoInput" type="file" class="coInputTag" accept="image/jpeg,image/png,image/jpg">
 						<button id="logoIn" class="formIn" type="submit">로고등록</button>
 				</div>
 				<div id="showfiles"></div>
@@ -112,7 +112,8 @@
 			formData.append("logoInput", files[i]);
 			coLogo = files[i].name;
 		}
-		var jsondata = {"coUrl": coUrl,"coLogo":coLogo};
+		var coLogoName = coUrl+'_'+coLogo;
+		var jsondata = {"coUrl": coUrl,"coLogo":coLogoName};
 			$.ajax({
 				url: 'uploadLogo.do',
 				processData: false,

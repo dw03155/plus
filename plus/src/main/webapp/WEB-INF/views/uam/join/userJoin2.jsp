@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="robots" content="noindex">
+
 <meta http-equiv="Cache-Control" content="No-Cache">
 <meta http-equiv="Pragma" content="No-Cache">
 
@@ -19,7 +19,7 @@
 
 <meta name="theme-color" content="#5f5ab9">
 
-<title>플로우(flow) - 대한민국 NO.1 올인원 협업툴</title>
+<title>플러스(plus) - 대한민국 NO.1 올인원 협업툴</title>
 <meta name="description"
 	content="프로젝트관리, 업무관리, 메신저, 화상회의, 파일공유&보관, 간트차트, 일정관리까지! 재택근무, 원격근무, 리모트워크, 비대면 업무환경을 구축해 보세요. 지금 무료로 시작하세요.">
 <meta name="keywords"
@@ -63,21 +63,6 @@
 <meta property="fb:app_id" content="1491712834464733">
 
 
-<link rel="stylesheet" href="flow-renewal/assets/css/reset.css">
-<link rel="stylesheet" href="flow-renewal/dist/css/common.min.css">
-
-
-<script async=""
-	src="https://apis.google.com/js/platform.js?google-drive"
-	gapi_processed="true"></script>
-<script async="" src="https://www.dropbox.com/static/api/2/dropins.js"
-	id="dropboxjs" data-app-key="mby426ffrxlv4qn"></script>
-<script async=""
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADjbtMn46r9DGFyo_ZRz3c6fOXzuOKWCw&amp;libraries=places"
-	charset="UTF-8"></script>
-<script type="text/javascript"
-	src="https://t1.daumcdn.net/cssjs/common/cts/vr200/dcts.js"></script>
-<script src="https://t1.kakaocdn.net/cts/__dcts__.js"></script>
 
 
 <script type="text/javascript" src="js/lib/jquery-1.10.2.min.js"></script>
@@ -87,10 +72,6 @@
 <script type="text/javascript" src="js/jexPlugin/jex.loading2.js"></script>
 <script type="text/javascript" src="js/gibberish-aes.js"></script>
 <script type="text/javascript" src="js/jquery.i18n.properties.js"></script>
-<script type="text/javascript" charset="UTF-8"
-	src="https://maps.googleapis.com/maps-api-v3/api/js/46/8/intl/ko_ALL/common.js"></script>
-<script type="text/javascript" charset="UTF-8"
-	src="https://maps.googleapis.com/maps-api-v3/api/js/46/8/intl/ko_ALL/util.js"></script>
 
 
 <link href="https://fonts.googleapis.com/css?family=Roboto"
@@ -140,7 +121,7 @@
 	src="js/collabo/collabo2020/auth_layer.js"></script>
 <script type="text/javascript" src="js/collabo/collabo2020/base64.js"></script>
 
-<!-- <script type="text/javascript" src="js/collabo/login.js"></script> -->
+<script type="text/javascript" src="js/collabo/login.js"></script>
 <script type="text/javascript" src="js/collabo/flow_upgrade.js"></script>
 <script type="text/javascript" src="js/collabo/flow_iamport_payment.js"></script>
 <script type="text/javascript" src="js/collabo/inc/polyfill_IE.js"></script>
@@ -164,43 +145,11 @@
 .async-hide {
 	opacity: 0 !important
 }
-.email_modal{
-
-	min-width: 115px;
-    padding: 14px; 
-    z-index: 10;
-    border-radius: 4px;
-    font-size: 13px;
-    text-align: left;
-    color: #555;
-    float: right;
-	width:250px;
-	background-color: white;
-	border-radius: 2px;
-	position: absolute;
-	left: 86%;
-	display: none;
-	border: 1px solid;
-}
-.email_modal:after {
- border-top:0px solid transparent;
- border-left: 10px solid transparent;
- border-right: 10px solid transparent;
- border-bottom: 10px solid;
- content:"";
- position:absolute;
- top:-10px;
- left:20px;
-}
-
-.fl-content{
-	z-index: 1
-}
 </style>
 </head>
 <body>
 
-
+<!--  빨간 창-->
 	<div class="alert_wrap" id="layerAlert"
 		style="z-index: 99999; top: 50px; left: 40%; display: none; text-align: center;">
 		<div class='alert_box'>
@@ -209,7 +158,7 @@
 	</div>
 
 	<div class="business-signup-layer">
-		
+
 		<!-- businessMngrSignUpPopup -->
 
 		<div class="pc-login-wrap" id="businessMngrSignUpPopup"
@@ -219,62 +168,57 @@
 			<div class="fl-header-wrap">
 				<!-- header -->
 				<div class="fl-header">
-
 					<h1>
 						<a href="/"><img id="headerLogoImg"
 							src="design2/img_login/bi_flow.png" style="cursor: pointer;"
 							alt="flow"></a>
 					</h1>
-
 				</div>
 				<!-- //header -->
-
 			</div>
 			<!-- //top -->
 			<div class="f-login-wrap mCustomScrollbar"
 				style="position: fixed; margin: 0px; padding: 60px 0 0 0; width: 100%; height: 100%;">
-					<fieldset style="padding-bottom: 30px;">
-						<!-- business sign in content -->
-						<div class="fl-content" id="businessCreateAccount"
-							style="padding-top: 50px;">
+				<!-- business sign in content -->
+				<form id="frm" name="frm" action="">
+				<div class="fl-content" id="businessCreateAccount"
+					style="padding-top: 50px;">
 
-							<!-- 전체메시지 -->
-							<div class="flk-msg-wrap">
-								<h3 class="font-Noto" data-langcode="H463">플러스 사용자 계정을 생성하세요</h3>
-								<h4 class="font-Noto">
-									<span data-langcode="H486">아래 정보들을 입력 후, 플러스 관리자로 시작할 수
-										있습니다.</span><br class="block"> <span style="color: #4c80d6;"
-										data-langcode="H487">URL 주소는 직원들을 초대할 때 이용할 수 있습니다.</span>
-								</h4>
-							</div>
-							<!-- //전체메시지 -->
-
-							<!-- <legend data-langcode="H467">비즈니스 계정 이메일, 이름, 비밀번호 입력</legend> -->
-							<div class="input-box-style">
-								<!-- 입력전 -->
+					<!-- 전체메시지 -->
+					<div class="flk-msg-wrap">
+						<h3 class="font-Noto" data-langcode="H463">플러스 사용자 계정을 생성하세요</h3>
+						<h4 class="font-Noto">
+							<span data-langcode="H486">아래 정보들을 입력 후, 플러스 사용자로 시작할 수
+										있습니다.</span><br class="block">URL 주소는 직원들을 초대할 때 이용할 수 있습니다.<span style="color: #4c80d6;"
+										data-langcode="H487"></span>
+						</h4>
+					</div>
+					<!-- //전체메시지 -->
 								<div class="blocklabel">
 									<label class="font-Noto" data-langcode="H333">이메일</label>
-									<div class="inputbox">
+									<div class="inputbox ok">
+
 										<input type="text" id="email" name="email" maxlength="50"
-											tabindex="1" placeholder="example@gmail.com" value=""  required/>
-										
-										<button id="emailCheckOk" type="button" class="btn-ok-text">확인</button>
-										<button id="emailCheck" type="button" class="btn-clear-text" style="cursor: pointer; display: block;" >미확인</button>
-									</div>
-									<div id="emailModal" class="email_modal" >
-										<div id="email_msg" style="color: red">이메일을 확인해주세요(click)</div>
-									</div>
-									<div id="emailModal" class="email_modal" style="display: none;">
-										<div id="email_msg" style="color: green">이메일이 확인되었습니다</div>
+											tabindex="1" placeholder="example@gmail.com" value="" />
+
+										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
+										<button type="button" class="btn-clear-text"
+											style="cursor: pointer;" data-langcode="H381">삭제</button>
+										<!-- 메시지 -->
+										<div class="error-msg">
+											<div class="error-cont font-Noto" data-langcode="H397">
+												이미 사용 중인 이메일주소입니다.</div>
+										</div>
 									</div>
 								</div>
-							
-										
+								<!-- error -->
 								<div class="blocklabel">
 									<label class="font-Noto" data-langcode="H331">이름</label>
-									<div class="inputbox">
+									<div class="inputbox ok">
+
 										<input type="text" name="name" id="name" tabindex="2"
-											maxlength="50" placeholder="이름" value="" data-langcode="H331" required>
+											maxlength="50" placeholder="이름" value="" data-langcode="H331">
+
 										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
 										<button type="button" class="btn-clear-text"
 											style="cursor: pointer;" data-langcode="H381">삭제</button>
@@ -288,10 +232,12 @@
 								<!-- ok -->
 								<div class="blocklabel">
 									<label class="font-Noto" data-langcode="H362">비밀번호</label>
-									<div class="inputbox">
+									<div class="inputbox ok">
+
 										<input type="password" name="pwd" id="pwd"
 											class="password-input" maxlength="50" tabindex="3"
-											placeholder="비밀번호 입력" value="" data-langcode="H399" required>
+											placeholder="비밀번호 입력" value="" data-langcode="H399">
+
 										<span class="password-mask"><em class="blind">비밀번호
 												보이기 / 숨기기 버튼 </em></span>
 										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
@@ -307,10 +253,11 @@
 								<!-- ok -->
 								<div class="blocklabel">
 									<label class="font-Noto" data-langcode="H383">비밀번호 확인</label>
-									<div class="inputbox">
+									<div class="inputbox ok">
+
 										<input type="password" name="pwdCheck" id="pwdCheck"
 											class="password-input" maxlength="50" tabindex="4"
-											placeholder="비밀번호 재입력" data-langcode="H477" required> <span
+											placeholder="비밀번호 재입력" data-langcode="H477"> <span
 											class="password-mask"><em class="blind">비밀번호 보이기
 												/ 숨기기 버튼 </em></span>
 										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
@@ -323,198 +270,164 @@
 										</div>
 									</div>
 								</div>
-								<input type="hidden" id="coUrl" value="${exUrl }">
+
 
 								<!-- 약관동의체크 -->
 								<div class="terms-check">
 									<input type="checkbox" tabindex="5" id="agreeWithTheTerms">
-									<span class="terms-and-privacy"><a>서비스 이용약관에 동의하시겠습니까?</a></span>
-
+									<span class="terms-and-privacy"></span>
+									<!--
+										<a href="/terms.html" target="flowTem" data-langcode="H1857">서비스 이용약관,</a >&nbsp;
+										<a href="/privacy.html" target="flowTem" data-langcode="H85">개인정보취급방침</a>
+										<span data-langcode="H452">을 확인하였고, 이에 동의합니다.</span>
+										-->
 								</div>
 							</div>
-							<div class="btn-box" id="joinTry1">
-								<button type="button"
-									class="btn-bigs c-gray">회원가입</button>
+							<div class="btn-box">
+								<button type="button" id="userJoin"
+									class="btn-bigs c-blue">다음</button>
 							</div>
-							<div class="btn-box" id="joinTry2" style="display: none">
-								<button type="button" id="joinSuccess"
-									class="btn-bigs c-blue">회원가입</button>
-							</div>
+							</form>
+							
 						</div>
-						<!-- 인증번호 확인 -->
-						<div id="checkJoinPopup" class="flow-all-background-1 d-none">
-							<div class="flow-project-make-1">
-								<div class="flow-project-make-2">
-									<div id="popupLayer" class="flow-login-popup popup-10">
-										<div class="flow-project-header-1">
-											인증번호를 입력하세요! <a id="closePopupBtn" class="flow-close-type-1"></a>
-										</div>
-										<div id="coInfo" class="flow-content" align="center">
-											<ul class="content-company" align="center" style="display:inline-block; width: 350px">
-												<div id="companyName" class="name"  style="font-size: 20px; margin-top: 10px;">
-												인증번호:&nbsp;<input type="text" name="joinNum" id="joinNum" style="border: 1px solid gray; font-size: 13px; width: 120px; height: 22px;">
-												</div><br/>
-											<button type="button" id="join" name="join" style="border: 1px solid gray;
-												  border-radius: 5px; width: 80px; height: 25px;">인증하기</button>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- /인증번호 확인 -->
+					
+				<!-- // business sign in content -->
 
-					</fieldset>
-				
+				<!-- business setting team info content -->
+				<div class="fl-content" id="businessMngrSettingTeamInfo"
+					style="display: none; padding-top: 50px;">
+					<!-- 전체메시지 -->
+					<div class="flk-msg-wrap">
+						<h3 class="font-Noto" data-langcode="H485">회사 정보 입력 후 시작하세요</h3>
+
+						<h4 class="font-Noto">
+							<span data-langcode="H486">아래 정보들을 입력 후, 플로우 관리자로 시작할 수
+								있습니다.</span><br class="block"> <span style="color: #4c80d6;"
+								data-langcode="H487">URL 주소는 직원들을 초대할 때 이용할 수 있습니다.</span>
+						</h4>
+
+					</div>
+					<!-- //전체메시지 -->
+				</div>
+				<!-- //  business setting team content -->
+			</div>
+			
+			<div id="checkJoinPopup" class="flow-all-background-1 d-none"
+			style="z-index: 3000">
+			<div class="flow-project-make-1">
+				<div class="flow-project-make-2">
+					<div id="popupLayer" class="flow-login-popup" style="height:180px; felx-wrap:wrap; align-center:space-around">
+						<div class="flow-project-header-1">
+							인증번호를 입력하세요! <a id="closePopupBtn" class="flow-close-type-1"></a>
+						</div>
+						<div id="coInfo" class="flow-content">
+							<div class="inputbox" style="width: 370px" align="center">
+								<ul class="content-company" align="center" style="display:inline-block">
+									<li style="display:inline-block">
+									<input type="text" name="joinNum" id="joinNum"
+										maxlength="50" placeholder="인증번호입력" data-langcode="H490"></li>
+								</ul>
+							</div>
+							<div align="center">
+								<button type="button" id="join" name="join" class="btn-popup01">인증하기</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-		<!-- //businessMngrSignUpPopup -->
-		<form id="userSuccess" action="home.do" ></form>
-		<!-- 페이지 이동 -->
-	</div>
-	<!-- Page hiding snippet (recommended) -->
-	<script>
-		var newValue;
-	
-		$("#emailCheck").mouseover(function(){
-			$("#emailModal").css("display","block");
-		});
-		$("#emailCheck").mouseout(function(){
-			$("#emailModal").css("display","none");
-		});
-		$("#emailCheck").click(function(){
-			var email = $('input:text[name="email"]').val();
-			$('#emailPaste').val(email);
-			$.ajax({
-				url: "getMailCheck.do?email=" + email,
-				type: "get",
-				dataType: "json",
-				success: function(data){
-					var $email = data.email;
-					if($email == email){
-						alert("이미 존재하는 이메일입니다.")
-					}
-				},
-				error:function(){
-					$("#email_ok_Msg").css("display","block");
-					$("#email_msg").css("display","none");
-					$("#joinTry2").css("display","block");
-					$("#joinTry1").css("display","none");
-					$("#emailCheck").css("display","none");
-					$("#emailCheckOk").css("display","block");
-					$("<input type=\'hidden\' id=\'emailPaste\'>")
-					
-					$("#email").off("propertychange change keyup paste input")
-					$("#email").on("propertychange change keyup paste input",function(){
-						if($("#email").val()!=$('#emailPaste').val()){
-							$("#joinTry2").css("display","none");
-							$("#joinTry1").css("display","block");
-							$("#emailCheck").css("display","block");
-							$("#emailCheckOk").css("display","none");
-							$("#email_msg").css("display","block");
-							$("#email_ok_Msg").css("display","none");
-						}
-
-					});
-				}
-			});
 			
-		});
+		</div>
+		
+		
+	
+	
+	<script>
+	$(function() {
+		$('#pwd').keyup(function() {
+			$('font[name=check]').text('');
+		}); //#user_pass.keyup
 
-		$("#joinSuccess").on("click", function() {
-			if ($('#email').val() == "") {
-				alert("이메일을 입력하세요")
-				
-			}else if ($('#name').val() == "" ){
-				alert("이름을 입력하세요")
-				
-			}else if ($('#pwd').val() != $('#pwdCheck').val()|| $('#pwd').val() == ""){
-				alert("비밀번호를 바르게 입력하세요")
-				
-			}else {
-				var email = $('input:text[name="email"]').val();
+		//최후의 보루
+		/* $('#pwdCheck').keyup(function() {
+			if ($('#pwd').val() != $('#pwdCheck').val()) {
+				$('font[name=check]').text('');
+				$('font[name=check]').css("color", "red")
+				$('font[name=check]').html("암호틀림");
+			} else {
+				$('font[name=check]').text('');
+				$('font[name=check]').css("color", "green")
+				$('font[name=check]').html("암호맞음");
+			}
+		}); //#chpass.keyup  */
+
+		$("#userJoin").on("click", function(e) {
+			if ($('#pwd').val() != $('#pwdCheck').val()) {
+				alert("비밀번호를 바르게 입력하세요");
+			} else {
+				$('#checkJoinPopup').toggleClass("d-none");
+				var email = $("#email").val();
+				//$('#companyWaitJoinLayer').attr("class", "upgrade-singup-wrap")
 				$.ajax({
-					url: "getMailCheck.do?email=" + email,
-					type: "get",
-					dataType: "json",
-					success: function(data){
-						alert("실패")
-					},
-					error: function(){
-						postMail();
-					}
-
-				});
-			};
-		});
-
-		function postMail(){
-			$('#checkJoinPopup').attr("class","flow-all-background-1");
-			var email = $("#email").val();
-			$.ajax({
-				type : "post",
-				url : "joinMail.do",
-				data : {
-					email : email
-				},
-				/* dataType : "json", */
-				success: function(key){
-					
-					alert(email + "로 인증메일이 발송되었습니다.");
-					isCertification = true;
-					console.log(key);
-					
-					$("#joinNum").off("change keyup paste");
-					$("#joinNum").on("change keyup paste", function(){
-						if($("#joinNum").val() == key){
-							$("#request").append("<li class='url'/>").text("일치");
+						type : "post",
+						url : "joinMail.do",
+						data : {
+							email : email
+						},
+						/* dataType : "json", */
+						success: function(key){
+							$('#layerAlert').css("display","block").find('#alert_box').children('p').text(email + "로 인증메일이 발송되었습니다.");
+							/* alert(email + "로 인증메일이 발송되었습니다."); */
 							isCertification = true;
-							$("#join").off("click");
-							$("#join").on("click",function(){
-								memberInsert();	
-							});
-						}else{
-							$("#request").append("<li class='url'/>").text("불일치");
-							isCertification = false;
-							$("join").on("click", function(){
-								alert("인증번호를 확인하세요.");
-							})
-						}
-					})
-				}
-			});
-		};
-		
-		function memberInsert() {
-			var email = $('input:text[name="email"]').val();
-			var name = $('input:text[name="name"]').val();
-			var pwd = $('input:password[name="pwd"]').val();
-			var coUrl = $('#coUrl').val();
-			$.ajax({
-				url : "exCompanyInsert.do",
-				method : "post",
-				/* data:JSON.stringify($("#frm").serializeObject()), */
-				data : JSON.stringify({
-					email : email,
-					name : name,
-					pwd : pwd,
-					coUrl : coUrl
-				}),
-				contentType : "application/json",
-				dataType : "json",
-				success : function(data) {
-					alert("회원가입 되었습니다")
-					userSuccess.submit();
-				}
+							console.log(key);
+							
+							$("#joinNum").on("change keyup paste", function(){
+								if($("#joinNum").val() == key){
+									$("#certiNum").append("<li class='url'/>").text("인증");
+									isCertification = true;
+									$("#join").on("click",function(){
+										exMemberInsert();	
+									});//insert 끝
+								}else{
+									$("#certiNum").append("<li class='url'/>").text("불일치");
+									isCertification = false;
+									$("join").on("click", function(){
+										alert("인증번호를 확인하세요.");
+									})//인증번호 확인끝
+								}//안에ELSE끝
+							});//joinNum function end
+						  }//success end
+						});//ajax end
+			}
+		});//exMemberInsert입력
+	});
 
-			})
+	function exMemberInsert() {
+		var email = $('input:text[name="email"]').val();
+		var name = $('input:text[name="name"]').val();
+		var pwd = $('input:password[name="pwd"]').val();
+		var coUrl = $('input:hidden[name="coUrl"]').val();
+		$.ajax({
+			url : "exCompanyInsert.do",
+			method : "post",
+			/* data:JSON.stringify($("#frm").serializeObject()), */
+			data : JSON.stringify({
+				email : email,
+				name : name,
+				pwd : pwd,
+				coUrl : coUrl
+			}),
+			contentType : "application/json",
+			dataType : "json",
+			success : function(data) {
+				console.log(data);
+				frm.submit();
 
-		}
-		
+			}
 
-		$('#closePopupBtn').on("click", function(){
-			$('#checkJoinPopup').attr("class","flow-all-background-1 d-none");
 		})
+
+	}
 		
 	</script>
 </body>

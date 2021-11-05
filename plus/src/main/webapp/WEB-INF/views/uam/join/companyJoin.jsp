@@ -250,8 +250,8 @@ to {
 			<div class="join-contents">
 				<p class="url-tit">회사 URL</p>
 				<div class="url-wr">
-					<span>https://</span> <input id="coUrl" name="coUrl" type="text"
-						class="join-input" autocomplete="off" placeholder="회사 URL">
+					<span>https://</span> 
+					<input id="coUrl" name="coUrl" type="text" class="join-input" autocomplete="off" placeholder="회사 URL">
 					<!-- 입력 오류 시 .error 클래스 추가 -->
 					<span>.flow.team</span>
 				</div>
@@ -290,9 +290,11 @@ to {
 		<!-- /기존회사정보확인 -->
 	</div>
 	<script>
-		$("#JoinBtn").click(
-				function() {
-					var coUrl = $('input:text[name="coUrl"]').val();
+		$("#JoinBtn").click(function() {
+				var coUrl = $('#coUrl').val();
+				if(coUrl == ""){
+					alert("URL을 입력하세요");
+				}else{
 					console.log(coUrl)
 					$.ajax({
 						url : "getCompany.do?coUrl=" + coUrl,
@@ -340,11 +342,12 @@ to {
 
 									}
 								});
-									
 						}
 					});
-
-				});
+				}
+			});//joinBtn click end
+			
+			
 		$("#closePopupBtn").click(
 			function(){
 				$('#checkJoinPopup').attr('class',
