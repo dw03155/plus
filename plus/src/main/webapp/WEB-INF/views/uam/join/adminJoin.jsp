@@ -206,9 +206,9 @@
 			<!-- //top -->
 			<div class="f-login-wrap mCustomScrollbar"
 				style="position: fixed; margin: 0px; padding: 60px 0 0 0; width: 100%; height: 100%;">
-				<form action="">
 					<fieldset style="padding-bottom: 30px;">
 						<!-- business sign in content -->
+				<form action="">
 						<div class="fl-content" id="businessCreateAccount"
 							style="padding-top: 50px;">
 
@@ -230,8 +230,8 @@
 									<label class="font-Noto" data-langcode="H333">이메일</label>
 									<div class="inputbox">
 										<input type="text" id="email" name="email" maxlength="50"
-											tabindex="1" placeholder="example@gmail.com" value="" />
-										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
+											tabindex="1" placeholder="example@gmail.com" value=""  required/>
+										<button id="emailCheck" type="button" class="btn-ok-text" style="display: block;">확인</button>
 										<button type="button" class="btn-clear-text"
 											style="cursor: pointer;" data-langcode="H381">삭제</button>
 										<!-- 메시지 -->
@@ -246,7 +246,7 @@
 									<label class="font-Noto" data-langcode="H331">이름</label>
 									<div class="inputbox">
 										<input type="text" name="name" id="name" tabindex="2"
-											maxlength="50" placeholder="이름" value="" data-langcode="H331">
+											maxlength="50" placeholder="이름" value="" data-langcode="H331" required>
 										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
 										<button type="button" class="btn-clear-text"
 											style="cursor: pointer;" data-langcode="H381">삭제</button>
@@ -263,7 +263,7 @@
 									<div class="inputbox">
 										<input type="password" name="pwd" id="pwd"
 											class="password-input" maxlength="50" tabindex="3"
-											placeholder="비밀번호 입력" value="" data-langcode="H399">
+											placeholder="비밀번호 입력" value="" data-langcode="H399" required>
 										<span class="password-mask"><em class="blind">비밀번호
 												보이기 / 숨기기 버튼 </em></span>
 										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
@@ -282,7 +282,7 @@
 									<div class="inputbox">
 										<input type="password" name="pwdCheck" id="pwdCheck"
 											class="password-input" maxlength="50" tabindex="4"
-											placeholder="비밀번호 재입력" data-langcode="H477"> <span
+											placeholder="비밀번호 재입력" data-langcode="H477" required> <span
 											class="password-mask"><em class="blind">비밀번호 보이기
 												/ 숨기기 버튼 </em></span>
 										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
@@ -301,7 +301,7 @@
 									<div class="inputbox">
 										<input type="text" id="coName" name="coName" tabindex="11"
 											maxlength="50" placeholder="회사 이름 입력" value=""
-											data-langcode="H490">
+											data-langcode="H490" required>
 										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
 										<button type="button" class="btn-clear-text"
 											style="cursor: pointer;" data-langcode="H381">삭제</button>
@@ -350,7 +350,7 @@
 									class="btn-bigs c-blue" data-langcode="H482">회원가입</button>
 							</div>
 						</div>
-
+					</form>
 						<!-- 인증번호 확인 -->
 						<div id="checkJoinPopup" class="flow-all-background-1 d-none">
 							<div class="flow-project-make-1">
@@ -375,7 +375,7 @@
 						<!-- /인증번호 확인 -->
 
 					</fieldset>
-				</form>
+				
 			</div>
 		</div>
 		<!-- //businessMngrSignUpPopup -->
@@ -397,9 +397,9 @@
 							if($email != email){
 								postMail();
 							};
-						}
+						},
 						error: function(){
-							alert("이미 존재하는 이메일입니다.")
+							alert("내용을 입력해주세요.")
 						}
 
 					});
