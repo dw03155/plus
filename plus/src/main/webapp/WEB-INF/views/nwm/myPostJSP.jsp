@@ -134,7 +134,7 @@
 								<!-- 반복 시작 -->
 								<c:forEach var="notice" items="${notices}">
 									<li id="myPcontent"
-										class="js-all-post-item post-search-item post-list-wrapper ${notice.notiKnd}">
+										class="js-all-post-item post-search-item post-list-wrapper ${notice.notiKnd} ">
 										<div class="fixed-kind">
 											<!-- 글 class="icons-write2" 할일 class="icons-todo" 일정 class="icons-schedule"-->
 											<c:if test="${notice.notiKnd=='text'}">
@@ -413,7 +413,7 @@
 	
 	
 		$(document).ready(function(){
-			/* $(".post-type").is("span:contains('task')");
+			
 			$(".post-list.subtask").show(); // style : block */
 			
 			

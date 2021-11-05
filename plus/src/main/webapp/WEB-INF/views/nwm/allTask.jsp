@@ -107,31 +107,58 @@
 										</div>
 										<ul class="js-inner-task project-inner-task active"
 											style="display: block">
-											
-												<li class="task-item {LI_STTS}">
-
-													<%-- <div class="task-item {LI_STTS}">${dtask.notiId }ddd</div>
-													<div class="task-item {LI_STTS}">${dtask.tskPrgs }</div>
-													<div class="task-item {LI_STTS}">${dtask.notiTtl }</div>
-													<div class="task-item {LI_STTS}">${dtask.memId}</div>
-													<div class="task-item {LI_STTS}">${dtask.name}</div>
-
-													<div class="task-item {LI_STTS}">
-														<fmt:formatDate pattern="yyyy-MM-dd"
-															value="${dtask.tskBgnDt }" />
+											<li class="task-item ">
+												<div class="js-task_num task-task_num-cell task-item-cell">
+													<div class="js-task_num-text  ellipsis"=""="">0</div>
+												</div>
+												<div class="task-item-cell task-state task-stts-cell">
+													<span class="js-task-state request">요청</span>
+												</div>
+												<div class="js-priority task-item-cell task-priority-cell ">
+													<div class="js-priority-span rank-span">
+														<i class=" small"></i> <span
+															class="js-priority-text priority-text-cell ellipsis">
+															-</span>
 													</div>
-													<div class="task-item {LI_STTS}">
-														<fmt:formatDate pattern="yyyy-MM-dd"
-															value="${dtask.tskEndDt }" />
+												</div>
+												<div class="task-item-cell task-name task-task_nm-cell ">
+													<div class="js-post-title task-title ellipsis js-mouseover"
+														mouseover-text="하위 업무 위치 찾기">
+														하위 업무 위치 찾기 <em class="subtask-item" style="display: none"
+															data=""> <i class="icons-subtask"></i> <span
+															class="subtask-number">0</span>
+														</em>
 													</div>
-													<div class="task-item {LI_STTS}">
-														<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
-															value="${dtask.notiDttm}" />
-													</div> --%>
-												</li>
-											
+													<div class="js-post-title project-title"
+														style="display: none" data="">
+														<i class="icons-project-1"></i>플로우 이용 가이드
+													</div>
+												</div>
+												<div class="js-workers task-item-cell task-worker_nm-cell ">${dtask.name}
+													<span class="js-mouseover" mouseover-text="QR"> <span
+														class="js-worker-name manager ellipsis">QR</span> <span
+														class="js-worker-count"></span>
+													</span>
+												</div>
+												<div class="js-workers task-item-cell task-worker_nm-cell ">${dtask.name}
+													<span class="js-mouseover" mouseover-text="QR"> <span
+														class="js-worker-name manager ellipsis">QR</span> <span
+														class="js-worker-count"></span>
+													</span>
+												</div>
+												<div class="js-edtr_dt task-edtr_dt-cell task-item-cell ">
+													<div class="js-edtr_dt-text  ellipsis"=""="">2021-11-05</div>
 
+												</div>
+												<div class="js-edtr_dt task-edtr_dt-cell task-item-cell ">
+													<div class="js-edtr_dt-text  ellipsis"=""="">2021-11-05</div>
 
+												</div>
+												<div class="js-edtr_dt task-edtr_dt-cell task-item-cell ">
+													<div class="js-edtr_dt-text  ellipsis"=""="">2021-11-05</div>
+
+												</div>
+											</li>
 											<!-- style="display: none" -->
 											<!-- li 태그 넣기 : 상세보기시에는 class="highlight" 추가-->
 										</ul>
@@ -266,14 +293,13 @@
 	</div>
 	<!-- 전체 업무 -> 목록 접고 펼치기 -->
 	<script type="text/javascript">
-	 var main = document.querySelectorAll("#main");
+		var main = document.querySelectorAll("#main");
 		$(main).click(function(event) {
 			console.log(event);
 			var et = $(event.target);
 			et.toggleClass("active");
 			et.next("ul").toggle();
 		});
-
 	</script>
 </body>
 </html>
