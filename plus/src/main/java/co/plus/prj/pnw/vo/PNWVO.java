@@ -8,9 +8,17 @@ import lombok.Data;
 @Data		
 public class PNWVO {
 	
+	// Project
+	private String prjId;			// 프로젝트 번호
+	private String prjTtl;			// 프로젝트 제목
+	
+	// PrjParti
+	private String prjColor;		// 프로젝트 컬러
+	private String prjPerm;			// 프로젝트 권한
+	private String PartiCnt;		// 프로젝트 참여자 수
+	
 	// NoticeWriting
-	private int notiId;				// 게시글 번호
-	private int prjId;				// 프로젝트 번호
+	private String notiId;				// 게시글 번호
 	private String notiKnd;			// 게시글 종류
 	private String memId;			// 회원 번호
 	private Date notiDttm;			// 게시글 작성일시
@@ -20,16 +28,8 @@ public class PNWVO {
 	private String name;			// 회원이름
 	private String coUrl;			// 회사URL
 	
-	// PrjParti
-	private String prjColor;		// 프로젝트 컬러
-	private String prjPerm;			// 프로젝트 권한
-	private String PartiCnt;		// 프로젝트 참여자 수
-	
-	//
+	// Board (view)
 	private String notiTtl;			// 게시글명
-	
-	// Project
-	private String prjTtl;			// 프로젝트 제목
 	
 	// Text
 	private String txtCntn; 		// 글 내용
@@ -61,7 +61,7 @@ public class PNWVO {
 	private String scheCntn;		// 일정 내용
 	 
 	// Reply
-	private int repId;				// 댓글 번호
+	private String repId;			// 댓글 번호
 	private String repCntn;			// 댓글 내용
 	private Date repDttm;			// 댓글 일시
 	

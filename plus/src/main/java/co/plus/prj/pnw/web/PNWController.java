@@ -36,4 +36,13 @@ public class PNWController {
 
 	}
 	
+	// 프로젝트 홈탭
+	@RequestMapping(value = "/prjHome.do", method = RequestMethod.GET)
+	public String prjHome(HttpSession session, Model model, PNWVO vo) {
+		vo.setMemId((String)session.getAttribute("memId"));
+		vo.setPrjId((String)model.getAttribute("prjId"));
+		model.addAttribute("nwLists", service.prjHome(vo));
+		return "pnw/prjHome";
+
+	}
 }

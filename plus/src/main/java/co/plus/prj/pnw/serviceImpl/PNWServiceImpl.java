@@ -71,27 +71,27 @@ public class PNWServiceImpl implements PNWService {
 	
 	
 	@Override
-	public List<PNWVO> home(PNWVO vo) {					// 프로젝트 홈탭
+	public List<PNWVO> prjHome(PNWVO vo) {					// 프로젝트 홈탭
 		map.pnwList(vo);			// 게시글 리스트
 		map.partiPM(vo);			// 참여자 리스트(PM)
-		map.partiUser(vo);		// 참여자 리스트(User)
-		map.partiGuest(vo);		// 참여자 리스트(Guest)
+		map.partiUser(vo);			// 참여자 리스트(User)
+		map.partiGuest(vo);			// 참여자 리스트(Guest)
 		return map.replyList(vo);	// 댓글 리스트
 	}
 
 	@Override
-	public List<PNWVO> tskList(PNWVO vo) {				// 프로젝트 업무탭
-		map.tskPrgList(vo);		// 업무 진행상태 리스트
+	public List<PNWVO> prjTsk(PNWVO vo) {				// 프로젝트 업무탭
+		map.tskPrgList(vo);			// 업무 진행상태 리스트
 		return map.tskNWList(vo);	// 업무 게시글 리스트
 	}
 
 	@Override
-	public List<PNWVO> scheList(PNWVO vo) {				// 프로젝트 일정탭
-		return map.scheList(vo);
+	public List<PNWVO> prjSche(PNWVO vo) {				// 프로젝트 일정탭
+		return map.scheList(vo);	// 일정 게시글 리스트
 	}
 
 	@Override
-	public List<PNWVO> fileList(PNWVO vo) {				// 프로젝트 파일탭
+	public List<PNWVO> prjFile(PNWVO vo) {				// 프로젝트 파일탭
 		return map.fileList(vo);
 	}
 

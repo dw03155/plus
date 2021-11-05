@@ -21,10 +21,10 @@ public interface PNWService { //mapper합치기
 		// 프로젝트
 		int prjUpdate(PNWVO vo);			// 프로젝트 수정(프로젝트명, 색깔, 공개권한)
 		int prjDelete(PNWVO vo);			// 프로젝트 삭제
-		List<PNWVO> home(PNWVO vo);			// 프로젝트 홈탭 (게시글 목록, 참여자 목록)
-		List<PNWVO> tskList(PNWVO vo);		// 프로젝트 업무탭
-		List<PNWVO> scheList(PNWVO vo);		// 프로젝트 일정탭
-		List<PNWVO> fileList(PNWVO vo);		// 프로젝트 파일탭
+		List<PNWVO> prjHome(PNWVO vo);			// 프로젝트 홈탭 (게시글 목록, 참여자 목록)
+		List<PNWVO> prjTsk(PNWVO vo);		// 프로젝트 업무탭
+		List<PNWVO> prjSche(PNWVO vo);		// 프로젝트 일정탭
+		List<PNWVO> prjFile(PNWVO vo);		// 프로젝트 파일탭
 		
 		int txtInsert(PNWVO vo);			// 글 입력
 		int txtUpdate(PNWVO vo);			// 글 생성
