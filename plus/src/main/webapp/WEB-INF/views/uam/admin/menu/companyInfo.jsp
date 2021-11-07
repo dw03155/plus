@@ -28,7 +28,8 @@
 		width: 100px;
 		height: 40px;
 		border-left: 1px solid gray;
-		position: absolute;
+		float: right;
+		margin-top: 3px;
 	}
 </style>
 </head>

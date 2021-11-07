@@ -15,6 +15,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -313,31 +314,41 @@ public class MemberController {
 	//관리자 사용자 관리
 	@RequestMapping(value="/userManagement.do", method = RequestMethod.GET)
 	public String userManagement(Model model) {
+//		vo.setCoUrl((String)session.getAttribute("coUrl"));
+//		model.addAttribute("using",service.getUsingMemberList(vo));
+//		model.addAttribute("notused",service.getNotusedMemberList(vo));
+//		model.addAttribute("outstand",service.getOutstandMemberList(vo));
+//		model.addAttribute("guest",service.getGuestMemberList(vo));
 		return "uam/admin/menu/userManagement";
 	}
 	//정상 사용자
-	@RequestMapping(value="getUsingMemberList.do", method = RequestMethod.GET)
+	@RequestMapping(value="/getUsingMemberList.do", method = RequestMethod.GET)
 	@ResponseBody
 	public List<MemberVO> getUsingMemberList( Model model, MemberVO vo){
 		return service.getUsingMemberList(vo);
 	}
 	//이용중지 사용자
-	@RequestMapping(value="getNotusedMemberList.do", method = RequestMethod.GET)
+	@RequestMapping(value="/getNotusedMemberList.do", method = RequestMethod.GET)
 	@ResponseBody
 	public List<MemberVO> getNotusedMemberList( Model model, MemberVO vo){
 		return service.getNotusedMemberList(vo);
 	}
 	//기입대기 사용자
-	@RequestMapping(value="getOutstandMemberList.do", method = RequestMethod.GET)
+	@RequestMapping(value="/getOutstandMemberList.do", method = RequestMethod.GET)
 	@ResponseBody
 	public List<MemberVO> getOutstandMemberList( Model model, MemberVO vo){
 		return service.getOutstandMemberList(vo);
 	}
 	//게스트
-	@RequestMapping(value="getGuestMemberList.do", method = RequestMethod.GET)
+	@RequestMapping(value="/getGuestMemberList.do", method = RequestMethod.GET)
 	@ResponseBody
 	public List<MemberVO> getGuestMemberList( Model model, MemberVO vo){
 		return service.getGuestMemberList(vo);
+	}
+	
+	@GetMapping("/userInvite.do")
+	public String userInvite() {
+		return "uam/admin/menu/userInvite";
 	}
 	
 	

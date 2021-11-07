@@ -844,6 +844,47 @@
 				}
 			}
 		});
+		//회원정보
+		$.ajax({
+			url: "memberInfo.do?memId=" + memId,
+			type: "Get",
+			datatype: "json",
+			success: function(data){
+					var $email = data.email;
+					var $pwd = data.pwd;
+					var $name = data.name;
+					var $wkpo = data.wkpo;
+					var $persTel = data.persTel;
+					var $coTel = data.coTel;
+					var $dept = data.dept;
+					var $coName = data.coName;
+					console.log($pwd);
+					if($wkpo == null){
+						$('#wkpo').text('');
+					}else{						
+						$('#wkpo').text($wkpo);
+					};
+					if($persTel == null){
+						$('#persTel').text('');
+					}else{						
+						$('#persTel').text($persTel);
+					};
+					if($coTel == null){
+						$('#coTel').text('');
+					}else{						
+						$('#coTel').text($coTel);
+					};
+					if($dept == null){
+						$('#dept').text('');
+					}else{						
+						$('#dept').text($dept);
+					};
+					$('#email').text($email);
+					$('#name').text($name);
+					$('#coName').text($coName);
+					$('#hiddenpwd').val($pwd);
+			}
+		});
 	});
 	
 	//모달 자동 닫기
@@ -932,49 +973,8 @@
 			$("#pushAlamGroup").css("display", "none");
 			$("#mylock").css("display", "none");
 			$("#mySet").css("display", "block");
-			var memId = "${sessionScope.memId}";
-			console.log(memId);
-			$.ajax({
-				url: "memberInfo.do?memId=" + memId,
-				type: "Get",
-				datatype: "json",
-				success: function(data){
-						var $email = data.email;
-						var $pwd = data.pwd;
-						var $name = data.name;
-						var $wkpo = data.wkpo;
-						var $persTel = data.persTel;
-						var $coTel = data.coTel;
-						var $dept = data.dept;
-						var $coName = data.coName;
-						console.log($pwd);
-						if($wkpo == null){
-							$('#wkpo').text('');
-						}else{						
-							$('#wkpo').text($wkpo);
-						};
-						if($persTel == null){
-							$('#persTel').text('');
-						}else{						
-							$('#persTel').text($persTel);
-						};
-						if($coTel == null){
-							$('#coTel').text('');
-						}else{						
-							$('#coTel').text($coTel);
-						};
-						if($dept == null){
-							$('#dept').text('');
-						}else{						
-							$('#dept').text($dept);
-						};
-						$('#email').text($email);
-						$('#name').text($name);
-						$('#coName').text($coName);
-						$('#hiddenpwd').val($pwd);
-				}
-			});
-		});
+		});	
+		
 		$(".my-button-close-1").on("click", function() {
 			$("#MySettiong").css("display", "none");
 			$("#pwdUpdateSussacc").css("display","none");
@@ -1106,9 +1106,7 @@
 			$("#editor_persTel").val($("#persTel").text());			
 		});
 					
-		$("#noPersTelUpdate").on("click",function(){
-			$("#persTelInput").toggleClass("d-none");
-			$("#persTelUpdateForm").toggleClass("d-none");
+		$("#noPersTelUpdate").on("click",function(){ 
 		});
 		$("#persTelUpdate").on("click", function(){
 			var persTel = $("#editor_persTel").val();

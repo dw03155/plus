@@ -22,7 +22,7 @@
                             <a href="userManagement.do">&nbsp;&nbsp;&nbsp;사용자 관리</a>
                         </li>
                         <li data-code="file" class="left-menu-item">
-                            <a  href="allFile.do">&nbsp;&nbsp;&nbsp;사용자 초대</a>
+                            <a  href="userInvite.do">&nbsp;&nbsp;&nbsp;사용자 초대 / 일괄 등록</a>
                         </li>
                     </ul>
                 </div>

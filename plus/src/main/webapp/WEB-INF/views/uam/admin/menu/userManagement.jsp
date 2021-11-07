@@ -8,28 +8,20 @@
 <title>Insert title here</title>
 <style type="text/css">
 	table{
-		width: 80%;
+		width: 95%;
 		border: 1px solid #D8D8D8;
 		border-collapse : collapse;
 		position: absolute;
         top: 150px;
-        left: 100px;
+        left: 30px;
 	}
 	#memBtn{
-		width: 80px;
+		width: 75px;
 		border: 1px solid gray;
-		border-collapse : collapse;
-        position: absolute;
-        top: 120px;
-        right: 290px;
 	}
 	#memBtn2{
-		width: 80px;
+		width: 50px;
 		border: 1px solid gray;
-		border-collapse : collapse;
-        position: absolute;
-        top: 120px;
-        right: 200px;
 	}
 	.memberthead{
 		height: 30px; 
@@ -38,6 +30,11 @@
 	td{
 		text-align: center;
 		height: 25px;
+	}
+	#btnDiv{
+		padding-top: 2%;
+		float: right;
+		width: 130px;
 	}
 
 </style>
@@ -73,61 +70,78 @@
 		</div><!-- project-detail-top end -->
 		
 		<!-- 정상사용자 -->
-		<div id="usingMember" class="project-detail-inner layer-scroll type2">
-			<button id="memBtn">전체선택</button>
-			<button id="memBtn2">삭제</button>
-			<table id="usingMemberList" border="1">
-				<thead class="memberthead">
-				<tr>
-					<th>이름</th>
-					<th>부서</th>
-					<th>직책</th>
-					<th>이메일</th>
-					<th>휴대폰</th>
-					<th>관리자</th>
-					<th>삭제</th>
-				</tr>
-				</thead>
-				<tbody id="usinglist" >
-				</tbody>
-			</table>
-		 </div><!-- usingMember end -->
-		 
-		 <!-- 사용중지 -->
-		 <div id="notUsedMember" class="project-detail-inner layer-scroll type2" style="display: none">
-			<table id="notUsedMemberList" border="1">
-				<thead class="memberthead">
-				<tr>
-					<th>이름</th>
-					<th>이메일</th>
-					<th>휴대폰</th>
-				</tr>
-				</thead>
-				<tbody id="notUsedlist">
-				</tbody>
-			</table>
-		 </div><!-- notUsedMember end -->
-		 
-		 <!-- 가입대기 -->
-		 <div id="outstandMember" class="project-detail-inner layer-scroll type2" style="display: none">
-			<table id="outstandMemberList" border="1">
-				<thead class="memberthead">
-				<tr>
-					<th>이름</th>
-					<th>이메일</th>
-					<th>휴대폰</th>
-					<th>설정</th>
-				</tr>
-				</thead>
-				<tbody id="outstandlist">
-				</tbody>
-			</table>
-		 </div><!-- notUsedMember end -->
-		 
-	</div><!-- main-container end -->
+			<div id="usingMember" class="project-detail-inner layer-scroll type2">
+			<div id="btnDiv">
+				<button id="memBtn">전체선택</button>
+				<button id="memBtn2">삭제</button>
+			</div>
+				<table id="usingMemberList" border="1">
+					<thead class="memberthead">
+						<tr>
+							<th>이름</th>
+							<th>부서</th>
+							<th>직책</th>
+							<th>이메일</th>
+							<th>휴대폰</th>
+							<th>관리자</th>
+							<th>삭제</th>
+						</tr>
+					</thead>
+					<tbody id="usinglist" >
+					</tbody>
+				</table>
+			 </div><!-- usingMember end -->
+			 
+			 <!-- 사용중지 -->
+			 <div id="notUsedMember" class="project-detail-inner layer-scroll type2" style="display: none">
+				<table id="notUsedMemberList" border="1">
+					<thead class="memberthead">
+					<tr>
+						<th>이름</th>
+						<th>이메일</th>
+						<th>휴대폰</th>
+					</tr>
+					</thead>
+					<tbody id="notUsedlist">
+					</tbody>
+				</table>
+			 </div><!-- notUsedMember end -->
+			 
+			 <!-- 가입대기 -->
+			 <div id="outstandMember" class="project-detail-inner layer-scroll type2" style="display: none">
+				<table id="outstandMemberList" border="1">
+					<thead class="memberthead">
+					<tr>
+						<th>이름</th>
+						<th>이메일</th>
+						<th>휴대폰</th>
+						<th>설정</th>
+					</tr>
+					</thead>
+					<tbody id="outstandlist">
+					</tbody>
+				</table>
+			 </div><!-- outstandMember end -->
+			 
+			 <!-- 가입대기 -->
+			 <div id="guestMember" class="project-detail-inner layer-scroll type2" style="display: none">
+				<table id="guestMemberList" border="1">
+					<thead class="memberthead">
+					<tr>
+						<th>이름</th>
+						<th>이메일</th>
+						<th>휴대폰</th>
+						<th>설정</th>
+					</tr>
+					</thead>
+					<tbody id="guestlist">
+					</tbody>
+				</table>
+			 </div><!-- outstandMember end -->
+		</div><!-- main-container end -->
 	
 	<script>
-	$(function(){
+	 $(function(){
 			var coUrl = "${sessionScope.coUrl}";
 			//정상사용자
 			$.ajax({
@@ -135,18 +149,36 @@
 				type : "get",
 				dataType : "json",
 				success : function(data) {
-					for(i=0; i<data.length; i++){
+					if(data != ""){		
+						for(i=0; i<data.length; i++){
 						var item = data[i];
+						if(item.memPerm == 'ADMIN'){
+							var perm = '관리자';
 						$('<tr>').append($('<td>').html(item.name))
 				 				.append($('<td>').html(item.dept))
 								.append($('<td>').html(item.wkpo))
 							 	.append($('<td>').html(item.email))
 							 	.append($('<td>').html(item.persTel))
-							 	.append($('<td>').html(item.memPerm))
+							 	.append($('<td>').html(perm))
 							 	.append($('<td>').html('<input type=\'checkbox\'>'))
 							 	.append($('<input type=\'hidden\' id=\'usingMemId\'>').val(item.memId))
 							 	.appendTo($('#usinglist'))
-								 
+						}else if(item.memPerm == 'USER'){
+							var user = '일반사용자';
+						$('<tr>').append($('<td>').html(item.name))
+				 				.append($('<td>').html(item.dept))
+								.append($('<td>').html(item.wkpo))
+							 	.append($('<td>').html(item.email))
+							 	.append($('<td>').html(item.persTel))
+							 	.append($('<td>').html(user))
+							 	.append($('<td>').html('<input type=\'checkbox\'>'))
+							 	.append($('<input type=\'hidden\' id=\'usingMemId\'>').val(item.memId))
+							 	.appendTo($('#usinglist'))
+						}
+						}			 
+					}else{
+						$('<tr>').append($('<td colspan=\'7\'>').html("NODATE"))
+						 .appendTo($('#usinglist'))
 					}
 					$('#usingCount').text('('+data.length+')');
 				}
@@ -157,25 +189,21 @@
 				type : "get",
 				dataType : "json",
 				success : function(result) {
-					if(result != null){
+					if(result != ""){
 						for(i=0; i<result.length; i++){
 							var user = result[i];
 							$('<tr>').append($('<td>').html(user.name))
 									.append($('<td>').html(user.email))
 									.append($('<td>').html(user.persTel))
-									.append($('<input type=\'hidden\' id=\'notusedMemId\'>').val(user.memId))
+									.append($('<input type=\'hidden\' id=\'user.memId\'>').val(user.memId))
 									.appendTo($('#notUsedlist'))
 									 
 						}
-						$('#notusedCount').text('('+result.length+')');
 					}else{
 						$('<tr>').append($('<td colspan=\'3\'>').html("NODATE"))
-								 .appendTo($('#notUsedlist'))
+						 .appendTo($('#notUsedlist'))
 					}
-				},
-				error: function(){
-					$('<tr>').append($('<td colspan=\'3\'>').html("ERROR"))
-					 .appendTo($('#notUsedlist'))
+					$('#notusedCount').text('('+result.length+')');
 				}
 			});
 			//가입대기
@@ -184,27 +212,55 @@
 				type : "get",
 				dataType : "json",
 				success : function(re) {
-					if(re != null){
+					if(re != ""){
 						for(i=0; i<re.length; i++){
-							var member = re[i];
-							$('<tr>').append($('<td>').html(member.name))
-									.append($('<td>').html(member.email))
-									.append($('<td>').html(member.persTel))
-									.append($('<input type=\'hidden\' id=\'outstandMemId\'>').val(member.memId))
-									.appendTo($('#outstandlist'))	 
+							var outstand = re[i];
+							$('<tr>').append($('<td>').html(outstand.name))
+									.append($('<td>').html(outstand.email))
+									.append($('<td>').html(outstand.persTel))
+									.append($('<td id=\'inout\'>'))
+									.append($('<input type=\'hidden\' id=\'outstandMemId\'>').val(outstand.memId))
+									.appendTo($('#outstandlist'))	
+							$('#inout').append($('<span id=\'in\'>').text('[가입승인]'))
+									 .append($('<span id=\'out\'>').text('[가입거절]'))
 						}//for end
 					}else{
-						$('<tr>').append($('<td colspan=\'3\'>').html("NODATE"))
-								 .appendTo($('#outstandlist'))
+						$('<tr>').append($('<td colspan=\'4\'>').html("NODATE"))
+						 .appendTo($('#outstandlist'))
 					}
 					$('#outstantCount').text('('+re.length+')');
-				},
-				error: function(){
-					$('<tr>').append($('<td colspan=\'3\'>').html("ERROR"))
-					 .appendTo($('#outstandlist'))
+				}
+			});
+			//게스트
+			$.ajax({
+				url: "getGuestMemberList.do?coUrl="+coUrl,
+				type : "get",
+				dataType : "json",
+				success : function(req) {
+					if(req != ""){
+						for(i=0; i<req.length; i++){
+							var guest = req[i];
+							$('<tr>').append($('<td>').html(guest.name))
+									.append($('<td>').html(guest.email))
+									.append($('<td>').html(guest.persTel))
+									.append($('<input type=\'hidden\' id=\'guest.memId\'>').val(guest.memId))
+									.appendTo($('#guestlist'))	 
+						}//for end
+					}else{
+						$('<tr>').append($('<td colspan=\'4\'>').html("NODATE"))
+								 .appendTo($('#guestlist'))
+					}
+					$('#guestCount').text('('+req.length+')');
 				}
 			});
 	});
+	 
+	 $("#usinglist tr").click(function(){
+		 var tr = $(this);
+		 var td = tr.children();
+		 
+		 console.log("데이터: "+tr.text());
+	 })
 				
 			$("#using").on("click", function(){
 				$('#using').attr("class","js-tab-item active");
@@ -214,6 +270,7 @@
 				$('#usingMember').css("display","block");
 				$('#notUsedMember').css("display","none");
 				$('#outstandMember').css("display","none");
+				$('#guestMember').css("display","none");
 			});
 			$("#notused").on("click", function(){
 				$('#notused').attr("class","js-tab-item active");
@@ -223,6 +280,7 @@
 				$('#notUsedMember').css("display","block");
 				$('#usingMember').css("display","none");
 				$('#outstandMember').css("display","none");
+				$('#guestMember').css("display","none");
 			});
 			$("#outstand").on("click", function(){
 				$('#outstand').attr("class","js-tab-item active");
@@ -232,12 +290,17 @@
 				$('#outstandMember').css("display","block");
 				$('#notUsedMember').css("display","none");
 				$('#usingMember').css("display","none");
+				$('#guestMember').css("display","none");
 			});
 			$("#guest").on("click", function(){
 				$('#guest').attr("class","js-tab-item active");
 				$('#using').attr("class","js-tab-item");
 				$('#notused').attr("class","js-tab-item");
 				$('#outstand').attr("class","js-tab-item");
+				$('#guestMember').css("display","block");
+				$('#outstandMember').css("display","none");
+				$('#notUsedMember').css("display","none");
+				$('#usingMember').css("display","none");
 			});
 			
 			
