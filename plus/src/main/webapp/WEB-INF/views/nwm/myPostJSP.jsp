@@ -413,8 +413,12 @@
 	
 	
 		$(document).ready(function(){
-			
+					var kind = $(".fixed-kind").val();
+			/* console.log(kind+"----");
+			if($("#${notiKnd}") == 'task'){
+				
 			$(".post-list.subtask").show(); // style : block */
+			} */
 			
 			
 		}); 

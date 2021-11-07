@@ -35,7 +35,7 @@ public class NoticeWritingController {
 	@RequestMapping("/allSche.do") // 전체 메뉴 -> 캘린더
 	String allSche(Model model, NoticeWritingVO vo) {
 		model.addAttribute("sches",nwDao.allSche(vo));
-		return "nwm/allSche"; 		
+		return "nwm/allSchedule"; 		
 	}
 	
 	@RequestMapping("/myPost.do") // 전체 메뉴 -> 내 게시물 목록 
