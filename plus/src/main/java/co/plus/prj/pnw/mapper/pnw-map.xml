@@ -2,120 +2,196 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.plus.prj.pnw.mapper.PNWMapper">
 
-	<!-- 새 프로젝트 -->
-	<insert id="prjInsert">
-	
+	<!-- 새 프로젝트 : 일반 프로젝트 -->
+	<insert id="nPrjInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">
+		insert prj_id, prj_knd, prj_ttl, prj_open_perm, ctgry_id, co_url
+		into project
+		values (prjid.val, 'N', #{prjTtl}, #{prjOpenPerm}, #{ctgryId}, #{coUrl})
 	</insert>
-	
-	<!-- 내 프로젝트 -->
-	<select id="myProject" resultType="co.plus.prj.pnw.vo.PNWVO">
-		select  a.*																				
-		from 	project a, member b, prj_parti c
-		where 	a.co_url = b.co_url
-			<!-- 권한이 all일 경우는 비교X 
-			 권한이 part일 경우는 조건비교 -->
-			<if test="a.prj_open_perm = 'part'">
-			a.prj_id = b.prj_id
+
+	<!-- 새 프로젝트 : 회사 프로젝트 -->
+	<insert id="cPrjInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">
+		insert prj_id, prj_knd, prj_ttl, ctgry_id, co_url
+		into project
+		values (prjid.val, 'C', #{prjTtl}, #{ctgryId}, #{coUrl})
+	</insert>
+
+	<!-- 내 프로젝트 : 즐겨찾기 -->
+	<select id="favorMyPrj" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select b.mem_id, a.prj_id, a.prj_ttl, c.prj_color, a.prj_knd, a.prj_open_perm,
+			(select count(*) from prj_parti where prj_id=a.prj_id) as partiCnt
+		from project a, member b, prj_parti c
+		where a.co_url = b.co_url        
+			and b.mem_id = c.mem_id
+			and a.prj_id = c.prj_id            
 			and b.mem_id = #{memId}
-			</if>
+            and a.prj_id in(select prj_id from favorite d where d.mem_id = b.mem_id)
 	</select>
-	
-	<!-- 회사 프로젝트 -->
-	<select id="openProject">
+
+	<!-- 내 프로젝트 : 즐겨찾기X -->
+	<select id="noMyPrj" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select b.mem_id, a.prj_id, a.prj_ttl, c.prj_color, a.prj_knd, a.prj_open_perm,
+			(select count(*) from prj_parti where prj_id=a.prj_id) as partiCnt
+		from project a, member b, prj_parti c
+		where a.co_url = b.co_url        
+			and b.mem_id = c.mem_id
+			and a.prj_id = c.prj_id            
+			and b.mem_id = #{memId}
+            and a.prj_id not in(select prj_id from favorite d where d.mem_id = b.mem_id)
 	</select>
-	
+
+	<!-- 전체 프로젝트 -->
+	<select id="openProject" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select a.prj_id, a.prj_ttl
+		from project a, member b
+		where a.prj_knd ='C'
+			and a.co_url = b.co_url
+			and b.mem_id = #{memId}
+		union
+		select prj_id, prj_ttl
+		from project
+		where co_url = #{coUrl}
+			and prj_knd = 'N'
+			and prj_open_perm = 'all'
+		union
+		select c.prj_id, c.prj_ttl
+		from project c, member d, prj_parti e
+		where c.co_url = d.co_url
+			and c.prj_knd = 'N'
+			and d.mem_id = #{memId}
+			and d.mem_id = e.mem_id
+			and c.prj_id = e.prj_id
+		<!-- 프로젝트 명으로 검색 -->
+		<if test="prjTtl != null and prjTtl != ''">
+			and prj_ttl like '%' || #{prjTtl} || '%'
+		</if>
+	</select>
+
 	<!-- 프로젝트 폴더 메뉴 -->
 	<select id="prjFolder">
 	</select>
-	
+
 	<!-- 프로젝트 폴더 생성 -->
 	<insert id="prjFoldInsert">
 	</insert>
-	
+
 	<!-- 프로젝트 폴더 수정 -->
 	<update id="prjFoldUpdate">
 	</update>
-	
+
 	<!-- 프로젝트 폴더 삭제 -->
 	<delete id="prjFoldDelete">
 	</delete>
-	
+
 	<!-- 프로젝트 수정 -->
 	<update id="prjUpdate">
 	</update>
-	
+
 	<!-- 프로젝트 삭제 -->
 	<delete id="prjDelete">
 	</delete>
-	
+
 	<!-- 프로젝트 : 홈 -->
 	<select id="pnwList">		<!-- 게시글 목록 -->
-	</select>
-	
-	<select id="partiList">		<!-- 참여자 목록 -->
-	</select>
-
-	<!-- <resultMap id="tskList" type="co.plus.prj.pnw.vo.PNWVO">
-		<result property="" />
-		<result property="" />
-		<result property="" />
-		<collection property="" />
-	</resultMap>
-	
-	<select id="tskPrgList" resultMap="tskList">
-		select a.*
-		from project a, member b, prj_parti c
-		where a.prj_id
+		select c.*, a.name,
+			case when c.noti_knd = 'task' then (select tsk_prgs from task where noti_id = c.noti_id)
+				when c.noti_knd = 'subtask' then (select subtsk_prgs from subtask where noti_id = c.noti_id)
+				when c.noti_knd = 'schedule' then (select TO_CHAR(sche_dttm) from schedule where noti_id = c.noti_id)
+				when c.noti_knd = 'todo' then (select TO_CHAR(RATIO_TO_TODO(c.noti_id)) from dual)
+			end addlist
+		from member a, prj_parti b, board c
+		where c.prj_id = #{prjId}
+		and b.prj_id = c.prj_id
+		and a.mem_id = #{memId}
+		and a.mem_id = b.mem_id
 	</select>
 
-	<select id="tskList" resultMap="tskList">
-		select 1 from dual
-	</select> -->
-	
+	<select id="partiPM">		<!-- 참여자 목록 : PM -->
+		select a.name,
+		from member a, prj_parti b
+		where a.mem_id = #{memId}
+		and a.mem_id = b.mem_id
+		and b.prj_id = #{prjId}
+		and prj_parti = 'PM'
+	</select>
+
+	<select id="partiUser">		<!-- 참여자 목록 : USER -->
+		select a.name
+		from member a, prj_parti b
+		where a.mem_id = #{memId}
+		and a.mem_id = b.mem_id
+		and b.prj_id = #{prjId}
+		and prj_parti = 'USER'
+	</select>
+
+	<select id="partiGuest">		<!-- 참여자 목록 : GUEST -->
+		select a.name
+		from member a, prj_parti b
+		where a.mem_id = #{memId}
+		and a.mem_id = b.mem_id
+		and b.prj_id = #{prjId}
+		and prj_parti = 'GUEST'
+	</select>
+	<!-- <resultMap id="tskList" type="co.plus.prj.pnw.vo.PNWVO"> <result property="" 
+		/> <result property="" /> <result property="" /> <collection property="" 
+		/> </resultMap> <select id="tskPrgList" resultMap="tskList"> select a.* from 
+		project a, member b, prj_parti c where a.prj_id </select> <select id="tskList" 
+		resultMap="tskList"> select 1 from dual </select> -->
+
 	<!-- 프로젝트 : 업무 -->
-	<select id="tskList">
+	<select id="tskPrgList">
+		select a.tsk_prgs
+		from task a, notice_writing b, project c
+		group by a.tsk_prgs
+		where a.noti_id = b.noti_id
+		and c.prj_id = #{prjId}
+		and c.prj_id = b.prj_id
 	</select>
-	
+
+	<select id="tskNWList">
+
+	</select>
+
 	<!-- 프로젝트 : 일정 -->
 	<select id="scheList">
 	</select>
-	
+
 	<!-- 프로젝트 : 파일 -->
 	<select id="fileList">
 	</select>
-	
+
 	<!-- 글 입력 -->
 	<insert id="txtInsert">
 	</insert>
-	
+
 	<!-- 글 수정 -->
 	<update id="txtUpdate">
 	</update>
-	
+
 	<!-- 업무 입력 -->
 	<insert id="tskInsert">
 	</insert>
-	
+
 	<!-- 업무 수정 -->
 	<update id="tskUpdate">
 	</update>
-	
+
 	<!-- 일정 입력 -->
 	<insert id="scheInsert">
 	</insert>
-	
+
 	<!-- 일정 수정 -->
 	<update id="scheUpdate">
 	</update>
-	
+
 	<!-- 할일 입력 -->
 	<insert id="todoInsert">
 	</insert>
-	
+
 	<!-- 할일 수정 -->
 	<update id="todoUpdate">
 	</update>
-	
+
 	<!-- 게시글 삭제 -->
 	<delete id="nwDelete">
 	</delete>
@@ -127,71 +203,76 @@
 	<!-- 댓글 입력 -->
 	<insert id="replyInsert">
 	</insert>
-	
+
 	<!-- 댓글 수정 -->
 	<update id="replyUpdate">
 	</update>
-	
+
 	<!-- 댓글 삭제 -->
 	<delete id="replyDelete">
 	</delete>
 
 
 	<!-- 글 상세보기(팝업) -->
-	<select id="myPostTxt"
-		resultType="co.plus.prj.pnw.vo.PNWVO">		
-		select  a. noti_knd as 게시글종류, b.name as 작성자, c.*, d.prj_ttl as 프로젝트제목, a.noti_dttm as 작성일자
-		from    notice_writing a, member b, text c, project d
-		where 	a.mem_id = b.mem_id
-		and 	a.prj_id = d.prj_id
-		and		a.noti_id = c.noti_id
-		and 	a.noti_id= #{notiId}
+	<select id="myPostTxt" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select a. noti_knd as 게시글종류,
+		b.name as 작성자, c.*, d.prj_ttl as 프로젝트제목,
+		a.noti_dttm as 작성일자
+		from
+		notice_writing a, member b, text c, project d
+		where a.mem_id = b.mem_id
+		and a.prj_id = d.prj_id
+		and a.noti_id =
+		c.noti_id
+		and a.noti_id=
+		#{notiId}
 	</select>
 	<!-- 업무 상세보기(팝업) -->
-	<select id="myPostTsk"
-		resultType="co.plus.prj.pnw.vo.PNWVO"> 		
-		select  a. noti_knd as 게시글종류, b.name as 작성자, c.*, d.prj_ttl as 프로젝트제목, a.noti_dttm as 작성일자
-		from 	notice_writing a, member b, task c, project d
-		where 	a.mem_id = b.mem_id
-		and 	a.prj_id=d.prj_id
-		and 	a.noti_id = c.noti_id
-		and 	a.noti_id= #{notiId}
+	<select id="myPostTsk" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select a. noti_knd as 게시글종류,
+		b.name as 작성자, c.*, d.prj_ttl as 프로젝트제목,
+		a.noti_dttm as 작성일자
+		from
+		notice_writing a, member b, task c, project d
+		where a.mem_id = b.mem_id
+		and a.prj_id=d.prj_id
+		and a.noti_id =
+		c.noti_id
+		and a.noti_id= #{notiId}
 	</select>
 	<!-- 하위업무 상세보기(팝업) -->
-	<select id="myPostSubtsk"
-		resultType="co.plus.prj.pnw.vo.PNWVO">	
-		select 	a.*, b.name, c.subtsk_cntn
-		from 	board a, member b, subtask c
-		where 	a.mem_id = b.mem_id
-		and 	a.noti_id = c.noti_id
-		and 	a.mem_id = #{memId}
+	<select id="myPostSubtsk" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select a.*, b.name,
+		c.subtsk_cntn
+		from board a, member b, subtask c
+		where
+		a.mem_id = b.mem_id
+		and a.noti_id = c.noti_id
+		and a.mem_id = #{memId}
 	</select>
 	<!-- 일정 상세보기(팝업) -->
-	<select id="myPostSche"
-		resultType="co.plus.prj.pnw.vo.PNWVO">		
-		select  a.*, b.name, c.sche_cntn
-		from 	board a, member b, schedule c
-		where 	a.mem_id = b.mem_id
-		and 	a.noti_id = c.noti_id
-		and 	a.noti_id = #{notiId}
+	<select id="myPostSche" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select a.*, b.name,
+		c.sche_cntn
+		from board a, member b, schedule c
+		where
+		a.mem_id = b.mem_id
+		and a.noti_id = c.noti_id
+		and a.noti_id = #{notiId}
 	</select>
 	<!-- 할일 상세보기(팝업) -->
-	<select id="myPostTodo"
-		resultType="co.plus.prj.pnw.vo.PNWVO">		
-		select  a. noti_knd as 게시글종류, b.name as 작성자, c.*, d.prj_ttl as 프로젝트제목, a.noti_dttm as 작성일자
-		from 	notice_writing a, member b, todo c, project d
-		where 	a.mem_id = b.mem_id
-		and 	a.prj_id=d.prj_id
-		and 	a.noti_id = c.noti_id
-		and 	b.mem_id = c.mem_id
-		and 	a.noti_id= #{notiId}
-	</select>
-
-	<!-- 게시글 개수 출력 -->
-	<select id="noticeCount" resultType="int">					
-		select count(*)
-		from notice_writing
-		where mem_id = #{memId}
+	<select id="myPostTodo" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select a. noti_knd as 게시글종류,
+		b.name as 작성자, c.*, d.prj_ttl as 프로젝트제목,
+		a.noti_dttm as 작성일자
+		from
+		notice_writing a, member b, todo c, project d
+		where a.mem_id = b.mem_id
+		and a.prj_id=d.prj_id
+		and a.noti_id =
+		c.noti_id
+		and b.mem_id = c.mem_id
+		and a.noti_id= #{notiId}
 	</select>
 
 

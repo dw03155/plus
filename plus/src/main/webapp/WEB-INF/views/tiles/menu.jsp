@@ -28,7 +28,7 @@
 					class="js-project-home-count project-total-count d-none"></em>
 			</a></li>
 			<li data-code="open" class="left-menu-item"><a
-				href="allSchedule.do"><i class="ico-search"></i>회사 프로젝트 </a></li>
+				href="allSchedule.do"><i class="ico-search"></i>전체 프로젝트 </a></li>
 			<li data-code="nokeep" class="left-menu-item d-none"><a href="#"><i
 					class="ico-not-kept"></i>미분류</a></li>
 			<li data-code="star" class="left-menu-item d-none"><a href="#"><i
