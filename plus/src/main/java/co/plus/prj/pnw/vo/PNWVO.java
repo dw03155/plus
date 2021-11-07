@@ -18,7 +18,7 @@ public class PNWVO {
 	private String PartiCnt;		// 프로젝트 참여자 수
 	
 	// NoticeWriting
-	private String notiId;				// 게시글 번호
+	private String notiId;			// 게시글 번호
 	private String notiKnd;			// 게시글 종류
 	private String memId;			// 회원 번호
 	private Date notiDttm;			// 게시글 작성일시
@@ -69,7 +69,9 @@ public class PNWVO {
 	
 	// Finset
 	
-	// 프로젝트 홈 : 업무
+	// 프로젝트 : 홈
+	private String addList;
+	// 프로젝트 : 업무
 	private List<PNWVO> tsks;		// 업무탭
 	
 }

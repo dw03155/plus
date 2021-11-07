@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,14 +82,6 @@
 										<em class="tooltip-title">회사 공개 프로젝트</em>
 										<p class="tooltip-text">우리 회사 직원이라면 누구나 직접 참여를 요청할 수 있습니다.</p>
 									</div></li>
-								<li id="unalarmIcon" class="d-none"><i
-									class="sprite-detail icon-unalarm js-icon-un-alarm"><span
-										class="blind">푸시 알림 OFF</span></i>
-									<div class="tooltip-square">
-										<em class="tooltip-title">푸시 알림 OFF</em>
-										<p class="tooltip-text">휴대폰 푸시 또는 브라우저에 알림이 가지 않습니다. 프로젝트
-											[알림 설정]메뉴에서 변경할 수 있습니다.</p>
-									</div></li>
 								<li style="display: none"><i class="icons-public"></i></li>
 								<li id="externalIcon" style="display: none"><span
 									class="icon-out-display js-mouseover"
@@ -107,20 +102,19 @@
 		</div>
 
 
-
-
-		<!-- 전체 게시글-->
+		<!-- 프로젝트 상세페이지 메뉴 + 검색창 -->
 		<div id="mainContent" class="main-content scroll-mask"
 			scroll-direction="0">
 			<div id="detailLayer"
 				class="main-sub-header project-detail-wrap d-none">
 				<div class="project-detail-top clearfix">
 					<ul id="detailTab" class="project-detail-menu">
-						<li class="js-tab-item" data-code="home"><a>홈</a></li>
-						<li class="js-tab-item" data-code="task"><a>업무</a></li>
-						<li class="js-tab-item" data-code="calendar"><a>캘린더</a></li>
-						<li class="js-tab-item" data-code="file"><a>파일</a></li>
-						<li class="js-tab-item" data-code="history"><a>히스토리</a></li>
+						<!-- active class 붙이기 -->
+						<li class="js-tab-item"><a>홈</a></li>
+						<li class="js-tab-item"><a>업무</a></li>
+						<li class="js-tab-item"><a>캘린더</a></li>
+						<li class="js-tab-item"><a>파일</a></li>
+						<li class="js-tab-item"><a>히스토리</a></li>
 					</ul>
 					<div id="detailTopSearch"
 						class="project-search-area all-file-header-type-3">
@@ -129,15 +123,6 @@
 							<input id="projectSearchInput" type="text"
 								placeholder="검색어를 입력해주세요" class="project-search-input"
 								autocomplete="off" maxlength="50" />
-							<div class="condition-button-area">
-								<div class="condition-left">
-									<button type="button" class="js-filter-reset condition-reset">초기화</button>
-								</div>
-								<div class="condition-right">
-									<button class="js-filter-cancel condition-button cancel">취소</button>
-									<button class="js-filter-search condition-button search">검색</button>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -148,174 +133,873 @@
 			</div>
 
 
-
-
-
-
-			<div
-				class="js-post-search-result all-search-section d-none me-post-wrap"
-				data-search-area-code="">
-				<div class="all-search-container">
-					<div class="all-search-content">
-						<div
-							class="js-result-input-area project-search-area all-file-header-type-3"
-							style="margin-top: 20px; display: none">
+			<!-- 프로젝트 홈탭 -->
+			<div id="detailTimeline"
+				class="project-detail-inner layer-scroll type2"
+				style="display: block;">
+				<div class="js-detail-wrap-area small-style-wrap">
+					<!-- project-detail-container-->
+					<section id="postTimeline" class="project-detail-container">
+						<div class="project-search-area all-file-header-type-3">
 							<div class="project-search">
-								<i class="icons-search"></i> <input type="text"
-									placeholder="검색어를 입력해주세요!" class="project-search-input"
-									autocomplete="off" maxlength="50">
-								<button id="projectDetailSearchTopButton" type="button"
-									class="js-detail-search-filter-button search-set-button">옵션</button>
-								<div
-									class="js-detail-search-filter-layer name-type-seach-popup d-none"
-									style="top: 28px; left: 0px;">
+								<i class="icons-search"></i> <input id="projectSearchInput"
+									type="text" placeholder="검색어를 입력해주세요"
+									class="project-search-input" autocomplete="off" maxlength="50">
+							</div>
+						</div>
+						<div class="project-detail-content">
 
-
-
-
-
-
-
-
-
-
-									<p>옵션</p>
-									<div class="detail-search-conditions">
-										<ul class="conditions-group">
-											<li class="js-project-name-search-filter">
-												<div class="condition-cell title">프로젝트</div>
-												<div class="condition-cell">
-													<input type="text" placeholder="프로젝트명 입력">
-												</div>
-											</li>
-											<li class="js-register-name-search-filter">
-												<div class="condition-cell title">작성자</div>
-												<div class="condition-cell">
-													<input type="text" placeholder="작성자 입력 (여러명 입력시, 콤마로 구분)">
-												</div>
-											</li>
-											<li class="js-participant-name-search-filter d-none">
-												<div class="condition-cell title">담당자</div>
-												<div class="condition-cell">
-													<input type="text" placeholder="담당자 입력 (여러명 입력시, 콤마로 구분)">
-												</div>
-											</li>
-											<li class="js-period-type-search-filter">
-												<div class="condition-cell title">검색기간</div>
-												<div class="condition-cell">
-													<ul class="target-select-group"></ul>
-												</div>
-											</li>
-											<li class="js-tmpl-type-search-filter">
-												<div class="condition-cell title">대상</div>
-												<div class="condition-cell">
-													<ul class="target-select-group"></ul>
-												</div>
-											</li>
-											<li class="js-file-type-search-filter" style="display: none">
-												<div class="condition-cell title">파일종류</div>
-												<div class="condition-cell">
-													<ul class="target-select-group"></ul>
-												</div>
-											</li>
-										</ul>
-										<div class="condition-button-area">
-											<div class="condition-left">
-												<button type="button"
-													class="js-filter-reset condition-reset">초기화</button>
-											</div>
-											<div class="condition-right">
-												<button class="js-filter-cancel condition-button cancel">취소</button>
-												<button class="js-filter-search condition-button search">검색</button>
-											</div>
-										</div>
+							<div id="taskReportArea"></div>
+							<!-- 글 입력하기 -->
+							<div id="createPostArea" class="work-design-wrapper">
+								<ul id="createPostUl" class="work-design-group">
+									<li class="post-filter" data-post-code="1"><i
+										class="icons-write2"></i><span>글</span></li>
+									<li class="post-filter" data-post-code="4"><i
+										class="icons-task"></i><span>업무</span></li>
+									<li class="post-filter" data-post-code="3"><i
+										class="icons-schedule"></i><span>일정</span></li>
+									<li class="post-filter" data-post-code="2"><i
+										class="icons-todo"></i><span>할 일</span></li>
+								</ul>
+								<div class="work-desing-element">
+									<p class="work-desing-text">
+										<i class="cursor"></i>내용을 입력하세요.
+									</p>
+									<div class="work-icon-group">
+										<i class="icons-file"></i> <i class="icons-picture"></i> <i
+											class="icons-map"></i> <i class="icons-tag"></i> <i
+											class="icons-mention"></i> <i class="icons-font"></i>
 									</div>
 								</div>
 							</div>
 						</div>
-						<button type="button"
-							class="js-search-back-button js-detail-back result-back-button d-none">
-							<i class="icons-back"></i> 돌아가기
-						</button>
+
+						<!-- 게시글 클릭시 a 태그에 class="highlight" -->
+
+						<!-- 상단고정 -->
+						<div id="projectPinArea" class="detail-section fix-section d-none"
+							style="display: block">
+							<div class="section-title-area">
+								<h4 class="section-title">
+									<span>상단고정</span> <span id="projectPinCount"
+										class="section-number">${fn:length(pincettes)}</span>
+								</h4>
+							</div>
+							<ul id="pinPostUl" class="pin-list fixed-list">
+								<c:forEach var="pincette" items="${pincettes}">
+									<li class="js-pin-item"><a href="#">
+											<div class="fixed-kind">
+												<!-- 글 class="icons-write2" 할일 class="icons-todo" 일정 class="icons-schedule"-->
+												<c:if test="${pincette.notiKnd=='text'}">
+													<c:set var="notiKndIcon" value="icons-write2" />
+												</c:if>
+												<c:if test="${pincette.notiKnd=='task'}">
+													<c:set var="notiKndIcon" value="icons-task" />
+												</c:if>
+												<c:if test="${pincette.notiKnd=='todo'}">
+													<c:set var="notiKndIcon" value="icons-todo" />
+												</c:if>
+												<c:if test="${pincette.notiKnd=='schedule'}">
+													<c:set var="notiKndIcon" value="icons-schedule" />
+												</c:if>
+												<i class="${notiKndIcon}"></i>
+												<c:if test="${pincette.notiKnd=='text'}">
+													<c:set var="notiKndSpan" value="글" />
+												</c:if>
+												<c:if test="${pincette.notiKnd=='task'}">
+													<c:set var="notiKndSpan" value="업무" />
+												</c:if>
+												<c:if test="${pincette.notiKnd=='todo'}">
+													<c:set var="notiKndSpan" value="할일" />
+												</c:if>
+												<c:if test="${pincette.notiKnd=='schedule'}">
+													<c:set var="notiKndSpan" value="일정" />
+												</c:if>
+												<span>${notiKndSpan}</span>
+											</div>
+											<p class="js-post-title fixed-text hold"></p>
+											<div class="fixed-value">
+												<!-- 업무일 때 -->
+												<!-- 업무 진행상항 class="progress" 진행 /
+												class="request" 요청 / class="completion"완료 /
+												class="feedback"피드백 -->
+												<c:if test="${pincette.notiKnd=='schedule'}">
+													<c:if test="${pincette.addList=='withhold'}">
+														<c:set var="taskPrgSpan" value="hold" />
+														<c:set var="taskPrgText" value="보류" />
+													</c:if>
+													<c:if test="${pincette.addList=='progress'}">
+														<c:set var="taskPrgSpan" value="progress" />
+														<c:set var="taskPrgText" value="진행" />
+													</c:if>
+													<c:if test="${pincette.addList=='request'}">
+														<c:set var="taskPrgSpan" value="request" />
+														<c:set var="taskPrgText" value="요청" />
+													</c:if>
+													<c:if test="${pincette.addList=='feedback'}">
+														<c:set var="taskPrgSpan" value="feedback" />
+														<c:set var="taskPrgText" value="피드백" />
+													</c:if>
+													<c:if test="${pincette.addList=='complete'}">
+														<c:set var="taskPrgSpan" value="completion" />
+														<c:set var="taskPrgText" value="완료" />
+													</c:if>
+													<span
+														class="js-task-state js-todo-state state ${taskPrgSpan}">${taskPrgText}</span>
+												</c:if>
+												<!-- 일정일 때 -->
+												<c:if test="${pincette.notiKnd=='schedule'}">
+													<div class="date-time">
+														<em class="date"><fmt:formatDate pattern="MM/dd"
+																value="${pincette.addList}" /></em> <span><fmt:formatDate
+																pattern="HH:mm" value="${pincette.addList}" /></span>
+													</div>
+												</c:if>
+												<!-- 할일일 때 -->
+												<c:if test="${pincette.notiKnd=='todo'}">
+													<span class="js-task-state js-todo-state state request">${pincette.addList}%</span>
+												</c:if>
+											</div>
+									</a></li>
+								</c:forEach>
+							</ul>
+						</div>
+						<!-- //상단고정 -->
+
+						<!-- 전체피드 -->
+						<div id="projectFeedArea" class="detail-section feed-section">
+							<div class="section-title-area">
+								<h4 id="allPostsFilterTitle" class="section-title">전체</h4>
+								<!--필터링 후 취소 버튼 노출 -->
+								<span class="filter-reset js-filter-reset">취소</span>
+								<div id="feedTypeButton" class="feed-type-area">
+									<button type="button"
+										class="js-feed-filter-button filter-button">
+										<i class="icons-filter"></i> <span>필터</span>
+									</button>
+									<ul class="js-feed-filter-layer check-menu-popup d-none">
+										<li>
+											<div class="check-menu-item on">전체</div>
+										</li>
+										<li>
+											<div class="check-menu-item">글</div>
+										</li>
+										<li>
+											<div class="check-menu-item">업무</div>
+										</li>
+										<li>
+											<div class="check-menu-item">일정</div>
+										</li>
+										<li>
+											<div class="check-menu-item">할 일</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!-- 게시글 목록 -->
+							<div class="feed-content">
+								<ul id="detailUl" class="post-group list" style="display: block">
+									<!-- 반복 시작 -->
+									<c:forEach var="nwList" items="${nwLists}">
+										<li id="myPcontent"
+											class="js-popup-before detail-item back-area">
+											<div class="js-post-nav list-item post-list-wrapper">
+												<div class="fixed-list">
+													<a href="#"> <!-- 새로운 글 표시 --> <i
+														class="js-indication display-new-indication"
+														style="display: none"></i> <!-- 글 class="icons-write2" 할일 class="icons-todo" 일정 class="icons-schedule"-->
+														<div class="fixed-kind">
+															<c:if test="${nwList.notiKnd=='text'}">
+																<c:set var="notiKindIcon" value="icons-write2" />
+															</c:if>
+															<c:if test="${nwList.notiKnd=='task'}">
+																<c:set var="notiKindIcon" value="icons-task" />
+															</c:if>
+															<c:if test="${nwList.notiKnd=='todo'}">
+																<c:set var="notiKindIcon" value="icons-todo" />
+															</c:if>
+															<c:if test="${nwList.notiKnd=='schedule'}">
+																<c:set var="notiKindIcon" value="icons-schedule" />
+															</c:if>
+															<i class="${notiKindIcon}"></i>
+															<c:if test="${nwList.notiKnd=='text'}">
+																<c:set var="notiKindSpan" value="글" />
+															</c:if>
+															<c:if test="${nwList.notiKnd=='task'}">
+																<c:set var="notiKindSpan" value="업무" />
+															</c:if>
+															<c:if test="${nwList.notiKnd=='todo'}">
+																<c:set var="notiKindSpan" value="할일" />
+															</c:if>
+															<c:if test="${nwList.notiKnd=='schedule'}">
+																<c:set var="notiKindSpan" value="일정" />
+															</c:if>
+															<span class="post-type">${notiKindSpan}</span>
+														</div>
+														<p class="js-post-title fixed-text hold">${nwList.notiTtl}</p>
+														<div class="post-list comment" style="display: none">
+															<i class="icons-comment2"></i> <span
+																class="js-post-comment-count">0</span>
+														</div>
+														<div class="post-list-right">
+															<div class="post-list name">${nwList.name }</div>
+															<div class="post-list date">
+																<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+																	value="${nwList.notiDttm}" />
+															</div>
+
+															<!-- 글 종류에 따라 display : block-->
+															<div class="fixed-value">
+																<!-- 업무일 때 -->
+																<!-- 업무 진행상항 class="progress" 진행 /
+												class="request" 요청 / class="completion"완료 /
+												class="feedback"피드백 -->
+																<c:if test="${pincette.notiKnd=='schedule'}">
+																	<c:if test="${pincette.addList=='withhold'}">
+																		<c:set var="taskPrgSpan" value="hold" />
+																		<c:set var="taskPrgText" value="보류" />
+																	</c:if>
+																	<c:if test="${pincette.addList=='progress'}">
+																		<c:set var="taskPrgSpan" value="progress" />
+																		<c:set var="taskPrgText" value="진행" />
+																	</c:if>
+																	<c:if test="${pincette.addList=='request'}">
+																		<c:set var="taskPrgSpan" value="request" />
+																		<c:set var="taskPrgText" value="요청" />
+																	</c:if>
+																	<c:if test="${pincette.addList=='feedback'}">
+																		<c:set var="taskPrgSpan" value="feedback" />
+																		<c:set var="taskPrgText" value="피드백" />
+																	</c:if>
+																	<c:if test="${pincette.addList=='complete'}">
+																		<c:set var="taskPrgSpan" value="completion" />
+																		<c:set var="taskPrgText" value="완료" />
+																	</c:if>
+																	<span
+																		class="js-task-state js-todo-state state ${taskPrgSpan}">${taskPrgText}</span>
+																</c:if>
+																<!-- 일정일 때 -->
+																<c:if test="${pincette.notiKnd=='schedule'}">
+																	<div class="date-time">
+																		<em class="date"><fmt:formatDate pattern="MM/dd"
+																				value="${pincette.addList}" /></em> <span><fmt:formatDate
+																				pattern="HH:mm" value="${pincette.addList}" /></span>
+																	</div>
+																</c:if>
+																<!-- 할일일 때 -->
+																<c:if test="${pincette.notiKnd=='todo'}">
+																	<span class="js-task-state js-todo-state state request">${pincette.addList}%</span>
+																</c:if>
+															</div>
+														</div>
+													</a>
+												</div>
+											</div>
+										</li>
+										<!-- 반복 끝 -->
+									</c:forEach>
+								</ul>
+							</div>
+						</div>
+					</section>
+					<!-- //project-detail-container-->
+
+					<!-- 참여자 -->
+					<div class="participants-section">
+						<div id="projectParticipants"
+							class="project-participants-wrap feed-section">
+							<div class="section-title-area">
+								<h4 class="section-title">
+									<span>참여자</span> <span id="participantCount"></span>
+								</h4>
+								<div class="feed-type-area">
+									<button id="allSendienceBtn" type="button">전체 보기</button>
+								</div>
+							</div>
+
+							<div id="participantArea" class="participants-container d-none">
+								<div id="participantScrollArea"
+									class="participants-content-group scroll-mask">
+									<div id="joinParticipantsArea"
+										class="participants-content d-none">
+										<span class="participants-title"> <em>가입 신청자</em> <span
+											id="joinParticipantsCount" class="number-of-participants"></span>
+										</span>
+										<ul id="joinParticipantsUl" class="participants-list"></ul>
+									</div>
+									<ul id="participantsUl" class="participants-list"></ul>
+								</div>
+								<div class="participants-menu">
+									<button class="js-project-chat participant-button">
+										<i class="icons-chat small"></i>채팅
+									</button>
+									<button class="js-video-chat participant-button">
+										<i class="icons-video"></i> 화상 회의
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- 전체 검색화면 -->
+			<!-- 검색 후 화면 display:block -->
+			<div
+				class="js-post-search-result all-search-section d-none me-post-wrap"
+				style="display: none">
+				<div class="all-search-container">
+					<div class="all-search-content">
 						<div id="postSearchArea" class="search-result-group">
 							<div class="search-title-area">
 								<span class="search-result-title">전체</span> <span
 									id="allPostsSearchCount"
 									class="js-search-post-count search-result-count"
-									style="display: inline-block"></span>
+									style="display: inline-block">${fn:length(nwLists)}</span>
 							</div>
 							<ul id="allPostsSearchUl"
-								class="js-search-post-ul all-seach-list-type-1 scroll-mask"></ul>
+								class="js-search-post-ul all-seach-list-type-1 scroll-mask">
+								<!-- 반복 시작 -->
+								<c:forEach var="nwList" items="${nwLists }">
+									<li id="allPostsSearchUl"
+										class="js-all-post-item post-search-item js-search-item">
+										<!-- icon 태그 : icon-post-type write2(글), icon-post-type todo(할일), icon-post-type schedule(일정)-->
+										<c:if test="${nwList.notiKnd=='text'}">
+											<c:set var="notiKnd" value="icon-post-type write2" />
+										</c:if> <c:if test="${nwList.notiKnd=='task'}">
+											<c:set var="notiKnd" value="icon-post-type task" />
+										</c:if> <c:if test="${nwList.notiKnd=='todo'}">
+											<c:set var="notiKnd" value="icon-post-type todo" />
+										</c:if> <c:if test="${nwList.notiKnd=='schedule'}">
+											<c:set var="notiKnd" value="icon-post-type schedule" />
+										</c:if> <i class="${notiKnd }"></i>
+										<div class="search-sub-text-wrap">
+											<a href="" class="search-text-type-3 contents-tit">
+												<p>
+													<span class="post-type">${nwList.notiKnd }</span>${nwList.notiTtl }
+												</p>
+											</a>
+											<p class="search-text-type-3 contents-project">
+												<span class="search-name ellipsis">${nwList.name }</span><span
+													class="date"><fmt:formatDate
+														pattern="yyyy-MM-dd HH:mm" value="${nwList.notiDttm}" /></span>
+												<em class="project-title ellipsis"><i
+													class="icons-project-1"></i>${nwList.prjTtl }</em>
+											</p>
+										</div>
+									</li>
+								</c:forEach>
+							</ul>
 						</div>
-					</div>
-					<div class="all-search-filter">
-						<form action="">
-							<fieldset>
-								<legend class="blind">통합검색 필터 폼</legend>
-								<dl class="search-filter-group">
-									<dt>검색 필터</dt>
-									<dd class="search-filter-item js-search-pickr-layer">
-										<p>검색기간</p>
-										<div
-											class="js-date-type js-pickr-layer js-start-flatpickr filter-input-box">
-											<span></span><input type="hidden"> <label
-												class="filter-date-label"><i class="icon-date"></i></label>
-										</div>
-										<div
-											class="js-date-type js-pickr-layer js-end-flatpickr filter-input-box">
-											<span></span><input type="hidden"> <label
-												class="filter-date-label"><i class="icon-date"></i></label>
-										</div>
-									</dd>
-									<dd
-										class="js-project-name-search-filter d-none search-filter-item">
-										<p>프로젝트</p>
-										<div class="filter-input-box">
-											<input class="" placeholder="프로젝트명 입력" type="text">
-										</div>
-									</dd>
-									<dd
-										class="js-register-name-search-filter d-none search-filter-item">
-										<p>작성자</p>
-										<div class="filter-input-box">
-											<input class="" placeholder="작성자명 입력 (여러명 입력시, 콤마로 구분)"
-												type="text">
-										</div>
-									</dd>
-									<dd
-										class="js-participant-name-search-filter d-none search-filter-item">
-										<p>참여자</p>
-										<div class="filter-input-box">
-											<input class="" placeholder="참여자명 입력 (여러명 입력시, 콤마로 구분)"
-												type="text">
-										</div>
-									</dd>
-									<dd
-										class="js-tmpl-type-search-filter d-none search-filter-item">
-										<p>대상</p>
-										<ul class="target-select-group"></ul>
-									</dd>
-								</dl>
-							</fieldset>
-						</form>
 					</div>
 				</div>
 			</div>
+
+
+
+			<!-- 팝업창 -->
+			<div class="js-post-nav card-item post-card-wrapper task  side"
+				style="display: none">
+				<button type="button" class="post-popup-button left"></button>
+				<div class="post-popup-header card-popup-header d-none"
+					style="display: none">
+					<h3 class="card-popup-title">
+						<i id="projectTitleColor" class="project-color color-code-6"></i>
+						<span class="js-project-title-button">${NW.prjTtl}</span> <span
+							class="subtask-title up-task-title js-up-task-button"
+							style="display: none"></span>
+					</h3>
+					<button class="btn-close card-popup-close">
+						<i class="icons-close-1"></i>
+					</button>
+				</div>
+				<div class="post-card-header">
+					<div class="post-card-scroll">
+						<div class="card-header-top">
+							<div class="post-author js-post-author">
+								<span class="thumbnail size40 radius16"
+									style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
+								<dl class="post-author-info">
+									<dt>
+										<strong class="author ellipsis">${NW.memId}</strong> <em
+											class="position ellipsis" style="display: inline"></em> <span
+											class="date">${NW.NWdttm}</span> <span class="post-security">
+											<!-- <i class="icons-lock js-mouseover" mouseover-text="프로젝트 관리자만"></i>-->
+											<i class="icons-person-7 js-mouseover" mouseover-text="전체 공개"></i>
+										</span>
+									</dt>
+									<dd class="d-none">
+
+										<span class="team"></span>
+									</dd>
+								</dl>
+							</div>
+							<div>
+								<div class="post-option">
+									<button id="movePost" class="btn-go d-none"
+										style="display: inline-block;">게시글 바로가기</button>
+									<!-- fixed-btn on class -->
+									<button id="pinToTopBnt"
+										class="js-pin-post fixed-btn js-pin-authority on"
+										style="display: block">
+										<span class="blind">상단 고정 등록</span>
+									</button>
+									<button class="js-setting-button set-btn"
+										style="display: block" data="">
+										<span></span> <span></span> <span></span>
+									</button>
+									<ul class="js-setting-ul js-setting-layer setup-group d-none"
+										style="display: none">
+										<li class="js-setting-item" style="display: block"><a
+											href="#"> <i class="icons-write"></i>수정
+										</a></li>
+										<li class="js-setting-item" style="display: block"><a
+											href="#"> <i class="icons-delete-3"></i>삭제
+										</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<div class="card-header-bottom ">
+							<!--schedule 상세보기-->
+							<!--<div class="schedule-date">
+<strong class="schedule-month">2021-10</strong>
+<strong class="schedule-day">07</strong>
+</div>
+<div class="post-title-area">
+                            <h4 class="js-post-title post-title hold">${NW.NWTtl}</h4>
+                            <div class="schedule-period-area d-none" style="display:block">
+                                <span class="schedule-period">2021-10-07 (목), 16:30</span>
+                                <span class="schedule-period" style="display:inline-block">17:30</span>
+                            </div>
+                        </div>-->
+							<!--업무, 글, 할일 상세보기-->
+							<div class="post-title-area">
+								<!-- 보류 : hold, 완료 : complete, 요청, 진행, 피드백일 경우는 X-->
+								<h4 class="js-post-title post-title hold">${NW.NWTtl}</h4>
+								<div class="schedule-period-area d-none"=""="">
+									<span class="schedule-period"></span> <span
+										class="schedule-period"=""=""></span>
+								</div>
+							</div>
+						</div>
+						<div class="post-card-container">
+
+							<!-- 자세히 보기 : 더보기 클릭시 보이기 -->
+							<div id="originalPost" class="post-card-content "
+								style="display: none">
+								<div class="js-map-item url-preview map map-item"
+									data-url="https://maps.google.com/?cid=17960805821623202136"
+									data-code="MAP">
+									<div class="sort-hide-area">
+										<img
+											src="https://maps.googleapis.com/maps/api/staticmap?center=35.8693336,128.5955796&amp;zoom=14&amp;size=646x220&amp;markers=color:blue|35.8693336,128.5955796&amp;key=AIzaSyADjbtMn46r9DGFyo_ZRz3c6fOXzuOKWCw"
+											onerror="this.src='https://i.pinimg.com/236x/fc/7e/ce/fc7ece8e8ee1f5db97577a4622f33975--photo-icon-sad.jpg';"
+											data="" alt="">
+									</div>
+									<button type="button" class="js-del-btn delete-button d-none">
+										<i class="icons-delete-2"></i>
+									</button>
+									<div class="move-button">
+										<i class="icons-move-2"></i>
+									</div>
+									<div class="url-preview-content">
+										<em class="url-preview-title"><i class="icon-map"></i></em>
+										<p class="url-preview-text">대한민국 대구광역시 중구 성내1동 168-1</p>
+									</div>
+								</div>
+
+								<div class="js-post-file document-item file-item"
+									data-code="FILE" atch_srno="15425100"
+									rand_key="FLOW_202110123020050_08c033de-5766-4473-94b8-dd480732a1a4"
+									file_idnt_id="FLOW_202110123020050_08c033de-5766-4473-94b8-dd480732a1a4"
+									file_nm="MOCK_DATA.json" file_size="108959" rgsr_nm="오혜지"
+									rgsn_dttm="20211012173050" use_intt_id="KAKAO_211003154523"
+									atch_url="" img_path=""
+									file_down_url="https://flow.team//FLOW_DOWNLOAD_R001.act?RAND_KEY=FLOW_202110123020050_08c033de-5766-4473-94b8-dd480732a1a4&amp;ATCH_SRNO=15425100&amp;USER_ID=kakao_1934981996&amp;DUID=969850-99-120-937297&amp;OBJ_CNTS_NM=&amp;USE_INTT_ID=KAKAO_211003154523"
+									cloud_yn="Y">
+									<div class="extension-icon-area">
+										<i class="icon-extension etc"></i> <span class="file-lock"
+											style="display: none" data=""><i class="icons-lock"></i></span>
+										<!-- 잠금파일일 경우에 block처리 요청 -->
+									</div>
+									<dl class="document-item-info">
+										<dt class="js-file-title">
+											<span class="document-title">MOCK_DATA.json</span><em
+												class="document-extension"></em>
+										</dt>
+										<dd>106.41 KB</dd>
+									</dl>
+									<button type="button"
+										class="js-down-btn document-download-button"
+										style="display: block" data="">
+										<i class="icons-arrow_down"></i> <span class="blind">다운로드
+											버튼</span>
+									</button>
+									<button type="button" class="js-del-btn delete-button d-none">
+										<i class="icons-delete-2"></i>
+									</button>
+									<div class="move-button">
+										<i class="icons-move-2"> </i>
+									</div>
+								</div>
+								<!-- 간략히 보기 -->
+								<div id="summaryPost" class="post-card-content "
+									style="display: block">
+									<!--글-->
+									<div>
+										content 문단
+										<div>
+											<div>content 문단</div>
+											<div class="js-post-file document-item file-item"
+												data-code="FILE" atch_srno="15298556"
+												rand_key="FLOW_202110071818857_4ae12406-5398-4554-8248-490870f45e37"
+												file_idnt_id="FLOW_202110071818857_4ae12406-5398-4554-8248-490870f45e37"
+												file_nm="20211001 회의록.hwp" file_size="13312" rgsr_nm="오혜지"
+												rgsn_dttm="20211007161857" use_intt_id="KAKAO_211003154523"
+												atch_url="" img_path=""
+												file_down_url="https://flow.team//FLOW_DOWNLOAD_R001.act?RAND_KEY=FLOW_202110071818857_4ae12406-5398-4554-8248-490870f45e37&amp;ATCH_SRNO=15298556&amp;USER_ID=kakao_1934981996&amp;DUID=969850-99-120-937297&amp;OBJ_CNTS_NM=&amp;USE_INTT_ID=KAKAO_211003154523"
+												cloud_yn="Y">
+												<div class="extension-icon-area">
+													<!--hwp, pdf, word, ppt, -->
+													<i class="icon-extension hwp"></i>
+												</div>
+												<dl class="document-item-info">
+													<dt class="js-file-title">
+														<span class="document-title">20211001 회의록.hwp</span><em
+															class="document-extension"></em>
+													</dt>
+													<dd>13 KB</dd>
+												</dl>
+												<button type="button"
+													class="js-down-btn document-download-button"
+													style="display: block" data="">
+													<i class="icons-arrow_down"></i> <span class="blind">다운로드
+														버튼</span>
+												</button>
+												<button type="button"
+													class="js-del-btn delete-button d-none">
+													<i class="icons-delete-2"></i>
+												</button>
+												<div class="move-button">
+													<i class="icons-move-2"> </i>
+												</div>
+											</div>
+											<!-- 업무 -->
+											<div class="js-task-option">
+												<ul class="create-content-group">
+													<li class="js-status-layer">
+														<div class="create-content-cell title">
+															<i class="icon-post-status"></i>
+														</div>
+														<div class="create-content-cell">
+															<!-- 요청 : request, 진행 : progress, 피드백 : feedback, 완료 : completion, 보류 : hold -->
+															<div
+																class="js-task-state state-button-group clearfix hold">
+																<button type="button"
+																	class="js-stts task-state-button request"
+																	stts="request">요청</button>
+																<button type="button"
+																	class="js-stts task-state-button progress"
+																	stts="progress">진행</button>
+																<button type="button"
+																	class="js-stts task-state-button feedback"
+																	stts="feedback">피드백</button>
+																<button type="button"
+																	class="js-stts task-state-button completion"
+																	stts="completion">완료</button>
+																<button type="button"
+																	class="js-stts task-state-button hold" stts="hold">보류</button>
+															</div>
+														</div>
+													</li>
+													<li class="js-task-worker-layer js-more-task-li d-none"
+														style="display: table">
+														<div class="create-content-cell title manager">
+															<i class="icon-post-worker"></i>
+														</div>
+														<div class="create-content-cell manager-btn-group">
+															<span class="js-workers manager-group"> <span
+																class="js-registration manager-item"> <span
+																	class="js-worker-profile thumbnail"
+																	style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
+																	<span class="js-registration-name">오혜지</span>
+															</span>
+															</span>
+														</div>
+													</li>
+													<li
+														class="js-date-layer js-start-date-layer js-more-task-li d-none"
+														style="display: table;">
+														<div class="create-content-cell title">
+															<i class="icon-post-date"></i>
+														</div>
+														<div class="js-date-option create-content-cell">
+															<div class="js-pickr-layer js-start-flatpickr">
+																<div class="js-date-back-layer date-bg d-none"
+																	style="display: inline-block" data="">
+																	<span class="js-pickr-text task-date"> <span
+																		class="js-date-text">2021-11-03 (수) 부터</span>
+																	</span>
+																</div>
+															</div>
+														</div>
+													</li>
+													<li
+														class="js-date-layer js-end-date-layer js-more-task-li d-none"
+														style="display: table;" data="">
+														<div class="create-content-cell title">
+															<i class="icon-post-date"></i>
+														</div>
+														<div class="js-date-option create-content-cell">
+															<div class="js-pickr-layer js-end-flatpickr">
+																<div class="js-date-back-layer date-bg d-none"
+																	style="display: inline-block" data="">
+
+																	<!-- 날짜 지났을 때 추가 : deadline-exceeded -->
+																	<span class="js-pickr-text task-date"> <span
+																		class="js-date-text">2021-11-05 (금) 까지</span>
+																	</span>
+																</div>
+															</div>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</div>
+
+										<button id="postMoreButton" type="button"
+											class="js-contents-more-btn post-more-btn"
+											style="display: none" data="">더보기</button>
+
+										<div id="summaryFoldArea" class="content-fold"
+											style="display: block" data="">
+											<div class="subtask-space">
+												<div class="js-subtask-area subtask-wrap">
+													<div class="subtask-header">
+														<span class="subtask-title"> <i
+															class="icons-subtask"></i>하위업무<em
+															class="js-subtask-count subtask-count"></em>
+														</span>
+													</div>
+													<ul class="js-subtask-ul subtask-list ui-sortable"
+														style="display: block" data-project-srno=""
+														data-post-srno="">
+
+													</ul>
+													<!-- 삭제 (하위업무) -->
+													<div class="subtask-bottom js-subtask-edit-layer">
+
+														<div class="subtask-registered-area js-subtask-edit-area">
+															<div class="subtask-input-area js-subtask-li">
+																<div
+																	class="js-subtask-status-layer js-subtask-layer subtask-status-area">
+																	<button type="button"
+																		class="js-subtask-status-button subtask-button subtask-status request"
+																		data_status="0">요청</button>
+																	<ul
+																		class="js-status-setting-layer js-subtask-layer subtask-status-list"
+																		style="display: none">
+																		<li>
+																			<div
+																				class="js-status-setting-button subtask-status request"
+																				data_status_code="0">요청</div>
+																		</li>
+																		<li>
+																			<div
+																				class="js-status-setting-button subtask-status progress"
+																				data_status_code="1">진행</div>
+																		</li>
+																		<li>
+																			<div
+																				class="js-status-setting-button subtask-status feedback"
+																				data_status_code="4">피드백</div>
+																		</li>
+																		<li>
+																			<div
+																				class="js-status-setting-button subtask-status completion"
+																				data_status_code="2">완료</div>
+																		</li>
+																		<li>
+																			<div
+																				class="js-status-setting-button subtask-status hold"
+																				data_status_code="3">보류</div>
+																		</li>
+																	</ul>
+																</div>
+																<input type="text"
+																	class="subtask-input js-subtask-input" tab-code="input"
+																	maxlength="50" data-empty-msg="하위 업무 제목을 입력하세요!"
+																	data-required-yn="Y"
+																	placeholder="업무명 입력 (Enter로 업무 연속 등록 가능)">
+																<ul class="js-subtask-menu subtask-menu">
+																	<li
+																		class="js-subtask-date-layer subtask-menu-date js-mouseover js-date-tooltip"
+																		mouseover-text="마감일 추가" data_start_dt=""
+																		data_end_dt="">
+																		<div class="js-pickr-layer">
+																			<input type="hidden" class="js-subtask-date-input"
+																				readonly="readonly">
+																			<div class="subtask-date-input-div">
+																				<button type="button"
+																					class="js-subtask-date-button js-flatpicker subtask-button create-icon-box small"
+																					tab-code="date">
+																					<span> <i class="icons-calendar"></i>
+																					</span>
+																				</button>
+																				<span
+																					class="js-subtask-date-text js-flatpicker subtask-date d-none {dead-line-class}"></span>
+																			</div>
+																		</div>
+																	</li>
+
+																	<li
+																		class="subtask-menu-worker js-subtask-worker-layer js-mouseover"
+																		mouseover-text="담당자 추가">
+																		<button type="button"
+																			class="js-worker-button subtask-button manager js-worker-box create-icon-box small"
+																			tab-code="worker">
+																			<span> <i class="icons-person-6 small"></i>
+																			</span>
+																		</button>
+																		<button type="button"
+																			class="js-worker-button subtask-button manager js-worker-thumb create-icon-box small d-none"
+																			tab-code="worker">
+																			<span class="subtask-manager-area"> <span
+																				class="js-thumb-image thumbnail">person</span> <span
+																				class="subtask-manager-number d-none">{worker_count}</span>
+																			</span>
+																		</button>
+																	</li>
+																</ul>
+																<button type="button"
+																	class="js-subtask-enter-button subtask-enter">
+																	<i class="icons-reply"></i>
+																</button>
+																<button type="button" class="subtask-register-btn off">
+																	<span class="blind">Register</span>
+																</button>
+
+															</div>
+															<p class="subtask-close-text subtask-reset-text"
+																style="display: block">취소하려면 Esc 키를 누르세요.</p>
+														</div>
+
+													</div>
+													<button type="button"
+														class="js-add-subtask-button add-button">
+														<i class="icons-plus-7"></i>하위업무 추가
+													</button>
+												</div>
+											</div>
+										</div>
+
+										<div class="post-bottom-area">
+											<div class="post-bottom-menu js-reaction-bookmark">
+												<div class="bottom-button-area">
+													<button class="js-post-bookmark post-bottom-button ">
+														<i class="icon-bookmark"></i> <span>북마크</span>
+													</button>
+												</div>
+											</div>
+											<div class="cmt-read-wr">
+												<div class="comment-count-area">
+													<span>댓글</span> <span class="comment-count">2</span>
+												</div>
+											</div>
+
+										</div>
+										<!-- //post-card-container -->
+									</div>
+									<div class="post-card-footer js-comment-area">
+										<div class="comment-header">
+											<button type="button"
+												class="js-remark-prev-button comment-more-button ">
+												이전 댓글 더보기</button>
+										</div>
+										<ul class="post-comment-group">
+											<li class="remark-item">
+												<div class="comment-thumbnail js-comment-thumbnail">
+													<span class="thumbnail size40 radius16"
+														style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
+												</div>
+												<div class="js-remark-view comment-container on ">
+													<div class="comment-user-area">
+														<div class="comment-user">
+															<span class="user-name js-comment-user-name">오혜지</span> <span
+																class="user-position"></span> <span class="record-date">2021-11-07
+																13:27</span>
+														</div>
+														<div class="comment-writer-menu">
+															<button type="button"
+																class="js-remark-update js-remark-edit-button comment-writer-button ">
+																수정</button>
+															<button type="button"
+																class="js-remark-delete js-remark-edit-button comment-writer-button on">
+																삭제</button>
+														</div>
+													</div>
+													<div class="js-remark-layer comment-content">
+														<div class="comment-text-area">
+															<div class="js-remark-text comment-text">
+																<div>오혜지님이 상단고정 등록</div>
+															</div>
+														</div>
+														<ul class="js-remark-upload-file upload-document-group"></ul>
+														<ul class="js-remark-upload-img comment-upload-img"></ul>
+													</div>
+												</div>
+												<div class="js-remark-edit comment-container">
+													<div class="js-remark-layer comment-content modify">
+														<form class="js-remark-form comment-text-area">
+															<fieldset>
+																<legend class="blind">댓글 입력</legend>
+																<div class="js-remark-area js-paste-layer comment-input"
+																	contenteditable="true"
+																	placeholder="줄바꿈은 Shift + Enter / 입력은 Enter 입니다."></div>
+																<div contenteditable="true"
+																	class="js-dimd-layer comment-upload-dimd d-none">
+																	<span class="dimd-text">첨부할 파일, 이미지 등을 여기에 끌어다
+																		놓으세요</span>
+																</div>
+																<input type="hidden" class="comment-upload-input">
+																<label mouseover-text="파일 첨부"
+																	class="js-remark-upload-button comment-upload-button js-mouseover">
+																	<i class="icons-link"> <span class="blind">업로드
+																			버튼</span>
+																</i>
+																</label>
+															</fieldset>
+														</form>
+													</div>
+												</div>
+												<button type="button" class="post-popup-button right"></button>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+<!-- //팝업창 -->
+
+
+
+			<!-- 탭 클릭 화면 -->
+			<!-- 화면 display:block -->
 			<div id="detailCollectView"
 				class="detail-collect-view background-white d-none"
 				style="display: none;">
 				<div id="mainScroll"
 					class="detail-collect-group type3 padding-left-right-30">
 
-
-
-
-
-
-
-
-
-
+					<!-- 업무탭 -->
+					<!-- 업무탭 display:flex -->
 					<div class="allTaskLayer full-width small-style-wrap-2 d-none"
 						style="display: none;">
 						<div class="btns-wr">
@@ -325,73 +1009,6 @@
 										placeholder="업무명 또는 업무번호를 검색하세요!" autocomplete="off"
 										maxlength="20"
 										class="js-task-search-input project-search-input">
-									<button type="button"
-										class="js-task-detail-search-button search-set-button">옵션</button>
-									<div
-										class="js-task-detail-search-layer name-type-seach-popup d-none"
-										data-search-area-code="IN_TASK" style="top: 40px; left: 0px;">
-
-
-
-
-
-
-
-
-
-
-										<p>옵션</p>
-										<div class="detail-search-conditions">
-											<ul class="conditions-group">
-												<li class="js-project-name-search-filter">
-													<div class="condition-cell title">프로젝트</div>
-													<div class="condition-cell">
-														<input type="text" placeholder="프로젝트명 입력">
-													</div>
-												</li>
-												<li class="js-register-name-search-filter">
-													<div class="condition-cell title">작성자</div>
-													<div class="condition-cell">
-														<input type="text" placeholder="작성자 입력 (여러명 입력시, 콤마로 구분)">
-													</div>
-												</li>
-												<li class="js-participant-name-search-filter d-none">
-													<div class="condition-cell title">담당자</div>
-													<div class="condition-cell">
-														<input type="text" placeholder="담당자 입력 (여러명 입력시, 콤마로 구분)">
-													</div>
-												</li>
-												<li class="js-period-type-search-filter">
-													<div class="condition-cell title">검색기간</div>
-													<div class="condition-cell">
-														<ul class="target-select-group"></ul>
-													</div>
-												</li>
-												<li class="js-tmpl-type-search-filter">
-													<div class="condition-cell title">대상</div>
-													<div class="condition-cell">
-														<ul class="target-select-group"></ul>
-													</div>
-												</li>
-												<li class="js-file-type-search-filter" style="display: none">
-													<div class="condition-cell title">파일종류</div>
-													<div class="condition-cell">
-														<ul class="target-select-group"></ul>
-													</div>
-												</li>
-											</ul>
-											<div class="condition-button-area">
-												<div class="condition-left">
-													<button type="button"
-														class="js-filter-reset condition-reset">초기화</button>
-												</div>
-												<div class="condition-right">
-													<button class="js-filter-cancel condition-button cancel">취소</button>
-													<button class="js-filter-search condition-button search">검색</button>
-												</div>
-											</div>
-										</div>
-									</div>
 								</div>
 							</div>
 
@@ -437,15 +1054,8 @@
 					</div>
 
 
-
-
-
-
-
-
-
-
-
+					<!-- 파일탭 -->
+					<!-- 파일탭 display:flex -->
 					<div class="allFileLayer full-width small-style-wrap-2 d-none"
 						style="display: none;">
 						<div class="btns-wr">
@@ -454,73 +1064,6 @@
 									<i class="icons-search"></i> <input type="text"
 										placeholder="파일명을 검색해주세요!" autocomplete="off" maxlength="20"
 										class="js-file-search-input project-search-input">
-									<button type="button"
-										class="js-file-detail-search-button search-set-button">옵션</button>
-									<div
-										class="js-file-detail-search-layer name-type-seach-popup d-none"
-										data-search-area-code="IN_FILE" style="top: 40px; left: 0px;">
-
-
-
-
-
-
-
-
-
-
-										<p>옵션</p>
-										<div class="detail-search-conditions">
-											<ul class="conditions-group">
-												<li class="js-project-name-search-filter">
-													<div class="condition-cell title">프로젝트</div>
-													<div class="condition-cell">
-														<input type="text" placeholder="프로젝트명 입력">
-													</div>
-												</li>
-												<li class="js-register-name-search-filter">
-													<div class="condition-cell title">작성자</div>
-													<div class="condition-cell">
-														<input type="text" placeholder="작성자 입력 (여러명 입력시, 콤마로 구분)">
-													</div>
-												</li>
-												<li class="js-participant-name-search-filter d-none">
-													<div class="condition-cell title">담당자</div>
-													<div class="condition-cell">
-														<input type="text" placeholder="담당자 입력 (여러명 입력시, 콤마로 구분)">
-													</div>
-												</li>
-												<li class="js-period-type-search-filter">
-													<div class="condition-cell title">검색기간</div>
-													<div class="condition-cell">
-														<ul class="target-select-group"></ul>
-													</div>
-												</li>
-												<li class="js-tmpl-type-search-filter">
-													<div class="condition-cell title">대상</div>
-													<div class="condition-cell">
-														<ul class="target-select-group"></ul>
-													</div>
-												</li>
-												<li class="js-file-type-search-filter" style="display: none">
-													<div class="condition-cell title">파일종류</div>
-													<div class="condition-cell">
-														<ul class="target-select-group"></ul>
-													</div>
-												</li>
-											</ul>
-											<div class="condition-button-area">
-												<div class="condition-left">
-													<button type="button"
-														class="js-filter-reset condition-reset">초기화</button>
-												</div>
-												<div class="condition-right">
-													<button class="js-filter-cancel condition-button cancel">취소</button>
-													<button class="js-filter-search condition-button search">검색</button>
-												</div>
-											</div>
-										</div>
-									</div>
 								</div>
 							</div>
 							<div class="btns-area">
@@ -548,6 +1091,7 @@
 								</a>
 							</div>
 						</div>
+
 						<div id="fileItemArea" class="all-file-area board">
 							<div id="allFileSort"
 								class="js-sort-layer all-file-list-setup-type-1">
@@ -587,6 +1131,7 @@
 							<ul id="fileLayerUl"
 								class="js-file-list-layer layer-scroll file-select-wrap scroll-mask"></ul>
 						</div>
+
 						<div id="fileLayerProjectMenu" class="all-file-header-left-type-1"></div>
 
 						<ul id="boardTypeFileItem" style="display: none;">
@@ -611,6 +1156,7 @@
 									mouseover-text="{mouseover-text}">{ORCP_FILE_NM}</div>
 							</li>
 						</ul>
+
 						<ul id="boardTypeFolderItem" style="display: none;">
 							<li class="js-file-board js-folder js-selectable ui-selectee"
 								colabo-srno="{colabo-srno}" file-fld-srno="{file-fld-srno}"
@@ -747,8 +1293,7 @@
 									<span>...</span>
 								</div>
 								<div id="moreFolderLayer" class="all-file-popup-type-1">
-									<ul clss="js-file-more-ul file-more-ul">
-										{more-folder-list}
+									<ul clss="js-file-more-ul file-more-ul">{more-folder-list}
 									</ul>
 								</div>
 							</a>
@@ -819,16 +1364,8 @@
 						</div>
 					</div>
 
-
-
-
-
-
-
-
-
-
-
+					<!-- 캘린더탭 -->
+					<!-- 캘린더탭 display:flex -->
 					<div class="allCalendarLayer full-width small-style-wrap-2 d-none"
 						style="display: none;">
 						<div class="all-schedule">
@@ -856,12 +1393,6 @@
 							</div>
 						</div>
 					</div>
-
-
-
-
-
-
 
 
 					<div class="allHistoryLayer full-width small-style-wrap-2 d-none"
@@ -900,244 +1431,12 @@
 							</ul>
 						</div>
 					</div>
-
 				</div>
 			</div>
-			<div id="detailTimeline"
-				class="project-detail-inner layer-scroll type2"
-				style="display: none;">
-				<div class="js-detail-wrap-area small-style-wrap">
-					<!-- project-detail-container-->
-					<section id="postTimeline" class="project-detail-container">
-						<div class="project-search-area all-file-header-type-3">
-							<div class="project-search">
-								<i class="icons-search"></i> <input id="projectSearchInput"
-									type="text" placeholder="검색어를 입력해주세요"
-									class="project-search-input" autocomplete="off" maxlength="50">
-								<button id="projectDetailSearchTopButton" type="button"
-									class="js-detail-top-search-button search-set-button">
-									옵션</button>
-								<div id="projectDetailSearchLayer"
-									class="name-type-seach-popup d-none"
-									data-search-area-code="IN_PROJECT" style="top: 38px; left: 0px">
 
 
 
 
-
-
-
-
-
-
-									<p>옵션</p>
-									<div class="detail-search-conditions">
-										<ul class="conditions-group">
-											<li class="js-project-name-search-filter">
-												<div class="condition-cell title">프로젝트</div>
-												<div class="condition-cell">
-													<input type="text" placeholder="프로젝트명 입력">
-												</div>
-											</li>
-											<li class="js-register-name-search-filter">
-												<div class="condition-cell title">작성자</div>
-												<div class="condition-cell">
-													<input type="text" placeholder="작성자 입력 (여러명 입력시, 콤마로 구분)">
-												</div>
-											</li>
-											<li class="js-participant-name-search-filter d-none">
-												<div class="condition-cell title">담당자</div>
-												<div class="condition-cell">
-													<input type="text" placeholder="담당자 입력 (여러명 입력시, 콤마로 구분)">
-												</div>
-											</li>
-											<li class="js-period-type-search-filter">
-												<div class="condition-cell title">검색기간</div>
-												<div class="condition-cell">
-													<ul class="target-select-group"></ul>
-												</div>
-											</li>
-											<li class="js-tmpl-type-search-filter">
-												<div class="condition-cell title">대상</div>
-												<div class="condition-cell">
-													<ul class="target-select-group"></ul>
-												</div>
-											</li>
-											<li class="js-file-type-search-filter" style="display: none">
-												<div class="condition-cell title">파일종류</div>
-												<div class="condition-cell">
-													<ul class="target-select-group"></ul>
-												</div>
-											</li>
-										</ul>
-										<div class="condition-button-area">
-											<div class="condition-left">
-												<button type="button"
-													class="js-filter-reset condition-reset">초기화</button>
-											</div>
-											<div class="condition-right">
-												<button class="js-filter-cancel condition-button cancel">취소</button>
-												<button class="js-filter-search condition-button search">검색</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="project-detail-content">
-							<div id="taskReportArea"></div>
-
-							<div id="createPostArea" class="work-design-wrapper">
-								<ul id="createPostUl" class="work-design-group">
-									<li class="post-filter" data-post-code="1"><i
-										class="icons-write2"></i><span>글</span></li>
-									<li class="post-filter" data-post-code="4"><i
-										class="icons-task"></i><span>업무</span></li>
-									<li class="post-filter" data-post-code="3"><i
-										class="icons-schedule"></i><span>일정</span></li>
-									<li class="post-filter" data-post-code="2"><i
-										class="icons-todo"></i><span>할 일</span></li>
-								</ul>
-								<div class="work-desing-element">
-									<p class="work-desing-text">
-										<i class="cursor"></i>내용을 입력하세요.
-									</p>
-									<div class="work-icon-group">
-										<i class="icons-file"></i> <i class="icons-picture"></i> <i
-											class="icons-map"></i> <i class="icons-tag"></i> <i
-											class="icons-mention"></i> <i class="icons-font"></i>
-									</div>
-								</div>
-							</div>
-
-							<!-- 해시태그 -->
-							<div id="projectHashtagArea"
-								class="detail-section hashtag-section">
-								<!--hashtag-section에 active class로 제어  -->
-								<ul id="hashtagUl" class="hashtag-group"></ul>
-								<button id="hashtagMoreButton" type="button"
-									class="hashtag-more-btn d-none">
-									<i class="ico-arrow"></i>
-								</button>
-							</div>
-							<!-- //해시태그 -->
-
-						</div>
-						<!-- 미확인 -->
-						<div id="projectAlarmArea"
-							class="detail-section unidentified-alert-section d-none">
-							<div class="section-title-area">
-								<h4 class="section-title">
-									<span>미확인</span> <span id="projectNotReadCount"
-										class="section-number alarm"></span>
-								</h4>
-								<button id="readAllPostBnt" type="button" class="read-all-btn">모두읽음</button>
-							</div>
-							<div class="unidentified-content">
-								<!--unidentified-content active 클래스 제어 -->
-								<ul id="notReadAlarmUl" class="unidentified-list"></ul>
-								<button id="notReadAlarmMore" type="button"
-									class="unidentified-more-btn d-none">
-									더보기 <span class="blind">더보기</span>
-								</button>
-							</div>
-						</div>
-						<!-- //미확인 -->
-						<!-- 상단고정 -->
-						<div id="projectPinArea" class="detail-section fix-section d-none">
-							<div class="section-title-area">
-								<h4 class="section-title">
-									<span>상단고정</span> <span id="projectPinCount"
-										class="section-number"></span>
-								</h4>
-							</div>
-							<ul id="pinPostUl" class="pin-list fixed-list"></ul>
-						</div>
-						<!-- //상단고정 -->
-
-						<!-- 전체피드 -->
-						<div id="projectFeedArea" class="detail-section feed-section">
-							<div class="section-title-area">
-								<h4 id="allPostsFilterTitle" class="section-title">전체</h4>
-								<span class="filter-reset js-filter-reset">취소</span>
-								<!--필터링 후 취소 버튼 노출 -->
-								<div id="feedTypeButton" class="feed-type-area">
-									<button type="button"
-										class="js-feed-filter-button filter-button">
-										<i class="icons-filter"></i> <span>필터</span>
-									</button>
-									<button type="button" class="feed-type-button card">
-										<i class="icons-feed"></i> <span class="tooltip-square">피드형</span>
-									</button>
-									<button type="button" class="feed-type-button list">
-										<i class="icons-list"></i> <span class="tooltip-square">리스트형</span>
-									</button>
-									<ul class="js-feed-filter-layer check-menu-popup d-none">
-										<li>
-											<div class="check-menu-item on" data-code="">전체</div>
-										</li>
-										<li>
-											<div class="check-menu-item" data-code="1">글</div>
-										</li>
-										<li>
-											<div class="check-menu-item" data-code="4">업무</div>
-										</li>
-										<li>
-											<div class="check-menu-item" data-code="3">일정</div>
-										</li>
-										<li>
-											<div class="check-menu-item" data-code="2">할 일</div>
-										</li>
-									</ul>
-								</div>
-							</div>
-							<div class="feed-content">
-								<button id="postMoreBtn" type="button" class="more-btn"
-									style="display: none">
-									<i></i><i></i><i></i>
-								</button>
-								<ul id="detailUl" class="post-group list"></ul>
-							</div>
-						</div>
-					</section>
-					<!-- //project-detail-container-->
-					<div class="participants-section">
-						<div id="projectParticipants"
-							class="project-participants-wrap feed-section">
-							<div class="section-title-area">
-								<h4 class="section-title">
-									<span>참여자</span> <span id="participantCount"></span>
-								</h4>
-								<div class="feed-type-area">
-									<button id="allSendienceBtn" type="button">전체 보기</button>
-								</div>
-							</div>
-
-							<div id="participantArea" class="participants-container d-none">
-								<div id="participantScrollArea"
-									class="participants-content-group scroll-mask">
-									<div id="joinParticipantsArea"
-										class="participants-content d-none">
-										<span class="participants-title"> <em>가입 신청자</em> <span
-											id="joinParticipantsCount" class="number-of-participants"></span>
-										</span>
-										<ul id="joinParticipantsUl" class="participants-list"></ul>
-									</div>
-									<ul id="participantsUl" class="participants-list"></ul>
-								</div>
-								<div class="participants-menu">
-									<button class="js-project-chat participant-button">
-										<i class="icons-chat small"></i>채팅
-									</button>
-									<button class="js-video-chat participant-button">
-										<i class="icons-video"></i> 화상 회의
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 			<div id="pinPostItem" class="d-none">
 				<li id="pin-{post-srno}" class="js-pin-item"
 					data-post-srno="{post-srno}" data-project-srno="{colabo-srno}">

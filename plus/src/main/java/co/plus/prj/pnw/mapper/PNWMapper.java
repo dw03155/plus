@@ -13,15 +13,19 @@ public interface PNWMapper {
 		List<PNWVO> noMyPrj(PNWVO vo);		// 내 프로젝트(즐겨찾기x)
 		List<PNWVO> openProject(PNWVO vo);	// 회사 프로젝트(전체공개 프로젝트)
 	
-		List<PNWVO> prjFolder(PNWVO vo);	// 프로젝트 폴더 메뉴
+		List<PNWVO> FolderMenu(PNWVO vo);	// 프로젝트 폴더 메뉴
+		List<PNWVO> prjFolder(PNWVO vo);	// 프로젝트 폴더 조회
 		int prjFoldInsert(PNWVO vo);		// 프로젝트 폴더 생성
 		int prjFoldUpdate(PNWVO vo);		// 프로젝트 폴더 수정(폴더명)
 		int prjFoldDelete(PNWVO vo);		// 프로젝트 폴더 삭제
 		
 		// 프로젝트
+		int prjColor(PNWVO vo);				// 프로젝트 색상 설정
+		int prjFoldSet(PNWVO vo);			// 프로젝트 폴더 설정
 		int prjUpdate(PNWVO vo);			// 프로젝트 수정(프로젝트명, 색깔, 공개권한)
 		int prjDelete(PNWVO vo);			// 프로젝트 삭제
-		List<PNWVO> pnwList(PNWVO vo);		// 프로젝트 홈탭 (게시글 목록)
+		List<PNWVO> pnwPinList(PNWVO vo);	// 프로젝트 홈탭 (상단고정 게시글 목록)
+		List<PNWVO> pnwAllList(PNWVO vo);	// 프로젝트 홈탭 (전체 게시글 목록)
 		List<PNWVO> partiPM(PNWVO vo);		// 참여자 목록 : PM
 		List<PNWVO> partiUser(PNWVO vo);	// 참여자 목록 : USER
 		List<PNWVO> partiGuest(PNWVO vo);	// 참여자 목록 : GUEST

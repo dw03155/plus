@@ -122,7 +122,7 @@
 											<p class="project-class">즐겨찾기</p>
 										</div>
 										<c:forEach var="favorPrj" items="${favorPrjs}">
-											<li id="project" class="project-item ui-state-default"><a href=""> <!-- 업데이트된 글 개수 -->
+											<li id="project" class="project-item ui-state-default"><a href="prjHome.do?prjId=${favorPrj.prjId}"> <!-- 업데이트된 글 개수 -->
 												<input type="hidden" value="${favorPrj.prjId}" />
 													<div class="flow-content-ct project-badge"
 														style="display: none">0</div> <!-- 체크버튼 -->

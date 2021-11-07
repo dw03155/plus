@@ -26,7 +26,7 @@ public class PNWController {
 		return "pnw/myProject";
 
 	}
-	// 전체 프로젝트
+	// 전체 프로젝트(수정)
 	@RequestMapping(value = "/openProject.do", method = RequestMethod.GET)
 	public String cProject(HttpSession session, Model model, PNWVO vo) {
 		vo.setMemId((String)session.getAttribute("memId"));
@@ -38,10 +38,12 @@ public class PNWController {
 	
 	// 프로젝트 홈탭
 	@RequestMapping(value = "/prjHome.do", method = RequestMethod.GET)
-	public String prjHome(HttpSession session, Model model, PNWVO vo) {
+	public String prjHome(HttpSession session, Model model, PNWVO vo, String prjId) {
 		vo.setMemId((String)session.getAttribute("memId"));
-		vo.setPrjId((String)model.getAttribute("prjId"));
-		model.addAttribute("nwLists", service.prjHome(vo));
+		model.addAttribute("prjId", prjId);
+		model.addAttribute("pincettes",service.prjHomePin(vo));
+		model.addAttribute("nwLists", service.prjHomeNW(vo));
+		model.addAttribute("partipants",service.prjHomeParti(vo));
 		return "pnw/prjHome";
 
 	}
