@@ -54,4 +54,7 @@ public interface MemberService {
 	public List<MemberVO> getOutstandMemberList(MemberVO vo);
 	public List<MemberVO> getGuestMemberList(MemberVO vo);
 	public List<MemberVO> getCategoryList(MemberVO vo);
+	public int prjCategoryUpdate(MemberVO vo);
+	//카테고리 추가
+	public int categoryInsert(MemberVO vo);
 }

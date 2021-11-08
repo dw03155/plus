@@ -171,13 +171,27 @@
 	</select>
 	<!-- 카테고리 확인 -->
 	<select id="getCategoryList" resultType="co.plus.prj.uam.vo.MemberVO">
-		select a.ctgry_id, a.ctgry_name, count(*) as cnt
-		from category a, project b
-		where a.ctgry_id (+) = b.ctgry_id
-		    and b.co_url = #{coUrl}
-		    and a.ctgry_name is not null
-		group by a.ctgry_id, a.ctgry_name
+		select a.ctgry_id, a.ctgry_name, count(prj_id) as cnt
+	      from category a full outer join project b on (a.ctgry_id = b.ctgry_id)
+	          where 1=1
+	          and a.co_url = #{coUrl}
+	          and a.ctgry_name is not null
+	      group by a.ctgry_id, a.ctgry_name
 	</select>
+	<!-- 카테고리 삭제, 프로젝트 업데이트 -->
+	<update id="prjCategoryUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update project set ctgry_id = null
+		where ctgry_id = #{ctgryId}
+	</update>
+	<delete id="prjCategoryDelete" parameterType="co.plus.prj.uam.vo.MemberVO">
+		delete from category 
+		where ctgry_id = #{ctgryId}
+	</delete>
+	<!-- 카테고리 추가 -->
+	<insert id="categoryInsert" parameterType="co.plus.prj.uam.vo.MemberVO">
+		insert into category values(CTGRYID.nextval,#{ctgryName},#{coUrl})
+	</insert>
+	
 	
 	
 	

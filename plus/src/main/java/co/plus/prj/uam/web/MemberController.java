@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -63,6 +64,7 @@ public class MemberController {
 		return temp;
 		
 	}
+	
 	//새로운 회사 회원가입폼(companyJoin에 입력한 url정보전달)
 	@RequestMapping(value = "/adminJoin.do", method = RequestMethod.GET)
 	public String newCompany(@RequestParam(required = false) String newCoUrl, Model model) {
@@ -121,7 +123,7 @@ public class MemberController {
 	}
 	
 	//로그인
-	@RequestMapping(value = "memberLogin.do")
+	@RequestMapping(value = "memberLogin.do", method = RequestMethod.POST )
 	public String login(MemberVO vo, Model model, HttpSession session) {
 
 		String views = null;
@@ -361,6 +363,27 @@ public class MemberController {
 		vo.setCoUrl((String)session.getAttribute("coUrl"));
 		model.addAttribute("ctgrys",service.getCategoryList(vo));
 		return "uam/admin/menu/openPrjCategory";
+	}
+	//공개키테고리 삭제
+	@PutMapping("/PrjCategoryUpdate.do")
+	@ResponseBody
+	public MemberVO PrjCategoryUpdate(@RequestBody MemberVO vo) {
+		service.prjCategoryUpdate(vo);
+		return vo;
+	}
+	//공개 카테고리 추가
+	@PostMapping(value="/categoryInsert.do", consumes = "application/json")
+	@ResponseBody
+	public Map categoryInsert(@RequestBody MemberVO vo) {
+		service.categoryInsert(vo);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("category", vo);
+		return map;
+	}
+	@GetMapping("/getCategoryList.do")
+	@ResponseBody
+	public List<MemberVO> getCategoryList(MemberVO vo) {
+		return service.getCategoryList(vo);
 	}
 	
 	
