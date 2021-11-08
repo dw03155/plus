@@ -169,6 +169,15 @@
 		from member
 		where co_url = #{coUrl} and mem_perm = 'GUEST'
 	</select>
+	<!-- 카테고리 확인 -->
+	<select id="getCategoryList" resultType="co.plus.prj.uam.vo.MemberVO">
+		select a.ctgry_id, a.ctgry_name, count(*) as cnt
+		from category a, project b
+		where a.ctgry_id (+) = b.ctgry_id
+		    and b.co_url = #{coUrl}
+		    and a.ctgry_name is not null
+		group by a.ctgry_id, a.ctgry_name
+	</select>
 	
 	
 	

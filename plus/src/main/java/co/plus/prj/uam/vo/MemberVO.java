@@ -24,5 +24,15 @@ public class MemberVO {
 		//mem_status
 		private String memSt;			//회원상태
 		
-
+		//category
+		private String ctgryId;			//카테고리 번호
+		private String ctgryName;		//카테고리 이름
+		private String cnt;				//카테고리명 별 프로젝트 갯수
+		
+		//project
+		private String prjId;			//프로젝트 번호
+		private String prjKnd;			//프로젝트 종류
+		private String prjTtl;			//프로젝트 제목
+		private String prjOpenPerm;		//프로젝트 공개 권한
+		
 }

@@ -51,10 +51,11 @@ public interface MemberMapper {
 	public int companyNameUpdate(MemberVO vo);
 	public int companyLogoUpdate(MemberVO vo);
 	
-	//사용자 설정 getNotusedMemberList
+	//사용자 설정
 	public List<MemberVO> getUsingMemberList(MemberVO vo);
 	public List<MemberVO> getNotusedMemberList(MemberVO vo);
 	public List<MemberVO> getOutstandMemberList(MemberVO vo);
 	public List<MemberVO> getGuestMemberList(MemberVO vo);
+	public List<MemberVO> getCategoryList(MemberVO vo);
 	
 }

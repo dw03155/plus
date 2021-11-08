@@ -53,4 +53,5 @@ public interface MemberService {
 	public List<MemberVO> getNotusedMemberList(MemberVO vo);
 	public List<MemberVO> getOutstandMemberList(MemberVO vo);
 	public List<MemberVO> getGuestMemberList(MemberVO vo);
+	public List<MemberVO> getCategoryList(MemberVO vo);
 }

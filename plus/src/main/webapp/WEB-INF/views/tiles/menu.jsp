@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -145,24 +146,16 @@
 				<i></i><a href="#"><span>삭제</span></a>
 			</div>
 		</div>
+		<c:if test="${memPerm eq 'ADMIN'}">
 		<ul id="leftBottomUl" class="menu-group admin">
-			<li data-code="invite-member"
-				class="d-none js-invite-employee-button left-menu-item"
-				style="display: block"><a href=""><i class="ico-invite"></i>직원
-					초대</a></li>
 			<li data-code="manageradmin" class="d-none left-menu-item"
 				style="display: block"><a id="managerAdmin" href="companyInfo.do"><i
 					class="ico-admin"></i>어드민</a></li>
 		</ul>
+		</c:if>
 	</div>
 
 	<script type="text/javascript">
-		$(function(){
-			var memPerm = ${sessionScope.memPerm};
-			if(memPerm != 'ADMIN'){
-				$('#managerAdmin').css('display','none');
-			}
-		});
 	
 		$('#dash-three').on(
 				"click",
