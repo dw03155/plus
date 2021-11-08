@@ -89,7 +89,7 @@
 						</tr>
 					</thead>
 					<tbody id="usinglist" >
-						<c:if test="${empty usings }">
+						<c:if test="${empty using }">
 							<tr>
 								<td colspan="7">NODATA</td>
 							</tr>
@@ -120,7 +120,7 @@
 					</tr>
 					</thead>
 					<tbody id="notUsedlist">
-						<c:if test="${empty notuseds }">
+						<c:if test="${empty notused }">
 							<tr>
 								<td colspan="3">NODATA</td>
 							</tr>
@@ -148,7 +148,7 @@
 					</tr>
 					</thead>
 					<tbody id="outstandlist">
-						<c:if test="${empty outstands }">
+						<c:if test="${empty outstand }">
 							<tr>
 								<td colspan="4">NODATA</td>
 							</tr>
@@ -178,7 +178,7 @@
 					</tr>
 					</thead>
 					<tbody id="guestlist">
-						<c:if test="${empty guests }">
+						<c:if test="${empty guest }">
 						<tr>
 							<td colspan="4">NODATA</td>
 						</tr>

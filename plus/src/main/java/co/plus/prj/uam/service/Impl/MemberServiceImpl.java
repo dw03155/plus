@@ -166,6 +166,11 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberVO> getGuestMemberList(MemberVO vo) {
 		return map.getGuestMemberList(vo);
 	}
+	// 공개 카테고리
+	@Override
+	public List<MemberVO> getCategoryList(MemberVO vo) {
+		return map.getCategoryList(vo);
+	}
 	
 
 
