@@ -25,9 +25,9 @@
 
 	
 	<resultMap id="tskResult" type="co.plus.prj.nwm.vo.NoticeWritingVO">
-		<id property="prjId" column="prj_id" jdbcType="INTEGER" />
-		<result property="prjTtl" column="prj_ttl" jdbcType="VARCHAR"/>
-		<collection property="taskDetail" column="{prjId = prj_id, prjTtl = prj_ttl}" javaType="java.util.ArrayList" ofType="co.plus.prj.nwm.vo.NoticeWritingVO" select="detailTaskList"/>
+		<result property="prjId" column="prj_id" />
+		<result property="prjTtl" column="prj_ttl" />
+		<collection property="taskDetail" column="{prjId = prj_id}" javaType="java.util.ArrayList" ofType="co.plus.prj.nwm.vo.NoticeWritingVO" select="detailTaskList"/>
 	</resultMap>
 
 	<!-- 전체 메뉴 -> 전체 업무 -->
@@ -35,8 +35,7 @@
 		SELECT prj_id, prj_ttl
 		FROM project
 		where prj_knd = 'C'
-		and
-		co_url = #{coUrl}
+		and co_url = #{coUrl}
 		union
 		SELECT a.prj_id, a.prj_ttl
 		FROM project a,
@@ -58,10 +57,11 @@
 	</select>
 
 	<select id="detailTaskList" resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select e.*, f.name, g.noti_dttm
-		from task e, member f, board g
-		WHERE e.mem_id = f.mem_id
-		and e.noti_id = g.noti_id
+		select  e.*, f.name, g.noti_dttm
+		from 	task e, member f, board g
+		WHERE 	e.mem_id = f.mem_id
+		and 	e.noti_id = g.noti_id
+        and     g.prj_id = #{prjId}
 		<!-- 업무 ->ㅣ 업무 명으로 검색 -->
 		<if test="notiTtl != null and notiTtl != ''">
 			and noti_ttl like '%' || #{notiTtl} || '%'

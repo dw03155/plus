@@ -28,7 +28,8 @@ public class NoticeWritingController {
 	}
 	@RequestMapping("/detailTaskList.do") // 전체 업무 목록 내 항목들 출력
 	String detailTaskList(HttpSession session, Model model, NoticeWritingVO vo) {
-		vo.setMemId((String)session.getAttribute("memId"));
+		vo.setCoUrl((String)session.getAttribute("coUrl"));
+		System.out.println(vo);
 		model.addAttribute("dtasks",nwDao.detailTaskList(vo));
 		return "nwm/allTask";
 	}
