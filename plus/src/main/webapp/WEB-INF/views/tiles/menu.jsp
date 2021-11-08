@@ -151,12 +151,19 @@
 				style="display: block"><a href=""><i class="ico-invite"></i>직원
 					초대</a></li>
 			<li data-code="manageradmin" class="d-none left-menu-item"
-				style="display: block"><a id="managerAdmin" href=""><i
+				style="display: block"><a id="managerAdmin" href="companyInfo.do"><i
 					class="ico-admin"></i>어드민</a></li>
 		</ul>
 	</div>
 
 	<script type="text/javascript">
+		$(function(){
+			var memPerm = ${sessionScope.memPerm};
+			if(memPerm != 'ADMIN'){
+				$('#managerAdmin').css('display','none');
+			}
+		});
+	
 		$('#dash-three').on(
 				"click",
 				function() {

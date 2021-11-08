@@ -39,10 +39,39 @@
 	box-sizing: border-box;
 	overflow: auto;
 }
+
+.st_img{
+	width: 17px;
+}
+.st_icn{
+	width: 15px;
+	position: absolute;
+	top: 17px;
+    right: -4px;
+}
+.st_modal{
+	min-width: 115px;
+    padding: 14px;
+    position: absolute;
+    top: 160px;
+    right: 238px;
+    z-index: 13;
+    background: #fff;
+    border: 1px solid #777;
+    border-radius: 8px;
+    font-size: 13px;
+    text-align: left;
+    color: #555;
+    display: none;
+}
+.statusStyle:hover{
+	color: #6449FC;
+}
 </style>
 </head>
 <body>
 	<header class="header">
+		<div id="userSetting">
 		<div id="rightTopMenu" class="top-btns">
 			<button type="button" id="organizationTopButton"
 				class="btn-organization js-mouseover
@@ -64,26 +93,34 @@
 				<i class="icon-alarm"></i> <i id="alarmTopCount" class="label-alarm"
 					style="display: none"></i>
 			</button>
+			<!-- 회원상태표시 -->
 			<button type="button" id="accountTopButton" class="btn-profile">
 				<span id="ProfileImg" class="profile-area"
 					style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;);"></span>
+				<img id="mem_st_icon" alt="on" src="/img/status_icn/offline.png" class="st_icn">
 			</button>
 		</div>
-		<ul id="accountLayer" class="modal-account d-none">
-			<li class="user-area">
-				<p class="js-profile user-img"
-					style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;);"></p>
-				<div class="user-info">
-					<strong id="sessionName" class="js-user-name js-mouseover">${sessionScope.name}</strong> <span>이용중</span>
-				</div>
-			</li>
-
-			<li class="user-status"><i class="icon-status"></i> 상태 변경</li>
-			<li id="topProfile" class="user-profile"><i
-				class="icons-person-3"></i> 내 프로필</li>
-			<li id="mySettingOpenButton"><i class="icons-set"></i> 환경설정</li>
-			<li id="logoutBtn" onclick="location.href='logout.do'"><i class="icons-logout"></i> 로그아웃</li>
-		</ul>
+			<ul id="accountModal" class="modal-account d-none">
+				<li class="user-area">
+					<p class="js-profile user-img"
+						style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;);"></p>
+					<div class="user-info">
+						<strong id="sessionName" class="js-user-name js-mouseover">${sessionScope.name}</strong> <span>이용중</span>
+					</div>
+				</li>
+	
+				<li id="statusChange" class="user-status"><i class="icon-status"></i> 상태 변경</li>
+				<li id="topProfile" class="user-profile"><i class="icons-person-3"></i> 내 프로필</li>
+				<li id="mySettingOpenButton"><i class="icons-set"></i> 환경설정</li>
+				<li id="logoutBtn" onclick="location.href='logout.do'"><i class="icons-logout"></i> 로그아웃</li>
+			</ul>
+			<ul id="status" class="st_modal">
+				<li id="online" class="statusStyle"><img alt="onlineImg" src="/img/status_icn/online.png" class="st_img"><a href="#">온라인</a></li>
+				<li id="notdesk" class="statusStyle"><img alt="notdeskImg" src="/img/status_icn/notdesk.png" class="st_img"><a href="#"> 자리비움</a></li>
+				<li id="other" class="statusStyle"><img alt="otherImg" src="/img/status_icn/other.png" class="st_img"><a href="#"> 다른용무중</a></li>
+				<li id="offline" class="statusStyle"><img alt="offlineImg" src="/img/status_icn/offline.png" class="st_img"><a href="#"> 오프라인</a></li>
+			</ul>
+		</div>
 	</header>
 
 	<div id="MySettiong" class="model" style="display: none">
@@ -782,8 +819,153 @@
 			</li>
 		</div>
 	</article>
-
+	
+	<form id="frm" action="home.do"></form>
+	
 	<script>
+	//회원상태 가져오기
+	$(function(){
+		var memId = "${sessionScope.memId}";
+		$.ajax({
+			url: "memberStatus.do?memId=" + memId,
+			type: "Get",
+			datatype: "json",
+			success: function(data){
+				var $memSt = data.memSt;
+				console.log($memSt);
+				if($memSt == 'online'){
+					$("#mem_st_icon").attr("src", "/img/status_icn/online.png")
+				}else if($memSt == 'offline'){
+					$("#mem_st_icon").attr("src", "/img/status_icn/offline.png")
+				}else if($memSt == 'notdesk'){
+					$("#mem_st_icon").attr("src", "/img/status_icn/notdesk.png")
+				}else if($memSt == 'other'){
+					$("#mem_st_icon").attr("src", "/img/status_icn/other.png")
+				}
+			}
+		});
+		//회원정보
+		$.ajax({
+			url: "memberInfo.do?memId=" + memId,
+			type: "Get",
+			datatype: "json",
+			success: function(data){
+					var $email = data.email;
+					var $pwd = data.pwd;
+					var $name = data.name;
+					var $wkpo = data.wkpo;
+					var $persTel = data.persTel;
+					var $coTel = data.coTel;
+					var $dept = data.dept;
+					var $coName = data.coName;
+					console.log($pwd);
+					if($wkpo == null){
+						$('#wkpo').text('');
+					}else{						
+						$('#wkpo').text($wkpo);
+					};
+					if($persTel == null){
+						$('#persTel').text('');
+					}else{						
+						$('#persTel').text($persTel);
+					};
+					if($coTel == null){
+						$('#coTel').text('');
+					}else{						
+						$('#coTel').text($coTel);
+					};
+					if($dept == null){
+						$('#dept').text('');
+					}else{						
+						$('#dept').text($dept);
+					};
+					$('#email').text($email);
+					$('#name').text($name);
+					$('#coName').text($coName);
+					$('#hiddenpwd').val($pwd);
+			}
+		});
+	});
+	
+	//모달 자동 닫기
+		 $(document).mouseup(function (e){
+			var MySettiong = $("#MySettiong");
+			var userSetting = $("#userSetting");
+			if(userSetting.has(e.target).length === 0){
+				$("#status").css("display", "none");
+				$("#accountModal").attr("class", "modal-account d-none");
+			}
+			if(MySettiong.has(e.target).length === 0){
+				MySettiong.css("display", "none");
+			}
+		});
+	
+	//회원모달
+	$("#ProfileImg").on("click", function(){
+		$("#accountModal").toggleClass("d-none");
+	})
+	
+	//회원상태변경
+	//온라인
+	$("#online").on("click",function(){
+		var memId = "${sessionScope.memId}";
+		var jsondata = {"memId": memId};
+		$.ajax({
+			url: "memberOnline.do",
+			method: "put",
+			data: JSON.stringify(jsondata),
+			contentType: "application/json",
+			dataType: "json",
+			success: function(){
+				$("#mem_st_icon").attr("src", "/img/status_icn/online.png")
+			}
+		});
+	});
+	//다른용무
+	$("#other").on("click",function(){
+		var memId = "${sessionScope.memId}";
+		var jsondata = {"memId": memId};
+		$.ajax({
+			url: "memberOther.do",
+			method: "put",
+			data: JSON.stringify(jsondata),
+			contentType: "application/json",
+			dataType: "json",
+			success: function(){
+				$("#mem_st_icon").attr("src", "/img/status_icn/other.png")
+			}
+		});
+	});
+	//자리비움
+	$("#notdesk").on("click",function(){
+		var memId = "${sessionScope.memId}";
+		var jsondata = {"memId": memId};
+		$.ajax({
+			url: "memberNotdesk.do",
+			method: "put",
+			data: JSON.stringify(jsondata),
+			contentType: "application/json",
+			dataType: "json",
+			success: function(){
+				$("#mem_st_icon").attr("src", "/img/status_icn/notdesk.png")
+			}
+		});
+	});
+	//오프라인
+	$("#offline").on("click",function(){
+		var memId = "${sessionScope.memId}";
+		var jsondata = {"memId": memId};
+		$.ajax({
+			url: "memberOffline.do",
+			method: "put",
+			data: JSON.stringify(jsondata),
+			contentType: "application/json",
+			dataType: "json",
+			success: function(){
+				$("#mem_st_icon").attr("src", "/img/status_icn/offline.png")
+			}
+		});
+	});
 		
 	//화면에 출력, 회원정보 가져오기		
 		$("#mySettingOpenButton").on("click", function() {
@@ -791,53 +973,13 @@
 			$("#pushAlamGroup").css("display", "none");
 			$("#mylock").css("display", "none");
 			$("#mySet").css("display", "block");
-			var memId = "${sessionScope.memId}";
-			console.log(memId);
-			$.ajax({
-				url: "memberInfo.do?memId=" + memId,
-				type: "Get",
-				datatype: "json",
-				success: function(data){
-						var $email = data.email;
-						var $pwd = data.pwd;
-						var $name = data.name;
-						var $wkpo = data.wkpo;
-						var $persTel = data.persTel;
-						var $coTel = data.coTel;
-						var $dept = data.dept;
-						var $coName = data.coName;
-						console.log($pwd);
-						if($wkpo == null){
-							$('#wkpo').text('');
-						}else{						
-							$('#wkpo').text($wkpo);
-						};
-						if($persTel == null){
-							$('#persTel').text('');
-						}else{						
-							$('#persTel').text($persTel);
-						};
-						if($coTel == null){
-							$('#coTel').text('');
-						}else{						
-							$('#coTel').text($coTel);
-						};
-						if($dept == null){
-							$('#dept').text('');
-						}else{						
-							$('#dept').text($dept);
-						};
-						$('#email').text($email);
-						$('#name').text($name);
-						$('#coName').text($coName);
-						$('#hiddenpwd').val($pwd);
-				}
-			});
-		});
+		});	
+		
 		$(".my-button-close-1").on("click", function() {
 			$("#MySettiong").css("display", "none");
 			$("#pwdUpdateSussacc").css("display","none");
 		});
+		
 
 		$("#accountSettingBtn").on("click", function() {
 			$("#myPageBtn").css("color", "#6449FC");
@@ -964,9 +1106,7 @@
 			$("#editor_persTel").val($("#persTel").text());			
 		});
 					
-		$("#noPersTelUpdate").on("click",function(){
-			$("#persTelInput").toggleClass("d-none");
-			$("#persTelUpdateForm").toggleClass("d-none");
+		$("#noPersTelUpdate").on("click",function(){ 
 		});
 		$("#persTelUpdate").on("click", function(){
 			var persTel = $("#editor_persTel").val();
@@ -1062,17 +1202,28 @@
 		//탈퇴
 		$("#leavePlusBtn").on("click",function(){
 			$('#leaveplus').toggleClass("d-none");
+		});
+		$("#stay").on("click", function(){
+			$('#leaveplus').toggleClass("d-none");
+		})
+		$("#leave").on("click", function(){
 			var memId = "${sessionScope.memId}";
+			var jsondata = {"memId": memId};
 			$.ajax({
 				url: "memberDelete.do",
-				type: "put",
+				method: "put",
+				data: JSON.stringify(jsondata),
 				contentType: "application/json",
 				dataType: "json",
-				data: {memId: memId},
 				success: function(){
-					
+					frm.submit();
 				}
 			});
+		});
+		
+		//회원상태
+		 $("#statusChange").on("click", function(){
+			 $("#status").css("display", "block");
 		});
 	</script>
 </body>

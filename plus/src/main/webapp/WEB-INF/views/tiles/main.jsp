@@ -707,7 +707,7 @@
 							style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;);"></span>
 					</button>
 				</div>
-				<ul id="accountLayer" class="modal-account d-none">
+				<ul id="acconutModal" class="modal-account d-none">
 					<li class="user-area">
 						<p class="js-profile user-img"
 							style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;);"></p>

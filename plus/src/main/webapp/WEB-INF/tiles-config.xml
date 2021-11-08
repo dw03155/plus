@@ -10,7 +10,14 @@
        	 <definition name="*/*" extends="layout">
        	 	<put-attribute name="main" value="/WEB-INF/views/{1}/{2}.jsp" />
        	 </definition>
-       	 
+       	 <!-- 관리자메뉴 tiles -->
+       	 <definition template="/WEB-INF/views/tiles/admin/adminLayout.jsp" name="admin">
+       	 	<put-attribute name="adminMenu" value="/WEB-INF/views/tiles/admin/adminMenu.jsp" />
+       	 	<put-attribute name="adminTop" value="/WEB-INF/views/tiles/top.jsp" />
+       	 </definition>
+       	 <definition name="uam/admin/menu/*" extends="admin">
+       	 	<put-attribute name="adminMain" value="/WEB-INF/views/uam/admin/menu/{1}.jsp" />
+       	 </definition>
        	 
        	 <definition template="/WEB-INF/views/tiles/blank.jsp" name="blank">
   		 </definition>
