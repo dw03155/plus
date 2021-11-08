@@ -8,41 +8,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-#modal {
-	display: none;
-}
-
-#modalBody {
-	
-}
-
-#modal .modal_layer {
-	
-}
-</style>
 </head>
 <body>
-	<!-- 상세보기 -->
-	<div id="modal">
-		<div class="modal_content">
-			<div id="subModal"></div>
-			<div>
-				<div align="right">
-					<div class="js-post-nav card-item post-card-wrapper write2  side">
-						<button type="button" class="post-popup-button left"></button>
-						<div class="post-popup-header card-popup-header d-none"
-							style="display: block;">
-							<button id="modal_close_btn" class="btn-close card-popup-close">
-								<i class="icons-close-1"></i>
-							</button>
-						</div>
-					</div>
-				</div>
-				<div>
+	<!-- 전체 업무 상세보기 (모달창) -->
+	<div class="back-area temp-popup" tabindex="0" id="postPopup"
+		data-code="VIEW" style="display: none;">
+		<div class="flow-project-make-1 back-area">
+			<div class="flow-project-make-2 back-area contents">
+				<div class="js-post-nav card-item post-card-wrapper task  side">
+					<button type="button" class="post-popup-button left"></button>
 					<div id="modalBody"></div>
+					<!-- 모달창 Jsp (nwm > modal) -->
 				</div>
-				<div class="modal_layer"></div>
 			</div>
 		</div>
 	</div>
@@ -86,7 +63,7 @@
 
 				<!-- 내 게시물 화면 -->
 				<c:if test="${ empty param.notiTtl }">
-					<div id="myPostList" class="small-style-wrap-2"
+					<div  class="small-style-wrap-2"
 						style="display: block;">
 						<div class="feed-content me-content">
 							<div class="search-title-area">
@@ -133,7 +110,7 @@
 
 								<!-- 반복 시작 -->
 								<c:forEach var="notice" items="${notices}">
-									<li id="myPcontent"
+									<li id="myPostContent"
 										class="js-all-post-item post-search-item post-list-wrapper ${notice.notiKnd} ">
 										<div class="fixed-kind">
 											<!-- 글 class="icons-write2" 할일 class="icons-todo" 일정 class="icons-schedule"-->
@@ -291,8 +268,11 @@
 	</div>
 	<!-- 내 게시물 모달창 JS -->
 	<script>
-		$("#myPostContentUl").click(function() { // 모달창 열고 닫기
-			$("#modal").css("display", "block");
+	
+		var callModal = $("#myPostContent");
+		callModal.click(function() { // 모달창 열고 닫기
+			callModal.toggleClass("highlight");
+			/* $("#postPopup").toggle(); */
 		   
 			var tr = $(this);
 			console.log(tr +"=======");
@@ -303,7 +283,7 @@
 					$.ajax({
 						url : "myPostTxt.do",
 						type : 'GET',
-						data : {notiId : tr.data("notiId"), notiKnd},
+						data : "JSON",
 						dataType : "html",
 						success : function(data) {
 							$("#modalBody").html(data);
@@ -313,7 +293,7 @@
 					$.ajax({
 						url : "myPostTsk.do",
 						type : 'GET',
-						data : {notiId : tr.data("notiid"), notiKnd},
+						data : "JSON",
 						dataType : "html",
 						success : function(data) {
 							$("#modalBody").html(data);
@@ -323,7 +303,7 @@
 				$.ajax({
 					url : "myPostSche.do",
 					type : 'GET',
-					data : {notiId : tr.data("notiid"), notiKnd},
+					data : "JSON",
 					dataType : "html",
 					success : function(data) {
 						$("#modalBody").html(data);
@@ -333,7 +313,7 @@
 				$.ajax({
 					url : "myPostTodo.do",
 					type : 'GET',
-					data : {notiId : tr.data("notiid"), notiKnd},
+					data : "JSON",
 					dataType : "html",
 					success : function(data) {
 						$("#modalBody").html(data);
@@ -341,9 +321,9 @@
 				}); 
 			} 
 		});
-		$("#modal_close_btn").click(function() {
+		/* $("#modal_close_btn").click(function() {
 			$("#modal").css("display", "none");
-		});
+		}); */
 	</script>
 
 

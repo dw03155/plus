@@ -38,8 +38,7 @@
 		and co_url = #{coUrl}
 		union
 		SELECT a.prj_id, a.prj_ttl
-		FROM project a,
-		prj_parti b
+		FROM project a, prj_parti b
 		where a.prj_knd = 'N'
 		and a.prj_id = b.prj_id
 		and b.mem_id =
