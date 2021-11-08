@@ -296,9 +296,9 @@
 													<!-- 일정일 때 -->
 													<c:if test="${pincette.notiKnd=='schedule'}">
 														<div class="date-time">
-															<em class="date"><fmt:formatDate pattern="MM/dd"
-																	value="${pincette.addList}" /></em> <span><fmt:formatDate
-																	pattern="HH:mm" value="${pincette.addList}" /></span>
+															<em class="date"><fmt:parseDate value = "${pincette.addList}" pattern = "MM/dd" var = "addDate"/>${addDate}</em>
+															<span><fmt:parseDate
+																	pattern="HH:mm" value="${pincette.addList}" var = "addTime"/>${addTime}</span>
 														</div>
 													</c:if>
 													<!-- 할일일 때 -->
@@ -363,10 +363,10 @@
 															<c:if test="${nwList.notiKnd=='task'}">
 																<c:set var="notiKindIcon" value="icons-task" />
 																<c:set var="notiKindSpan" value="업무" />
-																<c:if test="${pincette.addList=='withhold'}">
+																<c:if test="${nwList.addList=='withhold'}">
 																	<c:set var="taskPrgP" value="hold" />
 																</c:if>
-																<c:if test="${pincette.addList=='complete'}">
+																<c:if test="${nwList.addList=='complete'}">
 																	<c:set var="taskPrgP" value="completion" />
 																</c:if>
 															</c:if>
@@ -381,12 +381,13 @@
 																<i class="${notiKindIcon}"></i> <span>${notiKindSpan}</span>
 															</div>
 															<p class="js-post-title fixed-text ${taskPrgP}">${nwList.notiTtl}</p>
+															<!-- 댓글 있을때 inline-block -->
 															<div class="post-list comment" style="display: none">
 																<i class="icons-comment2"></i> <span
 																	class="js-post-comment-count">0</span>
 															</div>
 															<div class="post-list-right">
-																<div class="post-list name">${nwList.name }</div>
+																<div class="post-list name">${nwList.name}</div>
 																<div class="post-list date">
 																	<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 																		value="${nwList.notiDttm}" />
@@ -394,45 +395,44 @@
 
 																<div class="fixed-value">
 																	<!-- 업무일 때 -->
-																	<c:if test="${pincette.notiKnd=='task'}">
-																		<c:if test="${pincette.addList=='withhold'}">
+																	<c:if test="${nwList.notiKnd=='task'}">
+																		<c:if test="${nwList.addList=='withhold'}">
 																			<c:set var="taskPrgSpan" value="hold" />
 																			<c:set var="taskPrgText" value="보류" />
 																		</c:if>
-																		<c:if test="${pincette.addList=='progress'}">
+																		<c:if test="${nwList.addList=='progress'}">
 																			<c:set var="taskPrgSpan" value="progress" />
 																			<c:set var="taskPrgText" value="진행" />
 																		</c:if>
-																		<c:if test="${pincette.addList=='request'}">
+																		<c:if test="${nwList.addList=='request'}">
 																			<c:set var="taskPrgSpan" value="request" />
 																			<c:set var="taskPrgText" value="요청" />
 																		</c:if>
-																		<c:if test="${pincette.addList=='feedback'}">
+																		<c:if test="${nwList.addList=='feedback'}">
 																			<c:set var="taskPrgSpan" value="feedback" />
 																			<c:set var="taskPrgText" value="피드백" />
 																		</c:if>
-																		<c:if test="${pincette.addList=='complete'}">
+																		<c:if test="${nwList.addList=='complete'}">
 																			<c:set var="taskPrgSpan" value="completion" />
 																			<c:set var="taskPrgText" value="완료" />
 																		</c:if>
 																		<span
-																			class="js-task-state js-todo-state state ${taskPrgSpan} d-none"
+																			class="js-task-state js-todo-state state d-none ${taskPrgSpan}"
 																			style="display: inline-block">${taskPrgText}</span>
 																	</c:if>
 																	<!-- 일정일 때 -->
-																	<c:if test="${pincette.notiKnd=='schedule'}">
+																	<c:if test="${nwList.notiKnd=='schedule'}">
 																		<div class="js-schedule-state date-time d-none"
 																			style="display: block">
-																			<em class="date"><fmt:formatDate pattern="MM/dd"
-																					value="${pincette.addList}" /></em> <span><fmt:formatDate
-																					pattern="HH:mm" value="${pincette.addList}" /></span>
+																			<em class="date"><fmt:parseDate value = "${pincette.addList}" pattern = "MM/dd" var = "addDate"/>${addDate}</em>
+																			<span><fmt:parseDate pattern="HH:mm" value="${pincette.addList}" var = "addTime"/>${addTime}</span>
 																		</div>
 																	</c:if>
 																	<!-- 할일일 때 -->
-																	<c:if test="${pincette.notiKnd=='todo'}">
+																	<c:if test="${nwList.notiKnd=='todo'}">
 																		<span
 																			class="js-task-state js-todo-state state request"
-																			style="display: inline-block">${pincette.addList}%</span>
+																			style="display: inline-block">${nwList.addList}%</span>
 																	</c:if>
 																</div>
 															</div>
@@ -616,7 +616,7 @@
 
 
 				<!-- 팝업창 -->
-				<div class="js-post-nav card-item post-card-wrapper task  side"
+				<div class="js-post-nav card-item post-card-wrapper task side"
 					style="display: none">
 					<button type="button" class="post-popup-button left"></button>
 					<div class="post-popup-header card-popup-header d-none"
@@ -656,7 +656,7 @@
 								<div>
 									<div class="post-option">
 										<button id="movePost" class="btn-go d-none"
-											style="display: inline-block;">게시글 바로가기</button>
+											style="display: inline-block">게시글 바로가기</button>
 										<!-- fixed-btn on class -->
 										<button id="pinToTopBnt"
 											class="js-pin-post fixed-btn js-pin-authority on"
@@ -1188,7 +1188,7 @@
 						</div>
 						<a href="#"> </a>
 						<div class="open-yn check-setting flow-content-4"
-							style="display: none;">
+							style="display: none">
 							<a> <em></em> 회사 공개 프로젝트 설정
 							</a>
 							<button class="js-sendience-service-helper js-mouseover"
