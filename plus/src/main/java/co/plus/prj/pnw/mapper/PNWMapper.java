@@ -27,7 +27,7 @@ public interface PNWMapper {
 		PNWVO prjInfo(PNWVO vo);			// 프로젝트 홈탭 : 프로젝트 정보
 		List<PNWVO> pnwPinList(PNWVO vo);	// 프로젝트 홈탭 : 상단고정 게시글 목록
 		List<PNWVO> pnwAllList(PNWVO vo);	// 프로젝트 홈탭 : 전체 게시글 목록
-		int prjPartiCnt(PNWVO vo);		// 프로젝트 홈탭 : 전체 참여자 수
+		int prjPartiCnt(PNWVO vo);			// 프로젝트 홈탭 : 전체 참여자 수
 		List<PNWVO> prjPartiList(PNWVO vo);	// 프로젝트 홈탭 : 전체 참여자 목록
 		List<PNWVO> partiPM(PNWVO vo);		// 프로젝트 홈탭 : PM 참여자 목록
 		List<PNWVO> partiUser(PNWVO vo);	// 프로젝트 홈탭 : USER 참여자 목록
@@ -47,7 +47,7 @@ public interface PNWMapper {
 		int todoUpdate(PNWVO vo);			// 할일 수정
 		int nwDelete(PNWVO vo);				// 게시글 삭제
 		
-		List<PNWVO> replyList(PNWVO vo);		// 댓글 목록
+		List<PNWVO> replyList(PNWVO vo);	// 댓글 목록
 		int replyInsert(PNWVO vo);			// 댓글 생성
 		int replyUpdate(PNWVO vo);			// 댓글 수정
 		int replyDelete(PNWVO vo);			// 댓글 삭제

@@ -8,8 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js"></script>
 </head>
 <body>
+
 	<div class="main-container">
 		<!-- 프로젝트 상세페이지 Top -->
 		<div id="topSettingBar" class="main-header">
@@ -61,32 +64,34 @@
 							<h3 id="projectTitle" class="project-title ellipsis js-mouseover"
 								mouseover-text="">${prjInfo.prjTtl}</h3>
 							<ul class="project-status-group">
-								<li id="lockIcon" class="d-none"><i
-									class="sprite-detail icon-locked js-icon-locked"><span
-										class="blind">관리자 승인 필요</span></i>
-									<div class="tooltip-square">
-										<em class="tooltip-title">관리자 승인 필요</em>
-										<p class="tooltip-text">프로젝트 관리자의 승인 후 참여가 가능한 프로젝트입니다.</p>
-									</div></li>
-								<li id="companyIcon" class="d-none"><i
-									class="sprite-detail icon-company js-icon-company"><span
-										class="blind">회사 프로젝트</span></i>
-									<div class="tooltip-square">
-										<em class="tooltip-title">회사 프로젝트</em>
-										<p class="tooltip-text">회사 직원 모두가 자동 참여되는 프로젝트로 임의로 참여자를
-											내보내거나 외부 직원을 초대할 수 없습니다.</p>
-									</div></li>
-								<li id="openProjIcon" class="d-none"><i
-									class="sprite-detail icon-open-project js-icon-open-project"><span
-										class="blind">회사 공개 프로젝트</span></i>
-									<div class="tooltip-square">
-										<em class="tooltip-title">회사 공개 프로젝트</em>
-										<p class="tooltip-text">우리 회사 직원이라면 누구나 직접 참여를 요청할 수 있습니다.</p>
-									</div></li>
-								<li style="display: none"><i class="icons-public"></i></li>
-								<li id="externalIcon" style="display: none"><span
-									class="icon-out-display js-mouseover"
-									mouseover-text="프로젝트에 외부 사용자가 있습니다">외부</span></li>
+								<c:if test="${prjInfo.prjKnd == 'N'}">
+									<li id="lockIcon" class="d-none"><i
+										class="sprite-detail icon-locked js-icon-locked"><span
+											class="blind">일반 프로젝트</span></i>
+										<div class="tooltip-square">
+											<em class="tooltip-title">관리자 승인 필요</em>
+											<p class="tooltip-text">프로젝트 관리자의 승인 후 참여가 가능한 프로젝트입니다.</p>
+										</div></li>
+								</c:if>
+								<c:if test="${prjInfo.prjKnd == 'C'}">
+									<li id="companyIcon" class="d-none"><i
+										class="sprite-detail icon-company js-icon-company"><span
+											class="blind">회사 프로젝트</span></i>
+										<div class="tooltip-square">
+											<em class="tooltip-title">회사 프로젝트</em>
+											<p class="tooltip-text">회사 직원 모두가 자동 참여되는 프로젝트로 임의로 참여자를
+												내보내거나 외부 직원을 초대할 수 없습니다.</p>
+										</div></li>
+								</c:if>
+								<c:if test="${prjInfo.prjOpenPerm == 'all'}">
+									<li id="openProjIcon" class="d-none"><i
+										class="sprite-detail icon-open-project js-icon-open-project"><span
+											class="blind">전체공개 프로젝트</span></i>
+										<div class="tooltip-square">
+											<em class="tooltip-title">전체공개 프로젝트</em>
+											<p class="tooltip-text">우리 회사 직원이라면 누구나 볼 수 있습니다.</p>
+										</div></li>
+								</c:if>
 							</ul>
 						</div>
 						<div class="project-description">
@@ -108,7 +113,7 @@
 			scroll-direction="0">
 			<div id="detailLayer"
 				class="main-sub-header project-detail-wrap d-none"
-				style="display: block;">
+				style="display: block">
 				<div class="project-detail-top clearfix">
 					<ul id="detailTab" class="project-detail-menu">
 						<!-- active class 붙이기 -->
@@ -139,48 +144,48 @@
 							style="display: block">
 							<div class="project-detail-content">
 
-								<div id="taskReportItem" class="d-none">
+								<div>
 									<div class="detail-section reports-section">
 										<div class="section-title-area">
 											<h4 class="section-title">
 												<span>업무리포트</span> <span class="section-number">{TOTAL_CNT}</span>
 											</h4>
+											<!-- class = off , display:none-->
 											<button id="taskReportToggleButton" type="button"
 												class="js-report-btn reports-button">
 												<i class="ico-arrow"></i>
 											</button>
 										</div>
 										<!-- 원형차트 -->
-										<div class="js-task-report-layer d-none">
+										<div class="js-task-report-layer d-none"
+											style="display: block">
 											<div class="taks-report">
-												<!--display:none-->
 												<!-- chart -->
 												<div class="donut-chart-area">
-													<div class="donut-chart" id="TASK_DONUT_CHART"></div>
-													<div class="task-count" id="TaskCnt">{TOTAL_CNT}</div>
+													<canvas id="canvas" width="100" height="100"></canvas>
 												</div>
 												<ul id="taskReportLayer" class="donut-chart-list">
 													<li><span class="task-chart-info request"
 														data-code="0"> <i class="chart-info-label"></i> <span
-															class="chart-info-text">{REQ_NAME}<em>{REQ}</em></span> <span
-															class="chart-info-percent">{REQ_PER}%</span>
+															class="chart-info-text">요청<em>2</em></span> <span
+															class="chart-info-percent">25%</span>
 													</span> <span class="task-chart-info progress" data-code="1">
 															<i class="chart-info-label"></i> <span
-															class="chart-info-text">{PROG_NAME}<em>{PROG}</em></span>
-															<span class="chart-info-percent">{PROG_PER}%</span>
+															class="chart-info-text">진행<em>1</em></span> <span
+															class="chart-info-percent">25%</span>
 													</span> <span class="task-chart-info feedback" data-code="4">
 															<i class="chart-info-label"></i> <span
-															class="chart-info-text">{FEDBK_NAME}<em>{FEDBK}</em></span>
-															<span class="chart-info-percent">{FEDBK_PER}%</span>
+															class="chart-info-text">피드백<em>2</em></span> <span
+															class="chart-info-percent">25%</span>
 													</span></li>
 													<li><span class="task-chart-info complete"
 														data-code="2"> <i class="chart-info-label"></i> <span
-															class="chart-info-text">{COMP_NAME}<em>{COMP}</em></span>
-															<span class="chart-info-percent">{COMP_PER}%</span>
+															class="chart-info-text">완료<em>3</em></span> <span
+															class="chart-info-percent">25%</span>
 													</span> <span class="task-chart-info hold" data-code="3"> <i
 															class="chart-info-label"></i> <span
-															class="chart-info-text">{HOLD_NAME}<em>{HOLD}</em></span>
-															<span class="chart-info-percent">{HOLD_PER}%</span>
+															class="chart-info-text">보류<em>1</em></span> <span
+															class="chart-info-percent">25%</span>
 													</span></li>
 												</ul>
 											</div>
@@ -206,8 +211,7 @@
 										</p>
 										<div class="work-icon-group">
 											<i class="icons-file"></i> <i class="icons-picture"></i> <i
-												class="icons-map"></i> <i class="icons-tag"></i> <i
-												class="icons-mention"></i> <i class="icons-font"></i>
+												class="icons-map"></i>
 										</div>
 									</div>
 								</div>
@@ -296,9 +300,13 @@
 													<!-- 일정일 때 -->
 													<c:if test="${pincette.notiKnd=='schedule'}">
 														<div class="date-time">
-															<em class="date"><fmt:parseDate value = "${pincette.addList}" pattern = "MM/dd" var = "addDate"/>${addDate}</em>
-															<span><fmt:parseDate
-																	pattern="HH:mm" value="${pincette.addList}" var = "addTime"/>${addTime}</span>
+															<em class="date"><fmt:parseDate
+																	value="${pincette.addList}" pattern="YY/MM/dd"
+																	var="addDate" />
+																<fmt:formatDate value="${addDate}" pattern="MM/dd" /></em> <span><fmt:parseDate
+																	pattern="YY/MM/dd" value="${pincette.addList}"
+																	var="addTime" />
+																<fmt:formatDate value="${addTime}" pattern="24HH:mm" /></span>
 														</div>
 													</c:if>
 													<!-- 할일일 때 -->
@@ -359,8 +367,7 @@
 															<c:if test="${nwList.notiKnd=='text'}">
 																<c:set var="notiKindIcon" value="icons-write2" />
 																<c:set var="notiKindSpan" value="글" />
-															</c:if>
-															<c:if test="${nwList.notiKnd=='task'}">
+															</c:if> <c:if test="${nwList.notiKnd=='task'}">
 																<c:set var="notiKindIcon" value="icons-task" />
 																<c:set var="notiKindSpan" value="업무" />
 																<c:if test="${nwList.addList=='withhold'}">
@@ -369,8 +376,7 @@
 																<c:if test="${nwList.addList=='complete'}">
 																	<c:set var="taskPrgP" value="completion" />
 																</c:if>
-															</c:if>
-															<c:if test="${nwList.notiKnd=='todo'}">
+															</c:if> <c:if test="${nwList.notiKnd=='todo'}">
 																<c:set var="notiKindIcon" value="icons-todo" />
 																<c:set var="notiKindSpan" value="할일" />
 															</c:if> <c:if test="${nwList.notiKnd=='schedule'}">
@@ -424,8 +430,13 @@
 																	<c:if test="${nwList.notiKnd=='schedule'}">
 																		<div class="js-schedule-state date-time d-none"
 																			style="display: block">
-																			<em class="date"><fmt:parseDate value = "${pincette.addList}" pattern = "MM/dd" var = "addDate"/>${addDate}</em>
-																			<span><fmt:parseDate pattern="HH:mm" value="${pincette.addList}" var = "addTime"/>${addTime}</span>
+																			<em class="date"><fmt:parseDate
+																					value="${nwList.addList}" pattern="YY/MM/dd"
+																					var="addDate" />
+																				<fmt:formatDate value="${addDate}" pattern="MM/dd" /></em>
+																			<span><fmt:parseDate pattern="YY/MM/dd"
+																					value="${nwList.addList}" var="addTime" />
+																				<fmt:formatDate value="${addTime}" pattern="HH:mm" /></span>
 																		</div>
 																	</c:if>
 																	<!-- 할일일 때 -->
@@ -461,89 +472,94 @@
 									</div>
 								</div>
 
-								<div id="participantArea" class="participants-container d-none"
-									style="">
+								<div id="participantArea" class="participants-container">
 									<div id="participantScrollArea"
 										class="participants-content-group scroll-mask">
-										<span class="participants-title"> <em>프로젝트 관리자</em><span
-											class="number-of-participants">${fn:length(pms)}</span>
-										</span>
 										<ul id="participantsUl" class="participants-list">
-											<c:forEach var="pm" items="${pms}">
-												<li class="js-participant-item">
-													<div class="post-author">
-														<span
-															class="js-participant-profile thumbnail size40 radius16"
-															style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
-														<dl class="post-author-info">
-															<dt>
-																<strong class="js-participant-name author ellipsis">${pm.name}</strong>
-																<em class="position ellipsis">${pm.wkpo}</em>
-															</dt>
-															<dd>
-																<strong class="company">${pm.coUrl}</strong> <span
-																	class="team">${pm.dept}</span>
-															</dd>
-														</dl>
-													</div>
-													<button type="button"
-														class="js-participant-chat participant-chat-button">
-														<i class="icons-chat"><span class="blind">채팅</span></i>
-													</button>
-												</li>
-											</c:forEach>
-											<span class="participants-title"> <em>임직원</em><span
-												class="number-of-participants">${fn:length(users)}</span>
-											</span>
-											<c:forEach var="user" items="${users}">
-												<li class="js-participant-item">
-													<div class="post-author">
-														<span
-															class="js-participant-profile thumbnail size40 radius16"
-															style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
-														<dl class="post-author-info">
-															<dt>
-																<strong class="js-participant-name author ellipsis">${user.name}</strong>
-																<em class="position ellipsis">${user.wkpo}</em>
-															</dt>
-															<dd>
-																<strong class="company">${user.coUrl}</strong> <span
-																	class="team">${user.dept}</span>
-															</dd>
-														</dl>
-													</div>
-													<button type="button"
-														class="js-participant-chat participant-chat-button">
-														<i class="icons-chat"><span class="blind">채팅</span></i>
-													</button>
-												</li>
-											</c:forEach>
-											<span class="participants-title"> <em>외부인</em><span
-												class="number-of-participants">${fn:length(guests)}</span>
-											</span>
-											<c:forEach var="guest" items="${guests}">
-												<li class="js-participant-item">
-													<div class="post-author">
-														<span
-															class="js-participant-profile thumbnail size40 radius16"
-															style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
-														<dl class="post-author-info">
-															<dt>
-																<strong class="js-participant-name author ellipsis">${guest.name}</strong>
-																<em class="position ellipsis">${guest.wkpo}</em>
-															</dt>
-															<dd>
-																<strong class="company">${guest.coUrl}</strong> <span
-																	class="team">${guest.dept}</span>
-															</dd>
-														</dl>
-													</div>
-													<button type="button"
-														class="js-participant-chat participant-chat-button">
-														<i class="icons-chat"><span class="blind">채팅</span></i>
-													</button>
-												</li>
-											</c:forEach>
+											<c:if test="${not empty pms}">
+												<span class="participants-title"> <em>프로젝트 관리자</em><span
+													class="number-of-participants">${fn:length(pms)}</span>
+												</span>
+												<c:forEach var="pm" items="${pms}">
+													<li class="js-participant-item">
+														<div class="post-author">
+															<span
+																class="js-participant-profile thumbnail size40 radius16"
+																style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
+															<dl class="post-author-info">
+																<dt>
+																	<strong class="js-participant-name author ellipsis">${pm.name}</strong>
+																	<em class="position ellipsis">${pm.wkpo}</em>
+																</dt>
+																<dd>
+																	<strong class="company">${pm.coUrl}</strong> <span
+																		class="team">${pm.dept}</span>
+																</dd>
+															</dl>
+														</div>
+														<button type="button"
+															class="js-participant-chat participant-chat-button">
+															<i class="icons-chat"><span class="blind">채팅</span></i>
+														</button>
+													</li>
+												</c:forEach>
+											</c:if>
+											<c:if test="${not empty users}">
+												<span class="participants-title"> <em>임직원</em><span
+													class="number-of-participants">${fn:length(users)}</span>
+												</span>
+												<c:forEach var="user" items="${users}">
+													<li class="js-participant-item">
+														<div class="post-author">
+															<span
+																class="js-participant-profile thumbnail size40 radius16"
+																style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
+															<dl class="post-author-info">
+																<dt>
+																	<strong class="js-participant-name author ellipsis">${user.name}</strong>
+																	<em class="position ellipsis">${user.wkpo}</em>
+																</dt>
+																<dd>
+																	<strong class="company">${user.coUrl}</strong> <span
+																		class="team">${user.dept}</span>
+																</dd>
+															</dl>
+														</div>
+														<button type="button"
+															class="js-participant-chat participant-chat-button">
+															<i class="icons-chat"><span class="blind">채팅</span></i>
+														</button>
+													</li>
+												</c:forEach>
+											</c:if>
+											<c:if test="${not empty guests}">
+												<span class="participants-title"> <em>외부인</em><span
+													class="number-of-participants">${fn:length(guests)}</span>
+												</span>
+												<c:forEach var="guest" items="${guests}">
+													<li class="js-participant-item">
+														<div class="post-author">
+															<span
+																class="js-participant-profile thumbnail size40 radius16"
+																style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
+															<dl class="post-author-info">
+																<dt>
+																	<strong class="js-participant-name author ellipsis">${guest.name}</strong>
+																	<em class="position ellipsis">${guest.wkpo}</em>
+																</dt>
+																<dd>
+																	<strong class="company">${guest.coUrl}</strong> <span
+																		class="team">${guest.dept}</span>
+																</dd>
+															</dl>
+														</div>
+														<button type="button"
+															class="js-participant-chat participant-chat-button">
+															<i class="icons-chat"><span class="blind">채팅</span></i>
+														</button>
+													</li>
+												</c:forEach>
+											</c:if>
 										</ul>
 									</div>
 									<div class="participants-menu">
@@ -1532,5 +1548,24 @@
 			</div>
 		</div>
 	</div>
+	<script>
+$(function(){
+var ctx = $('#myChart');
+var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        datasets: [{
+            data: [12, 19, 3, 5, 2],
+            backgroundColor: [
+            	'#4aaefb', // request
+				'#50b766', // progress
+				'#f17a19', // feedback
+				'#2e417e', // complete
+				'#d2d3d6' // hold
+            ]
+        }]
+    };
+});
+</script>
 </body>
 </html>
