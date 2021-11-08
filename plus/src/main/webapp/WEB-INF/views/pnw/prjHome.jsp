@@ -255,8 +255,7 @@
 														<c:set var="notiKndSpan" value="일정" />
 													</c:if>
 													<span>${notiKndSpan}</span>
-												</div>
-												<c:if test="${pincette.notiKnd=='task'}">
+												</div> <c:if test="${pincette.notiKnd=='task'}">
 													<c:if test="${pincette.addList=='withhold'}">
 														<c:set var="taskStyle" value="hold" />
 													</c:if>
@@ -354,32 +353,34 @@
 												class="js-popup-before detail-item back-area">
 												<div class="js-post-nav list-item post-list-wrapper">
 													<div class="fixed-list">
-														<a href="#">
-														<!-- 새로운 글 표시 -->
-														<i class="js-indication display-new-indication"
-															style="display: none"></i>
-															<!-- 글 class="icons-write2" 할일 class="icons-todo" 일정 class="icons-schedule"-->
-																<c:if test="${nwList.notiKnd=='text'}">
-																	<c:set var="notiKindIcon" value="icons-write2" />
-																	<c:set var="notiKindSpan" value="글" />
+														<a href="#"> <!-- 새로운 글 표시 --> <i
+															class="js-indication display-new-indication"
+															style="display: none"></i> <!-- 글 class="icons-write2" 할일 class="icons-todo" 일정 class="icons-schedule"-->
+															<c:if test="${nwList.notiKnd=='text'}">
+																<c:set var="notiKindIcon" value="icons-write2" />
+																<c:set var="notiKindSpan" value="글" />
+															</c:if>
+															<c:if test="${nwList.notiKnd=='task'}">
+																<c:set var="notiKindIcon" value="icons-task" />
+																<c:set var="notiKindSpan" value="업무" />
+																<c:if test="${pincette.addList=='withhold'}">
+																	<c:set var="taskPrgP" value="hold" />
 																</c:if>
-																<c:if test="${nwList.notiKnd=='task'}">
-																	<c:set var="notiKindIcon" value="icons-task" />
-																	<c:set var="notiKindSpan" value="업무" />
+																<c:if test="${pincette.addList=='complete'}">
+																	<c:set var="taskPrgP" value="completion" />
 																</c:if>
-																<c:if test="${nwList.notiKnd=='todo'}">
-																	<c:set var="notiKindIcon" value="icons-todo" />
-																	<c:set var="notiKindSpan" value="할일" />
-																</c:if>
-																<c:if test="${nwList.notiKnd=='schedule'}">
-																	<c:set var="notiKindIcon" value="icons-schedule" />
-																	<c:set var="notiKindSpan" value="일정" />
-																</c:if>
+															</c:if>
+															<c:if test="${nwList.notiKnd=='todo'}">
+																<c:set var="notiKindIcon" value="icons-todo" />
+																<c:set var="notiKindSpan" value="할일" />
+															</c:if> <c:if test="${nwList.notiKnd=='schedule'}">
+																<c:set var="notiKindIcon" value="icons-schedule" />
+																<c:set var="notiKindSpan" value="일정" />
+															</c:if>
 															<div class="fixed-kind">
-																<i class="${notiKindIcon}"></i>
-																<span class="post-type">${notiKindSpan}</span>
+																<i class="${notiKindIcon}"></i> <span>${notiKindSpan}</span>
 															</div>
-															<p class="js-post-title fixed-text hold">${nwList.notiTtl}</p>
+															<p class="js-post-title fixed-text ${taskPrgP}">${nwList.notiTtl}</p>
 															<div class="post-list comment" style="display: none">
 																<i class="icons-comment2"></i> <span
 																	class="js-post-comment-count">0</span>
@@ -415,11 +416,13 @@
 																			<c:set var="taskPrgText" value="완료" />
 																		</c:if>
 																		<span
-																			class="js-task-state js-todo-state state ${taskPrgSpan} d-none" style="display:inline-block">${taskPrgText}</span>
+																			class="js-task-state js-todo-state state ${taskPrgSpan} d-none"
+																			style="display: inline-block">${taskPrgText}</span>
 																	</c:if>
 																	<!-- 일정일 때 -->
 																	<c:if test="${pincette.notiKnd=='schedule'}">
-																		<div class="js-schedule-state date-time d-none" style="display:block">
+																		<div class="js-schedule-state date-time d-none"
+																			style="display: block">
 																			<em class="date"><fmt:formatDate pattern="MM/dd"
 																					value="${pincette.addList}" /></em> <span><fmt:formatDate
 																					pattern="HH:mm" value="${pincette.addList}" /></span>
@@ -428,7 +431,8 @@
 																	<!-- 할일일 때 -->
 																	<c:if test="${pincette.notiKnd=='todo'}">
 																		<span
-																			class="js-task-state js-todo-state state request" style="display:inline-block">${pincette.addList}%</span>
+																			class="js-task-state js-todo-state state request"
+																			style="display: inline-block">${pincette.addList}%</span>
 																	</c:if>
 																</div>
 															</div>
@@ -693,9 +697,9 @@
 								<div class="post-title-area">
 									<!-- 보류 : hold, 완료 : complete, 요청, 진행, 피드백일 경우는 X-->
 									<h4 class="js-post-title post-title hold">${NW.NWTtl}</h4>
-									<div class="schedule-period-area d-none"=""="">
+									<div class="schedule-period-area d-none">
 										<span class="schedule-period"></span> <span
-											class="schedule-period"=""=""></span>
+											class="schedule-period"></span>
 									</div>
 								</div>
 							</div>

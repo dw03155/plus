@@ -300,7 +300,7 @@
 			});
 
 			// 프로젝트 이동하기
-			$("li > a").click(function(e) {
+			$("#projectHomeLayer").find("li > a").click(function(e) {
 				e.preventDefault();
 				console.log(e.currentTarget);
 				console.log($(e.currentTarget).parent('form'));
