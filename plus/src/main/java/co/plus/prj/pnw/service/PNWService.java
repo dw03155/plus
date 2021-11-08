@@ -21,12 +21,13 @@ public interface PNWService { //mapper합치기
 		// 프로젝트
 		int prjUpdate(PNWVO vo);			// 프로젝트 수정(프로젝트명, 색깔, 공개권한)
 		int prjDelete(PNWVO vo);			// 프로젝트 삭제
+		String prjInfo(PNWVO vo);			// 프로젝트 홈탭 : 프로젝트 정보
 		List<PNWVO> prjHomePin(PNWVO vo);	// 프로젝트 홈탭 : 게시글 목록
 		List<PNWVO> prjHomeNW(PNWVO vo);	// 프로젝트 홈탭 : 게시글 목록
-		List<PNWVO> prjPartiList(PNWVO vo);	// 참여자 목록 : 전체
-		List<PNWVO> partiPM(PNWVO vo);		// 참여자 목록 : PM
-		List<PNWVO> partiUser(PNWVO vo);	// 참여자 목록 : USER
-		List<PNWVO> partiGuest(PNWVO vo);	// 참여자 목록 : GUEST
+		List<PNWVO> prjPartiList(PNWVO vo);	// 프로젝트 홈탭 : 전체 참여자 목록
+		List<PNWVO> partiPM(PNWVO vo);		// 프로젝트 홈탭 : PM 참여자 목록
+		List<PNWVO> partiUser(PNWVO vo);	// 프로젝트 홈탭 : USER 참여자 목록
+		List<PNWVO> partiGuest(PNWVO vo);	// 프로젝트 홈탭 : GUEST 참여자 목록
 		List<PNWVO> prjTsk(PNWVO vo);		// 프로젝트 업무탭
 		List<PNWVO> prjSche(PNWVO vo);		// 프로젝트 일정탭
 		List<PNWVO> prjFile(PNWVO vo);		// 프로젝트 파일탭

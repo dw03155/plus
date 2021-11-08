@@ -125,7 +125,7 @@
 											<p class="project-class">즐겨찾기</p>
 										</div>
 										<c:forEach var="favorPrj" items="${favorPrjs}">
-											<form id="prjMove" name="prjMove" action="prjHome.do">
+											<form id="prjMove" name="prjMove" action="prjHome.do" method="post">
 												<li class="project-item ui-state-default">
 													<a href="#">
 														<!-- 업데이트된 글 개수 -->
@@ -168,6 +168,7 @@
 											<p class="project-class join">참여중</p>
 										</div>
 										<c:forEach var="noPrj" items="${noPrjs}">
+										<form id="prjMove" name="prjMove" action="prjHome.do" method="post">
 											<li id="project" class="project-item ui-state-default"><a
 												href="#"> <!-- 업데이트된 글 개수 --> <input type="hidden"
 													value="${noPrj.prjId}" />
@@ -199,6 +200,7 @@
 														</div>
 													</div>
 											</a></li>
+											</form>
 										</c:forEach>
 									</c:if>
 								</ul>
@@ -213,6 +215,7 @@
 										<p class="project-class">즐겨찾기</p>
 									</div>
 									<c:forEach var="favorPrj" items="${favorPrjs}">
+									<form id="prjMove" name="prjMove" action="prjHome.do" method="post">
 										<input type="hidden" value="${favorPrj.prjId}" />
 										<li id="prj" class="project-item ui-state-default"><a
 											href=""> <!-- 체크버튼 -->
@@ -238,6 +241,7 @@
 														mouseover-text="회사 프로젝트" style="display: none"></div>
 												</div>
 										</a></li>
+										</form>
 									</c:forEach>
 								</c:if>
 								<c:if test="${not empty noPrjs}">
@@ -246,6 +250,7 @@
 										<p class="project-class join">참여중</p>
 									</div>
 									<c:forEach var="noPrj" items="${noPrjs}">
+									<form id="prjMove" name="prjMove" action="prjHome.do" method="post">
 										<input type="hidden" value="${noPrj.prjId}" />
 										<li class="project-item ui-state-default"><a href="">
 												<!-- 체크버튼 -->
@@ -271,6 +276,7 @@
 														mouseover-text="회사 프로젝트" style="display: none"></div>
 												</div>
 										</a></li>
+										</form>
 									</c:forEach>
 								</c:if>
 							</ul>

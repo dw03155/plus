@@ -22,13 +22,15 @@ public class PNWVO {
 	// NoticeWriting
 	private String notiId;			// 게시글 번호
 	private String notiKnd;			// 게시글 종류
-	private String memId;			// 회원 번호
 	private Date notiDttm;			// 게시글 작성일시
 	private String notiOpenPerm;	// 게시글 공개권한
 	
 	// Member
-	private String name;			// 회원이름
+	private String memId;			// 회원 번호
+	private String name;			// 회원 이름
+	private String wkpo;			// 회원 직위
 	private String coUrl;			// 회사URL
+	private String dept;			// 부서 이름
 	
 	// Board (view)
 	private String notiTtl;			// 게시글명

@@ -70,16 +70,19 @@ public class PNWServiceImpl implements PNWService {
 	}
 	
 	@Override
-	public List<PNWVO> prjHomePin(PNWVO vo) {	// 프로젝트 홈탭 : 상단고정(핀셋) 목록
-		return map.pnwPinList(vo);	// 상단고정 게시글 목록
+	public String prjInfo(PNWVO vo) {			// 프로젝트 홈탭 : 프로젝트 정보
+		return map.prjInfo(vo);
 	}
 	
+	@Override
+	public List<PNWVO> prjHomePin(PNWVO vo) {	// 프로젝트 홈탭 : 상단고정(핀셋) 목록
+		return map.pnwPinList(vo);
+	}
 	
 	@Override
 	public List<PNWVO> prjHomeNW(PNWVO vo) {	// 프로젝트 홈탭 : 게시글 목록
-		return map.pnwAllList(vo);			// 게시글 목록
+		return map.pnwAllList(vo);
 	}
-
 	
 	@Override
 	public List<PNWVO> prjPartiList(PNWVO vo) {	// 프로젝트 홈탭 : 참여자 목록
@@ -89,7 +92,7 @@ public class PNWServiceImpl implements PNWService {
 	}
 	
 	@Override
-	public List<PNWVO> partiPM(PNWVO vo) {	// 프로젝트 홈탭 : PM 목록
+	public List<PNWVO> partiPM(PNWVO vo) {		// 프로젝트 홈탭 : PM 목록
 		return map.partiPM(vo);
 	}
 	@Override
@@ -116,63 +119,63 @@ public class PNWServiceImpl implements PNWService {
 		return map.fileList(vo);
 	}
 
-	@Override
-	public int txtInsert(PNWVO vo) {			// 글 입력
+	@Override	
+	public int txtInsert(PNWVO vo) {					// 글 입력
 		return map.txtInsert(vo);
 	}
 
 	@Override
-	public int txtUpdate(PNWVO vo) {			// 글 생성
+	public int txtUpdate(PNWVO vo) {					// 글 생성
 		return map.txtUpdate(vo);
 	}
 
 	@Override
-	public int tskInsert(PNWVO vo) {			// 업무 생성
+	public int tskInsert(PNWVO vo) {					// 업무 생성
 		return map.txtInsert(vo);
 	}
 
-	@Override
-	public int tskUpdate(PNWVO vo) {			// 업무 수정
+	@Override	
+	public int tskUpdate(PNWVO vo) {					// 업무 수정
 		return map.tskUpdate(vo);
 	}
 
 	@Override
-	public int scheInsert(PNWVO vo) {			// 일정 생성
+	public int scheInsert(PNWVO vo) {					// 일정 생성
 		return map.scheInsert(vo);
 	}
 
-	@Override
-	public int scheUpdate(PNWVO vo) {			// 일정 수정
+	@Override	
+	public int scheUpdate(PNWVO vo) {					// 일정 수정
 		return map.scheUpdate(vo);
 	}
 
 	@Override
-	public int todoInsert(PNWVO vo) {			// 할일 생성
+	public int todoInsert(PNWVO vo) {					// 할일 생성
 		return map.todoInsert(vo);
 	}
 
 	@Override
-	public int todoUpdate(PNWVO vo) {			// 할일 수정
+	public int todoUpdate(PNWVO vo) {					// 할일 수정
 		return map.todoUpdate(vo);
 	}
 
 	@Override
-	public int nwDelete(PNWVO vo) {				// 게시글 삭제
+	public int nwDelete(PNWVO vo) {						// 게시글 삭제
 		return map.nwDelete(vo);
 	}
 
-	@Override
-	public int replyInsert(PNWVO vo) {			// 댓글 생성
+	@Override	
+	public int replyInsert(PNWVO vo) {					// 댓글 생성
 		return map.replyInsert(vo);
 	}
 
 	@Override
-	public int replyUpdate(PNWVO vo) {			// 댓글 수정
+	public int replyUpdate(PNWVO vo) {					// 댓글 수정
 		return map.replyUpdate(vo);
 	}
 
 	@Override
-	public int replyDelete(PNWVO vo) {			// 댓글 삭제
+	public int replyDelete(PNWVO vo) {					// 댓글 삭제
 		return map.replyDelete(vo);
 	}
 

@@ -76,7 +76,7 @@
 	
 	<!-- 프로젝트 폴더 조회 -->
 	<select id="prjFolder">
-		select c.prj_a.prj_id, a.prj_ttl
+		select c.prj_color, a.prj_id, a.prj_ttl
 		from project a, prj_fold b, mem_prj_fold c
 		where a.prj_id = b.prj_id
 			and b.fold_id = c.fold_id 
@@ -127,6 +127,12 @@
 	</delete>
 
 	<!-- 프로젝트 : 홈 -->
+	<select id="prjInfo" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 프로젝트 정보 -->
+		select *
+		from project
+		where prj_id = #{prjId}
+	</select>
+	
 	<select id="pnwPinList" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 상단고정 게시글 목록 -->
 		select c.*,
 			case when c.noti_knd = 'task' then (select tsk_prgs from task where noti_id = c.noti_id)
@@ -160,7 +166,7 @@
 	</select>
 
 	<select id="partiPM" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 참여자 목록 : PM -->
-		select a.mem_id, a.name
+		select a.mem_id, a.name, a.wkpo, a.co_url, a.dept
 		from member a, prj_parti b
 		where a.mem_id = #{memId}
 		and a.mem_id = b.mem_id
@@ -169,7 +175,7 @@
 	</select>
 
 	<select id="partiUser" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 참여자 목록 : USER -->
-		select a.mem_id, a.name
+		select a.mem_id, a.name, a.wkpo, a.co_url, a.dept
 		from member a, prj_parti b
 		where a.mem_id = #{memId}
 		and a.mem_id = b.mem_id
@@ -178,7 +184,7 @@
 	</select>
 
 	<select id="partiGuest" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 참여자 목록 : GUEST -->
-		select a.mem_id, a.name
+		select a.mem_id, a.name, a.wkpo, a.co_url, a.dept
 		from member a, prj_parti b
 		where a.mem_id = #{memId}
 		and a.mem_id = b.mem_id

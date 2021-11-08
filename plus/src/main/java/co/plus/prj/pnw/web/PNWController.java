@@ -38,7 +38,7 @@ public class PNWController {
 	}
 	
 	// 프로젝트 홈탭
-	@RequestMapping(value = "/prjHome.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/prjHome.do", method = RequestMethod.POST)
 	public String prjHome(@RequestParam(value="prjId", required=false)String prjId,HttpSession session, Model model, PNWVO vo) {
 		vo.setMemId((String)session.getAttribute("memId"));
 		vo.setPrjId(prjId);

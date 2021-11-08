@@ -30,7 +30,7 @@
 								<div id="detailSettingLayer" class="project-setup-wrap"
 									style="display: none">
 									<div class="project-setup-header">
-										<span>프로젝트 번호</span> <em id="detailSettingProjectSrno"></em>
+										<span>프로젝트 번호</span> <em id="detailSettingProjectSrno">${prjId}</em>
 									</div>
 									<ul id="detailSettingGroup" class="setup-group">
 										<li id="detailSettingColorBtn"><a href="#"> <i
@@ -58,7 +58,7 @@
 								</div>
 							</div>
 							<h3 id="projectTitle" class="project-title ellipsis js-mouseover"
-								mouseover-text=""></h3>
+								mouseover-text="">${prjTtl}</h3>
 							<ul class="project-status-group">
 								<li id="lockIcon" class="d-none"><i
 									class="sprite-detail icon-locked js-icon-locked"><span
@@ -106,7 +106,7 @@
 		<div id="mainContent" class="main-content scroll-mask"
 			scroll-direction="0">
 			<div id="detailLayer"
-				class="main-sub-header project-detail-wrap d-none">
+				class="main-sub-header project-detail-wrap d-none" style="display: block;">
 				<div class="project-detail-top clearfix">
 					<ul id="detailTab" class="project-detail-menu">
 						<!-- active class 붙이기 -->
@@ -116,7 +116,7 @@
 						<li class="js-tab-item"><a>파일</a></li>
 						<li class="js-tab-item"><a>히스토리</a></li>
 					</ul>
-					<div id="detailTopSearch"
+					<div
 						class="project-search-area all-file-header-type-3">
 						<i class="icons-search"></i>
 						<div class="project-search">
@@ -136,13 +136,13 @@
 			<!-- 프로젝트 홈탭 -->
 			<div id="detailTimeline"
 				class="project-detail-inner layer-scroll type2"
-				style="display: block;">
+				style="display: block">
 				<div class="js-detail-wrap-area small-style-wrap">
 					<!-- project-detail-container-->
-					<section id="postTimeline" class="project-detail-container">
+					<section id="postTimeline" class="project-detail-container" style="display:block">
 						<div class="project-search-area all-file-header-type-3">
 							<div class="project-search">
-								<i class="icons-search"></i> <input id="projectSearchInput"
+								<i class="icons-search"></i> <input
 									type="text" placeholder="검색어를 입력해주세요"
 									class="project-search-input" autocomplete="off" maxlength="50">
 							</div>
@@ -443,14 +443,83 @@
 							<div id="participantArea" class="participants-container d-none">
 								<div id="participantScrollArea"
 									class="participants-content-group scroll-mask">
-									<div id="joinParticipantsArea"
-										class="participants-content d-none">
-										<span class="participants-title"> <em>가입 신청자</em> <span
-											id="joinParticipantsCount" class="number-of-participants"></span>
+									<ul id="participantsUl" class="participants-list">
+										<span class="participants-title"> <em>프로젝트 관리자</em><span
+											class="number-of-participants">${fn:length(pms)}</span>
 										</span>
-										<ul id="joinParticipantsUl" class="participants-list"></ul>
-									</div>
-									<ul id="participantsUl" class="participants-list"></ul>
+										<c:forEach var="pm" items="${pms}">
+											<li class="js-participant-item">
+												<div class="post-author">
+													<span
+														class="js-participant-profile thumbnail size40 radius16" style="background-image:url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
+													<dl class="post-author-info">
+														<dt>
+															<strong class="js-participant-name author ellipsis">${pm.name}</strong>
+															<em class="position ellipsis">${pm.wkpo}</em>
+														</dt>
+														<dd>
+															<strong class="company">${pm.coUrl}</strong> <span
+																class="team">${pm.dept}</span>
+														</dd>
+													</dl>
+												</div>
+												<button type="button"
+													class="js-participant-chat participant-chat-button">
+													<i class="icons-chat"><span class="blind">채팅</span></i>
+												</button>
+											</li>
+										</c:forEach>
+										<span class="participants-title"> <em>임직원</em><span
+											class="number-of-participants">${fn:length(users)}</span>
+										</span>
+										<c:forEach var="user" items="${users}">
+											<li class="js-participant-item">
+												<div class="post-author">
+													<span
+														class="js-participant-profile thumbnail size40 radius16" style="background-image:url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
+													<dl class="post-author-info">
+														<dt>
+															<strong class="js-participant-name author ellipsis">${user.name}</strong>
+															<em class="position ellipsis">${user.wkpo}</em>
+														</dt>
+														<dd>
+															<strong class="company">${user.coUrl}</strong> <span
+																class="team">${user.dept}</span>
+														</dd>
+													</dl>
+												</div>
+												<button type="button"
+													class="js-participant-chat participant-chat-button">
+													<i class="icons-chat"><span class="blind">채팅</span></i>
+												</button>
+											</li>
+										</c:forEach>
+										<span class="participants-title"> <em>외부인</em><span
+											class="number-of-participants">${fn:length(guests)}</span>
+										</span>
+										<c:forEach var="guest" items="${guests}">
+											<li class="js-participant-item">
+												<div class="post-author">
+													<span
+														class="js-participant-profile thumbnail size40 radius16" style="background-image:url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
+													<dl class="post-author-info">
+														<dt>
+															<strong class="js-participant-name author ellipsis">${guest.name}</strong>
+															<em class="position ellipsis">${guest.wkpo}</em>
+														</dt>
+														<dd>
+															<strong class="company">${guest.coUrl}</strong> <span
+																class="team">${guest.dept}</span>
+														</dd>
+													</dl>
+												</div>
+												<button type="button"
+													class="js-participant-chat participant-chat-button">
+													<i class="icons-chat"><span class="blind">채팅</span></i>
+												</button>
+											</li>
+										</c:forEach>
+									</ul>
 								</div>
 								<div class="participants-menu">
 									<button class="js-project-chat participant-button">
