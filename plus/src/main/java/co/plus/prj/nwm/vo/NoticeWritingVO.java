@@ -1,6 +1,7 @@
 package co.plus.prj.nwm.vo;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -31,6 +32,8 @@ public class NoticeWritingVO {
 	private Date tskEndDt;			// 업무 마감일
 	private String tskFile; 		// 업무 첨부파일
 	private String subtaskCntn;		// 하위 업무 내용
+	
+	private List<NoticeWritingVO> taskDetail; // 프로젝트 별 업무목록 (아코디언)
 	
 	// 할 일
 	private String todoCntn;		// 할 일 내용

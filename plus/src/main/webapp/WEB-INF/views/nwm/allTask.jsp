@@ -3,6 +3,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +20,7 @@
 
 			<span id="allCollectionCount"
 				class="js-collection-total-count js-collection-count top-task-num"
-				style="display: block">50</span>
+				style="display: block">${fn:length(tasks)}</span>
 		</div>
 
 		<!-- 전체 업무 페이지 -->
@@ -105,67 +107,73 @@
 											<!-- 갯수 -->
 											<%-- <div>${cnt }</div> --%>
 										</div>
-										<ul class="js-inner-task project-inner-task active"
-											style="display: block">
-											<li class="task-item ">
-												<div class="js-task_num task-task_num-cell task-item-cell">
-													<div class="js-task_num-text  ellipsis"=""="">0</div>
-												</div>
-												<div class="task-item-cell task-state task-stts-cell">
-													<span class="js-task-state request">요청</span>
-												</div>
-												<div class="js-priority task-item-cell task-priority-cell ">
-													<div class="js-priority-span rank-span">
-														<i class=" small"></i> <span
-															class="js-priority-text priority-text-cell ellipsis">
-															-</span>
-													</div>
-												</div>
-												<div class="task-item-cell task-name task-task_nm-cell ">
-													<div class="js-post-title task-title ellipsis js-mouseover"
-														mouseover-text="하위 업무 위치 찾기">
-														하위 업무 위치 찾기 <em class="subtask-item" style="display: none"
-															data=""> <i class="icons-subtask"></i> <span
-															class="subtask-number">0</span>
-														</em>
-													</div>
-													<div class="js-post-title project-title"
-														style="display: none" data="">
-														<i class="icons-project-1"></i>플로우 이용 가이드
-													</div>
-												</div>
-												<div class="js-workers task-item-cell task-worker_nm-cell ">${dtask.name}
-													<span class="js-mouseover" mouseover-text="QR"> <span
-														class="js-worker-name manager ellipsis">QR</span> <span
-														class="js-worker-count"></span>
-													</span>
-												</div>
-												<div class="js-workers task-item-cell task-worker_nm-cell ">${dtask.name}
-													<span class="js-mouseover" mouseover-text="QR"> <span
-														class="js-worker-name manager ellipsis">QR</span> <span
-														class="js-worker-count"></span>
-													</span>
-												</div>
-												<div class="js-edtr_dt task-edtr_dt-cell task-item-cell ">
-													<div class="js-edtr_dt-text  ellipsis"=""="">2021-11-05</div>
-
-												</div>
-												<div class="js-edtr_dt task-edtr_dt-cell task-item-cell ">
-													<div class="js-edtr_dt-text  ellipsis"=""="">2021-11-05</div>
-
-												</div>
-												<div class="js-edtr_dt task-edtr_dt-cell task-item-cell ">
-													<div class="js-edtr_dt-text  ellipsis"=""="">2021-11-05</div>
-
-												</div>
-											</li>
+										
 											<!-- style="display: none" -->
 											<!-- li 태그 넣기 : 상세보기시에는 class="highlight" 추가-->
-										</ul>
 									</li>
 								</c:forEach>
 							</ul>
 
+							<!-- 프로젝트 안 업무 목록 -->
+							<ul class="js-inner-task project-inner-task active"
+								style="display: block">
+								<c:forEach var="dtasks" items="${tasks }">
+								<li class="task-item ">
+									<div class="js-task_num task-task_num-cell task-item-cell">
+										<div class="js-task_num-text  ellipsis"=""="">${tasks.notiId }</div>
+									</div>
+									<div class="task-item-cell task-state task-stts-cell">
+										<span class="js-task-state request">${tasks.tskPrgs }</span>
+									</div>
+									<div class="js-priority task-item-cell task-priority-cell ">
+										<div class="js-priority-span rank-span">
+											<i class=" small"></i> <span
+												class="js-priority-text priority-text-cell ellipsis">
+												-</span>
+										</div>
+									</div>
+									<div class="task-item-cell task-name task-task_nm-cell ">
+										<div class="js-post-title task-title ellipsis js-mouseover"
+											mouseover-text="하위 업무 위치 찾기">
+											하위 업무 위치 찾기 <em class="subtask-item" style="display: none"
+												data=""> <i class="icons-subtask"></i> <span
+												class="subtask-number">0</span>
+											</em>
+										</div>
+										<div class="js-post-title project-title" style="display: none"
+											data="">
+											<i class="icons-project-1"></i>${tasks.prjTtl }
+										</div>
+									</div>
+									<div class="js-workers task-item-cell task-worker_nm-cell ">
+										<span class="js-mouseover" mouseover-text="QR"> <span
+											class="js-worker-name manager ellipsis">${tasks.name}</span> <span
+											class="js-worker-count"></span>
+										</span>
+									</div>
+									<div class="js-workers task-item-cell task-worker_nm-cell ">
+										<span class="js-mouseover" mouseover-text="QR"> <span
+											class="js-worker-name manager ellipsis">${tasks.name}</span> <span
+											class="js-worker-count"></span>
+										</span>
+									</div>
+									<div class="js-edtr_dt task-edtr_dt-cell task-item-cell ">
+										<div class="js-edtr_dt-text  ellipsis"=""="">${tasks.tskBgnDt}</div>
+
+									</div>
+									<div class="js-edtr_dt task-edtr_dt-cell task-item-cell ">
+										<div class="js-edtr_dt-text  ellipsis"=""="">${tasks.tskEndDt}</div>
+
+									</div>
+									<div class="js-edtr_dt task-edtr_dt-cell task-item-cell ">
+										<div class="js-edtr_dt-text  ellipsis"=""="">${tasks.notiDttm}</div>
+
+									</div>
+								</li>
+								</c:forEach>
+							</ul>
+							
+							
 							<!-- li 태그 넣기 -->
 							<ul id="taskListItem" class="d-none">
 								<li id="allTask-{COLABO_COMMT_SRNO}" class="task-item {LI_STTS}"
@@ -299,6 +307,7 @@
 			var et = $(event.target);
 			et.toggleClass("active");
 			et.next("ul").toggle();
+			
 		});
 	</script>
 </body>

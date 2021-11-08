@@ -1,7 +1,6 @@
 package co.plus.prj.nwm.service;
 
 import java.util.List;
-import java.util.Map;
 
 import co.plus.prj.nwm.vo.NoticeWritingVO;
 
@@ -19,7 +18,7 @@ public interface NoticeWritingService {
 			// 내 게시물 개수 
 	 
 	 List<NoticeWritingVO> allTask(NoticeWritingVO vo); 				// 전체 메뉴 -> 전체 업무 (프로젝트 항목)
-	 List<NoticeWritingVO> detailTask(NoticeWritingVO vo);				// 임시) 전체 업무 
+	 List<NoticeWritingVO> detailTaskList(NoticeWritingVO vo);				// 임시) 전체 업무 
 	 NoticeWritingVO taskSelect(NoticeWritingVO vo);					// 전체 업무 -> 업무 상세보기(팝업)
 	 
 	 List<NoticeWritingVO> allSche(NoticeWritingVO vo);					// 전체 메뉴 -> 캘린더

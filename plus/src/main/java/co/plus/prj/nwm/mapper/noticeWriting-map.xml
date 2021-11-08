@@ -2,39 +2,54 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.plus.prj.nwm.mapper.NoticeWritingMapper">
 	<!-- 전체 메뉴 -> 내 게시물 목록 -->
-<select id="myPost" resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-	select b.*, a.name, a.co_url, c.prj_ttl,
-	case when noti_knd = 'task' then ( select tsk_prgs from task where noti_id = b.noti_id)
-	when noti_knd = 'subtask' then ( select subtsk_prgs from subtask where noti_id = b.noti_id )
-	when noti_knd = 'schedule' then ( select TO_CHAR(sche_dttm) from schedule where noti_id = b.noti_id )
-	when noti_knd = 'todo' then ( select TO_CHAR(RATIO_TO_TODO(b.noti_id)) from dual )
-	end addlist
-	from member a, board b, project c
-	where b.prj_id = c.prj_id
-	and a.mem_id = #{memId}
-	and a.mem_id = b.mem_id
-	<if test="notiTtl != null and notiTtl != ''">
-		and noti_ttl like '%' || #{notiTtl} || '%'
-	</if>
-</select>
+	<select id="myPost"
+		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
+		select b.*, a.name, a.co_url, c.prj_ttl,
+		case when noti_knd = 'task' then ( select tsk_prgs from task where noti_id
+		= b.noti_id)
+		when noti_knd = 'subtask' then ( select subtsk_prgs from subtask where
+		noti_id = b.noti_id )
+		when noti_knd = 'schedule' then ( select TO_CHAR(sche_dttm) from schedule
+		where noti_id = b.noti_id )
+		when noti_knd = 'todo' then ( select TO_CHAR(RATIO_TO_TODO(b.noti_id))
+		from dual )
+		end addlist
+		from member a, board b, project c
+		where b.prj_id = c.prj_id
+		and a.mem_id = #{memId}
+		and a.mem_id = b.mem_id
+		<if test="notiTtl != null and notiTtl != ''">
+			and noti_ttl like '%' || #{notiTtl} || '%'
+		</if>
+	</select>
+
+	
+	<resultMap id="tskResult" type="co.plus.prj.nwm.vo.NoticeWritingVO">
+		<id property="prjId" column="prj_id" jdbcType="INTEGER" />
+		<result property="prjTtl" column="prj_ttl" jdbcType="VARCHAR"/>
+		<collection property="taskDetail" column="{prjId = prj_id, prjTtl = prj_ttl}" javaType="java.util.ArrayList" ofType="co.plus.prj.nwm.vo.NoticeWritingVO" select="detailTaskList"/>
+	</resultMap>
 
 	<!-- 전체 메뉴 -> 전체 업무 -->
-	<select id="allTask"
-		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
+	<select id="allTask" resultMap="tskResult">
 		SELECT prj_id, prj_ttl
 		FROM project
 		where prj_knd = 'C'
-		and co_url = #{coUrl}
+		and
+		co_url = #{coUrl}
 		union
 		SELECT a.prj_id, a.prj_ttl
-		FROM project a, prj_parti b
+		FROM project a,
+		prj_parti b
 		where a.prj_knd = 'N'
 		and a.prj_id = b.prj_id
-		and b.mem_id = #{memId}
+		and b.mem_id =
+		#{memId}
 		and a.co_url = #{coUrl}
 		union
 		SELECT c.prj_id, c.prj_ttl
-		FROM project c, prj_parti d
+		FROM
+		project c, prj_parti d
 		where c.prj_knd = 'N'
 		and c.prj_open_perm = 'all'
 		and c.prj_id = d.prj_id
@@ -42,7 +57,7 @@
 
 	</select>
 
-	<select id="detailTask">
+	<select id="detailTaskList" resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
 		select e.*, f.name, g.noti_dttm
 		from task e, member f, board g
 		WHERE e.mem_id = f.mem_id
@@ -112,11 +127,13 @@
 		select a. noti_knd, b.name, c.*, d.prj_ttl, a.noti_dttm
 		from notice_writing
 		a, member b, text c, project d
-		where a.mem_id = b.mem_id
+		where a.mem_id =
+		b.mem_id
 		and a.prj_id =
 		d.prj_id
 		and a.noti_id = c.noti_id
-		and a.noti_id= #{notiId}
+		and a.noti_id=
+		#{notiId}
 	</select>
 	<!-- 내 게시물 목록 -> 업무 상세보기(팝업) -->
 	<select id="myPostTsk"
@@ -124,31 +141,37 @@
 		select a. noti_knd, b.name, c.*, d.prj_ttl, a.noti_dttm
 		from notice_writing
 		a, member b, task c, project d
-		where a.mem_id = b.mem_id
+		where a.mem_id =
+		b.mem_id
 		and
 		a.prj_id=d.prj_id
 		and a.noti_id = c.noti_id
-		and a.noti_id= #{notiId}
+		and a.noti_id=
+		#{notiId}
 	</select>
 	<!-- 내 게시물 목록 -> 하위업무 상세보기(팝업) -->
 	<select id="myPostSubtsk"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
 		select a.*, b.name, c.subtsk_cntn
-		from board a, member b, subtask c
+		from board a, member b,
+		subtask c
 		where
 		a.mem_id = b.mem_id
 		and a.noti_id = c.noti_id
-		and a.mem_id = #{memId}
+		and a.mem_id
+		= #{memId}
 	</select>
 	<!-- 내 게시물 목록 -> 일정 상세보기(팝업) -->
 	<select id="myPostSche"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
 		select a.*, b.name, c.sche_cntn
-		from board a, member b, schedule c
+		from board a, member b,
+		schedule c
 		where
 		a.mem_id = b.mem_id
 		and a.noti_id = c.noti_id
-		and a.noti_id = #{notiId}
+		and
+		a.noti_id = #{notiId}
 	</select>
 	<!-- 내 게시물 목록 -> 할일 상세보기(팝업) -->
 	<select id="myPostTodo"
@@ -156,19 +179,15 @@
 		select a. noti_knd, b.name, c.*, d.prj_ttl, a.noti_dttm
 		from notice_writing
 		a, member b, todo c, project d
-		where a.mem_id = b.mem_id
+		where a.mem_id =
+		b.mem_id
 		and
 		a.prj_id=d.prj_id
 		and a.noti_id = c.noti_id
-		and b.mem_id = c.mem_id
+		and b.mem_id =
+		c.mem_id
 		and
 		c.noti_id = #{notiId}
-	</select>
-
-	<!-- 게시글 개수 출력 (미구현) -->
-	<select id="noticeCount" resultType="int">
-		select count(*)
-		from notice_writing <!-- 전체 게시글 조회 -->
 	</select>
 
 
@@ -179,7 +198,8 @@
 		select a.*, b.name
 		from board a, member b
 		where a.mem_id = b.mem_id
-		and a.prj_id = #{prjId}
+		and
+		a.prj_id = #{prjId}
 		<!-- 홈 -> 게시물 명으로 검색 -->
 		<if test="notiTtl != null and notiTtl != ''">
 			and noti_ttl like '%' || #{notiTtl} || '%'
@@ -200,9 +220,11 @@
 	<update id="UpdateTxt"
 		parameterType="co.plus.prj.nwm.vo.NoticeWritingVO">
 		update text
-		set noti_ttl = #{notiTtl}, txt_cntn = #{txtCntn}, txt_pl = #{txtPl},
+		set noti_ttl = #{notiTtl}, txt_cntn =
+		#{txtCntn}, txt_pl = #{txtPl},
 		txt_file = #{file}
-		where noti_id = #{notiId}
+		where noti_id =
+		#{notiId}
 	</update>
 
 </mapper>
