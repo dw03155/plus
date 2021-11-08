@@ -1,6 +1,10 @@
 package co.plus.prj.uam.web;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -11,14 +15,18 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import co.plus.prj.uam.service.MemberService;
 import co.plus.prj.uam.vo.MemberVO;
+import net.coobird.thumbnailator.Thumbnails;
 
 @Controller
 public class MemberController {
@@ -35,6 +43,16 @@ public class MemberController {
 		return "uam/join/companyJoin";
 	}
 	//회사URL정보가져오기(팝업)
+	@RequestMapping(value = "/getMailCheck.do", method = RequestMethod.GET)
+	@ResponseBody
+	public MemberVO getMailCheck(@RequestParam("email") String email,
+			MemberVO vo,Model model) {
+		vo.setEmail(email);
+		MemberVO temp = service.getMailCheck(vo);
+		System.out.println(temp);
+		return temp;
+		
+	}
 	@RequestMapping(value = "/getCompany.do", method = RequestMethod.GET)
 	@ResponseBody
 	public MemberVO getCompany(@RequestParam("coUrl") String coUrl,
@@ -179,13 +197,174 @@ public class MemberController {
 		return vo;
 	}
 	//회사전화번호 수정
-		@RequestMapping(value = "/pwdUpdate.do",  method = RequestMethod.PUT, consumes = "application/json")
-		@ResponseBody
-		public MemberVO pwdUpdate(@RequestBody MemberVO vo, Model model) {
-			service.pwdUpdate(vo);
-			return vo;
+	@RequestMapping(value = "/pwdUpdate.do",  method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseBody
+	public MemberVO pwdUpdate(@RequestBody MemberVO vo, Model model) {
+		service.pwdUpdate(vo);
+		return vo;
+	}
+	
+	//현재 회원상태확인
+	@RequestMapping(value="/memberStatus.do", method = RequestMethod.GET)
+	@ResponseBody
+	public MemberVO memberStatus(@RequestParam(required=false) String memId, MemberVO vo) {
+		vo.setMemId(memId);
+		MemberVO status = service.memberStatus(vo);
+		return status;
+	}
+	//회원상태 온라인
+	@RequestMapping(value = "/memberOnline.do",  method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseBody
+	public MemberVO memberOnline(@RequestBody MemberVO vo, Model model) {
+		service.memberOnline(vo);
+		return vo;
+	}
+	//회원상태 다른용무
+	@RequestMapping(value = "/memberOther.do",  method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseBody
+	public MemberVO memberOther(@RequestBody MemberVO vo, Model model) {
+		service.memberOther(vo);
+		return vo;
+	}
+	//회원상태 자리비움
+	@RequestMapping(value = "/memberNotdesk.do",  method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseBody
+	public MemberVO memberNotdesk(@RequestBody MemberVO vo, Model model) {
+		service.memberNotdesk(vo);
+		return vo;
+	}
+	//회원상태 오프라인
+	@RequestMapping(value = "/memberOffline.do",  method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseBody
+	public MemberVO memberOffline(@RequestBody MemberVO vo, Model model) {
+		service.memberOffline(vo);
+		return vo;
+	}
+		
+		
+	//회원 탈퇴
+	@RequestMapping(value="/memberDelete.do", method = RequestMethod.PUT,  consumes = "application/json")
+	@ResponseBody
+	public MemberVO memberDelete(@RequestBody MemberVO vo, Model model, HttpSession session) {
+		service.memberDelete(vo);
+		session.invalidate();
+		return vo;
+	}
+	
+	//관리자 회사설정
+	@RequestMapping(value="/companyInfo.do", method = RequestMethod.GET)
+	public String companyInfo(Model model) {
+		return "uam/admin/menu/companyInfo";
+	}
+	//회사이름 변경
+	@RequestMapping(value = "/coNameUpdate.do", method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseBody 
+	public MemberVO coNameUpdate(@RequestBody MemberVO vo) {
+		service.companyNameUpdate(vo);
+		return vo;
+	}
+	
+	@RequestMapping(value="/companyLogoUpdate.do", method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseBody
+	public MemberVO companyLogoUpdate(@RequestBody MemberVO vo) {
+		service.companyLogoUpdate(vo);
+		return vo;
+	}
+	
+	
+	
+	//파일 업로드
+	@PostMapping("/uploadLogo.do")
+	@ResponseBody
+	public void uploadLogo(MultipartFile[] logoInput) {
+		String uploadFolder = "C:\\Users\\admin\\git\\plus\\plus\\src\\main\\webapp\\logo";
+		
+		for(MultipartFile file : logoInput) {
+			String uploadFileName = file.getOriginalFilename();
+			File saveFile = new File(uploadFolder, uploadFileName);
+			
+			if(checkImageType(saveFile)) {  //이미지파일 썸네일 파일도 함께만든다.
+			
+					try {
+						file.transferTo(saveFile);  //파일저장
+					
+						File thumbnail = 
+								new File(uploadFolder, "s_" + uploadFileName);  //저장할 파일명만들기
+						Thumbnails.of(saveFile)
+								  .size(30,30)       //썸네일사이즈
+								  .toFile(thumbnail);  //앞에 저장한파일에서 사이즈를 줄이고 만든 파일명을 붙힌다.
+					
+					}catch(Exception e) {
+					e.printStackTrace();
+					}
+			}// 썸네일 end
 		}
+	}
+	
+	private boolean checkImageType(File file) {  //이미지파일인지 아닌지 비교
+		try {
+			String contentType = Files.probeContentType(file.toPath());
+			return contentType.startsWith("image");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	//관리자 사용자 관리
+	@RequestMapping(value="/userManagement.do", method = RequestMethod.GET)
+	public String userManagement(Model model, MemberVO vo, HttpSession session) {
+		vo.setCoUrl((String)session.getAttribute("coUrl"));
+		model.addAttribute("using",service.getUsingMemberList(vo));
+		model.addAttribute("notused",service.getNotusedMemberList(vo));
+		model.addAttribute("outstand",service.getOutstandMemberList(vo));
+		model.addAttribute("guest",service.getGuestMemberList(vo));
+		return "uam/admin/menu/userManagement";
+	}
+//	//정상 사용자
+//	@RequestMapping(value="/getUsingMemberList.do", method = RequestMethod.GET)
+//	@ResponseBody
+//	public List<MemberVO> getUsingMemberList( Model model, MemberVO vo){
+//		return service.getUsingMemberList(vo);
+//	}
+//	//이용중지 사용자
+//	@RequestMapping(value="/getNotusedMemberList.do", method = RequestMethod.GET)
+//	@ResponseBody
+//	public List<MemberVO> getNotusedMemberList( Model model, MemberVO vo){
+//		return service.getNotusedMemberList(vo);
+//	}
+//	//기입대기 사용자
+//	@RequestMapping(value="/getOutstandMemberList.do", method = RequestMethod.GET)
+//	@ResponseBody
+//	public List<MemberVO> getOutstandMemberList( Model model, MemberVO vo){
+//		return service.getOutstandMemberList(vo);
+//	}
+//	//게스트
+//	@RequestMapping(value="/getGuestMemberList.do", method = RequestMethod.GET)
+//	@ResponseBody
+//	public List<MemberVO> getGuestMemberList( Model model, MemberVO vo){
+//		return service.getGuestMemberList(vo);
+//	}
+	//사용자 초대
+	@GetMapping("/userInvite.do")
+	public String userInvite() {
+		return "uam/admin/menu/userInvite";
+	}
+	//회사프로젝트
+	@GetMapping("/coPrjedit.do")
+	public String coPrjedit() {
+		return "uam/admin/menu/coPrjedit";
+	}
+	//공개키테고리
+	@GetMapping("/openPrjCategory.do")
+	public String openPrjCategory(Model model, MemberVO vo, HttpSession session) {
+		vo.setCoUrl((String)session.getAttribute("coUrl"));
+		model.addAttribute("ctgrys",service.getCategoryList(vo));
+		return "uam/admin/menu/openPrjCategory";
+	}
+	
 	
 	
 	
 }
+

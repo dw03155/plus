@@ -25,7 +25,7 @@ var MySettings = (function () {
 
         function openPopupLayer() {
             initLeft();
-            $("#accountLayer").fadeOut(200);
+            $("#acconutModal").fadeOut(200);
             if ($(".js-read-check-layer").is(":visible") || $(".js-reaction-check-layer").is(":visible")) {
                 $mySettingPopup.css("z-index", 10);
             } else {

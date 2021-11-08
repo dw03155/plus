@@ -274,7 +274,7 @@ var DocumentEvent = (function () {
             "organization": Organization.closeLayer,
             "chatting": Chatting.closeLayer,
             "alarm": Alarm.closeLayer,
-            "account": Top.closeAccountLayer,
+            "account": Top.closeacconutModal,
             "helpCenter": Top.closeHelpCenterLayer,
             "detailSetting": DetailSetting.closeDetailSettingLayer,
             "alarmSearchFilter": Alarm.closeAlarmSearchFilter,

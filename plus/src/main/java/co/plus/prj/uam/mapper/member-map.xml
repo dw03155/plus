@@ -2,10 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.plus.prj.uam.mapper.MemberMapper">
     
-    <select id="getMemberList" resultType="co.plus.prj.uam.vo.MemberVO">
-    
-	</select>
-	
 																						<!-- 회원로그인 -->
 	<!-- 회원정보 -->																					
 	<select id="memberLogin" resultType="co.plus.prj.uam.vo.MemberVO">					
@@ -40,6 +36,12 @@
 		from company
 		where co_url = #{coUrl}
 	</select>
+	<!-- 메일 중복 테스트-->
+	<select id="getMailCheck" resultType="co.plus.prj.uam.vo.MemberVO">
+		select email
+		from member
+		where email = #{email}
+	</select>
 	<!-- 어드민회원입력 -->
 	<insert id="newCompanyInsert1" parameterType="co.plus.prj.uam.vo.MemberVO">
 		INSERT INTO MEMBER(MEM_ID, EMAIL, PWD, NAME, CO_url,MEM_PERM,acc_st)
@@ -51,8 +53,8 @@
 	</insert>
 	<!-- 기존회사 회원입력 -->
 	<insert id="exCompanyInsert" parameterType="co.plus.prj.uam.vo.MemberVO">
-		INSERT INTO MEMBER(MEM_ID, EMAIL, PWD, NAME, CO_url,acc_st)
-		VALUES (MEMID.nextval, #{email}, #{pwd}, #{name}, #{coUrl},'using')
+		INSERT INTO MEMBER(MEM_ID, EMAIL, PWD, NAME, CO_url)
+		VALUES (MEMID.nextval, #{email}, #{pwd}, #{name}, #{coUrl})
 	</insert>
 	
 																						<!-- 회원정보수정(회원마이페이지) -->
@@ -94,6 +96,33 @@
 		set pwd = #{pwd}
 		where mem_id = #{memId}
 	</update>
+	
+	<!-- 회원상태 표시 -->
+	<select id="memberStatus" resultType="co.plus.prj.uam.vo.MemberVO">
+		select mem_st
+		from mem_status
+		where mem_id = #{memId}
+	</select>
+	<update id="memberOnline" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update mem_status
+		set mem_st = 'online'
+		where mem_id = #{memId}
+	</update>
+	<update id="memberOther" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update mem_status
+		set mem_st = 'other'
+		where mem_id = #{memId}
+	</update>
+	<update id="memberNotdesk" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update mem_status
+		set mem_st = 'notdesk'
+		where mem_id = #{memId}
+	</update>
+	<update id="memberOffline" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update mem_status
+		set mem_st = 'offline'
+		where mem_id = #{memId}
+	</update>
 
 																						<!-- 탈퇴(계정상태 변환) -->
 	<update id="memberDelete" parameterType="co.plus.prj.uam.vo.MemberVO">
@@ -102,4 +131,62 @@
 		where mem_id = #{memId}
 	</update>
 
+																						<!-- 회사정보 수정 -->
+	<!-- 회사 이름 수정 -->																					
+	<update id="companyNameUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update company set co_name = #{coName}
+		where co_url = #{coUrl}
+	</update>
+	<!-- 회원로고 수정 -->
+	<update id="companyLogoUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update company set co_logo = #{coLogo}
+		where co_url = #{coUrl}
+	</update>
+	
+																						<!-- 사용자 관리 -->
+    <!-- 정상사용자 -->
+    <select id="getUsingMemberList" resultType="co.plus.prj.uam.vo.MemberVO">
+	   	<![CDATA[
+	   	select mem_id, name, dept, wkpo, pers_tel, acc_st, mem_perm, email
+		from member
+		where co_url = #{coUrl} and acc_st = 'using' and mem_perm <> 'GUEST'
+		]]>
+	</select>
+	<!-- 사용중지 사용자 -->
+	 <select id="getNotusedMemberList" resultType="co.plus.prj.uam.vo.MemberVO">
+	   	select mem_id, name, dept, wkpo, pers_tel, acc_st, mem_perm, email
+		from member
+		where co_url = #{coUrl} and acc_st = 'notused'
+	</select>
+	<!-- 가입대기 사용자 -->
+	<select id="getOutstandMemberList" resultType="co.plus.prj.uam.vo.MemberVO">
+		select mem_id, name, dept, wkpo, pers_tel, acc_st, mem_perm, email
+		from member
+		where co_url = #{coUrl} and acc_st = 'outstand'
+	</select>
+	<select id="getGuestMemberList" resultType="co.plus.prj.uam.vo.MemberVO">
+		select mem_id, name, dept, wkpo, pers_tel, acc_st, mem_perm, email
+		from member
+		where co_url = #{coUrl} and mem_perm = 'GUEST'
+	</select>
+	<!-- 카테고리 확인 -->
+	<select id="getCategoryList" resultType="co.plus.prj.uam.vo.MemberVO">
+		select a.ctgry_id, a.ctgry_name, count(*) as cnt
+		from category a, project b
+		where a.ctgry_id (+) = b.ctgry_id
+		    and b.co_url = #{coUrl}
+		    and a.ctgry_name is not null
+		group by a.ctgry_id, a.ctgry_name
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

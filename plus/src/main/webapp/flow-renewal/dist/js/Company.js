@@ -126,7 +126,7 @@ var Company = (function () {
         var fullTextVersion = i18next.t('front.common.version', {val: '$t(' + getVersionName() + ')'})
         $("#versionTab").find(".js-business-nm").text(fullTextVersion);
         $("#mySettingPopup").find("#version").text(fullTextVersion);
-        $("#accountLayer").find(".js-version").text(fullTextVersion);
+        $("#acconutModal").find(".js-version").text(fullTextVersion);
         if (Electron.isElectronApp()) {
             !Electron.getElectronConfig().b_fullMode && $('#logoutBtn').css('display', 'none');
             $('#prevVersionBtn, #miniOpenBtn, #desktopDownloadBtn').css('display', 'none');
