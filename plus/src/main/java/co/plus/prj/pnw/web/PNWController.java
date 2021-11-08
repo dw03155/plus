@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import co.plus.prj.pnw.service.PNWService;
 import co.plus.prj.pnw.vo.PNWVO;
@@ -26,7 +27,7 @@ public class PNWController {
 		return "pnw/myProject";
 
 	}
-	// 전체 프로젝트
+	// 전체 프로젝트(수정)
 	@RequestMapping(value = "/openProject.do", method = RequestMethod.GET)
 	public String cProject(HttpSession session, Model model, PNWVO vo) {
 		vo.setMemId((String)session.getAttribute("memId"));
@@ -37,12 +38,20 @@ public class PNWController {
 	}
 	
 	// 프로젝트 홈탭
-	@RequestMapping(value = "/prjHome.do", method = RequestMethod.GET)
-	public String prjHome(HttpSession session, Model model, PNWVO vo) {
+	@RequestMapping(value = "/prjHome.do", method = RequestMethod.POST)
+	public String prjHome(@RequestParam(value="prjId", required=false)String prjId,HttpSession session, Model model, PNWVO vo) {
 		vo.setMemId((String)session.getAttribute("memId"));
-		vo.setPrjId((String)model.getAttribute("prjId"));
-		model.addAttribute("nwLists", service.prjHome(vo));
+		vo.setPrjId(prjId);
+		model.addAttribute("prjInfo",service.prjInfo(vo));
+		model.addAttribute("partiCnt",service.prjPartiCnt(vo));
+		model.addAttribute("pincettes",service.prjHomePin(vo));
+		model.addAttribute("nwLists", service.prjHomeNW(vo));
+		model.addAttribute("partipants",service.prjPartiList(vo));
+		model.addAttribute("pms",service.partiPM(vo));
+		model.addAttribute("users",service.partiUser(vo));
+		model.addAttribute("guests",service.partiGuest(vo));
 		return "pnw/prjHome";
 
 	}
+	
 }

@@ -119,12 +119,6 @@
 														for="searchTargetTodo"
 														class="js-tmpl-type radio-label-checkbox" data-code="2">할
 															일</label></li>
-													<li class="js-remark-tmpl-type"><input type="radio"
-														name="tmpl-type" id="searchTargetRemark"
-														class="radio-input"> <label
-														for="searchTargetRemark"
-														class="js-tmpl-type radio-label-checkbox" data-code="-1">댓글</label>
-													</li>
 												</ul>
 											</div>
 										</li>
