@@ -313,12 +313,12 @@ public class MemberController {
 	
 	//관리자 사용자 관리
 	@RequestMapping(value="/userManagement.do", method = RequestMethod.GET)
-	public String userManagement(Model model) {
-//		vo.setCoUrl((String)session.getAttribute("coUrl"));
-//		model.addAttribute("using",service.getUsingMemberList(vo));
-//		model.addAttribute("notused",service.getNotusedMemberList(vo));
-//		model.addAttribute("outstand",service.getOutstandMemberList(vo));
-//		model.addAttribute("guest",service.getGuestMemberList(vo));
+	public String userManagement(Model model, MemberVO vo, HttpSession session) {
+		vo.setCoUrl((String)session.getAttribute("coUrl"));
+		model.addAttribute("using",service.getUsingMemberList(vo));
+		model.addAttribute("notused",service.getNotusedMemberList(vo));
+		model.addAttribute("outstand",service.getOutstandMemberList(vo));
+		model.addAttribute("guest",service.getGuestMemberList(vo));
 		return "uam/admin/menu/userManagement";
 	}
 	//정상 사용자

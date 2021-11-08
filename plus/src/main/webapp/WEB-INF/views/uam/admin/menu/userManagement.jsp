@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,10 +49,10 @@
 		</div><!-- topSettionBar end -->
 		<div class="project-detail-top clearfix">
 			<ul id="detailTab" class="project-detail-menu">
-				<li class="js-tab-item active" id="using"><a>정상<span id="usingCount"></span></a></li>
-				<li class="js-tab-item" id="notused"><a>이용중지<span id="notusedCount"></span></a></li>
-				<li class="js-tab-item" id="outstand"><a>가입대기<span id="outstantCount"></span></a></li>
-				<li class="js-tab-item" id="guest"><a>게스트<span id="guestCount"></span></a></li>
+				<li class="js-tab-item active" id="using"><a>정상<span id="usingCount">(${fn:length(using) })</span></a></li>
+				<li class="js-tab-item" id="notused"><a>이용중지<span id="notusedCount">(${fn:length(notused) })</span></a></li>
+				<li class="js-tab-item" id="outstand"><a>가입대기<span id="outstantCount">(${fn:length(outstand) })</span></a></li>
+				<li class="js-tab-item" id="guest"><a>게스트<span id="guestCount">(${fn:length(guest) })</span></a></li>
 			</ul>
 			<div id="detailTopSearch"
 				class="project-search-area all-file-header-type-3">
@@ -88,6 +89,22 @@
 						</tr>
 					</thead>
 					<tbody id="usinglist" >
+						<c:if test="${empty usings }">
+							<tr>
+								<td colspan="7">NODATA</td>
+							</tr>
+						</c:if>
+						<c:forEach var="usings" items="${using }">
+						<tr>
+							<td>${usings.name }</td>
+							<td>${usings.dept }</td>
+							<td>${usings.wkpo }</td>
+							<td>${usings.email }</td>
+							<td>${usings.persTel }</td>
+							<td></td>
+							<td><input type='checkbox'></td>
+						</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			 </div><!-- usingMember end -->
@@ -103,6 +120,18 @@
 					</tr>
 					</thead>
 					<tbody id="notUsedlist">
+						<c:if test="${empty notuseds }">
+							<tr>
+								<td colspan="3">NODATA</td>
+							</tr>
+						</c:if>
+						<c:forEach var="notuseds" items="${notused }">
+						<tr>
+							<td>${notuseds.name }</td>
+							<td>${notuseds.email }</td>
+							<td>${notuseds.persTel }</td>
+						</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			 </div><!-- notUsedMember end -->
@@ -119,6 +148,20 @@
 					</tr>
 					</thead>
 					<tbody id="outstandlist">
+						<c:if test="${empty outstands }">
+							<tr>
+								<td colspan="4">NODATA</td>
+							</tr>
+						</c:if>
+						<c:forEach var="outstands" items="${outstand }">
+						<tr>
+							<td>${outstands.name }</td>
+							<td>${outstands.email }</td>
+							<td>${outstands.persTel }</td>
+							<td><a href="#"><span id='in' style="color: green;">[가입승인]</span></a> &nbsp;
+							<a href="#"><span id='out' style="color: red">[가입거절]</span></a></td>
+						</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			 </div><!-- outstandMember end -->
@@ -135,13 +178,26 @@
 					</tr>
 					</thead>
 					<tbody id="guestlist">
+						<c:if test="${empty guests }">
+						<tr>
+							<td colspan="4">NODATA</td>
+						</tr>
+						</c:if>
+						<c:forEach var="guests" items="${guest }">
+						<tr>
+							<td>${guests.name }</td>
+							<td>${guests.email }</td>
+							<td>${guests.persTel }</td>
+							<td><span id='in'>[가입승인]</span><span id='out'>[가입거절]</span></td>
+						</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			 </div><!-- outstandMember end -->
 		</div><!-- main-container end -->
 	
 	<script>
-	 $(function(){
+	/*  $(function(){
 			var coUrl = "${sessionScope.coUrl}";
 			//정상사용자
 			$.ajax({
@@ -153,27 +209,10 @@
 						for(i=0; i<data.length; i++){
 						var item = data[i];
 						if(item.memPerm == 'ADMIN'){
-							var perm = '관리자';
-						$('<tr>').append($('<td>').html(item.name))
-				 				.append($('<td>').html(item.dept))
-								.append($('<td>').html(item.wkpo))
-							 	.append($('<td>').html(item.email))
-							 	.append($('<td>').html(item.persTel))
-							 	.append($('<td>').html(perm))
-							 	.append($('<td>').html('<input type=\'checkbox\'>'))
-							 	.append($('<input type=\'hidden\' id=\'usingMemId\'>').val(item.memId))
-							 	.appendTo($('#usinglist'))
+							$('#usingPerm').append('관리자');
+						
 						}else if(item.memPerm == 'USER'){
-							var user = '일반사용자';
-						$('<tr>').append($('<td>').html(item.name))
-				 				.append($('<td>').html(item.dept))
-								.append($('<td>').html(item.wkpo))
-							 	.append($('<td>').html(item.email))
-							 	.append($('<td>').html(item.persTel))
-							 	.append($('<td>').html(user))
-							 	.append($('<td>').html('<input type=\'checkbox\'>'))
-							 	.append($('<input type=\'hidden\' id=\'usingMemId\'>').val(item.memId))
-							 	.appendTo($('#usinglist'))
+							$('#usingPerm').append('일반사용자');
 						}
 						}			 
 					}else{
@@ -189,17 +228,7 @@
 				type : "get",
 				dataType : "json",
 				success : function(result) {
-					if(result != ""){
-						for(i=0; i<result.length; i++){
-							var user = result[i];
-							$('<tr>').append($('<td>').html(user.name))
-									.append($('<td>').html(user.email))
-									.append($('<td>').html(user.persTel))
-									.append($('<input type=\'hidden\' id=\'user.memId\'>').val(user.memId))
-									.appendTo($('#notUsedlist'))
-									 
-						}
-					}else{
+					if(result == ""){
 						$('<tr>').append($('<td colspan=\'3\'>').html("NODATE"))
 						 .appendTo($('#notUsedlist'))
 					}
@@ -212,19 +241,7 @@
 				type : "get",
 				dataType : "json",
 				success : function(re) {
-					if(re != ""){
-						for(i=0; i<re.length; i++){
-							var outstand = re[i];
-							$('<tr>').append($('<td>').html(outstand.name))
-									.append($('<td>').html(outstand.email))
-									.append($('<td>').html(outstand.persTel))
-									.append($('<td id=\'inout\'>'))
-									.append($('<input type=\'hidden\' id=\'outstandMemId\'>').val(outstand.memId))
-									.appendTo($('#outstandlist'))	
-							$('#inout').append($('<span id=\'in\'>').text('[가입승인]'))
-									 .append($('<span id=\'out\'>').text('[가입거절]'))
-						}//for end
-					}else{
+					if(re == ""){
 						$('<tr>').append($('<td colspan=\'4\'>').html("NODATE"))
 						 .appendTo($('#outstandlist'))
 					}
@@ -237,23 +254,14 @@
 				type : "get",
 				dataType : "json",
 				success : function(req) {
-					if(req != ""){
-						for(i=0; i<req.length; i++){
-							var guest = req[i];
-							$('<tr>').append($('<td>').html(guest.name))
-									.append($('<td>').html(guest.email))
-									.append($('<td>').html(guest.persTel))
-									.append($('<input type=\'hidden\' id=\'guest.memId\'>').val(guest.memId))
-									.appendTo($('#guestlist'))	 
-						}//for end
-					}else{
+					if(req == ""){
 						$('<tr>').append($('<td colspan=\'4\'>').html("NODATE"))
 								 .appendTo($('#guestlist'))
 					}
 					$('#guestCount').text('('+req.length+')');
 				}
 			});
-	});
+	}); */
 	 
 	 $("#usinglist tr").click(function(){
 		 var tr = $(this);
