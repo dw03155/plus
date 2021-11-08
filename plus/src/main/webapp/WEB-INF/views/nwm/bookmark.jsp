@@ -84,32 +84,32 @@
 							</div>
 						</div>
 
-							<ul id="myPostContentUl"
-								class="all-seach-list-type-1 post-group scroll-mask"
-								scroll-direction="0">
-								
-								<li id="allPosts-11813295"
-									class="js-all-post-item post-search-item post-list-wrapper">
-									<div class="fixed-kind">
-										<i class="icons-schedule"></i> <span class="post-type">일정</span>
-									</div>
-									<div class="search-sub-text-wrap">
-										<div class="contents-cmt">
-											<p class="search-text-type-3 contents-tit">시간</p>
-											<div class="post-list comment" style="display: none" data="">
-												<i class="icons-comment2"></i> <span
-													class="js-post-comment-count">0</span>
-											</div>
+						<ul id="myPostContentUl"
+							class="all-seach-list-type-1 post-group scroll-mask"
+							scroll-direction="0">
+
+							<li id="myPostContent"
+								class="js-all-post-item post-search-item post-list-wrapper">
+								<div class="fixed-kind">
+									<i class="icons-schedule"></i> <span class="post-type">일정</span>
+								</div>
+								<div class="search-sub-text-wrap">
+									<div class="contents-cmt">
+										<p class="search-text-type-3 contents-tit">시간</p>
+										<div class="post-list comment" style="display: none" data="">
+											<i class="icons-comment2"></i> <span
+												class="js-post-comment-count">0</span>
 										</div>
-										<p class="search-text-type-3 contents-project">
-											<em class="ellipsis"><i class="seach-type-2"></i>플로우 이용
-												가이드</em>
-										</p>
 									</div>
-									<div class="post-list-right">
-										<div class="post-list name">QR</div>
-										<div class="post-list date">2021-11-07 15:44</div>
-										<!--
+									<p class="search-text-type-3 contents-project">
+										<em class="ellipsis"><i class="seach-type-2"></i>플로우 이용
+											가이드</em>
+									</p>
+								</div>
+								<div class="post-list-right">
+									<div class="post-list name">QR</div>
+									<div class="post-list date">2021-11-07 15:44</div>
+									<!--
             <div class="fixed-value">
                 <span class="state request" style="display:none" data>-1%</span>
                 <span class="js-task-state state " ></span>
@@ -119,14 +119,20 @@
                 </div>
             </div>
             -->
-									</div>
-								</li>
-							</ul>
+								</div>
+							</li>
+						</ul>
 					</div>
 				</div>
 
 			</div>
 		</div>
 	</div>
+
+	<script>
+		$("#myPostContent").click(function() {
+			$(this).toggleClass("highlight");
+		});
+	</script>
 </body>
 </html>

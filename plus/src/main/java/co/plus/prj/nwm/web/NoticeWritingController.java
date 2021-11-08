@@ -20,7 +20,7 @@ public class NoticeWritingController {
 	// 전체 메뉴	
 	@RequestMapping("/allTask.do")	// 전체 메뉴 -> 전체 업무
 	String allTask(HttpSession session, Model model, NoticeWritingVO vo) {
-
+		
 		vo.setCoUrl((String)session.getAttribute("coUrl"));
 		vo.setMemId((String)session.getAttribute("memId"));
 		model.addAttribute("tasks",nwDao.allTask(vo));
@@ -66,7 +66,8 @@ public class NoticeWritingController {
 	 }
 	
 	@RequestMapping("/myPostTsk.do") // 내 게시물 목록 -> 업무 상세보기(팝업)
-	public String myPostTsk(Model model, NoticeWritingVO vo) {
+	public String myPostTsk(HttpSession session,Model model, NoticeWritingVO vo) {
+		vo.setMemId((String)session.getAttribute("memId"));
 		model.addAttribute("tasks", nwDao.myPostTsk(vo));
 		return "nwm/modal/myPostTsk"; 
 	 }

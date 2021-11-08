@@ -2,27 +2,28 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+
 <p>여기는 모달창jsp로 넘겨준 값입니다.</p>
 <!-- 내 게시물 목록 -> 업무 상세보기(팝업) -->
 <div class="post-popup-header card-popup-header d-none"
-						style="display: block;">
-						<h3 class="card-popup-title">
-							<i id="projectTitleColor" class="project-color color-code-4"></i>
-							<span class="js-project-title-button">{tasks.prjTtl}</span> <span
-								class="subtask-title up-task-title js-up-task-button"
-								=""="" data-up-task-project-srno="" data-up-task-post-srno=""
-								data-up-task-srno=""> </span>
-						</h3>
-						<button class="btn-close card-popup-close">
-							<i class="icons-close-1"></i>
-						</button>
-					</div>
+	style="display: block;">
+	<h3 class="card-popup-title">
+		<i id="projectTitleColor" class="project-color color-code-4"></i> <span
+			class="js-project-title-button">${task.prjTtl}</span> <span
+			class="subtask-title up-task-title js-up-task-button"
+			=""="" data-up-task-project-srno="" data-up-task-post-srno=""
+			data-up-task-srno=""> </span>
+	</h3>
+	<button class="btn-close card-popup-close">
+		<i class="icons-close-1"></i>
+	</button>
+</div>
 
 <div class="post-card-header">
 	<div class="post-card-scroll">
 		<div class="card-header-top">
 			<div class="post-author js-post-author"
-				data-author-id="yuin3488@gmail.com">
+				data-author-id="">
 				<span class="thumbnail size40 radius16"
 					style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"
 					data=""></span>
@@ -488,11 +489,13 @@
 		</div>
 	</div>
 	<button type="button" class="post-popup-button right"></button>
+
+
 </div>
 
 <!-- 모달창 닫기 버튼 -->
 <script type="text/javascript">
-$(".btn-close").click(function() {
-	$("#postPopup").css("display", "none");
-});
+	$(".btn-close").click(function() {
+		$("#postPopup").css("display", "none");
+	});
 </script>

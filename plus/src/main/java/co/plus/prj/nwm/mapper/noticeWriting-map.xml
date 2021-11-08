@@ -95,8 +95,7 @@
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO"
 		parameterType="co.plus.prj.nwm.vo.NoticeWritingVO">
 		select a.noti_knd, a.noti_ttl, c.name, a.noti_dttm
-		from board a,
-		bookmark b, member c
+		from board a, bookmark b, member c
 		where a.mem_id = b.mem_id
 		and b.mem_id = c.mem_id
 		and b.noti_id = #{notiId}
@@ -145,8 +144,8 @@
 		and
 		a.prj_id=d.prj_id
 		and a.noti_id = c.noti_id
-		and a.noti_id=
-		#{notiId}
+		and c.mem_id=
+		#{memId}
 	</select>
 	<!-- 내 게시물 목록 -> 하위업무 상세보기(팝업) -->
 	<select id="myPostSubtsk"

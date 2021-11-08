@@ -122,7 +122,7 @@
 											<span class="project-task-count">${fn:length(task.taskDetail)}</span>
 										</div> <!-- 프로젝트 안 업무 목록 -->
 										<ul class="js-inner-task project-inner-task active"
-											style="display: block">
+											style="display: none">
 											<c:forEach var="dtasks" items="${task.taskDetail}">
 												<li class="task-item ">
 													<div class="js-task_num task-task_num-cell task-item-cell">
