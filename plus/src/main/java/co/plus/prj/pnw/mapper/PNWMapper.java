@@ -26,6 +26,7 @@ public interface PNWMapper {
 		int prjDelete(PNWVO vo);			// 프로젝트 삭제
 		List<PNWVO> pnwPinList(PNWVO vo);	// 프로젝트 홈탭 (상단고정 게시글 목록)
 		List<PNWVO> pnwAllList(PNWVO vo);	// 프로젝트 홈탭 (전체 게시글 목록)
+		List<PNWVO> prjPartiList(PNWVO vo);	// 참여자 목록 : 전체
 		List<PNWVO> partiPM(PNWVO vo);		// 참여자 목록 : PM
 		List<PNWVO> partiUser(PNWVO vo);	// 참여자 목록 : USER
 		List<PNWVO> partiGuest(PNWVO vo);	// 참여자 목록 : GUEST

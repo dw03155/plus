@@ -93,7 +93,7 @@
 	<!-- 프로젝트 폴더 수정 ** -->
 	<update id="prjFoldUpdate">
 		update mem_prj_fold
-		set foldId=#{foldId}, foldName=#{foldName}, memId=#{memId}
+		set foldId = #{foldId}, foldName = #{foldName}, memId = #{memId}
 	</update>
 
 	<!-- 프로젝트 폴더 삭제 ** -->
@@ -111,7 +111,7 @@
 	<!-- 프로젝트 폴더 설정 **-->
 	<insert id="prjFoldSet">
 		insert from prj_fold
-		values (#{fold_id}, #{prj_id});
+		values (#{fold_id}, #{prj_id})
 	</insert>
 	
 	<!-- 프로젝트 수정 **-->
@@ -160,30 +160,30 @@
 	</select>
 
 	<select id="partiPM" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 참여자 목록 : PM -->
-		select a.name,
+		select a.mem_id, a.name
 		from member a, prj_parti b
 		where a.mem_id = #{memId}
 		and a.mem_id = b.mem_id
 		and b.prj_id = #{prjId}
-		and prj_parti = 'PM'
+		and b.prj_perm = 'PM'
 	</select>
 
 	<select id="partiUser" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 참여자 목록 : USER -->
-		select a.name
+		select a.mem_id, a.name
 		from member a, prj_parti b
 		where a.mem_id = #{memId}
 		and a.mem_id = b.mem_id
 		and b.prj_id = #{prjId}
-		and prj_parti = 'USER'
+		and b.prj_perm = 'USER'
 	</select>
 
 	<select id="partiGuest" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 참여자 목록 : GUEST -->
-		select a.name
+		select a.mem_id, a.name
 		from member a, prj_parti b
 		where a.mem_id = #{memId}
 		and a.mem_id = b.mem_id
 		and b.prj_id = #{prjId}
-		and prj_parti = 'GUEST'
+		and b.prj_perm = 'GUEST'
 	</select>
 	<!-- <resultMap id="tskList" type="co.plus.prj.pnw.vo.PNWVO"> <result property="" 
 		/> <result property="" /> <result property="" /> <collection property="" 

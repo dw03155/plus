@@ -110,7 +110,7 @@
 				<div class="project-detail-top clearfix">
 					<ul id="detailTab" class="project-detail-menu">
 						<!-- active class 붙이기 -->
-						<li class="js-tab-item"><a>홈</a></li>
+						<li class="js-tab-item active"><a>홈</a></li>
 						<li class="js-tab-item"><a>업무</a></li>
 						<li class="js-tab-item"><a>캘린더</a></li>
 						<li class="js-tab-item"><a>파일</a></li>
@@ -411,8 +411,30 @@
 							class="project-participants-wrap feed-section">
 							<div class="section-title-area">
 								<h4 class="section-title">
-									<span>참여자</span> <span id="participantCount"></span>
+									<span>참여자</span> <span id="participantCount">${fn:length(partipants)}</span>
 								</h4>
+								<div id="participantItem" class="d-none">
+									<li class="js-participant-item">
+										<div class="post-author">
+											<span
+												class="js-participant-profile thumbnail size40 radius16"></span>
+											<dl class="post-author-info">
+												<dt>
+													<strong class="js-participant-name author ellipsis">{name}</strong>
+													<em class="position ellipsis" {personal-display}="">{position}</em>
+												</dt>
+												<dd {personal-display}="">
+													<strong class="company">{company}</strong> <span
+														class="team">{team}</span>
+												</dd>
+											</dl>
+										</div>
+										<button type="button"
+											class="js-participant-chat participant-chat-button">
+											<i class="icons-chat"><span class="blind">채팅</span></i>
+										</button>
+									</li>
+								</div>
 								<div class="feed-type-area">
 									<button id="allSendienceBtn" type="button">전체 보기</button>
 								</div>
@@ -986,7 +1008,7 @@
 					</div>
 				</div>
 			</div>
-<!-- //팝업창 -->
+			<!-- //팝업창 -->
 
 
 
@@ -1394,45 +1416,9 @@
 						</div>
 					</div>
 
-
-					<div class="allHistoryLayer full-width small-style-wrap-2 d-none"
-						style="display: none;">
-						<div class="history-container">
-							<div class="project-search-area all-file-header-type-3">
-								<div class="project-search">
-									<i class="icons-search"></i> <input type="text"
-										placeholder="일정 제목을 검색해주세요!"
-										class="js-calendar-search-input project-search-input"
-										readonly="readonly">
-								</div>
-							</div>
-							<ul class="history-group">
-								<li class="alarm-{COLABO_COMMT_SRNO} js-alarm-item {not-read}"
-									colabo_srno="{COLABO_SRNO}"
-									colabo_commt_srno="{COLABO_COMMT_SRNO}"
-									colabo_remark_srno="{COLABO_REMARK_SRNO}">
-									<div class="all-setup-picture-type-1"
-										style="background-image: url(flow-renewal/assets/images/profile-default.png)"
-										data=""></div> <!-- <div class="all-setup-picture-type-1" {profile}></div> -->
-									<div class="all-text-wrap-type-1">
-										<div class="all-text-wrap-type-2">
-											<i class="{emojiIcon}"></i>{msg}
-										</div>
-										<div class="all-text-wrap-type-3">{contents}</div>
-										<div class="all-text-wrap-type-3">
-											<span><em class="all-setup-icon-type-1 {img-yn}"></em>이미지</span><span><em
-												class="all-setup-icon-type-2 {file-yn}"></em>파일</span>
-										</div>
-									</div>
-									<div class="all-setup-section-type-1">
-										<em>2021-05-11</em>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>
 				</div>
 			</div>
+
 
 
 
@@ -1454,12 +1440,6 @@
 				</a>
 				</li>
 			</div>
-			<div id="hashTagItem" class="d-none">
-				<li><a href="#none" class="hashtag-item"> <em
-						class="hashtag-item-title">{tagName}</em>
-						<div class="hashtag-item-text">{refCount}개의 게시물</div>
-				</a></li>
-			</div>
 			<div id="mentionItem" class="d-none">
 				<li id="{id}-mention" class="js-mention-item participant-item"
 					data-user-id="{id}">
@@ -1476,27 +1456,8 @@
 					</div>
 				</li>
 			</div>
-			<div id="participantItem" class="d-none">
-				<li class="js-participant-item" data-id="{worker-id}">
-					<div class="post-author">
-						<span class="js-participant-profile thumbnail size40 radius16"
-							{profile}=""></span>
-						<dl class="post-author-info">
-							<dt>
-								<strong class="js-participant-name author ellipsis">{name}</strong>
-								<em class="position ellipsis" {personal-display}="">{position}</em>
-							</dt>
-							<dd {personal-display}="">
-								<strong class="company">{company}</strong> <span class="team">{team}</span>
-							</dd>
-						</dl>
-					</div>
-					<button type="button"
-						class="js-participant-chat participant-chat-button">
-						<i class="icons-chat"><span class="blind">채팅</span></i>
-					</button>
-				</li>
-			</div>
+
+
 			<div id="inviteItem" class="d-none">
 				<div class="invite-text-area">
 					<span>{first-contents}</span> <span>{date}</span> <span
@@ -1507,7 +1468,7 @@
 		<!-- projectList에서 Hastag가로 List-->
 		<div id="hastTagTransverseItem" class="d-none">
 			<li id="{tag-name}" class="hashtag-item"><a href="#"
-				class="hashtag">#{tag-name}</a></li>
+				class="hashtag">{tag-name}</a></li>
 		</div>
 		<div id="taskReportItem" class="d-none">
 			<div class="detail-section reports-section">

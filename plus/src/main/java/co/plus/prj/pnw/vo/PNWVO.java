@@ -8,6 +8,8 @@ import lombok.Data;
 @Data		
 public class PNWVO {
 	
+	private PNWVO() {}
+	
 	// Project
 	private String prjId;			// 프로젝트 번호
 	private String prjTtl;			// 프로젝트 제목
