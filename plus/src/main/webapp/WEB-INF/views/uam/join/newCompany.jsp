@@ -140,7 +140,7 @@
 	src="js/collabo/collabo2020/auth_layer.js"></script>
 <script type="text/javascript" src="js/collabo/collabo2020/base64.js"></script>
 
-<script type="text/javascript" src="js/collabo/login.js"></script>
+<!-- <script type="text/javascript" src="js/collabo/login.js"></script> -->
 <script type="text/javascript" src="js/collabo/flow_upgrade.js"></script>
 <script type="text/javascript" src="js/collabo/flow_iamport_payment.js"></script>
 <script type="text/javascript" src="js/collabo/inc/polyfill_IE.js"></script>

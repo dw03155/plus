@@ -32,6 +32,10 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
+	
+	<session-config>
+		<session-timeout>150</session-timeout>
+	</session-config>
 
 	<!-- 한글설정 -->
 	<filter>

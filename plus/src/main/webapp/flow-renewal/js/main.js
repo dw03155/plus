@@ -61,9 +61,9 @@ $(window).load(function () {
     Electron.isElectronApp() && ElectronEvent.addReloadMouseDownEvent();
     if (Electron.isElectronApp() && Often.isFunc(Func.CLOUD.ELECTRON_NAVI)) $('#electronNavi').removeClass('d-none');
 
-    setTimeout(function () {
+  /*  setTimeout(function () {
         ThirdPartyUtil.load("main");
         MonitorUtil.load();
-    }, 1000)
+    }, 1000)*/
 })
 

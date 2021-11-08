@@ -25,7 +25,7 @@ var upgrade = (function () { // 업그레이드 팝업은 무료사용자, 프�
 	var isInit = false;
 
 	var upgradePopupSelector = "#upgradePopup";
-	var upgradePopupLayer, introLayer, businessSignUpLayer, basicBusinessSettingTeamInfoLayer, businessSelectAccountLayer, businessSettingTeamInfoLayer, businessFinishedLayer, premiumFinishedLayer;
+	var upgradePopupLayer, introLayer, businessSignUpLayer, basicBusinessSettingTeamInfoLayer, businessSelectacconutModal, businessSettingTeamInfoLayer, businessFinishedLayer, premiumFinishedLayer;
 	
 	
 
@@ -75,7 +75,7 @@ var upgrade = (function () { // 업그레이드 팝업은 무료사용자, 프�
 		upgradePopupLayer = $(upgradePopupSelector);
 		introLayer = upgradePopupLayer.find("#intro");
 		businessSignUpLayer = upgradePopupLayer.find("#businessSignUp");
-		businessSelectAccountLayer = upgradePopupLayer.find("#businessSelectAccount");
+		businessSelectacconutModal = upgradePopupLayer.find("#businessSelectAccount");
 		basicBusinessSettingTeamInfoLayer = upgradePopupLayer.find("#businessSettingTeamInfo");
 		businessSettingTeamInfoLayer = upgradePopupLayer.find("#intro");
 		businessFinishedLayer = upgradePopupLayer.find("#businessFinished");
@@ -128,9 +128,9 @@ var upgrade = (function () { // 업그레이드 팝업은 무료사용자, 프�
 		});
 		
 		// 비즈니스 업그레이드 계정선택 -------------------------------------------------------------------- 안쓰는 js
-		businessSelectAccountLayer.find("#useExistAccount").on('click', function (e) {
+		businessSelectacconutModal.find("#useExistAccount").on('click', function (e) {
 
-			businessSelectAccountLayer.hide();
+			businessSelectacconutModal.hide();
 			businessSettingTeamInfoLayer.find("#backToBusinessSignUp").parent().hide();
 			businessSettingTeamInfoLayer.find("#backToBusinessSelectAccount").parent().show();
 			businessSettingTeamInfoLayer.fadeIn(200, function () {
@@ -139,14 +139,14 @@ var upgrade = (function () { // 업그레이드 팝업은 무료사용자, 프�
 			});
 		});
 
-		businessSelectAccountLayer.find("#registerNewAccount").on('click', function (e) {
-			businessSelectAccountLayer.hide();
+		businessSelectacconutModal.find("#registerNewAccount").on('click', function (e) {
+			businessSelectacconutModal.hide();
 			goToBusinessSignUp();
 		});
 
-		businessSelectAccountLayer.find("#backToIntro").on('click', function (e) {
+		businessSelectacconutModal.find("#backToIntro").on('click', function (e) {
 			introLayer.fadeIn(200);
-			businessSelectAccountLayer.hide();
+			businessSelectacconutModal.hide();
 		});
 		
 
@@ -159,7 +159,7 @@ var upgrade = (function () { // 업그레이드 팝업은 무료사용자, 프�
 		businessSignUpLayer.find("#backToIntro").on('click', function (e) {
 
 			if ($("#serviceUpgrade").attr('COMP_EML_YN') == "Y") { // 회사이메일
-				businessSelectAccountLayer.fadeIn(200);
+				businessSelectacconutModal.fadeIn(200);
 			} else {
 				introLayer.fadeIn(200);
 			}
@@ -318,7 +318,7 @@ var upgrade = (function () { // 업그레이드 팝업은 무료사용자, 프�
 		});
 		businessSignUpLayer.find("#backToBusinessSelectAccount").on('click', function (e) {
 
-			businessSelectAccountLayer.show();
+			businessSelectacconutModal.show();
 			businessSignUpLayer.hide();
 			if (upgradePopupLayer.find(".f-login-wrap").hasClass("mCustomScrollbar")) {
 				upgradePopupLayer.find(".f-login-wrap").mCustomScrollbar("destroy");
@@ -335,7 +335,7 @@ var upgrade = (function () { // 업그레이드 팝업은 무료사용자, 프�
 		
 		businessSettingTeamInfoLayer.find("#backToBusinessSelectAccount").on('click', function (e) {
 
-			businessSelectAccountLayer.show();
+			businessSelectacconutModal.show();
 			businessSettingTeamInfoLayer.hide();
 		});
 		
