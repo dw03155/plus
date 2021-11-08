@@ -42,6 +42,8 @@ public class PNWController {
 	public String prjHome(@RequestParam(value="prjId", required=false)String prjId,HttpSession session, Model model, PNWVO vo) {
 		vo.setMemId((String)session.getAttribute("memId"));
 		vo.setPrjId(prjId);
+		model.addAttribute("prjInfo",service.prjInfo(vo));
+		model.addAttribute("partiCnt",service.prjPartiCnt(vo));
 		model.addAttribute("pincettes",service.prjHomePin(vo));
 		model.addAttribute("nwLists", service.prjHomeNW(vo));
 		model.addAttribute("partipants",service.prjPartiList(vo));

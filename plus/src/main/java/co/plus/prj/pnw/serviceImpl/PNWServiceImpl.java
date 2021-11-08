@@ -70,7 +70,7 @@ public class PNWServiceImpl implements PNWService {
 	}
 	
 	@Override
-	public String prjInfo(PNWVO vo) {			// 프로젝트 홈탭 : 프로젝트 정보
+	public PNWVO prjInfo(PNWVO vo) {			// 프로젝트 홈탭 : 프로젝트 정보
 		return map.prjInfo(vo);
 	}
 	
@@ -85,10 +85,8 @@ public class PNWServiceImpl implements PNWService {
 	}
 	
 	@Override
-	public List<PNWVO> prjPartiList(PNWVO vo) {	// 프로젝트 홈탭 : 참여자 목록
-		map.partiPM(vo);			// 참여자 목록(PM)
-		map.partiUser(vo);			// 참여자 목록(User)
-		return map.partiGuest(vo);	// 참여자 목록(Guest)
+	public int prjPartiCnt(PNWVO vo) {	// 프로젝트 홈탭 : 전체 참여자 수
+		return map.prjPartiCnt(vo);	// 참여자 수
 	}
 	
 	@Override
@@ -103,6 +101,15 @@ public class PNWServiceImpl implements PNWService {
 	public List<PNWVO> partiGuest(PNWVO vo) {	// 프로젝트 홈탭 : Guest 목록
 		return map.partiGuest(vo);
 	}
+	
+	@Override
+	public List<PNWVO> prjPartiList(PNWVO vo) {	// 프로젝트 홈탭 : 전체 참여자 수
+		map.partiPM(vo);			// PM 목록
+		map.partiUser(vo);			// User 목록
+		return map.partiGuest(vo);	// Guest 목록
+	}
+	
+	
 	@Override
 	public List<PNWVO> prjTsk(PNWVO vo) {				// 프로젝트 업무탭
 		map.tskPrgList(vo);			// 업무 진행상태 목록

@@ -24,9 +24,10 @@ public interface PNWMapper {
 		int prjFoldSet(PNWVO vo);			// 프로젝트 폴더 설정
 		int prjUpdate(PNWVO vo);			// 프로젝트 수정(프로젝트명, 색깔, 공개권한)
 		int prjDelete(PNWVO vo);			// 프로젝트 삭제
-		String prjInfo(PNWVO vo);			// 프로젝트 홈탭 : 프로젝트 정보
+		PNWVO prjInfo(PNWVO vo);			// 프로젝트 홈탭 : 프로젝트 정보
 		List<PNWVO> pnwPinList(PNWVO vo);	// 프로젝트 홈탭 : 상단고정 게시글 목록
 		List<PNWVO> pnwAllList(PNWVO vo);	// 프로젝트 홈탭 : 전체 게시글 목록
+		int prjPartiCnt(PNWVO vo);		// 프로젝트 홈탭 : 전체 참여자 수
 		List<PNWVO> prjPartiList(PNWVO vo);	// 프로젝트 홈탭 : 전체 참여자 목록
 		List<PNWVO> partiPM(PNWVO vo);		// 프로젝트 홈탭 : PM 참여자 목록
 		List<PNWVO> partiUser(PNWVO vo);	// 프로젝트 홈탭 : USER 참여자 목록

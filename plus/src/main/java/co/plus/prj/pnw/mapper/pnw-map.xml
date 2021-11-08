@@ -128,9 +128,11 @@
 
 	<!-- 프로젝트 : 홈 -->
 	<select id="prjInfo" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 프로젝트 정보 -->
-		select *
-		from project
-		where prj_id = #{prjId}
+		select a.*, b.prj_color
+		from project a, prj_parti b
+		where a.prj_id = #{prjId}
+			and a.prj_id = b.prj_id
+			and b.mem_id = #{memId}
 	</select>
 	
 	<select id="pnwPinList" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 상단고정 게시글 목록 -->
@@ -141,11 +143,11 @@
 			end as addlist
 		from member a, prj_parti b, board c, pincette d
 		where c.prj_id = #{prjId}
-		and b.prj_id = c.prj_id
-		and c.prj_id = d.prj_id
-		and c.noti_id = d.noti_id
-		and a.mem_id = #{memId}
-		and a.mem_id = b.mem_id
+			and b.prj_id = c.prj_id
+			and c.prj_id = d.prj_id
+			and c.noti_id = d.noti_id
+			and a.mem_id = #{memId}
+			and a.mem_id = b.mem_id
 	</select>
 	
 	<select id="pnwAllList" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 전체 게시글 목록 -->
@@ -156,40 +158,46 @@
 			end as addlist
 		from member a, prj_parti b, board c
 		where c.prj_id = #{prjId}
-		and b.prj_id = c.prj_id
-		and a.mem_id = #{memId}
-		and a.mem_id = b.mem_id
+			and b.prj_id = c.prj_id
+			and a.mem_id = #{memId}
+			and a.mem_id = b.mem_id
 		<!-- 프로젝트 명으로 검색 -->
 		<if test="notiTtl != null and notiTtl != ''">
 			and noti_ttl like '%' || #{notiTtl} || '%'
 		</if>
 	</select>
 
+	<select id="prjPartiCnt" resultType="int">		<!-- 전체 참여자 수 -->
+		select count(*)
+		from prj_parti
+		where prj_id = #{prjId}
+	</select>
+	
 	<select id="partiPM" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 참여자 목록 : PM -->
 		select a.mem_id, a.name, a.wkpo, a.co_url, a.dept
 		from member a, prj_parti b
 		where a.mem_id = #{memId}
-		and a.mem_id = b.mem_id
-		and b.prj_id = #{prjId}
-		and b.prj_perm = 'PM'
+			and a.mem_id = b.mem_id
+			and b.prj_id = #{prjId}
+			and b.prj_perm = 'PM'
 	</select>
 
 	<select id="partiUser" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 참여자 목록 : USER -->
 		select a.mem_id, a.name, a.wkpo, a.co_url, a.dept
 		from member a, prj_parti b
 		where a.mem_id = #{memId}
-		and a.mem_id = b.mem_id
-		and b.prj_id = #{prjId}
-		and b.prj_perm = 'USER'
+			and a.mem_id = b.mem_id
+			and b.prj_id = #{prjId}
+			and b.prj_perm = 'USER'
 	</select>
 
 	<select id="partiGuest" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 참여자 목록 : GUEST -->
 		select a.mem_id, a.name, a.wkpo, a.co_url, a.dept
 		from member a, prj_parti b
 		where a.mem_id = #{memId}
-		and a.mem_id = b.mem_id
-		and b.prj_id = #{prjId}
-		and b.prj_perm = 'GUEST'
+			and a.mem_id = b.mem_id
+			and b.prj_id = #{prjId}
+			and b.prj_perm = 'GUEST'
 	</select>
 	<!-- <resultMap id="tskList" type="co.plus.prj.pnw.vo.PNWVO"> <result property="" 
 		/> <result property="" /> <result property="" /> <collection property="" 
@@ -203,22 +211,22 @@
 		from task a, notice_writing b, project c
 		group by a.tsk_prgs
 		where a.noti_id = b.noti_id
-		and c.prj_id = #{prjId}
-		and c.prj_id = b.prj_id
+			and c.prj_id = #{prjId}
+			and c.prj_id = b.prj_id
 	</select>
 
 	<select id="tskNWList"> <!-- ** -->
 		select a.*, b.prj_id, b.noti_knd, b.mem_id as pic, b.noti_dttm, b.noti_open_perm, c.prj_ttl
 		from task a, notice_writing b, project c
 		where a.noti_id = b.noti_id
-		and c.prj_id = #{prjId}
-		and c.prj_id = b.prj_id
+			and c.prj_id = #{prjId}
+			and c.prj_id = b.prj_id
 		union
 		select d.*, e.prj_id, e.noti_knd, e.mem_id as pic, e.noti_dttm, e.noti_open_perm, f.prj_ttl
 		from task d, notice_writing e, project f
 		where a.noti_id = b.noti_id
-		and c.prj_id = #{prjId}
-		and c.prj_id = b.prj_id
+			and c.prj_id = #{prjId}
+			and c.prj_id = b.prj_id
 	</select>
 
 	<!-- 프로젝트 : 일정 -->

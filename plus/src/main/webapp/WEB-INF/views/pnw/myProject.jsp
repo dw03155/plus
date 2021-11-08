@@ -12,9 +12,6 @@
 		if (memId == null) {
 			sessionNo.submit();
 		}
-		$('li > a').on("click", function(e) {
-			e.preventDefault();
-		});
 	});
 </script>
 </head>
@@ -125,7 +122,7 @@
 											<p class="project-class">즐겨찾기</p>
 										</div>
 										<c:forEach var="favorPrj" items="${favorPrjs}">
-											<form id="prjMove" name="prjMove" action="prjHome.do" method="post">
+											<form action="prjHome.do" method="post">
 												<li class="project-item ui-state-default">
 													<a href="#">
 														<!-- 업데이트된 글 개수 -->
@@ -168,9 +165,9 @@
 											<p class="project-class join">참여중</p>
 										</div>
 										<c:forEach var="noPrj" items="${noPrjs}">
-										<form id="prjMove" name="prjMove" action="prjHome.do" method="post">
-											<li id="project" class="project-item ui-state-default"><a
-												href="#"> <!-- 업데이트된 글 개수 --> <input type="hidden"
+										<form action="prjHome.do" method="post">
+											<li class="project-item ui-state-default"><a
+												href=""> <!-- 업데이트된 글 개수 --> <input name="prjId" type="hidden"
 													value="${noPrj.prjId}" />
 													<div class="flow-content-ct project-badge"
 														style="display: none">0</div> <!-- 체크버튼 -->
@@ -215,9 +212,9 @@
 										<p class="project-class">즐겨찾기</p>
 									</div>
 									<c:forEach var="favorPrj" items="${favorPrjs}">
-									<form id="prjMove" name="prjMove" action="prjHome.do" method="post">
-										<input type="hidden" value="${favorPrj.prjId}" />
-										<li id="prj" class="project-item ui-state-default"><a
+									<form action="prjHome.do" method="post">
+										<input name="prjId" type="hidden" value="${favorPrj.prjId}" />
+										<li class="project-item ui-state-default"><a
 											href=""> <!-- 체크버튼 -->
 												<button class="edit-check flow-content-chk d-none"
 													style="display: none"></button>
@@ -250,8 +247,8 @@
 										<p class="project-class join">참여중</p>
 									</div>
 									<c:forEach var="noPrj" items="${noPrjs}">
-									<form id="prjMove" name="prjMove" action="prjHome.do" method="post">
-										<input type="hidden" value="${noPrj.prjId}" />
+									<form action="prjHome.do" method="post">
+										<input name="prjId" type="hidden" value="${noPrj.prjId}" />
 										<li class="project-item ui-state-default"><a href="">
 												<!-- 체크버튼 -->
 												<button class="edit-check flow-content-chk d-none"
@@ -304,11 +301,12 @@
 
 			// 프로젝트 이동하기
 			$("li > a").click(function(e) {
+				e.preventDefault();
 				console.log(e.currentTarget);
 				console.log($(e.currentTarget).parent('form'));
 				console.log($(e.currentTarget).parents('form'));
 				console.log($(e.currentTarget).closest('form'));
-				$(e.currentTarget).parents('form').submit();
+				$(e.currentTarget).closest('form').submit();
 			});
 		</script>
 </body>
