@@ -43,7 +43,23 @@
 									<!-- calendar -->
 									<div id="calendar"
 										class="all-calendar all-calendar-nav layer-scroll"></div>
+
 									<!-- calendar-popup -->
+									<!-- 전체 업무 상세보기 (모달창) -->
+									<div class="back-area temp-popup" tabindex="0" id="postPopup"
+										style="display: none;">
+										<div class="flow-project-make-1 back-area">
+											<div class="flow-project-make-2 back-area contents">
+												<div
+													class="js-post-nav card-item post-card-wrapper task  side">
+													<button type="button" class="post-popup-button left"></button>
+													<div id="modalBody"></div>
+													<!-- 모달창 Jsp (nwm > modal) -->
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- 모달창 끝 -->
 								</div>
 							</div>
 						</div>

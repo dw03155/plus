@@ -51,7 +51,7 @@
 						<div class="btns-wr">
 							<div class="project-search-area all-file-header-type-3">
 								<div class="project-search">
-									<form id="frm" name="frm" method="post">
+									<form name="frm" method="post">
 										<i class="icons-search"></i> <input type="text" name="notiTtl"
 											id="notiTtl" placeholder="업무명을 검색하세요!" autocomplete="off"
 											maxlength="20"
@@ -121,7 +121,8 @@
 											<!-- 갯수 -->
 											<span class="project-task-count">${fn:length(task.taskDetail)}</span>
 										</div> <!-- 프로젝트 안 업무 목록 -->
-										<ul class="js-inner-task project-inner-task active"
+										<ul id="allTskContentUl"
+											class="js-inner-task project-inner-task active"
 											style="display: none">
 											<c:forEach var="dtasks" items="${task.taskDetail}">
 												<li class="task-item ">
@@ -141,14 +142,14 @@
 													<div class="task-item-cell task-name task-task_nm-cell ">
 														<div
 															class="js-post-title task-title ellipsis js-mouseover"
-															mouseover-text="하위 업무 위치 찾기">
-															${dtasks.notiTtl } <em class="subtask-item"
-																style="display: none" data=""> <i
-																class="icons-subtask"></i> <span class="subtask-number">0</span>
+															mouseover-text="${dtasks.notiTtl }">
+															${dtasks.notiTtl }<em class="subtask-item"
+																style="display: none"> <i class="icons-subtask"></i>
+																<span class="subtask-number">0</span>
 															</em>
 														</div>
 														<div class="js-post-title project-title"
-															style="display: none" data="">
+															style="display: none">
 															<i class="icons-project-1"></i>${dtasks.prjTtl }
 														</div>
 													</div>
@@ -165,21 +166,21 @@
 														</span>
 													</div>
 													<div class="js-edtr_dt task-edtr_dt-cell task-item-cell ">
-														<div class="js-edtr_dt-text  ellipsis"=""="">
+														<div class="js-edtr_dt-text  ellipsis">
 															<fmt:formatDate pattern="yyyy-MM-dd"
 																value="${dtasks.tskBgnDt}" />
 														</div>
 
 													</div>
 													<div class="js-edtr_dt task-edtr_dt-cell task-item-cell ">
-														<div class="js-edtr_dt-text  ellipsis"=""="">
+														<div class="js-edtr_dt-text  ellipsis">
 															<fmt:formatDate pattern="yyyy-MM-dd"
 																value="${dtasks.tskEndDt}" />
 														</div>
 
 													</div>
 													<div class="js-edtr_dt task-edtr_dt-cell task-item-cell ">
-														<div class="js-edtr_dt-text  ellipsis"=""="">
+														<div class="js-edtr_dt-text  ellipsis">
 															<fmt:formatDate pattern="yyyy-MM-dd"
 																value="${dtasks.notiDttm}" />
 														</div>
@@ -351,10 +352,24 @@
 
 	<!-- highlight (상세보기 팝업)-->
 	<script>
-		$(".task-item").click(function() {
-			$(this).toggleClass("highlight");
-			$("#postPopup").toggle();
-
+		$("#allTskContentUl > li").click(function(e) {
+			 if($(e.currentTarget).hasClass("highlight")){
+				console.log("ddd===========================");
+				console.log($(e.currentTarget));
+				$(e.currentTarget).removeClass("highlight");
+				$("#postPopup").css("display","none");
+			}
+			else if (!$(e.currentTarget).hasClass("highlight")){
+				$("#allTskContentUl > li").removeClass("highlight");
+				$(e.currentTarget).addClass("highlight");
+				$("#postPopup").css("display","block");
+						 
+				tskPopUpDetail($(this));
+			}
+		});
+			
+		function tskPopUpDetail(li){
+			
 			$.ajax({
 				url : "myPostTsk.do",
 				type : 'GET',
@@ -362,9 +377,18 @@
 				dataType : "html",
 				success : function(data) {
 					$("#modalBody").html(data);
-				}
+				
+					
+				},
+			error:function(request,status,error){
+	             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	             
+	          }
+
+	
 			});
-		});
+		};
+		
 	</script>
 
 

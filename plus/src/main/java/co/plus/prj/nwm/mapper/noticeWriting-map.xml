@@ -32,27 +32,24 @@
 
 	<!-- 전체 메뉴 -> 전체 업무 -->
 	<select id="allTask" resultMap="tskResult">
-		SELECT prj_id, prj_ttl
-		FROM project
-		where prj_knd = 'C'
-		and co_url = #{coUrl}
+		SELECT  prj_id, prj_ttl
+		FROM 	project
+		where 	prj_knd = 'C'
+		and 	co_url = #{coUrl}
 		union
-		SELECT a.prj_id, a.prj_ttl
-		FROM project a, prj_parti b
-		where a.prj_knd = 'N'
-		and a.prj_id = b.prj_id
-		and b.mem_id =
-		#{memId}
-		and a.co_url = #{coUrl}
+		SELECT 	a.prj_id, a.prj_ttl
+		FROM 	project a, prj_parti b
+		where 	a.prj_knd = 'N'
+		and 	a.prj_id = b.prj_id
+		and 	b.mem_id = #{memId}
+		and 	a.co_url = #{coUrl}
 		union
-		SELECT c.prj_id, c.prj_ttl
-		FROM
-		project c, prj_parti d
-		where c.prj_knd = 'N'
-		and c.prj_open_perm = 'all'
-		and c.prj_id = d.prj_id
-		and c.co_url = #{coUrl}
-
+		SELECT  c.prj_id, c.prj_ttl
+		FROM	project c, prj_parti d
+		where 	c.prj_knd = 'N'
+		and 	c.prj_open_perm = 'all'
+		and 	c.prj_id = d.prj_id
+		and 	c.co_url = #{coUrl}
 	</select>
 
 	<select id="detailTaskList" resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
@@ -70,9 +67,9 @@
 	<!-- 전체 메뉴 -> 캘린더 -->
 	<select id="allSche"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select a.*, b.name
-		from schedule a, member b
-		where a.mem_id = b.mem_id
+		select  a.*, b.name
+		from 	schedule a, member b
+		where 	a.mem_id = b.mem_id
 		<!-- 일정 -> 일정 명으로 검색 -->
 		<if test="notiTtl != null and notiTtl != ''">
 			and noti_ttl like '%' || #{notiTtl} || '%'
@@ -80,10 +77,9 @@
 	</select>
 	<!-- 전체 메뉴 -> 파일 -->
 	<select id="allFile">
-		select a.noti_ttl, b.txt_file
-		from board a, text b
-		where a.noti_id =
-		b.noti_id
+		select  a.noti_ttl, b.txt_file
+		from 	board a, text b
+		where 	a.noti_id = b.noti_id
 		<!-- 파일 -> 게시물 명으로 검색 -->
 		<if test="notiTtl != null and notiTtl != ''">
 			and noti_ttl like '%' || #{notiTtl} || '%'
@@ -94,18 +90,17 @@
 	<select id="bookMarkList"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO"
 		parameterType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select a.noti_knd, a.noti_ttl, c.name, a.noti_dttm
-		from board a, bookmark b, member c
-		where a.mem_id = b.mem_id
-		and b.mem_id = c.mem_id
-		and b.noti_id = #{notiId}
+		select  a.noti_knd, a.noti_ttl, a.noti_dttm, b.*, c.name, c.co_url
+		from 	board a, bookmark b, member c
+		where 	a.mem_id = b.mem_id
+		and 	b.mem_id = c.mem_id
+        and 	a.noti_id = b.noti_id
+		and 	a.mem_id = #{memId}
 		<!-- 북마크 -> 게시물 명으로 검색 -->
 		<if test="notiTtl != null and notiTtl != ''">
 			and noti_ttl like '%' || #{notiTtl} || '%'
 		</if>
 	</select>
-
-
 
 	<!-- CREATE OR REPLACE FORCE VIEW "PLUS"."BOARD" ("NOTI_ID", "PRJ_ID", "NOTI_KND", 
 		"MEM_ID", "NOTI_DTTM", "NOTI_OPEN_PERM", "NOTI_TTL") AS select a."NOTI_ID",a."PRJ_ID",a."NOTI_KND",a."MEM_ID",a."NOTI_DTTM",a."NOTI_OPEN_PERM", 
@@ -133,20 +128,19 @@
 		and a.noti_id=
 		#{notiId}
 	</select>
+	
 	<!-- 내 게시물 목록 -> 업무 상세보기(팝업) -->
 	<select id="myPostTsk"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select a. noti_knd, b.name, c.*, d.prj_ttl, a.noti_dttm
-		from notice_writing
-		a, member b, task c, project d
-		where a.mem_id =
-		b.mem_id
-		and
-		a.prj_id=d.prj_id
-		and a.noti_id = c.noti_id
-		and c.mem_id=
-		#{memId}
+		select  a.* , b.co_url, b.prj_ttl,  c.noti_open_perm, c.noti_dttm, d.name
+		from 	task a, project b, board c, member d
+		where 	a.noti_id = c.noti_id 
+		and 	b.prj_id = c.prj_id
+		and 	b.co_url = d.co_url
+		and 	c.mem_id = d.mem_id
+		and 	b.co_url = #{coUrl}
 	</select>
+	
 	<!-- 내 게시물 목록 -> 하위업무 상세보기(팝업) -->
 	<select id="myPostSubtsk"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
@@ -159,6 +153,7 @@
 		and a.mem_id
 		= #{memId}
 	</select>
+	
 	<!-- 내 게시물 목록 -> 일정 상세보기(팝업) -->
 	<select id="myPostSche"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
@@ -171,6 +166,7 @@
 		and
 		a.noti_id = #{notiId}
 	</select>
+	
 	<!-- 내 게시물 목록 -> 할일 상세보기(팝업) -->
 	<select id="myPostTodo"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">

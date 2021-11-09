@@ -54,7 +54,8 @@ public class NoticeWritingController {
 	}
 
 	@RequestMapping("/bookmark.do") // 전체 메뉴 -> 북마크
-	String bookmark(Model model, NoticeWritingVO vo) {
+	String bookmark(HttpSession session, Model model, NoticeWritingVO vo) {
+		vo.setMemId((String)session.getAttribute("memId"));
 		model.addAttribute("bookmarks", nwDao.bookMarkList(vo));
 		return "nwm/bookmark";
 	}
@@ -67,7 +68,7 @@ public class NoticeWritingController {
 	
 	@RequestMapping("/myPostTsk.do") // 내 게시물 목록 -> 업무 상세보기(팝업)
 	public String myPostTsk(HttpSession session,Model model, NoticeWritingVO vo) {
-		vo.setMemId((String)session.getAttribute("memId"));
+		vo.setCoUrl((String)session.getAttribute("coUrl"));
 		model.addAttribute("tasks", nwDao.myPostTsk(vo));
 		return "nwm/modal/myPostTsk"; 
 	 }
