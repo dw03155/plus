@@ -25,6 +25,8 @@ public interface PNWMapper {
 		int prjUpdate(PNWVO vo);			// 프로젝트 수정(프로젝트명, 색깔, 공개권한)
 		int prjDelete(PNWVO vo);			// 프로젝트 삭제
 		PNWVO prjInfo(PNWVO vo);			// 프로젝트 홈탭 : 프로젝트 정보
+		int prjTskAllCount(PNWVO vo);		// 프로젝트 홈탭 : 업무(+하위업무) 갯수
+		List<PNWVO> prjTskCount(PNWVO vo);	// 프로젝트 홈탭 : 업무 상태별 갯수
 		List<PNWVO> pnwPinList(PNWVO vo);	// 프로젝트 홈탭 : 상단고정 게시글 목록
 		List<PNWVO> pnwAllList(PNWVO vo);	// 프로젝트 홈탭 : 전체 게시글 목록
 		int prjPartiCnt(PNWVO vo);			// 프로젝트 홈탭 : 전체 참여자 수
@@ -51,6 +53,5 @@ public interface PNWMapper {
 		int replyInsert(PNWVO vo);			// 댓글 생성
 		int replyUpdate(PNWVO vo);			// 댓글 수정
 		int replyDelete(PNWVO vo);			// 댓글 삭제
-
 
 }

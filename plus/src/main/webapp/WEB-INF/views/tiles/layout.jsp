@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -122,47 +123,135 @@ to { transform: rotate(360deg);}
 				</div>
 			</div>
 		</div>
-
-
-
-	</div>
-	<div id="bottomToolList" class="bottom-tool-list">
-		<div class="js-tool-item tool-item" id="quickGuideMenu"
-			data-code="quick" style="display: none;"></div>
 	</div>
 
-	<div id="quickGuideItem" class="d-none"></div>
 
-	<!-- 여기서부터 시작 -->
 
-	<div class="d-none"></div>
 
-	<div id="inviteItem" class="d-none"></div>
+	<!-- 새 프로젝트 -->
+	<div id="projectMakeLayer"
+		class="flow-all-background-1 d-none back-area" style="display: none;">
+		<div class="flow-project-make-1 back-area">
+			<div class="flow-project-make-2 back-area">
+				<div class="input-main-layer flow-project-popup-1 d-block">
+					<div class="flow-project-header-1">
+						<span id="projectMakePopupTitle">새 프로젝트</span>
+						<a id="closeProjectMake" href="#"
+							class="js-project-make-close-btn flow-close-type-1 close-event"></a>
+					</div>
+					<div class="flow-content scroll-mask">
+						<div class="flow-content-1">
+							<input id="projectTitleInput" type="text"
+								placeholder="제목을 입력하세요.(필수)" maxlength="50" autocomplete="off"
+								data-empty-msg="제목을 입력하세요." data-over-msg="제목은 50자 이하로 입력하세요."
+								data-required-yn="Y">
+						</div>
+						<div class="flow-content-2">
+							<textarea id="projectContentsInput"
+								placeholder="프로젝트에 관한 설명 입력 (옵션)" data-required-yn="N"></textarea>
+						</div>
+						
+						<div class="flow-content-3">
+							옵션
+						</div>
+						<c:if test="${memPerm eq 'ADMIN'}">
+						<a href="#"> </a>
+						<div class="open-yn check-setting flow-content-4">
+							<a> <em></em> 회사 프로젝트 설정
+							</a>
+							<button class="js-sendience-service-helper js-mouseover"
+								mouseover-text="회사 직원이라면 누구나 직접 참여를 요청할 수 있도록 설정합니다.">
+								<i class="icons-question"></i>
+							</button>
+							<a href="#">
+									<!-- active 클래스로 제어  -->
+								<button type="button"
+									class="toggle-button check-area js-project-open-toggle">
+									<i class="handle"></i>
+								</button>
+							</a>
+						</div>
+						</c:if>
 
-	<div id="postItem" class="d-none"></div>
+						<a href="#"> </a>
+						<div class="manager-permit-yn check-setting flow-content-5">
+							<a> <em></em> 프로젝트 전체공개 설정
+							</a>
+							<button class="js-sendience-service-helper js-mouseover"
+								mouseover-text="프로젝트 관리자의 승인 이후에 참여할 수 있도록 설정합니다.">
+								<i class="icons-question"></i>
+							</button>
+							<a href="#">
+								<button type="button"
+									class="toggle-button check-area js-project-toggle">
+									<!-- active 클래스로 제어  -->
+									<i class="handle"></i>
+								</button>
+							</a>
+						</div>
 
-	<div id="detailItemPack" class="d-none"></div>
+						<a href="#">
+							<div class="open-category-setting flow-content-8">
+								<em></em> 프로젝트 카테고리 설정
+								<div class="flow-sub-content-1">
+									<span id="categoryName" class="category-name">선택</span><em></em>
+									<i></i>
+								</div>
+							</div>
+						</a>
+					</div>
+					<a href="#">
+						<div class="project-submit flow-content-7 un-value">만들기</div>
+					</a>
+				</div>
+				
+				<div id="ctgrySet" class="open-category-layer flow-project-popup-2 d-none" style="display:none">
+					<div class="flow-project-header-1">
+						<a href="#"><em class="main-return-event"></em></a> 프로젝트
+						카테고리 설정 <a href="#" class="flow-close-type-1 close-event"></a>
 
-	<div id="postAttachedItem"></div>
+					</div>
+					<div class="flow-content scroll-mask">
+						<div class="flow-category-option-1">
+							<ul class="open-category-ul"></ul>
+						</div>
+					</div>
+					<div class="flow-pop-button-type-1">
+						<a href="#">
+							<div class="main-return-event flow-pop-sub-button-1">이전으로</div>
+						</a> <a href="#">
+							<div class="open-category-submit flow-pop-sub-button-2">적용
+							</div>
+						</a>
+					</div>
+				</div>
 
-	<div id="postDimdItem" class="d-none"></div>
+			</div>
+		</div>
+	</div>
+	<!-- //새 프로젝트 -->
 
-	<ul id="workerListItem" class="d-none"></ul>
-	<div id="workersPopup" class="d-none"></div>
-	<div id="workerSelectCount" class="d-none"></div>
-	<div id="taskSelectedWorkerItem" class="d-none"></div>
-	<div id="projectSelectableLayer" class="d-none"></div>
-	<div id="reactionCheckPopup" class="d-none"></div>
-	<div id="reactionCheckItem" class="d-none"></div>
-	<div id="readCheckPopup" class="d-none"></div>
-	<div id="readCheckItem" class="d-none"></div>
-	<div id="subTaskAreaItem" class="d-none"></div>
-	<div id="subTaskItem" class="d-none"></div>
-	<div id="subtaskInputItem" class="d-none"></div>
-	<div id="selectableProjectItem" class="d-none"></div>
-	<div id="requestJoinPopup" class="flow-all-background-1 d-none"></div>
-	<div id="joinParticipantItem" class="d-none"></div>
-	<div id="memberItem" style="display: none"></div>
+
+	<script type="text/javascript">
+		// 새 프로젝트 팝업창 열기
+		$("#prjMake").on('click', function(e) {
+			e.preventDefault();
+			$("#projectMakeLayer").css("display","block");
+
+		});
+		// 새 프로젝트 팝업창 닫기
+		$("#closeProjectMake").on('click', function(e) {
+			e.preventDefault();
+			$("#projectMakeLayer").css("display","none");
+		});
+		// 새 프로젝트 카테고리 설정
+		$("#categoryName").on('click', function(e) {
+			e.preventDefault();
+			$("#ctgrySet").css("display","block");
+		});
+	</script>
+
+
 
 	<script src="flow-renewal/dist/js/commonLib.min.js"></script>
 	<script src="flow-renewal/dist/js/common.min.js"></script>
@@ -171,9 +260,10 @@ to { transform: rotate(360deg);}
 	<script src="flow-renewal/dist/js/main.min.js"></script>
 	<script src="flow-renewal/dist/js/mainLib.min.js"></script>
 
-	<div id="popupDraw" class="d-none"></div>
-	<div id="itemComponent" class="d-none"></div>
-
 	<script async src="flow-renewal/js/main.js"></script>
+	
+	
+	
+	
 </body>
 </html>

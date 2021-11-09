@@ -83,8 +83,7 @@
 								class="js-project-order-layer menu-popup-layer-1"
 								style="display: none">
 								<ul class="menu-popup-t-1">
-									<li class="order-item"><i></i><span>최신 순(글/댓글)</span></li>
-									<li class="order-item"><i></i><span>내가 작성한 순 (글/댓글)</span></li>
+									<li class="order-item"><i></i><span>최신순</span></li>
 									<li class="order-item"><i></i><span>오름차순(ㄱ~ㅎ)</span></li>
 									<li class="order-item"><i></i><span>내림차순 (ㅎ~ㄱ)</span></li>
 								</ul>
@@ -125,8 +124,7 @@
 											<form action="prjHome.do" method="post">
 												<li class="project-item ui-state-default"><a href="#">
 														<input name="prjId" type="hidden"
-														value="${favorPrj.prjId}" />
-														<!-- 체크버튼 -->
+														value="${favorPrj.prjId}" /> <!-- 체크버튼 -->
 														<button class="edit-check flow-content-chk"
 															style="display: none"></button>
 														<div
@@ -142,19 +140,23 @@
 																<span class="member-cnt">${favorPrj.partiCnt}</span>
 																<div class="flow-content-fl-r">
 																	<c:if test="${favorPrj.prjKnd == 'N'}">
-																		<div
-																			class="project-stat-ico flow-content-jms-ico js-mouseover"
-																			mouseover-text="일반 프로젝트" style="display: block"></div>
+																		<c:if test="${favorPrj.prjOpenPerm == 'part'}">
+																			<div
+																				class="project-stat-ico flow-content-jms-ico js-mouseover"
+																				mouseover-text="일반 프로젝트 : 참여자공개"
+																				style="display: block"></div>
+																		</c:if>
+																		<c:if test="${favorPrj.prjOpenPerm == 'all'}">
+																			<div
+																				class="project-stat-ico icon-open-project js-mouseover"
+																				mouseover-text="일반 프로젝트 : 전체공개"
+																				style="display: block"></div>
+																		</c:if>
 																	</c:if>
 																	<c:if test="${favorPrj.prjKnd == 'C'}">
 																		<div
 																			class="project-stat-ico icon-company js-mouseover"
 																			mouseover-text="회사 프로젝트" style="display: block"></div>
-																	</c:if>
-																	<c:if test="${favorPrj.prjOpenPerm == 'all'}">
-																		<div
-																			class="project-stat-ico icon-open-project js-mouseover"
-																			mouseover-text="전체공개 프로젝트" style="display: block"></div>
 																	</c:if>
 																</div>
 															</div>
@@ -172,8 +174,7 @@
 											<form action="prjHome.do" method="post">
 												<li class="project-item ui-state-default"><a href="">
 														<!-- 업데이트된 글 개수 --> <input name="prjId" type="hidden"
-														value="${noPrj.prjId}" />
-														<!-- 체크버튼 -->
+														value="${noPrj.prjId}" /> <!-- 체크버튼 -->
 														<button class="edit-check flow-content-chk"
 															style="display: none"></button>
 														<div
@@ -189,19 +190,23 @@
 																<span class="member-cnt">${noPrj.partiCnt}</span>
 																<div class="flow-content-fl-r">
 																	<c:if test="${noPrj.prjKnd == 'N'}">
-																		<div
-																			class="project-stat-ico flow-content-jms-ico js-mouseover"
-																			mouseover-text="일반 프로젝트" style="display: block"></div>
+																		<c:if test="${noPrj.prjOpenPerm == 'part'}">
+																			<div
+																				class="project-stat-ico flow-content-jms-ico js-mouseover"
+																				mouseover-text="일반 프로젝트 : 참여자공개"
+																				style="display: block"></div>
+																		</c:if>
+																		<c:if test="${noPrj.prjOpenPerm == 'all'}">
+																			<div
+																				class="project-stat-ico icon-open-project js-mouseover"
+																				mouseover-text="일반 프로젝트 : 전체공개"
+																				style="display: block"></div>
+																		</c:if>
 																	</c:if>
 																	<c:if test="${noPrj.prjKnd == 'C'}">
 																		<div
 																			class="project-stat-ico icon-company js-mouseover"
 																			mouseover-text="회사 프로젝트" style="display: block"></div>
-																	</c:if>
-																	<c:if test="${noPrj.prjOpenPerm == 'all'}">
-																		<div
-																			class="project-stat-ico icon-open-project js-mouseover"
-																			mouseover-text="전체공개 프로젝트" style="display: block"></div>
 																	</c:if>
 																</div>
 															</div>
@@ -239,18 +244,21 @@
 													<strong class="project-badge" style="display: none">0</strong>
 													<div class="flow-content-fl-r">
 														<c:if test="${favorPrj.prjKnd == 'N'}">
-															<div
-																class="project-stat-ico flow-content-jms-ico js-mouseover"
-																mouseover-text="일반 프로젝트" style="display: block"></div>
+															<c:if test="${favorPrj.prjOpenPerm == 'part'}">
+																<div
+																	class="project-stat-ico flow-content-jms-ico js-mouseover"
+																	mouseover-text="일반 프로젝트 : 참여자공개" style="display: block"></div>
+															</c:if>
+															<c:if test="${favorPrj.prjOpenPerm == 'all'}">
+																<div
+																	class="project-stat-ico icon-open-project js-mouseover"
+																	mouseover-text="일반 프로젝트 : 전체공개" style="display: block">
+																</div>
+															</c:if>
 														</c:if>
 														<c:if test="${favorPrj.prjKnd == 'C'}">
 															<div class="project-stat-ico icon-company js-mouseover"
 																mouseover-text="회사 프로젝트" style="display: block"></div>
-														</c:if>
-														<c:if test="${favorPrj.prjOpenPerm == 'all'}">
-															<div
-																class="project-stat-ico icon-open-project js-mouseover"
-																mouseover-text="전체공개 프로젝트" style="display: block"></div>
 														</c:if>
 													</div>
 											</a></li>
@@ -280,18 +288,21 @@
 													<strong class="project-badge" style="display: none">0</strong>
 													<div class="flow-content-fl-r">
 														<c:if test="${noPrj.prjKnd == 'N'}">
-															<div
-																class="project-stat-ico flow-content-jms-ico js-mouseover"
-																mouseover-text="일반 프로젝트" style="display: block"></div>
+															<c:if test="${noPrj.prjOpenPerm == 'part'}">
+																<div
+																	class="project-stat-ico flow-content-jms-ico js-mouseover"
+																	mouseover-text="일반 프로젝트 : 참여자공개" style="display: block"></div>
+															</c:if>
+															<c:if test="${noPrj.prjOpenPerm == 'all'}">
+																<div
+																	class="project-stat-ico icon-open-project js-mouseover"
+																	mouseover-text="일반 프로젝트 : 전체공개" style="display: block">
+																</div>
+															</c:if>
 														</c:if>
 														<c:if test="${noPrj.prjKnd == 'C'}">
 															<div class="project-stat-ico icon-company js-mouseover"
 																mouseover-text="회사 프로젝트" style="display: block"></div>
-														</c:if>
-														<c:if test="${noPrj.prjOpenPerm == 'all'}">
-															<div
-																class="project-stat-ico icon-open-project js-mouseover"
-																mouseover-text="전체공개 프로젝트" style="display: block"></div>
 														</c:if>
 													</div>
 											</a></li>
@@ -324,10 +335,6 @@
 			// 프로젝트 이동하기
 			$("#projectHomeLayer").find("li > a").click(function(e) {
 				e.preventDefault();
-				console.log(e.currentTarget);
-				console.log($(e.currentTarget).parent('form'));
-				console.log($(e.currentTarget).parents('form'));
-				console.log($(e.currentTarget).closest('form'));
 				$(e.currentTarget).closest('form').submit();
 			});
 		</script>
