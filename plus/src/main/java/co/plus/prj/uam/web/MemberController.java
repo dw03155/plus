@@ -287,7 +287,20 @@ public class MemberController {
 	@PostMapping("/uploadLogo.do")
 	@ResponseBody
 	public void uploadLogo(MultipartFile[] logoInput) {
-		String uploadFolder = "C:\\Users\\admin\\git\\plus\\plus\\src\\main\\webapp\\logo";
+		
+		String path = "D:\\logo";
+		File Folder = new File(path);
+		
+		if(!Folder.exists()) {
+			Folder.mkdir();
+			System.out.println("폴더를 생성합니다.");
+			
+		}else {
+			System.out.println("폴더가 이미 있습니다.");
+		}
+		
+		File uploadFolder = Folder;
+				
 		
 		for(MultipartFile file : logoInput) {
 			String uploadFileName = file.getOriginalFilename();
@@ -434,9 +447,9 @@ public class MemberController {
 	
 	
 	//회사프로젝트
-	@GetMapping("/coPrjedit.do")
-	public String coPrjedit() {
-		return "uam/admin/menu/coPrjedit";
+	@GetMapping("/coPrjMangement.do")
+	public String coPrjMangement() {
+		return "uam/admin/menu/coPrjMangement";
 	}
 	//공개키테고리
 	@GetMapping("/openPrjCategory.do")

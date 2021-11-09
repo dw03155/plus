@@ -60,7 +60,7 @@
 				<div id="showfiles"></div>
 			</div>
 			<div class="section-2 middle-line js-project-section js-label-section">
-				<p class="project-class join">전용URL</p>
+				<!-- <p class="project-class join">전용URL</p> -->
 			</div>
 		 </div><!-- detailTimeline end -->
 	</div><!-- main-container end -->

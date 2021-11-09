@@ -11,5 +11,5 @@
 	<bean id="filePath" class="java.lang.String">
 		<constructor-arg value="C:\\Users\\admin\\git\\plus\\plus\\src\\main\\webapp\\logo" />
 	</bean>
-
+		<!-- request.getSession().getServletContext().getRealPath("/") + "//fileUp//" -->
 </beans>
