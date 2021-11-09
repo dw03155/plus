@@ -73,12 +73,6 @@
 	<header class="header">
 		<div id="userSetting">
 		<div id="rightTopMenu" class="top-btns">
-			<button type="button" id="organizationTopButton"
-				class="btn-organization js-mouseover
-            js-button-tooltip"
-				mouseover-text="조직도">
-				<i class="icon-organization"></i>
-			</button>
 			<button type="button" id="chattingTopButton"
 				class="btn-chatting js-mouseover
             js-button-tooltip"
