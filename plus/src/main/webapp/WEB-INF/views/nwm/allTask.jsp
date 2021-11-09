@@ -377,7 +377,15 @@
 				dataType : "html",
 				success : function(data) {
 					$("#modalBody").html(data);
-				
+					if(data != ""){		
+						for(i=0; i<data.length; i++){
+						var item = data[i];
+						if(){
+							
+						
+						}else if(){
+							
+						}
 					
 				},
 			error:function(request,status,error){
