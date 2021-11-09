@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,11 +12,11 @@
 			<a class="js-logo logo-box">
 				<h1 class="logo-1">
 					<img src="flow-renewal/assets/images/flow_logo.png?height=20"
-						alt="flow" srcset="" />
+						alt="flow" />
 				</h1>
 			</a>
 		</div>
-		<a href="" class="js-left-menu">
+		<a id="prjMake" href="" class="js-left-menu">
 			<div id="projectMakeButton" class="new-project-1">
 				<div class="button-suport-1"></div>
 				새 프로젝트
@@ -60,34 +60,29 @@
 		</ul>
 		<ul id="leftScroll" class="menu-accordion-group scroll-mask">
 
-            <li>
-                <div class="menu-accordion-button active left-menu-item" data-code="collect-more">
-                    모아보기<i class="ico-arrow"></i>
-                </div>
-                <div class="menu-accordion" style="display: block">
-                    <ul class="menu-accordion-list">
-                        <li data-code="task" class="left-menu-item">
-                            <a href="allTask.do"><i class="ico-task"></i>전체 업무
-                            </a>
-                        </li>
-                        <li data-code="gantt" class="left-menu-item" id="leftMenuGantt" style="display: none;">
-                            <a href=""><i class="ico-ganttchart"></i>간트차트</a>
-                        </li>
-                        <li data-code="schd" class="left-menu-item">
-                            <a href="allSche.do"><i class="ico-schedule"></i>캘린더</a>
-                        </li>
-                        <li data-code="file" class="left-menu-item">
-                            <a  href="allFile.do"><i class="ico-filebox"></i>파일함</a>
-                        </li>
-                        <li data-code="bookmark" class="left-menu-item">
-                            <a  href="bookmark.do"><i class="ico-bookmark"></i>북마크</a>
-                        </li>
-                        <li data-code="mypost" class="left-menu-item">
-                            <a href="myPost.do"><i class="ico-my-write"></i>내 게시물</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
+			<li>
+				<div class="menu-accordion-button active left-menu-item"
+					data-code="collect-more">
+					모아보기<i class="ico-arrow"></i>
+				</div>
+				<div class="menu-accordion" style="display: block">
+					<ul class="menu-accordion-list">
+						<li data-code="task" class="left-menu-item"><a
+							href="allTask.do"><i class="ico-task"></i>전체 업무 </a></li>
+						<li data-code="gantt" class="left-menu-item" id="leftMenuGantt"
+							style="display: none;"><a href=""><i
+								class="ico-ganttchart"></i>간트차트</a></li>
+						<li data-code="schd" class="left-menu-item"><a
+							href="allSche.do"><i class="ico-schedule"></i>캘린더</a></li>
+						<li data-code="file" class="left-menu-item"><a
+							href="allFile.do"><i class="ico-filebox"></i>파일함</a></li>
+						<li data-code="bookmark" class="left-menu-item"><a
+							href="bookmark.do"><i class="ico-bookmark"></i>북마크</a></li>
+						<li data-code="mypost" class="left-menu-item"><a
+							href="myPost.do"><i class="ico-my-write"></i>내 게시물</a></li>
+					</ul>
+				</div>
+			</li>
 
 			<li>
 				<div id="allLabelLeftButton"
@@ -103,7 +98,7 @@
 				<div class="menu-accordion">
 					<ul id="allLabelUl" class="menu-accordion-list d-none ui-sortable"
 						style="display: block">
-						<li id="label-1" label-srno="1" class="label-item "><i
+						<li class="label-item "><i
 							class="ico-label"></i> <span
 							class="js-label-name js-mouseover ellipsis" mouseover-text="마케팅">마케팅</span>
 							<a href="#" id="dash-three"
@@ -113,7 +108,7 @@
 								<div></div>
 						</a></li>
 
-						<li id="label-2" label-srno="2" class="label-item "><i
+						<li class="label-item "><i
 							class="ico-label"></i> <span
 							class="js-label-name js-mouseover ellipsis" mouseover-text="디자인">디자인</span>
 							<a href="#" id="dash-three"
@@ -123,7 +118,7 @@
 								<div></div>
 						</a></li>
 
-						<li id="label-3" label-srno="3" class="label-item "><i
+						<li class="label-item "><i
 							class="ico-label"></i> <span
 							class="js-label-name js-mouseover ellipsis"
 							mouseover-text="엔지니어링">엔지니어링</span> <a href="#" id="dash-three"
@@ -147,80 +142,13 @@
 			</div>
 		</div>
 		<c:if test="${memPerm eq 'ADMIN'}">
-		<ul id="leftBottomUl" class="menu-group admin">
-			<li data-code="manageradmin" class="d-none left-menu-item"
-				style="display: block"><a id="managerAdmin" href="companyInfo.do"><i
-					class="ico-admin"></i>어드민</a></li>
-		</ul>
+			<ul id="leftBottomUl" class="menu-group admin">
+				<li data-code="manageradmin" class="d-none left-menu-item"
+					style="display: block"><a id="managerAdmin"
+					href="companyInfo.do"><i class="ico-admin"></i>어드민</a></li>
+			</ul>
 		</c:if>
 	</div>
 
-	<script type="text/javascript">
-	
-		$('#dash-three').on(
-				"click",
-				function() {
-					if ($leftScroll.next(".js-label-setting-layer").is(
-							":visible")) {
-						$('#labelSettingLayer').attr({
-							label_srno : "",
-							label_text : ""
-						}).css({
-							display : "none"
-						});
-					}
-					$('#labelSettingLayer').css(
-							{
-								display : 'block',
-								transform : 'translate(' + e.pageX + 'px, '
-										+ e.pageY + 'px)',
-								top : (-58 - Number($("#topBanner").css(
-										"height").replace("px", "")))
-										+ "px",
-								left : '10px'
-							});
-					$('#labelSettingLayer').attr({
-						label_srno : $labelItem.attr("label-srno"),
-						label_text : $labelItem.find(".js-label-name").text(),
-					})
-				});
-
-		function clickAllLabelArea(e) {
-			var $eTarget = $(e.target);
-			var $leftScroll = $eTarget.findUp("#leftScroll");
-			var isThreeDot = $eTarget.hasClass("flow-dash-three");
-			var isTargetSettingPopup = $eTarget.findUp(".setting-popup").length > 0;
-			var $labelItem = $eTarget.findUp(".label-item");
-			if (isTargetSettingPopup)
-				return false;
-
-			if (isThreeDot) {
-				var isOnSettingPopup = $leftScroll.next(
-						".js-label-setting-layer").is(":visible");
-				var $labelSettingLayer = $leftScroll
-						.next(".js-label-setting-layer");
-				var isSameLabelTarget = $labelSettingLayer.attr("label_srno") === $labelItem
-						.attr("label-srno");
-				isOnSettingPopup = isOnSettingPopup && isSameLabelTarget;
-				if (isOnSettingPopup) {
-					$labelSettingLayer.attr({
-						label_srno : "",
-						label_text : ""
-					}).css({
-						display : "none"
-					});
-					return;
-				}
-			}
-
-			if ($labelItem.length === 0)
-				return;
-			ViewChanger.loadPageJson({
-				code : "label",
-				first : $labelItem.attr('label-srno'),
-				second : $labelItem.find(".js-label-name").text(),
-			})
-		}
-	</script>
 </body>
 </html>

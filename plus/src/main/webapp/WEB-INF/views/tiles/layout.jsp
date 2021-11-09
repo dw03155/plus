@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,16 +37,44 @@
 <script type="text/javascript" charset="UTF-8"
 	src="https://maps.googleapis.com/maps-api-v3/api/js/46/8/intl/ko_ALL/util.js"></script>
 
-<script async="" src="flow-renewal/js/main.js"></script><!-- 제일 밑에 있던 js -->
+<script async="" src="flow-renewal/js/main.js"></script>
+<!-- 제일 밑에 있던 js -->
 
 <style type="text/css">
-@-webkit-keyframes rotate {
-from { -webkit-transform:rotate(0deg);}
-to { -webkit-transform: rotate(360deg);}
+@
+-webkit-keyframes rotate {from { -webkit-transform:rotate(0deg);
+	
 }
-@keyframes rotate{
-from { transform:rotate(0deg);}
-to { transform: rotate(360deg);}
+
+to {
+	-webkit-transform: rotate(360deg);
+}
+
+}
+@
+keyframes rotate {from { transform:rotate(0deg);
+	
+}
+
+to {
+	transform: rotate(360deg);
+}
+
+}
+.st_modal {
+	min-width: 115px;
+	padding: 14px;
+	position: absolute;
+	top: 160px;
+	right: 238px;
+	z-index: 13;
+	background: #fff;
+	border: 1px solid #777;
+	border-radius: 8px;
+	font-size: 13px;
+	text-align: left;
+	color: #555;
+	display: none;
 }
 </style>
 </head>
@@ -122,47 +151,121 @@ to { transform: rotate(360deg);}
 				</div>
 			</div>
 		</div>
-
-
-
-	</div>
-	<div id="bottomToolList" class="bottom-tool-list">
-		<div class="js-tool-item tool-item" id="quickGuideMenu"
-			data-code="quick" style="display: none;"></div>
 	</div>
 
-	<div id="quickGuideItem" class="d-none"></div>
 
-	<!-- 여기서부터 시작 -->
 
-	<div class="d-none"></div>
 
-	<div id="inviteItem" class="d-none"></div>
+	<!-- 새 프로젝트 -->
+	<div id="projectMakeLayer"
+		class="flow-all-background-1 d-none back-area" style="display: none;">
+		<div class="flow-project-make-1 back-area">
+			<div class="flow-project-make-2 back-area">
+				<div class="input-main-layer flow-project-popup-1 d-block">
+					<div class="flow-project-header-1">
+						<span id="projectMakePopupTitle">새 프로젝트</span> <a
+							id="closeProjectMake" href="#"
+							class="js-project-make-close-btn flow-close-type-1 close-event"></a>
+					</div>
+					<div class="flow-content scroll-mask">
+						<div class="flow-content-1">
+							<input id="projectTitleInput" type="text"
+								placeholder="제목 입력 (필수)" maxlength="50" autocomplete="off">
+						</div>
+						<div class="flow-content-2">
+							<textarea id="projectContentsInput"
+								placeholder="프로젝트에 관한 설명 입력 (옵션)"></textarea>
+						</div>
 
-	<div id="postItem" class="d-none"></div>
+						<div class="flow-content-3">옵션</div>
+						<c:if test="${memPerm eq 'ADMIN'}">
 
-	<div id="detailItemPack" class="d-none"></div>
+							<div class="open-yn check-setting flow-content-4">
+								<a> <em></em> 회사 프로젝트 설정
+								</a>
+								<button class="js-sendience-service-helper js-mouseover"
+									mouseover-text="전체에게 공개되며 모두 참여할 수 있도록 설정됩니다.">
+									<i class="icons-question"></i>
+								</button>
+								<a href="#"> <!-- active 클래스로 제어  -->
+									<button type="button"
+										class="toggle-button check-area js-project-open-toggle">
+										<i class="handle"></i>
+									</button>
+								</a>
+							</div>
+						</c:if>
 
-	<div id="postAttachedItem"></div>
 
-	<div id="postDimdItem" class="d-none"></div>
+						<div class="manager-permit-yn check-setting flow-content-5">
+							<a> <em></em> 프로젝트 전체공개 설정
+							</a>
+							<button class="js-sendience-service-helper js-mouseover"
+								mouseover-text="회사 임직원 모두 볼 수 있도록 설정합니다.">
+								<i class="icons-question"></i>
+							</button>
+							<a href="#">
+								<button type="button"
+									class="toggle-button check-area js-project-toggle">
+									<!-- active 클래스로 제어  -->
+									<i class="handle"></i>
+								</button>
+							</a>
+						</div>
+						<a href="#">
+							<div class="open-category-setting flow-content-8">
+								<em></em> 프로젝트 카테고리 설정
+								<div class="flow-sub-content-1">
+									<span id="categoryName" class="category-name">선택</span><em></em>
+									<i></i>
+								</div>
+							</div>
+						</a>
+						
+						<div class="flow-category-option-1">
+							<ul id="status" class="st_modal">
+								<li id="online" class="statusStyle"><a href="#">온라인</a></li>
+								<li id="notdesk" class="statusStyle"><a href="#"> 자리비움</a></li>
+								<li id="other" class="statusStyle"><a href="#"> 다른용무중</a></li>
+								<li id="offline" class="statusStyle"><a href="#"> 오프라인</a></li>
+							</ul>
+						</div>
+						
+					</div>
+					<a href="#">
+						<div class="project-submit flow-content-7 un-value">만들기</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //새 프로젝트 -->
 
-	<ul id="workerListItem" class="d-none"></ul>
-	<div id="workersPopup" class="d-none"></div>
-	<div id="workerSelectCount" class="d-none"></div>
-	<div id="taskSelectedWorkerItem" class="d-none"></div>
-	<div id="projectSelectableLayer" class="d-none"></div>
-	<div id="reactionCheckPopup" class="d-none"></div>
-	<div id="reactionCheckItem" class="d-none"></div>
-	<div id="readCheckPopup" class="d-none"></div>
-	<div id="readCheckItem" class="d-none"></div>
-	<div id="subTaskAreaItem" class="d-none"></div>
-	<div id="subTaskItem" class="d-none"></div>
-	<div id="subtaskInputItem" class="d-none"></div>
-	<div id="selectableProjectItem" class="d-none"></div>
-	<div id="requestJoinPopup" class="flow-all-background-1 d-none"></div>
-	<div id="joinParticipantItem" class="d-none"></div>
-	<div id="memberItem" style="display: none"></div>
+
+	<script type="text/javascript">
+		// 새 프로젝트 팝업창 열기
+		$("#prjMake").on('click', function(e) {
+			e.preventDefault();
+			$("#projectMakeLayer").css("display", "block");
+
+		});
+		// 새 프로젝트 팝업창 닫기
+		$("#closeProjectMake").on('click', function(e) {
+			e.preventDefault();
+			$("#projectMakeLayer").css("display", "none");
+		});
+		// 새 프로젝트 카테고리 설정
+		$("#categoryName").on('click', function(e) {
+			e.preventDefault();
+			$("#status").css("display", "block");
+		});
+		// 새 프로젝트 카테고리 설정
+		$("button").on('click', function(e) {
+			$(e.target).toggleClass("active");
+		});
+	</script>
+
+
 
 	<script src="flow-renewal/dist/js/commonLib.min.js"></script>
 	<script src="flow-renewal/dist/js/common.min.js"></script>
@@ -171,9 +274,10 @@ to { transform: rotate(360deg);}
 	<script src="flow-renewal/dist/js/main.min.js"></script>
 	<script src="flow-renewal/dist/js/mainLib.min.js"></script>
 
-	<div id="popupDraw" class="d-none"></div>
-	<div id="itemComponent" class="d-none"></div>
-
 	<script async src="flow-renewal/js/main.js"></script>
+
+
+
+
 </body>
 </html>
