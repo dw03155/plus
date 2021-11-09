@@ -543,107 +543,6 @@
 
 
 
-<!-- 조직도 ~ 채팅 id = mainBodyWrap 안의 내용, 팝업 실행해보고 안되면 안에 넣기-->
-
-	<!-- 조직도 팝업 -->
-	<article id="organizationLayer" class="side-wr" style="display: none">
-		<div class="menu-top">
-			<strong> 조직도</strong>
-			<button id="organizationChartCloseBtn" class="btn-close">
-				<i class="icons-close-1"></i>
-			</button>
-		</div>
-		<div class="side-contents">
-			<!-- 조직도 리스트 -->
-			<strong id="companyName" class="org-tit"></strong>
-			<div id="orgSearch" class="all-setup-type-2">
-				<i class="icons-search"></i> <input id="organizationInput"
-					type="text" class="all-setup-input-type-1"
-					placeholder="이름 소속 연락처 내선 검색" autocomplete="off">
-			</div>
-			<div
-				class="group-tree-wrap-1 coperate-section-position-fix-1 js-group-tree-wrap">
-				<ul id="organizationChart">
-				</ul>
-				<div id="nullDvsnData" style="display: none;">
-					<div class="group-sub-null-type-1"></div>
-					<span>조직도가 존재하지 않습니다.</span>
-				</div>
-			</div>
-		</div>
-
-		<div id="emplArea" class="sub-drag-section-2" style="display: none">
-			<div class="line-fixed-section-1">
-				<div id="drag" class="sub-drag-icon-type-1 drag"></div>
-			</div>
-			<div class="sub-drag-header-type-2">
-				<span class="dvsn-name" id="emplList-dvsnName"></span> <span
-					id="resultSearch" class="empl-search-text d-none">검색 결과</span> <a
-					id="emplAreaCloseBtn" href="#" class="group-close-type-1"></a>
-			</div>
-
-			<div class="sub-drag-picture-section-1">
-				<div id="existEmplData" style="display: none">
-					<ul id="organizationChart-emplList">
-					</ul>
-				</div>
-
-				<div id="nullEmplData" class="null-empl-search"
-					style="display: none;">
-					<div class="null-wr">
-						<div class="group-sub-null-type-1"></div>
-						<span>검색 결과가 없습니다.</span>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-		<div id="organizationItem" style="display: none">
-			<li class="department-item" dvsn-cd="{dvsn-cd}" depth="{depth}"
-				hgrn-dvsn-cd="{hgrn-dvsn-cd}" {margin-style}="">{group-icon} <em
-				class="{button-class}"></em> <span style="cursor: pointer"
-				class="group-tree-position-fix-type-{last-code} department-name group-tree-position-fix-type-1 {active}">{dvsn-nm}</span>
-				<a href="#" class="js-dvsn-select coperate-check-type-1 d-none"
-				{right-style}=""></a> <em class="{root-dvsn-line}"></em>
-			</li>
-		</div>
-
-		<div id="chartDepthLineItem" style="display: none">
-			<em class="chart-depth-line" {depth-line-left}=""></em>
-		</div>
-
-		<div id="emplListItem" style="display: none">
-			<li class="js-participant-item" data-id="{USER_ID}"
-				rcvr_cd="{USER_ID}" rcvr_gb="U" id="{id}"
-				profile-image="{PRFL_PHTG}">
-				<div class="mini-mode-text-sub-area-1">
-					<div class="mini-mode-main-picture-1" {image}=""></div>
-					<div class="mini-mode-area-list-type-1">
-						<p>
-							<strong id="name">{FLNM}</strong>{JBCL_NM}
-						</p>
-						<p class="mini-mode-text-gray-1">
-							<span>{CMNM}</span> {DVSN_NM}
-						</p>
-					</div>
-				</div> <a href="#" id="miniOrganizationChatButton"
-				class="mini-mode-circle-type-1 js-participant-chat"> <i
-					class="icons-chat"></i>
-			</a>
-				<div id="selectMemberBtn"
-					class="my-check-2 select-member-btn d-none"></div>
-			</li>
-		</div>
-	</article>
-
-
-
-
-
-
-
-
 
 	<!-- 알림 팝업 -->
 	<article id="alarmLayer" class="side-wr d-none">
@@ -746,10 +645,6 @@
 		</div>
 
 	</article>
-
-
-
-
 
 
 

@@ -37,16 +37,44 @@
 <script type="text/javascript" charset="UTF-8"
 	src="https://maps.googleapis.com/maps-api-v3/api/js/46/8/intl/ko_ALL/util.js"></script>
 
-<script async="" src="flow-renewal/js/main.js"></script><!-- 제일 밑에 있던 js -->
+<script async="" src="flow-renewal/js/main.js"></script>
+<!-- 제일 밑에 있던 js -->
 
 <style type="text/css">
-@-webkit-keyframes rotate {
-from { -webkit-transform:rotate(0deg);}
-to { -webkit-transform: rotate(360deg);}
+@
+-webkit-keyframes rotate {from { -webkit-transform:rotate(0deg);
+	
 }
-@keyframes rotate{
-from { transform:rotate(0deg);}
-to { transform: rotate(360deg);}
+
+to {
+	-webkit-transform: rotate(360deg);
+}
+
+}
+@
+keyframes rotate {from { transform:rotate(0deg);
+	
+}
+
+to {
+	transform: rotate(360deg);
+}
+
+}
+.st_modal {
+	min-width: 115px;
+	padding: 14px;
+	position: absolute;
+	top: 160px;
+	right: 238px;
+	z-index: 13;
+	background: #fff;
+	border: 1px solid #777;
+	border-radius: 8px;
+	font-size: 13px;
+	text-align: left;
+	color: #555;
+	display: none;
 }
 </style>
 </head>
@@ -135,50 +163,45 @@ to { transform: rotate(360deg);}
 			<div class="flow-project-make-2 back-area">
 				<div class="input-main-layer flow-project-popup-1 d-block">
 					<div class="flow-project-header-1">
-						<span id="projectMakePopupTitle">새 프로젝트</span>
-						<a id="closeProjectMake" href="#"
+						<span id="projectMakePopupTitle">새 프로젝트</span> <a
+							id="closeProjectMake" href="#"
 							class="js-project-make-close-btn flow-close-type-1 close-event"></a>
 					</div>
 					<div class="flow-content scroll-mask">
 						<div class="flow-content-1">
 							<input id="projectTitleInput" type="text"
-								placeholder="제목을 입력하세요.(필수)" maxlength="50" autocomplete="off"
-								data-empty-msg="제목을 입력하세요." data-over-msg="제목은 50자 이하로 입력하세요."
-								data-required-yn="Y">
+								placeholder="제목 입력 (필수)" maxlength="50" autocomplete="off">
 						</div>
 						<div class="flow-content-2">
 							<textarea id="projectContentsInput"
-								placeholder="프로젝트에 관한 설명 입력 (옵션)" data-required-yn="N"></textarea>
+								placeholder="프로젝트에 관한 설명 입력 (옵션)"></textarea>
 						</div>
-						
-						<div class="flow-content-3">
-							옵션
-						</div>
+
+						<div class="flow-content-3">옵션</div>
 						<c:if test="${memPerm eq 'ADMIN'}">
-						<a href="#"> </a>
-						<div class="open-yn check-setting flow-content-4">
-							<a> <em></em> 회사 프로젝트 설정
-							</a>
-							<button class="js-sendience-service-helper js-mouseover"
-								mouseover-text="회사 직원이라면 누구나 직접 참여를 요청할 수 있도록 설정합니다.">
-								<i class="icons-question"></i>
-							</button>
-							<a href="#">
-									<!-- active 클래스로 제어  -->
-								<button type="button"
-									class="toggle-button check-area js-project-open-toggle">
-									<i class="handle"></i>
+
+							<div class="open-yn check-setting flow-content-4">
+								<a> <em></em> 회사 프로젝트 설정
+								</a>
+								<button class="js-sendience-service-helper js-mouseover"
+									mouseover-text="전체에게 공개되며 모두 참여할 수 있도록 설정됩니다.">
+									<i class="icons-question"></i>
 								</button>
-							</a>
-						</div>
+								<a href="#"> <!-- active 클래스로 제어  -->
+									<button type="button"
+										class="toggle-button check-area js-project-open-toggle">
+										<i class="handle"></i>
+									</button>
+								</a>
+							</div>
 						</c:if>
 
-						<a href="#"> </a>
+
 						<div class="manager-permit-yn check-setting flow-content-5">
 							<a> <em></em> 프로젝트 전체공개 설정
 							</a>
 							<button class="js-sendience-service-helper js-mouseover"
-								mouseover-text="프로젝트 관리자의 승인 이후에 참여할 수 있도록 설정합니다.">
+								mouseover-text="회사 임직원 모두 볼 수 있도록 설정합니다.">
 								<i class="icons-question"></i>
 							</button>
 							<a href="#">
@@ -189,7 +212,6 @@ to { transform: rotate(360deg);}
 								</button>
 							</a>
 						</div>
-
 						<a href="#">
 							<div class="open-category-setting flow-content-8">
 								<em></em> 프로젝트 카테고리 설정
@@ -199,33 +221,21 @@ to { transform: rotate(360deg);}
 								</div>
 							</div>
 						</a>
+						
+						<div class="flow-category-option-1">
+							<ul id="status" class="st_modal">
+								<li id="online" class="statusStyle"><a href="#">온라인</a></li>
+								<li id="notdesk" class="statusStyle"><a href="#"> 자리비움</a></li>
+								<li id="other" class="statusStyle"><a href="#"> 다른용무중</a></li>
+								<li id="offline" class="statusStyle"><a href="#"> 오프라인</a></li>
+							</ul>
+						</div>
+						
 					</div>
 					<a href="#">
 						<div class="project-submit flow-content-7 un-value">만들기</div>
 					</a>
 				</div>
-				
-				<div id="ctgrySet" class="open-category-layer flow-project-popup-2 d-none" style="display:none">
-					<div class="flow-project-header-1">
-						<a href="#"><em class="main-return-event"></em></a> 프로젝트
-						카테고리 설정 <a href="#" class="flow-close-type-1 close-event"></a>
-
-					</div>
-					<div class="flow-content scroll-mask">
-						<div class="flow-category-option-1">
-							<ul class="open-category-ul"></ul>
-						</div>
-					</div>
-					<div class="flow-pop-button-type-1">
-						<a href="#">
-							<div class="main-return-event flow-pop-sub-button-1">이전으로</div>
-						</a> <a href="#">
-							<div class="open-category-submit flow-pop-sub-button-2">적용
-							</div>
-						</a>
-					</div>
-				</div>
-
 			</div>
 		</div>
 	</div>
@@ -236,18 +246,22 @@ to { transform: rotate(360deg);}
 		// 새 프로젝트 팝업창 열기
 		$("#prjMake").on('click', function(e) {
 			e.preventDefault();
-			$("#projectMakeLayer").css("display","block");
+			$("#projectMakeLayer").css("display", "block");
 
 		});
 		// 새 프로젝트 팝업창 닫기
 		$("#closeProjectMake").on('click', function(e) {
 			e.preventDefault();
-			$("#projectMakeLayer").css("display","none");
+			$("#projectMakeLayer").css("display", "none");
 		});
 		// 새 프로젝트 카테고리 설정
 		$("#categoryName").on('click', function(e) {
 			e.preventDefault();
-			$("#ctgrySet").css("display","block");
+			$("#status").css("display", "block");
+		});
+		// 새 프로젝트 카테고리 설정
+		$("button").on('click', function(e) {
+			$(e.target).toggleClass("active");
 		});
 	</script>
 
@@ -261,9 +275,9 @@ to { transform: rotate(360deg);}
 	<script src="flow-renewal/dist/js/mainLib.min.js"></script>
 
 	<script async src="flow-renewal/js/main.js"></script>
-	
-	
-	
-	
+
+
+
+
 </body>
 </html>
