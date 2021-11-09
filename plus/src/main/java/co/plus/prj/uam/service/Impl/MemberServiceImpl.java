@@ -156,16 +156,39 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberVO> getNotusedMemberList(MemberVO vo) {
 		return map.getNotusedMemberList(vo);
 	}
+	
 	// 가입대기 사용자
 	@Override
 	public List<MemberVO> getOutstandMemberList(MemberVO vo) {
 		return map.getOutstandMemberList(vo);
 	}
+	// 가입대기 사용자 승인
+	@Override
+	public int outstandIn(MemberVO vo) {
+		return map.outstandIn(vo);
+	}
+	// 가입대기 사용자 거절
+	@Override
+	public int outstandOut(MemberVO vo) {
+		return map.outstandOut(vo);
+	}
+	
 	// 게스트
 	@Override
 	public List<MemberVO> getGuestMemberList(MemberVO vo) {
 		return map.getGuestMemberList(vo);
 	}
+	// 게스트 사용자 승인
+	@Override
+	public int guestIn(MemberVO vo) {
+		return map.guestIn(vo);
+	}
+	// 게스트 사용자 삭제
+	@Override
+	public int guestOut(MemberVO vo) {
+		return map.guestOut(vo);
+	}
+														//카테고리
 	// 공개 카테고리 조회
 	@Override
 	public List<MemberVO> getCategoryList(MemberVO vo) {
@@ -182,6 +205,7 @@ public class MemberServiceImpl implements MemberService {
 	public int categoryInsert(MemberVO vo) {
 		return map.categoryInsert(vo);
 	}
+	
 	
 	
 

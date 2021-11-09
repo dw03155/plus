@@ -123,7 +123,7 @@
 		</div>
 	</header>
 
-	<div id="MySettiong" class="model" style="display: none">
+	<div id="MySettiong" class="flow-all-background-1 zx-9 d-block" style="display: none">
 		<div class="flow-project-make-1">
 			<div class="flow-project-make-2">
 				<div id="innerMySettingPopup" class="my-layer-type-3">

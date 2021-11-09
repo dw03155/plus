@@ -79,6 +79,7 @@
 				<table id="usingMemberList" border="1">
 					<thead class="memberthead">
 						<tr>
+							<th></th>
 							<th>이름</th>
 							<th>부서</th>
 							<th>직책</th>
@@ -91,18 +92,24 @@
 					<tbody id="usinglist" >
 						<c:if test="${empty using }">
 							<tr>
-								<td colspan="7">NODATA</td>
+								<td colspan="8">NODATA</td>
 							</tr>
 						</c:if>
 						<c:forEach var="usings" items="${using }">
 						<tr>
+							<td><input type="hidden" value="${usings.memId }"></td>
 							<td>${usings.name }</td>
 							<td>${usings.dept }</td>
 							<td>${usings.wkpo }</td>
 							<td>${usings.email }</td>
 							<td>${usings.persTel }</td>
-							<td></td>
-							<td><input type='checkbox'></td>
+							<c:if test="${usings.memPerm eq 'ADMIN'}">
+							<td>관리자</td>
+							</c:if>
+							<c:if test="${usings.memPerm eq 'USER'}">
+							<td>사원</td>
+							</c:if>
+							<td><input type='checkbox' class="usingCheck"></td>
 						</tr>
 						</c:forEach>
 					</tbody>
@@ -114,22 +121,34 @@
 				<table id="notUsedMemberList" border="1">
 					<thead class="memberthead">
 					<tr>
+						<th></th>
 						<th>이름</th>
 						<th>이메일</th>
 						<th>휴대폰</th>
+						<th>권한</th>
 					</tr>
 					</thead>
 					<tbody id="notUsedlist">
 						<c:if test="${empty notused }">
 							<tr>
-								<td colspan="3">NODATA</td>
+								<td colspan="4">NODATA</td>
 							</tr>
 						</c:if>
 						<c:forEach var="notuseds" items="${notused }">
 						<tr>
+							<td><input type="hidden" value="${notuseds.memId }"></td>
 							<td>${notuseds.name }</td>
 							<td>${notuseds.email }</td>
 							<td>${notuseds.persTel }</td>
+							<c:if test="${notuseds.memPerm eq 'USER' }">
+							<td>사원</td>
+							</c:if>
+							<c:if test="${notuseds.memPerm eq 'ADMIN' }">
+							<td>관리자</td>
+							</c:if>
+							<c:if test="${notuseds.memPerm eq 'GUEST' }">
+							<td>게스트</td>
+							</c:if>
 						</tr>
 						</c:forEach>
 					</tbody>
@@ -141,6 +160,7 @@
 				<table id="outstandMemberList" border="1">
 					<thead class="memberthead">
 					<tr>
+						<th></th>
 						<th>이름</th>
 						<th>이메일</th>
 						<th>휴대폰</th>
@@ -150,27 +170,29 @@
 					<tbody id="outstandlist">
 						<c:if test="${empty outstand }">
 							<tr>
-								<td colspan="4">NODATA</td>
+								<td colspan="5">NODATA</td>
 							</tr>
 						</c:if>
 						<c:forEach var="outstands" items="${outstand }">
 						<tr>
+							<td><input type="hidden" value="${outstands.memId }"></td>
 							<td>${outstands.name }</td>
 							<td>${outstands.email }</td>
 							<td>${outstands.persTel }</td>
-							<td><a href="#"><span id='in' style="color: green;">[가입승인]</span></a> &nbsp;
-							<a href="#"><span id='out' style="color: red">[가입거절]</span></a></td>
+							<td><a href="#"><span id='memin' style="color: green;">[가입승인]</span></a> &nbsp;
+							<a href="#"><span id='memout' style="color: red">[가입거절]</span></a></td>
 						</tr>
 						</c:forEach>
 					</tbody>
 				</table>
 			 </div><!-- outstandMember end -->
 			 
-			 <!-- 가입대기 -->
+			 <!-- 게스트 -->
 			 <div id="guestMember" class="project-detail-inner layer-scroll type2" style="display: none">
 				<table id="guestMemberList" border="1">
 					<thead class="memberthead">
 					<tr>
+						<th></th>
 						<th>이름</th>
 						<th>이메일</th>
 						<th>휴대폰</th>
@@ -180,15 +202,22 @@
 					<tbody id="guestlist">
 						<c:if test="${empty guest }">
 						<tr>
-							<td colspan="4">NODATA</td>
+							<td colspan="5">NODATA</td>
 						</tr>
 						</c:if>
 						<c:forEach var="guests" items="${guest }">
 						<tr>
+							<td><input type="hidden" value="${guests.memId }"></td>
 							<td>${guests.name }</td>
 							<td>${guests.email }</td>
 							<td>${guests.persTel }</td>
-							<td><span id='in'>[가입승인]</span><span id='out'>[가입거절]</span></td>
+							<c:if test="${guests.accSt eq 'using' }">
+							<td><a href="#"><span id='guestDel' style="color: green;">삭제</span></a></td>
+							</c:if>
+							<c:if test="${guests.accSt eq 'outstand' }">
+							<td><a href="#"><span id='guestIn' style="color: green;">[가입승인]</span></a>&nbsp;
+							<a href="#"><span id='guestOut' style="color: red">[가입거절]</span></a></td>
+							</c:if>
 						</tr>
 						</c:forEach>
 					</tbody>
@@ -197,6 +226,157 @@
 		</div><!-- main-container end -->
 	
 	<script>
+	
+	//가입대기 사용자 승인
+	$('#memin').click(function(){
+		var inBtn = $(this);
+		var tr = inBtn.parent().parent().parent();
+		var td = tr.children();
+		
+		var memId = td.eq(0).children().val();
+		console.log(memId);
+		var jsondata = {"memId":memId};
+		 $.ajax({
+			url:"outstandIn.do",
+			method: "put",
+			data: JSON.stringify(jsondata),
+			contentType: "application/json",
+			dataType: "json",
+			success: function(data){
+				tr.remove();
+			}
+		}) 
+	});
+	//가입대기 사용자 거절
+	$('#memout').click(function(){
+		var outBtn = $(this);
+		var tr = outBtn.parent().parent().parent();
+		var td = tr.children();
+		
+		var memId = td.eq(0).children().val();
+		var jsondata = {"memId":memId};
+		$.ajax({
+			url:"outstandOut.do",
+			method: "put",
+			data: JSON.stringify(jsondata),
+			contentType: "application/json",
+			dataType: "json",
+			success: function(data){
+				tr.remove();
+			}
+		})
+	});
+	//게스트 사용자 승인
+	$('#guestIn').click(function(){
+		var inBtn = $(this);
+		var tr = inBtn.parent().parent().parent();
+		var td = tr.children();
+		
+		var memId = td.eq(0).children().val();
+		console.log(memId);
+		var jsondata = {"memId":memId};
+		 $.ajax({
+			url:"guestIn.do",
+			method: "put",
+			data: JSON.stringify(jsondata),
+			contentType: "application/json",
+			dataType: "json",
+			success: function(data){
+				
+			}
+		}) 
+	});
+	//게스트 사용자 거절
+	$('#guestOut').click(function(){
+		var outBtn = $(this);
+		var tr = outBtn.parent().parent().parent();
+		var td = tr.children();
+		
+		var memId = td.eq(0).children().val();
+		var jsondata = {"memId":memId};
+		$.ajax({
+			url:"guestOut.do",
+			method: "put",
+			data: JSON.stringify(jsondata),
+			contentType: "application/json",
+			dataType: "json",
+			success: function(data){
+				tr.remove();
+			}
+		})
+	});
+	//게스트 사용자 삭제
+	$('#guestDel').click(function(){
+		var delBtn = $(this);
+		var tr = delBtn.parent().parent().parent();
+		var td = tr.children();
+		
+		var memId = td.eq(0).children().val();
+		var jsondata = {"memId":memId};
+		$.ajax({
+			url:"guestOut.do",
+			method: "put",
+			data: JSON.stringify(jsondata),
+			contentType: "application/json",
+			dataType: "json",
+			success: function(data){
+				tr.remove();
+			}
+		})
+	});
+	
+	/*  $(".usingCheck tr").check(function(){
+		 
+		 var checkBox = $(this);
+		 
+		 var tr = $(this);
+		 var td = tr.children();
+		 
+		 
+		 console.log("데이터: "+tr.text());
+	 }) */
+				
+			$("#using").on("click", function(){
+				$('#using').attr("class","js-tab-item active");
+				$('#notused').attr("class","js-tab-item");
+				$('#outstand').attr("class","js-tab-item");
+				$('#guest').attr("class","js-tab-item");
+				$('#usingMember').css("display","block");
+				$('#notUsedMember').css("display","none");
+				$('#outstandMember').css("display","none");
+				$('#guestMember').css("display","none");
+			});
+			$("#notused").on("click", function(){
+				$('#notused').attr("class","js-tab-item active");
+				$('#using').attr("class","js-tab-item");
+				$('#outstand').attr("class","js-tab-item");
+				$('#guest').attr("class","js-tab-item");
+				$('#notUsedMember').css("display","block");
+				$('#usingMember').css("display","none");
+				$('#outstandMember').css("display","none");
+				$('#guestMember').css("display","none");
+			});
+			$("#outstand").on("click", function(){
+				$('#outstand').attr("class","js-tab-item active");
+				$('#using').attr("class","js-tab-item");
+				$('#notused').attr("class","js-tab-item");
+				$('#guest').attr("class","js-tab-item");
+				$('#outstandMember').css("display","block");
+				$('#notUsedMember').css("display","none");
+				$('#usingMember').css("display","none");
+				$('#guestMember').css("display","none");
+			});
+			$("#guest").on("click", function(){
+				$('#guest').attr("class","js-tab-item active");
+				$('#using').attr("class","js-tab-item");
+				$('#notused').attr("class","js-tab-item");
+				$('#outstand').attr("class","js-tab-item");
+				$('#guestMember').css("display","block");
+				$('#outstandMember').css("display","none");
+				$('#notUsedMember').css("display","none");
+				$('#usingMember').css("display","none");
+			});
+	
 	/*  $(function(){
 			var coUrl = "${sessionScope.coUrl}";
 			//정상사용자
@@ -263,53 +443,7 @@
 			});
 	}); */
 	 
-	 $("#usinglist tr").click(function(){
-		 var tr = $(this);
-		 var td = tr.children();
-		 
-		 console.log("데이터: "+tr.text());
-	 })
-				
-			$("#using").on("click", function(){
-				$('#using').attr("class","js-tab-item active");
-				$('#notused').attr("class","js-tab-item");
-				$('#outstand').attr("class","js-tab-item");
-				$('#guest').attr("class","js-tab-item");
-				$('#usingMember').css("display","block");
-				$('#notUsedMember').css("display","none");
-				$('#outstandMember').css("display","none");
-				$('#guestMember').css("display","none");
-			});
-			$("#notused").on("click", function(){
-				$('#notused').attr("class","js-tab-item active");
-				$('#using').attr("class","js-tab-item");
-				$('#outstand').attr("class","js-tab-item");
-				$('#guest').attr("class","js-tab-item");
-				$('#notUsedMember').css("display","block");
-				$('#usingMember').css("display","none");
-				$('#outstandMember').css("display","none");
-				$('#guestMember').css("display","none");
-			});
-			$("#outstand").on("click", function(){
-				$('#outstand').attr("class","js-tab-item active");
-				$('#using').attr("class","js-tab-item");
-				$('#notused').attr("class","js-tab-item");
-				$('#guest').attr("class","js-tab-item");
-				$('#outstandMember').css("display","block");
-				$('#notUsedMember').css("display","none");
-				$('#usingMember').css("display","none");
-				$('#guestMember').css("display","none");
-			});
-			$("#guest").on("click", function(){
-				$('#guest').attr("class","js-tab-item active");
-				$('#using').attr("class","js-tab-item");
-				$('#notused').attr("class","js-tab-item");
-				$('#outstand').attr("class","js-tab-item");
-				$('#guestMember').css("display","block");
-				$('#outstandMember').css("display","none");
-				$('#notUsedMember').css("display","none");
-				$('#usingMember').css("display","none");
-			});
+	
 			
 			
 	

@@ -149,7 +149,78 @@ td{
 </div><!-- main-container end -->
 <script>
 	
-	$(".ctgryDelete").click(function(){
+	$('#ctgry_model_x').on("click",function(){
+		$('#ctgModal').css("display","none");
+	});
+	
+	
+	$("#categoryIn").click(function(){
+		var ctgryName = $('#categoryInput').val();
+		var coUrl = "${sessionScope.coUrl}";
+		var jsondata = {"ctgryName":ctgryName,"coUrl":coUrl};
+		$.ajax({
+			url: "categoryInsert.do",
+			method: "post",
+			data: JSON.stringify(jsondata),
+			contentType : "application/json",
+			dataType : "json",
+			success : function(data) {
+				$('#categoryInput').val("");
+				getCategoryList();
+			}
+		})
+	});
+	
+	
+	function getCategoryList(data){
+		var coUrl = "${sessionScope.coUrl}";
+		$.ajax({
+			url: "getCategoryList.do?coUrl=" + coUrl,
+			method: "Get",
+			datatype: "json",
+			success: function(result){
+				$('#categoryList tr').remove();
+				for(i=0; i<result.length; i++){
+				var $ctgryId = result[i].ctgryId;
+				var $ctgryName = result[i].ctgryName;
+				console.log($ctgryName + $ctgryId + $cnt);
+				var $cnt = result[i].cnt;
+					$('<tr>').append($('<td>').append($('<input type=\'hidden\'>').val($ctgryId)))
+						.append($('<td>').html($ctgryName))
+						.append($('<td>').html($cnt))
+						.append($('<td>').append($('<a href=\'#\' class=\'ctgryDelete\'>').html("[삭제]")))
+				 		.appendTo($('#categoryList'));
+				}
+				$(".ctgryDelete").on("click",function(){
+
+					var checkBtn = $(this);
+					
+					var tr = checkBtn.parent().parent();
+					var td = tr.children();
+					
+					var ctgryId = td.eq(0).children().val();
+					console.log(ctgryId);
+					var jsondata = {"ctgryId":ctgryId};
+					$('#ctgModal').css("display","block");
+					$('#ctgDel').click(function(){
+						 $.ajax({
+							url: "prjCategoryUpdate.do",
+							method: "put",
+							data: JSON.stringify(jsondata),
+							contentType: "application/json",
+							dataType: "json",
+							success: function(){
+								checkBtn.parent().parent().remove();
+								$('#ctgModal').css("display","none");
+							}
+						}); 
+					});	
+				});
+				
+			}
+		});
+	}
+	$(".ctgryDelete").on("click",function(){
 
 		var checkBtn = $(this);
 		
@@ -162,7 +233,7 @@ td{
 		$('#ctgModal').css("display","block");
 		$('#ctgDel').click(function(){
 			 $.ajax({
-				url: "PrjCategoryUpdate.do",
+				url: "prjCategoryUpdate.do",
 				method: "put",
 				data: JSON.stringify(jsondata),
 				contentType: "application/json",
@@ -173,50 +244,7 @@ td{
 				}
 			}); 
 		});	
-	})
-	
-	$('#ctgry_model_x').click(function(){
-		$('#ctgModal').css("display","none");
 	});
-	
-	
-	$("#categoryIn").click(function(){
-		var ctgryName = $('#categoryInput').val();
-		var coUrl = "${sessionScope.coUrl}";
-		var jsondata = {"ctgryName":ctgryName,"coUrl":coUrl};
-		console.log(jsondata)
-		$.ajax({
-			url: "categoryInsert.do",
-			method: "post",
-			data: JSON.stringify(jsondata),
-			contentType : "application/json",
-			dataType : "json",
-			success : function(data) {
-				console.log(data);
-				getCategoryList();
-			}
-		})
-	});
-	
-	
-	function getCategoryList(){
-		var coUrl = "${sessionScope.coUrl}";
-		$.ajax({
-			url: "getCategoryList.do?coUrl=" coUrl,
-			method: "Get",
-			datatype: "json",
-			success: function(result){
-				var $ctgryId = result.ctgryId;
-				var $ctgryName = result.ctgryName;
-				var $cnt = result.cnt;
-				$('<tr>').append($('<td>').append($('<input type=\'hidden\'>').val($ctgryId)))
-						.append($('<td>').html($ctgryName))
-						.append($('<td>').html($cnt))
-						.append($('<td>').append($('<a href=\'#\' class=\'ctgryDelete\'>').val([삭제])))
-				 		.appendTo($('#categoryList'))
-			}
-		});
-	}
 	
 	
 	

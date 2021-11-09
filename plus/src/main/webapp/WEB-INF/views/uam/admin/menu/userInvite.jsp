@@ -97,6 +97,7 @@
 	#xlxsInfo{
 		padding-top: 10px;
 	}
+	
 </style>
 </head>
 <body>
@@ -114,8 +115,6 @@
 		</div><!-- project-detail-top end -->
 		<div id="sendLayer" class="project-detail-inner layer-scroll type2">
 			<div class="inviteInfo">
-				<p>ㆍ1회 최대 100명까지 등록할 수 있습니다.</p>
-				<p> (관리자 설정 -> 회사정보 -> 전용URL -> 직원 참여 옵션)</p>
 				<p>ㆍ이메일 초대를 통해 이메일을 수신한 직원은 직접 계정 가입 후 바로 이용 가능합니다.<button id="helpBtn" type="button" >도움말 보기</button></p>
 			</div>
 			<div class="contentsBox">
@@ -123,19 +122,15 @@
 				<p>전용 URL 주소를 전달하여 회사 직원들을 참여시킬 수 있습니다.</p>
 				<div class="coInput">
 					<input id="coNameSer" name="coNameSer" type="text" required="required" class="coInputTag"/>
-					<button id="btn" class="formIn" type="button">변경</button>
+					<button id="btn" class="formIn" type="button">복사</button>
 				</div>
 			</div>
 			<div class="contentsBox">
 				<div class="emailSendingForm">
 				<h2>이메일 초대</h2>
 				<p>직원들의 이메일 주소를 입력하여 바로 초대할 수 있습니다.</p>
-					<input type="text" class="emailInput" placeholder="example@gmail.com"/>
-					<input type="text" class="emailInput" placeholder="example@gmail.com"/>
-					<input type="text" class="emailInput" placeholder="example@gmail.com"/>
-					<input type="text" class="emailInput" placeholder="example@gmail.com"/>
-					<input type="text" class="emailInput" placeholder="example@gmail.com"/>
-					<button id="emailInputBtn" class="blueBtn" type="button">변경</button>
+					<input type="text" id="emailInput1" class="emailInput" placeholder="example@gmail.com"/>
+					<button id="emailInputBtn" class="blueBtn" type="button">전송</button>
 				</div>
 			</div>
 		</div>
@@ -148,12 +143,15 @@
 				<p>ㆍ등록된 사용자는 최종 "사용자관리" 메뉴에서 확인할 수 있습니다.<button id="helpBtn" type="button" >도움말 보기</button></p>
 			</div>
 			<div class="contentsBox">
-				<p>xlxs 파일만 업로드 가능합니다.</p>	
-				<input id="xlxsFileUp" type="file">
-				<button id="xlxsDoun" class="whiteBtn" type="button" style="width: 180px">엑셀파일 양식 다운로드</button>
+				<p>xlsx 파일만 업로드 가능합니다.</p>	
+				<form action="xlsxUplord.do" method="post" enctype="multipart/form-data">
+				<input id="file" name="file" type="file" style="border: 1px;">
+				<input type="submit" id="fileUp" class="blueBtn">
+				</form>
+				<button id="xlsxDoun" onClick="location.href='xlsxDonload.do'" class="whiteBtn" type="button" style="width: 180px">엑셀파일 양식 다운로드</button>
 			</div>
 			<div class="contentsBox">
-			<div id="xlxsInfo">
+			<div id="xlsxInfo">
 			<span>전체 (갯수)개 ((갯수)개 등록가능, </span><em style="color: red">(갯수)개</em><span> 등록 불가능)</span>
 			<span><input type="checkbox">등록 불가능한 행 모아보기</span>
 			<div id="btnDiv">
@@ -200,7 +198,18 @@
 				$('#sendLayer').css("display","none");
 			});
 			
-			
+			$('#emailInputBtn').click(function(){
+				var coUrl = "${sessionScope.coUrl}";
+				var email = $("#emailInput1").val();
+					$.ajax({
+						type: "post",
+						url: "userInviteMail.do",
+						data:{"email":email, "coUrl":coUrl},
+						success:function(){
+							alert(email + "로 인증메일이 발송되었습니다.");
+						}
+					})
+			})
 			
 	
 	</script>

@@ -61,6 +61,12 @@ public interface MemberMapper {
 	public List<MemberVO> getOutstandMemberList(MemberVO vo);
 	public List<MemberVO> getGuestMemberList(MemberVO vo);
 	public List<MemberVO> getCategoryList(MemberVO vo);
+	//사용자 승인/거절
+	public int outstandIn(MemberVO vo);
+	public int outstandOut(MemberVO vo);
+	//게스트 사용자 승인/거절
+	public int guestIn(MemberVO vo);
+	public int guestOut(MemberVO vo);
 	//카테고리 삭제
 	public int prjCategoryUpdate(MemberVO vo);
 	public int prjCategoryDelete(MemberVO vo);
