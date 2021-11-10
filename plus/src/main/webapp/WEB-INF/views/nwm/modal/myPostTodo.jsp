@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- 내 게시물 목록 -> 할일 상세보기(팝업) -->
-<table border="1">
+<%-- <table border="1">
 	<tr>
 	<c:forEach var="todos" items="${todos }">
 		<td id="memId">${todos[0].name }</td>
@@ -27,7 +27,7 @@
 		<td colspan="4"><input placeholder="줄바꿈은 Enter 입니다."></td>
 	</tr>
 </table>
-
+ --%>
 <%-- <div class="js-post-nav card-item post-card-wrapper todo  side">
 	<button type="button" class="post-popup-button left"></button>
 	<div class="post-popup-header card-popup-header d-none"
