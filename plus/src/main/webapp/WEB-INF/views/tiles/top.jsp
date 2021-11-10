@@ -109,7 +109,7 @@
 				<li id="logoutBtn" onclick="location.href='logout.do'"><i class="icons-logout"></i> 로그아웃</li>
 			</ul>
 			<ul id="status" class="st_modal">
-				<li id="online" class="statusStyle"><img alt="onlineImg" src="/img/status_icn/online.png" class="st_img"><a href="#">온라인</a></li>
+				<li id="online" class="statusStyle"><img alt="onlineImg" src="/img/status_icn/online.png" class="st_img"><a href="#"> 온라인</a></li>
 				<li id="notdesk" class="statusStyle"><img alt="notdeskImg" src="/img/status_icn/notdesk.png" class="st_img"><a href="#"> 자리비움</a></li>
 				<li id="other" class="statusStyle"><img alt="otherImg" src="/img/status_icn/other.png" class="st_img"><a href="#"> 다른용무중</a></li>
 				<li id="offline" class="statusStyle"><img alt="offlineImg" src="/img/status_icn/offline.png" class="st_img"><a href="#"> 오프라인</a></li>
@@ -270,7 +270,7 @@
 															<div id="noCoTelUpdate" class="my-button-cc cancel-change">취소</div>
 														</a> 
 														<a href="#">
-															<div id="coTelUpdate" class="js-account-set-button my-button-ok change-ok" gubun="5">확인</div>
+															<div id="coTelUpdate" class="js-account-set-button my-button-ok change-ok">확인</div>
 														</a>
 													</div>
 												</div>
@@ -582,12 +582,8 @@
 			</div>
 		</div>
 		<div id="alarmItem" class="d-none">
-			<li class="alarm-{COLABO_COMMT_SRNO} js-alarm-item {not-read}"
-				colabo_srno="{COLABO_SRNO}" colabo_commt_srno="{COLABO_COMMT_SRNO}"
-				colabo_remark_srno="{COLABO_REMARK_SRNO}"
-				alarm_action="{ALARM_ACTION}" alarm_status="{ALARM_STATUS}"
-				toast_msg="{msg}" toast_cntn="{contents}">
-				<div class="all-setup-picture-type-1" {profile}=""></div>
+			<li class="alarm-{COLABO_COMMT_SRNO} js-alarm-item {not-read}">
+				<div class="all-setup-picture-type-1"></div>
 				<div class="all-text-wrap-type-1">
 					<div class="all-setup-section-type-1">
 						<span>{TTL}</span><em>{date}</em>
@@ -597,8 +593,8 @@
 					</div>
 					<div class="all-text-wrap-type-3">{task-name}{contents}</div>
 					<div class="all-text-wrap-type-3">
-						<span {img-display}=""> <em class="all-setup-icon-type-2"></em>이미지
-						</span> <span {file-display}=""> <em class="all-setup-icon-type-1"></em>파일
+						<span> <em class="all-setup-icon-type-2"></em>이미지
+						</span> <span> <em class="all-setup-icon-type-1"></em>파일
 						</span>
 					</div>
 				</div>
@@ -606,13 +602,9 @@
 		</div>
 
 		<div id="projectAlarmItem" class="d-none">
-			<li id="unread-{COLABO_COMMT_SRNO}" class="not-read-alarm-item"
-				colabo_srno="{COLABO_SRNO}" colabo_commt_srno="{COLABO_COMMT_SRNO}"
-				colabo_remark_srno="{COLABO_REMARK_SRNO}"
-				alarm_action="{ALARM_ACTION}" alarm_status="{ALARM_STATUS}"
-				toast_msg="{msg}">
+			<li class="not-read-alarm-item">
 				<div class="unidentified-item profile">
-					<span class="thumbnail size40 radius16" {profile}=""></span>
+					<span class="thumbnail size40 radius16"></span>
 				</div>
 				<div class="middle-wr">
 					<div class="unidentified-item title">
@@ -624,9 +616,9 @@
 						<div class="unidentified-task-content">
 							<span>{contents}</span>
 							<ul class="unidentified-file-group">
-								<li {img-display}=""><span class="unidentified-image">이미지</span>
+								<li><span class="unidentified-image">이미지</span>
 								</li>
-								<li {file-display}=""><span class="unidentified-file">파일</span>
+								<li><span class="unidentified-file">파일</span>
 								</li>
 							</ul>
 						</div>
@@ -678,9 +670,7 @@
 				class="participants-list chat-list-area chat-list scroll-mask"></ul>
 		</div>
 		<div id="chattingItem" class="d-none">
-			<li id="chatting-{ROOM_SRNO}" class="js-chatting-item"
-				data-room-srno="{ROOM_SRNO}" data-bg-color-cd="{BG_COLOR_CD}"
-				pin-yn="{PIN_YN}">
+			<li class="js-chatting-item">
 				<div class="mini-mode-text-sub-area-1">
 					<div
 						class="mini-mode-main-picture-1 mini-mode-chattng-type profile {profile-display-type}">{profile}
@@ -688,20 +678,19 @@
 					<div class="mini-mode-area-list-type-1">
 						<p>
 							<strong class="js-title">{ROOM_NM}</strong> <span
-								class="mini-mode-chattng-type-2" {sendience-cnt-display}="">({SENDIENCE_CNT})</span>
-							<i class="no-alarm mini-mode-chattng-icon-type-1"
-								{no-alarm-display}=""></i> <i
-								class="pin mini-mode-chattng-icon-type-2" {pin-display}=""></i>
+								class="mini-mode-chattng-type-2">{SENDIENCE_CNT}</span>
+							<i class="no-alarm mini-mode-chattng-icon-type-1"></i> <i
+								class="pin mini-mode-chattng-icon-type-2"></i>
 						</p>
 						<p class="mini-mode-text-gray-1">
-							<i {img-display}="" class="js-image-icon all-setup-icon-type-2"></i><i
-								{file-display}="" class="js-file-icon all-setup-icon-type-1"></i><span><a
+							<i class="js-image-icon all-setup-icon-type-2"></i><i
+							 class="js-file-icon all-setup-icon-type-1"></i><span><a
 								class="js-cntn">{CNTN}</a></span>
 						</p>
 					</div>
 					<div class="mini-mode-chattng-type-3">
 						<div class="mini-mode-chattng-type-text-1 not-read-count"
-							{not-read-display}="">{NOT_READ_CNT}</div>
+							>{NOT_READ_CNT}</div>
 						<div class="mini-mode-chattng-type-text-2 js-date">{date}</div>
 					</div>
 				</div>

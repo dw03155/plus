@@ -36,15 +36,14 @@
 		</ul>
 		<ul id="leftScroll" class="menu-accordion-group scroll-mask">
 			<li>
-				<div class="menu-accordion-button active left-menu-item"
-					data-code="collect-more">
+				<div class="menu-accordion-button active left-menu-item">
 					모아보기<i class="ico-arrow"></i>
 				</div>
 				<div class="menu-accordion" style="display: block">
 					<ul class="menu-accordion-list">
 						<c:if test="${memPerm ne 'GUEST'}">
 							<li data-code="task" class="left-menu-item"><a
-								href="allTask.do"><i class="ico-task"></i>전체 업무 </a></li>
+								href="allTask.do"><i class="ico-task"></i>전체 업무</a></li>
 							<li data-code="gantt" class="left-menu-item" id="leftMenuGantt"
 								style="display: none;"><a href=""><i
 									class="ico-ganttchart"></i>간트차트</a></li>
@@ -63,9 +62,7 @@
 
 			<li>
 				<div id="allLabelLeftButton"
-					class="menu-accordion-button left-menu-item active"
-					data-code="label-more" data-select-label-srno=""
-					data-select-label-name="">
+					class="menu-accordion-button left-menu-item active">
 					프로젝트 폴더
 					<button class="js-label-add label-add-button">
 						<i class="ico-plus"></i>
@@ -115,7 +112,7 @@
 				<i></i><a href="#"><span>삭제</span></a>
 			</div>
 		</div>
-		<c:if test="${memPerm ne 'ADMIN'}">
+		<c:if test="${memPerm eq 'ADMIN'}">
 			<ul id="leftBottomUl" class="menu-group admin">
 				<li data-code="manageradmin" class="d-none left-menu-item"
 					style="display: block"><a id="managerAdmin"
@@ -123,6 +120,12 @@
 			</ul>
 		</c:if>
 	</div>
-
+	
+	<script type="text/javascript">
+	$(".menu-accordion-button").on("click",function(e){
+		$(e.target).toggleClass("active");
+		$(e.target).next().toggle();
+	});
+	</script>
 </body>
 </html>

@@ -654,6 +654,6 @@ to {
 	<script src="flow-renewal/dist/js/main.min.js"></script>
 	<script src="flow-renewal/dist/js/mainLib.min.js"></script>
 
-	<script async="" src="flow-renewal/js/main.js"></script>
+	<script src="flow-renewal/js/main.js"></script>
 </body>
 </html>
