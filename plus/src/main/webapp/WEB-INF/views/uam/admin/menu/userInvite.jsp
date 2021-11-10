@@ -96,6 +96,7 @@
 	}
 	#xlxsInfo{
 		padding-top: 10px;
+		vertical-align: bottom;
 	}
 	#checkth{
 		width: 50px;
@@ -151,7 +152,7 @@
 				<p>ㆍ등록된 사용자는 최종 "사용자관리" 메뉴에서 확인할 수 있습니다.<button id="helpBtn" type="button" >도움말 보기</button></p>
 			</div>
 			<div class="contentsBox">
-				<p>xls 파일만 업로드 가능합니다.</p>	
+				<p style="color: silver;">xls 파일만 업로드 가능합니다.</p>	
 				<form id="excelUploadForm" name="excelUploadForm" action="xlsxUplord.do" method="post" enctype="multipart/form-data" style="display: inline;">
 				<input id="file" name="file" type="file" style="border: 1px;">
 				</form>
@@ -160,7 +161,8 @@
 			</div>
 			<div class="contentsBox">
 			<div id="xlsxInfo">
-			<span>전체&nbsp;'<em id="allcnt"></em>'개 ('<em id="okcnt"></em>'개 등록가능,&nbsp;'</span><em style="color: red"><em id="nocnt"></em>'개&nbsp;</em><span> 등록 불가능)</span>
+			<span>전체&nbsp;'<em id="allcnt"></em>'개 ('<em id="okcnt"></em>'개 등록가능,&nbsp;'</span><em style="color: red">
+			<em id="nocnt"></em>'개&nbsp;</em><span> 등록 불가능)</span>
 			<span><input type="checkbox">등록 불가능한 행 모아보기</span>
 			<div id="btnDiv">
 				<button class="whiteBtn" id="lineBtn">전체선택</button>
@@ -246,7 +248,6 @@
 			var $wkpo = data[i]["wkpo"];
 			var $coTel = data[i]["coTel"];
 				if($email == 0 && $name == 0 && $persTel == 0 && $dept == 0 && $wkpo == 0 && $coTel == 0){
-					console.log("datt");
 				}else{				
 				$('<tr>').append($('<td>').append($('<input type="checkbox" class="fileCheck">')))
 						 .append($('<td>').append($('<span>').append($('<input class="view">').val($name))))
@@ -256,21 +257,23 @@
 						 .append($('<td>').append($('<span>').append($('<input class="view">').val($wkpo))))
 						 .append($('<td>').append($('<span>').append($('<input class="view">').val($coTel))))
 						 .appendTo($('#insertlist'));
+				
+				var fileTd = $('.fileCheck').parent().nextAll();
+				var filevalue = $('.view');
+				
+					for(j=0; j<fileTd.length; j++){				
+						var fileVal = filevalue.eq(j).val();
+						console.log(fileVal);
+						var fileSpan = $('.view').parent().eq(j);
+							if(fileVal == ''){
+								fileSpan.attr("class","redBox");
+						}else{
+							fileSpan.attr("class","normalBox");
+						}
+					}	
 				}
 				
 		
-			var fileTd = $('.fileCheck').parent();
-			var fileInput = fileTd.nextAll().children().children();
-			
-				for(j=0; j<fileTd.length; j++){				
-					var fileVal = fileInput.eq(j).val();
-					var fileSpan = fileInput.eq(j).parent();
-						if(fileVal == ''){
-							fileSpan.attr("class","redBox");
-					}else{
-						fileSpan.attr("class","normalBox");
-					}
-				}	
 			}
 			
 		count();

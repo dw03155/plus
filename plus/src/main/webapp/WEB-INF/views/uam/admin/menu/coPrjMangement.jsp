@@ -43,7 +43,7 @@
 		color: white;
 		border-radius: 3px;
 		margin-left: 5px;
-		top: 77px;
+		top: 85px;
 	}
 	.categoty-input{
 	width: 100%;
@@ -115,13 +115,21 @@
 		float: right;
 		width: 15px;
 	}
+	#inputBorder{
+		border: 1px solid silver;
+	}
+	#adminAdd{
+		border: 1px solid silver;
+		padding: 3px 7px 3px 7px;
+		background-color: white;
+	}
 </style>
 </head>
 <body>
 	<div class="main-container">
 		<div id="topSettingBar" class="main-header" style="height: 54px">
 			<div id="menuName" class="project-detail-header">
-				<h3 id="projectTitle" class="project-title ellipsis js-mouseover" >회사 정보</h3>
+				<h3 id="projectTitle" class="project-title ellipsis js-mouseover" style="margin-bottom: 10px;">회사 정보</h3>
 			</div>
 		</div><!-- topSettionBar end -->
 		<div class="project-detail-top clearfix">
@@ -171,14 +179,23 @@
 					</tbody>
 				</table>
 			 </div><!-- usingMember end -->
-			 <div id="prjModal" class="prj_modal" >	
+			 <div id="prjModal" class="prj_modal">	
 			<div class="model_heard">
-				<span style="font-size: 18px; font-weight: bold;">회사 프로젝트 정보</span>
+				<span style="font-size: 18px; font-weight: bold;">&nbsp;회사 프로젝트 정보</span>
 				<a href="#"><img id="prj_model_x" src="/img/ico/x_icn.png"></a>
 			</div>
-			<div align="center" style="margin-left: 10px; margin-right: 10px;">
+			<div align="center" style="margin-left: 10px; margin-right: 10px; height: 300px; overflow: scroll;">
 			<hr>
-				<table>
+				<table style="border: 1px solid; border-color: white; margin: 10px 0 10px 0;">
+					<tr>
+						<td style="text-align: left;">프로젝트명</td>
+						<td style="text-align: left;"><span id="inputBorder">
+						<input type="text" id="prjTTL" name="prjTTL" style="width: 450px"></span></td>
+					</tr>
+					<tr>
+						<td style="text-align: left;">관리자</td>
+						<td style="text-align: left;"><input type="button" id="adminAdd" name="adminAdd" value="추가"></td>
+					</tr>
 				</table>
 				<div>
 					<table id="projectInfoList" border="1">
@@ -193,20 +210,14 @@
 						</tr>
 					</thead>
 					<tbody id="prjAdmin" >
-						<tr>
-							<td><input type="hidden" value=""></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
 					</tbody>
 				</table>
 				</div>
 			</div>
 			<div align="center">
-				<button type="button" id="ctgDel" class="blueBtn" style="position: static;">확인</button>
+				<button type="button" id="ctgDel" class="blueBtn" style="position: static; top: 500px">확인</button>
+				<button type="button" id="ctgCancel" class="blueBtn" 
+				style="position: static; top: 500px; background-color: white; color: black; border: 1px solid silver;">취소</button>
 			</div>
 		</div>
 	</div><!-- main-container end -->
