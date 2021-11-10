@@ -5,10 +5,12 @@
 <!-- 내 게시물 목록 -> 할일 상세보기(팝업) -->
 <table border="1">
 	<tr>
+	<c:forEach var="todos" items="${todos }">
 		<td id="memId">${todos[0].name }</td>
 		<td id="notiDttm"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
 				value="${todos[0].todoEndDate}" /></td>
 		<td>${todos[0].notiId }</td>
+	</c:forEach>
 	</tr>
 
 	<tr>
@@ -26,13 +28,13 @@
 	</tr>
 </table>
 
-<div class="js-post-nav card-item post-card-wrapper todo  side">
+<%-- <div class="js-post-nav card-item post-card-wrapper todo  side">
 	<button type="button" class="post-popup-button left"></button>
 	<div class="post-popup-header card-popup-header d-none"
 		style="display: block;">
 		<h3 class="card-popup-title">
 			<i id="projectTitleColor" class="project-color color-code-4"></i> <span
-				class="js-project-title-button">${todos.prjId }</span> <span
+				class="js-project-title-button">todos[0].prjId </span> <span
 				class="subtask-title up-task-title js-up-task-button"> </span>
 		</h3>
 		<button class="btn-close card-popup-close">
@@ -47,9 +49,9 @@
 						style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
 					<dl class="post-author-info">
 						<dt>
-							<strong class="author ellipsis">${todos.name }</strong> <em
+							<strong class="author ellipsis">todos[0].name </strong> <em
 								class="position ellipsis" style="display: inline"></em> <span
-								class="date">${todos.notiDttm }</span>
+								class="date">todos[0].notiDttm </span>
 
 							<!-- 게시물 공개 여부 -->
 							<c:if test="${todos.notiOpenPerm == 'all'}">
@@ -101,19 +103,20 @@
 			<div class="card-header-bottom ">
 
 				<div class="post-title-area">
-					<h4 class="js-post-title post-title ">${todos.notiTtl }</h4>
+					<h4 class="js-post-title post-title ">todos.notiTtl </h4>
 					<div class="schedule-period-area d-none">
 						<span class="schedule-period"></span> <span
 							class="schedule-period"></span>
 					</div>
 				</div>
 				<div class="post-state">
-					<span class="task-number d-none" data-task=""> 업무번호 <em>${todos.notiId }</em>
+					<span class="task-number d-none" data-task=""> 업무번호 <em>todos.notiId </em>
 					</span>
 				</div>
 			</div>
+			
+			
 			<div class="post-card-container">
-
 				<div id="originalPost" class="post-card-content "
 					style="display: block">
 					<div class="todo-progress-area">
@@ -288,6 +291,8 @@
 				</div>
 				<!-- //post-card-container -->
 			</div>
+			
+			
 			<div class="post-card-footer js-comment-area">
 				<div class="comment-header">
 					<button type="button"
@@ -405,3 +410,28 @@
 	</div>
 
 </div>
+
+<script>
+	// 모달창 닫기 버튼
+	$(".btn-close").click(function() {
+		$("#postPopup").css("display", "none");
+		$(".task-item").removeClass("highlight");
+	});
+
+	// 더보기 버튼 (수정, 삭제)
+	$(function() {
+		$("#moreSettingMyTodoBtn").click(function() {
+			$("#groupSettingTodoBtn").toggle();
+		});
+	});
+
+	// 글 자세히 보기 
+	$("#postOptions").find("div > button").click(function(e) {
+		e.preventDefault();
+		console.log(e.currentTarget);
+		console.log($(e.currentTarget).parent('form'));
+		console.log($(e.currentTarget).parents('form'));
+		console.log($(e.currentTarget).closest('form'));
+		$(e.currentTarget).closest('form').submit();
+	});
+</script> --%>
