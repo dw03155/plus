@@ -125,7 +125,7 @@
 											class="js-inner-task project-inner-task active"
 											style="display: none">
 											<c:forEach var="dtasks" items="${task.taskDetail}">
-												<li class="task-item ">
+												<li class="task-item" data-notiid = "${dtasks.notiId }">
 													<div class="js-task_num task-task_num-cell task-item-cell">
 														<div class="js-task_num-text  ellipsis">${dtasks.notiId }</div>
 													</div>
@@ -370,23 +370,25 @@
 			
 		function tskPopUpDetail(li){
 			
+			var notiId = li.data("notiid");
+			
 			$.ajax({
 				url : "myPostTsk.do",
-				type : 'GET',
-				data : "JSON",
+				type : "GET",
+				data : {notiId : notiId},
 				dataType : "html",
 				success : function(data) {
 					$("#modalBody").html(data);
+					for(var i = 0; i< data.length; i++){
+						var item = data[i];
+					}
 					
-					
-				},
-			error:function(request,status,error){
-	             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	             
-	          }
+				}
+			
 
 	
 			});
+		};
 		
 		
 	</script>

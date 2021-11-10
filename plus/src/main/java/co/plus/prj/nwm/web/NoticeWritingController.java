@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.plus.prj.nwm.service.NoticeWritingService;
@@ -61,14 +61,16 @@ public class NoticeWritingController {
 	}
 	
 	@RequestMapping("/myPostTxt.do") // 내 게시물 목록 -> 글 상세보기(팝업)
-	public String myPostTxt(Model model, NoticeWritingVO vo) {
+	public String myPostTxt(HttpSession session, Model model, NoticeWritingVO vo) {
+		vo.setMemId((String)session.getAttribute("memId"));
 		model.addAttribute("texts", nwDao.myPostTxt(vo));
 		return "nwm/modal/myPostTxt"; 
 	 }
 	
 	@RequestMapping("/myPostTsk.do") // 내 게시물 목록 -> 업무 상세보기(팝업)
-	public String myPostTsk(HttpSession session,Model model, NoticeWritingVO vo) {
+	public String myPostTsk(HttpSession session, Model model, NoticeWritingVO vo) {
 		vo.setCoUrl((String)session.getAttribute("coUrl"));
+		System.out.println("===="+vo);
 		model.addAttribute("tasks", nwDao.myPostTsk(vo));
 		return "nwm/modal/myPostTsk"; 
 	 }
@@ -86,7 +88,9 @@ public class NoticeWritingController {
 	 }
 	
 	@RequestMapping("/myPostTodo.do") // 내 게시물 목록 -> 할일 상세보기(팝업)
-	public String myPostTodo(Model model, NoticeWritingVO vo) {
+	public String myPostTodo(HttpSession session, Model model, NoticeWritingVO vo) {
+		vo.setTodoId((String)session.getAttribute("todoId"));
+		System.out.println("===="+vo);
 		model.addAttribute("todos", nwDao.myPostTodo(vo));
 		return "nwm/modal/myPostTodo"; 
 	 }
@@ -107,9 +111,13 @@ public class NoticeWritingController {
 	}
 	
 	
-	@RequestMapping("/textForm.do")
-	public String txtForm(@RequestParam(value="notiId",  defaultValue="1") int notiId, Model model){
-		model.addAttribute("txtF", nwDao.UpdateTxt(notiId));
+	// 게시물 수정 폼 호출
+	@RequestMapping(value = "/textForm.do", method =  RequestMethod.POST)
+
+
+	@ResponseBody
+	public String textForm( int notiId, Model model){
+		
 		return "nwm/textForm";
 	}
 	

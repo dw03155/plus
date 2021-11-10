@@ -9,62 +9,61 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-$().ready(function(){
-	$("#filterBtn").on("click",function(){
-	 	$("#filterBtn").addClass("active");
-		$("#filterSelect").toggle(); 
+	$(document).ready(function() {
+		$("#filterBtn").on("click", function() {
+			$("#filterBtn").addClass("active");
+			$("#filterSelect").toggle();
+		});
+		// 버튼 생성과 이벤트 핸들러 추가를 분리합니다.
+		$("#all").button().click(function(event) {
+			$("#write, #task, #sche, #todo").removeClass("on");
+			$("#all").addClass("on");
+			$(".text, .task, .schedule, .todo").show();
+			var count = $("#myPostContentUl").find('li:visible').length;
+			console.log(count + "");
+		});
+
+		$("#write").button();
+		$("#write").click(function(event) {
+			$("#all, #task, #sche, #todo").removeClass("on");
+			$("#write").addClass("on");
+			$(".text").show();
+			$(".task, .schedule, .todo").hide();
+			var count = $("#myPostContentUl").find('li:visible').length;
+			console.log(count + "====");
+		});
+
+		$("#task").button();
+		$("#task").click(function(event) {
+			var count = $("#myPostContentUl").find('li:visible').length;
+			console.log(count + "====");
+			$("#all, #write, #sche, #todo").removeClass("on");
+			$("#task").addClass("on");
+			$(".task").show();
+			$(".text, .schedule, .todo").hide();
+		});
+
+		$("#sche").button();
+		$("#sche").click(function(event) {
+			var count = $("#myPostContentUl").find('li:visible').length;
+			console.log(count + "====");
+			$("#all, #task, #write, #todo").removeClass("on");
+			$("#sche").addClass("on");
+			$(".schedule").show();
+			$(".task, .text, .todo").hide();
+		});
+
+		$("#todo").button();
+		$("#todo").click(function(event) {
+			var count = $("#myPostContentUl").find('li:visible').length;
+			console.log(count + "====");
+			$("#all, #task, #sche, #write").removeClass("on");
+			$("#todo").addClass("on");
+			$(".todo").show();
+			$(".task, .schedule, .text").hide();
+		});
 	});
-    // 버튼 생성과 이벤트 핸들러 추가를 분리합니다.
-	   $("#all").button().click(function(event) {
-		   $("#write, #task, #sche, #todo").removeClass("on");
-	        $("#all").addClass("on");
-	        $(".text, .task, .schedule, .todo").show();
-		   var count = $("#myPostContentUl").find('li:visible').length;
-		   console.log(count + "");
-	    });
-    
-	    $("#write").button();
-	    $("#write").click(function(event) {
-	    	$("#all, #task, #sche, #todo").removeClass("on");
-	    	$("#write").addClass("on");
-	    	$(".text").show();
-	    	$(".task, .schedule, .todo").hide();
-	    	 var count = $("#myPostContentUl").find('li:visible').length;
-			   console.log(count + "====");
-	    });	
-	    
-	    $("#task").button();
-	    $("#task").click(function(event) {
-	    	 var count = $("#myPostContentUl").find('li:visible').length;
-			   console.log(count + "====");
-	    	$("#all, #write, #sche, #todo").removeClass("on");
-	    	$("#task").addClass("on");
-	    	$(".task").show();
-	    	$(".text, .schedule, .todo").hide();
-	    });
-	    
-	    $("#sche").button();
-	    $("#sche").click(function(event) {
-	    	 var count = $("#myPostContentUl").find('li:visible').length;
-			   console.log(count + "====");
-	    	$("#all, #task, #write, #todo").removeClass("on");
-	    	$("#sche").addClass("on");
-	    	$(".schedule").show();
-	    	$(".task, .text, .todo").hide();
-	    });
-	    
-	    $("#todo").button();
-	    $("#todo").click(function(event) {
-	    	 var count = $("#myPostContentUl").find('li:visible').length;
-			   console.log(count + "====");
-	    	$("#all, #task, #sche, #write").removeClass("on");
-	    	$("#todo").addClass("on");
-	    	$(".todo").show();
-	    	$(".task, .schedule, .text").hide();
-	    });
-});
-	
-	</script>
+</script>
 </head>
 <body>
 	<!-- 전체 업무 상세보기 (모달창) -->
@@ -167,7 +166,8 @@ $().ready(function(){
 								<!-- 반복 시작 -->
 								<c:forEach var="notice" items="${notices}">
 									<li
-										class="js-all-post-item post-search-item post-list-wrapper" data-kind="${notice.notiKnd}">
+										class="js-all-post-item post-search-item post-list-wrapper ${notice.notiKnd}"
+										data-notiid="${notice.notiId }" data-kind="${notice.notiKnd}">
 										<div class="fixed-kind">
 											<!-- 글 class="icons-write2" 할일 class="icons-todo" 일정 class="icons-schedule"-->
 											<c:if test="${notice.notiKnd=='text'}">
@@ -254,7 +254,7 @@ $().ready(function(){
 										</div>
 									</li>
 								</c:forEach>
-									<!-- 반복 끝 -->
+								<!-- 반복 끝 -->
 							</ul>
 						</div>
 					</div>
@@ -325,81 +325,81 @@ $().ready(function(){
 
 	<!-- 내 게시물 모달창 JS -->
 	<script>
+		// 내 게시물 모달창 (팝업)
+		$("#myPostContentUl > li").click(function(e) {
+			if ($(e.currentTarget).hasClass("highlight")) {
+				console.log("ddd===========================");
+				console.log($(e.currentTarget));
+				$(e.currentTarget).removeClass("highlight");
+				$("#postPopup").css("display", "none");
+			} else if (!$(e.currentTarget).hasClass("highlight")) {
+				$("#myPostContentUl > li").removeClass("highlight");
+				$(e.currentTarget).addClass("highlight");
+				$("#postPopup").css("display", "block");
 
-	$("#myPostContentUl > li").click(function(e) {
-		if($(e.currentTarget).hasClass("highlight")){
-			console.log("ddd===========================");
-			console.log($(e.currentTarget));
-			$(e.currentTarget).removeClass("highlight");
-			$("#postPopup").css("display","none");
-		}
-		else if (!$(e.currentTarget).hasClass("highlight")){
-			$("#myPostContentUl > li").removeClass("highlight");
-			$(e.currentTarget).addClass("highlight");
-			$("#postPopup").css("display","block");
-			 
-			popUpDatail($(this));
-			
-		}
-	 });
+				popUpDatail($(this));
 
-function popUpDatail(li){
-	
-
-	var notiKnd = li.data("kind");
-	
-	
-	if(notiKnd == "text"){
-			$.ajax({
-				url : "myPostTxt.do",
-				type : 'GET',
-				data : "JSON",
-				dataType : "html",
-				success : function(data) {
-					$("#modalBody").html(data);
-				}
-			}); 
-	} else if (notiKnd == "task"){
-			$.ajax({
-				url : "myPostTsk.do",
-				type : 'GET',
-				data : "JSON",
-				dataType : "html",
-				success : function(data) {
-					$("#modalBody").html(data);
-				}
-			}); 
-	}else if (notiKnd == "schedule"){
-		$.ajax({
-			url : "myPostSche.do",
-			type : 'GET',
-			data : "JSON",
-			dataType : "html",
-			success : function(data) {
-				$("#modalBody").html(data);
 			}
-		}); 
-	}else if (notiKnd == "todo"){
-		$.ajax({
-			url : "myPostTodo.do",
-			type : 'GET',
-			data : "JSON",
-			dataType : "html",
-			success : function(data) {
-				$("#modalBody").html(data);
-			}
-		}); 
-	}
-};
+		});
 
-/* $("#modal_close_btn").click(function() {
-	$("#modal").css("display", "none");
-}); */
-	
-	
-	
+		// 모달창 호출 (ajax)
+		function popUpDatail(li) {
+
+			var notiKnd = li.data("kind");
+			var notiId = li.data("notiid");
+
+			if (notiKnd == "text") {
+				$.ajax({
+					url : "myPostTxt.do",
+					type : 'POST',
+					data : {
+						notiId : notiId
+					},
+					dataType : "html",
+					success : function(data) {
+						$("#modalBody").html(data);
+					}
+				});
+			} else if (notiKnd == "task") {
+				$.ajax({
+					url : "myPostTsk.do",
+					type : 'POST',
+					data : {
+						notiId : notiId
+					},
+					dataType : "html",
+					success : function(data) {
+						$("#modalBody").html(data);
+					}
+				});
+			} else if (notiKnd == "schedule") {
+				$.ajax({
+					url : "myPostSche.do",
+					type : 'POST',
+					data : {
+						notiId : notiId
+					},
+					dataType : "html",
+					success : function(data) {
+						$("#modalBody").html(data);
+					}
+				});
+			} else if (notiKnd == "todo") {
+				$.ajax({
+					url : "myPostTodo.do",
+					type : 'POST',
+					data : {
+						notiId : notiId
+					},
+					dataType : "html",
+					success : function(data) {
+						$("#modalBody").html(data);
+					}
+				});
+			}
+		};
 	</script>
-	
+
 
 </body>
 </html>

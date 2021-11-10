@@ -117,28 +117,25 @@
 	<!-- 내 게시물 목록 -> 글 상세보기(팝업) -->
 	<select id="myPostTxt"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select a. noti_knd, b.name, c.*, d.prj_ttl, a.noti_dttm
-		from notice_writing
-		a, member b, text c, project d
-		where a.mem_id =
-		b.mem_id
-		and a.prj_id =
-		d.prj_id
-		and a.noti_id = c.noti_id
-		and a.noti_id=
-		#{notiId}
+		select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name
+		from 	text a, project b, board c, member d
+		where 	a.noti_id = c.noti_id 
+		and 	b.prj_id = c.prj_id
+		and 	b.co_url = d.co_url
+		and 	c.mem_id = d.mem_id
+		and 	c.noti_id = #{notiId}
 	</select>
 	
 	<!-- 내 게시물 목록 -> 업무 상세보기(팝업) -->
 	<select id="myPostTsk"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select  a.* , b.co_url, b.prj_ttl,  c.noti_open_perm, c.noti_dttm, d.name
+		select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name
 		from 	task a, project b, board c, member d
 		where 	a.noti_id = c.noti_id 
 		and 	b.prj_id = c.prj_id
 		and 	b.co_url = d.co_url
 		and 	c.mem_id = d.mem_id
-		and 	b.co_url = #{coUrl}
+		and 	c.noti_id = #{notiId}
 	</select>
 	
 	<!-- 내 게시물 목록 -> 하위업무 상세보기(팝업) -->
@@ -157,31 +154,25 @@
 	<!-- 내 게시물 목록 -> 일정 상세보기(팝업) -->
 	<select id="myPostSche"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select a.*, b.name, c.sche_cntn
-		from board a, member b,
-		schedule c
-		where
-		a.mem_id = b.mem_id
-		and a.noti_id = c.noti_id
-		and
-		a.noti_id = #{notiId}
+		select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name
+		from 	schedule a, project b, board c, member d
+		where 	a.noti_id = c.noti_id 
+		and 	b.prj_id = c.prj_id
+		and 	b.co_url = d.co_url
+		and 	c.mem_id = d.mem_id
+		and 	c.noti_id = #{notiId}
 	</select>
 	
 	<!-- 내 게시물 목록 -> 할일 상세보기(팝업) -->
 	<select id="myPostTodo"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select a. noti_knd, b.name, c.*, d.prj_ttl, a.noti_dttm
-		from notice_writing
-		a, member b, todo c, project d
-		where a.mem_id =
-		b.mem_id
-		and
-		a.prj_id=d.prj_id
-		and a.noti_id = c.noti_id
-		and b.mem_id =
-		c.mem_id
-		and
-		c.noti_id = #{notiId}
+		select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name
+		from 	todo a, project b, board c, member d
+		where 	a.noti_id = c.noti_id 
+		and 	b.prj_id = c.prj_id
+		and 	b.co_url = d.co_url
+		and 	c.mem_id = d.mem_id
+        and     c.noti_id = #{notiId}
 	</select>
 
 
