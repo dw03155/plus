@@ -37,7 +37,6 @@
 <script type="text/javascript" charset="UTF-8"
 	src="https://maps.googleapis.com/maps-api-v3/api/js/46/8/intl/ko_ALL/util.js"></script>
 
-<!-- 제일 밑에 있던 js -->
 
 <style type="text/css">
 @
