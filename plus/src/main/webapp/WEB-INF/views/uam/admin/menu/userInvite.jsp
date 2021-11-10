@@ -97,6 +97,14 @@
 	#xlxsInfo{
 		padding-top: 10px;
 	}
+	#checkth{
+		width: 50px;
+	}
+	.redBox{
+		border: 1px solid red;
+	}
+	.normalBox{
+	}
 	
 </style>
 </head>
@@ -143,16 +151,16 @@
 				<p>ㆍ등록된 사용자는 최종 "사용자관리" 메뉴에서 확인할 수 있습니다.<button id="helpBtn" type="button" >도움말 보기</button></p>
 			</div>
 			<div class="contentsBox">
-				<p>xlsx 파일만 업로드 가능합니다.</p>	
-				<form action="xlsxUplord.do" method="post" enctype="multipart/form-data">
+				<p>xls 파일만 업로드 가능합니다.</p>	
+				<form id="excelUploadForm" name="excelUploadForm" action="xlsxUplord.do" method="post" enctype="multipart/form-data" style="display: inline;">
 				<input id="file" name="file" type="file" style="border: 1px;">
-				<input type="submit" id="fileUp" class="blueBtn">
 				</form>
+				<button type="submit" id="fileUp" class="blueBtn" onclick="check()">추가</button>
 				<button id="xlsxDoun" onClick="location.href='xlsxDonload.do'" class="whiteBtn" type="button" style="width: 180px">엑셀파일 양식 다운로드</button>
 			</div>
 			<div class="contentsBox">
 			<div id="xlsxInfo">
-			<span>전체 (갯수)개 ((갯수)개 등록가능, </span><em style="color: red">(갯수)개</em><span> 등록 불가능)</span>
+			<span>전체&nbsp;'<em id="allcnt"></em>'개 ('<em id="okcnt"></em>'개 등록가능,&nbsp;'</span><em style="color: red"><em id="nocnt"></em>'개&nbsp;</em><span> 등록 불가능)</span>
 			<span><input type="checkbox">등록 불가능한 행 모아보기</span>
 			<div id="btnDiv">
 				<button class="whiteBtn" id="lineBtn">전체선택</button>
@@ -160,10 +168,10 @@
 				<button class="blueBtn" id="inBtn">등록</button>
 			</div>
 			</div>
-				<table id="usingMemberList" border="1">
+				<table id="insertMemberList" border="1">
 					<thead class="memberthead">
 						<tr>
-							<th><input type='checkbox'></th>
+							<th id="checkth"><input type='checkbox' style="max-width: 50px; min-width: 50px;"></th>
 							<th>이름</th>
 							<th>이메일</th>
 							<th>휴대폰</th>
@@ -172,7 +180,7 @@
 							<th>회사연락처</th>
 						</tr>
 					</thead>
-					<tbody id="usinglist" >
+					<tbody id="insertlist" >
 					</tbody>
 				</table>
 			</div>
@@ -184,6 +192,111 @@
 		</div><!-- main-container end -->
 	
 	<script>
+	
+	function checkFileType(filePath){
+		var fileFormat = filePath.split(".");
+		
+		if(fileFormat.indexOf("xls") > -1 || fileFormat.indexOf("xlsx") > -1){
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	
+	function check(){
+		var file = $('#file').val();
+		if (file == "" || file == null){
+			alert("파일을 선택해주세요.");
+			return false;
+		}else if (!checkFileType(file)){
+			alert("엑셀파일만 업로드하세요.");
+			return false;
+		}
+		if (confirm("엡로드하시겠습니까?")){
+			var formData = new FormData(document.excelUploadForm);
+			$.ajax({
+				url: "xlsxUplord.do",
+				processData: false,
+				contentType: false,
+				data: formData,
+				type: 'post',
+				success: function(data){
+					alert("업로드")
+					if(data != ""){
+						$('#insertlist').empty();
+						fileView(data);
+						
+					}else{
+						alert("파일에 데이터가 없습니다.")
+					}
+				},
+				error:function(){
+					alert("파일오류")
+				}
+			})
+		}
+	};
+	function fileView(data){
+		for(i=0; i<data.length; i++){
+			var $email = data[i]["email"];
+			var $name = data[i]["name"];
+			var $persTel = data[i]["persTel"];
+			var $dept = data[i]["dept"];
+			var $wkpo = data[i]["wkpo"];
+			var $coTel = data[i]["coTel"];
+				if($email == 0 && $name == 0 && $persTel == 0 && $dept == 0 && $wkpo == 0 && $coTel == 0){
+					console.log("datt");
+				}else{				
+				$('<tr>').append($('<td>').append($('<input type="checkbox" class="fileCheck">')))
+						 .append($('<td>').append($('<span>').append($('<input class="view">').val($name))))
+						 .append($('<td>').append($('<span>').append($('<input class="view">').val($email))))
+						 .append($('<td>').append($('<span>').append($('<input class="view">').val($persTel))))
+						 .append($('<td>').append($('<span>').append($('<input class="view">').val($dept))))
+						 .append($('<td>').append($('<span>').append($('<input class="view">').val($wkpo))))
+						 .append($('<td>').append($('<span>').append($('<input class="view">').val($coTel))))
+						 .appendTo($('#insertlist'));
+				}
+				
+		
+			var fileTd = $('.fileCheck').parent();
+			var fileInput = fileTd.nextAll().children().children();
+			
+				for(j=0; j<fileTd.length; j++){				
+					var fileVal = fileInput.eq(j).val();
+					var fileSpan = fileInput.eq(j).parent();
+						if(fileVal == ''){
+							fileSpan.attr("class","redBox");
+					}else{
+						fileSpan.attr("class","normalBox");
+					}
+				}	
+			}
+			
+		count();
+		
+		$('.view').on("change",function(){
+			var fileInput = $(this);
+			console.log(fileInput);
+			var fileIn = fileInput.val();
+			if(fileIn == ""){
+				fileInput.parent().attr("class","redBox");
+			}else{
+				fileInput.parent().attr("class","normalBox");
+			}
+			count();
+			
+		})
+	};
+		
+	function count(){			
+			var allcnt = $('#insertlist').children().length;
+			var nocnt = $(".redBox").parent().parent().length;
+			$('#allcnt').text(allcnt);
+			$("#nocnt").text(nocnt);
+			$("#okcnt").text(allcnt-nocnt);
+		
+		}
 	
 			$("#send").on("click", function(){
 				$('#send').attr("class","js-tab-item active");
