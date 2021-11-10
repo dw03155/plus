@@ -1,7 +1,6 @@
 package co.plus.prj.nwm.serviceImpl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,9 +27,9 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 		return map.allTask(vo);
 	}
 	@Override
-	public List<NoticeWritingVO> detailTask(NoticeWritingVO vo) {
+	public List<NoticeWritingVO> detailTaskList(NoticeWritingVO vo) {
 		// TODO Auto-generated method stub
-		return map.detailTask(vo);
+		return map.detailTaskList(vo);
 	}
 	@Override
 	public NoticeWritingVO taskSelect(NoticeWritingVO vo) {

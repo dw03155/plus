@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+<p>모달 jsp 일정임</p>
 <!-- 내 게시물 목록 -> 일정 상세보기(팝업) -->
 <table border="1">
 	<tr>

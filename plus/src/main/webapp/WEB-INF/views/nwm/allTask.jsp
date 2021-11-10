@@ -3,6 +3,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +12,22 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<!-- 전체 업무 상세보기 (모달창) -->
+	<div class="back-area temp-popup" tabindex="0" id="postPopup"
+		data-code="VIEW" style="display: none;">
+		<div class="flow-project-make-1 back-area">
+			<div class="flow-project-make-2 back-area contents">
+				<div class="js-post-nav card-item post-card-wrapper task  side">
+					<button type="button" class="post-popup-button left"></button>
+					<div id="modalBody"></div>
+					<!-- 모달창 Jsp (nwm > modal) -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- 전체 업무 (프로젝트 명) -->
 	<div class="main-container">
 		<div id="topSettingBar" class="main-header">
 			<div id="mainTop" class="title-1" style="display: block">
@@ -18,7 +36,7 @@
 
 			<span id="allCollectionCount"
 				class="js-collection-total-count js-collection-count top-task-num"
-				style="display: block">50</span>
+				style="display: block">${fn:length(tasks)}</span>
 		</div>
 
 		<!-- 전체 업무 페이지 -->
@@ -33,7 +51,7 @@
 						<div class="btns-wr">
 							<div class="project-search-area all-file-header-type-3">
 								<div class="project-search">
-									<form id="frm" name="frm" method="post">
+									<form name="frm" method="post">
 										<i class="icons-search"></i> <input type="text" name="notiTtl"
 											id="notiTtl" placeholder="업무명을 검색하세요!" autocomplete="off"
 											maxlength="20"
@@ -41,7 +59,6 @@
 									</form>
 								</div>
 							</div>
-
 							<ul class="btns-area">
 								<li>
 									<button id="taskSettingButton"
@@ -93,51 +110,91 @@
 								</div>
 							</div>
 
-
+							<!-- 전체 목록 화면 -->
 							<ul id="taskListProjectItem"
 								class="js-all-task-ul all-task-content layer-scroll padding-zero scroll-mask scroll-for-ie">
 								<c:forEach var="task" items="${tasks }" varStatus="status">
 									<li class="js-gubun-li">
 										<div id="main" class="js-gubun-button all-task-project">
 											<!-- active 클래스 추가시  -->
-											<span class="project-title">${task.prjTtl }</span> <span
-												class="project-task-count">50</span>
+											<span class="project-title">${task.prjTtl }</span>
 											<!-- 갯수 -->
-											<%-- <div>${cnt }</div> --%>
-										</div>
-										<ul class="js-inner-task project-inner-task active"
-											style="display: block">
-											
-												<li class="task-item {LI_STTS}">
-
-													<%-- <div class="task-item {LI_STTS}">${dtask.notiId }ddd</div>
-													<div class="task-item {LI_STTS}">${dtask.tskPrgs }</div>
-													<div class="task-item {LI_STTS}">${dtask.notiTtl }</div>
-													<div class="task-item {LI_STTS}">${dtask.memId}</div>
-													<div class="task-item {LI_STTS}">${dtask.name}</div>
-
-													<div class="task-item {LI_STTS}">
-														<fmt:formatDate pattern="yyyy-MM-dd"
-															value="${dtask.tskBgnDt }" />
+											<span class="project-task-count">${fn:length(task.taskDetail)}</span>
+										</div> <!-- 프로젝트 안 업무 목록 -->
+										<ul id="allTskContentUl"
+											class="js-inner-task project-inner-task active"
+											style="display: none">
+											<c:forEach var="dtasks" items="${task.taskDetail}">
+												<li class="task-item ">
+													<div class="js-task_num task-task_num-cell task-item-cell">
+														<div class="js-task_num-text  ellipsis">${dtasks.notiId }</div>
 													</div>
-													<div class="task-item {LI_STTS}">
-														<fmt:formatDate pattern="yyyy-MM-dd"
-															value="${dtask.tskEndDt }" />
+													<div class="task-item-cell task-state task-stts-cell">
+														<span class="js-task-state request">${dtasks.tskPrgs }</span>
 													</div>
-													<div class="task-item {LI_STTS}">
-														<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
-															value="${dtask.notiDttm}" />
-													</div> --%>
+													<div class="js-priority task-item-cell task-priority-cell ">
+														<div class="js-priority-span rank-span">
+															<i class=" small"></i> <span
+																class="js-priority-text priority-text-cell ellipsis">
+																-</span>
+														</div>
+													</div>
+													<div class="task-item-cell task-name task-task_nm-cell ">
+														<div
+															class="js-post-title task-title ellipsis js-mouseover"
+															mouseover-text="${dtasks.notiTtl }">
+															${dtasks.notiTtl }<em class="subtask-item"
+																style="display: none"> <i class="icons-subtask"></i>
+																<span class="subtask-number">0</span>
+															</em>
+														</div>
+														<div class="js-post-title project-title"
+															style="display: none">
+															<i class="icons-project-1"></i>${dtasks.prjTtl }
+														</div>
+													</div>
+													<div class="js-workers task-item-cell task-worker_nm-cell ">
+														<span class="js-mouseover" mouseover-text=""> <span
+															class="js-worker-name manager ellipsis">${dtasks.name}</span>
+															<span class="js-worker-count"></span>
+														</span>
+													</div>
+													<div class="js-workers task-item-cell task-worker_nm-cell ">
+														<span class="js-mouseover" mouseover-text=""> <span
+															class="js-worker-name manager ellipsis">${dtasks.name}</span>
+															<span class="js-worker-count"></span>
+														</span>
+													</div>
+													<div class="js-edtr_dt task-edtr_dt-cell task-item-cell ">
+														<div class="js-edtr_dt-text  ellipsis">
+															<fmt:formatDate pattern="yyyy-MM-dd"
+																value="${dtasks.tskBgnDt}" />
+														</div>
+
+													</div>
+													<div class="js-edtr_dt task-edtr_dt-cell task-item-cell ">
+														<div class="js-edtr_dt-text  ellipsis">
+															<fmt:formatDate pattern="yyyy-MM-dd"
+																value="${dtasks.tskEndDt}" />
+														</div>
+
+													</div>
+													<div class="js-edtr_dt task-edtr_dt-cell task-item-cell ">
+														<div class="js-edtr_dt-text  ellipsis">
+															<fmt:formatDate pattern="yyyy-MM-dd"
+																value="${dtasks.notiDttm}" />
+														</div>
+
+													</div>
 												</li>
-											
-
-
-											<!-- style="display: none" -->
-											<!-- li 태그 넣기 : 상세보기시에는 class="highlight" 추가-->
-										</ul>
+											</c:forEach>
+										</ul> <!-- style="display: none" --> <!-- li 태그 넣기 : 상세보기시에는 class="highlight" 추가-->
 									</li>
 								</c:forEach>
 							</ul>
+
+
+
 
 							<!-- li 태그 넣기 -->
 							<ul id="taskListItem" class="d-none">
@@ -157,7 +214,7 @@
 												class="project-invite-popup-1 task-view-popup">
 												<div class="name-type-seach-popup-header-type-1">
 													<span>보기 설정</span>
-													<button class="close-button flow-close-type-1"></button>
+													<button class="flow-close-type-1"></button>
 												</div>
 												<p class="task-set-description">
 													항목 순서 변경과 조회할 항목을 선택할 수 있습니다. <em>업무명은 필수 항목입니다.</em>
@@ -175,7 +232,7 @@
 															</button>
 														</div>
 													</li>
-													<li class="js-sort-li before_on" col-srno="{COL_SRNO}">
+													<li class="js-sort-li before_on" col-srno="2">
 														<div class="task-set-item">
 															<span class="task-set-move-handle"></span> <span
 																class="task-set-title">상태</span>
@@ -185,17 +242,17 @@
 															</button>
 														</div>
 													</li>
-													<li class="js-sort-li before_on" col-srno="{COL_SRNO}">
+													<li class="js-sort-li before_on" col-srno="3">
 														<div class="task-set-item">
 															<span class="task-set-move-handle"></span> <span
 																class="task-set-title">업무명</span>
-															<button type="button"
-																class="js-sort-button toggle-button {SORT_TITLE} {COL_CLASS}">
+															<button id="viewFinder" type="button"
+																class="js-sort-button toggle-button js-sort-title active">
 																<i class="handle"></i>
 															</button>
 														</div>
 													</li>
-													<li class="js-sort-li before_on" col-srno="{COL_SRNO}">
+													<li class="js-sort-li before_on" col-srno="4">
 														<div class="task-set-item">
 															<span class="task-set-move-handle"></span> <span
 																class="task-set-title">담당자</span>
@@ -205,7 +262,7 @@
 															</button>
 														</div>
 													</li>
-													<li class="js-sort-li before_on" col-srno="{COL_SRNO}">
+													<li class="js-sort-li before_on" col-srno="5">
 														<div class="task-set-item">
 															<span class="task-set-move-handle"></span> <span
 																class="task-set-title">작성자</span>
@@ -215,7 +272,7 @@
 															</button>
 														</div>
 													</li>
-													<li class="js-sort-li before_on" col-srno="{COL_SRNO}">
+													<li class="js-sort-li before_on" col-srno="6">
 														<div class="task-set-item">
 															<span class="task-set-move-handle"></span> <span
 																class="task-set-title">시작일</span>
@@ -225,7 +282,7 @@
 															</button>
 														</div>
 													</li>
-													<li class="js-sort-li before_on" col-srno="{COL_SRNO}">
+													<li class="js-sort-li before_on" col-srno="7">
 														<div class="task-set-item">
 															<span class="task-set-move-handle"></span> <span
 																class="task-set-title">마감일</span>
@@ -235,7 +292,7 @@
 															</button>
 														</div>
 													</li>
-													<li class="js-sort-li before_on" col-srno="{COL_SRNO}">
+													<li class="js-sort-li before_on" col-srno="8">
 														<div class="task-set-item">
 															<span class="task-set-move-handle"></span> <span
 																class="task-set-title">등록일시</span>
@@ -264,16 +321,84 @@
 			</div>
 		</div>
 	</div>
-	<!-- 전체 업무 -> 목록 접고 펼치기 -->
+	<!-- 전체 업무 (목록 접고 펼치기) -->
 	<script type="text/javascript">
-	 var main = document.querySelectorAll("#main");
+		var main = document.querySelectorAll("#main");
 		$(main).click(function(event) {
 			console.log(event);
 			var et = $(event.target);
 			et.toggleClass("active");
 			et.next("ul").toggle();
+
+		});
+	</script>
+
+	<!-- 전체 업무 (보기 설정) -->
+	<script>
+		$(document).ready(function() {
+			$("#taskSettingButton").click(function() {
+				$("#taskSortSettingPopupItem").css("display", "block");
+			});
+
+			$(".flow-close-type-1").click(function() {
+				$("#taskSortSettingPopupItem").css("display", "none");
+			});
 		});
 
+		$("li > div > button").on("click", function() {
+			$(this).toggleClass("active");
+		});
 	</script>
+
+	<!-- highlight (상세보기 팝업)-->
+	<script>
+		$("#allTskContentUl > li").click(function(e) {
+			 if($(e.currentTarget).hasClass("highlight")){
+				console.log("ddd===========================");
+				console.log($(e.currentTarget));
+				$(e.currentTarget).removeClass("highlight");
+				$("#postPopup").css("display","none");
+			}
+			else if (!$(e.currentTarget).hasClass("highlight")){
+				$("#allTskContentUl > li").removeClass("highlight");
+				$(e.currentTarget).addClass("highlight");
+				$("#postPopup").css("display","block");
+						 
+				tskPopUpDetail($(this));
+			}
+		});
+			
+		function tskPopUpDetail(li){
+			
+			$.ajax({
+				url : "myPostTsk.do",
+				type : 'GET',
+				data : "JSON",
+				dataType : "html",
+				success : function(data) {
+					$("#modalBody").html(data);
+					if(data != ""){		
+						for(i=0; i<data.length; i++){
+						var item = data[i];
+						if(){
+							
+						
+						}else if(){
+							
+						}
+					
+				},
+			error:function(request,status,error){
+	             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	             
+	          }
+
+	
+			});
+		};
+		
+	</script>
+
+
 </body>
 </html>

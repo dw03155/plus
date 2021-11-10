@@ -20,22 +20,24 @@ public class NoticeWritingController {
 	// 전체 메뉴	
 	@RequestMapping("/allTask.do")	// 전체 메뉴 -> 전체 업무
 	String allTask(HttpSession session, Model model, NoticeWritingVO vo) {
-
+		
 		vo.setCoUrl((String)session.getAttribute("coUrl"));
 		vo.setMemId((String)session.getAttribute("memId"));
 		model.addAttribute("tasks",nwDao.allTask(vo));
 		return "nwm/allTask"; 		
 	}
-	@RequestMapping("/detailTask") // 전체 업무 목록 내 항목들 출력
-	String detailTask(Model model, NoticeWritingVO vo) {
-		model.addAttribute("tasks",nwDao.detailTask(vo));
+	@RequestMapping("/detailTaskList.do") // 전체 업무 목록 내 항목들 출력
+	String detailTaskList(HttpSession session, Model model, NoticeWritingVO vo) {
+		vo.setCoUrl((String)session.getAttribute("coUrl"));
+		System.out.println(vo);
+		model.addAttribute("dtasks",nwDao.detailTaskList(vo));
 		return "nwm/allTask";
 	}
 	
 	@RequestMapping("/allSche.do") // 전체 메뉴 -> 캘린더
 	String allSche(Model model, NoticeWritingVO vo) {
 		model.addAttribute("sches",nwDao.allSche(vo));
-		return "nwm/allSche"; 		
+		return "nwm/allSchedule"; 		
 	}
 	
 	@RequestMapping("/myPost.do") // 전체 메뉴 -> 내 게시물 목록 
@@ -52,7 +54,8 @@ public class NoticeWritingController {
 	}
 
 	@RequestMapping("/bookmark.do") // 전체 메뉴 -> 북마크
-	String bookmark(Model model, NoticeWritingVO vo) {
+	String bookmark(HttpSession session, Model model, NoticeWritingVO vo) {
+		vo.setMemId((String)session.getAttribute("memId"));
 		model.addAttribute("bookmarks", nwDao.bookMarkList(vo));
 		return "nwm/bookmark";
 	}
@@ -64,7 +67,8 @@ public class NoticeWritingController {
 	 }
 	
 	@RequestMapping("/myPostTsk.do") // 내 게시물 목록 -> 업무 상세보기(팝업)
-	public String myPostTsk(Model model, NoticeWritingVO vo) {
+	public String myPostTsk(HttpSession session,Model model, NoticeWritingVO vo) {
+		vo.setCoUrl((String)session.getAttribute("coUrl"));
 		model.addAttribute("tasks", nwDao.myPostTsk(vo));
 		return "nwm/modal/myPostTsk"; 
 	 }

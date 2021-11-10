@@ -8,41 +8,75 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-#modal {
-	display: none;
-}
-
-#modalBody {
+<script type="text/javascript">
+$().ready(function(){
+	$("#filterBtn").on("click",function(){
+	 	$("#filterBtn").addClass("active");
+		$("#filterSelect").toggle(); 
+	});
+    // 버튼 생성과 이벤트 핸들러 추가를 분리합니다.
+	   $("#all").button().click(function(event) {
+		   $("#write, #task, #sche, #todo").removeClass("on");
+	        $("#all").addClass("on");
+	        $(".text, .task, .schedule, .todo").show();
+		   var count = $("#myPostContentUl").find('li:visible').length;
+		   console.log(count + "");
+	    });
+    
+	    $("#write").button();
+	    $("#write").click(function(event) {
+	    	$("#all, #task, #sche, #todo").removeClass("on");
+	    	$("#write").addClass("on");
+	    	$(".text").show();
+	    	$(".task, .schedule, .todo").hide();
+	    	 var count = $("#myPostContentUl").find('li:visible').length;
+			   console.log(count + "====");
+	    });	
+	    
+	    $("#task").button();
+	    $("#task").click(function(event) {
+	    	 var count = $("#myPostContentUl").find('li:visible').length;
+			   console.log(count + "====");
+	    	$("#all, #write, #sche, #todo").removeClass("on");
+	    	$("#task").addClass("on");
+	    	$(".task").show();
+	    	$(".text, .schedule, .todo").hide();
+	    });
+	    
+	    $("#sche").button();
+	    $("#sche").click(function(event) {
+	    	 var count = $("#myPostContentUl").find('li:visible').length;
+			   console.log(count + "====");
+	    	$("#all, #task, #write, #todo").removeClass("on");
+	    	$("#sche").addClass("on");
+	    	$(".schedule").show();
+	    	$(".task, .text, .todo").hide();
+	    });
+	    
+	    $("#todo").button();
+	    $("#todo").click(function(event) {
+	    	 var count = $("#myPostContentUl").find('li:visible').length;
+			   console.log(count + "====");
+	    	$("#all, #task, #sche, #write").removeClass("on");
+	    	$("#todo").addClass("on");
+	    	$(".todo").show();
+	    	$(".task, .schedule, .text").hide();
+	    });
+});
 	
-}
-
-#modal .modal_layer {
-	
-}
-</style>
+	</script>
 </head>
 <body>
-	<!-- 상세보기 -->
-	<div id="modal">
-		<div class="modal_content">
-			<div id="subModal"></div>
-			<div>
-			<div align="right">
-				<div class="js-post-nav card-item post-card-wrapper write2  side">
+	<!-- 전체 업무 상세보기 (모달창) -->
+	<div class="back-area temp-popup" tabindex="0" id="postPopup"
+		style="display: none;">
+		<div class="flow-project-make-1 back-area">
+			<div class="flow-project-make-2 back-area contents">
+				<div class="js-post-nav card-item post-card-wrapper task  side">
 					<button type="button" class="post-popup-button left"></button>
-					<div class="post-popup-header card-popup-header d-none"
-						style="display: block;">
-						<button id="modal_close_btn" class="btn-close card-popup-close">
-							<i class="icons-close-1"></i>
-						</button>
-					</div>
-				</div>
-				</div>
-				<div>
 					<div id="modalBody"></div>
+					<!-- 모달창 Jsp (nwm > modal) -->
 				</div>
-				<div class="modal_layer"></div>
 			</div>
 		</div>
 	</div>
@@ -65,7 +99,7 @@
 				<!-- 내 게시물 검색창 -->
 				<div class="my-search-area">
 					<div class="project-search-area all-file-header-type-3">
-						<form id="frm" name="frm" method="post">
+						<form name="frm" method="post">
 							<div class="project-search">
 								<i class="icons-search"></i> <input id="notiTtl" name="notiTtl"
 									type="text" placeholder="검색어를 입력해주세요!"
@@ -86,8 +120,7 @@
 
 				<!-- 내 게시물 화면 -->
 				<c:if test="${ empty param.notiTtl }">
-					<div id="myPostList" class="small-style-wrap-2" 
-						style="display: block;">
+					<div class="small-style-wrap-2" style="display: block;">
 						<div class="feed-content me-content">
 							<div class="search-title-area">
 								<span id="allPostsFilterTitle" class="search-result-title">전체</span>
@@ -101,7 +134,7 @@
 									style="display: block;">
 									<button id="filterBtn" type="button"
 										class="js-all-posts-filter-button filter-button">필터</button>
-									<ul id="filterSelect" 
+									<ul id="filterSelect"
 										class="js-all-posts-filter-layer check-menu-popup my-popup"
 										style="display: none; position: absolute; top: 24px; right: 0;">
 										<li>
@@ -133,8 +166,8 @@
 
 								<!-- 반복 시작 -->
 								<c:forEach var="notice" items="${notices}">
-									<li id="myPcontent" 
-										class="js-all-post-item post-search-item post-list-wrapper" >
+									<li
+										class="js-all-post-item post-search-item post-list-wrapper" data-kind="${notice.notiKnd}">
 										<div class="fixed-kind">
 											<!-- 글 class="icons-write2" 할일 class="icons-todo" 일정 class="icons-schedule"-->
 											<c:if test="${notice.notiKnd=='text'}">
@@ -143,21 +176,29 @@
 											<c:if test="${notice.notiKnd=='task'}">
 												<c:set var="notiKnd" value="icons-task" />
 											</c:if>
+											<c:if test="${notice.notiKnd=='subtask'}">
+												<c:set var="notiKnd" value="icons-task" />
+											</c:if>
 											<c:if test="${notice.notiKnd=='todo'}">
 												<c:set var="notiKnd" value="icons-todo" />
 											</c:if>
 											<c:if test="${notice.notiKnd=='schedule'}">
 												<c:set var="notiKnd" value="icons-schedule" />
 											</c:if>
-											<i class="${notiKnd }"  ></i> <span class="post-type" >${notice.notiKnd}</span>
+											<i class="${notiKnd }"></i> <span class="post-type">${notice.notiKnd}</span>
 										</div>
 										<div class="search-sub-text-wrap">
 											<div class="contents-cmt">
 												<p class="search-text-type-3 contents-tit">${notice.notiTtl }</p>
 												<!-- 댓글 있으면 표시-->
-												<div class="post-list comment" style="display: none" data>
+												<div class="post-list comment" style="display: none">
 													<i class="icons-comment2"></i><span
 														class="js-post-comment-count">0</span>
+												</div>
+												<div class="post-list subtask" style="display: none">
+													<em class="subtask-item"> <i class="icons-subtask"></i>
+														<span class="subtask-number">0</span>
+													</em>
 												</div>
 											</div>
 
@@ -172,24 +213,48 @@
 													value="${notice.notiDttm}" />
 											</div>
 
-											<!-- 글 종류에 따라 display : block-->
+											<!-- 글 종류에 따라 display :block-->
 											<div class="fixed-value">
-												할일 완료도 <span class="state request" style="display: none"
-													data>50%</span> 업무 진행상항 class="progress" 진행 /
+												<c:if test="${notice.notiKnd=='task'}">
+													<span class="js-task-state state d-none hold"
+														style="display: none">보류</span>
+													<span class="js-task-state state d-none progress"
+														style="display: none">진행</span>
+													<span class="js-task-state state d-none request"
+														style="display: none">요청</span>
+													<span class="js-task-state state d-none completion"
+														style="display: none">완료</span>
+													<span class="js-task-state state d-none feedback"
+														style="display: none">피드백</span>
+												</c:if>
+												<c:if test="${notice.notiKnd=='schedule'}">
+													<div class="p" style="display: inline-block">
+														<em class="date"><fmt:formatDate pattern="MM/dd "
+																value="${notice.notiDttm}" /></em> <span><fmt:formatDate
+																pattern="HH:mm" value="${notice.notiDttm}" /></span>
+													</div>
+												</c:if>
+												<c:if test="${notice.notiKnd=='todo'}">
+													<span class="state request" style="display: inline-block">50%</span>
+												</c:if>
+												<!-- 할일 완료도  업무 진행상항 class="progress" 진행 /
 												class="request" 요청 / class="completion"완료 /
-												class="feedback"피드백 <span
-													class="js-task-state state d-none hold"
-													style="display: inline-block">보류</span> 일정
-												<div class="date-time" style="display: none" data>
-													일정 날짜 <em class="date">11/03</em> 일정 시간 <span>오전
-														10:00</span>
-												</div>
+												class="feedback"피드백  일정 -->
+												<!--
+									            <div class="fixed-value">
+									                <span class="state request" style="display:none" data>-1%</span>
+									                <span class="js-task-state state request" >요청</span>
+									                <div class="date-time" style="display:none" data>
+									                    <em class="date">-</em>
+									                    <span>-</span>
+									                </div>
+									            </div>
+									            -->
 											</div>
-
 										</div>
 									</li>
-									<!-- 반복 끝 -->
 								</c:forEach>
+									<!-- 반복 끝 -->
 							</ul>
 						</div>
 					</div>
@@ -215,18 +280,22 @@
 
 										<!-- 반복 시작 -->
 										<c:forEach var="notices" items="${notices }">
+											<c:if test="${notices.notiKnd=='text'}">
+												<c:set var="notiKnd" value="icon-post-type write2" />
+											</c:if>
+											<c:if test="${notices.notiKnd=='task'}">
+												<c:set var="notiKnd" value="icon-post-type task" />
+											</c:if>
+											<c:if test="${notices.notiKnd=='todo'}">
+												<c:set var="notiKnd" value="icon-post-type todo" />
+											</c:if>
+											<c:if test="${notices.notiKnd=='schedule'}">
+												<c:set var="notiKnd" value="icon-post-type schedule" />
+											</c:if>
 											<li id="allPostsSearchUl"
-												class="js-all-post-item post-search-item js-search-item">
+												class="js-all-post-item post-search-item js-search-item  ${notices.notiKnd}">
 												<!-- icon 태그 : icon-post-type write2(글), icon-post-type todo(할일), icon-post-type schedule(일정)-->
-												<c:if test="${notices.notiKnd=='text'}">
-													<c:set var="notiKnd" value="icon-post-type write2" />
-												</c:if> <c:if test="${notices.notiKnd=='task'}">
-													<c:set var="notiKnd" value="icon-post-type task" />
-												</c:if> <c:if test="${notices.notiKnd=='todo'}">
-													<c:set var="notiKnd" value="icon-post-type todo" />
-												</c:if> <c:if test="${notices.notiKnd=='schedule'}">
-													<c:set var="notiKnd" value="icon-post-type schedule" />
-												</c:if> <i class="${notiKnd }"></i>
+												<i class="${notiKnd }"></i>
 												<div class="search-sub-text-wrap">
 													<a href="" class="search-text-type-3 contents-tit">
 														<p>
@@ -253,77 +322,84 @@
 			</div>
 		</div>
 	</div>
+
 	<!-- 내 게시물 모달창 JS -->
 	<script>
-		$("#myPostList").click(function() { // 모달창 열고 닫기
-			$("#modal").css("display", "block");
-		   
-			var tr = $(this);
-			console.log(tr +"=======");
-			var notiKnd = tr.data("target");
-			console.log(notiKnd + "88888");
+
+	$("#myPostContentUl > li").click(function(e) {
+		if($(e.currentTarget).hasClass("highlight")){
+			console.log("ddd===========================");
+			console.log($(e.currentTarget));
+			$(e.currentTarget).removeClass("highlight");
+			$("#postPopup").css("display","none");
+		}
+		else if (!$(e.currentTarget).hasClass("highlight")){
+			$("#myPostContentUl > li").removeClass("highlight");
+			$(e.currentTarget).addClass("highlight");
+			$("#postPopup").css("display","block");
+			 
+			popUpDatail($(this));
 			
-			if(notiKnd == "text"){
-					$.ajax({
-						url : "myPostTxt.do",
-						type : 'GET',
-						data : {notiId : tr.data("notiId"), notiKnd},
-						dataType : "html",
-						success : function(data) {
-							$("#modalBody").html(data);
-						}
-					}); 
-			} else if (notiKnd == "task"){
-					$.ajax({
-						url : "myPostTsk.do",
-						type : 'GET',
-						data : {notiId : tr.data("notiid"), notiKnd},
-						dataType : "html",
-						success : function(data) {
-							$("#modalBody").html(data);
-						}
-					}); 
-			}else if (notiKnd == "schedule"){
-				$.ajax({
-					url : "myPostSche.do",
-					type : 'GET',
-					data : {notiId : tr.data("notiid"), notiKnd},
-					dataType : "html",
-					success : function(data) {
-						$("#modalBody").html(data);
-					}
-				}); 
-			}else if (notiKnd == "todo"){
-				$.ajax({
-					url : "myPostTodo.do",
-					type : 'GET',
-					data : {notiId : tr.data("notiid"), notiKnd},
-					dataType : "html",
-					success : function(data) {
-						$("#modalBody").html(data);
-					}
-				}); 
-			} 
-		});
-		$("#modal_close_btn").click(function() {
-			$("#modal").css("display", "none");
-		});
-	</script>
+		}
+	 });
 
-
-	<!-- 필터 버튼 JS -->
-	<script>
-	$("#filterBtn").on("click",function(){
-	 	$("#filterBtn").addClass("active");
-		$("#filterSelect").toggle(); 
-		
+function popUpDatail(li){
 	
-	});
-	</script>
-	<!-- 돌아가기 버튼 JS -->
 
-	<!-- 전체 게시물 목록 -->
-	<!-- <button type="button" onclick="location.href='totalNotice.do'">프로젝트
-		상세목록</button> -->
+	var notiKnd = li.data("kind");
+	
+	
+	if(notiKnd == "text"){
+			$.ajax({
+				url : "myPostTxt.do",
+				type : 'GET',
+				data : "JSON",
+				dataType : "html",
+				success : function(data) {
+					$("#modalBody").html(data);
+				}
+			}); 
+	} else if (notiKnd == "task"){
+			$.ajax({
+				url : "myPostTsk.do",
+				type : 'GET',
+				data : "JSON",
+				dataType : "html",
+				success : function(data) {
+					$("#modalBody").html(data);
+				}
+			}); 
+	}else if (notiKnd == "schedule"){
+		$.ajax({
+			url : "myPostSche.do",
+			type : 'GET',
+			data : "JSON",
+			dataType : "html",
+			success : function(data) {
+				$("#modalBody").html(data);
+			}
+		}); 
+	}else if (notiKnd == "todo"){
+		$.ajax({
+			url : "myPostTodo.do",
+			type : 'GET',
+			data : "JSON",
+			dataType : "html",
+			success : function(data) {
+				$("#modalBody").html(data);
+			}
+		}); 
+	}
+};
+
+/* $("#modal_close_btn").click(function() {
+	$("#modal").css("display", "none");
+}); */
+	
+	
+	
+	</script>
+	
+
 </body>
 </html>
