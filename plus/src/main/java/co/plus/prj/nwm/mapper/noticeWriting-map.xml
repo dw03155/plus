@@ -166,13 +166,26 @@
 	<!-- 내 게시물 목록 -> 할일 상세보기(팝업) -->
 	<select id="myPostTodo"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name
-		from 	todo a, project b, board c, member d
-		where 	a.noti_id = c.noti_id 
-		and 	b.prj_id = c.prj_id
-		and 	b.co_url = d.co_url
-		and 	c.mem_id = d.mem_id
-        and     c.noti_id = #{notiId}
+		select a.noti_dttm, b.*, c.prj_ttl, c.prj_id, d.name, d.co_url
+       from board a, todo b, project c, member d
+       where a.noti_id = b.noti_id
+       and a.prj_id = c.prj_id
+       and c.co_url = d.co_url
+       and a.mem_id = d.mem_id
+       and a.noti_id = #{notiId}
+        
+        <!-- select a. noti_knd, b.name, c.*, d.prj_ttl, a.noti_dttm
+		from notice_writing
+		a, member b, todo c, project d
+		where a.mem_id =
+		b.mem_id
+		and
+		a.prj_id=d.prj_id
+		and a.noti_id = c.noti_id
+		and b.mem_id =
+		c.mem_id
+		and
+		c.noti_id = #{notiId} -->
 	</select>
 
 

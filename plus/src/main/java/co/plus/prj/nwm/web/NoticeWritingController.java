@@ -88,9 +88,7 @@ public class NoticeWritingController {
 	 }
 	
 	@RequestMapping("/myPostTodo.do") // 내 게시물 목록 -> 할일 상세보기(팝업)
-	public String myPostTodo(HttpSession session, Model model, NoticeWritingVO vo) {
-		vo.setMemId((String)session.getAttribute("memId"));
-		System.out.println("===="+vo);
+	public String myPostTodo(Model model, NoticeWritingVO vo) {
 		model.addAttribute("todos", nwDao.myPostTodo(vo));
 		return "nwm/modal/myPostTodo"; 
 	 }
