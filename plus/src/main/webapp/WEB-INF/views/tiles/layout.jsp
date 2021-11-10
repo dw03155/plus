@@ -62,7 +62,7 @@ to {
 .ctgry_modal {
 	padding: 14px;
 	position: absolute;
-	top: 580px;
+	top: 63%;
 	left: 64%;
 	z-index: 999;
 	background: #fff;
@@ -91,7 +91,7 @@ to {
 	<!-- 팝업창 화면 -->
 
 	<!-- 성공 알림창 style-->
-	<div id="toastWrap">
+	<div id="successWrap">
 		<div class="alert-wrap d-none" style="display: none">
 			<div class="alert-type success">
 				<div class="text">#####</div>
@@ -100,7 +100,7 @@ to {
 	</div>
 
 	<!-- 실패 알림창 style-->
-	<div id="toastWrap">
+	<div id="errorWrap">
 		<div class="alert-wrap d-none" style="display: none">
 			<div class="alert-type error">
 				<div class="text">#####</div>
@@ -507,22 +507,22 @@ to {
 
 	<!-- 새 프로젝트 -->
 	<div id="prjMakeLayer" class="flow-all-background-1 d-none back-area"
-		style="display: none;">
+		style="display: none">
 		<div class="flow-project-make-1 back-area">
 			<div class="flow-project-make-2 back-area">
 				<div class="input-main-layer flow-project-popup-1 d-block">
 					<div class="flow-project-header-1">
-						<span id="projectMakePopupTitle">새 프로젝트</span> <a
-							id="closeProjectMake" href="#"
+						<span>새 프로젝트</span> <a
+							id="closeprjMake" href="#"
 							class="js-project-make-close-btn flow-close-type-1 close-event"></a>
 					</div>
 					<div class="flow-content scroll-mask">
 						<div class="flow-content-1">
-							<input id="projectTitleInput" type="text"
+							<input id="prjTtlInput" type="text"
 								placeholder="제목 입력 (필수)" maxlength="50" autocomplete="off">
 						</div>
 						<div class="flow-content-2">
-							<textarea id="projectContentsInput"
+							<textarea id="prjCntnInput"
 								placeholder="프로젝트에 관한 설명 입력 (옵션)"></textarea>
 						</div>
 
@@ -561,7 +561,7 @@ to {
 								</button>
 							</a>
 						</div>
-						<a id="categoryName" href="#">
+						<a id="ctgryName" href="#">
 							<div class="open-category-setting flow-content-8">
 								<em></em> 프로젝트 카테고리 설정
 								<div class="flow-sub-content-1">
@@ -575,7 +575,7 @@ to {
 					</a>
 				</div>
 				<!-- 카테고리 모달 -->
-				<div id="ctgryModal" class="ctgry_modal">
+				<div id="ctgryModal" class="ctgry_modal" style="display:none">
 					<ul id="ctgryUl">
 					</ul>
 				</div>
@@ -602,9 +602,7 @@ to {
 			$(e.target).toggleClass("active");
 		});
 
-		$("#categoryName").on(
-				"click",
-				function(e) { // 새 프로젝트 카테고리 설정
+		$("#ctgryName").on("click", function(e) { // 새 프로젝트 카테고리 설정
 					e.preventDefault();
 
 					// 카테고리 정보 가져오기
@@ -613,14 +611,17 @@ to {
 						"coUrl" : $coUrl
 					};
 
-					if ($("#ctgryModal").hide()) {
+					if ($("#ctgryModal").show()) {
+						$("#ctgryModal").hide();
+						
+					}else if($("#ctgryModal").hide())
 						$.ajax({
 							url : "ctgryKnd.do",
 							type : "post",
 							dataType : 'json',
 							data : jsonData,
 							success : function(data) {
-								if (data != "") {
+								if (data != "") {									
 									$("#ctgryUl").empty();
 									for (i = 0; i < data.length; i++) {
 										$("<li />").addClass("ctgryLi").append(
@@ -632,15 +633,13 @@ to {
 														"#ctgryUl");
 									} //end of for
 								} else if (data == "") {
-
+									$("#errorWrap").find("div:last").text("카테고리가 존재하지 않습니다.");
+									$("#errorWrap").children("div").fadeIn(1500).delay(1500).fadeOut(1500);
 								}
 							} //end of success
 						}); //end of ajax
 
-						$("#ctgryModal").css("display", "block");
-
-					} else {
-						$("#ctgryModal").css("display", "none");
+						$("#ctgryModal").show();
 					}
 				});
 	</script>
