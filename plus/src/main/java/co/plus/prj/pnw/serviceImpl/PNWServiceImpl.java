@@ -20,7 +20,7 @@ public class PNWServiceImpl implements PNWService {
 	public int prjInsert(PNWVO vo) { // 새 프로젝트
 		return map.prjInsert(vo);
 	}
-	
+
 	public List<PNWVO> ctgryKnd(PNWVO vo) { // 새 프로젝트
 		return map.ctgryKnd(vo);
 	}
@@ -41,7 +41,12 @@ public class PNWServiceImpl implements PNWService {
 	}
 
 	@Override
-	public List<PNWVO> prjFolder(PNWVO vo) { // 프로젝트 폴더 메뉴
+	public List<PNWVO> FolderMenu(PNWVO vo) { // 프로젝트 폴더 메뉴
+		return map.FolderMenu(vo);
+	}
+
+	@Override
+	public List<PNWVO> prjFolder(PNWVO vo){ // 프로젝트 폴더 조회
 		return map.prjFolder(vo);
 	}
 
@@ -115,7 +120,7 @@ public class PNWServiceImpl implements PNWService {
 		map.partiUser(vo); // User 목록
 		return map.partiGuest(vo); // Guest 목록
 	}
-	
+
 	@Override
 	public Map<String, Object> prjHome(PNWVO vo) { // 프로젝트 홈탭
 		Map<String, Object> result = new HashMap<>();

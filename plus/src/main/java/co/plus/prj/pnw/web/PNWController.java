@@ -30,7 +30,7 @@ public class PNWController {
 
 	}
 
-	// 전체 프로젝트(수정)
+	// 전체 프로젝트(**)
 	@RequestMapping(value = "/openProject.do", method = RequestMethod.GET)
 	public String cProject(HttpSession session, Model model, PNWVO vo) {
 		vo.setMemId((String) session.getAttribute("memId"));
@@ -58,17 +58,40 @@ public class PNWController {
 
 	}
 
-	// 프로젝트 홈탭
+	// 프로젝트 홈탭 : 도넛차트
 	@RequestMapping(value = "/doughnutChart.do", method = RequestMethod.POST)
 	@ResponseBody
 	public List<PNWVO> doughnutChart(HttpSession session, Model model, PNWVO vo) {
-		return service.prjTskCount(vo);
+		return service.prjTskCount(vo);//업무 갯수
 
 	}
+	
+	// 새 프로젝트 : 카테고리 종류 받기
 	@RequestMapping(value = "/ctgryKnd.do", method = RequestMethod.POST)
 	@ResponseBody
 	public List<PNWVO> ctgryKnd(HttpSession session, Model model, PNWVO vo) {
 		return service.ctgryKnd(vo);
-
 	}
+	
+	// 새 프로젝트 (프로젝트 입력 처리)
+	@RequestMapping(value = "/prjInsert.do", method = RequestMethod.POST)
+	public String prjInsert(HttpSession session, Model model, PNWVO vo) {
+		vo.setPrjTtl((String) model.getAttribute("prjTtlInput"));
+		vo.setPrjCntn((String) model.getAttribute("prjCntnInput"));
+		vo.setPrjKnd((String) model.getAttribute("prjKndSet"));
+		vo.setCtgryId((String) model.getAttribute("ctgryIdSet"));
+		vo.setPrjOpenPerm((String) model.getAttribute("prjOpenPermSet"));
+		vo.setCoUrl((String) session.getAttribute("coUrl"));
+		
+		service.prjInsert(vo);
+		return "myProject.do";
+	}
+	// 폴더 메뉴
+	@RequestMapping(value = "/FolderMenu.do",  method = RequestMethod.POST)
+	@ResponseBody
+	public List<PNWVO> FolderMenu(HttpSession session, Model model, PNWVO vo) {
+		return service.FolderMenu(vo);
+	}
+	
+	
 }

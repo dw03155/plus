@@ -203,8 +203,8 @@
 							<div class="project-detail-content">
 
 								<div>
-									<div class="detail-section reports-section">
-										<c:if test="${tskAllCnt != 0}">
+									<c:if test="${tskAllCnt != 0}">
+										<div class="detail-section reports-section">
 											<div class="section-title-area">
 												<h4 class="section-title">
 													<span>업무리포트</span> <span class="section-number">${tskAllCnt}</span>
@@ -259,8 +259,8 @@
 												</div>
 											</div>
 											<!-- //원형차트 -->
-										</c:if>
-									</div>
+										</div>
+									</c:if>
 								</div>
 								<!-- 글 입력하기 -->
 								<div id="createPostArea" class="work-design-wrapper">

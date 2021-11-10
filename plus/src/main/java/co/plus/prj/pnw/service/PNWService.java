@@ -14,7 +14,8 @@ public interface PNWService { //mapper합치기
 		List<PNWVO> noMyPrj(PNWVO vo);		// 내 프로젝트(즐겨찾기x)
 		List<PNWVO> openProject(PNWVO vo);	// 회사 프로젝트(전체공개 프로젝트)
 		
-		List<PNWVO> prjFolder(PNWVO vo);	// 프로젝트 폴더 메뉴
+		List<PNWVO> FolderMenu(PNWVO vo);	// 프로젝트 폴더 메뉴
+		List<PNWVO> prjFolder(PNWVO vo);	// 프로젝트 폴더 조회
 		int prjFoldInsert(PNWVO vo);		// 프로젝트 폴더 생성
 		int prjFoldUpdate(PNWVO vo);		// 프로젝트 폴더 수정(폴더명)
 		int prjFoldDelete(PNWVO vo);		// 프로젝트 폴더 삭제

@@ -6,7 +6,7 @@
 	<insert id="prjInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">
 		insert prj_id, prj_knd, prj_ttl, prj_cntn, prj_open_perm, ctgry_id, co_url
 		into project
-		values (prjid.val, #{prjKnd}, #{prjTtl}, #{prjOpenPerm}, #{ctgryId}, #{coUrl})
+		values (prjid.val, #{prjKnd}, #{prjTtl}, #{prjCntn}, #{prjOpenPerm}, #{ctgryId}, #{coUrl})
 	</insert>
 
 	<select id="ctgryKnd" resultType="co.plus.prj.pnw.vo.PNWVO">
@@ -78,7 +78,7 @@
 
 	<!-- 프로젝트 폴더 메뉴 -->
 	<select id="FolderMenu">
-		select fold_name
+		select fold_id, fold_name
 		from mem_prj_fold
 		where mem_id = #{memId}
 	</select>
