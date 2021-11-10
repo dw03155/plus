@@ -13,6 +13,7 @@ public interface NoticeWritingService {
 	NoticeWritingVO myPostTsk(NoticeWritingVO vo); 		// 내 게시물 목록 -> 업무 상세보기(팝업)
 	NoticeWritingVO myPostSubtsk(NoticeWritingVO vo); 		// 내 게시물 목록 -> 하위업무 상세보기(팝업)
 	NoticeWritingVO myPostSche(NoticeWritingVO vo); 		// 내 게시물 목록 -> 일정 상세보기(팝업)
+
 	List<NoticeWritingVO> myPostTodo(NoticeWritingVO vo); 		// 내 게시물 목록 -> 할일 상세보기(팝업)
 										
 			// 내 게시물 개수 
