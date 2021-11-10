@@ -27,7 +27,7 @@
 					id="leftProjectHomeCount"
 					class="js-project-home-count project-total-count d-none"></em>
 			</a></li>
-			<c:if test="${memPerm eq 'GUEST'}">
+			<c:if test="${memPerm ne 'GUEST'}">
 				<li data-code="open" class="left-menu-item"><a
 					href="allSchedule.do"><i class="ico-search"></i>전체 프로젝트 </a></li>
 			</c:if>
@@ -42,7 +42,7 @@
 				</div>
 				<div class="menu-accordion" style="display: block">
 					<ul class="menu-accordion-list">
-						<c:if test="${memPerm eq 'GUEST'}">
+						<c:if test="${memPerm ne 'GUEST'}">
 							<li data-code="task" class="left-menu-item"><a
 								href="allTask.do"><i class="ico-task"></i>전체 업무 </a></li>
 							<li data-code="gantt" class="left-menu-item" id="leftMenuGantt"
@@ -115,7 +115,7 @@
 				<i></i><a href="#"><span>삭제</span></a>
 			</div>
 		</div>
-		<c:if test="${memPerm eq 'ADMIN'}">
+		<c:if test="${memPerm ne 'ADMIN'}">
 			<ul id="leftBottomUl" class="menu-group admin">
 				<li data-code="manageradmin" class="d-none left-menu-item"
 					style="display: block"><a id="managerAdmin"
