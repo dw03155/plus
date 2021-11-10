@@ -31,7 +31,7 @@
 				<li data-code="open" class="left-menu-item"><a
 					href="allSchedule.do"><i class="ico-search"></i>전체 프로젝트 </a></li>
 			</c:if>
-			<li data-code="star" class="left-menu-item d-none"><a href="#"><i
+			<li data-code="star" class="left-menu-item"><a href="#"><i
 					class="ico-favorite"></i>즐겨찾기</a></li>
 		</ul>
 		<ul id="leftScroll" class="menu-accordion-group scroll-mask">
