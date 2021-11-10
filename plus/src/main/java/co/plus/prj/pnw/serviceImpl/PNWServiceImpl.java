@@ -17,13 +17,12 @@ public class PNWServiceImpl implements PNWService {
 	private PNWMapper map;
 
 	@Override
-	public int cPrjInsert(PNWVO vo) { // 새 프로젝트(회사)
-		return map.cPrjInsert(vo);
+	public int prjInsert(PNWVO vo) { // 새 프로젝트
+		return map.prjInsert(vo);
 	}
-
-	@Override
-	public int nPrjInsert(PNWVO vo) { // 새 프로젝트(일반)
-		return map.nPrjInsert(vo);
+	
+	public List<PNWVO> ctgryKnd(PNWVO vo) { // 새 프로젝트
+		return map.ctgryKnd(vo);
 	}
 
 	@Override

@@ -15,8 +15,11 @@ public class PNWVO {
 	private String prjKnd;			// 프로젝트 종류
 	private String prjTtl;			// 프로젝트 제목
 	private String prjOpenPerm;		// 프로젝트 공개권한
-	private String ctgryId;			// 카테고리 번호
 	private String prjCntn;			// 프로젝트 내용(설명)
+	
+	// Category
+	private String ctgryId;			// 카테고리 번호
+	private String ctgryName;		// 카테고리 이름
 	
 	// PrjParti
 	private String prjColor;		// 프로젝트 컬러

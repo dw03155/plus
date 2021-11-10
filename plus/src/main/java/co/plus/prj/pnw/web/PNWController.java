@@ -65,4 +65,10 @@ public class PNWController {
 		return service.prjTskCount(vo);
 
 	}
+	@RequestMapping(value = "/ctgryKnd.do", method = RequestMethod.POST)
+	@ResponseBody
+	public List<PNWVO> ctgryKnd(HttpSession session, Model model, PNWVO vo) {
+		return service.ctgryKnd(vo);
+
+	}
 }

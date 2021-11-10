@@ -3,11 +3,17 @@
 <mapper namespace="co.plus.prj.pnw.mapper.PNWMapper">
 
 	<!-- 새 프로젝트-->
-	<insert id="PrjInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">
+	<insert id="prjInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">
 		insert prj_id, prj_knd, prj_ttl, prj_cntn, prj_open_perm, ctgry_id, co_url
 		into project
 		values (prjid.val, #{prjKnd}, #{prjTtl}, #{prjOpenPerm}, #{ctgryId}, #{coUrl})
 	</insert>
+
+	<select id="ctgryKnd">
+		select ctgry_id, ctgry_name
+		from category
+		where co_url = #{coUrl}
+	</select>
 
 	<!-- 내 프로젝트 : 즐겨찾기 -->
 	<select id="favorMyPrj" resultType="co.plus.prj.pnw.vo.PNWVO">

@@ -61,7 +61,7 @@ to {
 }
 
 }
-.st_modal {
+.ctgry_model {
 	min-width: 115px;
 	padding: 14px;
 	position: absolute;
@@ -221,16 +221,13 @@ to {
 								</div>
 							</div>
 						</a>
-						
+
 						<div class="flow-category-option-1">
-							<ul id="status" class="st_modal">
-								<li id="online" class="statusStyle"><a href="#">온라인</a></li>
-								<li id="notdesk" class="statusStyle"><a href="#"> 자리비움</a></li>
-								<li id="other" class="statusStyle"><a href="#"> 다른용무중</a></li>
-								<li id="offline" class="statusStyle"><a href="#"> 오프라인</a></li>
+							<ul id="ctgryModal" class="ctgry_modal">
+									<li><a href="#">${ctgryKnd}</a></li>
 							</ul>
 						</div>
-						
+
 					</div>
 					<a href="#">
 						<div class="project-submit flow-content-7 un-value">만들기</div>
@@ -243,26 +240,53 @@ to {
 
 
 	<script type="text/javascript">
-		// 새 프로젝트 팝업창 열기
-		$("#prjMake").on('click', function(e) {
+	// 카테고리 정보 가져오기
+	var $coUrl = "${sessionScope.coUrl}";
+	var jsonData = {
+		"coUrl" : $coUrl
+	};
+
+	$.ajax({
+		url : "ctgryKnd.do",
+		type : "post",
+		dataType : 'json',
+		data : jsonData,
+		success : function(data) {
+			if (data != "") {
+				for (i = 0; i < data.length; i++) {
+					$("#ctgryModal").text();
+				} //end of for
+
+			} else {
+			}
+
+		} //end of success
+	}); //end of ajax
+	
+	
+	
+		//새 프로젝트
+		$("#prjMake").on('click', function(e) { // 새 프로젝트 팝업창 열기
 			e.preventDefault();
 			$("#projectMakeLayer").css("display", "block");
 
 		});
-		// 새 프로젝트 팝업창 닫기
-		$("#closeProjectMake").on('click', function(e) {
+
+		$("#closeProjectMake").on('click', function(e) { // 새 프로젝트 팝업창 닫기
 			e.preventDefault();
 			$("#projectMakeLayer").css("display", "none");
 		});
-		// 새 프로젝트 카테고리 설정
-		$("#categoryName").on('click', function(e) {
-			e.preventDefault();
-			$("#status").css("display", "block");
-		});
-		// 새 프로젝트 카테고리 설정
-		$("button").on('click', function(e) {
+
+		$("button").on('click', function(e) { // 옵션 버튼 클릭시 active
 			$(e.target).toggleClass("active");
 		});
+
+		$("#categoryName").on('click', function(e) { // 새 프로젝트 카테고리 설정
+			e.preventDefault();
+			
+			$("#ctgryModal").css("display", "block");
+		});
+	
 	</script>
 
 

@@ -8,8 +8,8 @@ import co.plus.prj.pnw.vo.PNWVO;
 public interface PNWService { //mapper합치기
 	
 		// 전체메뉴
-		int cPrjInsert(PNWVO vo);			// 새 프로젝트(회사)
-		int nPrjInsert(PNWVO vo);			// 새 프로젝트(일반)
+		int prjInsert(PNWVO vo);			// 새 프로젝트
+		List<PNWVO> ctgryKnd(PNWVO vo);		// 새 프로젝트 : 카테고리 종류 가져오기
 		List<PNWVO> favorMyPrj(PNWVO vo);	// 내 프로젝트(즐겨찾기)
 		List<PNWVO> noMyPrj(PNWVO vo);		// 내 프로젝트(즐겨찾기x)
 		List<PNWVO> openProject(PNWVO vo);	// 회사 프로젝트(전체공개 프로젝트)
