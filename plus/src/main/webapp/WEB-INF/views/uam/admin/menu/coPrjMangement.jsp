@@ -95,7 +95,7 @@
 	height: 400px;
     position: absolute;
     top: 22%;
-    left: 18%;
+    right: 28%;
     z-index: 13;
     background: #fff;
     border: 1px solid #777;
@@ -178,6 +178,8 @@
 			</div>
 			<div align="center" style="margin-left: 10px; margin-right: 10px;">
 			<hr>
+				<table>
+				</table>
 				<div>
 					<table id="projectInfoList" border="1">
 					<thead class="prjInfothead">

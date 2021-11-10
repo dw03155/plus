@@ -1,5 +1,7 @@
 package co.plus.prj.uam.web;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +13,10 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import co.plus.prj.uam.vo.ExcelData;
 
@@ -22,9 +24,18 @@ import co.plus.prj.uam.vo.ExcelData;
 public class ExcelController {
 
 	@PostMapping("/xlsxUplord.do")
-	public String readExcel(@RequestParam("file") MultipartFile file, Model model) throws IOException {
-		
+	@ResponseBody
+	public List<ExcelData> readExcel(MultipartHttpServletRequest request) throws Exception {
 		List<ExcelData> dataList = new ArrayList<>();
+		
+		System.out.println("업로드중");
+		MultipartFile file = request.getFile("file");
+		
+		if(file != null && file.getSize() >0 && !file.getOriginalFilename().isEmpty()) {
+			file.transferTo(new File("D:\\fileUp", file.getOriginalFilename()));
+		}else {
+			throw new IOException("엑셀파일만 업로드해주세요.");
+		}
 		
 		String extension = FilenameUtils.getExtension(file.getOriginalFilename());
 		
@@ -34,30 +45,32 @@ public class ExcelController {
 		
 		Workbook workbook = null;
 		
+		FileInputStream files = new FileInputStream(new File("D:\\fileUp", file.getOriginalFilename()));
 		if(extension.equals("xlsx")) {
-			workbook = new XSSFWorkbook(file.getInputStream());
+			workbook = new XSSFWorkbook(files);
 		}else if (extension.equals("xls")) {
-			workbook = new HSSFWorkbook(file.getInputStream());
+			workbook = new HSSFWorkbook(files);
 		}
 		
 		Sheet worksheet = workbook.getSheetAt(0);
-		
-		for (int i = 1; i< worksheet.getPhysicalNumberOfRows(); i++) {
+		//worksheet.getPhysicalNumberOfRows()
+		for (int i = 1; i<101; i++) {
 			 Row row = worksheet.getRow(i);
-			
-			ExcelData data = new ExcelData();
-			
-			data.setName(row.getCell(0).getStringCellValue());
-			data.setEmail(row.getCell(1).getStringCellValue());
-			data.setPersTel(row.getCell(2).getStringCellValue());
-			data.setDept(row.getCell(3).getStringCellValue());
-			data.setWkpo(row.getCell(4).getStringCellValue());
-			data.setCoTel(row.getCell(5).getStringCellValue());
-			
-			dataList.add(data);
+			 if (row != null) {			 
+				 ExcelData data = new ExcelData();
+				 System.out.println(i+"================="+ worksheet.getPhysicalNumberOfRows());
+				 data.setName(row.getCell(0) != null? row.getCell(0).getStringCellValue():"");
+				 data.setEmail(row.getCell(1) != null? row.getCell(1).getStringCellValue():"");
+				 data.setPersTel(row.getCell(2) != null? row.getCell(2).getStringCellValue():"");
+				 data.setDept(row.getCell(3) != null? row.getCell(3).getStringCellValue():"");
+				 data.setWkpo(row.getCell(4) != null? row.getCell(4).getStringCellValue():"");
+				 data.setCoTel(row.getCell(5) != null? row.getCell(5).getStringCellValue():"");
+				 
+				 dataList.add(data);
+			}
 		}
-		model.addAttribute("datas",dataList);
+
 		
-		return "uam/admin/menu/excelList";
+		return dataList;
 	}
 }
