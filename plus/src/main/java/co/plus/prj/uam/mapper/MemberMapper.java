@@ -2,7 +2,6 @@ package co.plus.prj.uam.mapper;
 
 import java.util.List;
 
-
 import co.plus.prj.uam.vo.MemberVO;
 
 public interface MemberMapper {
@@ -12,8 +11,10 @@ public interface MemberMapper {
 	//새로운 회사 입력
 	public int newCompanyInsert1(MemberVO member);
 	public int newCompanyInsert2(MemberVO member);
+	public int newCompanyInsert3(MemberVO member);
 	//기존 회사 입력
-	public int exCompanyInsert(MemberVO member);
+	public int exCompanyInsert1(MemberVO member);
+	public int exCompanyInsert2(MemberVO member);
 	
 	//회사mapper
 	//회사url로 단일회사정보 가져오기
@@ -67,6 +68,16 @@ public interface MemberMapper {
 	//게스트 사용자 승인/거절
 	public int guestIn(MemberVO vo);
 	public int guestOut(MemberVO vo);
+	//정상사용자 삭제
+	public int usingOut(MemberVO vo);
+	
+	//회사프로젝트list
+	public List<MemberVO> getCoPrjList(MemberVO vo);
+	//회사프로젝트 상세정보
+	public List<MemberVO> getCoPrjInfo(MemberVO vo);
+	//pm해제
+	public int coPrjPMChange(MemberVO vo);
+	
 	//카테고리 삭제
 	public int prjCategoryUpdate(MemberVO vo);
 	public int prjCategoryDelete(MemberVO vo);

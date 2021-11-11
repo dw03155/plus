@@ -20,7 +20,8 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int newCompanyInsert(MemberVO member) {
 		map.newCompanyInsert1(member);
-		return map.newCompanyInsert2(member);
+		map.newCompanyInsert2(member);
+		return map.newCompanyInsert3(member);
 	}
 	// 메일 중복 테스트
 	@Override
@@ -30,7 +31,8 @@ public class MemberServiceImpl implements MemberService {
 	// 기존회사 입력
 	@Override
 	public int exCompanyInsert(MemberVO member) {
-		return map.exCompanyInsert(member);
+		map.exCompanyInsert1(member);
+		return map.exCompanyInsert2(member);
 	}
 	// 회사Url
 	@Override
@@ -151,6 +153,11 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberVO> getUsingMemberList(MemberVO vo) {
 		return map.getUsingMemberList(vo);
 	}
+	// 정상사용자 삭제
+	@Override
+	public int usingOut(MemberVO vo) {
+		return map.usingOut(vo);
+	}
 	// 사용중지 사용자 조회
 	@Override
 	public List<MemberVO> getNotusedMemberList(MemberVO vo) {
@@ -188,6 +195,22 @@ public class MemberServiceImpl implements MemberService {
 	public int guestOut(MemberVO vo) {
 		return map.guestOut(vo);
 	}
+														//회사프로젝트 관리
+	//회사프로젝트 목록
+	@Override
+	public List<MemberVO> getCoPrjList(MemberVO vo) {
+		return map.getCoPrjList(vo);
+	}
+	// 회사 프로젝트 상세정보
+	@Override
+	public List<MemberVO> getCoPrjInfo(MemberVO vo) {
+		return map.getCoPrjInfo(vo);
+	}
+	// pm해제
+	@Override
+	public int coPrjPMChange(MemberVO vo) {
+		return map.coPrjPMChange(vo);
+	}
 														//카테고리
 	// 공개 카테고리 조회
 	@Override
@@ -205,6 +228,11 @@ public class MemberServiceImpl implements MemberService {
 	public int categoryInsert(MemberVO vo) {
 		return map.categoryInsert(vo);
 	}
+	
+
+	
+	
+	
 	
 	
 	

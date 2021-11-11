@@ -34,5 +34,11 @@ public class MemberVO {
 		private String prjKnd;			//프로젝트 종류
 		private String prjTtl;			//프로젝트 제목
 		private String prjOpenPerm;		//프로젝트 공개 권한
+		private String pmCnt;			//프로젝트별 관리자수
+		private String memCnt;			//프로젝트별 참여자수
+		private String notiCnt;			//프로젝트별 게시글
+		
+		//프로젝트 참여자
+		private String prjPerm;			//프로젝트 권한
 		
 }

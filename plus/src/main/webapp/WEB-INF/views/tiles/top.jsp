@@ -68,6 +68,7 @@
 	color: #6449FC;
 }
 </style>
+
 </head>
 <body>
 	<header class="header">
@@ -721,7 +722,6 @@
 			datatype: "json",
 			success: function(data){
 				var $memSt = data.memSt;
-				console.log($memSt);
 				if($memSt == 'online'){
 					$("#mem_st_icon").attr("src", "/img/status_icn/online.png")
 				}else if($memSt == 'offline'){
@@ -747,7 +747,6 @@
 					var $coTel = data.coTel;
 					var $dept = data.dept;
 					var $coName = data.coName;
-					console.log($pwd);
 					if($wkpo == null){
 						$('#wkpo').text('');
 					}else{						

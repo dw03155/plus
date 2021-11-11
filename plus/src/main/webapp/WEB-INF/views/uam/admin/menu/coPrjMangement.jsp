@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -103,7 +104,7 @@
     font-size: 13px;
     text-align: left;
     color: #555;
-    /* display: none; */
+    display: none;
     align-content: center;
 	}
 	.model_heard{
@@ -122,6 +123,9 @@
 		border: 1px solid silver;
 		padding: 3px 7px 3px 7px;
 		background-color: white;
+	}
+	#prjlist{
+		cursor: pointer;
 	}
 </style>
 </head>
@@ -157,25 +161,21 @@
 						<tr>
 							<th></th>
 							<th>프로젝트</th>
-							<th>관리자</th>
+							<th>관리자수</th>
 							<th>참여자수</th>
-							<th>게시물</th>
-							<th>댓글수</th>
-							<th>일정수</th>
-							<th>업무수</th>
+							<th>게시물수</th>
 						</tr>
 					</thead>
 					<tbody id="prjlist" >
-						<tr>
-							<td><input type="hidden" value=""></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+					<c:forEach var="coPrj" items="${coPrjs }">
+						<tr  class="pmList">
+							<td><input type="hidden" value="${coPrj.prjId }"></td>
+							<td>${coPrj.prjTtl }</td>
+							<td>${coPrj.pmCnt }</td>
+							<td>${coPrj.memCnt }</td>
+							<td>${coPrj.notiCnt }</td>
 						</tr>
+					</c:forEach>
 					</tbody>
 				</table>
 			 </div><!-- usingMember end -->
@@ -223,6 +223,97 @@
 	</div><!-- main-container end -->
 <script>
 
+function PMlist(data){
+	for(i=0; i<data.length; i++){
+		var $prjId = data[i].prjId;
+		var $prjTtl = data[i].prjTtl;
+		var $name = data[i].name;
+		var $memId = data[i].memId;
+		var $email = data[i].email;
+		var $dept = data[i].dept;
+		var $persTel = data[i].persTel;
+		$('#prjTTL').val($prjTtl);
+		$('<tr>').append($('<td>').append($('<input type=\'hidden\'>').val($memId)))
+				.append($('<td>').html($name))
+				.append($('<td>').html($email))
+				.append($('<td>').html($dept))
+				.append($('<td>').html($persTel))
+				.append($('<td>').append($('<a href="#" class="pmDel">').html("[해제]")))
+				.append($('<td>').append($('<input type=\'hidden\'>').val($prjId)))
+		 		.appendTo($('#prjAdmin'));
+	}//for end
+};
+
+	$('.pmList').click(function(){
+		var tr = $(this);
+		var prjId = tr.children().children().val();
+
+		$.ajax({
+			url: "getCoPrjInfo.do?prjId="+ prjId,
+			method: "get",
+			datatype: "json",
+			success: function(data){
+				$('#prjAdmin').empty();
+				if(data == ""){
+					$('<tr>').append($('<td style="colspan: 7">').html("관리자가 없습니다."))
+				}else{
+					PMlist(data);
+				}
+				$("#prjModal").css("display","block");
+				
+				$(".pmDel").click(function(){
+					var pmdel = $(this);
+					var tr = pmdel.parent().parent();
+					var memId = tr.children().first().children().val();
+					var prjId = pmdel.parent().next().children().val();
+					var jsondata = {"memId":memId, "prjId": prjId};
+					$.ajax({
+						url: "coPrjPMChange.do",
+						method: "put",
+						data: JSON.stringify(jsondata),
+						contentType: "application/json",
+						dataType: "json",
+						success: function(){
+							tr.remove();
+						}
+					})
+				});
+			}
+		})
+		
+	});
+	
+	
+	$("#prj_model_x").click(function(){
+		$("#prjModal").css("display","none")
+	});
+	$("#ctgCancel").click(function(){
+		$("#prjModal").css("display","none")
+	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </script>
 
 </body>

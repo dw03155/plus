@@ -16,13 +16,11 @@
         top: 150px;
         left: 30px;
 	}
-	#memBtn{
-		width: 75px;
-		border: 1px solid gray;
-	}
 	#memBtn2{
 		width: 50px;
 		border: 1px solid gray;
+		top: 80px;
+		left: 90%;
 	}
 	.memberthead{
 		height: 30px; 
@@ -31,11 +29,6 @@
 	td{
 		text-align: center;
 		height: 25px;
-	}
-	#btnDiv{
-		padding-top: 2%;
-		float: right;
-		width: 130px;
 	}
 
 </style>
@@ -72,21 +65,19 @@
 		
 		<!-- 정상사용자 -->
 			<div id="usingMember" class="project-detail-inner layer-scroll type2">
-			<div id="btnDiv">
-				<button id="memBtn">전체선택</button>
+			<div id="btnDiv" style="margin-left: 94%; margin-top: 29px;">
 				<button id="memBtn2">삭제</button>
 			</div>
 				<table id="usingMemberList" border="1">
 					<thead class="memberthead">
 						<tr>
-							<th></th>
 							<th>이름</th>
 							<th>부서</th>
 							<th>직책</th>
 							<th>이메일</th>
 							<th>휴대폰</th>
 							<th>관리자</th>
-							<th>삭제</th>
+							<th>삭제&nbsp;<input type="checkbox" id="allCheckBox"></th>
 						</tr>
 					</thead>
 					<tbody id="usinglist" >
@@ -97,19 +88,18 @@
 						</c:if>
 						<c:forEach var="usings" items="${using }">
 						<tr>
-							<td><input type="hidden" value="${usings.memId }"></td>
 							<td>${usings.name }</td>
 							<td>${usings.dept }</td>
 							<td>${usings.wkpo }</td>
 							<td>${usings.email }</td>
 							<td>${usings.persTel }</td>
 							<c:if test="${usings.memPerm eq 'ADMIN'}">
-							<td>관리자</td>
+							<td>관리자<em id="adminDel" style="color: red; cursor: pointer;">[해제]</em></td>
 							</c:if>
 							<c:if test="${usings.memPerm eq 'USER'}">
-							<td>사원</td>
+							<td>사원<em id="userDel" style="color: blue;  cursor: pointer;">[관리자지정]</em></td>
 							</c:if>
-							<td><input type='checkbox' class="usingCheck"></td>
+							<td><input type='checkbox' name="usingCheck" value="${usings.memId }"></td>
 						</tr>
 						</c:forEach>
 					</tbody>
@@ -131,7 +121,7 @@
 					<tbody id="notUsedlist">
 						<c:if test="${empty notused }">
 							<tr>
-								<td colspan="4">NODATA</td>
+								<td colspan="5">NODATA</td>
 							</tr>
 						</c:if>
 						<c:forEach var="notuseds" items="${notused }">
@@ -227,6 +217,17 @@
 	
 	<script>
 	
+	//정상사용자 가입중지
+	$('#memBtn2').click(function(){
+			var arr = [];
+			for(i=0; i<$("input:checkbox[name='usingCheck']:checked").length; i++){				
+					arr[i] = $("input:checkbox[name='usingCheck']:checked")[i].val();
+					console.log(arr);
+			}
+		});
+	
+	
+	
 	//가입대기 사용자 승인
 	$('#memin').click(function(){
 		var inBtn = $(this);
@@ -234,7 +235,6 @@
 		var td = tr.children();
 		
 		var memId = td.eq(0).children().val();
-		console.log(memId);
 		var jsondata = {"memId":memId};
 		 $.ajax({
 			url:"outstandIn.do",
@@ -244,6 +244,7 @@
 			dataType: "json",
 			success: function(data){
 				tr.remove();
+				memberLengthChange();
 			}
 		}) 
 	});
@@ -263,6 +264,7 @@
 			dataType: "json",
 			success: function(data){
 				tr.remove();
+				memberLengthChange();
 			}
 		})
 	});
@@ -282,7 +284,7 @@
 			contentType: "application/json",
 			dataType: "json",
 			success: function(data){
-				
+				memberLengthChange();
 			}
 		}) 
 	});
@@ -302,6 +304,7 @@
 			dataType: "json",
 			success: function(data){
 				tr.remove();
+				memberLengthChange();
 			}
 		})
 	});
@@ -321,6 +324,7 @@
 			dataType: "json",
 			success: function(data){
 				tr.remove();
+				memberLengthChange();
 			}
 		})
 	});
@@ -376,72 +380,54 @@
 				$('#notUsedMember').css("display","none");
 				$('#usingMember').css("display","none");
 			});
+			
+			$("#usingMember #allCheckBox").on('click',function(){
+				if($("#allCheckBox").prop("checked")){
+					$("input[type=checkbox]").prop("checked",true);
+				}else{
+					$("input[type=checkbox]").prop("checked",false);
+				}
+			});
 	
-	/*  $(function(){
-			var coUrl = "${sessionScope.coUrl}";
-			//정상사용자
-			$.ajax({
-				url: "getUsingMemberList.do?coUrl="+coUrl,
-				type : "get",
-				dataType : "json",
-				success : function(data) {
-					if(data != ""){		
-						for(i=0; i<data.length; i++){
-						var item = data[i];
-						if(item.memPerm == 'ADMIN'){
-							$('#usingPerm').append('관리자');
-						
-						}else if(item.memPerm == 'USER'){
-							$('#usingPerm').append('일반사용자');
-						}
-						}			 
-					}else{
-						$('<tr>').append($('<td colspan=\'7\'>').html("NODATE"))
-						 .appendTo($('#usinglist'))
+			function memberLengthChange(){
+				var coUrl = "${sessionScope.coUrl}";
+				//정상사용자
+				$.ajax({
+					url: "getUsingMemberList.do?coUrl="+coUrl,
+					type : "get",
+					dataType : "json",
+					success : function(data) {
+						$('#usingCount').text('('+data.length+')');
 					}
-					$('#usingCount').text('('+data.length+')');
-				}
-			});	
-			//이용중지 사용자
-			$.ajax({
-				url: "getNotusedMemberList.do?coUrl="+coUrl,
-				type : "get",
-				dataType : "json",
-				success : function(result) {
-					if(result == ""){
-						$('<tr>').append($('<td colspan=\'3\'>').html("NODATE"))
-						 .appendTo($('#notUsedlist'))
+				});	
+				//이용중지 사용자
+				$.ajax({
+					url: "getNotusedMemberList.do?coUrl="+coUrl,
+					type : "get",
+					dataType : "json",
+					success : function(result) {
+						$('#notusedCount').text('('+result.length+')');
 					}
-					$('#notusedCount').text('('+result.length+')');
-				}
-			});
-			//가입대기
-			$.ajax({
-				url: "getOutstandMemberList.do?coUrl="+coUrl,
-				type : "get",
-				dataType : "json",
-				success : function(re) {
-					if(re == ""){
-						$('<tr>').append($('<td colspan=\'4\'>').html("NODATE"))
-						 .appendTo($('#outstandlist'))
+				});
+				//가입대기
+				$.ajax({
+					url: "getOutstandMemberList.do?coUrl="+coUrl,
+					type : "get",
+					dataType : "json",
+					success : function(re) {
+						$('#outstantCount').text('('+re.length+')');
 					}
-					$('#outstantCount').text('('+re.length+')');
-				}
-			});
-			//게스트
-			$.ajax({
-				url: "getGuestMemberList.do?coUrl="+coUrl,
-				type : "get",
-				dataType : "json",
-				success : function(req) {
-					if(req == ""){
-						$('<tr>').append($('<td colspan=\'4\'>').html("NODATE"))
-								 .appendTo($('#guestlist'))
+				});
+				//게스트
+				$.ajax({
+					url: "getGuestMemberList.do?coUrl="+coUrl,
+					type : "get",
+					dataType : "json",
+					success : function(req) {
+						$('#guestCount').text('('+req.length+')');
 					}
-					$('#guestCount').text('('+req.length+')');
-				}
-			});
-	}); */
+				});
+		};
 	 
 	
 			

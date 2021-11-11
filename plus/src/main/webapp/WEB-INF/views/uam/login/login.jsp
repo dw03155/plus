@@ -120,30 +120,10 @@
 		    background-color: #f2f3f4;
 	}
 </style>
-<script>
-		/* 	$("#loginBtn").click(function(){
-			var email = $("#email").val();
-			var pwd = $("#pwd").val();
-				$.ajax({
-					url: "memberLogin.do",
-					type: "post",
-					data: {"email":email, "pwd": pwd},
-					dataType: json,
-					success: function(data){
-						if(data != ""){
-							
-						}
-					}
-					
-				})
-			document.loginForm.action="memberLogin.do"
-			document.loginForm.submit();
-			}); */
-</script>
+
 </head>
 <body>
 <!-- top -->
-
 	<div class="signup_top">
 
 	<form id="sessionOk" action="myProject.do"></form>

@@ -183,7 +183,6 @@ td{
 				for(i=0; i<result.length; i++){
 				var $ctgryId = result[i].ctgryId;
 				var $ctgryName = result[i].ctgryName;
-				console.log($ctgryName + $ctgryId + $cnt);
 				var $cnt = result[i].cnt;
 					$('<tr>').append($('<td>').append($('<input type=\'hidden\'>').val($ctgryId)))
 						.append($('<td>').html($ctgryName))
@@ -228,7 +227,6 @@ td{
 		var td = tr.children();
 		
 		var ctgryId = td.eq(0).children().val();
-		console.log(ctgryId);
 		var jsondata = {"ctgryId":ctgryId};
 		$('#ctgModal').css("display","block");
 		$('#ctgDel').click(function(){
