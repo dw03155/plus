@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+  <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -219,12 +219,27 @@
 	
 	//정상사용자 가입중지
 	$('#memBtn2').click(function(){
-			var arr = [];
-			for(i=0; i<$("input:checkbox[name='usingCheck']:checked").length; i++){				
-					arr[i] = $("input:checkbox[name='usingCheck']:checked")[i].val();
-					console.log(arr);
-			}
-		});
+			var usingCheck = $("input:checkbox[name='usingCheck']:checked");
+			var tr = usingCheck.parent().parent();
+			
+			usingCheck.each(function(i){
+				var usingMemId = $(this).val();
+				var jsondata = {"memId": usingMemId};
+			
+				$.ajax({
+					url: "usingOut.do",
+					method: "put",
+					data: JSON.stringify(jsondata),
+					contentType: "application/json",
+					dataType: "json",
+					success: function(data){
+						tr.remove();
+						memberLengthChange();
+					}
+				})
+			});
+			
+	});
 	
 	
 	

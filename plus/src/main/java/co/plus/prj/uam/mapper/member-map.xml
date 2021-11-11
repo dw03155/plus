@@ -161,10 +161,11 @@
 		where co_url = #{coUrl} and acc_st = 'using' and mem_perm <> 'GUEST'
 		]]>
 	</select>
-	<select id="usingOut" parameterType="co.plus.prj.uam.vo.MemberVO">
+	<!-- 정상 사용자 삭제 -->
+	<update id="usingOut" parameterType="co.plus.prj.uam.vo.MemberVO">
 		update member set acc_st = 'notused'
 		where mem_id = #{memId}
-	</select>
+	</update>
 	<!-- 사용중지 사용자 -->
 	 <select id="getNotusedMemberList" resultType="co.plus.prj.uam.vo.MemberVO">
 	   	<![CDATA[
@@ -208,6 +209,15 @@
 		where mem_id = #{memId}
 	</update>
 	
+	<!-- 사용자 일괄등록 -->
+	<insert id="AllMemberInsert1" parameterType="co.plus.prj.uam.vo.MemberVO">
+		INSERT INTO MEMBER(MEM_ID, EMAIL, NAME, CO_url, dept, wkpo)
+		VALUES (MEMID.nextval, #{email}, #{name}, #{coUrl}, #{dept}, #{wkpo})
+	</insert>
+	<insert id="AllMemberInsert2" parameterType="co.plus.prj.uam.vo.MemberVO">  		<!-- 회원상태 테이블 추가 -->
+		INSERT INTO mem_status(mem_id, mem_st)
+		VALUES ((select max(mem_id) from member), 'offline')
+	</insert>
 																						<!-- 회사프로젝트 관리 -->
 	<!-- 회사프로젝트 관리 -->
 	<select id="getCoPrjList" resultType="co.plus.prj.uam.vo.MemberVO">

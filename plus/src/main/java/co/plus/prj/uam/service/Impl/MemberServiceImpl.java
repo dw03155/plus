@@ -211,6 +211,14 @@ public class MemberServiceImpl implements MemberService {
 	public int coPrjPMChange(MemberVO vo) {
 		return map.coPrjPMChange(vo);
 	}
+	
+														// 사용자 일괄 등록
+	// 사용자 일괄 등록
+	@Override
+	public int AllMemberInsert2(MemberVO vo) {
+		map.AllMemberInsert1(vo);
+		return map.AllMemberInsert2(vo);
+	}
 														//카테고리
 	// 공개 카테고리 조회
 	@Override

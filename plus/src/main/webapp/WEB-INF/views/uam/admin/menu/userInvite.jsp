@@ -195,6 +195,26 @@
 	
 	<script>
 	
+	$('#inBtn').click(function(){
+		var fileCheck = $("input:checkbox[name='fileCheck']:checked");
+		var coUrl = "${sessionScope.coUrl}";
+		fileCheck.each(function(i){
+			var tr = fileCheck.parent().parent().eq(i);
+			var td = tr.children();
+			
+			var name = td.eq(1).children().children().val();
+			var email = td.eq(2).children().children().val();
+			var persTel = td.eq(3).children().children().val();
+			var dept = td.eq(4).children().children().val();
+			var wkpo = td.eq(5).children().children().val();
+			var coTel = td.eq(6).children().children().val();
+			
+			var jsondata = {"coUrl":coUrl,"name":name,"email":email,"persTel":persTel,"dept":dept,"wkpo":wkpo,"coTel":coTel};
+			
+			console.log(jsondata);
+		})
+	})
+	
 	function checkFileType(filePath){
 		var fileFormat = filePath.split(".");
 		
@@ -263,12 +283,13 @@
 				
 					for(j=0; j<fileTd.length; j++){				
 						var fileVal = filevalue.eq(j).val();
-						console.log(fileVal);
 						var fileSpan = $('.view').parent().eq(j);
 							if(fileVal == ''){
 								fileSpan.attr("class","redBox");
+								fileCheckBox.attr("disabled",true);
 						}else{
 							fileSpan.attr("class","normalBox");
+							fileCheckBox.attr("disabled",false);
 						}
 					}	
 				}
@@ -280,12 +301,14 @@
 		
 		$('.view').on("change",function(){
 			var fileInput = $(this);
-			console.log(fileInput);
+			var checkBox = fileInput.parent().parent().parent().children().eq(0).children();
 			var fileIn = fileInput.val();
 			if(fileIn == ""){
 				fileInput.parent().attr("class","redBox");
+				checkBox.attr("disabled",true);
 			}else{
 				fileInput.parent().attr("class","normalBox");
+				checkBox.attr("disabled",false);
 			}
 			count();
 			

@@ -343,6 +343,13 @@ public class MemberController {
 		model.addAttribute("guest",service.getGuestMemberList(vo));
 		return "uam/admin/menu/userManagement";
 	}
+	//정상사용자 삭제
+	@PutMapping("/usingOut.do")
+	@ResponseBody
+	public MemberVO usingOut(@RequestBody MemberVO vo) {
+		service.usingOut(vo);
+		return vo;
+	}
 	//사용자 승인
 	@PutMapping("/outstandIn.do")
 	@ResponseBody

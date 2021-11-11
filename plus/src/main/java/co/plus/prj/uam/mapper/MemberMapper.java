@@ -71,6 +71,10 @@ public interface MemberMapper {
 	//정상사용자 삭제
 	public int usingOut(MemberVO vo);
 	
+	//사용자 일괄 등록
+	public int AllMemberInsert1(MemberVO vo);
+	public int AllMemberInsert2(MemberVO vo);
+	
 	//회사프로젝트list
 	public List<MemberVO> getCoPrjList(MemberVO vo);
 	//회사프로젝트 상세정보
