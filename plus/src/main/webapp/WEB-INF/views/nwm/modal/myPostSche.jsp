@@ -97,7 +97,7 @@
 				</div>
 			</div>
 			<div class="post-state">
-				<span class="task-number d-none"> 업무번호 <em>${schedules.notiId }</em>
+				<span class="task-number d-inline-block"> 업무번호 <em>${schedules.notiId}</em>
 				</span>
 			</div>
 		</div>
@@ -150,7 +150,8 @@
 									placeholder="참석자 추가">
 									<button type="button"
 										class="js-worker-button add-manager-button">참석자 변경</button>
-									<div id="attendanceCount" class="attendee-status" style="display: block">
+									<div id="attendanceCount" class="attendee-status"
+										style="display: block">
 										<span class="attendee-status-text participate"><span>참석</span><em>1</em></span>
 										<span class="attendee-status-text absence"><span>불참</span><em>0</em></span>
 										<span class="attendee-status-text undetermined"><span>미정</span><em>0</em></span>
@@ -189,8 +190,8 @@
 								<i class="icon-post-video"></i>
 							</div>
 							<div class="create-content-cell">
-								<button id="videoButton" type="button"
-									class="add-manager-button ">화상 회의 추가</button>
+								<!-- <button id="videoButton" type="button"
+									class="add-manager-button ">화상 회의 추가</button> -->
 								<span id="videoSpan" data-vc-srno="0">
 									<div id="zoomButton" class="video-conference-join" tabindex="0">
 										Zoom으로 참여하기

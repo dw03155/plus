@@ -36,7 +36,7 @@
 
 			<span id="allCollectionCount"
 				class="js-collection-total-count js-collection-count top-task-num"
-				style="display: block">${fn:length(tasks)}</span>
+				style="display: block">&nbsp;${fn:length(tasks)}</span>
 		</div>
 
 		<!-- 전체 업무 페이지 -->
@@ -76,9 +76,9 @@
 						<section class="all-task-seaction">
 							<h3 class="blind">모든업무 목록</h3>
 							<div id="taskSortHeader" class="all-task-header scroll-for-ie">
-								<div col-srno="1"
+								<div col-srno="1" id="selectNum"
 									class="js-task-sort-button task-header-cell task-task_num-cell">
-									<span class="title js-task-sort-inner-button">번호</span>
+									<span id="num" class="title js-task-sort-inner-button">번호</span>
 								</div>
 								<div col-srno="2"
 									class="js-task-sort-button task-header-cell task-stts-cell">
@@ -125,13 +125,30 @@
 											class="js-inner-task project-inner-task active"
 											style="display: none">
 											<c:forEach var="dtasks" items="${task.taskDetail}">
-												<li class="task-item" data-notiid = "${dtasks.notiId }">
+												<li class="task-item" data-notiid="${dtasks.notiId }">
 													<div class="js-task_num task-task_num-cell task-item-cell">
 														<div class="js-task_num-text  ellipsis">${dtasks.notiId }</div>
-													</div>
-													<div class="task-item-cell task-state task-stts-cell">
-														<span class="js-task-state request">${dtasks.tskPrgs }</span>
-													</div>
+													</div> <c:if test="${dtasks.tskPrgs == 'request' }">
+														<div class="task-item-cell task-state task-stts-cell">
+															<span class="js-task-state request">요청</span>
+														</div>
+													</c:if> <c:if test="${dtasks.tskPrgs == 'progress' }">
+														<div class="task-item-cell task-state task-stts-cell">
+															<span class="js-task-state progress">진행</span>
+														</div>
+													</c:if> <c:if test="${dtasks.tskPrgs == 'feedback' }">
+														<div class="task-item-cell task-state task-stts-cell">
+															<span class="js-task-state feedback">피드백</span>
+														</div>
+													</c:if> <c:if test="${dtasks.tskPrgs == 'complete' }">
+														<div class="task-item-cell task-state task-stts-cell">
+															<span class="js-task-state completion">완료</span>
+														</div>
+													</c:if> <c:if test="${dtasks.tskPrgs == 'withhold' }">
+														<div class="task-item-cell task-state task-stts-cell">
+															<span class="js-task-state hold">보류</span>
+														</div>
+													</c:if>
 													<div class="js-priority task-item-cell task-priority-cell ">
 														<div class="js-priority-span rank-span">
 															<i class=" small"></i> <span
@@ -141,12 +158,12 @@
 													</div>
 													<div class="task-item-cell task-name task-task_nm-cell ">
 														<div
-															class="js-post-title task-title ellipsis js-mouseover"
-															mouseover-text="${dtasks.notiTtl }">
-															${dtasks.notiTtl }<em class="subtask-item"
-																style="display: none"> <i class="icons-subtask"></i>
-																<span class="subtask-number">0</span>
-															</em>
+															class="js-post-title task-title ellipsis js-mouseover">
+															${dtasks.notiTtl }
+															<em class="subtask-item" style="display: inline-block"> <i
+																class="icons-subtask"></i> <span class="subtask-number">하위업무갯수 넣기</span>
+															</em> 
+															
 														</div>
 														<div class="js-post-title project-title"
 															style="display: none">
@@ -160,7 +177,7 @@
 														</span>
 													</div>
 													<div class="js-workers task-item-cell task-worker_nm-cell ">
-														<span class="js-mouseover" > <span
+														<span class="js-mouseover"> <span
 															class="js-worker-name manager ellipsis">${dtasks.memId}</span>
 															<span class="js-worker-count"></span>
 														</span>
@@ -353,44 +370,56 @@
 	<!-- highlight (상세보기 팝업)-->
 	<script>
 		$("#allTskContentUl > li").click(function(e) {
-			 if($(e.currentTarget).hasClass("highlight")){
+			if ($(e.currentTarget).hasClass("highlight")) {
 				console.log("ddd===========================");
 				console.log($(e.currentTarget));
 				$(e.currentTarget).removeClass("highlight");
-				$("#postPopup").css("display","none");
-			}
-			else if (!$(e.currentTarget).hasClass("highlight")){
+				$("#postPopup").css("display", "none");
+			} else if (!$(e.currentTarget).hasClass("highlight")) {
 				$("#allTskContentUl > li").removeClass("highlight");
 				$(e.currentTarget).addClass("highlight");
-				$("#postPopup").css("display","block");
-						 
+				$("#postPopup").css("display", "block");
+
 				tskPopUpDetail($(this));
 			}
 		});
-			
-		function tskPopUpDetail(li){
-			
+
+		function tskPopUpDetail(li) {
+
 			var notiId = li.data("notiid");
-			
+
 			$.ajax({
 				url : "myPostTsk.do",
 				type : "GET",
-				data : {notiId : notiId},
+				data : {
+					notiId : notiId
+				},
 				dataType : "html",
 				success : function(data) {
 					$("#modalBody").html(data);
-					for(var i = 0; i< data.length; i++){
+					for (var i = 0; i < data.length; i++) {
 						var item = data[i];
 					}
-					
-				}
-			
 
-	
+				}
+
 			});
 		};
-		
-		
+
+		// 전체 업무 목록 정렬
+		$("#selectNum").click(function() {
+			if (!$(".js-task-sort-inner-button").hasClass("descend")) {
+				$(this).addClass("descend");
+
+			} else if ($("#num").hasClass("descend")) {
+				$("#num").click(function(e) {
+					$("#num").removeClass("descend");
+					$(e.currentTarget).addClass(" ascend");
+				});
+
+			}
+
+		});
 	</script>
 
 

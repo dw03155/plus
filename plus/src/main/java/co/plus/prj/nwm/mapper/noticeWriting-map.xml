@@ -4,7 +4,7 @@
 	<!-- 전체 메뉴 -> 내 게시물 목록 -->
 	<select id="myPost"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select b.*, a.name, a.co_url, c.prj_ttl,
+		select b.*, a.name, a.co_url, c.prj_ttl, 
 		case when noti_knd = 'task' then ( select tsk_prgs from task where noti_id
 		= b.noti_id)
 		when noti_knd = 'subtask' then ( select subtsk_prgs from subtask where
@@ -53,15 +53,25 @@
 	</select>
 
 	<select id="detailTaskList" resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select  e.*, f.name, g.noti_dttm
+		select  e.*, f.name, g.noti_dttm, g.noti_ttl
+            <!-- (select COUNT(*) from subtask
+        where noti_id2 = #{notiId2}) as notiId2 -->
 		from 	task e, member f, board g
 		WHERE 	e.mem_id = f.mem_id
 		and 	e.noti_id = g.noti_id
-        and     g.prj_id = #{prjId}
-		<!-- 업무 ->ㅣ 업무 명으로 검색 -->
+        and     g.prj_id = #{prjId}	
+        <!-- 업무 ->ㅣ 업무 명으로 검색 -->
 		<if test="notiTtl != null and notiTtl != ''">
 			and noti_ttl like '%' || #{notiTtl} || '%'
 		</if>
+		
+		
+		<!-- 하위업무도 동시 조회 -->
+	<!-- 			from 	task e, member f, board g, subtask t
+		WHERE 	e.mem_id = f.mem_id
+		and 	e.noti_id = g.noti_id
+        and  e.noti_id = t.noti_id2
+        and     e.noti_id = 41; -->
 	</select>
 
 	<!-- 전체 메뉴 -> 캘린더 -->
@@ -166,7 +176,7 @@
 	<!-- 내 게시물 목록 -> 할일 상세보기(팝업) -->
 	<select id="myPostTodo"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select a.noti_dttm, b.*, c.prj_ttl, c.prj_id, d.name, d.co_url
+		select a.noti_dttm, a.noti_open_perm, b.*, c.prj_ttl, c.prj_id, d.name, d.co_url
        from board a, todo b, project c, member d
        where a.noti_id = b.noti_id
        and a.prj_id = c.prj_id

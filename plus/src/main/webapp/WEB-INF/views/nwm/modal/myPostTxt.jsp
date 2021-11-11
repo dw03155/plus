@@ -92,9 +92,10 @@ pageContext.setAttribute("replaceChar", "\n");
 				</div>
 			</div>
 			<div class="post-state">
-				<span class="task-number d-none" data-task=""> 업무번호 <em>${texts.notiId }</em>
+				<span class="task-number d-inline-block"> 업무번호 <em>${texts.notiId}</em>
 				</span>
 			</div>
+			
 		</div>
 		<div class="post-card-container">
 
@@ -158,7 +159,7 @@ pageContext.setAttribute("replaceChar", "\n");
 						placeholder="줄바꿈은 Shift + Enter / 입력은 Enter 입니다."></div>
 					<input type="hidden" class="comment-upload-input"> <label
 						mouseover-text="파일 첨부"
-						class="js-remark-upload-button comment-upload-button js-mouseover">
+						class="js-remark-upload-button comment-upload-button js-mouseover" >
 						<i class="icons-link"> <span class="blind">업로드 버튼</span>
 					</i>
 					</label>

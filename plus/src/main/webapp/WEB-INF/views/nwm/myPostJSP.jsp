@@ -215,27 +215,38 @@
 
 											<!-- 글 종류에 따라 display :block-->
 											<div class="fixed-value">
+											<!-- 업무일 때 -->
 												<c:if test="${notice.notiKnd=='task'}">
-													<span class="js-task-state state d-none hold"
-														style="display: none">보류</span>
-													<span class="js-task-state state d-none progress"
-														style="display: none">진행</span>
-													<span class="js-task-state state d-none request"
-														style="display: none">요청</span>
-													<span class="js-task-state state d-none completion"
-														style="display: none">완료</span>
-													<span class="js-task-state state d-none feedback"
-														style="display: none">피드백</span>
+													<c:if test="${notice.addList == 'withhold' }">
+														<span class="js-task-state state d-none hold"
+															style="display: block">보류</span>
+													</c:if>
+													<c:if test="${notice.addList == 'progress' }">
+														<span class="js-task-state state d-none progress"
+															style="display: block">진행</span>
+													</c:if>
+													<c:if test="${notice.addList == 'request' }">
+														<span class="js-task-state state d-none request"
+															style="display: block">요청</span>
+													</c:if>
+													<c:if test="${notice.addList == 'complete' }">
+														<span class="js-task-state state d-none completion"
+															style="display: block">완료</span>
+													</c:if>
+													<c:if test="${notice.addList == 'feedback' }">
+														<span class="js-task-state state d-none feedback"
+															style="display: block">피드백</span>
+													</c:if>
 												</c:if>
-												<c:if test="${notice.notiKnd=='schedule'}">
+												 <c:if test="${notice.notiKnd=='schedule'}">
 													<div class="p" style="display: inline-block">
 														<em class="date"><fmt:formatDate pattern="MM/dd "
 																value="${notice.notiDttm}" /></em> <span><fmt:formatDate
 																pattern="HH:mm" value="${notice.notiDttm}" /></span>
 													</div>
-												</c:if>
+												</c:if> 
 												<c:if test="${notice.notiKnd=='todo'}">
-													<span class="state request" style="display: inline-block">50%</span>
+													<span class="js-task-state js-todo-state state request" style="display: inline-block">${notice.addList }%</span>
 												</c:if>
 												<!-- 할일 완료도  업무 진행상항 class="progress" 진행 /
 												class="request" 요청 / class="completion"완료 /
@@ -398,6 +409,8 @@
 				});
 			}
 		};
+
+	
 	</script>
 
 

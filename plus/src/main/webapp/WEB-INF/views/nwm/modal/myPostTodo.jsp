@@ -2,44 +2,26 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!-- 내 게시물 목록 -> 할일 상세보기(팝업) -->
-<table border="1">
-	<c:forEach var="todos" items="${todos }">
-	<tr>
-		<td id="memId">${todos.name }</td>
-		<td id="notiDttm"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
-				value="${todos.todoEndDate}" /></td>
-		<td>${todos.notiId }</td>
-	</tr>
 
-	<tr>
-		<td colspan="3" id="notiTtl"></td>
-	</tr>
-	<tr>
-		<td colspan="3" id="tskCntn">${todos.todoCntn }</td>
-	</tr>
-	<tr>
-		<td colspan="3">${todos.todoId }</td>
-	</tr>
-	</c:forEach>
 
-	<tr>
-		<td colspan="4"><input placeholder="줄바꿈은 Enter 입니다."></td>
-	</tr>
-</table>
- 
-<%-- <div class="js-post-nav card-item post-card-wrapper todo  side">
+<div class="js-post-nav card-item post-card-wrapper todo  side">
 	<button type="button" class="post-popup-button left"></button>
 	<div class="post-popup-header card-popup-header d-none"
 		style="display: block;">
 		<h3 class="card-popup-title">
-			<i id="projectTitleColor" class="project-color color-code-4"></i> <span
-				class="js-project-title-button">todos[0].prjId </span> <span
-				class="subtask-title up-task-title js-up-task-button"> </span>
+			<c:forEach var="todos[i]" items="${todos }" begin="0" end="0">
+				<i id="projectTitleColor" class="project-color color-code-4"></i>
+				<span class="js-project-title-button">${todos[0].prjTtl }</span>
+				<span class="subtask-title up-task-title js-up-task-button">
+				</span>
+			</c:forEach>
 		</h3>
 		<button class="btn-close card-popup-close">
 			<i class="icons-close-1"></i>
 		</button>
+
 	</div>
 	<div class="post-card-header">
 		<div class="post-card-scroll">
@@ -49,20 +31,22 @@
 						style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
 					<dl class="post-author-info">
 						<dt>
-							<strong class="author ellipsis">todos[0].name </strong> <em
-								class="position ellipsis" style="display: inline"></em> <span
-								class="date">todos[0].notiDttm </span>
+							<c:forEach var="todos[i]" items="${todos }" begin="0" end="0">
+								<strong class="author ellipsis">${ todos[0].name }</strong>
+								<em class="position ellipsis" style="display: inline"></em>
+								<span class="date"><fmt:formatDate value = "${todos[0].notiDttm}" pattern = "yyyy/MM/dd" /></span>
 
-							<!-- 게시물 공개 여부 -->
-							<c:if test="${todos.notiOpenPerm == 'all'}">
-								<span class="post-security"> <i
-									class="icons-person-7 js-mouseover" mouseover-text="전체 공개"></i>
-								</span>
-							</c:if>
-							<c:if test="${todos.notiOpenPerm == 'pm'}">
-								<span class="post-security"> <i
-									class="icons-lock js-mouseover" mouseover-text="프로젝트 관리자만"></i></span>
-							</c:if>
+								<!-- 게시물 공개 여부 -->
+								<c:if test="${todos[0].notiOpenPerm == 'all'}">
+									<span class="post-security"> <i
+										class="icons-person-7 js-mouseover" mouseover-text="전체 공개"></i>
+									</span>
+								</c:if>
+								<c:if test="${todos[0].notiOpenPerm == 'pm'}">
+									<span class="post-security"> <i
+										class="icons-lock js-mouseover" mouseover-text="프로젝트 관리자만"></i></span>
+								</c:if>
+							</c:forEach>
 						</dt>
 						<dd class="d-none">
 
@@ -73,9 +57,11 @@
 				<div id="postOptions">
 					<div class="post-option">
 						<form action="prjHome.do" method="post">
+						<c:forEach var="todos[i]" items="${todos }" begin="0" end="0">
 							<button id="movePost" class="btn-go d-none"
 								style="display: inline-block">게시글 바로가기</button>
-							<input name="prjId" type="hidden" value="${todos.prjId }">
+							<input name="prjId" type="hidden" value="${todos[0].prjId }">
+							</c:forEach>
 						</form>
 						<button id="pinToTopBnt"
 							class="js-pin-post fixed-btn js-pin-authority "
@@ -102,20 +88,23 @@
 
 			<div class="card-header-bottom ">
 
-				<div class="post-title-area">
-					<h4 class="js-post-title post-title ">todos.notiTtl </h4>
-					<div class="schedule-period-area d-none">
-						<span class="schedule-period"></span> <span
-							class="schedule-period"></span>
+				<c:forEach var="todos[i]" items="${todos }" begin="0" end="0">
+					<div class="post-title-area">
+						<h4 class="js-post-title post-title ">${todos[0].notiTtl }</h4>
+						<div class="schedule-period-area d-none">
+							<span class="schedule-period"></span> <span
+								class="schedule-period"></span>
+						</div>
 					</div>
-				</div>
-				<div class="post-state">
-					<span class="task-number d-none" data-task=""> 업무번호 <em>todos.notiId </em>
-					</span>
-				</div>
+					<div class="post-state">
+						<span class="task-number d-inline-block" data-task=""> 업무번호 <em>
+								${todos[0].prjId }</em>
+						</span>
+					</div>
+				</c:forEach>
 			</div>
-			
-			
+
+
 			<div class="post-card-container">
 				<div id="originalPost" class="post-card-content "
 					style="display: block">
@@ -123,7 +112,7 @@
 						<div class="todo-progress-header">
 							<div class="progress-header-left">
 								<span id="progressCount" class="progress-count">0</span> <span
-									id="progressTotalCount" class="progress-total">3</span>
+									id="progressTotalCount" class="progress-total">${fn:length(todos)}</span>
 							</div>
 							<div class="progress-header-right">
 								<span class="progress-percent">0%</span>
@@ -135,132 +124,49 @@
 						</div>
 					</div>
 					<ul id="todoUl" class="js-todo-component todo-group">
-						<li class="todo-item">
-							<div class="subtask-input-area todo-area ">
-								<i class="drag-button" style="display: none"></i>
-								<p class="todo-text">
-									<a href="#" class="icon-checkbox js-todo-checkbox"> <i
-										class="icons-check-2"></i>
-									</a> <span class="js-todo-text-area js-mouseover"
-										mouseover-text="테스트">테스트</span> <input
-										class="todoContents js-mouseover js-close-check js-todo-content-input"
-										data-gubun="newTodo" placeholder="할일을 입력하세요." value="테스트"
-										type="text" autocomplete="off" maxlength="60"
-										data-required-yn="Y" data-empty-msg="할일 내용을 입력해주세요!"
-										data-over-msg="할일 내용이 60자가 넘었습니다!" style="display: none">
-								</p>
-								<div class="todo-menu">
+						<!-- 할일 항목 (반복) -->
+						<li class="todo-item"><c:forEach var="todos"
+								items="${todos }">
+								<div class="subtask-input-area todo-area ">
+									<p class="todo-text">
+										<a  href="#" class="icon-checkbox js-todo-checkbox"> <i
+											class="icons-check-2"></i>
+										</a> <span class="js-todo-text-area js-mouseover">${todos.todoCntn }</span>
+										<input
+											class="todoContents js-mouseover js-close-check js-todo-content-input"
+											data-gubun="newTodo" placeholder="할일을 입력하세요." value="테스트"
+											type="text" autocomplete="off" maxlength="60"
+											data-required-yn="Y" data-empty-msg="할일 내용을 입력해주세요!"
+											data-over-msg="할일 내용이 60자가 넘었습니다!" style="display: none">
+									</p>
+									<div class="todo-menu">
 
-									<span class="js-pickr-layer js-datepick-button subtask-button"
-										style="display: none;"> <input type="hidden"
-										class="flatpickr flatpickr-input js-pickr-date"
-										readonly="readonly"> <span
-										class="create-icon-box js-pickr-icon"><i
-											class="icons-calendar"></i></span> <span class="js-pickr-text"></span>
-									</span>
-									<button id="todoWorkerButton" type="button"
-										class="js-worker-button subtask-button" style="display: none;">
-										<span class="create-icon-box"><i class="icons-person-6"></i></span>
-									</button>
+										<span class="js-pickr-layer js-datepick-button subtask-button"
+											style="display: none;"> <input type="hidden"
+											class="flatpickr flatpickr-input js-pickr-date"
+											readonly="readonly"> <span
+											class="create-icon-box js-pickr-icon"><i
+												class="icons-calendar"></i></span> <span class="js-pickr-text"></span>
+										</span>
+										<button id="todoWorkerButton" type="button"
+											class="js-worker-button subtask-button"
+											style="display: none;">
+											<span class="create-icon-box"><i
+												class="icons-person-6"></i></span>
+										</button>
 
-									<span id="todoDateSpan"
-										class="js-pickr-layer todo-date js-mouseover " select-date=""
-										mouseover-text="마감일 추가"></span> <span id="participantData"
-										class="js-worker-button js-registration js-mouseover thumbnail size36 radius14"
-										style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)">
-									</span>
+										<span id="todoDateSpan"
+											class="js-pickr-layer todo-date js-mouseover"
+											mouseover-text="마감일 추가"></span> <span id="participantData"
+											class="js-worker-button js-registration js-mouseover thumbnail size36 radius14"
+											style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)">
+										</span>
 
+									</div>
+									<button type="button" class="js-todo-remove-btn remove-button"
+										style="display: none"></button>
 								</div>
-								<button type="button" class="js-todo-remove-btn remove-button"
-									style="display: none"></button>
-							</div>
-						</li>
-
-						<li class="todo-item">
-							<div class="subtask-input-area todo-area ">
-								<i class="drag-button" style="display: none"></i>
-								<p class="todo-text">
-									<a href="#" class="icon-checkbox js-todo-checkbox"> <i
-										class="icons-check-2"></i>
-									</a> <span class="js-todo-text-area js-mouseover"
-										mouseover-text="출력 화면 확인">출력 화면 확인</span> <input
-										class="todoContents js-mouseover js-close-check js-todo-content-input"
-										data-gubun="newTodo" placeholder="할일을 입력하세요." value="출력 화면 확인"
-										type="text" autocomplete="off" maxlength="60"
-										data-required-yn="Y" data-empty-msg="할일 내용을 입력해주세요!"
-										data-over-msg="할일 내용이 60자가 넘었습니다!" style="display: none">
-								</p>
-								<div class="todo-menu">
-
-									<span class="js-pickr-layer js-datepick-button subtask-button"
-										style="display: none;"> <input type="hidden"
-										class="flatpickr flatpickr-input js-pickr-date"
-										readonly="readonly"> <span
-										class="create-icon-box js-pickr-icon"><i
-											class="icons-calendar"></i></span> <span class="js-pickr-text"></span>
-									</span>
-									<button id="todoWorkerButton" type="button"
-										class="js-worker-button subtask-button" style="display: none;">
-										<span class="create-icon-box"><i class="icons-person-6"></i></span>
-									</button>
-
-									<span id="todoDateSpan"
-										class="js-pickr-layer todo-date js-mouseover "
-										mouseover-text="마감일 추가"></span> <span id="participantData"
-										class="js-worker-button js-registration js-mouseover thumbnail size36 radius14"
-										data-worker-id="madrascheck" data-use-intt-id="UTLZ_226"
-										mouseover-text="플로우 운영자"
-										style="background-image: url(https://flow.team/flowImg/FLOW_202111085603616_19c29c0b-7b09-47d5-8707-a332c271b981.png?width=400&amp;amp;height=400), url(/flow-renewal/assets/images/profile-default.png)">
-									</span>
-
-								</div>
-								<button type="button" class="js-todo-remove-btn remove-button"
-									style="display: none"></button>
-							</div>
-						</li>
-
-						<li class="todo-item">
-							<div class="subtask-input-area todo-area ">
-								<i class="drag-button" style="display: none"></i>
-								<p class="todo-text">
-									<a href="#" class="icon-checkbox js-todo-checkbox"> <i
-										class="icons-check-2"></i>
-									</a> <span class="js-todo-text-area js-mouseover"
-										mouseover-text="수정 후 확인">수정 후 확인</span> <input
-										class="todoContents js-mouseover js-close-check js-todo-content-input"
-										data-gubun="newTodo" placeholder="할일을 입력하세요." value="수정 후 확인"
-										type="text" autocomplete="off" maxlength="60"
-										data-required-yn="Y" data-empty-msg="할일 내용을 입력해주세요!"
-										data-over-msg="할일 내용이 60자가 넘었습니다!" style="display: none">
-								</p>
-								<div class="todo-menu">
-
-									<span class="js-pickr-layer js-datepick-button subtask-button"
-										style="display: none;"> <input type="hidden"
-										class="flatpickr flatpickr-input js-pickr-date"
-										readonly="readonly"> <span
-										class="create-icon-box js-pickr-icon"><i
-											class="icons-calendar"></i></span> <span class="js-pickr-text"></span>
-									</span>
-									<button id="todoWorkerButton" type="button"
-										class="js-worker-button subtask-button" style="display: none;">
-										<span class="create-icon-box"><i class="icons-person-6"></i></span>
-									</button>
-
-									<span id="todoDateSpan"
-										class="js-pickr-layer todo-date js-mouseover "
-										mouseover-text="마감일 추가"></span> <span id="participantData"
-										class="js-worker-button js-registration js-mouseover thumbnail size36 radius14"
-										data-worker-id="yuin3488@gmail.com"
-										data-use-intt-id="GMAIL_211027181438"
-										style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)">
-									</span>
-
-								</div>
-								<button type="button" class="js-todo-remove-btn remove-button"
-									style="display: none"></button>
-							</div>
-						</li>
+							</c:forEach></li>
 					</ul>
 
 					<span id="todoRgsrInfo" style="display: none"></span>
@@ -268,11 +174,6 @@
 
 				<div class="post-bottom-area">
 					<div class="post-bottom-menu js-reaction-bookmark">
-						<div class="js-emoji-group-layer emoji-area">
-							<ul class="emoji-group"></ul>
-							<span class="emoji-count-area"> <span class="emoji-count"></span>
-							</span>
-						</div>
 						<div class="bottom-button-area">
 							<button class="js-post-bookmark post-bottom-button ">
 								<i class="icon-bookmark"></i> <span>북마크</span>
@@ -291,8 +192,8 @@
 				</div>
 				<!-- //post-card-container -->
 			</div>
-			
-			
+
+
 			<div class="post-card-footer js-comment-area">
 				<div class="comment-header">
 					<button type="button"
@@ -311,11 +212,6 @@
 									<span class="user-name js-comment-user-name">QR</span> <span
 										class="user-position"></span> <span class="record-date">2021-11-03
 										13:47</span>
-									<div class="js-remark-like comment-like ">
-										<span class="js-remark-like-button"><em
-											class="txt-like">좋아요</em></span> <span
-											class="js-remark-like-count comment-like-count ">0</span>
-									</div>
 								</div>
 								<div class="comment-writer-menu">
 									<button type="button"
@@ -377,8 +273,7 @@
 			<div class="js-remark-layer js-edit-layer comment-input-wrap">
 				<div class="comment-thumbnail">
 					<span class="thumbnail size40 radius16"
-						style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"
-						data=""></span>
+						style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
 				</div>
 				<form class="js-remark-form comment-container on ">
 					<fieldset>
@@ -434,4 +329,14 @@
 		console.log($(e.currentTarget).closest('form'));
 		$(e.currentTarget).closest('form').submit();
 	});
-</script> --%>
+	
+	// 할일 체크 버튼
+	
+	
+	$(function(){
+		  $("li > div > p > a ").click(function() {
+		    $(".subtask-input-area todo-area").toggleClass("checked");
+		  });
+		});​
+</script>
+
