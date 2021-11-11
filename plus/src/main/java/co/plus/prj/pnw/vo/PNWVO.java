@@ -17,6 +17,10 @@ public class PNWVO {
 	private String prjCntn;			// 프로젝트 내용(설명)
 	private String prjOpenPerm;		// 프로젝트 공개권한
 	
+	// Fold
+	private String foldId;			// 카테고리 번호
+	private String foldName;		// 카테고리 이름
+	
 	// Category
 	private String ctgryId;			// 카테고리 번호
 	private String ctgryName;		// 카테고리 이름
@@ -26,6 +30,8 @@ public class PNWVO {
 	private String prjPerm;			// 프로젝트 권한
 	private String PartiCnt;		// 프로젝트 참여자 수
 	
+	// MemStatus
+	private String memSt;			// 회원상태
 	// NoticeWriting
 	private String notiId;			// 게시글 번호
 	private String notiKnd;			// 게시글 종류

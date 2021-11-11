@@ -1,5 +1,6 @@
 package co.plus.prj.pnw.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -67,31 +68,26 @@ public class PNWController {
 	}
 	
 	// 새 프로젝트 : 카테고리 종류 받기
-	@RequestMapping(value = "/ctgryKnd.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/ctgryList.do", method = RequestMethod.POST)
 	@ResponseBody
-	public List<PNWVO> ctgryKnd(HttpSession session, Model model, PNWVO vo) {
-		return service.ctgryKnd(vo);
+	public List<PNWVO> ctgryList(HttpSession session, Model model, PNWVO vo) {
+		return service.ctgryList(vo);
 	}
 	
-	// 새 프로젝트 (프로젝트 입력 처리)
+	// 새 프로젝트 : 프로젝트 생성
 	@RequestMapping(value = "/prjInsert.do", method = RequestMethod.POST)
-	public String prjInsert(HttpSession session, Model model, PNWVO vo) {
-		vo.setPrjTtl((String) model.getAttribute("prjTtlInput"));
-		vo.setPrjCntn((String) model.getAttribute("prjCntnInput"));
-		vo.setPrjKnd((String) model.getAttribute("prjKndSet"));
-		vo.setCtgryId((String) model.getAttribute("ctgryIdSet"));
-		vo.setPrjOpenPerm((String) model.getAttribute("prjOpenPermSet"));
-		vo.setCoUrl((String) session.getAttribute("coUrl"));
-		
+	@ResponseBody
+	public Map prjInsert(HttpSession session, Model model, PNWVO vo) {
 		service.prjInsert(vo);
-		return "myProject.do";
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("project", vo);
+		return map;
 	}
 	// 폴더 메뉴
-	@RequestMapping(value = "/FolderMenu.do",  method = RequestMethod.POST)
+	@RequestMapping(value = "/folderMenu.do",  method = RequestMethod.POST)
 	@ResponseBody
-	public List<PNWVO> FolderMenu(HttpSession session, Model model, PNWVO vo) {
-		return service.FolderMenu(vo);
+	public List<PNWVO> folderMenu(HttpSession session, Model model, PNWVO vo) {
+		return service.folderMenu(vo);
 	}
-	
 	
 }

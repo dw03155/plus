@@ -84,6 +84,37 @@ to {
 .ctgryLi:hover {
 	color: #6449FC;
 }
+
+.dropdown-button {
+	
+}
+
+.category-name {
+	positon: relative;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #fff;
+	min-width: 75px;
+	padding: 5px;
+}
+
+.dropdown-content a {
+	display: black;
+	position: 8px;
+	text-decoration: none;
+	dispaly: block;
+}
+
+.dropdown-content a:hover {
+	color: #6449FC;
+}
+
+.category-name {
+	
+}
 </style>
 </head>
 <body>
@@ -146,13 +177,14 @@ to {
 	</div>
 
 	<!-- 프로젝트 폴더명 style-->
-	<div class="flow-all-background-1 back-area temp-popup" tabindex="0"
+	<div id=prjFolderMake
+		class="flow-all-background-1 back-area temp-popup" tabindex="0"
 		style="display: none">
 		<div class="flow-project-make-1 back-area">
 			<div class="flow-project-make-2 back-area contents">
 				<div class="input-popup flow-project-popup-4">
 					<div class="flow-project-header-1">
-						<span class="popup-title">프로젝트 만들기, 프로젝트 수정하기</span> <a href="#"
+						<span class="popup-title">프로젝트 폴더 만들기</span> <a href="#"
 							class="close-event flow-close-type-1"></a>
 					</div>
 					<div class="flow-content">
@@ -175,6 +207,36 @@ to {
 		</div>
 	</div>
 
+	<!-- 프로젝트 폴더명 style-->
+	<div id=prjFolderUpdate
+		class="flow-all-background-1 back-area temp-popup" tabindex="0"
+		style="display: none">
+		<div class="flow-project-make-1 back-area">
+			<div class="flow-project-make-2 back-area contents">
+				<div class="input-popup flow-project-popup-4">
+					<div class="flow-project-header-1">
+						<span class="popup-title">프로젝트 폴더명 수정하기</span> <a href="#"
+							class="close-event flow-close-type-1"></a>
+					</div>
+					<div class="flow-content">
+						<div class="flow-content-input-1">
+							<input class="popup-input" type="text" placeholder=""
+								maxlength="50" data-required-yn="Y"
+								data-empty-msg="프로젝트 폴더명을 입력해주세요."
+								data-over-msg="50자 이내로 입력하세요.">
+						</div>
+						<div class="flow-pop-button-type-1">
+							<a href="#">
+								<div class="flow-pop-sub-button-1 cancel-event">취소</div>
+							</a> <a href="#">
+								<div class="flow-pop-sub-button-2 submit-event">확인</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- 프로젝트 폴더 삭제 style-->
 	<div class="flow-all-background-1 back-area temp-popup" tabindex="0"
@@ -183,7 +245,7 @@ to {
 			<div class="flow-project-make-2 back-area contents">
 				<div
 					class="mini-confirm-popup flow-project-popup-3 popup-quit d-none"
-					style="display: block;">
+					style="display: block">
 					<p class="popup-cont contents">프로젝트 폴더를 삭제하시겠습니까? 프로젝트 폴더에 포함된
 						프로젝트는 삭제되지 않습니다.</p>
 					<div class="flow-pop-button-type-1">
@@ -244,7 +306,7 @@ to {
 		</div>
 	</div>
 
-	<!--  내프로젝트에서 프로젝트 폴더 설정 style-->
+	<!--  내 프로젝트에서 프로젝트 폴더 설정 style-->
 	<div class="flow-all-background-1 back-area temp-popup" tabindex="0"
 		style="display: none">
 		<div class="flow-project-make-1 back-area">
@@ -511,24 +573,24 @@ to {
 			<div class="flow-project-make-2 back-area">
 				<div class="input-main-layer flow-project-popup-1 d-block">
 					<div class="flow-project-header-1">
-						<span>새 프로젝트</span> <a id="closeprjMake" href="#"
+						<span>새 프로젝트</span> <a href="#"
 							class="js-project-make-close-btn flow-close-type-1 close-event"></a>
 					</div>
-					<form name="prjInfoSubmit" action="prjInsert.do" method="post">
-						<div class="flow-content scroll-mask">
+					<div class="flow-content scroll-mask">
+						<form id="prjInsert" name="prjInsert" action="myProject.do">
 							<div class="flow-content-1">
-								<input id="prjTtlInput" name="prjTtlInput" type="text" placeholder="제목 입력 (필수)"
-									maxlength="50" autocomplete="off">
+								<input id="prjTtlInput" name="prjTtlInput" type="text"
+									placeholder="제목 입력 (필수)" maxlength="50" autocomplete="off">
 							</div>
 							<div class="flow-content-2">
-								<textarea id="prjCntnInput" name="prjCntnInput" placeholder="프로젝트에 관한 설명 입력 (옵션)"></textarea>
+								<textarea id="prjCntnInput" name="prjCntnInput"
+									placeholder="프로젝트에 관한 설명 입력 (옵션)"></textarea>
 							</div>
 
 							<div class="flow-content-3">옵션</div>
 							<c:if test="${memPerm eq 'ADMIN'}">
-
 								<div id="cPrjSet" class="open-yn check-setting flow-content-4">
-								<input type="hidden" name="prjKndSet" value="" />
+									<input type="hidden" id="prjKndSet" name="prjKndSet" value="N" />
 									<a> <em></em> 회사 프로젝트 설정
 									</a>
 									<button class="js-sendience-service-helper js-mouseover"
@@ -547,8 +609,8 @@ to {
 
 							<div id="prjAllSet"
 								class="manager-permit-yn check-setting flow-content-5">
-								<input type="hidden" name="prjOpenPermSet" value="" />
-								<a> <em></em> 프로젝트 전체공개 설정
+								<input type="hidden" id="prjOpenPermSet" name="prjOpenPermSet"
+									value="part" /> <a> <em></em> 프로젝트 전체공개 설정
 								</a>
 								<button class="js-sendience-service-helper js-mouseover"
 									mouseover-text="회사 임직원 모두 볼 수 있도록 설정합니다.">
@@ -562,25 +624,21 @@ to {
 									</button>
 								</a>
 							</div>
-							<a id="ctgryName" href="#">
-								<div class="open-category-setting flow-content-8">
-									<em></em> 프로젝트 카테고리 설정
-									<div class="flow-sub-content-1">
-										<span class="category-name">선택<input type="hidden" name="ctgryIdSet"
-											value=""></span><em></em> <i></i>
-									</div>
+							<div class="open-category-setting flow-content-8">
+								<em></em> 프로젝트 카테고리 설정
+								<div class="flow-sub-content-1">
+									<span class="category-name"> <select id="ctgryIdSet"
+										name="ctgryIdSet" class="my-type-1">
+											<option value="">선택</option>
+									</select>
+									</span> <i></i>
 								</div>
-							</a>
-						</div>
+							</div>
 						</form>
-						<a href="#">
-							<div class="project-submit flow-content-7 un-value">만들기</div>
-						</a>
-				</div>
-				<!-- 카테고리 모달 -->
-				<div id="ctgryModal" class="ctgry_modal" style="display: none">
-					<ul id="ctgryUl">
-					</ul>
+					</div>
+					<a href="#">
+						<div class="project-submit flow-content-7 un-value">만들기</div>
+					</a>
 				</div>
 			</div>
 		</div>
@@ -592,10 +650,10 @@ to {
 	<script type="text/javascript">
 		var $memId = "${sessionScope.memId}";
 		var $coUrl = "${sessionScope.coUrl}";
-	
-		//프로젝트 폴더
-		$.ajax({ // 프로젝트 폴더 메뉴
-			url : "FolderMenu.do",
+
+		//프로젝트 폴더 메뉴
+		$.ajax({ // 프로젝트 폴더 목록 부르기
+			url : "folderMenu.do",
 			type : "post",
 			dataType : 'json',
 			data : {"memId" : $memId},
@@ -603,110 +661,140 @@ to {
 				if (data != "") {
 					$("#allFolderUl").empty();
 					for (i = 0; i < data.length; i++) {
-						$("<li />").addClass("label-item").append(
-								$("<input />").attr("type", "hidden").attr("name", "ctgryIdSet").val(data[i].ctgryId),
-								$("<i />").addClass("ico-label"),
-								$("<span />").addClass("js-label-name js-mouseover ellipsis").attr("mouseover-text", data[i].ctgryName).text(data[i].ctgryName),
-								$("<a />").attr("href", "#").addClass("js-label-setting-button flow-dash-three").append($('<div />'), $('<div />'),$('<div />')))
-								.appendTo("#allFolderUl");
+						$("#allFolderUl").append(
+								$("<li />").addClass("label-item").append(
+									$("<input />").attr("type","hidden").val(data[i].foldId),
+									$("<i />").addClass("ico-label"),$("<span />").addClass("js-label-name js-mouseover ellipsis").text(data[i].foldName),
+									$("<a />").attr("href","#").addClass("js-label-setting-button flow-dash-three")
+										.append($('<div />'),$('<div />'),$('<div />'))));
 					} //end of for
-				}
+				} //end of if
 			} //end of function
 		}); //end of ajax
-		
-		// 프로젝트 폴더
-		$(".menu-accordion-button").on("click",function(e){
+
+		$(".menu-accordion-button").on("click", function(e) { // 프로젝트 폴더 toggle
 			$(e.target).toggleClass("active");
 			$(e.target).next().toggle();
 		});
+
+		$("#allLabelLeftButton button").on("click", function() { // 프로젝트 폴더 만들기 팝업 열기
+			$("#prjFolderMake").css("display", "block");
+		});
+		
+		$(".cancel-event").on("click", function() { // 팝업 닫기1
+			e.preventDefault();
+			$("#prjFolderMake").css("display", "none");
+		});
+		$(".close-event").on("click", function() { // 팝업 닫기2
+			e.preventDefault();
+			$("#prjFolderMake").css("display", "none");
+		});
+		
+		$("#prjFolderMake .submit-event").on("click", function() { // 프로젝트 폴더 만들기
+			e.preventDefault();
+			if($("#prjFolderMake > input").val() == ""){
+				$("#errorWrap").find("div:last").text("폴더명을 입력하세요.");
+				$("#errorWrap").children("div").fadeIn(1000).delay(1500).fadeOut(1000);
+			}else{
+				
+			}
+		});
+		
+		$("").on("click", function() { // 프로젝트 폴더명 수정하기 팝업
+			$("#prjFolderUpdate").css("display", "block");
+		});
+		
+		$("#prjFolderUpdate .submit-event").on("click", function() { // 프로젝트 폴더 수정하기
+			e.preventDefault();
+			if($("#prjFolderUpdate > input").val() == ""){
+				$("#errorWrap").find("div:last").text("폴더명을 입력하세요.");
+				$("#errorWrap").children("div").fadeIn(1000).delay(1500).fadeOut(1000);
+			}else{
+				
+			}
+		});
+		//프로젝트 폴더 메뉴 End
+
 		//새 프로젝트
 		$("#prjMake").on('click', function(e) { // 새 프로젝트 팝업창 열기
 			e.preventDefault();
 			$("#prjMakeLayer").css("display", "block");
-		});
-
-		$("#closeprjMake").on('click', function(e) { // 새 프로젝트 팝업창 닫기
-			e.preventDefault();
-			$("#prjMakeLayer").css("display", "none");
-		});
-
-		$("#prjMakeLayer").find("button").on('click', function(e) { // 옵션 버튼 클릭시 active
-			$(e.target).toggleClass("active");
-		
-			if($("#cPrjSet").find("button").hasClass("active")) { // 회사프로젝트 설정
-				var $prjKnd = "C";
-			}else{
-				var $prjKnd = "N";
-			}
-			$("input[name='prjKndSet']").val($prjKnd);
-				
-			if($("#prjAllSet").find("button").hasClass("active")) { // 전체공개 설정
-				var $prjOpenPerm = "all";
-			}else{
-				var $prjOpenPerm = "part";
-			}
-			$("input[name='prjOpenPermSet']").val($prjOpenPerm);
-		});
-
-		$("#ctgryName").children("div").on("click",	function(e) { // 새 프로젝트 > 카테고리 설정
-			e.preventDefault();
 
 			// 카테고리 정보 가져오기
 			$.ajax({
-				url : "ctgryKnd.do",
+				url : "ctgryList.do",
 				type : "post",
 				dataType : 'json',
 				data : {"coUrl" : $coUrl},
 				success : function(data) {
 					if (data != "") {
-						$("#ctgryUl").empty();
+						$("#ctgryIdSet").empty();
+						var $ctgryNull = $("<option>" + "선택" + "</option>").val("");
+						$("#ctgryIdSet").append($ctgryNull);
 						for (i = 0; i < data.length; i++) {
-							$("<li />").addClass("ctgryLi").append(
-									$("<a />").attr("name","ctgryNm").attr("href","javascript:void(0)").attr("onclick","ctgrySelect(); return false;").text(data[i].ctgryName),
-									$("<input />").attr("type", "hidden").val(data[i].ctgryId))
-									.appendTo("#ctgryUl");
-							/*$("<li />").addClass("ctgryLi").append(
-									$("<p />").attr("name","ctgryNm").attr("onclick","ctgrySelect()").text(data[i].ctgryName),
-									$("<input />").attr("type", "hidden").val(data[i].ctgryId))
-									.appendTo("#ctgryUl");*/
+							var $ctgry = $("<option>" + data[i].ctgryName+ "</option>").val(data[i].ctgryId);
+							$("#ctgryIdSet").append($ctgry);
 						} //end of for
 					} else if (data == "") {
 						$("#errorWrap").find("div:last").text("카테고리가 없습니다.");
 						$("#errorWrap").children("div").fadeIn(1000).delay(1500).fadeOut(1000);
-					}
+					} //end of elseif
 				} //end of function
 			}); //end of ajax
-			$("#ctgryModal").toggle();
-		});// 새 프로젝트 > 카테고리 설정 End
-		
-		function ctgrySelect() { // 카테고리 선택 (a태그)
-			$().on($(".category-name").text($("a[name='ctgryNm']").text()));
-			$().on($(".category-name").children("input").val($("a[name='ctgryNm']").next('input').val()));
+		});// 새 프로젝트 팝업창 열기 End
 
-		};//end of ctgrySelect //a태그 똑같이 p태그 바꾸기
-		
-		/*$().on("click","p[name='ctgryNm']",function(e){ // 카테고리 선택 (p태그)
-			console.log(e.target);
-			$().on($(".category-name").text($(e.target).text()));
-			$().on($(".category-name").children("input").val($(e.target).next('input').val()));
-		});*/
-		
-		
-		$(".project-submit").on("click", function(){ // 프로젝트 만들기 버튼 클릭
-			if($("#prjTtlInput").val() == "") {
+		$("#closeprjMake").on('click', function(e) { // 새 프로젝트 팝업창 닫기
+			e.preventDefault();
+			$("#prjMakeLayer").css("display", "none");
+		});// 새 프로젝트 팝업창 닫기 End
+
+		$("#prjMakeLayer").find("button").on('click', function(e) { // 옵션 버튼 클릭시 active
+			$(e.target).toggleClass("active");
+
+			if ($("#cPrjSet").find("button").hasClass("active")) { // 회사프로젝트 설정
+				var $prjKnd = "C";
+			} else {
+				var $prjKnd = "N";
+			}
+			$("input[name='prjKnd']").val($prjKnd);
+
+			if ($("#prjAllSet").find("button").hasClass("active")) { // 전체공개 설정
+				var $prjOpenPerm = "all";
+			} else {
+				var $prjOpenPerm = "part";
+			}
+			$("input[name='prjOpenPerm']").val($prjOpenPerm);
+		});//옵션 버튼 클릭 End
+
+		$(".project-submit").on("click", function(e) { // 프로젝트 만들기 버튼 클릭
+			if ($("#prjTtlInput").val() == "") {
 				$("#errorWrap").find("div:last").text("제목을 입력하세요.");
 				$("#errorWrap").children("div").fadeIn(1000).delay(1500).fadeOut(1000);
-			}else{
-			$("#prjMakeLayer").css("display", "none");
-			$("#successWrap").find("div:last").text("프로젝트가 생성되었습니다.");
-			$("#successWrap").children("div").fadeIn(1000).delay(1500).fadeOut(1000);
-			prjInfoSubmit.submit();
-			}
-		});
+			} else {
+				e.preventDefault();
+				$.ajax({
+					url : "prjInsert.do",
+					type : "post",
+					dataType : 'json',
+					data : {
+						"prjKnd" : $("#prjKndSet").val(),
+						"prjTtl" : $("#prjTtlInput").val(),
+						"prjCntn" : $("#prjCntnInput").val(),
+						"prjOpenPerm" : $("#prjOpenPermSet").val(),
+						"ctgryId" : $("#ctgryIdSet").val(),
+						"coUrl" : $coUrl,
+						"MemId" : $memId
+					},
+					success : function(data) {
+						$("#successWrap").find("div:last").text("프로젝트가 생성되었습니다.");
+						$("#successWrap").children("div").fadeIn(1000).delay(1500).fadeOut(1000);
+
+						prjInsert.submit();
+					} //end of function
+				}); //end of ajax
+			} //end of else
+		});// 프로젝트 만들기 End
 		//새 프로젝트 End
-		
-		//
-		
 	</script>
 
 

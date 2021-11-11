@@ -121,11 +121,5 @@
 		</c:if>
 	</div>
 	
-	<script type="text/javascript">
-/*$(".menu-accordion-button").on("click",function(e){
-		$(e.target).toggleClass("active");
-		$(e.target).next().toggle();
-	});*/
-	</script>
 </body>
 </html>

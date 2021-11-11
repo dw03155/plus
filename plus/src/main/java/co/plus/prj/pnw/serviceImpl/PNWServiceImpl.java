@@ -18,11 +18,13 @@ public class PNWServiceImpl implements PNWService {
 
 	@Override
 	public int prjInsert(PNWVO vo) { // 새 프로젝트
-		return map.prjInsert(vo);
+		map.prjInsert(vo);
+		return map.prjPMInsert(vo);
 	}
-
-	public List<PNWVO> ctgryKnd(PNWVO vo) { // 새 프로젝트
-		return map.ctgryKnd(vo);
+	
+	@Override
+	public List<PNWVO> ctgryList(PNWVO vo) { // 새 프로젝트 : 카테고리 목록가져오기
+		return map.ctgryList(vo);
 	}
 
 	@Override
@@ -41,8 +43,8 @@ public class PNWServiceImpl implements PNWService {
 	}
 
 	@Override
-	public List<PNWVO> FolderMenu(PNWVO vo) { // 프로젝트 폴더 메뉴
-		return map.FolderMenu(vo);
+	public List<PNWVO> folderMenu(PNWVO vo) { // 프로젝트 폴더 메뉴
+		return map.folderMenu(vo);
 	}
 
 	@Override

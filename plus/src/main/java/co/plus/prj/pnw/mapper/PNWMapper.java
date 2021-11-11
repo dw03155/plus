@@ -8,12 +8,13 @@ public interface PNWMapper {
 
 		// 전체메뉴
 		int prjInsert(PNWVO vo);			// 새 프로젝트
-		List<PNWVO> ctgryKnd(PNWVO vo);		// 새 프로젝트 : 카테고리 종류
+		int prjPMInsert(PNWVO vo);			// 새 프로젝트 : PM 입력
+		List<PNWVO> ctgryList(PNWVO vo);	// 새 프로젝트 : 카테고리 목록 가져오기
 		List<PNWVO> favorMyPrj(PNWVO vo);	// 내 프로젝트(즐겨찾기)
 		List<PNWVO> noMyPrj(PNWVO vo);		// 내 프로젝트(즐겨찾기x)
 		List<PNWVO> openProject(PNWVO vo);	// 회사 프로젝트(전체공개 프로젝트)
 	
-		List<PNWVO> FolderMenu(PNWVO vo);	// 프로젝트 폴더 메뉴
+		List<PNWVO> folderMenu(PNWVO vo);	// 프로젝트 폴더 메뉴
 		List<PNWVO> prjFolder(PNWVO vo);	// 프로젝트 폴더 조회
 		int prjFoldInsert(PNWVO vo);		// 프로젝트 폴더 생성
 		int prjFoldUpdate(PNWVO vo);		// 프로젝트 폴더 수정(폴더명)

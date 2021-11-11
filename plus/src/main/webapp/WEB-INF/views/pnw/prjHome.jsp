@@ -291,12 +291,14 @@
 							<!-- 상단고정 -->
 							<div id="projectPinArea"
 								class="detail-section fix-section d-none" style="display: block">
-								<div class="section-title-area">
-									<h4 class="section-title">
-										<span>상단고정</span> <span id="projectPinCount"
-											class="section-number">${fn:length(pincettes)}</span>
-									</h4>
-								</div>
+								<c:if test="${fn:length(pincettes) != 0}">
+									<div class="section-title-area">
+										<h4 class="section-title">
+											<span>상단고정</span> <span id="projectPinCount"
+												class="section-number">${fn:length(pincettes)}</span>
+										</h4>
+									</div>
+								</c:if>
 								<ul id="pinPostUl" class="pin-list fixed-list">
 									<c:forEach var="pincette" items="${pincettes}">
 										<li class="js-pin-item"><a href="#"> <!-- 글 class="icons-write2" 할일 class="icons-todo" 일정 class="icons-schedule"-->
@@ -409,104 +411,117 @@
 
 								<!-- 게시글 목록 -->
 								<div class="feed-content">
-									<ul id="detailUl" class="post-group list"
-										style="display: block">
-										<!-- 반복 시작 -->
-										<c:forEach var="nwList" items="${nwLists}">
-											<li id="myPcontent"
-												class="js-popup-before detail-item back-area">
-												<div class="js-post-nav list-item post-list-wrapper">
-													<div class="fixed-list">
-														<a href="#"> <!-- 새로운 글 표시 --> <i
-															class="js-indication display-new-indication"
-															style="display: none"></i> <!-- 글 class="icons-write2" 할일 class="icons-todo" 일정 class="icons-schedule"-->
-															<c:if test="${nwList.notiKnd=='text'}">
-																<c:set var="notiKindIcon" value="icons-write2" />
-																<c:set var="notiKindSpan" value="글" />
-															</c:if> <c:if test="${nwList.notiKnd=='todo'}">
-																<c:set var="notiKindIcon" value="icons-todo" />
-																<c:set var="notiKindSpan" value="할일" />
-															</c:if> <c:if test="${nwList.notiKnd=='schedule'}">
-																<c:set var="notiKindIcon" value="icons-schedule" />
-																<c:set var="notiKindSpan" value="일정" />
-															</c:if> <c:if test="${nwList.notiKnd=='task'}">
-																<c:set var="notiKindIcon" value="icons-task" />
-																<c:set var="notiKindSpan" value="업무" />
-															</c:if> <c:if test="${nwList.notiKnd=='subtask'}">
-																<c:set var="notiKindIcon" value="icons-task" />
-																<c:set var="notiKindSpan" value="하위업무" />
-															</c:if>
-															<div class="fixed-kind">
-																<i class="${notiKindIcon}"></i> <span>${notiKindSpan}</span>
-															</div>
-
-															<p class="js-post-title fixed-text ${taskStyle}">
-																${nwList.notiTtl}</p>
-
-															<div class="post-list-right">
-																<div class="post-list name">${nwList.name}</div>
-																<div class="post-list date">
-																	<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
-																		value="${nwList.notiDttm}" />
+									<c:if test="${fn:length(nwLists) != 0}">
+										<ul id="detailUl" class="post-group list"
+											style="display: block">
+											<!-- 반복 시작 -->
+											<c:forEach var="nwList" items="${nwLists}">
+												<li id="myPcontent"
+													class="js-popup-before detail-item back-area">
+													<div class="js-post-nav list-item post-list-wrapper">
+														<div class="fixed-list">
+															<a href="#"> <!-- 새로운 글 표시 --> <i
+																class="js-indication display-new-indication"
+																style="display: none"></i> <!-- 글 class="icons-write2" 할일 class="icons-todo" 일정 class="icons-schedule"-->
+																<c:if test="${nwList.notiKnd=='text'}">
+																	<c:set var="notiKindIcon" value="icons-write2" />
+																	<c:set var="notiKindSpan" value="글" />
+																</c:if> <c:if test="${nwList.notiKnd=='todo'}">
+																	<c:set var="notiKindIcon" value="icons-todo" />
+																	<c:set var="notiKindSpan" value="할일" />
+																</c:if> <c:if test="${nwList.notiKnd=='schedule'}">
+																	<c:set var="notiKindIcon" value="icons-schedule" />
+																	<c:set var="notiKindSpan" value="일정" />
+																</c:if> <c:if test="${nwList.notiKnd=='task'}">
+																	<c:set var="notiKindIcon" value="icons-task" />
+																	<c:set var="notiKindSpan" value="업무" />
+																</c:if> <c:if test="${nwList.notiKnd=='subtask'}">
+																	<c:set var="notiKindIcon" value="icons-task" />
+																	<c:set var="notiKindSpan" value="하위업무" />
+																</c:if>
+																<div class="fixed-kind">
+																	<i class="${notiKindIcon}"></i> <span>${notiKindSpan}</span>
 																</div>
 
-																<div class="fixed-value">
-																	<!-- 업무일 때 -->
-																	<c:if
-																		test="${nwList.notiKnd=='task' or nwList.notiKnd=='subtask'}">
-																		<c:if test="${nwList.addList=='withhold'}">
-																			<c:set var="taskPrgSpan" value="hold" />
-																			<c:set var="taskPrgText" value="보류" />
+																<p class="js-post-title fixed-text ${taskStyle}">
+																	${nwList.notiTtl}</p>
+
+																<div class="post-list-right">
+																	<div class="post-list name">${nwList.name}</div>
+																	<div class="post-list date">
+																		<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+																			value="${nwList.notiDttm}" />
+																	</div>
+
+																	<div class="fixed-value">
+																		<!-- 업무일 때 -->
+																		<c:if
+																			test="${nwList.notiKnd=='task' or nwList.notiKnd=='subtask'}">
+																			<c:if test="${nwList.addList=='withhold'}">
+																				<c:set var="taskPrgSpan" value="hold" />
+																				<c:set var="taskPrgText" value="보류" />
+																			</c:if>
+																			<c:if test="${nwList.addList=='progress'}">
+																				<c:set var="taskPrgSpan" value="progress" />
+																				<c:set var="taskPrgText" value="진행" />
+																			</c:if>
+																			<c:if test="${nwList.addList=='request'}">
+																				<c:set var="taskPrgSpan" value="request" />
+																				<c:set var="taskPrgText" value="요청" />
+																			</c:if>
+																			<c:if test="${nwList.addList=='feedback'}">
+																				<c:set var="taskPrgSpan" value="feedback" />
+																				<c:set var="taskPrgText" value="피드백" />
+																			</c:if>
+																			<c:if test="${nwList.addList=='complete'}">
+																				<c:set var="taskPrgSpan" value="completion" />
+																				<c:set var="taskPrgText" value="완료" />
+																			</c:if>
+																			<span
+																				class="js-task-state js-todo-state state d-none ${taskPrgSpan}"
+																				style="display: inline-block">${taskPrgText}</span>
 																		</c:if>
-																		<c:if test="${nwList.addList=='progress'}">
-																			<c:set var="taskPrgSpan" value="progress" />
-																			<c:set var="taskPrgText" value="진행" />
+																		<!-- 일정일 때 -->
+																		<c:if test="${nwList.notiKnd=='schedule'}">
+																			<div class="js-schedule-state date-time d-none"
+																				style="display: block">
+																				<em class="date"> <fmt:parseDate
+																						value="${nwList.addList}" pattern="YY/MM/dd"
+																						var="addDate" /> <fmt:formatDate
+																						value="${addDate}" pattern="MM/dd" /></em> <span>
+																					<fmt:parseDate pattern="YY/MM/dd"
+																						value="${nwList.addList}" var="addTime" /> <fmt:formatDate
+																						value="${addTime}" pattern="HH:mm" />
+																				</span>
+																			</div>
 																		</c:if>
-																		<c:if test="${nwList.addList=='request'}">
-																			<c:set var="taskPrgSpan" value="request" />
-																			<c:set var="taskPrgText" value="요청" />
+																		<!-- 할일일 때 -->
+																		<c:if test="${nwList.notiKnd=='todo'}">
+																			<span
+																				class="js-task-state js-todo-state state request"
+																				style="display: inline-block">${nwList.addList}%</span>
 																		</c:if>
-																		<c:if test="${nwList.addList=='feedback'}">
-																			<c:set var="taskPrgSpan" value="feedback" />
-																			<c:set var="taskPrgText" value="피드백" />
-																		</c:if>
-																		<c:if test="${nwList.addList=='complete'}">
-																			<c:set var="taskPrgSpan" value="completion" />
-																			<c:set var="taskPrgText" value="완료" />
-																		</c:if>
-																		<span
-																			class="js-task-state js-todo-state state d-none ${taskPrgSpan}"
-																			style="display: inline-block">${taskPrgText}</span>
-																	</c:if>
-																	<!-- 일정일 때 -->
-																	<c:if test="${nwList.notiKnd=='schedule'}">
-																		<div class="js-schedule-state date-time d-none"
-																			style="display: block">
-																			<em class="date"> <fmt:parseDate
-																					value="${nwList.addList}" pattern="YY/MM/dd"
-																					var="addDate" /> <fmt:formatDate
-																					value="${addDate}" pattern="MM/dd" /></em> <span>
-																				<fmt:parseDate pattern="YY/MM/dd"
-																					value="${nwList.addList}" var="addTime" /> <fmt:formatDate
-																					value="${addTime}" pattern="HH:mm" />
-																			</span>
-																		</div>
-																	</c:if>
-																	<!-- 할일일 때 -->
-																	<c:if test="${nwList.notiKnd=='todo'}">
-																		<span
-																			class="js-task-state js-todo-state state request"
-																			style="display: inline-block">${nwList.addList}%</span>
-																	</c:if>
+																	</div>
 																</div>
-															</div>
-														</a>
+															</a>
+														</div>
 													</div>
-												</div>
-											</li>
-										</c:forEach>
-										<!-- 반복 끝 -->
-									</ul>
+												</li>
+											</c:forEach>
+											<!-- 반복 끝 -->
+										</ul>
+									</c:if>
+									<c:if test="${fn:length(nwLists) == 0}">
+										<div id="noDetailData" class="detail-data-none">
+											<img src="/flow-renewal/assets/images/none_member.png"
+												alt="함께할 멤버들을 지금 초대해 보세요!">
+											<p class="none-text">
+												아직 참여중인 멤버들이 없습니다<br> 함께할 멤버들을 지금 초대해 보세요!
+											</p>
+											<button id="noDetailDataBnt" type="button"
+												class="data-none-button invite">초대하기</button>
+										</div>
+									</c:if>
 								</div>
 							</div>
 						</section>
@@ -539,10 +554,13 @@
 															<span
 																class="js-participant-profile thumbnail size40 radius16"
 																style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
+															<img id="mem_st_icon" alt="on"
+																src="/img/status_icn/${pm.memSt}.png" class="st_icn">
 															<dl class="post-author-info">
 																<dt>
-																	<strong class="js-participant-name author ellipsis">${pm.name}</strong>
-																	<em class="position ellipsis">${pm.wkpo}</em>
+																	<strong class="js-participant-name author ellipsis">${pm.name}
+																		<c:if test="${sessionScope.name eq pm.name}">(나)</c:if>
+																	</strong> <em class="position ellipsis">${pm.wkpo}</em>
 																</dt>
 																<dd>
 																	<strong class="company">${pm.coUrl}</strong> <span
@@ -569,7 +587,8 @@
 																style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
 															<dl class="post-author-info">
 																<dt>
-																	<strong class="js-participant-name author ellipsis">${user.name}</strong>
+																	<strong class="js-participant-name author ellipsis">${user.name}
+																		<c:if test="${sessionScope.name eq pm.name}">(나)</c:if></strong>
 																	<em class="position ellipsis">${user.wkpo}</em>
 																</dt>
 																<dd>
@@ -597,7 +616,8 @@
 																style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
 															<dl class="post-author-info">
 																<dt>
-																	<strong class="js-participant-name author ellipsis">${guest.name}</strong>
+																	<strong class="js-participant-name author ellipsis">${guest.name}
+																		<c:if test="${sessionScope.name eq pm.name}">(나)</c:if></strong>
 																	<em class="position ellipsis">${guest.wkpo}</em>
 																</dt>
 																<dd>
@@ -1092,7 +1112,7 @@
 
 	<!-- 참여자 관리 popup-->
 	<div id="allSendiencePopup" class="flow-all-background-1"
-		style="display: none;">
+		style="display: none">
 		<div class="flow-project-make-1">
 			<div class="flow-project-make-2">
 				<div id="allSendienceLayer" class="project-invite-popup-1">
