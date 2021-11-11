@@ -29,9 +29,18 @@
 						<strong class="author ellipsis">${schedules.name }</strong> <em
 							class="position ellipsis" style="display: inline"></em> <span
 							class="date"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
-								value="${schedules.notiDttm}" /></span> <span class="post-security">
-							<i class="icons-person-7 js-mouseover" mouseover-text="전체 공개"></i>
-						</span>
+								value="${schedules.notiDttm}" /></span>
+
+						<!-- 게시물 공개 여부 -->
+						<c:if test="${schedules.notiOpenPerm == 'all'}">
+							<span class="post-security"> <i
+								class="icons-person-7 js-mouseover" mouseover-text="전체 공개"></i>
+							</span>
+						</c:if>
+						<c:if test="${schedules.notiOpenPerm == 'pm'}">
+							<span class="post-security"> <i
+								class="icons-lock js-mouseover" mouseover-text="프로젝트 관리자만"></i></span>
+						</c:if>
 					</dt>
 					<dd class="d-none">
 
@@ -74,12 +83,12 @@
 		<div class="card-header-bottom ">
 			<div class="schedule-date">
 				<strong class="schedule-month"><fmt:formatDate
-							pattern="yyyy-MM" value="${schedules.notiDttm}" /></strong><strong
-					class="schedule-day"><fmt:formatDate
-							pattern="dd" value="${schedules.notiDttm}" /></strong>
+						pattern="yyyy-MM" value="${schedules.notiDttm}" /></strong><strong
+					class="schedule-day"><fmt:formatDate pattern="dd"
+						value="${schedules.notiDttm}" /></strong>
 			</div>
 			<div class="post-title-area">
-				<h4 class="js-post-title post-title ">schedules.notiTtl </h4>
+				<h4 class="js-post-title post-title ">${schedules.notiTtl}</h4>
 				<div class="schedule-period-area d-none" style="display: block">
 					<span class="schedule-period"><fmt:formatDate
 							pattern="yyyy-MM-dd (E) HH:mm:ss" value="${schedules.notiDttm}" /></span>
@@ -141,8 +150,7 @@
 									placeholder="참석자 추가">
 									<button type="button"
 										class="js-worker-button add-manager-button">참석자 변경</button>
-									<div id="attendanceCount" class="attendee-status"
-										style="display: block" >
+									<div id="attendanceCount" class="attendee-status" style="display: block">
 										<span class="attendee-status-text participate"><span>참석</span><em>1</em></span>
 										<span class="attendee-status-text absence"><span>불참</span><em>0</em></span>
 										<span class="attendee-status-text undetermined"><span>미정</span><em>0</em></span>
@@ -161,7 +169,7 @@
 											대구광역시 복현2동</span>
 										<button type="button" class="js-place-span map-button"
 											data-map-link="https://www.google.co.kr/maps/place/35.900017,128.619996?q=%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%20%EB%8C%80%EA%B5%AC%EA%B4%91%EC%97%AD%EC%8B%9C%20%EB%B3%B5%ED%98%842%EB%8F%99"
-											style="display: inline-block" >지도보기</button>
+											style="display: inline-block">지도보기</button>
 									</em>
 								</div>
 								<div id="placeSpan" class="js-place-span url-preview map"
@@ -170,13 +178,13 @@
 									<div>
 										<img id="mapImage"
 											src="https://maps.googleapis.com/maps/api/staticmap?center=35.900017,128.619996&amp;zoom=14&amp;size=646x220&amp;markers=color:blue|35.900017,128.619996&amp;key=AIzaSyADjbtMn46r9DGFyo_ZRz3c6fOXzuOKWCw"
-											 alt="게시물 이미지">
+											alt="게시물 이미지">
 									</div>
 									<input id="LOCATION" type="hidden">
 								</div>
 							</div>
 						</li>
-						<li id="videoLi" style="display: none" >
+						<li id="videoLi" style="display: block">
 							<div class="create-content-cell title">
 								<i class="icon-post-video"></i>
 							</div>
@@ -198,7 +206,7 @@
 								</span>
 							</div>
 						</li>
-						<li style="display: none" >
+						<li style="display: none">
 							<div class="create-content-cell title">
 								<i class="icon-post-alarm"></i>
 							</div>
@@ -207,7 +215,7 @@
 									id="alarmButton" class="alarm-select d-none"></select>
 							</div>
 						</li>
-						<li style="display: block" >
+						<li style="display: block">
 							<div class="create-content-cell title manager memo">
 								<i class="icon-post-memo"></i>
 							</div>
@@ -223,7 +231,7 @@
 				</div>
 				<div id="attendanceSelect"
 					class="attendance-button-group js-schedule-comp"
-					style="display: block" >
+					style="display: block">
 					<button class="attendance-button participate on"
 						data-status="participate">참석</button>
 					<button class="attendance-button absence " data-status="absence">불참</button>

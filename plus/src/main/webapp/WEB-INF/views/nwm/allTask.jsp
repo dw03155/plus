@@ -154,14 +154,14 @@
 														</div>
 													</div>
 													<div class="js-workers task-item-cell task-worker_nm-cell ">
-														<span class="js-mouseover" mouseover-text=""> <span
+														<span class="js-mouseover"> <span
 															class="js-worker-name manager ellipsis">${dtasks.name}</span>
 															<span class="js-worker-count"></span>
 														</span>
 													</div>
 													<div class="js-workers task-item-cell task-worker_nm-cell ">
-														<span class="js-mouseover" mouseover-text=""> <span
-															class="js-worker-name manager ellipsis">${dtasks.name}</span>
+														<span class="js-mouseover" > <span
+															class="js-worker-name manager ellipsis">${dtasks.memId}</span>
 															<span class="js-worker-count"></span>
 														</span>
 													</div>

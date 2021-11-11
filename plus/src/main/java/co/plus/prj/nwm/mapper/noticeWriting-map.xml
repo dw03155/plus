@@ -129,7 +129,7 @@
 	<!-- 내 게시물 목록 -> 업무 상세보기(팝업) -->
 	<select id="myPostTsk"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name
+		select  a.*, b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name
 		from 	task a, project b, board c, member d
 		where 	a.noti_id = c.noti_id 
 		and 	b.prj_id = c.prj_id
