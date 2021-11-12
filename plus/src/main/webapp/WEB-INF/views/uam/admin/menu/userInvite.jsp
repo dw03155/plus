@@ -211,7 +211,6 @@
 				var coTel = td.eq(6).children().children().val();
 				
 				var jsondata = {"coUrl":coUrl,"name":name,"email":email,"persTel":persTel,"dept":dept,"wkpo":wkpo,"coTel":coTel};
-				if(email)
 				
 		})
 	})
@@ -343,9 +342,11 @@
 		});
 		
 		function emailcompareTest(){
-			var tr = $('#insertlist').children().length;
 			
-			for(i=1; i<)
+			var tr = $('#insertlist').children().length;
+			for(i=1; i<tr; i++){
+				$('#insertlist').children().eq(i).find(".view").val();
+			}
 		}
 	};
 		
