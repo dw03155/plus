@@ -198,7 +198,6 @@ td{
 					var td = tr.children();
 					
 					var ctgryId = td.eq(0).children().val();
-					console.log(ctgryId);
 					var jsondata = {"ctgryId":ctgryId};
 					$('#ctgModal').css("display","block");
 					$('#ctgDel').click(function(){

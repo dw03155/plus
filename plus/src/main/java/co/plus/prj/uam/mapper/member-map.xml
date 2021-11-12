@@ -51,7 +51,8 @@
 		INSERT INTO company(co_name, co_url)
 		VALUES (#{coName}, #{coUrl})
 	</insert>
-	<insert id="newCompanyInsert3" parameterType="co.plus.prj.uam.vo.MemberVO">  		<!-- 회원상태 테이블 추가 -->
+	<!-- 회원상태 테이블 추가 -->
+	<insert id="newCompanyInsert3" parameterType="co.plus.prj.uam.vo.MemberVO">  		
 		INSERT INTO mem_status(mem_id, mem_st)
 		VALUES ((select max(mem_id) from member), 'offline')
 	</insert>
@@ -61,7 +62,8 @@
 		INSERT INTO MEMBER(MEM_ID, EMAIL, PWD, NAME, CO_url)
 		VALUES (MEMID.nextval, #{email}, #{pwd}, #{name}, #{coUrl})
 	</insert>
-	<insert id="exCompanyInsert2" parameterType="co.plus.prj.uam.vo.MemberVO">  		<!-- 회원상태 테이블 추가 -->
+	<!-- 회원상태 테이블 추가 -->
+	<insert id="exCompanyInsert2" parameterType="co.plus.prj.uam.vo.MemberVO">  		
 		INSERT INTO mem_status(mem_id, mem_st)
 		VALUES ((select max(mem_id) from member), 'offline')
 	</insert>
@@ -166,6 +168,17 @@
 		update member set acc_st = 'notused'
 		where mem_id = #{memId}
 	</update>
+	<!-- 관리자 사용자로 변경 -->
+	<update id="adminDel" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update member set mem_perm = 'USER'
+		where mem_id = #{memId}
+	</update>
+	<!-- 사용자 관리자로 변경 -->
+	<update id="userDel" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update member set mem_perm = 'ADMIN'
+		where mem_id = #{memId}
+	</update>
+	
 	<!-- 사용중지 사용자 -->
 	 <select id="getNotusedMemberList" resultType="co.plus.prj.uam.vo.MemberVO">
 	   	<![CDATA[
@@ -209,12 +222,13 @@
 		where mem_id = #{memId}
 	</update>
 	
-	<!-- 사용자 일괄등록 -->
+																						<!-- 사용자 일괄등록 -->
 	<insert id="AllMemberInsert1" parameterType="co.plus.prj.uam.vo.MemberVO">
 		INSERT INTO MEMBER(MEM_ID, EMAIL, NAME, CO_url, dept, wkpo)
 		VALUES (MEMID.nextval, #{email}, #{name}, #{coUrl}, #{dept}, #{wkpo})
 	</insert>
-	<insert id="AllMemberInsert2" parameterType="co.plus.prj.uam.vo.MemberVO">  		<!-- 회원상태 테이블 추가 -->
+	<!-- 회원상태 테이블 추가 -->
+	<insert id="AllMemberInsert2" parameterType="co.plus.prj.uam.vo.MemberVO">  		
 		INSERT INTO mem_status(mem_id, mem_st)
 		VALUES ((select max(mem_id) from member), 'offline')
 	</insert>

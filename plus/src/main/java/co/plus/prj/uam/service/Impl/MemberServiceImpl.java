@@ -158,6 +158,18 @@ public class MemberServiceImpl implements MemberService {
 	public int usingOut(MemberVO vo) {
 		return map.usingOut(vo);
 	}
+	// 관리자 사용자로 변경
+	@Override
+	public int adminDel(MemberVO vo) {
+		return map.adminDel(vo);
+	}
+	// 사용자 관리자로 변경
+	@Override
+	public int userDel(MemberVO vo) {
+		return map.userDel(vo);
+	}
+	
+	
 	// 사용중지 사용자 조회
 	@Override
 	public List<MemberVO> getNotusedMemberList(MemberVO vo) {
@@ -236,6 +248,7 @@ public class MemberServiceImpl implements MemberService {
 	public int categoryInsert(MemberVO vo) {
 		return map.categoryInsert(vo);
 	}
+	
 	
 
 	

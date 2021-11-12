@@ -70,6 +70,10 @@ public interface MemberMapper {
 	public int guestOut(MemberVO vo);
 	//정상사용자 삭제
 	public int usingOut(MemberVO vo);
+	//관리자 해제
+	public int adminDel(MemberVO vo);
+	//관리자 지정
+	public int userDel(MemberVO vo);
 	
 	//사용자 일괄 등록
 	public int AllMemberInsert1(MemberVO vo);

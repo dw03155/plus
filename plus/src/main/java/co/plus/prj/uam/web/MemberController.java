@@ -350,6 +350,22 @@ public class MemberController {
 		service.usingOut(vo);
 		return vo;
 	}
+	//관리자 사용자로 변경
+	@PutMapping("/adminDel.do")
+	@ResponseBody
+	public MemberVO adminDel(@RequestBody MemberVO vo) {
+		service.adminDel(vo);
+		return vo;
+	}
+	//사용자 관리자로 변경
+	@PutMapping("/userDel.do")
+	@ResponseBody
+	public MemberVO userDel(@RequestBody MemberVO vo) {
+		service.userDel(vo);
+		return vo;
+	}
+	
+	
 	//사용자 승인
 	@PutMapping("/outstandIn.do")
 	@ResponseBody

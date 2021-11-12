@@ -1,4 +1,4 @@
-  <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -30,7 +30,40 @@
 		text-align: center;
 		height: 25px;
 	}
-
+	.blueBtn{
+		position: absolute;
+		padding: 6px 15px 6px 15px;
+		background-color: #5882FA;
+		color: white;
+		border-radius: 3px;
+		margin-left: 5px;
+		top: 86px;
+	}
+	.ctgry_del_modal{
+		width: 400px;
+		height: 200px;
+	    position: absolute;
+	    top: 35%;
+	    right: 45%;
+	    z-index: 13;
+	    background: #fff;
+	    border: 1px solid #777;
+	    border-radius: 8px;
+	    font-size: 13px;
+	    text-align: left;
+	    color: #555;
+	    display: none;
+	    align-content: center;
+	}
+	.model_heard{
+		height: 30px;
+		padding: 10px;
+		
+	}
+	.ctgry_model_x{
+		float: right;
+		width: 15px;
+	}
 </style>
 </head>
 <body>
@@ -94,10 +127,10 @@
 							<td>${usings.email }</td>
 							<td>${usings.persTel }</td>
 							<c:if test="${usings.memPerm eq 'ADMIN'}">
-							<td>관리자<em id="adminDel" style="color: red; cursor: pointer;">[해제]</em></td>
+							<td>관리자<em class="adminDel" style="color: red; cursor: pointer;">[관리자해제]</em></td>
 							</c:if>
 							<c:if test="${usings.memPerm eq 'USER'}">
-							<td>사원<em id="userDel" style="color: blue;  cursor: pointer;">[관리자지정]</em></td>
+							<td>사용자<em class="userDel" style="color: blue;  cursor: pointer;">[관리자지정]</em></td>
 							</c:if>
 							<td><input type='checkbox' name="usingCheck" value="${usings.memId }"></td>
 						</tr>
@@ -106,6 +139,34 @@
 				</table>
 			 </div><!-- usingMember end -->
 			 
+			 <!-- 관리자 해제 모달-->
+			 <div id="AdminModal" class="ctgry_del_modal" >	
+				<div class="model_heard">
+					<a href="#"><img class="ctgry_model_x" src="/img/ico/x_icn.png"></a>
+				</div>
+				<div align="center" style="margin: 25px; 0px;">
+					<h2>관리자를 해제하시겠습니까?</h2>
+					<p></p>
+				</div>
+				<div align="center">
+					<button type="button" id="adminDelete" class="blueBtn" style="position: static;">확인</button>
+				</div>
+			</div>
+			
+			<!-- 관리자 지정 모달-->
+			 <div id="UserModal" class="ctgry_del_modal" >	
+				<div class="model_heard">
+					<a href="#"><img class="ctgry_model_x" src="/img/ico/x_icn.png"></a>
+				</div>
+				<div align="center" style="margin: 25px; 0px;">
+					<h2>관리자로 지정하시겠습니까?</h2>
+					<p></p>
+				</div>
+				<div align="center">
+					<button type="button" id="userDelete" class="blueBtn" style="position: static;">확인</button>
+				</div>
+			</div>
+			
 			 <!-- 사용중지 -->
 			 <div id="notUsedMember" class="project-detail-inner layer-scroll type2" style="display: none">
 				<table id="notUsedMemberList" border="1">
@@ -169,8 +230,8 @@
 							<td>${outstands.name }</td>
 							<td>${outstands.email }</td>
 							<td>${outstands.persTel }</td>
-							<td><a href="#"><span id='memin' style="color: green;">[가입승인]</span></a> &nbsp;
-							<a href="#"><span id='memout' style="color: red">[가입거절]</span></a></td>
+							<td><a href="#"><span class='memin' style="color: green;">[가입승인]</span></a> &nbsp;
+							<a href="#"><span class='memout' style="color: red">[가입거절]</span></a></td>
 						</tr>
 						</c:forEach>
 					</tbody>
@@ -202,11 +263,11 @@
 							<td>${guests.email }</td>
 							<td>${guests.persTel }</td>
 							<c:if test="${guests.accSt eq 'using' }">
-							<td><a href="#"><span id='guestDel' style="color: green;">삭제</span></a></td>
+							<td><a href="#"><span class='guestDel' >삭제</span></a></td>
 							</c:if>
 							<c:if test="${guests.accSt eq 'outstand' }">
-							<td><a href="#"><span id='guestIn' style="color: green;">[가입승인]</span></a>&nbsp;
-							<a href="#"><span id='guestOut' style="color: red">[가입거절]</span></a></td>
+							<td><a href="#"><span class='guestIn' style="color: green;">[가입승인]</span></a>&nbsp;
+							<a href="#"><span class='guestOut' style="color: red">[가입거절]</span></a></td>
 							</c:if>
 						</tr>
 						</c:forEach>
@@ -216,6 +277,55 @@
 		</div><!-- main-container end -->
 	
 	<script>
+	//관리자 사용자로 변경
+	$(".adminDel").click(function(){
+		var adminDel = $(this);
+		var td = adminDel.parent();
+		var memId = adminDel.parent().parent().children().eq(6).children().val();
+		var jsondata = {"memId": memId};
+		$('#AdminModal').css("display","block");
+		$('#adminDelete').click(function(){
+			$.ajax({
+				url: "adminDel.do",
+				method: "put",
+				data: JSON.stringify(jsondata),
+				contentType: "application/json",
+				dataType: "json",
+				success: function(){
+					td.empty();
+					td.append("사용자")
+					  .append($('<em class="admindel" style="color: blue;  cursor: pointer;">').html("[관리자지정]"));
+					$('#AdminModal').css("display","none");
+				}
+			})//ajax end
+		})
+	});
+	//
+	$(".userDel").click(function(){
+		var userDel = $(this);
+		var td = userDel.parent();
+		var memId = userDel.parent().parent().children().eq(6).children().val();
+		var jsondata = {"memId": memId};
+		console.log(jsondata);
+		$('#UserModal').css("display","block");
+		$('#userDelete').click(function(){
+			$.ajax({
+				url: "userDel.do",
+				method: "put",
+				data: JSON.stringify(jsondata),
+				contentType: "application/json",
+				dataType: "json",
+				success: function(){
+					td.empty();
+					td.append("관리자")
+					  .append($('<em class="adminDel" style="color: red;  cursor: pointer;">').html("[관리자해제]"));
+					$('#UserModal').css("display","none");
+				}
+			})//ajax end
+		})
+	});
+	
+	
 	
 	//정상사용자 가입중지
 	$('#memBtn2').click(function(){
@@ -242,9 +352,8 @@
 	});
 	
 	
-	
 	//가입대기 사용자 승인
-	$('#memin').click(function(){
+	$('.memin').click(function(){
 		var inBtn = $(this);
 		var tr = inBtn.parent().parent().parent();
 		var td = tr.children();
@@ -264,7 +373,7 @@
 		}) 
 	});
 	//가입대기 사용자 거절
-	$('#memout').click(function(){
+	$('.memout').click(function(){
 		var outBtn = $(this);
 		var tr = outBtn.parent().parent().parent();
 		var td = tr.children();
@@ -284,7 +393,7 @@
 		})
 	});
 	//게스트 사용자 승인
-	$('#guestIn').click(function(){
+	$('.guestIn').click(function(){
 		var inBtn = $(this);
 		var tr = inBtn.parent().parent().parent();
 		var td = tr.children();
@@ -304,7 +413,7 @@
 		}) 
 	});
 	//게스트 사용자 거절
-	$('#guestOut').click(function(){
+	$('.guestOut').click(function(){
 		var outBtn = $(this);
 		var tr = outBtn.parent().parent().parent();
 		var td = tr.children();
@@ -324,7 +433,7 @@
 		})
 	});
 	//게스트 사용자 삭제
-	$('#guestDel').click(function(){
+	$('.guestDel').click(function(){
 		var delBtn = $(this);
 		var tr = delBtn.parent().parent().parent();
 		var td = tr.children();
@@ -343,17 +452,6 @@
 			}
 		})
 	});
-	
-	/*  $(".usingCheck tr").check(function(){
-		 
-		 var checkBox = $(this);
-		 
-		 var tr = $(this);
-		 var td = tr.children();
-		 
-		 
-		 console.log("데이터: "+tr.text());
-	 }) */
 				
 			$("#using").on("click", function(){
 				$('#using').attr("class","js-tab-item active");
@@ -394,6 +492,10 @@
 				$('#outstandMember').css("display","none");
 				$('#notUsedMember').css("display","none");
 				$('#usingMember').css("display","none");
+			});
+			
+			$('.ctgry_model_x').on("click",function(){
+				$('.ctgry_del_modal').css("display","none");
 			});
 			
 			$("#usingMember #allCheckBox").on('click',function(){

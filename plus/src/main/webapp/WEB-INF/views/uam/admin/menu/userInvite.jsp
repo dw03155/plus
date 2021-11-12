@@ -173,7 +173,7 @@
 				<table id="insertMemberList" border="1">
 					<thead class="memberthead">
 						<tr>
-							<th id="checkth"><input type='checkbox' style="max-width: 50px; min-width: 50px;"></th>
+							<th id="checkth"><input type='checkbox' id="allCheckBox" style="max-width: 50px; min-width: 50px;"></th>
 							<th>이름</th>
 							<th>이메일</th>
 							<th>휴대폰</th>
@@ -182,7 +182,7 @@
 							<th>회사연락처</th>
 						</tr>
 					</thead>
-					<tbody id="insertlist" >
+					<tbody id="insertlist">
 					</tbody>
 				</table>
 			</div>
@@ -196,22 +196,23 @@
 	<script>
 	
 	$('#inBtn').click(function(){
-		var fileCheck = $("input:checkbox[name='fileCheck']:checked");
+		var fileCheck = $(".fileCheck:checked");
 		var coUrl = "${sessionScope.coUrl}";
 		fileCheck.each(function(i){
 			var tr = fileCheck.parent().parent().eq(i);
 			var td = tr.children();
+			var emailVal = td.eq(2).children().children().val();
 			
-			var name = td.eq(1).children().children().val();
-			var email = td.eq(2).children().children().val();
-			var persTel = td.eq(3).children().children().val();
-			var dept = td.eq(4).children().children().val();
-			var wkpo = td.eq(5).children().children().val();
-			var coTel = td.eq(6).children().children().val();
-			
-			var jsondata = {"coUrl":coUrl,"name":name,"email":email,"persTel":persTel,"dept":dept,"wkpo":wkpo,"coTel":coTel};
-			
-			console.log(jsondata);
+				var name = td.eq(1).children().children().val();
+				var email = td.eq(2).children().children().val();
+				var persTel = td.eq(3).children().children().val();
+				var dept = td.eq(4).children().children().val();
+				var wkpo = td.eq(5).children().children().val();
+				var coTel = td.eq(6).children().children().val();
+				
+				var jsondata = {"coUrl":coUrl,"name":name,"email":email,"persTel":persTel,"dept":dept,"wkpo":wkpo,"coTel":coTel};
+				if(email)
+				
 		})
 	})
 	
@@ -259,6 +260,7 @@
 			})
 		}
 	};
+	
 	function fileView(data){
 		for(i=0; i<data.length; i++){
 			var $email = data[i]["email"];
@@ -270,26 +272,30 @@
 				if($email == 0 && $name == 0 && $persTel == 0 && $dept == 0 && $wkpo == 0 && $coTel == 0){
 				}else{				
 				$('<tr>').append($('<td>').append($('<input type="checkbox" class="fileCheck">')))
-						 .append($('<td>').append($('<span>').append($('<input class="view">').val($name))))
-						 .append($('<td>').append($('<span>').append($('<input class="view">').val($email))))
-						 .append($('<td>').append($('<span>').append($('<input class="view">').val($persTel))))
-						 .append($('<td>').append($('<span>').append($('<input class="view">').val($dept))))
-						 .append($('<td>').append($('<span>').append($('<input class="view">').val($wkpo))))
-						 .append($('<td>').append($('<span>').append($('<input class="view">').val($coTel))))
+						 .append($('<td>').append($('<span>').append($('<input name="view">').val($name))))
+						 .append($('<td>').append($('<span>').append($('<input name="view">').val($email))))
+						 .append($('<td>').append($('<span>').append($('<input name="view">').val($persTel))))
+						 .append($('<td>').append($('<span>').append($('<input name="view">').val($dept))))
+						 .append($('<td>').append($('<span>').append($('<input name="view">').val($wkpo))))
+						 .append($('<td>').append($('<span>').append($('<input name="view">').val($coTel))))
 						 .appendTo($('#insertlist'));
 				
 				var fileTd = $('.fileCheck').parent().nextAll();
-				var filevalue = $('.view');
+				var fileTr = $('#insertlist').children();
+				var filevalue = $('input[name=view]');
 				
-					for(j=0; j<fileTd.length; j++){				
-						var fileVal = filevalue.eq(j).val();
-						var fileSpan = $('.view').parent().eq(j);
-							if(fileVal == ''){
-								fileSpan.attr("class","redBox");
-								fileCheckBox.attr("disabled",true);
-						}else{
-							fileSpan.attr("class","normalBox");
-							fileCheckBox.attr("disabled",false);
+					for(j=0; j<fileTd.length; j++){		
+						for(k=0; k<fileTr.length; k++){
+							var fileVal = filevalue.eq(j).val();
+							var fileSpan = $('input[name=view]').parent().eq(j);
+							var fileCheckBox = fileSpan.parents('tr').find('.fileCheck').eq(k);
+								if(fileVal == ''){
+									fileSpan.attr("class","redBox");
+									fileCheckBox.attr("disabled",true);
+							}else{
+								fileSpan.attr("class","normalBox");
+								
+							}							
 						}
 					}	
 				}
@@ -299,20 +305,48 @@
 			
 		count();
 		
-		$('.view').on("change",function(){
+		$('input[name=view]').on("change",function(){
 			var fileInput = $(this);
-			var checkBox = fileInput.parent().parent().parent().children().eq(0).children();
+			var checkBox = fileInput.parents('tr').find('.fileCheck');
 			var fileIn = fileInput.val();
+			var filenameval = fileInput.parents('tr').children().eq(1).children().children().val();
+			var fileemailval = fileInput.parents('tr').children().eq(2).children().children().val();
+			var filepersTelval = fileInput.parents('tr').children().eq(3).children().children().val();
+			var filedeptval = fileInput.parents('tr').children().eq(4).children().children().val();
+			var filewkpoval = fileInput.parents('tr').children().eq(5).children().children().val();
+			var filecoTelval = fileInput.parents('tr').children().eq(6).children().children().val();
 			if(fileIn == ""){
-				fileInput.parent().attr("class","redBox");
 				checkBox.attr("disabled",true);
-			}else{
-				fileInput.parent().attr("class","normalBox");
+			}else if( fileIn != "" && filenameval != "" && fileemailval != "" && filepersTelval != "" && filedeptval != "" && filewkpoval != "" && filecoTelval != ""){
 				checkBox.attr("disabled",false);
 			}
 			count();
 			
-		})
+			$('input[name=view]').on("change",function(){
+				var fileInput = $(this);
+				var checkBox = fileInput.parents('tr').find('.fileCheck');
+				var fileIn = fileInput.val();
+				if(fileIn == ""){
+					fileInput.parent().attr("class","redBox");
+				}else{
+					fileInput.parent().attr("class","normalBox");
+				}
+			});
+			
+		});
+		$("#checkth #allCheckBox").on('click',function(){
+			if($('#allCheckBox').prop("checked")){
+				$(".fileCheck:not(:disabled)").prop("checked",true);
+			}else{
+				$(".fileCheck:not(:disabled)").prop("checked",true);
+			}
+		});
+		
+		function emailcompareTest(){
+			var tr = $('#insertlist').children().length;
+			
+			for(i=1; i<)
+		}
 	};
 		
 	function count(){			
@@ -349,6 +383,8 @@
 						}
 					})
 			})
+			
+	
 			
 	
 	</script>
