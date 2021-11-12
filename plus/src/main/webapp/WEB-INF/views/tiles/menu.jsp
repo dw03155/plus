@@ -44,9 +44,6 @@
 						<c:if test="${memPerm ne 'GUEST'}">
 							<li data-code="task" class="left-menu-item"><a
 								href="allTask.do"><i class="ico-task"></i>전체 업무</a></li>
-							<li data-code="gantt" class="left-menu-item" id="leftMenuGantt"
-								style="display: none"><a href=""><i
-									class="ico-ganttchart"></i>간트차트</a></li>
 							<li data-code="schd" class="left-menu-item"><a
 								href="allSche.do"><i class="ico-schedule"></i>캘린더</a></li>
 							<li data-code="file" class="left-menu-item"><a
@@ -73,7 +70,7 @@
 					<ul id="allFolderUl" class="menu-accordion-list d-none ui-sortable"
 						style="display: block">
 						<li class="label-item "><i class="ico-label"></i> <span
-							class="js-label-name js-mouseover ellipsis" mouseover-text="마케팅">마케팅</span>
+							class="js-label-name js-mouseover ellipsis">마케팅</span>
 							<a href="#"
 							class="js-label-setting-button flow-dash-three">
 								<div></div>
@@ -82,7 +79,7 @@
 						</a></li>
 
 						<li class="label-item "><i class="ico-label"></i> <span
-							class="js-label-name js-mouseover ellipsis" mouseover-text="디자인">디자인</span>
+							class="js-label-name js-mouseover ellipsis">디자인</span>
 							<a href="#"
 							class="js-label-setting-button flow-dash-three">
 								<div></div>
@@ -91,8 +88,7 @@
 						</a></li>
 
 						<li class="label-item "><i class="ico-label"></i> <span
-							class="js-label-name js-mouseover ellipsis"
-							mouseover-text="엔지니어링">엔지니어링</span> <a href="#"
+							class="js-label-name js-mouseover ellipsis">엔지니어링</span> <a href="#"
 							class="js-label-setting-button flow-dash-three">
 								<div></div>
 								<div></div>

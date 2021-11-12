@@ -204,7 +204,9 @@ button.fc-state-down {
   box-shadow: none;
 }
 .fc button.fc-prev-button,
-.fc button.fc-next-button {
+.fc button.fc-next-button,
+.fc button.fc-prevYear-button,
+.fc button.fc-nextYear-button {
   width: 30px;
   height: 30px;
   background: #fff;
@@ -220,8 +222,12 @@ button.fc-state-down {
 }
 .fc button.fc-prev-button:hover,
 .fc button.fc-next-button:hover,
-.fc button.fc-prev-button:focus
-.fc button.fc-next-button:focus {
+.fc button.fc-prevYear-button:hover,
+.fc button.fc-nextYear-button:hover,
+.fc button.fc-prev-button:focus,
+.fc button.fc-next-button:focus,
+.fc button.fc-prevYear-button:focus,
+.fc button.fc-nextYear-button:focus {
   border-color: #6449fc;
   box-shadow: none;
 }
