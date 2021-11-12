@@ -158,7 +158,7 @@
 													</div>
 													<div class="task-item-cell task-name task-task_nm-cell ">
 														<div
-															class="js-post-title task-title ellipsis js-mouseover">
+															class="js-post-title task-title ellipsis ">
 															${dtasks.notiTtl }
 															<em class="subtask-item" style="display: inline-block"> <i
 																class="icons-subtask"></i> <span class="subtask-number">하위업무갯수 넣기</span>
@@ -171,13 +171,13 @@
 														</div>
 													</div>
 													<div class="js-workers task-item-cell task-worker_nm-cell ">
-														<span class="js-mouseover"> <span
+														<span class=""> <span
 															class="js-worker-name manager ellipsis">${dtasks.name}</span>
 															<span class="js-worker-count"></span>
 														</span>
 													</div>
 													<div class="js-workers task-item-cell task-worker_nm-cell ">
-														<span class="js-mouseover"> <span
+														<span class=""> <span
 															class="js-worker-name manager ellipsis">${dtasks.memId}</span>
 															<span class="js-worker-count"></span>
 														</span>

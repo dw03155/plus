@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.plus.prj.nwm.service.NoticeWritingService;
 import co.plus.prj.nwm.vo.NoticeWritingVO;
@@ -34,11 +32,6 @@ public class NoticeWritingController {
 		return "nwm/allTask";
 	}
 	
-	@RequestMapping("/allSche.do") // 전체 메뉴 -> 캘린더
-	String allSche(Model model, NoticeWritingVO vo) {
-		model.addAttribute("sches",nwDao.allSche(vo));
-		return "nwm/allSchedule"; 		
-	}
 	
 	@RequestMapping("/myPost.do") // 전체 메뉴 -> 내 게시물 목록 
 	String myPost(HttpSession session, Model model, NoticeWritingVO vo) {
@@ -46,12 +39,7 @@ public class NoticeWritingController {
 		model.addAttribute("notices", nwDao.myPost(vo));
 		return "nwm/myPostJSP";
 	}
-	
-	@RequestMapping("/allFile.do") // 전체 메뉴 -> 파일함
-	String allFile(Model model, NoticeWritingVO vo) {
-		
-		return "nwm/allFile";
-	}
+
 
 	@RequestMapping("/bookmark.do") // 전체 메뉴 -> 북마크
 	String bookmark(HttpSession session, Model model, NoticeWritingVO vo) {
@@ -70,15 +58,15 @@ public class NoticeWritingController {
 	@RequestMapping("/myPostTsk.do") // 내 게시물 목록 -> 업무 상세보기(팝업)
 	public String myPostTsk(HttpSession session, Model model, NoticeWritingVO vo) {
 		vo.setCoUrl((String)session.getAttribute("coUrl"));
-		System.out.println("===="+vo);
 		model.addAttribute("tasks", nwDao.myPostTsk(vo));
 		return "nwm/modal/myPostTsk"; 
 	 }
 	
 	@RequestMapping("/myPostSubtsk.do") // 내 게시물 목록 -> 하위업무 상세보기(팝업)
-	@ResponseBody
-	public NoticeWritingVO myPostSubtsk(Model model, NoticeWritingVO vo) {
-		return nwDao.myPostSubtsk(vo); 
+	public String myPostSubtsk(HttpSession session, Model model, NoticeWritingVO vo) {
+		vo.setMemId((String)session.getAttribute("memId"));
+		model.addAttribute("subtasks",nwDao.myPostSubtsk(vo));
+		return "nwm/modal/myPostSubtsk";
 	 }
 	
 	@RequestMapping("/myPostSche.do") // 내 게시물 목록 -> 일정 상세보기(팝업)
@@ -92,32 +80,5 @@ public class NoticeWritingController {
 		model.addAttribute("todos", nwDao.myPostTodo(vo));
 		return "nwm/modal/myPostTodo"; 
 	 }
-	
-
-	
-	// 프로젝트 선택 후 메뉴
-	@RequestMapping("/totalNotice.do")	// 프로젝트 선택 -> 홈 (게시물 목록 조회)
-	String totalNotice(Model model, NoticeWritingVO vo) {
-		model.addAttribute("totals", nwDao.totalNotice(vo));
-		return "nwm/totalNotice";
-	}
-	
-	@RequestMapping("/tskList.do") 		// 프로젝트 선택 후 -> 업무 (1개 프로젝트)
-	String tskList(Model model, NoticeWritingVO vo) {
-		model.addAttribute("tsk", nwDao.tskList(vo));
-		return "nwm/totalNotice";
-	}
-	
-	
-	// 게시물 수정 폼 호출
-	@RequestMapping(value = "/textForm.do", method =  RequestMethod.POST)
-
-
-	@ResponseBody
-	public String textForm( int notiId, Model model){
-		
-		return "nwm/textForm";
-	}
-	
 	
 }

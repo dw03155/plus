@@ -8,62 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("#filterBtn").on("click", function() {
-			$("#filterBtn").addClass("active");
-			$("#filterSelect").toggle();
-		});
-		// 버튼 생성과 이벤트 핸들러 추가를 분리합니다.
-		$("#all").button().click(function(event) {
-			$("#write, #task, #sche, #todo").removeClass("on");
-			$("#all").addClass("on");
-			$(".text, .task, .schedule, .todo").show();
-			var count = $("#myPostContentUl").find('li:visible').length;
-			console.log(count + "");
-		});
 
-		$("#write").button();
-		$("#write").click(function(event) {
-			$("#all, #task, #sche, #todo").removeClass("on");
-			$("#write").addClass("on");
-			$(".text").show();
-			$(".task, .schedule, .todo").hide();
-			var count = $("#myPostContentUl").find('li:visible').length;
-			console.log(count + "====");
-		});
-
-		$("#task").button();
-		$("#task").click(function(event) {
-			var count = $("#myPostContentUl").find('li:visible').length;
-			console.log(count + "====");
-			$("#all, #write, #sche, #todo").removeClass("on");
-			$("#task").addClass("on");
-			$(".task").show();
-			$(".text, .schedule, .todo").hide();
-		});
-
-		$("#sche").button();
-		$("#sche").click(function(event) {
-			var count = $("#myPostContentUl").find('li:visible').length;
-			console.log(count + "====");
-			$("#all, #task, #write, #todo").removeClass("on");
-			$("#sche").addClass("on");
-			$(".schedule").show();
-			$(".task, .text, .todo").hide();
-		});
-
-		$("#todo").button();
-		$("#todo").click(function(event) {
-			var count = $("#myPostContentUl").find('li:visible').length;
-			console.log(count + "====");
-			$("#all, #task, #sche, #write").removeClass("on");
-			$("#todo").addClass("on");
-			$(".todo").show();
-			$(".task, .schedule, .text").hide();
-		});
-	});
-</script>
 </head>
 <body>
 	<!-- 전체 업무 상세보기 (모달창) -->
@@ -215,7 +160,7 @@
 
 											<!-- 글 종류에 따라 display :block-->
 											<div class="fixed-value">
-											<!-- 업무일 때 -->
+												<!-- 업무일 때 -->
 												<c:if test="${notice.notiKnd=='task'}">
 													<c:if test="${notice.addList == 'withhold' }">
 														<span class="js-task-state state d-none hold"
@@ -238,15 +183,16 @@
 															style="display: block">피드백</span>
 													</c:if>
 												</c:if>
-												 <c:if test="${notice.notiKnd=='schedule'}">
+												<c:if test="${notice.notiKnd=='schedule'}">
 													<div class="p" style="display: inline-block">
 														<em class="date"><fmt:formatDate pattern="MM/dd "
 																value="${notice.notiDttm}" /></em> <span><fmt:formatDate
 																pattern="HH:mm" value="${notice.notiDttm}" /></span>
 													</div>
-												</c:if> 
+												</c:if>
 												<c:if test="${notice.notiKnd=='todo'}">
-													<span class="js-task-state js-todo-state state request" style="display: inline-block">${notice.addList }%</span>
+													<span class="js-task-state js-todo-state state request"
+														style="display: inline-block">${notice.addList }%</span>
 												</c:if>
 												<!-- 할일 완료도  업무 진행상항 class="progress" 진행 /
 												class="request" 요청 / class="completion"완료 /
@@ -333,9 +279,90 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- 내 게시물 모달창 JS -->
 	<script>
+		// 게시글 종류 필터
+		$("#filterBtn").on("click", function() {
+			$("#filterBtn").addClass("active");
+			$("#filterSelect").toggle();
+		});
+		
+		// 전체
+		$("#all").button().click(function(event) {
+			$("#write, #task, #sche, #todo").removeClass("on");
+			$("#all").addClass("on");
+			$(".text, .task, .schedule, .todo").show();
+			var count = $("#myPostContentUl").find('li:visible').length;
+			console.log(count + "");
+		});
+		
+		// 글
+		$("#write").button();
+		$("#write").click(function(event) {
+			$("#all, #task, #sche, #todo").removeClass("on");
+			$("#write").addClass("on");
+			$(".text").show();
+			$(".task, .schedule, .todo").hide();
+			removeFiller();
+			var count = $("#myPostContentUl").find('li:visible').length;
+			console.log(count + "====");
+			$(".count-number").html(count);
+			
+		});
+		
+		// 업무
+		$("#task").button();
+		$("#task").click(function(event) {
+			$("#all, #write, #sche, #todo").removeClass("on");
+			$("#task").addClass("on");
+			$(".task").show();
+			$(".text, .schedule, .todo").hide();
+			removeFiller()
+			var count = $("#myPostContentUl").find('li:visible').length;
+			console.log(count + "====");
+			$(".count-number").html(count);
+			
+		});
+		
+		// 일정
+		$("#sche").button();
+		$("#sche").click(function(event) {
+			$("#all, #task, #write, #todo").removeClass("on");
+			$("#sche").addClass("on");
+			$(".schedule").show();
+			$(".task, .text, .todo").hide();
+			removeFiller()
+			var count = $("#myPostContentUl").find('li:visible').length;
+			console.log(count + "====");
+			$(".count-number").html(count);
+		});
+		
+		// 할일
+		$("#todo").button();
+		$("#todo").click(function(event) {
+			$("#all, #task, #sche, #write").removeClass("on");
+			$("#todo").addClass("on");
+			$(".todo").show();
+			$(".task, .schedule, .text").hide();
+			removeFiller()
+			var count = $("#myPostContentUl").find('li:visible').length;
+			console.log(count + "====");
+			$(".count-number").html(count);
+		});
+
+		// 필터 설정 취소
+		function removeFiller() {
+			$("#cancleFilter").show();
+			$("#cancleFilter").click(function() {
+				$("#all").addClass("on");
+				$(".text, .task, .schedule, .todo").show();
+				$("#cancleFilter").hide();
+				$("#write, #task, #sche, #todo").removeClass("on");
+				var count = $("#myPostContentUl").find('li:visible').length;
+				console.log(count + "====");
+				$(".count-number").html("${fn:length(notices)}");
+			});
+		}
+
 		// 내 게시물 모달창 (팝업)
 		$("#myPostContentUl > li").click(function(e) {
 			if ($(e.currentTarget).hasClass("highlight")) {
@@ -383,6 +410,18 @@
 						$("#modalBody").html(data);
 					}
 				});
+			} else if (notiKnd == "subtask") {
+				$.ajax({
+					url : "myPostSubtsk.do",
+					type : 'POST',
+					data : {
+						notiId : notiId
+					},
+					dataType : "html",
+					success : function(data) {
+						$("#modalBody").html(data);
+					}
+				});
 			} else if (notiKnd == "schedule") {
 				$.ajax({
 					url : "myPostSche.do",
@@ -409,8 +448,6 @@
 				});
 			}
 		};
-
-	
 	</script>
 
 
