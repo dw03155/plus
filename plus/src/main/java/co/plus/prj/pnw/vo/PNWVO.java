@@ -15,7 +15,11 @@ public class PNWVO {
 	private String prjKnd;			// 프로젝트 종류
 	private String prjTtl;			// 프로젝트 제목
 	private String prjOpenPerm;		// 프로젝트 공개권한
+	private String prjCntn;			// 프로젝트 내용(설명)
+	
+	// Category
 	private String ctgryId;			// 카테고리 번호
+	private String ctgryName;		// 카테고리 이름
 	
 	// PrjParti
 	private String prjColor;		// 프로젝트 컬러
@@ -79,6 +83,7 @@ public class PNWVO {
 	// 프로젝트 : 홈
 	private String addList;			// 게시글 부가정보
 	private String allCnt;			// 전체 참여자 수
+	private String tskCnt;			// 전체 업무 진행상황에 따른 개수
 	// 프로젝트 : 업무
 	private List<PNWVO> tsks;		// 업무탭
 	

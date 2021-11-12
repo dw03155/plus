@@ -1,22 +1,30 @@
 package co.plus.prj.uam.web;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -63,6 +71,7 @@ public class MemberController {
 		return temp;
 		
 	}
+	
 	//새로운 회사 회원가입폼(companyJoin에 입력한 url정보전달)
 	@RequestMapping(value = "/adminJoin.do", method = RequestMethod.GET)
 	public String newCompany(@RequestParam(required = false) String newCoUrl, Model model) {
@@ -121,7 +130,7 @@ public class MemberController {
 	}
 	
 	//로그인
-	@RequestMapping(value = "memberLogin.do")
+	@RequestMapping(value = "memberLogin.do", method = RequestMethod.POST )
 	public String login(MemberVO vo, Model model, HttpSession session) {
 
 		String views = null;
@@ -277,7 +286,20 @@ public class MemberController {
 	@PostMapping("/uploadLogo.do")
 	@ResponseBody
 	public void uploadLogo(MultipartFile[] logoInput) {
-		String uploadFolder = "C:\\Users\\admin\\git\\plus\\plus\\src\\main\\webapp\\logo";
+		
+		String path = "D:\\logo";
+		File Folder = new File(path);
+		
+		if(!Folder.exists()) {
+			Folder.mkdir();
+			System.out.println("폴더를 생성합니다.");
+			
+		}else {
+			System.out.println("폴더가 이미 있습니다.");
+		}
+		
+		File uploadFolder = Folder;
+				
 		
 		for(MultipartFile file : logoInput) {
 			String uploadFileName = file.getOriginalFilename();
@@ -321,6 +343,34 @@ public class MemberController {
 		model.addAttribute("guest",service.getGuestMemberList(vo));
 		return "uam/admin/menu/userManagement";
 	}
+	//사용자 승인
+	@PutMapping("/outstandIn.do")
+	@ResponseBody
+	public MemberVO outstandIn(@RequestBody MemberVO vo) {
+		service.outstandIn(vo);
+		return vo;
+	}
+	//사용자 거절
+	@PutMapping("/outstandOut.do")
+	@ResponseBody
+	public MemberVO outstandOut(@RequestBody MemberVO vo) {
+		service.outstandOut(vo);
+		return vo;
+	}
+	//사용자 승인
+	@PutMapping("/guestIn.do")
+	@ResponseBody
+	public MemberVO guestIn(@RequestBody MemberVO vo) {
+		service.guestIn(vo);
+		return vo;
+	}
+	//사용자 거절
+	@PutMapping("/guestOut.do")
+	@ResponseBody
+	public MemberVO guestOut(@RequestBody MemberVO vo) {
+		service.guestOut(vo);
+		return vo;
+	}
 //	//정상 사용자
 //	@RequestMapping(value="/getUsingMemberList.do", method = RequestMethod.GET)
 //	@ResponseBody
@@ -350,10 +400,55 @@ public class MemberController {
 	public String userInvite() {
 		return "uam/admin/menu/userInvite";
 	}
+	//회원가입 URL발송
+	@RequestMapping(value="/userInviteMail.do", method = RequestMethod.POST)
+	@ResponseBody
+	public void userInviteMail(String coUrl, String email, HttpSession session,Model model) throws MessagingException {
+		String mailText = "<div style='height: 300px;'>"+"<p>플러스에 가입해 보세요!</p>" +
+							"<button style='padding: 10px 20px 10px 20px; background-color: #6449FC; color: white; border-radius: 5px; height: "
+							+ "60px; margin-top: 10px; margin-bottom: 10px; font-weight: bold; font-size: 15px;' "
+							+ "onclick='http://192.168.0.11/userJoin.do?newCoUrl="+ coUrl + "'>" +
+							"플러스가입하기</button>"+
+							"<p></p>" + "<div>";
+		MimeMessage mail = mailSender.createMimeMessage();
+		MimeMessageHelper message = new MimeMessageHelper(mail,true,"UTF-8");
+		message.setTo(email);
+		message.setSubject("플러스 초대");
+		message.setText(mailText,true);
+		mailSender.send(mail);
+		
+	}
+	//엑셀서식다운
+	@SuppressWarnings("resource")
+	@GetMapping("/xlsxDonload.do")
+	public void download(HttpServletResponse response) throws FileNotFoundException {
+		try {
+			String path = "C:\\Users\\admin\\git\\plus\\plus\\src\\main\\webapp\\xlsxFile\\xlsxdownload\\플러스 엑설파일 양식.xlsx";
+			 
+			File file = new File(path);
+			response.setHeader("Content-Transfer-Encoding", "binary");
+			 
+			FileInputStream fileInputStream = new FileInputStream(path);
+			OutputStream out = response.getOutputStream();
+			
+			int read = 0;
+			byte[] buffer = new byte[1024];
+			while ((read = fileInputStream.read(buffer)) != -1) {
+				out.write(buffer,0,read);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("download error");
+		}
+		 
+		 
+	}
+	
+	
 	//회사프로젝트
-	@GetMapping("/coPrjedit.do")
-	public String coPrjedit() {
-		return "uam/admin/menu/coPrjedit";
+	@GetMapping("/coPrjMangement.do")
+	public String coPrjMangement() {
+		return "uam/admin/menu/coPrjMangement";
 	}
 	//공개키테고리
 	@GetMapping("/openPrjCategory.do")
@@ -361,6 +456,29 @@ public class MemberController {
 		vo.setCoUrl((String)session.getAttribute("coUrl"));
 		model.addAttribute("ctgrys",service.getCategoryList(vo));
 		return "uam/admin/menu/openPrjCategory";
+	}
+	//공개키테고리 삭제
+	@PutMapping("/prjCategoryUpdate.do")
+	@ResponseBody
+	public MemberVO prjCategoryUpdate(@RequestBody MemberVO vo) {
+		service.prjCategoryUpdate(vo);
+		return vo;
+	}
+	
+	
+	//공개 카테고리 추가
+	@PostMapping(value="/categoryInsert.do", consumes = "application/json")
+	@ResponseBody
+	public Map categoryInsert(@RequestBody MemberVO vo) {
+		service.categoryInsert(vo);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("category", vo);
+		return map;
+	}
+	@GetMapping("/getCategoryList.do")
+	@ResponseBody
+	public List<MemberVO> getCategoryList(MemberVO vo) {
+		return service.getCategoryList(vo);
 	}
 	
 	

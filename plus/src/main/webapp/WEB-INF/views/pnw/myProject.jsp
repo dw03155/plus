@@ -37,15 +37,6 @@
 					<li class="edit-button label"><a href="#"
 						class="top-banner-icon-type-2"> <em></em>프로젝트 폴더 설정
 					</a></li>
-					<li class="edit-button push"><a href="#"
-						class="top-banner-icon-type-3"> <em></em>알림 설정
-					</a></li>
-					<li class="edit-button hidden js-hidden"><a href="#"
-						class="top-banner-icon-type-4"> <em></em>숨김
-					</a></li>
-					<li class="edit-button hidden js-cancel-hidden"><a href="#"
-						class="top-banner-icon-type-4"> <em></em>숨김 취소
-					</a></li>
 				</ul>
 				<div id="totalEditSelect" class="menu-text-popup-1">
 					<span class="select-count"></span> <em class="select-clear">선택취소</em>
@@ -83,14 +74,9 @@
 								class="js-project-order-layer menu-popup-layer-1"
 								style="display: none">
 								<ul class="menu-popup-t-1">
-									<li class="order-item"><i></i><span>최신 순(글/댓글)</span></li>
-									<li class="order-item"><i></i><span>내가 작성한 순 (글/댓글)</span></li>
+									<li class="order-item"><i></i><span>최신순</span></li>
 									<li class="order-item"><i></i><span>오름차순(ㄱ~ㅎ)</span></li>
 									<li class="order-item"><i></i><span>내림차순 (ㅎ~ㄱ)</span></li>
-								</ul>
-								<ul class="menu-popup-t-2">
-									<li class="filter-item"><i></i><span>내가 참여중인 프로젝트</span></li>
-									<li class="filter-item"><i></i><span>내가 관리자인 프로젝트</span></li>
 								</ul>
 							</div> <i class="menu-select-icon-type-3"></i>
 							<div class="menu-select-icon-type-4-text">정렬</div>
@@ -123,12 +109,10 @@
 										</div>
 										<c:forEach var="favorPrj" items="${favorPrjs}">
 											<form action="prjHome.do" method="post">
-												<li class="project-item ui-state-default">
-													<a href="#">
-														<!-- 업데이트된 글 개수 -->
-														<input name="prjId" type="hidden" value="${favorPrj.prjId}" />
-														<div class="flow-content-ct project-badge"
-															style="display: none">0</div> <!-- 체크버튼 -->
+												<li class="project-item ui-state-default"><a href="#">
+														<input name="prjId" type="hidden"
+														value="${favorPrj.prjId}" />
+														<!-- 체크버튼 flow-content-chk-1  li태그 active 추가(갯수 셀때, li 값 넘길때)-->
 														<button class="edit-check flow-content-chk"
 															style="display: none"></button>
 														<div
@@ -143,19 +127,29 @@
 																</div>
 																<span class="member-cnt">${favorPrj.partiCnt}</span>
 																<div class="flow-content-fl-r">
-																	<div
-																		class="project-stat-ico flow-content-jms-ico js-mouseover"
-																		mouseover-text="관리자 승인 필요" style="display: none"></div>
-																	<div
-																		class="project-stat-ico icon-open-project js-mouseover"
-																		mouseover-text="회사 공개 프로젝트" style="display: none"></div>
-																	<div class="project-stat-ico icon-company js-mouseover"
-																		mouseover-text="회사 프로젝트" style="display: none"></div>
+																	<c:if test="${favorPrj.prjKnd == 'N'}">
+																		<c:if test="${favorPrj.prjOpenPerm == 'part'}">
+																			<div
+																				class="project-stat-ico flow-content-jms-ico js-mouseover"
+																				mouseover-text="일반 프로젝트 : 참여자공개"
+																				style="display: block"></div>
+																		</c:if>
+																		<c:if test="${favorPrj.prjOpenPerm == 'all'}">
+																			<div
+																				class="project-stat-ico icon-open-project js-mouseover"
+																				mouseover-text="일반 프로젝트 : 전체공개"
+																				style="display: block"></div>
+																		</c:if>
+																	</c:if>
+																	<c:if test="${favorPrj.prjKnd == 'C'}">
+																		<div
+																			class="project-stat-ico icon-company js-mouseover"
+																			mouseover-text="회사 프로젝트" style="display: block"></div>
+																	</c:if>
 																</div>
 															</div>
 														</div>
-													</a>
-												</li>
+												</a></li>
 											</form>
 										</c:forEach>
 									</c:if>
@@ -165,38 +159,47 @@
 											<p class="project-class join">참여중</p>
 										</div>
 										<c:forEach var="noPrj" items="${noPrjs}">
-										<form action="prjHome.do" method="post">
-											<li class="project-item ui-state-default"><a
-												href=""> <!-- 업데이트된 글 개수 --> <input name="prjId" type="hidden"
-													value="${noPrj.prjId}" />
-													<div class="flow-content-ct project-badge"
-														style="display: none">0</div> <!-- 체크버튼 -->
-													<button class="edit-check flow-content-chk"
-														style="display: none"></button>
-													<div
-														class="color-code left-menu-type-1 color-code-${noPrj.prjColor}"></div>
-													<div class="left-menu-type-con">
+											<form action="prjHome.do" method="post">
+												<li class="project-item ui-state-default"><a href="">
+														<!-- 업데이트된 글 개수 --> <input name="prjId" type="hidden"
+														value="${noPrj.prjId}" /> <!-- 체크버튼 -->
+														<button class="edit-check flow-content-chk"
+															style="display: none"></button>
 														<div
-															class="project-star flow-content-star flow-content-star-un"></div>
-														<div class="flow-content-txt project-ttl">${noPrj.prjTtl}</div>
-														<div class="flow-content-b-c">
-															<div class="flow-content-hm-txt">
-																<i class="icons-person-2"></i>
-															</div>
-															<span class="member-cnt">${noPrj.partiCnt}</span>
-															<div class="flow-content-fl-r">
-																<div
-																	class="project-stat-ico flow-content-jms-ico js-mouseover"
-																	mouseover-text="관리자 승인 필요" style="display: none"></div>
-																<div
-																	class="project-stat-ico icon-open-project js-mouseover"
-																	mouseover-text="전체 공개 프로젝트" style="display: none"></div>
-																<div class="project-stat-ico icon-company js-mouseover"
-																	mouseover-text="회사 프로젝트" style="display: none"></div>
+															class="color-code left-menu-type-1 color-code-${noPrj.prjColor}"></div>
+														<div class="left-menu-type-con">
+															<div
+																class="project-star flow-content-star flow-content-star-un"></div>
+															<div class="flow-content-txt project-ttl">${noPrj.prjTtl}</div>
+															<div class="flow-content-b-c">
+																<div class="flow-content-hm-txt">
+																	<i class="icons-person-2"></i>
+																</div>
+																<span class="member-cnt">${noPrj.partiCnt}</span>
+																<div class="flow-content-fl-r">
+																	<c:if test="${noPrj.prjKnd == 'N'}">
+																		<c:if test="${noPrj.prjOpenPerm == 'part'}">
+																			<div
+																				class="project-stat-ico flow-content-jms-ico js-mouseover"
+																				mouseover-text="일반 프로젝트 : 참여자공개"
+																				style="display: block"></div>
+																		</c:if>
+																		<c:if test="${noPrj.prjOpenPerm == 'all'}">
+																			<div
+																				class="project-stat-ico icon-open-project js-mouseover"
+																				mouseover-text="일반 프로젝트 : 전체공개"
+																				style="display: block"></div>
+																		</c:if>
+																	</c:if>
+																	<c:if test="${noPrj.prjKnd == 'C'}">
+																		<div
+																			class="project-stat-ico icon-company js-mouseover"
+																			mouseover-text="회사 프로젝트" style="display: block"></div>
+																	</c:if>
+																</div>
 															</div>
 														</div>
-													</div>
-											</a></li>
+												</a></li>
 											</form>
 										</c:forEach>
 									</c:if>
@@ -212,32 +215,41 @@
 										<p class="project-class">즐겨찾기</p>
 									</div>
 									<c:forEach var="favorPrj" items="${favorPrjs}">
-									<form action="prjHome.do" method="post">
-										<input name="prjId" type="hidden" value="${favorPrj.prjId}" />
-										<li class="project-item ui-state-default"><a
-											href=""> <!-- 체크버튼 -->
-												<button class="edit-check flow-content-chk d-none"
-													style="display: none"></button>
-												<div
-													class="color-code flow-content-list flow-content-po-t color-code-${favorPrj.prjColor}"></div>
-												<div
-													class="project-star flow-content-po-t flow-content-star-2"></div>
-												<span class="project-ttl">${favorPrj.prjTtl}</span>
-												<div class="flow-content-hm-txt">
-													<i class="icons-person-2"></i>
-												</div> <span class="member-cnt">${favorPrj.partiCnt}</span> <!-- 업데이트된 글 개수 -->
-												<strong class="project-badge" style="display: none">0</strong>
-												<div class="flow-content-fl-r">
+										<form action="prjHome.do" method="post">
+											<input name="prjId" type="hidden" value="${favorPrj.prjId}" />
+											<li class="project-item ui-state-default"><a href="">
+													<!-- 체크버튼 -->
+													<button class="edit-check flow-content-chk d-none"
+														style="display: none"></button>
 													<div
-														class="project-stat-ico flow-content-jms-ico js-mouseover"
-														mouseover-text="관리자 승인 필요" style="display: none"></div>
+														class="color-code flow-content-list flow-content-po-t color-code-${favorPrj.prjColor}"></div>
 													<div
-														class="project-stat-ico icon-open-project js-mouseover"
-														mouseover-text="전체 공개 프로젝트" style="display: none"></div>
-													<div class="project-stat-ico icon-company js-mouseover"
-														mouseover-text="회사 프로젝트" style="display: none"></div>
-												</div>
-										</a></li>
+														class="project-star flow-content-po-t flow-content-star-2"></div>
+													<span class="project-ttl">${favorPrj.prjTtl}</span>
+													<div class="flow-content-hm-txt">
+														<i class="icons-person-2"></i>
+													</div> <span class="member-cnt">${favorPrj.partiCnt}</span> <!-- 업데이트된 글 개수 -->
+													<strong class="project-badge" style="display: none">0</strong>
+													<div class="flow-content-fl-r">
+														<c:if test="${favorPrj.prjKnd == 'N'}">
+															<c:if test="${favorPrj.prjOpenPerm == 'part'}">
+																<div
+																	class="project-stat-ico flow-content-jms-ico js-mouseover"
+																	mouseover-text="일반 프로젝트 : 참여자공개" style="display: block"></div>
+															</c:if>
+															<c:if test="${favorPrj.prjOpenPerm == 'all'}">
+																<div
+																	class="project-stat-ico icon-open-project js-mouseover"
+																	mouseover-text="일반 프로젝트 : 전체공개" style="display: block">
+																</div>
+															</c:if>
+														</c:if>
+														<c:if test="${favorPrj.prjKnd == 'C'}">
+															<div class="project-stat-ico icon-company js-mouseover"
+																mouseover-text="회사 프로젝트" style="display: block"></div>
+														</c:if>
+													</div>
+											</a></li>
 										</form>
 									</c:forEach>
 								</c:if>
@@ -247,32 +259,41 @@
 										<p class="project-class join">참여중</p>
 									</div>
 									<c:forEach var="noPrj" items="${noPrjs}">
-									<form action="prjHome.do" method="post">
-										<input name="prjId" type="hidden" value="${noPrj.prjId}" />
-										<li class="project-item ui-state-default"><a href="">
-												<!-- 체크버튼 -->
-												<button class="edit-check flow-content-chk d-none"
-													style="display: none"></button>
-												<div
-													class="color-code flow-content-list flow-content-po-t color-code-${noPrj.prjColor}"></div>
-												<div
-													class="project-star flow-content-po-t flow-content-star-2-un"></div>
-												<span class="project-ttl">${noPrj.prjTtl}</span>
-												<div class="flow-content-hm-txt">
-													<i class="icons-person-2"></i>
-												</div> <span class="member-cnt">${noPrj.partiCnt}</span> <!-- 업데이트된 글 개수 -->
-												<strong class="project-badge" style="display: none">0</strong>
-												<div class="flow-content-fl-r">
+										<form action="prjHome.do" method="post">
+											<input name="prjId" type="hidden" value="${noPrj.prjId}" />
+											<li class="project-item ui-state-default"><a href="">
+													<!-- 체크버튼 -->
+													<button class="edit-check flow-content-chk d-none"
+														style="display: none"></button>
 													<div
-														class="project-stat-ico flow-content-jms-ico js-mouseover"
-														mouseover-text="관리자 승인 필요" style="display: none"></div>
+														class="color-code flow-content-list flow-content-po-t color-code-${noPrj.prjColor}"></div>
 													<div
-														class="project-stat-ico icon-open-project js-mouseover"
-														mouseover-text="전체 공개 프로젝트" style="display: none"></div>
-													<div class="project-stat-ico icon-company js-mouseover"
-														mouseover-text="회사 프로젝트" style="display: none"></div>
-												</div>
-										</a></li>
+														class="project-star flow-content-po-t flow-content-star-2-un"></div>
+													<span class="project-ttl">${noPrj.prjTtl}</span>
+													<div class="flow-content-hm-txt">
+														<i class="icons-person-2"></i>
+													</div> <span class="member-cnt">${noPrj.partiCnt}</span> <!-- 업데이트된 글 개수 -->
+													<strong class="project-badge" style="display: none">0</strong>
+													<div class="flow-content-fl-r">
+														<c:if test="${noPrj.prjKnd == 'N'}">
+															<c:if test="${noPrj.prjOpenPerm == 'part'}">
+																<div
+																	class="project-stat-ico flow-content-jms-ico js-mouseover"
+																	mouseover-text="일반 프로젝트 : 참여자공개" style="display: block"></div>
+															</c:if>
+															<c:if test="${noPrj.prjOpenPerm == 'all'}">
+																<div
+																	class="project-stat-ico icon-open-project js-mouseover"
+																	mouseover-text="일반 프로젝트 : 전체공개" style="display: block">
+																</div>
+															</c:if>
+														</c:if>
+														<c:if test="${noPrj.prjKnd == 'C'}">
+															<div class="project-stat-ico icon-company js-mouseover"
+																mouseover-text="회사 프로젝트" style="display: block"></div>
+														</c:if>
+													</div>
+											</a></li>
 										</form>
 									</c:forEach>
 								</c:if>
@@ -302,10 +323,6 @@
 			// 프로젝트 이동하기
 			$("#projectHomeLayer").find("li > a").click(function(e) {
 				e.preventDefault();
-				console.log(e.currentTarget);
-				console.log($(e.currentTarget).parent('form'));
-				console.log($(e.currentTarget).parents('form'));
-				console.log($(e.currentTarget).closest('form'));
 				$(e.currentTarget).closest('form').submit();
 			});
 		</script>

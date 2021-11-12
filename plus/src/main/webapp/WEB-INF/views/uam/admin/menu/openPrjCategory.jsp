@@ -69,6 +69,22 @@ td{
 	float: right;
 	width: 15px;
 }
+.categoty-input{
+	width: 100%;
+    height: 34px;
+    padding: 0 62px 0 38px;
+    background: #fff;
+    border: 1px solid #ddd;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 700;
+    color: #6449fc;
+}
 </style>
 </head>
 <body>
@@ -84,9 +100,9 @@ td{
 			<div class="searchBox">	
 				<div id="detailTopSearch" class="project-search-area all-file-header-type-3">
 					<div class="project-search">
-						<input id="projectSearchInput" type="text"
-							placeholder="추가할 카테고리명을 입력해주세요." class="project-search-input"
-							autocomplete="off" maxlength="50" />
+						<input id="categoryInput" type="text"
+							placeholder="추가할 카테고리명을 입력해주세요." class="categoty-input"
+							 maxlength="50" />
 						<div id="projectDetailSearchLayer"
 							class="name-type-seach-popup d-none"
 							data-search-area-code="IN_PROJECT" style="top: 38px; right: 0px">
@@ -133,27 +149,102 @@ td{
 </div><!-- main-container end -->
 <script>
 	
-	$(".ctgryDelete").click(function(){
+	$('#ctgry_model_x').on("click",function(){
+		$('#ctgModal').css("display","none");
+	});
+	
+	
+	$("#categoryIn").click(function(){
+		var ctgryName = $('#categoryInput').val();
+		var coUrl = "${sessionScope.coUrl}";
+		var jsondata = {"ctgryName":ctgryName,"coUrl":coUrl};
+		$.ajax({
+			url: "categoryInsert.do",
+			method: "post",
+			data: JSON.stringify(jsondata),
+			contentType : "application/json",
+			dataType : "json",
+			success : function(data) {
+				$('#categoryInput').val("");
+				getCategoryList();
+			}
+		})
+	});
+	
+	
+	function getCategoryList(data){
+		var coUrl = "${sessionScope.coUrl}";
+		$.ajax({
+			url: "getCategoryList.do?coUrl=" + coUrl,
+			method: "Get",
+			datatype: "json",
+			success: function(result){
+				$('#categoryList tr').remove();
+				for(i=0; i<result.length; i++){
+				var $ctgryId = result[i].ctgryId;
+				var $ctgryName = result[i].ctgryName;
+				console.log($ctgryName + $ctgryId + $cnt);
+				var $cnt = result[i].cnt;
+					$('<tr>').append($('<td>').append($('<input type=\'hidden\'>').val($ctgryId)))
+						.append($('<td>').html($ctgryName))
+						.append($('<td>').html($cnt))
+						.append($('<td>').append($('<a href=\'#\' class=\'ctgryDelete\'>').html("[삭제]")))
+				 		.appendTo($('#categoryList'));
+				}
+				$(".ctgryDelete").on("click",function(){
 
-			var checkBtn = $(this);
-			
-			var tr = checkBtn.parent().parent();
-			var td = tr.children();
-			
-			var ctgryId = td.eq(0).text();
-			
-			console.log(td.eq().val());
-	})
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+					var checkBtn = $(this);
+					
+					var tr = checkBtn.parent().parent();
+					var td = tr.children();
+					
+					var ctgryId = td.eq(0).children().val();
+					console.log(ctgryId);
+					var jsondata = {"ctgryId":ctgryId};
+					$('#ctgModal').css("display","block");
+					$('#ctgDel').click(function(){
+						 $.ajax({
+							url: "prjCategoryUpdate.do",
+							method: "put",
+							data: JSON.stringify(jsondata),
+							contentType: "application/json",
+							dataType: "json",
+							success: function(){
+								checkBtn.parent().parent().remove();
+								$('#ctgModal').css("display","none");
+							}
+						}); 
+					});	
+				});
+				
+			}
+		});
+	}
+	$(".ctgryDelete").on("click",function(){
+
+		var checkBtn = $(this);
+		
+		var tr = checkBtn.parent().parent();
+		var td = tr.children();
+		
+		var ctgryId = td.eq(0).children().val();
+		console.log(ctgryId);
+		var jsondata = {"ctgryId":ctgryId};
+		$('#ctgModal').css("display","block");
+		$('#ctgDel').click(function(){
+			 $.ajax({
+				url: "prjCategoryUpdate.do",
+				method: "put",
+				data: JSON.stringify(jsondata),
+				contentType: "application/json",
+				dataType: "json",
+				success: function(){
+					checkBtn.parent().parent().remove();
+					$('#ctgModal').css("display","none");
+				}
+			}); 
+		});	
+	});
 	
 	
 	

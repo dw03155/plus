@@ -120,30 +120,25 @@
 		    background-color: #f2f3f4;
 	}
 </style>
-<%
-	String memId = null;
-	if (session.getAttribute("memId") != null){
-		memId = (String)session.getAttribute("memId");
-	}
-	out.print(memId);
-%>
 <script>
-	$(document).ready(function(){
-		
-		if(<%=memId%> != null){
-			sessionOk.submit();	
-		}else{
-			
-			$("#loginBtn").click(function(){
+		/* 	$("#loginBtn").click(function(){
 			var email = $("#email").val();
 			var pwd = $("#pwd").val();
-			console.log(email)
+				$.ajax({
+					url: "memberLogin.do",
+					type: "post",
+					data: {"email":email, "pwd": pwd},
+					dataType: json,
+					success: function(data){
+						if(data != ""){
+							
+						}
+					}
+					
+				})
 			document.loginForm.action="memberLogin.do"
 			document.loginForm.submit();
-			});
-		}
-	
-	});
+			}); */
 </script>
 </head>
 <body>
@@ -165,7 +160,7 @@
 	
 	<div id="main" class="signup">
 
-		<form name="loginForm" method="post">
+		<form name="loginForm" action="memberLogin.do" method="post">
 		   <div class="login_fieldset">
 			<ul>
 				<li id="REG_1" style="display: none;"><input id="USER_NM"
@@ -203,7 +198,7 @@
 					<span id="result" style="color: red">${message }</span>
 
 			</div>
-			<a id="loginBtn" class="signup_btn_st1 on" data-langcode="H76" >로그인</a>
+			<button id="loginBtn"  class="signup_btn_st1 on" type="submit">로그인</button>
 		  </div>
 		 </form>
 		<div id="REG_3" class="forgot_pw">
@@ -228,8 +223,6 @@
 		</div>
 	</div>
 	<div>
-		<form id="loginOk" action="main.do">
-		</form>
 	</div>
 	
 	<script>

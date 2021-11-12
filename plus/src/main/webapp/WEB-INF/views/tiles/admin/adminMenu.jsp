@@ -34,7 +34,7 @@
                 <div class="menu-accordion" style="display: block">
                     <ul class="menu-accordion-list">
                         <li data-code="task" class="left-menu-item">
-                            <a href="coPrjCategory.do">&nbsp;&nbsp;&nbsp;회사 프로젝트 관리</a>
+                            <a href="coPrjMangement.do">&nbsp;&nbsp;&nbsp;회사 프로젝트 관리</a>
                         </li>
                         <li data-code="schd" class="left-menu-item">
                             <a href="openPrjCategory.do">&nbsp;&nbsp;&nbsp;공개 프로젝트 카테고리</a>

@@ -2,24 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.plus.prj.pnw.mapper.PNWMapper">
 
-	<!-- 새 프로젝트 : 일반 프로젝트 -->
-	<insert id="nPrjInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">
-		insert prj_id, prj_knd, prj_ttl, prj_open_perm, ctgry_id, co_url
+	<!-- 새 프로젝트-->
+	<insert id="prjInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">
+		insert prj_id, prj_knd, prj_ttl, prj_cntn, prj_open_perm, ctgry_id, co_url
 		into project
-		values (prjid.val, 'N', #{prjTtl}, #{prjOpenPerm}, #{ctgryId}, #{coUrl})
+		values (prjid.val, #{prjKnd}, #{prjTtl}, #{prjOpenPerm}, #{ctgryId}, #{coUrl})
 	</insert>
 
-	<!-- 새 프로젝트 : 회사 프로젝트 -->
-	<insert id="cPrjInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">
-		insert prj_id, prj_knd, prj_ttl, ctgry_id, co_url
-		into project
-		values (prjid.val, 'C', #{prjTtl}, #{ctgryId}, #{coUrl})
-	</insert>
+	<select id="ctgryKnd" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select ctgry_id, ctgry_name
+		from category
+		where co_url = #{coUrl}
+	</select>
 
 	<!-- 내 프로젝트 : 즐겨찾기 -->
 	<select id="favorMyPrj" resultType="co.plus.prj.pnw.vo.PNWVO">
 		select b.mem_id, a.prj_id, a.prj_ttl, c.prj_color, a.prj_knd, a.prj_open_perm,
-			(select count(*) from prj_parti where prj_id=a.prj_id) as partiCnt
+			(select count(*) from prj_parti where prj_id = a.prj_id) as partiCnt
 		from project a, member b, prj_parti c
 		where a.co_url = b.co_url        
 			and b.mem_id = c.mem_id
@@ -31,7 +30,7 @@
 	<!-- 내 프로젝트 : 즐겨찾기X -->
 	<select id="noMyPrj" resultType="co.plus.prj.pnw.vo.PNWVO">
 		select b.mem_id, a.prj_id, a.prj_ttl, c.prj_color, a.prj_knd, a.prj_open_perm,
-			(select count(*) from prj_parti where prj_id=a.prj_id) as partiCnt
+			(select count(*) from prj_parti where prj_id = a.prj_id) as partiCnt
 		from project a, member b, prj_parti c
 		where a.co_url = b.co_url        
 			and b.mem_id = c.mem_id
@@ -42,25 +41,35 @@
 
 	<!-- 전체 프로젝트 -->
 	<select id="openProject" resultType="co.plus.prj.pnw.vo.PNWVO">
-		select a.prj_id, a.prj_ttl
-		from project a, member b
+		select a.prj_id, a.prj_ttl, b.mem_id, c.name, c.wkpo
+		from project a, prj_parti b, member c 
 		where a.prj_knd ='C'
-			and a.co_url = b.co_url
-			and b.mem_id = #{memId}
+            and a.prj_id = b. prj_id
+			and a.co_url = c.co_url
+            and a.co_url = #{coUrl}
+            and b.mem_id = c.mem_id
+            and b.prj_perm = 'PM'
 		union
-		select prj_id, prj_ttl
-		from project
-		where co_url = #{coUrl}
-			and prj_knd = 'N'
-			and prj_open_perm = 'all'
+		select d.prj_id, d.prj_ttl, e.mem_id, f.name, f.wkpo
+		from project d, prj_parti e, member f 
+		where d.prj_knd ='N'
+            and d.prj_id = e. prj_id
+			and d.co_url = f.co_url
+            and d.co_url = #{coUrl}
+            and e.mem_id = f.mem_id
+            and e.mem_id = #{memId}
+            and e.prj_perm = 'PM'
+			and d.prj_open_perm = 'part'
 		union
-		select c.prj_id, c.prj_ttl
-		from project c, member d, prj_parti e
-		where c.co_url = d.co_url
-			and c.prj_knd = 'N'
-			and d.mem_id = #{memId}
-			and d.mem_id = e.mem_id
-			and c.prj_id = e.prj_id
+		select g.prj_id, g.prj_ttl, h.mem_id, i.name, i.wkpo
+		from project g, prj_parti h, member i 
+		where g.prj_knd = 'N'
+            and g.prj_id = h.prj_id
+            and g.co_url = i.co_url
+            and g.co_url = #{coUrl}
+			and h.mem_id = i.mem_id
+            and h.prj_perm = 'PM'
+            and g.prj_open_perm = 'all'
 		<!-- 프로젝트 명으로 검색 -->
 		<if test="prjTtl != null and prjTtl != ''">
 			and prj_ttl like '%' || #{prjTtl} || '%'
@@ -129,15 +138,32 @@
 	<!-- 프로젝트 : 홈 -->
 	<select id="prjInfo" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 프로젝트 정보 -->
 		select a.*, b.prj_color
-		from project a, prj_parti b
+      	from project a, prj_parti b
+      	where a.prj_id = #{prjId}
+   			and a.prj_id = b.prj_id
+  			and b.mem_id = #{memId}
+	</select>
+	
+	<select id="prjTskAllCount" resultType="int">		<!-- 업무 상태에 따른 갯수-->
+		select count(*)
+		from notice_writing
+		where prj_id = #{prjId}
+		and noti_knd='task'
+	</select>
+	
+	<select id="prjTskCount" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 업무 상태에 따른 갯수-->
+		select c.tsk_prgs, count(c.tsk_prgs) as tskCnt
+		from project a, notice_writing b, task c
 		where a.prj_id = #{prjId}
-			and a.prj_id = b.prj_id
-			and b.mem_id = #{memId}
+            and a.prj_id = b.prj_id
+            and b.noti_id = c.noti_id
+            group by c.tsk_prgs
 	</select>
 	
 	<select id="pnwPinList" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 상단고정 게시글 목록 -->
 		select c.*,
 			case when c.noti_knd = 'task' then (select tsk_prgs from task where noti_id = c.noti_id)
+				when c.noti_knd = 'subtask' then (select subtsk_prgs from subtask where noti_id = c.noti_id)
 				when c.noti_knd = 'schedule' then (select TO_CHAR(sche_dttm) from schedule where noti_id = c.noti_id)
 				when c.noti_knd = 'todo' then (select TO_CHAR(RATIO_TO_TODO(c.noti_id)) from dual)
 			end as addlist
@@ -146,20 +172,21 @@
 			and b.prj_id = c.prj_id
 			and c.prj_id = d.prj_id
 			and c.noti_id = d.noti_id
-			and a.mem_id = #{memId}
+            and a.mem_id = c.mem_id
 			and a.mem_id = b.mem_id
 	</select>
 	
 	<select id="pnwAllList" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 전체 게시글 목록 -->
 		select c.*, a.name,
 			case when c.noti_knd = 'task' then (select tsk_prgs from task where noti_id = c.noti_id)
+                when c.noti_knd = 'subtask' then (select subtsk_prgs from subtask where noti_id = c.noti_id)
 				when c.noti_knd = 'schedule' then (select TO_CHAR(sche_dttm) from schedule where noti_id = c.noti_id)
 				when c.noti_knd = 'todo' then (select TO_CHAR(RATIO_TO_TODO(c.noti_id)) from dual)
 			end as addlist
 		from member a, prj_parti b, board c
 		where c.prj_id = #{prjId}
 			and b.prj_id = c.prj_id
-			and a.mem_id = #{memId}
+			and a.mem_id = c.mem_id
 			and a.mem_id = b.mem_id
 		<!-- 프로젝트 명으로 검색 -->
 		<if test="notiTtl != null and notiTtl != ''">
@@ -176,17 +203,15 @@
 	<select id="partiPM" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 참여자 목록 : PM -->
 		select a.mem_id, a.name, a.wkpo, a.co_url, a.dept
 		from member a, prj_parti b
-		where a.mem_id = #{memId}
-			and a.mem_id = b.mem_id
+		where a.mem_id = b.mem_id
 			and b.prj_id = #{prjId}
 			and b.prj_perm = 'PM'
 	</select>
 
 	<select id="partiUser" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 참여자 목록 : USER -->
-		select a.mem_id, a.name, a.wkpo, a.co_url, a.dept
+		select a.mem_id, a.name, a.wkpo, a.co_url, a.dept, b.prj_perm
 		from member a, prj_parti b
-		where a.mem_id = #{memId}
-			and a.mem_id = b.mem_id
+		where a.mem_id = b.mem_id
 			and b.prj_id = #{prjId}
 			and b.prj_perm = 'USER'
 	</select>
@@ -194,8 +219,7 @@
 	<select id="partiGuest" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 참여자 목록 : GUEST -->
 		select a.mem_id, a.name, a.wkpo, a.co_url, a.dept
 		from member a, prj_parti b
-		where a.mem_id = #{memId}
-			and a.mem_id = b.mem_id
+		where a.mem_id = b.mem_id
 			and b.prj_id = #{prjId}
 			and b.prj_perm = 'GUEST'
 	</select>

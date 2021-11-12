@@ -73,12 +73,6 @@
 	<header class="header">
 		<div id="userSetting">
 		<div id="rightTopMenu" class="top-btns">
-			<button type="button" id="organizationTopButton"
-				class="btn-organization js-mouseover
-            js-button-tooltip"
-				mouseover-text="조직도">
-				<i class="icon-organization"></i>
-			</button>
 			<button type="button" id="chattingTopButton"
 				class="btn-chatting js-mouseover
             js-button-tooltip"
@@ -115,7 +109,7 @@
 				<li id="logoutBtn" onclick="location.href='logout.do'"><i class="icons-logout"></i> 로그아웃</li>
 			</ul>
 			<ul id="status" class="st_modal">
-				<li id="online" class="statusStyle"><img alt="onlineImg" src="/img/status_icn/online.png" class="st_img"><a href="#">온라인</a></li>
+				<li id="online" class="statusStyle"><img alt="onlineImg" src="/img/status_icn/online.png" class="st_img"><a href="#"> 온라인</a></li>
 				<li id="notdesk" class="statusStyle"><img alt="notdeskImg" src="/img/status_icn/notdesk.png" class="st_img"><a href="#"> 자리비움</a></li>
 				<li id="other" class="statusStyle"><img alt="otherImg" src="/img/status_icn/other.png" class="st_img"><a href="#"> 다른용무중</a></li>
 				<li id="offline" class="statusStyle"><img alt="offlineImg" src="/img/status_icn/offline.png" class="st_img"><a href="#"> 오프라인</a></li>
@@ -123,7 +117,7 @@
 		</div>
 	</header>
 
-	<div id="MySettiong" class="model" style="display: none">
+	<div id="MySettiong" class="flow-all-background-1 zx-9 d-block" style="display: none">
 		<div class="flow-project-make-1">
 			<div class="flow-project-make-2">
 				<div id="innerMySettingPopup" class="my-layer-type-3">
@@ -276,7 +270,7 @@
 															<div id="noCoTelUpdate" class="my-button-cc cancel-change">취소</div>
 														</a> 
 														<a href="#">
-															<div id="coTelUpdate" class="js-account-set-button my-button-ok change-ok" gubun="5">확인</div>
+															<div id="coTelUpdate" class="js-account-set-button my-button-ok change-ok">확인</div>
 														</a>
 													</div>
 												</div>
@@ -543,107 +537,6 @@
 
 
 
-<!-- 조직도 ~ 채팅 id = mainBodyWrap 안의 내용, 팝업 실행해보고 안되면 안에 넣기-->
-
-	<!-- 조직도 팝업 -->
-	<article id="organizationLayer" class="side-wr" style="display: none">
-		<div class="menu-top">
-			<strong> 조직도</strong>
-			<button id="organizationChartCloseBtn" class="btn-close">
-				<i class="icons-close-1"></i>
-			</button>
-		</div>
-		<div class="side-contents">
-			<!-- 조직도 리스트 -->
-			<strong id="companyName" class="org-tit"></strong>
-			<div id="orgSearch" class="all-setup-type-2">
-				<i class="icons-search"></i> <input id="organizationInput"
-					type="text" class="all-setup-input-type-1"
-					placeholder="이름 소속 연락처 내선 검색" autocomplete="off">
-			</div>
-			<div
-				class="group-tree-wrap-1 coperate-section-position-fix-1 js-group-tree-wrap">
-				<ul id="organizationChart">
-				</ul>
-				<div id="nullDvsnData" style="display: none;">
-					<div class="group-sub-null-type-1"></div>
-					<span>조직도가 존재하지 않습니다.</span>
-				</div>
-			</div>
-		</div>
-
-		<div id="emplArea" class="sub-drag-section-2" style="display: none">
-			<div class="line-fixed-section-1">
-				<div id="drag" class="sub-drag-icon-type-1 drag"></div>
-			</div>
-			<div class="sub-drag-header-type-2">
-				<span class="dvsn-name" id="emplList-dvsnName"></span> <span
-					id="resultSearch" class="empl-search-text d-none">검색 결과</span> <a
-					id="emplAreaCloseBtn" href="#" class="group-close-type-1"></a>
-			</div>
-
-			<div class="sub-drag-picture-section-1">
-				<div id="existEmplData" style="display: none">
-					<ul id="organizationChart-emplList">
-					</ul>
-				</div>
-
-				<div id="nullEmplData" class="null-empl-search"
-					style="display: none;">
-					<div class="null-wr">
-						<div class="group-sub-null-type-1"></div>
-						<span>검색 결과가 없습니다.</span>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-		<div id="organizationItem" style="display: none">
-			<li class="department-item" dvsn-cd="{dvsn-cd}" depth="{depth}"
-				hgrn-dvsn-cd="{hgrn-dvsn-cd}" {margin-style}="">{group-icon} <em
-				class="{button-class}"></em> <span style="cursor: pointer"
-				class="group-tree-position-fix-type-{last-code} department-name group-tree-position-fix-type-1 {active}">{dvsn-nm}</span>
-				<a href="#" class="js-dvsn-select coperate-check-type-1 d-none"
-				{right-style}=""></a> <em class="{root-dvsn-line}"></em>
-			</li>
-		</div>
-
-		<div id="chartDepthLineItem" style="display: none">
-			<em class="chart-depth-line" {depth-line-left}=""></em>
-		</div>
-
-		<div id="emplListItem" style="display: none">
-			<li class="js-participant-item" data-id="{USER_ID}"
-				rcvr_cd="{USER_ID}" rcvr_gb="U" id="{id}"
-				profile-image="{PRFL_PHTG}">
-				<div class="mini-mode-text-sub-area-1">
-					<div class="mini-mode-main-picture-1" {image}=""></div>
-					<div class="mini-mode-area-list-type-1">
-						<p>
-							<strong id="name">{FLNM}</strong>{JBCL_NM}
-						</p>
-						<p class="mini-mode-text-gray-1">
-							<span>{CMNM}</span> {DVSN_NM}
-						</p>
-					</div>
-				</div> <a href="#" id="miniOrganizationChatButton"
-				class="mini-mode-circle-type-1 js-participant-chat"> <i
-					class="icons-chat"></i>
-			</a>
-				<div id="selectMemberBtn"
-					class="my-check-2 select-member-btn d-none"></div>
-			</li>
-		</div>
-	</article>
-
-
-
-
-
-
-
-
 
 	<!-- 알림 팝업 -->
 	<article id="alarmLayer" class="side-wr d-none">
@@ -689,12 +582,8 @@
 			</div>
 		</div>
 		<div id="alarmItem" class="d-none">
-			<li class="alarm-{COLABO_COMMT_SRNO} js-alarm-item {not-read}"
-				colabo_srno="{COLABO_SRNO}" colabo_commt_srno="{COLABO_COMMT_SRNO}"
-				colabo_remark_srno="{COLABO_REMARK_SRNO}"
-				alarm_action="{ALARM_ACTION}" alarm_status="{ALARM_STATUS}"
-				toast_msg="{msg}" toast_cntn="{contents}">
-				<div class="all-setup-picture-type-1" {profile}=""></div>
+			<li class="alarm-{COLABO_COMMT_SRNO} js-alarm-item {not-read}">
+				<div class="all-setup-picture-type-1"></div>
 				<div class="all-text-wrap-type-1">
 					<div class="all-setup-section-type-1">
 						<span>{TTL}</span><em>{date}</em>
@@ -704,8 +593,8 @@
 					</div>
 					<div class="all-text-wrap-type-3">{task-name}{contents}</div>
 					<div class="all-text-wrap-type-3">
-						<span {img-display}=""> <em class="all-setup-icon-type-2"></em>이미지
-						</span> <span {file-display}=""> <em class="all-setup-icon-type-1"></em>파일
+						<span> <em class="all-setup-icon-type-2"></em>이미지
+						</span> <span> <em class="all-setup-icon-type-1"></em>파일
 						</span>
 					</div>
 				</div>
@@ -713,13 +602,9 @@
 		</div>
 
 		<div id="projectAlarmItem" class="d-none">
-			<li id="unread-{COLABO_COMMT_SRNO}" class="not-read-alarm-item"
-				colabo_srno="{COLABO_SRNO}" colabo_commt_srno="{COLABO_COMMT_SRNO}"
-				colabo_remark_srno="{COLABO_REMARK_SRNO}"
-				alarm_action="{ALARM_ACTION}" alarm_status="{ALARM_STATUS}"
-				toast_msg="{msg}">
+			<li class="not-read-alarm-item">
 				<div class="unidentified-item profile">
-					<span class="thumbnail size40 radius16" {profile}=""></span>
+					<span class="thumbnail size40 radius16"></span>
 				</div>
 				<div class="middle-wr">
 					<div class="unidentified-item title">
@@ -731,9 +616,9 @@
 						<div class="unidentified-task-content">
 							<span>{contents}</span>
 							<ul class="unidentified-file-group">
-								<li {img-display}=""><span class="unidentified-image">이미지</span>
+								<li><span class="unidentified-image">이미지</span>
 								</li>
-								<li {file-display}=""><span class="unidentified-file">파일</span>
+								<li><span class="unidentified-file">파일</span>
 								</li>
 							</ul>
 						</div>
@@ -746,10 +631,6 @@
 		</div>
 
 	</article>
-
-
-
-
 
 
 
@@ -789,9 +670,7 @@
 				class="participants-list chat-list-area chat-list scroll-mask"></ul>
 		</div>
 		<div id="chattingItem" class="d-none">
-			<li id="chatting-{ROOM_SRNO}" class="js-chatting-item"
-				data-room-srno="{ROOM_SRNO}" data-bg-color-cd="{BG_COLOR_CD}"
-				pin-yn="{PIN_YN}">
+			<li class="js-chatting-item">
 				<div class="mini-mode-text-sub-area-1">
 					<div
 						class="mini-mode-main-picture-1 mini-mode-chattng-type profile {profile-display-type}">{profile}
@@ -799,20 +678,19 @@
 					<div class="mini-mode-area-list-type-1">
 						<p>
 							<strong class="js-title">{ROOM_NM}</strong> <span
-								class="mini-mode-chattng-type-2" {sendience-cnt-display}="">({SENDIENCE_CNT})</span>
-							<i class="no-alarm mini-mode-chattng-icon-type-1"
-								{no-alarm-display}=""></i> <i
-								class="pin mini-mode-chattng-icon-type-2" {pin-display}=""></i>
+								class="mini-mode-chattng-type-2">{SENDIENCE_CNT}</span>
+							<i class="no-alarm mini-mode-chattng-icon-type-1"></i> <i
+								class="pin mini-mode-chattng-icon-type-2"></i>
 						</p>
 						<p class="mini-mode-text-gray-1">
-							<i {img-display}="" class="js-image-icon all-setup-icon-type-2"></i><i
-								{file-display}="" class="js-file-icon all-setup-icon-type-1"></i><span><a
+							<i class="js-image-icon all-setup-icon-type-2"></i><i
+							 class="js-file-icon all-setup-icon-type-1"></i><span><a
 								class="js-cntn">{CNTN}</a></span>
 						</p>
 					</div>
 					<div class="mini-mode-chattng-type-3">
 						<div class="mini-mode-chattng-type-text-1 not-read-count"
-							{not-read-display}="">{NOT_READ_CNT}</div>
+							>{NOT_READ_CNT}</div>
 						<div class="mini-mode-chattng-type-text-2 js-date">{date}</div>
 					</div>
 				</div>

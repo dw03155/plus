@@ -1,14 +1,15 @@
 package co.plus.prj.pnw.service;
 
 import java.util.List;
+import java.util.Map;
 
 import co.plus.prj.pnw.vo.PNWVO;
 
 public interface PNWService { //mapper합치기
 	
 		// 전체메뉴
-		int cPrjInsert(PNWVO vo);			// 새 프로젝트(회사)
-		int nPrjInsert(PNWVO vo);			// 새 프로젝트(일반)
+		int prjInsert(PNWVO vo);			// 새 프로젝트
+		List<PNWVO> ctgryKnd(PNWVO vo);		// 새 프로젝트 : 카테고리 종류 가져오기
 		List<PNWVO> favorMyPrj(PNWVO vo);	// 내 프로젝트(즐겨찾기)
 		List<PNWVO> noMyPrj(PNWVO vo);		// 내 프로젝트(즐겨찾기x)
 		List<PNWVO> openProject(PNWVO vo);	// 회사 프로젝트(전체공개 프로젝트)
@@ -21,10 +22,14 @@ public interface PNWService { //mapper합치기
 		// 프로젝트
 		int prjUpdate(PNWVO vo);			// 프로젝트 수정(프로젝트명, 색깔, 공개권한)
 		int prjDelete(PNWVO vo);			// 프로젝트 삭제
+		
+		Map<String, Object> prjHome (PNWVO vo); //프로젝트 홈
+		
 		PNWVO prjInfo(PNWVO vo);			// 프로젝트 홈탭 : 프로젝트 정보
-		List<PNWVO> prjHomePin(PNWVO vo);	// 프로젝트 홈탭 : 게시글 목록
+		List<PNWVO> prjTskCount(PNWVO vo);	// 프로젝트 홈탭 : 업무 상태에 따른 게시글 갯수
+		List<PNWVO> prjHomePin(PNWVO vo);	// 프로젝트 홈탭 : 게시글 목록(상단고정)
 		List<PNWVO> prjHomeNW(PNWVO vo);	// 프로젝트 홈탭 : 게시글 목록
-		int prjPartiCnt(PNWVO vo);		// 프로젝트 홈탭 : 전체 참여자 수
+		int prjPartiCnt(PNWVO vo);			// 프로젝트 홈탭 : 전체 참여자 수
 		List<PNWVO> prjPartiList(PNWVO vo);	// 프로젝트 홈탭 : 전체 참여자 목록
 		List<PNWVO> partiPM(PNWVO vo);		// 프로젝트 홈탭 : PM 참여자 목록
 		List<PNWVO> partiUser(PNWVO vo);	// 프로젝트 홈탭 : USER 참여자 목록
