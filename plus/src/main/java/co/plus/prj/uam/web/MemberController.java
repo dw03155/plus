@@ -343,6 +343,29 @@ public class MemberController {
 		model.addAttribute("guest",service.getGuestMemberList(vo));
 		return "uam/admin/menu/userManagement";
 	}
+	//정상사용자 삭제
+	@PutMapping("/usingOut.do")
+	@ResponseBody
+	public MemberVO usingOut(@RequestBody MemberVO vo) {
+		service.usingOut(vo);
+		return vo;
+	}
+	//관리자 사용자로 변경
+	@PutMapping("/adminDel.do")
+	@ResponseBody
+	public MemberVO adminDel(@RequestBody MemberVO vo) {
+		service.adminDel(vo);
+		return vo;
+	}
+	//사용자 관리자로 변경
+	@PutMapping("/userDel.do")
+	@ResponseBody
+	public MemberVO userDel(@RequestBody MemberVO vo) {
+		service.userDel(vo);
+		return vo;
+	}
+	
+	
 	//사용자 승인
 	@PutMapping("/outstandIn.do")
 	@ResponseBody
@@ -371,30 +394,31 @@ public class MemberController {
 		service.guestOut(vo);
 		return vo;
 	}
-//	//정상 사용자
-//	@RequestMapping(value="/getUsingMemberList.do", method = RequestMethod.GET)
-//	@ResponseBody
-//	public List<MemberVO> getUsingMemberList( Model model, MemberVO vo){
-//		return service.getUsingMemberList(vo);
-//	}
-//	//이용중지 사용자
-//	@RequestMapping(value="/getNotusedMemberList.do", method = RequestMethod.GET)
-//	@ResponseBody
-//	public List<MemberVO> getNotusedMemberList( Model model, MemberVO vo){
-//		return service.getNotusedMemberList(vo);
-//	}
-//	//기입대기 사용자
-//	@RequestMapping(value="/getOutstandMemberList.do", method = RequestMethod.GET)
-//	@ResponseBody
-//	public List<MemberVO> getOutstandMemberList( Model model, MemberVO vo){
-//		return service.getOutstandMemberList(vo);
-//	}
-//	//게스트
-//	@RequestMapping(value="/getGuestMemberList.do", method = RequestMethod.GET)
-//	@ResponseBody
-//	public List<MemberVO> getGuestMemberList( Model model, MemberVO vo){
-//		return service.getGuestMemberList(vo);
-//	}
+	//사용자 숫자 실시간 업데이트
+	//정상 사용자
+	@RequestMapping(value="/getUsingMemberList.do", method = RequestMethod.GET)
+	@ResponseBody
+	public List<MemberVO> getUsingMemberList( Model model, MemberVO vo){
+		return service.getUsingMemberList(vo);
+	}
+	//이용중지 사용자
+	@RequestMapping(value="/getNotusedMemberList.do", method = RequestMethod.GET)
+	@ResponseBody
+	public List<MemberVO> getNotusedMemberList( Model model, MemberVO vo){
+		return service.getNotusedMemberList(vo);
+	}
+	//기입대기 사용자
+	@RequestMapping(value="/getOutstandMemberList.do", method = RequestMethod.GET)
+	@ResponseBody
+	public List<MemberVO> getOutstandMemberList( Model model, MemberVO vo){
+		return service.getOutstandMemberList(vo);
+	}
+	//게스트
+	@RequestMapping(value="/getGuestMemberList.do", method = RequestMethod.GET)
+	@ResponseBody
+	public List<MemberVO> getGuestMemberList( Model model, MemberVO vo){
+		return service.getGuestMemberList(vo);
+	}
 	//사용자 초대
 	@GetMapping("/userInvite.do")
 	public String userInvite() {
@@ -447,9 +471,26 @@ public class MemberController {
 	
 	//회사프로젝트
 	@GetMapping("/coPrjMangement.do")
-	public String coPrjMangement() {
+	public String coPrjMangement(Model model, MemberVO vo, HttpSession session) {
+		vo.setCoUrl((String)session.getAttribute("coUrl"));
+		model.addAttribute("coPrjs",service.getCoPrjList(vo));
 		return "uam/admin/menu/coPrjMangement";
 	}
+	//회사프로젝트 상세
+	@GetMapping("/getCoPrjInfo.do")
+	@ResponseBody
+	public List<MemberVO> getCoPrjInfo(MemberVO vo){
+		System.out.println(vo);
+		return service.getCoPrjInfo(vo);
+	}
+	//PM해제
+	@PutMapping("/coPrjPMChange.do")
+	@ResponseBody
+	public MemberVO coPrjPMChange(@RequestBody MemberVO vo) {
+		service.coPrjPMChange(vo);
+		return vo;
+	}
+	
 	//공개키테고리
 	@GetMapping("/openPrjCategory.do")
 	public String openPrjCategory(Model model, MemberVO vo, HttpSession session) {

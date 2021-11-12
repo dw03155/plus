@@ -51,10 +51,21 @@
 		INSERT INTO company(co_name, co_url)
 		VALUES (#{coName}, #{coUrl})
 	</insert>
+	<!-- 회원상태 테이블 추가 -->
+	<insert id="newCompanyInsert3" parameterType="co.plus.prj.uam.vo.MemberVO">  		
+		INSERT INTO mem_status(mem_id, mem_st)
+		VALUES ((select max(mem_id) from member), 'offline')
+	</insert>
+	
 	<!-- 기존회사 회원입력 -->
-	<insert id="exCompanyInsert" parameterType="co.plus.prj.uam.vo.MemberVO">
+	<insert id="exCompanyInsert1" parameterType="co.plus.prj.uam.vo.MemberVO">
 		INSERT INTO MEMBER(MEM_ID, EMAIL, PWD, NAME, CO_url)
 		VALUES (MEMID.nextval, #{email}, #{pwd}, #{name}, #{coUrl})
+	</insert>
+	<!-- 회원상태 테이블 추가 -->
+	<insert id="exCompanyInsert2" parameterType="co.plus.prj.uam.vo.MemberVO">  		
+		INSERT INTO mem_status(mem_id, mem_st)
+		VALUES ((select max(mem_id) from member), 'offline')
 	</insert>
 	
 																						<!-- 회원정보수정(회원마이페이지) -->
@@ -152,6 +163,22 @@
 		where co_url = #{coUrl} and acc_st = 'using' and mem_perm <> 'GUEST'
 		]]>
 	</select>
+	<!-- 정상 사용자 삭제 -->
+	<update id="usingOut" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update member set acc_st = 'notused'
+		where mem_id = #{memId}
+	</update>
+	<!-- 관리자 사용자로 변경 -->
+	<update id="adminDel" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update member set mem_perm = 'USER'
+		where mem_id = #{memId}
+	</update>
+	<!-- 사용자 관리자로 변경 -->
+	<update id="userDel" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update member set mem_perm = 'ADMIN'
+		where mem_id = #{memId}
+	</update>
+	
 	<!-- 사용중지 사용자 -->
 	 <select id="getNotusedMemberList" resultType="co.plus.prj.uam.vo.MemberVO">
 	   	<![CDATA[
@@ -194,6 +221,42 @@
 		update member set acc_st = 'notused'
 		where mem_id = #{memId}
 	</update>
+	
+																						<!-- 사용자 일괄등록 -->
+	<insert id="AllMemberInsert1" parameterType="co.plus.prj.uam.vo.MemberVO">
+		INSERT INTO MEMBER(MEM_ID, EMAIL, NAME, CO_url, dept, wkpo)
+		VALUES (MEMID.nextval, #{email}, #{name}, #{coUrl}, #{dept}, #{wkpo})
+	</insert>
+	<!-- 회원상태 테이블 추가 -->
+	<insert id="AllMemberInsert2" parameterType="co.plus.prj.uam.vo.MemberVO">  		
+		INSERT INTO mem_status(mem_id, mem_st)
+		VALUES ((select max(mem_id) from member), 'offline')
+	</insert>
+																						<!-- 회사프로젝트 관리 -->
+	<!-- 회사프로젝트 관리 -->
+	<select id="getCoPrjList" resultType="co.plus.prj.uam.vo.MemberVO">
+		select a.prj_id, a.prj_ttl, 
+		        (select count(prj_perm) from prj_parti where prj_perm = 'PM' and prj_id = a.prj_id) as pmCnt, 
+		        (select count(mem_id) from prj_parti where prj_id = a.prj_id) as memCnt, 
+		        (select count(*) from notice_writing where a.prj_id = prj_id) as notiCnt
+		from project a
+		where a.co_url = #{coUrl} 
+		group by a.prj_id, a.prj_ttl
+	</select>
+	<!-- 회사 프로젝트 상세조회 -->
+	<select id="getCoPrjInfo" resultType="co.plus.prj.uam.vo.MemberVO">
+		select a.mem_id, a.name, a.email, a.dept, a.pers_Tel, c.prj_ttl, c.prj_id
+		from member a, prj_parti b, project c
+		where a.mem_id = b.mem_id and b.prj_id = c.prj_id 
+        and b.prj_perm = 'PM' and c.prj_id = #{prjId}
+	</select>
+	<!-- 프로젝트 관리자 수정 -->
+	<update id="coPrjPMChange" parameterType="co.plus.prj.uam.vo.MemberVO">
+		UPDATE prj_parti 
+		set prj_perm = 'USER'
+		where mem_id = #{memId} and prj_id = #{prjId}
+	</update>
+	
 	<!-- 카테고리 확인 -->
 	<select id="getCategoryList" resultType="co.plus.prj.uam.vo.MemberVO">
 		select a.ctgry_id, a.ctgry_name, count(prj_id) as cnt
@@ -217,6 +280,7 @@
 	<insert id="categoryInsert" parameterType="co.plus.prj.uam.vo.MemberVO">
 		insert into category values(CTGRYID.nextval,#{ctgryName},#{coUrl})
 	</insert>
+	
 	
 	
 	

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +44,7 @@
 		color: white;
 		border-radius: 3px;
 		margin-left: 5px;
-		top: 77px;
+		top: 85px;
 	}
 	.categoty-input{
 	width: 100%;
@@ -103,7 +104,7 @@
     font-size: 13px;
     text-align: left;
     color: #555;
-    /* display: none; */
+    display: none;
     align-content: center;
 	}
 	.model_heard{
@@ -115,13 +116,24 @@
 		float: right;
 		width: 15px;
 	}
+	#inputBorder{
+		border: 1px solid silver;
+	}
+	#adminAdd{
+		border: 1px solid silver;
+		padding: 3px 7px 3px 7px;
+		background-color: white;
+	}
+	#prjlist{
+		cursor: pointer;
+	}
 </style>
 </head>
 <body>
 	<div class="main-container">
 		<div id="topSettingBar" class="main-header" style="height: 54px">
 			<div id="menuName" class="project-detail-header">
-				<h3 id="projectTitle" class="project-title ellipsis js-mouseover" >회사 정보</h3>
+				<h3 id="projectTitle" class="project-title ellipsis js-mouseover" style="margin-bottom: 10px;">회사 정보</h3>
 			</div>
 		</div><!-- topSettionBar end -->
 		<div class="project-detail-top clearfix">
@@ -149,36 +161,41 @@
 						<tr>
 							<th></th>
 							<th>프로젝트</th>
-							<th>관리자</th>
+							<th>관리자수</th>
 							<th>참여자수</th>
-							<th>게시물</th>
-							<th>댓글수</th>
-							<th>일정수</th>
-							<th>업무수</th>
+							<th>게시물수</th>
 						</tr>
 					</thead>
 					<tbody id="prjlist" >
-						<tr>
-							<td><input type="hidden" value=""></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+					<c:forEach var="coPrj" items="${coPrjs }">
+						<tr  class="pmList">
+							<td><input type="hidden" value="${coPrj.prjId }"></td>
+							<td>${coPrj.prjTtl }</td>
+							<td>${coPrj.pmCnt }</td>
+							<td>${coPrj.memCnt }</td>
+							<td>${coPrj.notiCnt }</td>
 						</tr>
+					</c:forEach>
 					</tbody>
 				</table>
 			 </div><!-- usingMember end -->
-			 <div id="prjModal" class="prj_modal" >	
+			 <div id="prjModal" class="prj_modal">	
 			<div class="model_heard">
-				<span style="font-size: 18px; font-weight: bold;">회사 프로젝트 정보</span>
+				<span style="font-size: 18px; font-weight: bold;">&nbsp;회사 프로젝트 정보</span>
 				<a href="#"><img id="prj_model_x" src="/img/ico/x_icn.png"></a>
 			</div>
-			<div align="center" style="margin-left: 10px; margin-right: 10px;">
+			<div align="center" style="margin-left: 10px; margin-right: 10px; height: 300px; overflow: scroll;">
 			<hr>
-				<table>
+				<table style="border: 1px solid; border-color: white; margin: 10px 0 10px 0;">
+					<tr>
+						<td style="text-align: left;">프로젝트명</td>
+						<td style="text-align: left;"><span id="inputBorder">
+						<input type="text" id="prjTTL" name="prjTTL" style="width: 450px"></span></td>
+					</tr>
+					<tr>
+						<td style="text-align: left;">관리자</td>
+						<td style="text-align: left;"><input type="button" id="adminAdd" name="adminAdd" value="추가"></td>
+					</tr>
 				</table>
 				<div>
 					<table id="projectInfoList" border="1">
@@ -193,25 +210,110 @@
 						</tr>
 					</thead>
 					<tbody id="prjAdmin" >
-						<tr>
-							<td><input type="hidden" value=""></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
 					</tbody>
 				</table>
 				</div>
 			</div>
 			<div align="center">
-				<button type="button" id="ctgDel" class="blueBtn" style="position: static;">확인</button>
+				<button type="button" id="ctgDel" class="blueBtn" style="position: static; top: 500px">확인</button>
+				<button type="button" id="ctgCancel" class="blueBtn" 
+				style="position: static; top: 500px; background-color: white; color: black; border: 1px solid silver;">취소</button>
 			</div>
 		</div>
 	</div><!-- main-container end -->
 <script>
 
+function PMlist(data){
+	for(i=0; i<data.length; i++){
+		var $prjId = data[i].prjId;
+		var $prjTtl = data[i].prjTtl;
+		var $name = data[i].name;
+		var $memId = data[i].memId;
+		var $email = data[i].email;
+		var $dept = data[i].dept;
+		var $persTel = data[i].persTel;
+		$('#prjTTL').val($prjTtl);
+		$('<tr>').append($('<td>').append($('<input type=\'hidden\'>').val($memId)))
+				.append($('<td>').html($name))
+				.append($('<td>').html($email))
+				.append($('<td>').html($dept))
+				.append($('<td>').html($persTel))
+				.append($('<td>').append($('<a href="#" class="pmDel">').html("[해제]")))
+				.append($('<td>').append($('<input type=\'hidden\'>').val($prjId)))
+		 		.appendTo($('#prjAdmin'));
+	}//for end
+};
+
+	$('.pmList').click(function(){
+		var tr = $(this);
+		var prjId = tr.children().children().val();
+
+		$.ajax({
+			url: "getCoPrjInfo.do?prjId="+ prjId,
+			method: "get",
+			datatype: "json",
+			success: function(data){
+				$('#prjAdmin').empty();
+				if(data == ""){
+					$('<tr>').append($('<td style="colspan: 7">').html("관리자가 없습니다."))
+				}else{
+					PMlist(data);
+				}
+				$("#prjModal").css("display","block");
+				
+				$(".pmDel").click(function(){
+					var pmdel = $(this);
+					var tr = pmdel.parent().parent();
+					var memId = tr.children().first().children().val();
+					var prjId = pmdel.parent().next().children().val();
+					var jsondata = {"memId":memId, "prjId": prjId};
+					$.ajax({
+						url: "coPrjPMChange.do",
+						method: "put",
+						data: JSON.stringify(jsondata),
+						contentType: "application/json",
+						dataType: "json",
+						success: function(){
+							tr.remove();
+						}
+					})
+				});
+			}
+		})
+		
+	});
+	
+	
+	$("#prj_model_x").click(function(){
+		$("#prjModal").css("display","none")
+	});
+	$("#ctgCancel").click(function(){
+		$("#prjModal").css("display","none")
+	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </script>
 
 </body>

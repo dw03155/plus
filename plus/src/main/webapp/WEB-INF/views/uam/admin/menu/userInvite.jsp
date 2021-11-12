@@ -96,6 +96,7 @@
 	}
 	#xlxsInfo{
 		padding-top: 10px;
+		vertical-align: bottom;
 	}
 	#checkth{
 		width: 50px;
@@ -151,7 +152,7 @@
 				<p>ㆍ등록된 사용자는 최종 "사용자관리" 메뉴에서 확인할 수 있습니다.<button id="helpBtn" type="button" >도움말 보기</button></p>
 			</div>
 			<div class="contentsBox">
-				<p>xls 파일만 업로드 가능합니다.</p>	
+				<p style="color: silver;">xls 파일만 업로드 가능합니다.</p>	
 				<form id="excelUploadForm" name="excelUploadForm" action="xlsxUplord.do" method="post" enctype="multipart/form-data" style="display: inline;">
 				<input id="file" name="file" type="file" style="border: 1px;">
 				</form>
@@ -160,7 +161,8 @@
 			</div>
 			<div class="contentsBox">
 			<div id="xlsxInfo">
-			<span>전체&nbsp;'<em id="allcnt"></em>'개 ('<em id="okcnt"></em>'개 등록가능,&nbsp;'</span><em style="color: red"><em id="nocnt"></em>'개&nbsp;</em><span> 등록 불가능)</span>
+			<span>전체&nbsp;'<em id="allcnt"></em>'개 ('<em id="okcnt"></em>'개 등록가능,&nbsp;'</span><em style="color: red">
+			<em id="nocnt"></em>'개&nbsp;</em><span> 등록 불가능)</span>
 			<span><input type="checkbox">등록 불가능한 행 모아보기</span>
 			<div id="btnDiv">
 				<button class="whiteBtn" id="lineBtn">전체선택</button>
@@ -171,7 +173,7 @@
 				<table id="insertMemberList" border="1">
 					<thead class="memberthead">
 						<tr>
-							<th id="checkth"><input type='checkbox' style="max-width: 50px; min-width: 50px;"></th>
+							<th id="checkth"><input type='checkbox' id="allCheckBox" style="max-width: 50px; min-width: 50px;"></th>
 							<th>이름</th>
 							<th>이메일</th>
 							<th>휴대폰</th>
@@ -180,7 +182,7 @@
 							<th>회사연락처</th>
 						</tr>
 					</thead>
-					<tbody id="insertlist" >
+					<tbody id="insertlist">
 					</tbody>
 				</table>
 			</div>
@@ -192,6 +194,27 @@
 		</div><!-- main-container end -->
 	
 	<script>
+	
+	$('#inBtn').click(function(){
+		var fileCheck = $(".fileCheck:checked");
+		var coUrl = "${sessionScope.coUrl}";
+		fileCheck.each(function(i){
+			var tr = fileCheck.parent().parent().eq(i);
+			var td = tr.children();
+			var emailVal = td.eq(2).children().children().val();
+			
+				var name = td.eq(1).children().children().val();
+				var email = td.eq(2).children().children().val();
+				var persTel = td.eq(3).children().children().val();
+				var dept = td.eq(4).children().children().val();
+				var wkpo = td.eq(5).children().children().val();
+				var coTel = td.eq(6).children().children().val();
+				
+				var jsondata = {"coUrl":coUrl,"name":name,"email":email,"persTel":persTel,"dept":dept,"wkpo":wkpo,"coTel":coTel};
+				if(email)
+				
+		})
+	})
 	
 	function checkFileType(filePath){
 		var fileFormat = filePath.split(".");
@@ -237,6 +260,7 @@
 			})
 		}
 	};
+	
 	function fileView(data){
 		for(i=0; i<data.length; i++){
 			var $email = data[i]["email"];
@@ -246,47 +270,83 @@
 			var $wkpo = data[i]["wkpo"];
 			var $coTel = data[i]["coTel"];
 				if($email == 0 && $name == 0 && $persTel == 0 && $dept == 0 && $wkpo == 0 && $coTel == 0){
-					console.log("datt");
 				}else{				
 				$('<tr>').append($('<td>').append($('<input type="checkbox" class="fileCheck">')))
-						 .append($('<td>').append($('<span>').append($('<input class="view">').val($name))))
-						 .append($('<td>').append($('<span>').append($('<input class="view">').val($email))))
-						 .append($('<td>').append($('<span>').append($('<input class="view">').val($persTel))))
-						 .append($('<td>').append($('<span>').append($('<input class="view">').val($dept))))
-						 .append($('<td>').append($('<span>').append($('<input class="view">').val($wkpo))))
-						 .append($('<td>').append($('<span>').append($('<input class="view">').val($coTel))))
+						 .append($('<td>').append($('<span>').append($('<input name="view">').val($name))))
+						 .append($('<td>').append($('<span>').append($('<input name="view">').val($email))))
+						 .append($('<td>').append($('<span>').append($('<input name="view">').val($persTel))))
+						 .append($('<td>').append($('<span>').append($('<input name="view">').val($dept))))
+						 .append($('<td>').append($('<span>').append($('<input name="view">').val($wkpo))))
+						 .append($('<td>').append($('<span>').append($('<input name="view">').val($coTel))))
 						 .appendTo($('#insertlist'));
+				
+				var fileTd = $('.fileCheck').parent().nextAll();
+				var fileTr = $('#insertlist').children();
+				var filevalue = $('input[name=view]');
+				
+					for(j=0; j<fileTd.length; j++){		
+						for(k=0; k<fileTr.length; k++){
+							var fileVal = filevalue.eq(j).val();
+							var fileSpan = $('input[name=view]').parent().eq(j);
+							var fileCheckBox = fileSpan.parents('tr').find('.fileCheck').eq(k);
+								if(fileVal == ''){
+									fileSpan.attr("class","redBox");
+									fileCheckBox.attr("disabled",true);
+							}else{
+								fileSpan.attr("class","normalBox");
+								
+							}							
+						}
+					}	
 				}
 				
 		
-			var fileTd = $('.fileCheck').parent();
-			var fileInput = fileTd.nextAll().children().children();
-			
-				for(j=0; j<fileTd.length; j++){				
-					var fileVal = fileInput.eq(j).val();
-					var fileSpan = fileInput.eq(j).parent();
-						if(fileVal == ''){
-							fileSpan.attr("class","redBox");
-					}else{
-						fileSpan.attr("class","normalBox");
-					}
-				}	
 			}
 			
 		count();
 		
-		$('.view').on("change",function(){
+		$('input[name=view]').on("change",function(){
 			var fileInput = $(this);
-			console.log(fileInput);
+			var checkBox = fileInput.parents('tr').find('.fileCheck');
 			var fileIn = fileInput.val();
+			var filenameval = fileInput.parents('tr').children().eq(1).children().children().val();
+			var fileemailval = fileInput.parents('tr').children().eq(2).children().children().val();
+			var filepersTelval = fileInput.parents('tr').children().eq(3).children().children().val();
+			var filedeptval = fileInput.parents('tr').children().eq(4).children().children().val();
+			var filewkpoval = fileInput.parents('tr').children().eq(5).children().children().val();
+			var filecoTelval = fileInput.parents('tr').children().eq(6).children().children().val();
 			if(fileIn == ""){
-				fileInput.parent().attr("class","redBox");
-			}else{
-				fileInput.parent().attr("class","normalBox");
+				checkBox.attr("disabled",true);
+			}else if( fileIn != "" && filenameval != "" && fileemailval != "" && filepersTelval != "" && filedeptval != "" && filewkpoval != "" && filecoTelval != ""){
+				checkBox.attr("disabled",false);
 			}
 			count();
 			
-		})
+			$('input[name=view]').on("change",function(){
+				var fileInput = $(this);
+				var checkBox = fileInput.parents('tr').find('.fileCheck');
+				var fileIn = fileInput.val();
+				if(fileIn == ""){
+					fileInput.parent().attr("class","redBox");
+				}else{
+					fileInput.parent().attr("class","normalBox");
+				}
+			});
+			
+		});
+		$("#checkth #allCheckBox").on('click',function(){
+			if($('#allCheckBox').prop("checked")){
+				$(".fileCheck:not(:disabled)").prop("checked",true);
+			}else{
+				$(".fileCheck:not(:disabled)").prop("checked",true);
+			}
+		});
+		
+		function emailcompareTest(){
+			var tr = $('#insertlist').children().length;
+			
+			for(i=1; i<)
+		}
 	};
 		
 	function count(){			
@@ -323,6 +383,8 @@
 						}
 					})
 			})
+			
+	
 			
 	
 	</script>
