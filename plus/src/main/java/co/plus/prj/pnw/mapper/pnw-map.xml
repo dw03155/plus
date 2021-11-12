@@ -9,7 +9,7 @@
 		values (prjid.val, #{prjKnd}, #{prjTtl}, #{prjOpenPerm}, #{ctgryId}, #{coUrl})
 	</insert>
 
-	<select id="ctgryKnd">
+	<select id="ctgryKnd" resultType="co.plus.prj.pnw.vo.PNWVO">
 		select ctgry_id, ctgry_name
 		from category
 		where co_url = #{coUrl}

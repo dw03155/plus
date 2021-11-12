@@ -37,15 +37,6 @@
 					<li class="edit-button label"><a href="#"
 						class="top-banner-icon-type-2"> <em></em>프로젝트 폴더 설정
 					</a></li>
-					<li class="edit-button push"><a href="#"
-						class="top-banner-icon-type-3"> <em></em>알림 설정
-					</a></li>
-					<li class="edit-button hidden js-hidden"><a href="#"
-						class="top-banner-icon-type-4"> <em></em>숨김
-					</a></li>
-					<li class="edit-button hidden js-cancel-hidden"><a href="#"
-						class="top-banner-icon-type-4"> <em></em>숨김 취소
-					</a></li>
 				</ul>
 				<div id="totalEditSelect" class="menu-text-popup-1">
 					<span class="select-count"></span> <em class="select-clear">선택취소</em>
@@ -87,10 +78,6 @@
 									<li class="order-item"><i></i><span>오름차순(ㄱ~ㅎ)</span></li>
 									<li class="order-item"><i></i><span>내림차순 (ㅎ~ㄱ)</span></li>
 								</ul>
-								<ul class="menu-popup-t-2">
-									<li class="filter-item"><i></i><span>내가 참여중인 프로젝트</span></li>
-									<li class="filter-item"><i></i><span>내가 관리자인 프로젝트</span></li>
-								</ul>
 							</div> <i class="menu-select-icon-type-3"></i>
 							<div class="menu-select-icon-type-4-text">정렬</div>
 						</a> <a href="#" id="totalProjectEditButton"
@@ -124,7 +111,8 @@
 											<form action="prjHome.do" method="post">
 												<li class="project-item ui-state-default"><a href="#">
 														<input name="prjId" type="hidden"
-														value="${favorPrj.prjId}" /> <!-- 체크버튼 -->
+														value="${favorPrj.prjId}" />
+														<!-- 체크버튼 flow-content-chk-1  li태그 active 추가(갯수 셀때, li 값 넘길때)-->
 														<button class="edit-check flow-content-chk"
 															style="display: none"></button>
 														<div
