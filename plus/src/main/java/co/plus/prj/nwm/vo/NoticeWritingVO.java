@@ -55,6 +55,6 @@ public class NoticeWritingVO {
 	private Date scheDttm; 			// 일정 작성 일시
 	 
 	private String addList;			// 게시글 부가정보
-	private String subtskTtl;   // 임시 하위업무제목
+	private String subtskTtl;   	// 하위업무제목
 
 }

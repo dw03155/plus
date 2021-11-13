@@ -4,7 +4,7 @@
 	<!-- 전체 메뉴 -> 내 게시물 목록 -->
 	<select id="myPost"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select b.*, a.name, a.co_url, c.prj_ttl, 
+		select  b.*, a.name, a.co_url, c.prj_ttl,
 		case when noti_knd = 'task' then ( select tsk_prgs from task where noti_id
 		= b.noti_id)
 		when noti_knd = 'subtask' then ( select subtsk_prgs from subtask where
@@ -14,10 +14,10 @@
 		when noti_knd = 'todo' then ( select TO_CHAR(RATIO_TO_TODO(b.noti_id))
 		from dual )
 		end addlist
-		from member a, board b, project c
-		where b.prj_id = c.prj_id
-		and a.mem_id = #{memId}
-		and a.mem_id = b.mem_id
+		from 	member a, board b, project c
+		where 	b.prj_id = c.prj_id
+		and 	a.mem_id = #{memId}
+		and 	a.mem_id = b.mem_id
 		<if test="notiTtl != null and notiTtl != ''">
 			and noti_ttl like '%' || #{notiTtl} || '%'
 		</if>
@@ -53,29 +53,17 @@
 	</select>
 
 	<select id="detailTaskList" resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select  e.*, f.name, g.noti_dttm, g.noti_ttl
+		select  e.*, f.name, g.noti_dttm
 		from 	task e, member f, board g
 		WHERE 	e.mem_id = f.mem_id
 		and 	e.noti_id = g.noti_id
-        and     g.prj_id = ${prjId}	
-        <!-- 업무 ->ㅣ 업무 명으로 검색 -->
+        and     g.prj_id = #{prjId}
+		<!-- 업무 ->ㅣ 업무 명으로 검색 -->
 		<if test="notiTtl != null and notiTtl != ''">
 			and noti_ttl like '%' || #{notiTtl} || '%'
 		</if>
-		
-		
-		<!-- 하위업무도 동시 조회 -->
-	<!-- 			from 	task e, member f, board g, subtask t
-		WHERE 	e.mem_id = f.mem_id
-		and 	e.noti_id = g.noti_id
-        and  e.noti_id = t.noti_id2
-        and     e.noti_id = 41; -->
 	</select>
 
-<<<<<<< HEAD
-
-=======
->>>>>>> refs/remotes/origin/main
 	<!-- 전체 메뉴 -> 북마크 -->
 	<select id="bookMarkList"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO"
@@ -119,35 +107,13 @@
 	<!-- 내 게시물 목록 -> 업무 상세보기(팝업) -->
 	<select id="myPostTsk"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		  select a.*,b.subtsk_prgs, b.subtsk_end_dt,b.noti_ttl as subtskTtl, b.mem_id, c.name, d.noti_open_perm, d.noti_dttm, e.prj_id, e.prj_ttl
-          from 	 task a left OUTER JOIN subtask b
-          	on a.noti_id = b.noti_id2
-	          inner join member c
-	          	on a.mem_id = c.mem_id
-	          inner join board d
-	         	 on a.noti_id = d.noti_id
-	          inner join project e
-	          	on e.prj_id = d.prj_id
-          where  a.noti_id = #{notiId}
-		<!-- select  a.*, b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name
+		select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name
 		from 	task a, project b, board c, member d
 		where 	a.noti_id = c.noti_id 
 		and 	b.prj_id = c.prj_id
 		and 	b.co_url = d.co_url
 		and 	c.mem_id = d.mem_id
 		and 	c.noti_id = #{notiId}
-		
-		<if test="subtskTtl !=null">
-		select  a.*, b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name, s.noti_ttl as subtskTtl, s.subtsk_prgs, s.subtsk_end_dt
-		from 	task a, project b, board c, member d, subtask s
-		where 	a.noti_id = c.noti_id 
-		and 	b.prj_id = c.prj_id
-		and 	b.co_url = d.co_url
-		and 	c.mem_id = d.mem_id
-        and   	s.noti_id2 = c.noti_id
-		and 	c.noti_id = #{notiId} -->
-		<!-- </if> -->
-		
 	</select>
 	
 	<!-- 내 게시물 목록 -> 하위업무 상세보기(팝업) -->
@@ -178,30 +144,6 @@
 	<!-- 내 게시물 목록 -> 할일 상세보기(팝업) -->
 	<select id="myPostTodo"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-<<<<<<< HEAD
-		select a.noti_dttm, a.noti_open_perm, b.*, c.prj_ttl, c.prj_id, d.name, d.co_url
-       from board a, todo b, project c, member d
-       where a.noti_id = b.noti_id
-       and a.prj_id = c.prj_id
-       and c.co_url = d.co_url
-       and a.mem_id = d.mem_id
-       and a.noti_id = #{notiId}
-        
-        <!-- select a. noti_knd, b.name, c.*, d.prj_ttl, a.noti_dttm
-		from notice_writing
-		a, member b, todo c, project d
-		where a.mem_id =
-		b.mem_id
-		and
-		a.prj_id=d.prj_id
-		and a.noti_id = c.noti_id
-		and b.mem_id =
-		c.mem_id
-		and
-		c.noti_id = #{notiId} -->
-	</select>
-
-=======
 		select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name
 		from 	todo a, project b, board c, member d
 		where 	a.noti_id = c.noti_id 
@@ -210,16 +152,5 @@
 		and 	c.mem_id = d.mem_id
         and     c.noti_id = #{notiId}
 	</select>
-
-	<update id="UpdateTxt"
-		parameterType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		update text
-		set noti_ttl = #{notiTtl}, txt_cntn =
-		#{txtCntn}, txt_pl = #{txtPl},
-		txt_file = #{file}
-		where noti_id =
-		#{notiId}
-	</update>
->>>>>>> refs/remotes/origin/main
 
 </mapper>

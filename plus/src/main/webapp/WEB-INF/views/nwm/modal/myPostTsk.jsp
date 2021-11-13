@@ -152,14 +152,10 @@ pageContext.setAttribute("replaceChar", "\n");
 										class="js-worker-profile thumbnail"
 										style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
 										<span class="js-registration-name">${tasks.memId }</span>
-										<button type="button" class="js-remove-worker remove-button"></button>
 								</span>
 								</span> <input type="text"
 									class="js-worker-input worker-search-input d-none"
 									placeholder="담당자 추가" style="display: none;">
-								<button id="addManagerBtn" type="button"
-									class="js-worker-button add-manager-button"
-									style="display: inline-block">담당자 변경</button>
 							</div>
 						</li>
 

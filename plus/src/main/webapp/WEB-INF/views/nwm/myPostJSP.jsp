@@ -366,7 +366,6 @@
 		// 내 게시물 모달창 (팝업)
 		$("#myPostContentUl > li").click(function(e) {
 			if ($(e.currentTarget).hasClass("highlight")) {
-				console.log("ddd===========================");
 				console.log($(e.currentTarget));
 				$(e.currentTarget).removeClass("highlight");
 				$("#postPopup").css("display", "none");

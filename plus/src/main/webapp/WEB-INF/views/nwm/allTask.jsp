@@ -72,7 +72,8 @@
 								</li>
 							</ul>
 						</div>
-
+						
+						<!-- 목록 -->
 						<section class="all-task-seaction">
 							<h3 class="blind">모든업무 목록</h3>
 							<div id="taskSortHeader" class="all-task-header scroll-for-ie">
@@ -123,7 +124,7 @@
 										</div> <!-- 프로젝트 안 업무 목록 -->
 										<ul id="allTskContentUl"
 											class="js-inner-task project-inner-task active"
-											style="display: none">
+											style="display: block">
 											<c:forEach var="dtasks" items="${task.taskDetail}">
 												<li class="task-item" data-notiid="${dtasks.notiId }">
 													<div class="js-task_num task-task_num-cell task-item-cell">
@@ -158,20 +159,13 @@
 													</div>
 													<div class="task-item-cell task-name task-task_nm-cell ">
 														<div
-<<<<<<< HEAD
-															class="js-post-title task-title ellipsis ">
-															${dtasks.notiTtl }
-															<em class="subtask-item" style="display: inline-block"> <i
-																class="icons-subtask"></i> <span class="subtask-number">하위업무갯수 넣기</span>
-															</em> 
-															
-=======
 															class="js-post-title task-title ellipsis js-mouseover">
-															${dtasks.notiTtl }<em class="subtask-item"
-																style="display: none"> <i class="icons-subtask"></i>
-																<span class="subtask-number">0</span>
+															${dtasks.notiTtl } <em class="subtask-item"
+																style="display: inline-block"> <i
+																class="icons-subtask"></i> <span class="subtask-number">하위업무갯수
+																	넣기</span>
 															</em>
->>>>>>> refs/remotes/origin/main
+
 														</div>
 														<div class="js-post-title project-title"
 															style="display: none">
@@ -179,23 +173,14 @@
 														</div>
 													</div>
 													<div class="js-workers task-item-cell task-worker_nm-cell ">
-<<<<<<< HEAD
-														<span class=""> <span
-=======
 														<span class="js-mouseover"> <span
->>>>>>> refs/remotes/origin/main
 															class="js-worker-name manager ellipsis">${dtasks.name}</span>
 															<span class="js-worker-count"></span>
 														</span>
 													</div>
 													<div class="js-workers task-item-cell task-worker_nm-cell ">
-<<<<<<< HEAD
-														<span class=""> <span
-															class="js-worker-name manager ellipsis">${dtasks.memId}</span>
-=======
 														<span class="js-mouseover"> <span
-															class="js-worker-name manager ellipsis">${dtasks.name}</span>
->>>>>>> refs/remotes/origin/main
+															class="js-worker-name manager ellipsis">${dtasks.memId}</span>
 															<span class="js-worker-count"></span>
 														</span>
 													</div>
@@ -218,6 +203,7 @@
 															<fmt:formatDate pattern="yyyy-MM-dd"
 																value="${dtasks.notiDttm}" />
 														</div>
+
 													</div>
 												</li>
 											</c:forEach>
@@ -225,6 +211,18 @@
 									</li>
 								</c:forEach>
 							</ul>
+
+
+
+
+							<!-- li 태그 넣기 -->
+							<ul id="taskListItem" class="d-none">
+								<li id="allTask-{COLABO_COMMT_SRNO}" class="task-item {LI_STTS}"
+									data-project-srno="{COLABO_SRNO}"
+									data-post-srno="{COLABO_COMMT_SRNO}"
+									data-task-srno="{TASK_SRNO}" data-post-code="4">업무 넣기</li>
+							</ul>
+
 
 							<!-- 전체 업무 > 설정 아이콘 > 보기설정 -->
 							<div id="taskSortSettingPopupItem" style="display: none">
@@ -247,7 +245,7 @@
 															<span class="task-set-move-handle"></span> <span
 																class="task-set-title">번호</span>
 															<button type="button"
-																class="js-sort-button toggle-button">
+																class="js-sort-button toggle-button active">
 																<!-- active 클래스 추가시 on -->
 																<i class="handle"></i>
 															</button>
@@ -258,7 +256,7 @@
 															<span class="task-set-move-handle"></span> <span
 																class="task-set-title">상태</span>
 															<button type="button"
-																class="js-sort-button toggle-button">
+																class="js-sort-button toggle-button active">
 																<i class="handle"></i>
 															</button>
 														</div>
@@ -278,7 +276,7 @@
 															<span class="task-set-move-handle"></span> <span
 																class="task-set-title">담당자</span>
 															<button type="button"
-																class="js-sort-button toggle-button">
+																class="js-sort-button toggle-button active">
 																<i class="handle"></i>
 															</button>
 														</div>
@@ -288,7 +286,7 @@
 															<span class="task-set-move-handle"></span> <span
 																class="task-set-title">작성자</span>
 															<button type="button"
-																class="js-sort-button toggle-button">
+																class="js-sort-button toggle-button active">
 																<i class="handle"></i>
 															</button>
 														</div>
@@ -298,7 +296,7 @@
 															<span class="task-set-move-handle"></span> <span
 																class="task-set-title">시작일</span>
 															<button type="button"
-																class="js-sort-button toggle-button">
+																class="js-sort-button toggle-button active">
 																<i class="handle"></i>
 															</button>
 														</div>
@@ -308,7 +306,7 @@
 															<span class="task-set-move-handle"></span> <span
 																class="task-set-title">마감일</span>
 															<button type="button"
-																class="js-sort-button toggle-button">
+																class="js-sort-button toggle-button active">
 																<i class="handle"></i>
 															</button>
 														</div>
@@ -318,7 +316,7 @@
 															<span class="task-set-move-handle"></span> <span
 																class="task-set-title">등록일시</span>
 															<button type="button"
-																class="js-sort-button toggle-button">
+																class="js-sort-button toggle-button active">
 																<i class="handle"></i>
 															</button>
 														</div>
@@ -326,9 +324,11 @@
 												</ul>
 												<div class="flow-pop-button-type-1">
 													<a href="#">
-														<div class="js-init-button flow-pop-sub-button-1">초기화</div>
+														<div id="resetListSettingBtn"
+															class="js-init-button flow-pop-sub-button-1">초기화</div>
 													</a> <a href="#">
-														<div class="js-save-button flow-pop-sub-button-2">저장</div>
+														<div id="saveListSettingBtn"
+															class="js-save-button flow-pop-sub-button-2">저장</div>
 													</a>
 												</div>
 											</div>
@@ -342,19 +342,18 @@
 			</div>
 		</div>
 	</div>
-	<!-- 전체 업무 (목록 접고 펼치기) -->
-	<script type="text/javascript">
+
+	<script>
+		// 전체 업무 (목록 접고 펼치기)
 		var main = document.querySelectorAll("#main");
 		$(main).click(function(event) {
+			console.log(event);
 			var et = $(event.target);
 			et.toggleClass("active");
 			et.next("ul").toggle();
-
 		});
-	</script>
 
-	<!-- 전체 업무 (보기 설정) -->
-	<script>
+		//전체 업무 보기 설정
 		$(document).ready(function() {
 			$("#taskSettingButton").click(function() {
 				$("#taskSortSettingPopupItem").css("display", "block");
@@ -363,23 +362,24 @@
 			$(".flow-close-type-1").click(function() {
 				$("#taskSortSettingPopupItem").css("display", "none");
 			});
+			
+			$("li > div > button").on("click", function() {
+				$(this).toggleClass("active");
+			});
+
+			// 보기 설정 하단버튼 (저장, 초기화)
+			$("#saveListSettingBtn").click(function() {
+				$("#taskSortSettingPopupItem").css("display", "none");
+			});
+			$("#resetListSettingBtn").click(function() {
+				$("li > div > button").addClass("active");
+			});
 		});
 
-		$("li > div > button").on("click", function() {
-			$(this).toggleClass("active");
-		});
-	</script>
-
-	<!-- highlight (상세보기 팝업)-->
-	<script>
+		//highlight (상세보기 팝업)-->
 		$("#allTskContentUl > li").click(function(e) {
-<<<<<<< HEAD
 			if ($(e.currentTarget).hasClass("highlight")) {
-				console.log("ddd===========================");
 				console.log($(e.currentTarget));
-=======
-			 if($(e.currentTarget).hasClass("highlight")){
->>>>>>> refs/remotes/origin/main
 				$(e.currentTarget).removeClass("highlight");
 				$("#postPopup").css("display", "none");
 			} else if (!$(e.currentTarget).hasClass("highlight")) {
@@ -391,6 +391,7 @@
 			}
 		});
 
+		// 팝업 호출 함수
 		function tskPopUpDetail(li) {
 
 			var notiId = li.data("notiid");
@@ -404,36 +405,24 @@
 				dataType : "html",
 				success : function(data) {
 					$("#modalBody").html(data);
-					for (var i = 0; i < data.length; i++) {
-						var item = data[i];
-					}
-<<<<<<< HEAD
-
 				}
-
-=======
-				}
->>>>>>> refs/remotes/origin/main
 			});
 		};
-<<<<<<< HEAD
 
-		// 전체 업무 목록 정렬
+		// 전체 업무 목록 정렬 (선택 -> toggle)
+		
+		
 		$("#selectNum").click(function() {
-			if (!$(".js-task-sort-inner-button").hasClass("descend")) {
-				$(this).addClass("descend");
+			if (!$("#num").hasClass("descend")) {
+				$("#num").addClass("descend");
 
 			} else if ($("#num").hasClass("descend")) {
 				$("#num").click(function(e) {
 					$("#num").removeClass("descend");
-					$(e.currentTarget).addClass(" ascend");
+					$(e.currentTarget).addClass("ascend");
 				});
-
 			}
-
 		});
-=======
->>>>>>> refs/remotes/origin/main
 	</script>
 
 

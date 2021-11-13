@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.plus.prj.nwm.service.NoticeWritingService;
 import co.plus.prj.nwm.vo.NoticeWritingVO;
@@ -32,20 +33,12 @@ public class NoticeWritingController {
 		return "nwm/allTask";
 	}
 	
-<<<<<<< HEAD
-	
-=======
->>>>>>> refs/remotes/origin/main
 	@RequestMapping("/myPost.do") // 전체 메뉴 -> 내 게시물 목록 
 	String myPost(HttpSession session, Model model, NoticeWritingVO vo) {
 		vo.setMemId((String)session.getAttribute("memId"));
 		model.addAttribute("notices", nwDao.myPost(vo));
 		return "nwm/myPostJSP";
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> refs/remotes/origin/main
 
 	@RequestMapping("/bookmark.do") // 전체 메뉴 -> 북마크
 	String bookmark(HttpSession session, Model model, NoticeWritingVO vo) {
@@ -64,15 +57,15 @@ public class NoticeWritingController {
 	@RequestMapping("/myPostTsk.do") // 내 게시물 목록 -> 업무 상세보기(팝업)
 	public String myPostTsk(HttpSession session, Model model, NoticeWritingVO vo) {
 		vo.setCoUrl((String)session.getAttribute("coUrl"));
+		System.out.println("===="+vo);
 		model.addAttribute("tasks", nwDao.myPostTsk(vo));
 		return "nwm/modal/myPostTsk"; 
 	 }
 	
 	@RequestMapping("/myPostSubtsk.do") // 내 게시물 목록 -> 하위업무 상세보기(팝업)
-	public String myPostSubtsk(HttpSession session, Model model, NoticeWritingVO vo) {
-		vo.setMemId((String)session.getAttribute("memId"));
-		model.addAttribute("subtasks",nwDao.myPostSubtsk(vo));
-		return "nwm/modal/myPostSubtsk";
+	@ResponseBody
+	public NoticeWritingVO myPostSubtsk(Model model, NoticeWritingVO vo) {
+		return nwDao.myPostSubtsk(vo); 
 	 }
 	
 	@RequestMapping("/myPostSche.do") // 내 게시물 목록 -> 일정 상세보기(팝업)
@@ -82,9 +75,11 @@ public class NoticeWritingController {
 	 }
 	
 	@RequestMapping("/myPostTodo.do") // 내 게시물 목록 -> 할일 상세보기(팝업)
-	public String myPostTodo(Model model, NoticeWritingVO vo) {
+	public String myPostTodo(HttpSession session, Model model, NoticeWritingVO vo) {
+		vo.setMemId((String)session.getAttribute("memId"));
+		System.out.println("===="+vo);
 		model.addAttribute("todos", nwDao.myPostTodo(vo));
 		return "nwm/modal/myPostTodo"; 
 	 }
 	
-
+}

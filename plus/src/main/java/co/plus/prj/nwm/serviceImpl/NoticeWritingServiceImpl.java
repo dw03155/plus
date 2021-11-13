@@ -28,18 +28,10 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 	}
 	@Override
 	public List<NoticeWritingVO> detailTaskList(NoticeWritingVO vo) {
-		// 전체업무 : 프로젝트별 업무 목록
+		// 전체 업무 -> 프로젝트 내 업무 목록
 		return map.detailTaskList(vo);
 	}
-	@Override
-	public NoticeWritingVO taskSelect(NoticeWritingVO vo) {
-		// 전체 업무 -> 업무 상세보기(팝업)
-		return null;
-	}
-<<<<<<< HEAD
-=======
 
->>>>>>> refs/remotes/origin/main
 	@Override
 	public List<NoticeWritingVO> bookMarkList(NoticeWritingVO vo) {
 		// 전체 메뉴 -> 북마크
@@ -48,9 +40,10 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 	@Override
 	public NoticeWritingVO bookMarkSelect(NoticeWritingVO vo) {
 		// 북마크 -> 북마크 상세보기(팝업)
-		return null;
+		return map.bookMarkSelect(vo);
 	}
 	
+	// 팝업
 	@Override
 	public NoticeWritingVO myPostTxt(NoticeWritingVO vo) {			
 		// 내 게시물 목록 -> 글 상세보기(팝업)
