@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import co.plus.prj.nwm.service.NoticeWritingService;
-import co.plus.prj.nwm.vo.NoticeWritingVO;
 import co.plus.prj.pnw.service.PNWService;
 import co.plus.prj.pnw.vo.PNWVO;
 
@@ -22,8 +20,6 @@ import co.plus.prj.pnw.vo.PNWVO;
 public class PNWController {
 	@Autowired
 	private PNWService service;
-	@Autowired
-	private NoticeWritingService nwDao;
 
 	// 내 프로젝트
 	@RequestMapping(value = "/myProject.do", method = RequestMethod.GET)
@@ -87,16 +83,17 @@ public class PNWController {
 		map.put("project", vo);
 		return map;
 	}
-	// 폴더 메뉴
+	// 프로젝트폴더 메뉴
 	@RequestMapping(value = "/folderMenu.do",  method = RequestMethod.POST)
 	@ResponseBody
 	public List<PNWVO> folderMenu(HttpSession session, Model model, PNWVO vo) {
 		return service.folderMenu(vo);
 	}
 	
-	//@RequestMapping("/allSchedule.do") // 전체 메뉴 -> 캘린더
-	//String allSche(Model model, NoticeWritingVO vo) {
-	//	model.addAttribute("sches",nwDao.allSche(vo));
-	//	return "home/allSchedule"; 		
-	//}
+	// 스케쥴 메뉴
+	@RequestMapping("/allSchedule.do")
+	public String allSche(Model model, PNWVO vo) {
+		//model.addAttribute("sches",service.allSchedule(vo));
+		return "home/allSchedule"; 		
+	}
 }
