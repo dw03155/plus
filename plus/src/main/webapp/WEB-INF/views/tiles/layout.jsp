@@ -812,8 +812,9 @@ to {
 						$("#allFolderUl").append(
 								$("<li />").addClass("label-item").append(
 									$("<input />").attr("type","hidden").val(data[i].foldId),
-									$("<i />").addClass("ico-label"),$("<span />").addClass("js-label-name js-mouseover ellipsis").text(data[i].foldName),
-									$("<a />").attr("href","#").addClass("js-label-setting-button flow-dash-three")
+									$("<i />").addClass("ico-label"),
+									$("<span />").addClass("js-label-name js-mouseover ellipsis").text(data[i].foldName),
+									$("<a />").attr("href","javascript:void(0)").attr("onclick","FolderSetting(e)").attr("folderNo",data[i].foldId).addClass("js-label-setting-button flow-dash-three")
 										.append($('<div />'),$('<div />'),$('<div />'))));
 					} //end of for
 				} //end of if
@@ -859,7 +860,12 @@ to {
 			}
 		});
 		
-		/* $("").on("click", function() { // 프로젝트 폴더명 수정하기 팝업
+		function FolderSetting(e) {
+			console.log(e.target);
+			console.log(e.currentTarget);
+		}
+		
+		/* $("").on("click", function() { // 프로젝트 폴더명 수정하기 팝업 열기
 			$("#overlay").css("display", "block");
 			$("#prjFolderUpdate").css("display", "block");
 		}); */

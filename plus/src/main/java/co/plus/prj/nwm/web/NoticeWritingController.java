@@ -34,23 +34,11 @@ public class NoticeWritingController {
 		return "nwm/allTask";
 	}
 	
-	@RequestMapping("/allSche.do") // 전체 메뉴 -> 캘린더
-	String allSche(Model model, NoticeWritingVO vo) {
-		model.addAttribute("sches",nwDao.allSche(vo));
-		return "nwm/allSchedule"; 		
-	}
-	
 	@RequestMapping("/myPost.do") // 전체 메뉴 -> 내 게시물 목록 
 	String myPost(HttpSession session, Model model, NoticeWritingVO vo) {
 		vo.setMemId((String)session.getAttribute("memId"));
 		model.addAttribute("notices", nwDao.myPost(vo));
 		return "nwm/myPostJSP";
-	}
-	
-	@RequestMapping("/allFile.do") // 전체 메뉴 -> 파일함
-	String allFile(Model model, NoticeWritingVO vo) {
-		
-		return "nwm/allFile";
 	}
 
 	@RequestMapping("/bookmark.do") // 전체 메뉴 -> 북마크
@@ -95,29 +83,10 @@ public class NoticeWritingController {
 		return "nwm/modal/myPostTodo"; 
 	 }
 	
-
-	
-	// 프로젝트 선택 후 메뉴
-	@RequestMapping("/totalNotice.do")	// 프로젝트 선택 -> 홈 (게시물 목록 조회)
-	String totalNotice(Model model, NoticeWritingVO vo) {
-		model.addAttribute("totals", nwDao.totalNotice(vo));
-		return "nwm/totalNotice";
-	}
-	
-	@RequestMapping("/tskList.do") 		// 프로젝트 선택 후 -> 업무 (1개 프로젝트)
-	String tskList(Model model, NoticeWritingVO vo) {
-		model.addAttribute("tsk", nwDao.tskList(vo));
-		return "nwm/totalNotice";
-	}
-	
-	
 	// 게시물 수정 폼 호출
 	@RequestMapping(value = "/textForm.do", method =  RequestMethod.POST)
-
-
 	@ResponseBody
 	public String textForm( int notiId, Model model){
-		
 		return "nwm/textForm";
 	}
 	

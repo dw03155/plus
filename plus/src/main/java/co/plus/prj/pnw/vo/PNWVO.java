@@ -72,7 +72,7 @@ public class PNWVO {
 	private String todoYn;			// 할일 완료 여부
 	private String todoId;			// 할일 번호
 	
-	// Sche
+	// Schedule
 	private Date scheDttm; 			// 일정 작성 일시
 	private String schePl;			// 일정 장소
 	private String scheCntn;		// 일정 내용

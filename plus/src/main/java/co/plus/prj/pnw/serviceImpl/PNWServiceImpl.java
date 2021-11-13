@@ -38,10 +38,19 @@ public class PNWServiceImpl implements PNWService {
 	}
 
 	@Override
-	public List<PNWVO> openProject(PNWVO vo) { // 회사 프로젝트
+	public List<PNWVO> openProject(PNWVO vo) { // 전체 프로젝트
 		return map.openProject(vo);
 	}
-
+	
+	@Override
+	public List<PNWVO> allSchedule(PNWVO vo) { // 스케줄
+		return map.allSchedule(vo);
+	}
+	@Override
+	public List<PNWVO> allFile(PNWVO vo) { // 파일함
+		return map.allFile(vo);
+	}
+	
 	@Override
 	public List<PNWVO> folderMenu(PNWVO vo) { // 프로젝트 폴더 메뉴
 		return map.folderMenu(vo);
