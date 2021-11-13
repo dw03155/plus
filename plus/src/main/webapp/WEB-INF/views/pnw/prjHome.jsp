@@ -5,7 +5,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
-
+<style>
+.parti_st {
+	display: inline-block;
+    width: 15px;
+    position: relative;
+    top: 27px;
+    left: -14px;
+}
+</style>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -203,8 +211,8 @@
 							<div class="project-detail-content">
 
 								<div>
-									<div class="detail-section reports-section">
-										<c:if test="${tskAllCnt != 0}">
+									<c:if test="${tskAllCnt != 0}">
+										<div class="detail-section reports-section">
 											<div class="section-title-area">
 												<h4 class="section-title">
 													<span>업무리포트</span> <span class="section-number">${tskAllCnt}</span>
@@ -259,8 +267,8 @@
 												</div>
 											</div>
 											<!-- //원형차트 -->
-										</c:if>
-									</div>
+										</div>
+									</c:if>
 								</div>
 								<!-- 글 입력하기 -->
 								<div id="createPostArea" class="work-design-wrapper">
@@ -291,12 +299,14 @@
 							<!-- 상단고정 -->
 							<div id="projectPinArea"
 								class="detail-section fix-section d-none" style="display: block">
-								<div class="section-title-area">
-									<h4 class="section-title">
-										<span>상단고정</span> <span id="projectPinCount"
-											class="section-number">${fn:length(pincettes)}</span>
-									</h4>
-								</div>
+								<c:if test="${fn:length(pincettes) != 0}">
+									<div class="section-title-area">
+										<h4 class="section-title">
+											<span>상단고정</span> <span id="projectPinCount"
+												class="section-number">${fn:length(pincettes)}</span>
+										</h4>
+									</div>
+								</c:if>
 								<ul id="pinPostUl" class="pin-list fixed-list">
 									<c:forEach var="pincette" items="${pincettes}">
 										<li class="js-pin-item"><a href="#"> <!-- 글 class="icons-write2" 할일 class="icons-todo" 일정 class="icons-schedule"-->
@@ -409,104 +419,117 @@
 
 								<!-- 게시글 목록 -->
 								<div class="feed-content">
-									<ul id="detailUl" class="post-group list"
-										style="display: block">
-										<!-- 반복 시작 -->
-										<c:forEach var="nwList" items="${nwLists}">
-											<li id="myPcontent"
-												class="js-popup-before detail-item back-area">
-												<div class="js-post-nav list-item post-list-wrapper">
-													<div class="fixed-list">
-														<a href="#"> <!-- 새로운 글 표시 --> <i
-															class="js-indication display-new-indication"
-															style="display: none"></i> <!-- 글 class="icons-write2" 할일 class="icons-todo" 일정 class="icons-schedule"-->
-															<c:if test="${nwList.notiKnd=='text'}">
-																<c:set var="notiKindIcon" value="icons-write2" />
-																<c:set var="notiKindSpan" value="글" />
-															</c:if> <c:if test="${nwList.notiKnd=='todo'}">
-																<c:set var="notiKindIcon" value="icons-todo" />
-																<c:set var="notiKindSpan" value="할일" />
-															</c:if> <c:if test="${nwList.notiKnd=='schedule'}">
-																<c:set var="notiKindIcon" value="icons-schedule" />
-																<c:set var="notiKindSpan" value="일정" />
-															</c:if> <c:if test="${nwList.notiKnd=='task'}">
-																<c:set var="notiKindIcon" value="icons-task" />
-																<c:set var="notiKindSpan" value="업무" />
-															</c:if> <c:if test="${nwList.notiKnd=='subtask'}">
-																<c:set var="notiKindIcon" value="icons-task" />
-																<c:set var="notiKindSpan" value="하위업무" />
-															</c:if>
-															<div class="fixed-kind">
-																<i class="${notiKindIcon}"></i> <span>${notiKindSpan}</span>
-															</div>
-
-															<p class="js-post-title fixed-text ${taskStyle}">
-																${nwList.notiTtl}</p>
-
-															<div class="post-list-right">
-																<div class="post-list name">${nwList.name}</div>
-																<div class="post-list date">
-																	<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
-																		value="${nwList.notiDttm}" />
+									<c:if test="${fn:length(nwLists) != 0}">
+										<ul id="detailUl" class="post-group list"
+											style="display: block">
+											<!-- 반복 시작 -->
+											<c:forEach var="nwList" items="${nwLists}">
+												<li id="myPcontent"
+													class="js-popup-before detail-item back-area">
+													<div class="js-post-nav list-item post-list-wrapper">
+														<div class="fixed-list">
+															<a href="#"> <!-- 새로운 글 표시 --> <i
+																class="js-indication display-new-indication"
+																style="display: none"></i> <!-- 글 class="icons-write2" 할일 class="icons-todo" 일정 class="icons-schedule"-->
+																<c:if test="${nwList.notiKnd=='text'}">
+																	<c:set var="notiKindIcon" value="icons-write2" />
+																	<c:set var="notiKindSpan" value="글" />
+																</c:if> <c:if test="${nwList.notiKnd=='todo'}">
+																	<c:set var="notiKindIcon" value="icons-todo" />
+																	<c:set var="notiKindSpan" value="할일" />
+																</c:if> <c:if test="${nwList.notiKnd=='schedule'}">
+																	<c:set var="notiKindIcon" value="icons-schedule" />
+																	<c:set var="notiKindSpan" value="일정" />
+																</c:if> <c:if test="${nwList.notiKnd=='task'}">
+																	<c:set var="notiKindIcon" value="icons-task" />
+																	<c:set var="notiKindSpan" value="업무" />
+																</c:if> <c:if test="${nwList.notiKnd=='subtask'}">
+																	<c:set var="notiKindIcon" value="icons-task" />
+																	<c:set var="notiKindSpan" value="하위업무" />
+																</c:if>
+																<div class="fixed-kind">
+																	<i class="${notiKindIcon}"></i> <span>${notiKindSpan}</span>
 																</div>
 
-																<div class="fixed-value">
-																	<!-- 업무일 때 -->
-																	<c:if
-																		test="${nwList.notiKnd=='task' or nwList.notiKnd=='subtask'}">
-																		<c:if test="${nwList.addList=='withhold'}">
-																			<c:set var="taskPrgSpan" value="hold" />
-																			<c:set var="taskPrgText" value="보류" />
+																<p class="js-post-title fixed-text ${taskStyle}">
+																	${nwList.notiTtl}</p>
+
+																<div class="post-list-right">
+																	<div class="post-list name">${nwList.name}</div>
+																	<div class="post-list date">
+																		<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+																			value="${nwList.notiDttm}" />
+																	</div>
+
+																	<div class="fixed-value">
+																		<!-- 업무일 때 -->
+																		<c:if
+																			test="${nwList.notiKnd=='task' or nwList.notiKnd=='subtask'}">
+																			<c:if test="${nwList.addList=='withhold'}">
+																				<c:set var="taskPrgSpan" value="hold" />
+																				<c:set var="taskPrgText" value="보류" />
+																			</c:if>
+																			<c:if test="${nwList.addList=='progress'}">
+																				<c:set var="taskPrgSpan" value="progress" />
+																				<c:set var="taskPrgText" value="진행" />
+																			</c:if>
+																			<c:if test="${nwList.addList=='request'}">
+																				<c:set var="taskPrgSpan" value="request" />
+																				<c:set var="taskPrgText" value="요청" />
+																			</c:if>
+																			<c:if test="${nwList.addList=='feedback'}">
+																				<c:set var="taskPrgSpan" value="feedback" />
+																				<c:set var="taskPrgText" value="피드백" />
+																			</c:if>
+																			<c:if test="${nwList.addList=='complete'}">
+																				<c:set var="taskPrgSpan" value="completion" />
+																				<c:set var="taskPrgText" value="완료" />
+																			</c:if>
+																			<span
+																				class="js-task-state js-todo-state state d-none ${taskPrgSpan}"
+																				style="display: inline-block">${taskPrgText}</span>
 																		</c:if>
-																		<c:if test="${nwList.addList=='progress'}">
-																			<c:set var="taskPrgSpan" value="progress" />
-																			<c:set var="taskPrgText" value="진행" />
+																		<!-- 일정일 때 -->
+																		<c:if test="${nwList.notiKnd=='schedule'}">
+																			<div class="js-schedule-state date-time d-none"
+																				style="display: block">
+																				<em class="date"> <fmt:parseDate
+																						value="${nwList.addList}" pattern="YY/MM/dd"
+																						var="addDate" /> <fmt:formatDate
+																						value="${addDate}" pattern="MM/dd" /></em> <span>
+																					<fmt:parseDate pattern="YY/MM/dd"
+																						value="${nwList.addList}" var="addTime" /> <fmt:formatDate
+																						value="${addTime}" pattern="HH:mm" />
+																				</span>
+																			</div>
 																		</c:if>
-																		<c:if test="${nwList.addList=='request'}">
-																			<c:set var="taskPrgSpan" value="request" />
-																			<c:set var="taskPrgText" value="요청" />
+																		<!-- 할일일 때 -->
+																		<c:if test="${nwList.notiKnd=='todo'}">
+																			<span
+																				class="js-task-state js-todo-state state request"
+																				style="display: inline-block">${nwList.addList}%</span>
 																		</c:if>
-																		<c:if test="${nwList.addList=='feedback'}">
-																			<c:set var="taskPrgSpan" value="feedback" />
-																			<c:set var="taskPrgText" value="피드백" />
-																		</c:if>
-																		<c:if test="${nwList.addList=='complete'}">
-																			<c:set var="taskPrgSpan" value="completion" />
-																			<c:set var="taskPrgText" value="완료" />
-																		</c:if>
-																		<span
-																			class="js-task-state js-todo-state state d-none ${taskPrgSpan}"
-																			style="display: inline-block">${taskPrgText}</span>
-																	</c:if>
-																	<!-- 일정일 때 -->
-																	<c:if test="${nwList.notiKnd=='schedule'}">
-																		<div class="js-schedule-state date-time d-none"
-																			style="display: block">
-																			<em class="date"> <fmt:parseDate
-																					value="${nwList.addList}" pattern="YY/MM/dd"
-																					var="addDate" /> <fmt:formatDate
-																					value="${addDate}" pattern="MM/dd" /></em> <span>
-																				<fmt:parseDate pattern="YY/MM/dd"
-																					value="${nwList.addList}" var="addTime" /> <fmt:formatDate
-																					value="${addTime}" pattern="HH:mm" />
-																			</span>
-																		</div>
-																	</c:if>
-																	<!-- 할일일 때 -->
-																	<c:if test="${nwList.notiKnd=='todo'}">
-																		<span
-																			class="js-task-state js-todo-state state request"
-																			style="display: inline-block">${nwList.addList}%</span>
-																	</c:if>
+																	</div>
 																</div>
-															</div>
-														</a>
+															</a>
+														</div>
 													</div>
-												</div>
-											</li>
-										</c:forEach>
-										<!-- 반복 끝 -->
-									</ul>
+												</li>
+											</c:forEach>
+											<!-- 반복 끝 -->
+										</ul>
+									</c:if>
+									<c:if test="${fn:length(nwLists) == 0}">
+										<div id="noDetailData" class="detail-data-none">
+											<img src="/flow-renewal/assets/images/none_member.png"
+												alt="함께할 멤버들을 지금 초대해 보세요!">
+											<p class="none-text">
+												아직 참여중인 멤버들이 없습니다<br> 함께할 멤버들을 지금 초대해 보세요!
+											</p>
+											<button id="noDetailDataBnt" type="button"
+												class="data-none-button invite">초대하기</button>
+										</div>
+									</c:if>
 								</div>
 							</div>
 						</section>
@@ -539,10 +562,13 @@
 															<span
 																class="js-participant-profile thumbnail size40 radius16"
 																style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
+															<img id="mem_st_icon" alt="on"
+																src="/img/status_icn/${pm.memSt}.png" class="parti_st">
 															<dl class="post-author-info">
 																<dt>
-																	<strong class="js-participant-name author ellipsis">${pm.name}</strong>
-																	<em class="position ellipsis">${pm.wkpo}</em>
+																	<strong class="js-participant-name author ellipsis">${pm.name}
+																		<c:if test="${sessionScope.name eq pm.name}">(나)</c:if>
+																	</strong> <em class="position ellipsis">${pm.wkpo}</em>
 																</dt>
 																<dd>
 																	<strong class="company">${pm.coUrl}</strong> <span
@@ -567,9 +593,12 @@
 															<span
 																class="js-participant-profile thumbnail size40 radius16"
 																style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
+															<img id="mem_st_icon" alt="on"
+																src="/img/status_icn/${user.memSt}.png" class="parti_st">
 															<dl class="post-author-info">
 																<dt>
-																	<strong class="js-participant-name author ellipsis">${user.name}</strong>
+																	<strong class="js-participant-name author ellipsis">${user.name}
+																		<c:if test="${sessionScope.name eq pm.name}">(나)</c:if></strong>
 																	<em class="position ellipsis">${user.wkpo}</em>
 																</dt>
 																<dd>
@@ -595,9 +624,12 @@
 															<span
 																class="js-participant-profile thumbnail size40 radius16"
 																style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
+															<img id="mem_st_icon" alt="on"
+																src="/img/status_icn/${guest.memSt}.png" class="parti_st">
 															<dl class="post-author-info">
 																<dt>
-																	<strong class="js-participant-name author ellipsis">${guest.name}</strong>
+																	<strong class="js-participant-name author ellipsis">${guest.name}
+																		<c:if test="${sessionScope.name eq pm.name}">(나)</c:if></strong>
 																	<em class="position ellipsis">${guest.wkpo}</em>
 																</dt>
 																<dd>
@@ -729,396 +761,6 @@
 	</div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-	<!-- 게시물 입력 팝업 -->
-	<div id="projectMakeLayer"
-		class="flow-all-background-1 d-none back-area">
-		<div class="flow-project-make-1 back-area">
-			<div class="flow-project-make-2 back-area">
-				<div class="input-main-layer flow-project-popup-1 d-block">
-					<div class="flow-project-header-1">
-						<span id="projectMakePopupTitle"></span>
-						<button class="js-service-helper js-mouseover">
-							<i class="icons-help"></i>
-						</button>
-						<a href="#"
-							class="js-project-make-close-btn flow-close-type-1 close-event"></a>
-					</div>
-					<div class="flow-content scroll-mask">
-						<div class="flow-content-1">
-							<input id="projectTitleInput" type="text"
-								placeholder="제목을 입력하세요." maxlength="50" autocomplete="off"
-								data-empty-msg="제목을 입력하세요." data-over-msg="제목은 50자 이하로 입력하세요."
-								data-required-yn="Y">
-						</div>
-						<div class="flow-content-2">
-							<textarea id="projectContentsInput"
-								placeholder="프로젝트에 관한 설명 입력 (옵션)" data-required-yn="N"></textarea>
-						</div>
-						<div class="flow-content-3">
-							옵션
-							<button class="js-service-helper js-mouseover"
-								service-code="OPTION">
-								<i class="icons-help"></i>
-							</button>
-						</div>
-						<a href="#"> </a>
-						<div class="open-yn check-setting flow-content-4"
-							style="display: none">
-							<a> <em></em> 회사 공개 프로젝트 설정
-							</a>
-							<button class="js-sendience-service-helper js-mouseover"
-								mouseover-text="회사 직원이라면 누구나 직접 참여를 요청할 수 있도록 설정합니다.">
-								<i class="icons-question"></i>
-							</button>
-							<a href="#">
-								<button type="button"
-									class="toggle-button check-area js-project-open-toggle">
-									<!-- active 클래스로 제어  -->
-									<i class="handle"></i>
-								</button>
-							</a>
-						</div>
-
-						<a href="#">
-							<div class="open-category-setting flow-content-8 d-none">
-								<em></em> 회사 공개 프로젝트 카테고리 설정
-								<div class="flow-sub-content-1">
-									<span id="categoryName" class="category-name">선택</span><em></em>
-									<i></i>
-								</div>
-							</div>
-						</a> <a href="#"> </a>
-						<div class="manager-permit-yn check-setting flow-content-5">
-							<a> <em></em> 관리자 승인 후 참여 가능
-							</a>
-							<button class="js-sendience-service-helper js-mouseover"
-								mouseover-text="프로젝트 관리자의 승인 이후에 참여할 수 있도록 설정합니다.">
-								<i class="icons-question"></i>
-							</button>
-							<a href="#">
-								<button type="button"
-									class="toggle-button check-area js-project-toggle">
-									<!-- active 클래스로 제어  -->
-									<i class="handle"></i>
-								</button>
-							</a>
-						</div>
-
-						<a href="#">
-							<div class="more-option-button flow-content-6">
-								<em class="main-return-event"></em> 추가 설정
-								<div class="flow-sub-content-1">
-									<span class="category-name"></span><em></em> <i></i>
-								</div>
-							</div>
-						</a>
-					</div>
-					<a href="#">
-						<div class="project-submit flow-content-7 un-value">만들기</div>
-					</a>
-				</div>
-				<div class="open-category-layer flow-project-popup-2 d-none">
-					<div class="flow-project-header-1">
-						<a href="#"><em class="main-return-event"></em></a> 회사 공개 프로젝트
-						카테고리 설정 <a href="#" class="flow-close-type-1 close-event"></a>
-
-					</div>
-					<div class="flow-content scroll-mask">
-						<div class="flow-category-option-1">
-							<ul class="open-category-ul"></ul>
-						</div>
-					</div>
-					<div class="flow-pop-button-type-1">
-						<a href="#">
-							<div class="main-return-event flow-pop-sub-button-1">이전으로</div>
-						</a> <a href="#">
-							<div class="open-category-submit flow-pop-sub-button-2">적용
-							</div>
-						</a>
-					</div>
-				</div>
-				<div class="more-option-layer flow-project-popup-1 d-none">
-					<div class="flow-project-header-1">
-						<a href="#"><em class="main-return-event"></em></a> 추가 설정
-						<button class="btn-close close-event">
-							<i class="icons-close-1"></i>
-						</button>
-					</div>
-					<div class="flow-content scroll-mask">
-						<div class="more-option-group">
-							<dl class="flow-more-option-1 write-option">
-								<dt>글 작성 권한</dt>
-								<dd class="check-area" data-manager-write-yn="N">
-									<a href="#"><em></em>전체</a>
-								</dd>
-								<dd class="check-area" data-manager-write-yn="Y">
-									<a href="#"><em></em> 프로젝트 관리자만</a>
-								</dd>
-							</dl>
-							<dl class="flow-more-option-1 remark-write-option">
-								<dt>댓글 작성 권한</dt>
-								<dd class="check-area" data-manager-remark-write-yn="N">
-									<a href="#"><em></em>전체</a>
-								</dd>
-								<dd class="check-area" data-manager-remark-write-yn="Y">
-									<a href="#"><em></em> 프로젝트 관리자만</a>
-								</dd>
-							</dl>
-							<dl class="flow-more-option-1 lookup-option">
-								<dt class="clearfix">
-									글/댓글 조회 권한
-									<button class="js-sendience-service-helper js-mouseover"
-										mouseover-text="게시물 조회 권한을 설정합니다.">
-										<i class="icons-question"></i>
-									</button>
-									<span class="flow-more-option-alert-txt"> 프로젝트 생성 후에는 권한
-										변경이 불가능 합니다 </span>
-								</dt>
-								<dd class="check-area" data-manager-lookup-yn="N">
-									<a href="#"><em></em>전체</a>
-								</dd>
-								<dd class="check-area" data-manager-lookup-yn="Y">
-									<a href="#"><em></em> 프로젝트 관리자 + 글 작성 본인만</a>
-								</dd>
-							</dl>
-							<dl class="flow-more-option-3 download-option">
-								<dt>
-									파일 조회/다운로드 권한
-									<button class="js-sendience-service-helper js-mouseover"
-										mouseover-text="첨부 파일, 이미지의 다운로드 및 열람 모두 제한됩니다.">
-										<i class="icons-question"></i>
-									</button>
-								</dt>
-								<dd class="check-area" data-manager-download-yn="N">
-									<a href="#"><em></em>전체</a>
-								</dd>
-								<dd class="check-area" data-manager-download-yn="Y">
-									<a href="#"><em></em> 프로젝트 관리자 + 글 작성 본인만</a>
-								</dd>
-							</dl>
-						</div>
-					</div>
-					<div class="flow-pop-button-type-1">
-						<a href="#">
-							<div class="main-return-event flow-pop-sub-button-1">이전으로</div>
-						</a> <a href="#">
-							<div class="more-option-submit flow-pop-sub-button-2">확인</div>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-
-	<!-- 초대하기 클릭시 팝업 -->
-	<div id="inviteLayer" class="flow-all-background-1 d-none">
-		<div class="window_top rigVer" style="display: none">
-			<!-- 우측정렬 class="rigVer" 추가 -->
-			<div class="dragArea"
-				style="display: list-item; -webkit-app-region: drag;"></div>
-		</div>
-		<div class="flow-project-make-1">
-			<div class="flow-project-make-2">
-				<div id="inviteMainLayer" class="detail-popup-type-1"
-					style="display: none">
-					<div id="copyLinkAlam" class="detail-alarm-type-1 d-none">초대링크를
-						클립보드에 복사했습니다.</div>
-					<div class="detail-popup-header-1">
-						<span id="inviteTitle" class="invite-title ellipsis"><i
-							class="project-color color-code-9"></i></span> <a
-							class="closeInviteLayerBtn" href="#"><em></em></a>
-					</div>
-					<ul id="inviteUl">
-						<li id="openTeamInvite"><a href="#">
-								<div class="detail-popup-icon-1">
-									<span></span>
-								</div>
-								<div class="detail-popuplist-type-1">
-									<span>회사 직원 초대</span> <em>회사 직원 또는 조직도를 확인하고 초대할 수 있습니다.</em>
-								</div>
-						</a></li>
-						<li id="openSendEml"><a href="#">
-								<div class="detail-popup-icon-3">
-									<span></span>
-								</div>
-								<div class="detail-popuplist-type-1">
-									<span>이메일 초대장 발송</span> <em>초대장을 이메일로 발송할 수 있습니다.</em>
-								</div>
-						</a></li>
-					</ul>
-				</div>
-
-				<!-- 이메일 초대장 발송 -->
-				<div id="sendInviteEmlLayer"
-					class="send-invite-email name-type-seach-popup-type-1"
-					style="display: none">
-					<div class="name-type-seach-popup-header-type-1 margin-bottom-20">
-						<a href="#"><em class="returnMainBtn"></em></a> <span>이메일
-							초대장 발송</span>
-						<button class="btn-close closeInviteLayerBtn">
-							<i class="icons-close-1"></i>
-						</button>
-					</div>
-					<div class="invite-email-area scroll-mask">
-						<div class="invite-email-list " id="emailList"></div>
-						<a id="addEmail" href="#" class="email-plus-type-1"><em></em><span>이메일
-								추가</span></a>
-						<div class="flow-email-plus-type-1">초대내용 입력</div>
-						<div class="flow-email-bottom-section-1">
-							<div id="inviteMsg" contenteditable="true"
-								class="flow-email-bottom-text-1">
-								<p>
-									플로우로 업무관리, 채팅, 파일공유를 한 곳에서! <br>아이폰, 안드로이드는 물론 PC에서도
-									사용해보세요.
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="flow-pop-button-type-1">
-						<a href="#">
-							<div class="flow-pop-sub-button-1 returnMainBtn">취소</div>
-						</a> <a href="#">
-							<div id="sendInviteEmail" class="flow-pop-sub-button-2">초대</div>
-						</a>
-					</div>
-				</div>
-
-				<div id="teamInviteLayer" class="name-type-seach-popup-type-1"
-					style="display: none">
-					<div class="name-type-seach-popup-header-type-1">
-						<a href="#"><em class="returnMainBtn"></em></a> <span
-							id="teamInviteHeader">회사 직원 초대</span>
-						<button class="btn-close closeInviteLayerBtn">
-							<i class="icons-close-1"></i>
-						</button>
-					</div>
-					<div class="all-setup-type-2">
-						<i class="icons-search"></i> <input type="text"
-							id="teamInviteSearch" class="coperate-input-type-1"
-							placeholder="이름 소속 연락처 내선 검색" autocomplete="off">
-					</div>
-					<div id="teamInviteMenu" class="team-wrap-invite-type-1">
-						<a id="memberMenu" href="#">
-							<div class="team-job-invite-type-1">구성원</div>
-						</a> <a id="orgChartMenu" href="#">
-							<div class="team-job-invite-type-1">조직도</div>
-						</a>
-					</div>
-					<div class="coperate-icon-list-type-1" style="display: block;">
-						<ul id="selectMemberList">
-						</ul>
-					</div>
-					<div id="teamInviteArea"
-						class="group-tree-wrap-1 coperate-section-position-fix-1 scroll-mask">
-						<ul id="inviteOrgChart" class="d-none">
-						</ul>
-						<ul id="inviteMemberList"
-							class="participants-list invite-member-list">
-						</ul>
-					</div>
-					<div id="inviteEmplArea"
-						class="sub-drag-section-2 invite-empl-area coperate-section-position-fix-1"
-						style="display: none;">
-						<div class="line-fixed-section-1"></div>
-						<div class="sub-drag-header-type-2">
-							<span id="emplList-dvsnName"></span> <span id="resultSearch"
-								class="empl-search-text d-none">검색 결과</span> <a
-								id="emplAreaCloseBtn" href="#" class="group-close-type-1"></a>
-						</div>
-						<div class="sub-drag-picture-section-1">
-							<div id="existEmplData" style="display: none">
-								<ul id="organizationChart-emplList">
-								</ul>
-							</div>
-							<div id="nullEmplData" class="null-empl-search"
-								style="display: none">
-								<div class="group-sub-null-type-1"></div>
-								<span>검색 결과가 없습니다.</span>
-							</div>
-						</div>
-					</div>
-					<div class="flow-pop-button-type-1">
-						<a href="#">
-							<div class="flow-pop-sub-button-1 returnMainBtn">취소</div>
-						</a> <a href="#">
-							<div id="submitInvite" class="flow-pop-sub-button-2">확인</div>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="tempEmailItem" style="display: none">
-		<div class="input-email-type-wrap-1 emailItem">
-			<input type="text" class="input-email-type-1 emailItemInput"
-				placeholder="example@flow.team" data-valid="email" maxlength="50"
-				data-required-yn="Y" data-empty-msg="이메일을 작성해주세요!"
-				data-over-msg="이메일은 50자이내로 작성해주세요!"
-				data-un-valid-msg="올바른 이메일을 작성해주세요!"> <a class="deleteEmail"
-				href="#"></a>
-		</div>
-	</div>
-	<div id="selectMemberItem" style="display: none">
-		<li rcvr_cd="{rcvr-cd}" rcvr_gb="{rcvr-gb}" id="{id}"><i
-			{profile}=""></i> <a href="#"> <span class="member-name ellipsis">{name}</span>
-		</a> <a href="#"> <em class="deleteMemberItem"></em>
-		</a></li>
-	</div>
-	<div id="selectDvsnItem" style="display: none">
-		<li rcvr_cd="{rcvr-cd}" rcvr_gb="{rcvr-gb}" id="{id}"><a href="#">
-				<span class="member-name ellipsis">{dvsn_name}</span>
-		</a> <a href="#"> <em class="deleteMemberItem"></em>
-		</a></li>
-	</div>
-
-
-
-
-
-
-	<!-- 참여자 관리 popup-->
-	<div id="allSendiencePopup" class="flow-all-background-1"
-		style="display: none;">
-		<div class="flow-project-make-1">
-			<div class="flow-project-make-2">
-				<div id="allSendienceLayer" class="project-invite-popup-1">
-					<div class="name-type-seach-popup-header-type-1">
-						<span>참여자 관리</span>
-						<button class="js-sendience-service-helper js-mouseover">
-							<i class="icons-help"></i>
-						</button>
-						<button id="closeButton" class="btn-close">
-							<i class="icons-close-1"></i>
-						</button>
-					</div>
-					<div class="all-setup-type-2">
-						<i class="icons-search"></i> <input type="text"
-							id="allSendienceSearch" class="coperate-input-type-1"
-							placeholder="참여자명으로 검색">
-					</div>
-					<div
-						class="sub-drag-picture-section-1 overflow-scroll-type-1  scroll-mask">
-						<ul id="allSendienceUl" class="all-sendience-ul">
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<script>
 		$("#taskReportToggleButton").on("click", function() {
 			$("#taskReportToggleButton").toggleClass("off");

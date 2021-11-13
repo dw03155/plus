@@ -16,13 +16,18 @@ public interface NoticeWritingService {
 
 	List<NoticeWritingVO> myPostTodo(NoticeWritingVO vo); 		// 내 게시물 목록 -> 할일 상세보기(팝업)
 										
-			// 내 게시물 개수 
+	// 내 게시물 개수 
 	 
-	 List<NoticeWritingVO> allTask(NoticeWritingVO vo); 				// 전체 메뉴 -> 전체 업무 (프로젝트 항목)
-	 List<NoticeWritingVO> detailTaskList(NoticeWritingVO vo);				// 임시) 전체 업무 
-	 NoticeWritingVO taskSelect(NoticeWritingVO vo);					// 전체 업무 -> 업무 상세보기(팝업)
+	List<NoticeWritingVO> allTask(NoticeWritingVO vo); 				// 전체 메뉴 -> 전체 업무 (프로젝트 항목)
+	List<NoticeWritingVO> detailTaskList(NoticeWritingVO vo);				// 임시) 전체 업무 
+	NoticeWritingVO taskSelect(NoticeWritingVO vo);					// 전체 업무 -> 업무 상세보기(팝업)
 	 
+<<<<<<< HEAD
 	 List<NoticeWritingVO> bookMarkList(NoticeWritingVO vo);			// 전체 메뉴 -> 북마크
 	 NoticeWritingVO bookMarkSelect(NoticeWritingVO vo);				// 북마크 -> 북마크 상세보기(팝업)
+=======
+	List<NoticeWritingVO> bookMarkList(NoticeWritingVO vo);			// 전체 메뉴 -> 북마크
+	NoticeWritingVO bookMarkSelect(NoticeWritingVO vo);				// 북마크 -> 북마크 상세보기(팝업)
+>>>>>>> refs/remotes/origin/main
 
 }

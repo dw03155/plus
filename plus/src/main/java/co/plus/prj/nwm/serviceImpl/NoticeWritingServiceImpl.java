@@ -36,6 +36,10 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 		// 전체 업무 -> 업무 상세보기(팝업)
 		return null;
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/main
 	@Override
 	public List<NoticeWritingVO> bookMarkList(NoticeWritingVO vo) {
 		// 전체 메뉴 -> 북마크
@@ -46,7 +50,6 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 		// 북마크 -> 북마크 상세보기(팝업)
 		return null;
 	}
-	
 	
 	@Override
 	public NoticeWritingVO myPostTxt(NoticeWritingVO vo) {			

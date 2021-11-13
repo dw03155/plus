@@ -54,13 +54,31 @@ public interface MemberService {
 	public List<MemberVO> getOutstandMemberList(MemberVO vo);
 	public List<MemberVO> getGuestMemberList(MemberVO vo);
 	public List<MemberVO> getCategoryList(MemberVO vo);
-	public int prjCategoryUpdate(MemberVO vo);
 	//사용자 승인/거절
 	public int outstandIn(MemberVO vo);
 	public int outstandOut(MemberVO vo);
 	//게스트 사용자 승인/거절
 	public int guestIn(MemberVO vo);
 	public int guestOut(MemberVO vo);
+	//정상사용자 삭제
+	public int usingOut(MemberVO vo);
+	//관리자 해제
+	public int adminDel(MemberVO vo);
+	//관리자 지정
+	public int userDel(MemberVO vo);
+	
+	//사용자 일괄 등록
+	public int AllMemberInsert2(MemberVO vo);
+	
+	//회사프로젝트list
+	public List<MemberVO> getCoPrjList(MemberVO vo);
+	//회사프로젝트 상세정보
+	public List<MemberVO> getCoPrjInfo(MemberVO vo);
+	//pm해제
+	public int coPrjPMChange(MemberVO vo);
+
+	//카테고리 삭제
+	public int prjCategoryUpdate(MemberVO vo);
 	//카테고리 추가
 	public int categoryInsert(MemberVO vo);
 }

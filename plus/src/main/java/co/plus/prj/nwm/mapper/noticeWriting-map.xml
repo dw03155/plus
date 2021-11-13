@@ -72,7 +72,10 @@
         and     e.noti_id = 41; -->
 	</select>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/main
 	<!-- 전체 메뉴 -> 북마크 -->
 	<select id="bookMarkList"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO"
@@ -175,6 +178,7 @@
 	<!-- 내 게시물 목록 -> 할일 상세보기(팝업) -->
 	<select id="myPostTodo"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
+<<<<<<< HEAD
 		select a.noti_dttm, a.noti_open_perm, b.*, c.prj_ttl, c.prj_id, d.name, d.co_url
        from board a, todo b, project c, member d
        where a.noti_id = b.noti_id
@@ -197,5 +201,25 @@
 		c.noti_id = #{notiId} -->
 	</select>
 
+=======
+		select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name
+		from 	todo a, project b, board c, member d
+		where 	a.noti_id = c.noti_id 
+		and 	b.prj_id = c.prj_id
+		and 	b.co_url = d.co_url
+		and 	c.mem_id = d.mem_id
+        and     c.noti_id = #{notiId}
+	</select>
+
+	<update id="UpdateTxt"
+		parameterType="co.plus.prj.nwm.vo.NoticeWritingVO">
+		update text
+		set noti_ttl = #{notiTtl}, txt_cntn =
+		#{txtCntn}, txt_pl = #{txtPl},
+		txt_file = #{file}
+		where noti_id =
+		#{notiId}
+	</update>
+>>>>>>> refs/remotes/origin/main
 
 </mapper>

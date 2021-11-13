@@ -1,5 +1,6 @@
 package co.plus.prj.pnw.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ public class PNWController {
 
 	}
 
-	// 전체 프로젝트(수정)
+	// 전체 프로젝트(**)
 	@RequestMapping(value = "/openProject.do", method = RequestMethod.GET)
 	public String cProject(HttpSession session, Model model, PNWVO vo) {
 		vo.setMemId((String) session.getAttribute("memId"));
@@ -58,17 +59,41 @@ public class PNWController {
 
 	}
 
-	// 프로젝트 홈탭
+	// 프로젝트 홈탭 : 도넛차트
 	@RequestMapping(value = "/doughnutChart.do", method = RequestMethod.POST)
 	@ResponseBody
 	public List<PNWVO> doughnutChart(HttpSession session, Model model, PNWVO vo) {
-		return service.prjTskCount(vo);
+		return service.prjTskCount(vo);//업무 갯수
 
 	}
-	@RequestMapping(value = "/ctgryKnd.do", method = RequestMethod.POST)
+	
+	// 새 프로젝트 : 카테고리 종류 받기
+	@RequestMapping(value = "/ctgryList.do", method = RequestMethod.POST)
 	@ResponseBody
-	public List<PNWVO> ctgryKnd(HttpSession session, Model model, PNWVO vo) {
-		return service.ctgryKnd(vo);
-
+	public List<PNWVO> ctgryList(HttpSession session, Model model, PNWVO vo) {
+		return service.ctgryList(vo);
+	}
+	
+	// 새 프로젝트 : 프로젝트 생성
+	@RequestMapping(value = "/prjInsert.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map prjInsert(HttpSession session, Model model, PNWVO vo) {
+		service.prjInsert(vo);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("project", vo);
+		return map;
+	}
+	// 프로젝트폴더 메뉴
+	@RequestMapping(value = "/folderMenu.do",  method = RequestMethod.POST)
+	@ResponseBody
+	public List<PNWVO> folderMenu(HttpSession session, Model model, PNWVO vo) {
+		return service.folderMenu(vo);
+	}
+	
+	// 스케쥴 메뉴
+	@RequestMapping("/allSchedule.do")
+	public String allSche(Model model, PNWVO vo) {
+		//model.addAttribute("sches",service.allSchedule(vo));
+		return "home/allSchedule"; 		
 	}
 }

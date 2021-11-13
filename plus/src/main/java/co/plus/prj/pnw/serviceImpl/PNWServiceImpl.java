@@ -18,11 +18,13 @@ public class PNWServiceImpl implements PNWService {
 
 	@Override
 	public int prjInsert(PNWVO vo) { // 새 프로젝트
-		return map.prjInsert(vo);
+		map.prjInsert(vo);
+		return map.prjPMInsert(vo);
 	}
 	
-	public List<PNWVO> ctgryKnd(PNWVO vo) { // 새 프로젝트
-		return map.ctgryKnd(vo);
+	@Override
+	public List<PNWVO> ctgryList(PNWVO vo) { // 새 프로젝트 : 카테고리 목록가져오기
+		return map.ctgryList(vo);
 	}
 
 	@Override
@@ -36,12 +38,26 @@ public class PNWServiceImpl implements PNWService {
 	}
 
 	@Override
-	public List<PNWVO> openProject(PNWVO vo) { // 회사 프로젝트
+	public List<PNWVO> openProject(PNWVO vo) { // 전체 프로젝트
 		return map.openProject(vo);
+	}
+	
+	@Override
+	public List<PNWVO> allSchedule(PNWVO vo) { // 스케줄
+		return map.allSchedule(vo);
+	}
+	@Override
+	public List<PNWVO> allFile(PNWVO vo) { // 파일함
+		return map.allFile(vo);
+	}
+	
+	@Override
+	public List<PNWVO> folderMenu(PNWVO vo) { // 프로젝트 폴더 메뉴
+		return map.folderMenu(vo);
 	}
 
 	@Override
-	public List<PNWVO> prjFolder(PNWVO vo) { // 프로젝트 폴더 메뉴
+	public List<PNWVO> prjFolder(PNWVO vo){ // 프로젝트 폴더 조회
 		return map.prjFolder(vo);
 	}
 
@@ -115,7 +131,7 @@ public class PNWServiceImpl implements PNWService {
 		map.partiUser(vo); // User 목록
 		return map.partiGuest(vo); // Guest 목록
 	}
-	
+
 	@Override
 	public Map<String, Object> prjHome(PNWVO vo) { // 프로젝트 홈탭
 		Map<String, Object> result = new HashMap<>();

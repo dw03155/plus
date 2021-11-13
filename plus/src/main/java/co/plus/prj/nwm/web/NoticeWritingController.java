@@ -32,14 +32,20 @@ public class NoticeWritingController {
 		return "nwm/allTask";
 	}
 	
+<<<<<<< HEAD
 	
+=======
+>>>>>>> refs/remotes/origin/main
 	@RequestMapping("/myPost.do") // 전체 메뉴 -> 내 게시물 목록 
 	String myPost(HttpSession session, Model model, NoticeWritingVO vo) {
 		vo.setMemId((String)session.getAttribute("memId"));
 		model.addAttribute("notices", nwDao.myPost(vo));
 		return "nwm/myPostJSP";
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/main
 
 	@RequestMapping("/bookmark.do") // 전체 메뉴 -> 북마크
 	String bookmark(HttpSession session, Model model, NoticeWritingVO vo) {
@@ -81,4 +87,4 @@ public class NoticeWritingController {
 		return "nwm/modal/myPostTodo"; 
 	 }
 	
-}
+

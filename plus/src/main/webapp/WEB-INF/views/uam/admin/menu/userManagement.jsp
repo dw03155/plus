@@ -16,13 +16,11 @@
         top: 150px;
         left: 30px;
 	}
-	#memBtn{
-		width: 75px;
-		border: 1px solid gray;
-	}
 	#memBtn2{
 		width: 50px;
 		border: 1px solid gray;
+		top: 80px;
+		left: 90%;
 	}
 	.memberthead{
 		height: 30px; 
@@ -32,12 +30,40 @@
 		text-align: center;
 		height: 25px;
 	}
-	#btnDiv{
-		padding-top: 2%;
-		float: right;
-		width: 130px;
+	.blueBtn{
+		position: absolute;
+		padding: 6px 15px 6px 15px;
+		background-color: #5882FA;
+		color: white;
+		border-radius: 3px;
+		margin-left: 5px;
+		top: 86px;
 	}
-
+	.ctgry_del_modal{
+		width: 400px;
+		height: 200px;
+	    position: absolute;
+	    top: 35%;
+	    right: 45%;
+	    z-index: 13;
+	    background: #fff;
+	    border: 1px solid #777;
+	    border-radius: 8px;
+	    font-size: 13px;
+	    text-align: left;
+	    color: #555;
+	    display: none;
+	    align-content: center;
+	}
+	.model_heard{
+		height: 30px;
+		padding: 10px;
+		
+	}
+	.ctgry_model_x{
+		float: right;
+		width: 15px;
+	}
 </style>
 </head>
 <body>
@@ -72,21 +98,19 @@
 		
 		<!-- 정상사용자 -->
 			<div id="usingMember" class="project-detail-inner layer-scroll type2">
-			<div id="btnDiv">
-				<button id="memBtn">전체선택</button>
+			<div id="btnDiv" style="margin-left: 94%; margin-top: 29px;">
 				<button id="memBtn2">삭제</button>
 			</div>
 				<table id="usingMemberList" border="1">
 					<thead class="memberthead">
 						<tr>
-							<th></th>
 							<th>이름</th>
 							<th>부서</th>
 							<th>직책</th>
 							<th>이메일</th>
 							<th>휴대폰</th>
 							<th>관리자</th>
-							<th>삭제</th>
+							<th>삭제&nbsp;<input type="checkbox" id="allCheckBox"></th>
 						</tr>
 					</thead>
 					<tbody id="usinglist" >
@@ -97,25 +121,52 @@
 						</c:if>
 						<c:forEach var="usings" items="${using }">
 						<tr>
-							<td><input type="hidden" value="${usings.memId }"></td>
 							<td>${usings.name }</td>
 							<td>${usings.dept }</td>
 							<td>${usings.wkpo }</td>
 							<td>${usings.email }</td>
 							<td>${usings.persTel }</td>
 							<c:if test="${usings.memPerm eq 'ADMIN'}">
-							<td>관리자</td>
+							<td>관리자<em class="adminDel" style="color: red; cursor: pointer;">[관리자해제]</em></td>
 							</c:if>
 							<c:if test="${usings.memPerm eq 'USER'}">
-							<td>사원</td>
+							<td>사용자<em class="userDel" style="color: blue;  cursor: pointer;">[관리자지정]</em></td>
 							</c:if>
-							<td><input type='checkbox' class="usingCheck"></td>
+							<td><input type='checkbox' name="usingCheck" value="${usings.memId }"></td>
 						</tr>
 						</c:forEach>
 					</tbody>
 				</table>
 			 </div><!-- usingMember end -->
 			 
+			 <!-- 관리자 해제 모달-->
+			 <div id="AdminModal" class="ctgry_del_modal" >	
+				<div class="model_heard">
+					<a href="#"><img class="ctgry_model_x" src="/img/ico/x_icn.png"></a>
+				</div>
+				<div align="center" style="margin: 25px; 0px;">
+					<h2>관리자를 해제하시겠습니까?</h2>
+					<p></p>
+				</div>
+				<div align="center">
+					<button type="button" id="adminDelete" class="blueBtn" style="position: static;">확인</button>
+				</div>
+			</div>
+			
+			<!-- 관리자 지정 모달-->
+			 <div id="UserModal" class="ctgry_del_modal" >	
+				<div class="model_heard">
+					<a href="#"><img class="ctgry_model_x" src="/img/ico/x_icn.png"></a>
+				</div>
+				<div align="center" style="margin: 25px; 0px;">
+					<h2>관리자로 지정하시겠습니까?</h2>
+					<p></p>
+				</div>
+				<div align="center">
+					<button type="button" id="userDelete" class="blueBtn" style="position: static;">확인</button>
+				</div>
+			</div>
+			
 			 <!-- 사용중지 -->
 			 <div id="notUsedMember" class="project-detail-inner layer-scroll type2" style="display: none">
 				<table id="notUsedMemberList" border="1">
@@ -131,7 +182,7 @@
 					<tbody id="notUsedlist">
 						<c:if test="${empty notused }">
 							<tr>
-								<td colspan="4">NODATA</td>
+								<td colspan="5">NODATA</td>
 							</tr>
 						</c:if>
 						<c:forEach var="notuseds" items="${notused }">
@@ -179,8 +230,8 @@
 							<td>${outstands.name }</td>
 							<td>${outstands.email }</td>
 							<td>${outstands.persTel }</td>
-							<td><a href="#"><span id='memin' style="color: green;">[가입승인]</span></a> &nbsp;
-							<a href="#"><span id='memout' style="color: red">[가입거절]</span></a></td>
+							<td><a href="#"><span class='memin' style="color: green;">[가입승인]</span></a> &nbsp;
+							<a href="#"><span class='memout' style="color: red">[가입거절]</span></a></td>
 						</tr>
 						</c:forEach>
 					</tbody>
@@ -212,11 +263,11 @@
 							<td>${guests.email }</td>
 							<td>${guests.persTel }</td>
 							<c:if test="${guests.accSt eq 'using' }">
-							<td><a href="#"><span id='guestDel' style="color: green;">삭제</span></a></td>
+							<td><a href="#"><span class='guestDel' >삭제</span></a></td>
 							</c:if>
 							<c:if test="${guests.accSt eq 'outstand' }">
-							<td><a href="#"><span id='guestIn' style="color: green;">[가입승인]</span></a>&nbsp;
-							<a href="#"><span id='guestOut' style="color: red">[가입거절]</span></a></td>
+							<td><a href="#"><span class='guestIn' style="color: green;">[가입승인]</span></a>&nbsp;
+							<a href="#"><span class='guestOut' style="color: red">[가입거절]</span></a></td>
 							</c:if>
 						</tr>
 						</c:forEach>
@@ -226,15 +277,88 @@
 		</div><!-- main-container end -->
 	
 	<script>
+	//관리자 사용자로 변경
+	$(".adminDel").click(function(){
+		var adminDel = $(this);
+		var td = adminDel.parent();
+		var memId = adminDel.parent().parent().children().eq(6).children().val();
+		var jsondata = {"memId": memId};
+		$('#AdminModal').css("display","block");
+		$('#adminDelete').click(function(){
+			$.ajax({
+				url: "adminDel.do",
+				method: "put",
+				data: JSON.stringify(jsondata),
+				contentType: "application/json",
+				dataType: "json",
+				success: function(){
+					td.empty();
+					td.append("사용자")
+					  .append($('<em class="admindel" style="color: blue;  cursor: pointer;">').html("[관리자지정]"));
+					$('#AdminModal').css("display","none");
+				}
+			})//ajax end
+		})
+	});
+	//
+	$(".userDel").click(function(){
+		var userDel = $(this);
+		var td = userDel.parent();
+		var memId = userDel.parent().parent().children().eq(6).children().val();
+		var jsondata = {"memId": memId};
+		console.log(jsondata);
+		$('#UserModal').css("display","block");
+		$('#userDelete').click(function(){
+			$.ajax({
+				url: "userDel.do",
+				method: "put",
+				data: JSON.stringify(jsondata),
+				contentType: "application/json",
+				dataType: "json",
+				success: function(){
+					td.empty();
+					td.append("관리자")
+					  .append($('<em class="adminDel" style="color: red;  cursor: pointer;">').html("[관리자해제]"));
+					$('#UserModal').css("display","none");
+				}
+			})//ajax end
+		})
+	});
+	
+	
+	
+	//정상사용자 가입중지
+	$('#memBtn2').click(function(){
+			var usingCheck = $("input:checkbox[name='usingCheck']:checked");
+			var tr = usingCheck.parent().parent();
+			
+			usingCheck.each(function(i){
+				var usingMemId = $(this).val();
+				var jsondata = {"memId": usingMemId};
+			
+				$.ajax({
+					url: "usingOut.do",
+					method: "put",
+					data: JSON.stringify(jsondata),
+					contentType: "application/json",
+					dataType: "json",
+					success: function(data){
+						tr.remove();
+						memberLengthChange();
+					}
+				})
+			});
+			
+	});
+	
 	
 	//가입대기 사용자 승인
-	$('#memin').click(function(){
+	$('.memin').click(function(){
 		var inBtn = $(this);
 		var tr = inBtn.parent().parent().parent();
 		var td = tr.children();
 		
 		var memId = td.eq(0).children().val();
-		console.log(memId);
 		var jsondata = {"memId":memId};
 		 $.ajax({
 			url:"outstandIn.do",
@@ -244,11 +368,12 @@
 			dataType: "json",
 			success: function(data){
 				tr.remove();
+				memberLengthChange();
 			}
 		}) 
 	});
 	//가입대기 사용자 거절
-	$('#memout').click(function(){
+	$('.memout').click(function(){
 		var outBtn = $(this);
 		var tr = outBtn.parent().parent().parent();
 		var td = tr.children();
@@ -263,11 +388,12 @@
 			dataType: "json",
 			success: function(data){
 				tr.remove();
+				memberLengthChange();
 			}
 		})
 	});
 	//게스트 사용자 승인
-	$('#guestIn').click(function(){
+	$('.guestIn').click(function(){
 		var inBtn = $(this);
 		var tr = inBtn.parent().parent().parent();
 		var td = tr.children();
@@ -282,12 +408,12 @@
 			contentType: "application/json",
 			dataType: "json",
 			success: function(data){
-				
+				memberLengthChange();
 			}
 		}) 
 	});
 	//게스트 사용자 거절
-	$('#guestOut').click(function(){
+	$('.guestOut').click(function(){
 		var outBtn = $(this);
 		var tr = outBtn.parent().parent().parent();
 		var td = tr.children();
@@ -302,11 +428,12 @@
 			dataType: "json",
 			success: function(data){
 				tr.remove();
+				memberLengthChange();
 			}
 		})
 	});
 	//게스트 사용자 삭제
-	$('#guestDel').click(function(){
+	$('.guestDel').click(function(){
 		var delBtn = $(this);
 		var tr = delBtn.parent().parent().parent();
 		var td = tr.children();
@@ -321,20 +448,10 @@
 			dataType: "json",
 			success: function(data){
 				tr.remove();
+				memberLengthChange();
 			}
 		})
 	});
-	
-	/*  $(".usingCheck tr").check(function(){
-		 
-		 var checkBox = $(this);
-		 
-		 var tr = $(this);
-		 var td = tr.children();
-		 
-		 
-		 console.log("데이터: "+tr.text());
-	 }) */
 				
 			$("#using").on("click", function(){
 				$('#using').attr("class","js-tab-item active");
@@ -376,72 +493,58 @@
 				$('#notUsedMember').css("display","none");
 				$('#usingMember').css("display","none");
 			});
+			
+			$('.ctgry_model_x').on("click",function(){
+				$('.ctgry_del_modal').css("display","none");
+			});
+			
+			$("#usingMember #allCheckBox").on('click',function(){
+				if($("#allCheckBox").prop("checked")){
+					$("input[type=checkbox]").prop("checked",true);
+				}else{
+					$("input[type=checkbox]").prop("checked",false);
+				}
+			});
 	
-	/*  $(function(){
-			var coUrl = "${sessionScope.coUrl}";
-			//정상사용자
-			$.ajax({
-				url: "getUsingMemberList.do?coUrl="+coUrl,
-				type : "get",
-				dataType : "json",
-				success : function(data) {
-					if(data != ""){		
-						for(i=0; i<data.length; i++){
-						var item = data[i];
-						if(item.memPerm == 'ADMIN'){
-							$('#usingPerm').append('관리자');
-						
-						}else if(item.memPerm == 'USER'){
-							$('#usingPerm').append('일반사용자');
-						}
-						}			 
-					}else{
-						$('<tr>').append($('<td colspan=\'7\'>').html("NODATE"))
-						 .appendTo($('#usinglist'))
+			function memberLengthChange(){
+				var coUrl = "${sessionScope.coUrl}";
+				//정상사용자
+				$.ajax({
+					url: "getUsingMemberList.do?coUrl="+coUrl,
+					type : "get",
+					dataType : "json",
+					success : function(data) {
+						$('#usingCount').text('('+data.length+')');
 					}
-					$('#usingCount').text('('+data.length+')');
-				}
-			});	
-			//이용중지 사용자
-			$.ajax({
-				url: "getNotusedMemberList.do?coUrl="+coUrl,
-				type : "get",
-				dataType : "json",
-				success : function(result) {
-					if(result == ""){
-						$('<tr>').append($('<td colspan=\'3\'>').html("NODATE"))
-						 .appendTo($('#notUsedlist'))
+				});	
+				//이용중지 사용자
+				$.ajax({
+					url: "getNotusedMemberList.do?coUrl="+coUrl,
+					type : "get",
+					dataType : "json",
+					success : function(result) {
+						$('#notusedCount').text('('+result.length+')');
 					}
-					$('#notusedCount').text('('+result.length+')');
-				}
-			});
-			//가입대기
-			$.ajax({
-				url: "getOutstandMemberList.do?coUrl="+coUrl,
-				type : "get",
-				dataType : "json",
-				success : function(re) {
-					if(re == ""){
-						$('<tr>').append($('<td colspan=\'4\'>').html("NODATE"))
-						 .appendTo($('#outstandlist'))
+				});
+				//가입대기
+				$.ajax({
+					url: "getOutstandMemberList.do?coUrl="+coUrl,
+					type : "get",
+					dataType : "json",
+					success : function(re) {
+						$('#outstantCount').text('('+re.length+')');
 					}
-					$('#outstantCount').text('('+re.length+')');
-				}
-			});
-			//게스트
-			$.ajax({
-				url: "getGuestMemberList.do?coUrl="+coUrl,
-				type : "get",
-				dataType : "json",
-				success : function(req) {
-					if(req == ""){
-						$('<tr>').append($('<td colspan=\'4\'>').html("NODATE"))
-								 .appendTo($('#guestlist'))
+				});
+				//게스트
+				$.ajax({
+					url: "getGuestMemberList.do?coUrl="+coUrl,
+					type : "get",
+					dataType : "json",
+					success : function(req) {
+						$('#guestCount').text('('+req.length+')');
 					}
-					$('#guestCount').text('('+req.length+')');
-				}
-			});
-	}); */
+				});
+		};
 	 
 	
 			

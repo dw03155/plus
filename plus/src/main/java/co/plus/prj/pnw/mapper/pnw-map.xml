@@ -4,12 +4,18 @@
 
 	<!-- 새 프로젝트-->
 	<insert id="prjInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">
-		insert prj_id, prj_knd, prj_ttl, prj_cntn, prj_open_perm, ctgry_id, co_url
-		into project
-		values (prjid.val, #{prjKnd}, #{prjTtl}, #{prjOpenPerm}, #{ctgryId}, #{coUrl})
+		insert into project(prj_id, prj_knd, prj_ttl, prj_cntn, prj_open_perm, ctgry_id, co_url)
+		values (prjid.nextval, #{prjKnd}, #{prjTtl}, #{prjCntn}, #{prjOpenPerm}, #{ctgryId}, #{coUrl})
 	</insert>
 
-	<select id="ctgryKnd" resultType="co.plus.prj.pnw.vo.PNWVO">
+	<!-- 새 프로젝트 생성시 PM 생성-->
+	<insert id="prjPMInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">
+		insert into prj_parti(prj_id, mem_id, prj_perm)
+		values ((select max(prj_id) from project), #{memId}, 'PM')
+	</insert>
+
+	<!-- 메뉴 : 카테고리 이름 출력-->
+	<select id="ctgryList" resultType="co.plus.prj.pnw.vo.PNWVO">
 		select ctgry_id, ctgry_name
 		from category
 		where co_url = #{coUrl}
@@ -77,14 +83,14 @@
 	</select>
 
 	<!-- 프로젝트 폴더 메뉴 -->
-	<select id="FolderMenu">
-		select fold_name
+	<select id="folderMenu" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select fold_id, fold_name
 		from mem_prj_fold
 		where mem_id = #{memId}
 	</select>
 	
 	<!-- 프로젝트 폴더 조회 -->
-	<select id="prjFolder">
+	<select id="prjFolder" resultType="co.plus.prj.pnw.vo.PNWVO">
 		select c.prj_color, a.prj_id, a.prj_ttl
 		from project a, prj_fold b, mem_prj_fold c
 		where a.prj_id = b.prj_id
@@ -94,43 +100,43 @@
 	</select>
 
 	<!-- 프로젝트 폴더 생성 -->
-	<insert id="prjFoldInsert">
+	<insert id="prjFoldInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">
 		insert into mem_prj_fold
 		values (#{foldId}, #{foldName}, #{memId})
 	</insert>
 
 	<!-- 프로젝트 폴더 수정 ** -->
-	<update id="prjFoldUpdate">
+	<update id="prjFoldUpdate" parameterType="co.plus.prj.pnw.vo.PNWVO">
 		update mem_prj_fold
 		set foldId = #{foldId}, foldName = #{foldName}, memId = #{memId}
 	</update>
 
 	<!-- 프로젝트 폴더 삭제 ** -->
-	<delete id="prjFoldDelete">
+	<delete id="prjFoldDelete" parameterType="co.plus.prj.pnw.vo.PNWVO">
 		delete from mem_prj_fold
 		where foldId = #{foldId}
 	</delete>
 
 	<!-- 프로젝트 색상 설정 -->
-	<update id="prjColor">
+	<update id="prjColor" parameterType="co.plus.prj.pnw.vo.PNWVO">
 		update prj_parti
 		set prj_color = #{prj_color}
 	</update>
 	
 	<!-- 프로젝트 폴더 설정 **-->
-	<insert id="prjFoldSet">
-		insert from prj_fold
+	<insert id="prjFoldSet" parameterType="co.plus.prj.pnw.vo.PNWVO">
+		insert into prj_fold
 		values (#{fold_id}, #{prj_id})
 	</insert>
 	
 	<!-- 프로젝트 수정 **-->
-	<update id="prjUpdate">
+	<update id="prjUpdate" parameterType="co.plus.prj.pnw.vo.PNWVO">
 		update project
 		set prj_ttl = #{prj_ttl}, prj_open_perm = #{prj_open_perm}, ctgry_id = #{ctgry_id}
 	</update>
 	
 	<!-- 프로젝트 삭제 -->
-	<delete id="prjDelete">
+	<delete id="prjDelete" parameterType="co.plus.prj.pnw.vo.PNWVO">
 		delete project
 		set prj_id = #{prj_id}
 	</delete>
@@ -201,25 +207,28 @@
 	</select>
 	
 	<select id="partiPM" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 참여자 목록 : PM -->
-		select a.mem_id, a.name, a.wkpo, a.co_url, a.dept
-		from member a, prj_parti b
+		select a.mem_id, a.name, a.wkpo, a.co_url, a.dept, b.prj_perm, c.mem_st
+		from member a, prj_parti b, mem_status c
 		where a.mem_id = b.mem_id
+			and a.mem_id = c.mem_id
 			and b.prj_id = #{prjId}
 			and b.prj_perm = 'PM'
 	</select>
 
 	<select id="partiUser" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 참여자 목록 : USER -->
-		select a.mem_id, a.name, a.wkpo, a.co_url, a.dept, b.prj_perm
-		from member a, prj_parti b
+		select a.mem_id, a.name, a.wkpo, a.co_url, a.dept, b.prj_perm, c.mem_st
+		from member a, prj_parti b, mem_status c
 		where a.mem_id = b.mem_id
+			and a.mem_id = c.mem_id
 			and b.prj_id = #{prjId}
 			and b.prj_perm = 'USER'
 	</select>
 
 	<select id="partiGuest" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 참여자 목록 : GUEST -->
-		select a.mem_id, a.name, a.wkpo, a.co_url, a.dept
-		from member a, prj_parti b
+		select a.mem_id, a.name, a.wkpo, a.co_url, a.dept, b.prj_perm, c.mem_st
+		from member a, prj_parti b, mem_status c
 		where a.mem_id = b.mem_id
+			and a.mem_id = c.mem_id
 			and b.prj_id = #{prjId}
 			and b.prj_perm = 'GUEST'
 	</select>
@@ -239,7 +248,7 @@
 			and c.prj_id = b.prj_id
 	</select>
 
-	<select id="tskNWList"> <!-- ** -->
+	<select id="tskNWList" resultType="co.plus.prj.pnw.vo.PNWVO"> <!-- ** -->
 		select a.*, b.prj_id, b.noti_knd, b.mem_id as pic, b.noti_dttm, b.noti_open_perm, c.prj_ttl
 		from task a, notice_writing b, project c
 		where a.noti_id = b.noti_id
@@ -254,7 +263,7 @@
 	</select>
 
 	<!-- 프로젝트 : 일정 -->
-	<select id="scheList">
+	<select id="scheList" resultType="co.plus.prj.pnw.vo.PNWVO">
 		select a.*, b.noti_dttm, b.prj_id, b.noti_open_perm, c.prj_ttl
 		from schedule a, notice_writing b, project c
 		where a.noti_id = b.noti_id
@@ -263,120 +272,73 @@
 	</select>
 
 	<!-- 프로젝트 : 파일 -->
-	<select id="fileList">
+	<select id="fileList" resultType="co.plus.prj.pnw.vo.PNWVO">
 			select * from text
 	</select>
 
 	<!-- 글 입력 -->
-	<insert id="txtInsert">
+	<insert id="txtInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">
 			select * from text
 	</insert>
 
 	<!-- 글 수정 -->
-	<update id="txtUpdate">
+	<update id="txtUpdate" parameterType="co.plus.prj.pnw.vo.PNWVO">
 			select * from text
 	</update>
 
 	<!-- 업무 입력 -->
-	<insert id="tskInsert">
+	<insert id="tskInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">
 			select * from text
 	</insert>
 
 	<!-- 업무 수정 -->
-	<update id="tskUpdate">
+	<update id="tskUpdate" parameterType="co.plus.prj.pnw.vo.PNWVO">
 			select * from text
 	</update>
 
 	<!-- 일정 입력 -->
-	<insert id="scheInsert">
+	<insert id="scheInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">
 			select * from text
 	</insert>
 
 	<!-- 일정 수정 -->
-	<update id="scheUpdate">
+	<update id="scheUpdate" parameterType="co.plus.prj.pnw.vo.PNWVO">
 			select * from text
 	</update>
 
 	<!-- 할일 입력 -->
-	<insert id="todoInsert">
+	<insert id="todoInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">
 			select * from text
 	</insert>
 
 	<!-- 할일 수정 -->
-	<update id="todoUpdate">
+	<update id="todoUpdate" parameterType="co.plus.prj.pnw.vo.PNWVO">
 			select * from text
 	</update>
 
 	<!-- 게시글 삭제 -->
-	<delete id="nwDelete">
+	<delete id="nwDelete" parameterType="co.plus.prj.pnw.vo.PNWVO">
 			select * from text
 	</delete>
 
 	<!-- 댓글 목록 -->
-	<select id="replyList">
+	<select id="replyList" resultType="co.plus.prj.pnw.vo.PNWVO">
 			select * from text
 	</select>
 
 	<!-- 댓글 입력 -->
-	<insert id="replyInsert">
+	<insert id="replyInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">
 			select * from text
 	</insert>
 
 	<!-- 댓글 수정 -->
-	<update id="replyUpdate">
+	<update id="replyUpdate" parameterType="co.plus.prj.pnw.vo.PNWVO">
 			select * from text
 	</update>
 
 	<!-- 댓글 삭제 -->
-	<delete id="replyDelete">
+	<delete id="replyDelete" parameterType="co.plus.prj.pnw.vo.PNWVO">
 			select * from text
 	</delete>
-
-
-	<!-- 글 상세보기(팝업) **-->
-	<select id="PopupTxt" resultType="co.plus.prj.pnw.vo.PNWVO">
-		select a.noti_knd, a.noti_dttm b.name as writer, c.*, d.prj_ttl,
-		from notice_writing a, member b, text c, project d
-		where a.mem_id = b.mem_id
-			and a.prj_id = d.prj_id
-			and a.noti_id = c.noti_id
-			and a.noti_id = #{notiId}
-	</select>
-	<!-- 업무 상세보기(팝업) **-->
-	<select id="PopupTsk" resultType="co.plus.prj.pnw.vo.PNWVO">
-		select a.noti_knd, a.noti_dttm b.name as writer, c.*, d.prj_ttl,
-		from notice_writing a, member b, task c, project d
-		where a.mem_id = b.mem_id
-			and a.prj_id = d.prj_id
-			and a.noti_id = c.noti_id
-			and a.noti_id = #{notiId}
-	</select>
-	<!-- 하위업무 상세보기(팝업) ** -->
-	<select id="Popuptsk" resultType="co.plus.prj.pnw.vo.PNWVO">
-		select a.*, b.name, c.subtsk_cntn
-		from board a, member b, subtask c
-		where a.mem_id = b.mem_id
-			and a.noti_id = c.noti_id
-			and a.mem_id = #{memId}
-	</select>
-	<!-- 일정 상세보기(팝업) ** -->
-	<select id="PopupSche" resultType="co.plus.prj.pnw.vo.PNWVO">
-		select a.*, b.name, c.sche_cntn
-		from board a, member b, schedule c
-		where a.mem_id = b.mem_id
-			and a.noti_id = c.noti_id
-			and a.noti_id = #{notiId}
-	</select>
-	<!-- 할일 상세보기(팝업) -->
-	<select id="PopupTodo" resultType="co.plus.prj.pnw.vo.PNWVO">
-		select a.noti_knd, a.noti_dttm b.name as writer, c.*, d.prj_ttl,
-		from notice_writing a, member b, todo c, project d
-		where a.mem_id = b.mem_id
-			and a.prj_id = d.prj_id
-			and a.noti_id = c.noti_id
-			and b.mem_id = c.mem_id
-			and a.noti_id = #{notiId}
-	</select>
-
 
 </mapper>

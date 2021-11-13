@@ -29,7 +29,7 @@
 			</a></li>
 			<c:if test="${memPerm ne 'GUEST'}">
 				<li data-code="open" class="left-menu-item"><a
-					href="allSchedule.do"><i class="ico-search"></i>전체 프로젝트 </a></li>
+					href="openProject.do"><i class="ico-search"></i>전체 프로젝트 </a></li>
 			</c:if>
 			<li data-code="star" class="left-menu-item"><a href="#"><i
 					class="ico-favorite"></i>즐겨찾기</a></li>
@@ -44,11 +44,8 @@
 						<c:if test="${memPerm ne 'GUEST'}">
 							<li data-code="task" class="left-menu-item"><a
 								href="allTask.do"><i class="ico-task"></i>전체 업무</a></li>
-							<li data-code="gantt" class="left-menu-item" id="leftMenuGantt"
-								style="display: none;"><a href=""><i
-									class="ico-ganttchart"></i>간트차트</a></li>
 							<li data-code="schd" class="left-menu-item"><a
-								href="allSche.do"><i class="ico-schedule"></i>캘린더</a></li>
+								href="allSchedule.do"><i class="ico-schedule"></i>캘린더</a></li>
 							<li data-code="file" class="left-menu-item"><a
 								href="allFile.do"><i class="ico-filebox"></i>파일함</a></li>
 						</c:if>
@@ -70,11 +67,11 @@
 					<i class="ico-arrow"></i>
 				</div>
 				<div class="menu-accordion">
-					<ul id="allLabelUl" class="menu-accordion-list d-none ui-sortable"
+					<ul id="allFolderUl" class="menu-accordion-list d-none ui-sortable"
 						style="display: block">
 						<li class="label-item "><i class="ico-label"></i> <span
-							class="js-label-name js-mouseover ellipsis" mouseover-text="마케팅">마케팅</span>
-							<a href="#" id="dash-three"
+							class="js-label-name js-mouseover ellipsis">마케팅</span>
+							<a href="#"
 							class="js-label-setting-button flow-dash-three">
 								<div></div>
 								<div></div>
@@ -82,29 +79,22 @@
 						</a></li>
 
 						<li class="label-item "><i class="ico-label"></i> <span
-							class="js-label-name js-mouseover ellipsis" mouseover-text="디자인">디자인</span>
-							<a href="#" id="dash-three"
+							class="js-label-name js-mouseover ellipsis">디자인</span>
+							<a href="#"
 							class="js-label-setting-button flow-dash-three">
 								<div></div>
 								<div></div>
 								<div></div>
 						</a></li>
 
-						<li class="label-item "><i class="ico-label"></i> <span
-							class="js-label-name js-mouseover ellipsis"
-							mouseover-text="엔지니어링">엔지니어링</span> <a href="#" id="dash-three"
-							class="js-label-setting-button flow-dash-three">
-								<div></div>
-								<div></div>
-								<div></div>
-						</a></li>
 					</ul>
 				</div>
 			</li>
 		</ul>
+		<!-- 프로젝트 폴더 설정창(수정, 삭제) -->
 		<div
 			class="js-label-setting-layer setting-popup flow-small-layer-1 cursor-pointer"
-			id="folderMenu" style="display: none">
+			id="folderSetting" style="display: none">
 			<div class="label-edit flow-name-size">
 				<i></i><a href="#"><span>수정</span></a>
 			</div>
@@ -112,6 +102,7 @@
 				<i></i><a href="#"><span>삭제</span></a>
 			</div>
 		</div>
+		<!-- 관리자 메뉴 -->
 		<c:if test="${memPerm eq 'ADMIN'}">
 			<ul id="leftBottomUl" class="menu-group admin">
 				<li data-code="manageradmin" class="d-none left-menu-item"
@@ -121,11 +112,5 @@
 		</c:if>
 	</div>
 	
-	<script type="text/javascript">
-	$(".menu-accordion-button").on("click",function(e){
-		$(e.target).toggleClass("active");
-		$(e.target).next().toggle();
-	});
-	</script>
 </body>
 </html>

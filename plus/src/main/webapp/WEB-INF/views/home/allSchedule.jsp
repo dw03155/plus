@@ -27,7 +27,7 @@
 				<div id="mainScroll" class="main-scroll padding-left-right-30 type3">
 
 					<div class="allCalendarLayer full-width small-style-wrap-2 d-none"
-						style="display: block;">
+						style="display: block">
 						<div class="all-schedule">
 							<div class="btns-wr">
 								<div class="project-search-area all-file-header-type-3">
@@ -53,7 +53,16 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		$('#calendar').fullCalendar();
+		$('#calendar').fullCalendar({
+				   
+		events : [
+			{
+				title : 'all',
+				start : '2021-11-12',
+				end : '2021-11-13'
+			}
+		]
+		});
 	</script>
 </body>
 </html>
