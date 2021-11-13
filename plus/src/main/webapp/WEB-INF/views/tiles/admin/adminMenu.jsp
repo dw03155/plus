@@ -43,6 +43,21 @@
                 </div>
             </li>
 		</ul>
+		<div
+			class="js-label-setting-layer setting-popup flow-small-layer-1 cursor-pointer"
+			id="folderMenu" style="display: none">
+			<div class="label-edit flow-name-size">
+				<i></i><a href="#"><span>수정</span></a>
+			</div>
+			<div class="label-delete flow-dash-icon">
+				<i></i><a href="#"><span>삭제</span></a>
+			</div>
+		</div>
+		<ul id="leftBottomUl" class="menu-group admin">
+				<li data-code="manageradmin" class="d-none left-menu-item"
+					style="display: block"><a id="managerAdmin"
+					href="myProject.do"><i class="ico-admin"></i>어드민</a></li>
+		</ul>
 		</div>
 	<script type="text/javascript">
 		$('#dash-three').on(
