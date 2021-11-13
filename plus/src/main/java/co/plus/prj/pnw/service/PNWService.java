@@ -21,8 +21,7 @@ public interface PNWService { //mapper합치기
 		int prjFoldDelete(PNWVO vo);		// 프로젝트 폴더 삭제
 		
 		List<PNWVO> allSchedule(PNWVO vo);	// 전체일정,전체업무
-		List<PNWVO> allFile(PNWVO vo);		// 전체파일
-		
+
 		// 프로젝트
 		int prjUpdate(PNWVO vo);			// 프로젝트 수정(프로젝트명, 색깔, 공개권한)
 		int prjDelete(PNWVO vo);			// 프로젝트 삭제

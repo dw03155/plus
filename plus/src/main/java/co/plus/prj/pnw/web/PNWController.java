@@ -91,7 +91,7 @@ public class PNWController {
 	}
 	
 	// 스케쥴 메뉴
-	@RequestMapping("/allSchedule.do")
+	@RequestMapping(value = "/allSchedule.do",  method = RequestMethod.POST)
 	public String allSche(Model model, PNWVO vo) {
 		//model.addAttribute("sches",service.allSchedule(vo));
 		return "home/allSchedule"; 		
