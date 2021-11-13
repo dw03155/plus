@@ -68,12 +68,12 @@
 	<select id="bookMarkList"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO"
 		parameterType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select  a.noti_knd, a.noti_ttl, a.noti_dttm, b.*, c.name, c.co_url
-		from 	board a, bookmark b, member c
-		where 	a.mem_id = b.mem_id
-		and 	b.mem_id = c.mem_id
-        and 	a.noti_id = b.noti_id
-		and 	a.mem_id = #{memId}
+		select a.*,b.*,c.prj_ttl, d.name, d.co_url
+        from board a, bookmark b, project c, member d
+        where a.noti_id = b.noti_id
+        and a.prj_id = c.prj_id
+        and a.mem_id = d.mem_id
+        and b.mem_id = #{memId}
 		<!-- 북마크 -> 게시물 명으로 검색 -->
 		<if test="notiTtl != null and notiTtl != ''">
 			and noti_ttl like '%' || #{notiTtl} || '%'
@@ -107,13 +107,23 @@
 	<!-- 내 게시물 목록 -> 업무 상세보기(팝업) -->
 	<select id="myPostTsk"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name
+		select a.*,b.noti_ttl as subtskTtl, b.subtsk_prgs, b.subtsk_end_dt, b.mem_id, c.noti_open_perm, c.noti_dttm, d.prj_id, d.prj_ttl, e.name
+        from task a LEFT OUTER JOIN subtask b
+       		on a.noti_id = b.noti_id2
+		        inner join board c
+		        	on a.noti_id = c.noti_id
+		        inner join project d
+		        	on c.prj_id = d.prj_id
+		        inner join member e
+		        	on c.mem_id = e.mem_id
+        where a.noti_id = #{notiId}
+		<!-- select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name
 		from 	task a, project b, board c, member d
 		where 	a.noti_id = c.noti_id 
 		and 	b.prj_id = c.prj_id
 		and 	b.co_url = d.co_url
 		and 	c.mem_id = d.mem_id
-		and 	c.noti_id = #{notiId}
+		and 	c.noti_id = #{notiId} -->
 	</select>
 	
 	<!-- 내 게시물 목록 -> 하위업무 상세보기(팝업) -->

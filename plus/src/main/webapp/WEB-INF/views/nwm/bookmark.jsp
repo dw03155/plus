@@ -3,19 +3,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="../js/jquery-latest.min.js"></script>
 <title>Insert title here</title>
 
 </head>
 <body>
 	<!-- 전체 업무 상세보기 (모달창) -->
 	<div class="back-area temp-popup" tabindex="0" id="postPopup"
-		data-code="VIEW" style="display: none;">
+		style="display: none;">
 		<div class="flow-project-make-1 back-area">
 			<div class="flow-project-make-2 back-area contents">
 				<div class="js-post-nav card-item post-card-wrapper task  side">
@@ -103,7 +102,9 @@
 						<ul id="myPostContentUl"
 							class="all-seach-list-type-1 post-group scroll-mask"
 							scroll-direction="0">
-							<c:forEach var="bookmarks" items="${bookmarks }">
+							
+							<!-- 반복 시작 -->
+							<c:forEach var="bookmarks" items="${bookmark }">
 							<li id="myPostContent"
 								class="js-all-post-item post-search-item post-list-wrapper" data-kind="${bookmarks.notiKnd }">
 								<div class="fixed-kind">
@@ -118,7 +119,7 @@
 										</div>
 									</div>
 									<p class="search-text-type-3 contents-project">
-										<em class="ellipsis"><i class="seach-type-2"></i>prjTtl</em>
+										<em class="ellipsis"><i class="seach-type-2"></i>${bookmarks.prjTtl}</em>
 									</p>
 								</div>
 								<div class="post-list-right">
@@ -168,13 +169,15 @@ function popUpDatail(li){
 	
 
 	var notiKnd = li.data("kind");
-	
+	var notiId = li.data("notiid");
 	
 	if(notiKnd == "text"){
 			$.ajax({
 				url : "myPostTxt.do",
-				type : 'GET',
-				data : "JSON",
+				type : 'POST',
+				data : {
+					notiId : notiId
+				},
 				dataType : "html",
 				success : function(data) {
 					$("#modalBody").html(data);
@@ -183,8 +186,10 @@ function popUpDatail(li){
 	} else if (notiKnd == "task"){
 			$.ajax({
 				url : "myPostTsk.do",
-				type : 'GET',
-				data : "JSON",
+				type : 'POST',
+				data : {
+					notiId : notiId
+				},
 				dataType : "html",
 				success : function(data) {
 					$("#modalBody").html(data);
@@ -193,8 +198,10 @@ function popUpDatail(li){
 	}else if (notiKnd == "schedule"){
 		$.ajax({
 			url : "myPostSche.do",
-			type : 'GET',
-			data : "JSON",
+			type : 'POST',
+			data : {
+				notiId : notiId
+			},
 			dataType : "html",
 			success : function(data) {
 				$("#modalBody").html(data);
@@ -203,8 +210,10 @@ function popUpDatail(li){
 	}else if (notiKnd == "todo"){
 		$.ajax({
 			url : "myPostTodo.do",
-			type : 'GET',
-			data : "JSON",
+			type : 'POST',
+			data :{
+				notiId : notiId
+			},
 			dataType : "html",
 			success : function(data) {
 				$("#modalBody").html(data);

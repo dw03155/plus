@@ -7,9 +7,13 @@
 pageContext.setAttribute("replaceChar", "\n");
 %>
 
+
+
 <!-- 내 게시물 목록 -> 업무 상세보기(팝업) -->
 <div class="post-popup-header card-popup-header d-none"
 	style="display: block;">
+
+	<!-- 게시물 제목 -->
 	<h3 class="card-popup-title">
 		<i id="projectTitleColor" class="project-color color-code-4"></i> <span
 			class="js-project-title-button">${tasks.prjTtl}</span> <span
@@ -29,7 +33,7 @@ pageContext.setAttribute("replaceChar", "\n");
 				<dl class="post-author-info">
 					<dt>
 						<strong class="author ellipsis">${tasks.name}</strong> <em
-							class="position ellipsis" style="display: inline"></em> <span
+							class="position ellipsis" style="display: inline-block"></em> <span
 							class="date"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
 								value="${tasks.notiDttm}" /></span>
 
@@ -82,8 +86,8 @@ pageContext.setAttribute("replaceChar", "\n");
 			</div>
 		</div>
 
+		<!-- 게시물 내용 -->
 		<div class="card-header-bottom ">
-
 			<div class="post-title-area">
 				<h4 class="js-post-title post-title ">${tasks.notiTtl}</h4>
 				<div class="schedule-period-area d-none">
@@ -95,8 +99,8 @@ pageContext.setAttribute("replaceChar", "\n");
 				</span>
 			</div>
 		</div>
-		<div class="post-card-container">
 
+		<div class="post-card-container">
 			<div id="originalPost" class="post-card-content "
 				style="display: none"></div>
 
@@ -125,7 +129,8 @@ pageContext.setAttribute("replaceChar", "\n");
 								<c:if test="${tasks.tskPrgs == 'withhold'}">
 									<c:set var="tskPrgs" value="hold" />
 								</c:if>
-								<div class="js-task-state state-button-group clearfix ${tskPrgs}">
+								<div
+									class="js-task-state state-button-group clearfix ${tskPrgs}">
 									<button type="button" class="js-stts task-state-button request">요청</button>
 									<button type="button"
 										class="js-stts task-state-button progress">진행</button>
@@ -152,13 +157,18 @@ pageContext.setAttribute("replaceChar", "\n");
 										class="js-worker-profile thumbnail"
 										style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
 										<span class="js-registration-name">${tasks.memId }</span>
+										<button type="button" class="js-remove-worker remove-button"></button>
 								</span>
 								</span> <input type="text"
 									class="js-worker-input worker-search-input d-none"
 									placeholder="담당자 추가" style="display: none;">
+								<button id="addManagerBtn" type="button"
+									class="js-worker-button add-manager-button"
+									style="display: inline-block">담당자 변경</button>
 							</div>
 						</li>
 
+						<!-- 시작일 설정 -->
 						<li
 							class="js-date-layer js-start-date-layer js-more-task-li d-none"
 							style="display: block">
@@ -184,7 +194,7 @@ pageContext.setAttribute("replaceChar", "\n");
 							</div>
 
 						</li>
-
+						<!-- 마감일 설정 -->
 						<li class="js-date-layer js-end-date-layer js-more-task-li d-none"
 							style="display: block">
 							<div class="create-content-cell title">
@@ -222,111 +232,166 @@ pageContext.setAttribute("replaceChar", "\n");
 			<button id="postMoreButton" type="button"
 				class="js-contents-more-btn post-more-btn" style="display: none">더보기</button>
 
-			<!-- 하위 업무 생성 -->
+
+			<!-- 하위 업무 목록 -->
 			<div class="content-fold" style="display: block">
 				<div class="subtask-space">
 					<div class="js-subtask-area subtask-wrap">
 						<div class="subtask-header">
+
 							<span class="subtask-title"> <i class="icons-subtask"></i>하위업무<em
-								class="js-subtask-count subtask-count">하위업무 갯수 출력</em>
+								class="js-subtask-count subtask-count">하위업무갯수</em>
 							</span>
+
+
 						</div>
 						<ul class="js-subtask-ul subtask-list ui-sortable"
 							style="display: block">
 						</ul>
-
-						<div id="addSubtsk" class="subtask-bottom js-subtask-edit-layer"
-							style="display: none">
+						<div class="subtask-bottom js-subtask-edit-layer"
+							style="display: block">
 							<div class="subtask-registered-area js-subtask-edit-area">
+									<c:if test="${not empty tasks.subtskTtl }">
 								<div class="subtask-input-area js-subtask-li">
-									<div
-										class="js-subtask-status-layer js-subtask-layer subtask-status-area">
-										<button id="subtskStatusBtn" type="button"
-											class="js-subtask-status-button subtask-button subtask-status request">요청</button>
-										<ul id="subtskChange"
-											class="js-status-setting-layer js-subtask-layer subtask-status-list"
-											style="display: none">
-											<li>
-												<div class="js-status-setting-button subtask-status request">요청</div>
-											</li>
-											<li>
-												<div
-													class="js-status-setting-button subtask-status progress">진행</div>
-											</li>
-											<li>
-												<div
-													class="js-status-setting-button subtask-status feedback">피드백</div>
-											</li>
-											<li>
-												<div
-													class="js-status-setting-button subtask-status completion">완료</div>
-											</li>
-											<li>
-												<div class="js-status-setting-button subtask-status hold">보류</div>
+										<div
+											class="js-subtask-status-layer js-subtask-layer subtask-status-area">
+											<div
+												class="js-task-state state-button-group clearfix ${tasks.subtskPrgs }">
+											</div>
+											<c:if test="${tasks.subtskPrgs == 'request'}">
+												<c:set var="subtskPrgs" value="request" />
+												<button
+													class="js-subtask-status-button subtask-button subtask-status request">요청</button>
+											</c:if>
+											<c:if test="${tasks.subtskPrgs == 'progress'}">
+												<c:set var="subtskPrgs" value="progress" />
+												<button
+													class="js-subtask-status-button subtask-button subtask-status progress">진행</button>
+											</c:if>
+											<c:if test="${tasks.subtskPrgs == 'feedback'}">
+												<c:set var="subtskPrgs" value="feedback" />
+												<button
+													class="js-subtask-status-button subtask-button subtask-status feedback">피드백</button>
+											</c:if>
+											<c:if test="${tasks.subtskPrgs == 'complete'}">
+												<c:set var="subtskPrgs" value="completion" />
+												<button
+													class="js-subtask-status-button subtask-button subtask-status completion">완료</button>
+											</c:if>
+											<c:if test="${tasks.subtskPrgs == 'withhold'}">
+												<c:set var="subtskPrgs" value="hold" />
+												<button
+													class="js-subtask-status-button subtask-button subtask-status hold">보류</button>
+											</c:if>
+										</div>
+										<div>
+											<button id="subtskDetailBtn">${tasks.subtskTtl }</button>
+										</div>
+										<ul class="js-subtask-menu subtask-menu">
+											<li><span> <fmt:formatDate
+														pattern="yyyy-MM-dd (E)" value="${tasks.subtskEndDt}" /></span></li>
+											<li><span class="thumbnail size40 radius16"
+												style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
 											</li>
 										</ul>
-									</div>
-									<input type="text" class="subtask-input js-subtask-input"
-										tab-code="input" maxlength="50"
-										data-empty-msg="하위 업무 제목을 입력하세요!" data-required-yn="Y"
-										placeholder="업무명 입력 (Enter로 업무 연속 등록 가능)">
-									<ul class="js-subtask-menu subtask-menu">
-										<li
-											class="js-subtask-date-layer subtask-menu-date js-mouseover js-date-tooltip"
-											mouseover-text="마감일 추가">
-											<div class="js-pickr-layer">
-												<input type="hidden" class="js-subtask-date-input"
-													readonly="readonly">
-												<div class="subtask-date-input-div">
-													<button type="button"
-														class="js-subtask-date-button js-flatpicker subtask-button create-icon-box small"
-														tab-code="date">
-														<span> <i class="icons-calendar"></i>
-														</span>
-													</button>
-													<span
-														class="js-subtask-date-text js-flatpicker subtask-date d-none {dead-line-class}"></span>
-												</div>
-											</div>
-										</li>
-
-										<li
-											class="subtask-menu-worker js-subtask-worker-layer js-mouseover"
-											mouseover-text="담당자 추가">
-											<button type="button"
-												class="js-worker-button subtask-button manager js-worker-box create-icon-box small"
-												tab-code="worker">
-												<span> <i class="icons-person-6 small"></i>
-												</span>
-											</button>
-											<button type="button"
-												class="js-worker-button subtask-button manager js-worker-thumb create-icon-box small d-none"
-												tab-code="worker">
-												<span class="subtask-manager-area"> <span
-													class="js-thumb-image thumbnail"></span> <span
-													class="subtask-manager-number d-none">{worker_count}</span>
-												</span>
-											</button>
-										</li>
-									</ul>
-									<button type="button"
-										class="js-subtask-enter-button subtask-enter">
-										<i class="icons-reply"></i>
-									</button>
-									<button type="button" class="subtask-register-btn off">
-										<span class="blind">Register</span>
-									</button>
 								</div>
-								<p class="subtask-close-text subtask-reset-text"
-									style="display: block">취소하려면 Esc 키를 누르세요.</p>
+									</c:if>
 							</div>
 						</div>
 
-						<!-- 하위업무 추가버튼 -->
-						<button id="addSubtskBtn" type="button"
-							class="js-add-subtask-button add-button">
-							<i class="icons-plus-7"></i>하위업무 추가
-						</button>
+						<!-- 하위 업무 추가 (하위업무 없는 경우) -->
+						<c:if test="${empty tasks.subtskTtl}">
+							<div id="addSubtsk" class="subtask-bottom js-subtask-edit-layer"
+								style="display: none">
+								<div class="subtask-registered-area js-subtask-edit-area">
+									<div class="subtask-input-area js-subtask-li">
+										<div
+											class="js-subtask-status-layer js-subtask-layer subtask-status-area">
+											<button id="subtskStatusBtn" type="button"
+												class="js-subtask-status-button subtask-button subtask-status request">요청</button>
+											<ul id="subtskChange"
+												class="js-status-setting-layer js-subtask-layer subtask-status-list"
+												style="display: none">
+												<li>
+													<div
+														class="js-status-setting-button subtask-status request">요청</div>
+												</li>
+												<li>
+													<div
+														class="js-status-setting-button subtask-status progress">진행</div>
+												</li>
+												<li>
+													<div
+														class="js-status-setting-button subtask-status feedback">피드백</div>
+												</li>
+												<li>
+													<div
+														class="js-status-setting-button subtask-status completion">완료</div>
+												</li>
+												<li>
+													<div class="js-status-setting-button subtask-status hold">보류</div>
+												</li>
+											</ul>
+										</div>
+										<input type="text" class="subtask-input js-subtask-input"
+											tab-code="input" maxlength="50"
+											data-empty-msg="하위 업무 제목을 입력하세요!" data-required-yn="Y"
+											placeholder="업무명 입력 (Enter로 업무 연속 등록 가능)">
+										<ul class="js-subtask-menu subtask-menu">
+											<li
+												class="js-subtask-date-layer subtask-menu-date js-mouseover js-date-tooltip"
+												mouseover-text="마감일 추가">
+												<div class="js-pickr-layer">
+													<input type="hidden" class="js-subtask-date-input"
+														readonly="readonly">
+													<div class="subtask-date-input-div">
+														<button type="button"
+															class="js-subtask-date-button js-flatpicker subtask-button create-icon-box small"
+															tab-code="date">
+															<span> <i class="icons-calendar"></i>
+															</span>
+														</button>
+														<span
+															class="js-subtask-date-text js-flatpicker subtask-date d-none {dead-line-class}"></span>
+													</div>
+												</div>
+											</li>
+
+											<li
+												class="subtask-menu-worker js-subtask-worker-layer js-mouseover"
+												mouseover-text="담당자 추가">
+												<button type="button"
+													class="js-worker-button subtask-button manager js-worker-box create-icon-box small"
+													tab-code="worker">
+													<span> <i class="icons-person-6 small"></i>
+													</span>
+												</button>
+												<button type="button"
+													class="js-worker-button subtask-button manager js-worker-thumb create-icon-box small d-none"
+													tab-code="worker">
+													<span class="subtask-manager-area"> <span
+														class="js-thumb-image thumbnail"></span> <span
+														class="subtask-manager-number d-none">{worker_count}</span>
+													</span>
+												</button>
+											</li>
+										</ul>
+
+										<button type="button" class="subtask-register-btn off">
+											<span class="blind">Register</span>
+										</button>
+									</div>
+									<p class="subtask-close-text subtask-reset-text"
+										style="display: block">취소하려면 Esc 키를 누르세요.</p>
+								</div>
+							</div>
+
+							<!-- 하위업무 추가버튼 -->
+							<button id="addSubtskBtn" type="button"
+								class="js-add-subtask-button add-button">
+								<i class="icons-plus-7"></i>하위업무 추가
+							</button>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -351,6 +416,15 @@ pageContext.setAttribute("replaceChar", "\n");
 			</div>
 			<!-- //post-card-container -->
 		</div>
+
+
+
+
+
+
+
+		<!-- ---------- -->
+
 
 		<!-- 댓글 작성-->
 		<div class="post-card-footer js-comment-area">
@@ -634,24 +708,28 @@ pageContext.setAttribute("replaceChar", "\n");
 <!-- 하위업무 생성 -->
 <script>
 	$("#addSubtskBtn").click(function() {
-		$("#addSubtsk").css("display", "block");
+		$("#addSubtsk").toggle();
 
 	});
-
-	/*  $("#subtskStatusBtn").click(function() {
-	 $("#subtskChange").toggle();
-	
-	 if
-	 $(".js-task-state state-button-group clearfix").addClass("request");
-	 });  */
 
 	// 업무 자세히 보기
 	$("#postOptions").find("div > button").click(function(e) {
 		e.preventDefault();
-		console.log(e.currentTarget);
-		console.log($(e.currentTarget).parent('form'));
-		console.log($(e.currentTarget).parents('form'));
-		console.log($(e.currentTarget).closest('form'));
+
 		$(e.currentTarget).closest('form').submit();
+	});
+
+	// 하위 업무 상세보기 (팝업)
+	$("#subtskDetailBtn").click(function() {
+
+		$.ajax({
+			url : "myPostSubtsk.do",
+			type : "POST",
+			data : "JSON",
+			dataType : "html",
+			success : function(data) {
+				$("#modalBody").html(data);
+			}
+		});
 	});
 </script>

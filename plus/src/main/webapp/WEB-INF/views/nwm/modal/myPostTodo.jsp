@@ -34,7 +34,7 @@
 							<c:forEach var="todos[i]" items="${todos }" begin="0" end="0">
 								<strong class="author ellipsis">${ todos[0].name }</strong>
 								<em class="position ellipsis" style="display: inline"></em>
-								<span class="date"><fmt:formatDate value = "${todos[0].notiDttm}" pattern = "yyyy/MM/dd" /></span>
+								<span class="date"><fmt:formatDate value = "${todos[0].notiDttm}" pattern = "yyyy/MM/dd HH:mm:ss" /></span>
 
 								<!-- 게시물 공개 여부 -->
 								<c:if test="${todos[0].notiOpenPerm == 'all'}">
@@ -69,10 +69,10 @@
 							<!-- fixed-btn on class -->
 							<span class="blind">상단 고정 등록</span>
 						</button>
-						<button class="js-setting-button set-btn" style="display: block">
+						<button id="moreSettingMyTodoBtn" class="js-setting-button set-btn" style="display: block">
 							<span></span> <span></span> <span></span>
 						</button>
-						<ul class="js-setting-ul js-setting-layer setup-group d-none">
+						<ul id="groupSettingTodoBtn" class="js-setting-ul js-setting-layer setup-group d-none" style="display: none;">
 							<li class="js-setting-item" data-code="modify"
 								style="display: block"><a href="#"> <i
 									class="icons-write"></i>수정
@@ -201,73 +201,6 @@
 						더보기</button>
 				</div>
 				<ul class="post-comment-group">
-					<li class="remark-item">
-						<div class="comment-thumbnail js-comment-thumbnail">
-							<span class="thumbnail size40 radius16"
-								style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
-						</div>
-						<div class="js-remark-view comment-container on ">
-							<div class="comment-user-area">
-								<div class="comment-user">
-									<span class="user-name js-comment-user-name">QR</span> <span
-										class="user-position"></span> <span class="record-date">2021-11-03
-										13:47</span>
-								</div>
-								<div class="comment-writer-menu">
-									<button type="button"
-										class="js-remark-update js-remark-edit-button comment-writer-button on">
-										수정</button>
-									<button type="button"
-										class="js-remark-delete js-remark-edit-button comment-writer-button on">
-										삭제</button>
-								</div>
-							</div>
-							<div class="js-remark-layer comment-content">
-								<div class="comment-text-area">
-									<div class="js-remark-text comment-text">
-										<div>댓글이랑 팝업 해야지</div>
-									</div>
-								</div>
-								<ul class="js-remark-upload-file upload-document-group"></ul>
-								<ul class="js-remark-upload-img comment-upload-img"></ul>
-							</div>
-						</div>
-						<div class="js-remark-edit comment-container">
-							<div class="js-remark-layer comment-content modify">
-								<form class="js-remark-form comment-text-area">
-									<fieldset>
-										<legend class="blind">댓글 입력</legend>
-										<div class="js-remark-area js-paste-layer comment-input"
-											contenteditable="true"
-											placeholder="줄바꿈은 Shift + Enter / 입력은 Enter 입니다."></div>
-										<div contenteditable="true"
-											class="js-dimd-layer comment-upload-dimd d-none">
-											<span class="dimd-text">첨부할 파일, 이미지 등을 여기에 끌어다 놓으세요</span>
-										</div>
-										<input type="hidden" class="comment-upload-input"> <label
-											mouseover-text="파일 첨부"
-											class="js-remark-upload-button comment-upload-button js-mouseover">
-											<i class="icons-link"> <span class="blind">업로드 버튼</span>
-										</i>
-										</label> <label mouseover-text="음성 녹음" style="display: none"
-											class="js-remark-recording-button comment-recording-button js-mouseover">
-											<i class="icons-write-2"> <span class="blind">음성
-													녹음 버튼</span>
-										</i>
-										</label>
-									</fieldset>
-								</form>
-								<ul class="js-remark-upload-file upload-document-group"></ul>
-								<ul class="js-remark-upload-img comment-upload-img"></ul>
-							</div>
-							<div class="comment-like-area d-none">
-								<div class="js-remark-like comment-like ">
-									<span class="js-remark-like-button"><em class="txt-like">좋아요</em></span>
-									<span class="js-remark-like-count comment-like-count ">0</span>
-								</div>
-							</div>
-						</div>
-					</li>
 				</ul>
 			</div>
 			<div class="js-remark-layer js-edit-layer comment-input-wrap">
