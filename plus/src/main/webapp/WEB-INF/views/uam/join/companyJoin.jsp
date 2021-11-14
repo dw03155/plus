@@ -229,8 +229,8 @@ to {
 	<div id="companyJoinLayer" class="">
 		<div class="upgrade-singup-header">
 			<a href="http://" class="logo"> <img
-				src="flow-renewal/assets/images/flow_logo_small.png">
-			</a> <a href="joinForm.do" id="closeBtn" class="login-close-button"></a>
+				src="img_rn/memb2/plus_loing.png">
+			</a> <a href="home.do" id="closeBtn" class="login-close-button"></a>
 		</div>
 		
 		<!-- 빨간 알람창 -->
@@ -253,7 +253,7 @@ to {
 					<span>https://</span> 
 					<input id="coUrl" name="coUrl" type="text" class="join-input" autocomplete="off" placeholder="회사 URL">
 					<!-- 입력 오류 시 .error 클래스 추가 -->
-					<span>.flow.team</span>
+					<span>.plus.team</span>
 				</div>
 				<p id="errMeg" class="error-text d-none">3~5자 영문, 숫자만 가능합니다.</p>
 				<!-- 입력 오류 시 display: block -->

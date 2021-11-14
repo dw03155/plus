@@ -24,6 +24,7 @@
 	top: 25%;
 	left: 25%;
 	z-index: 3000;
+	box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .my-left-style {
@@ -63,6 +64,7 @@
     text-align: left;
     color: #555;
     display: none;
+    box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .statusStyle:hover{
 	color: #6449FC;
@@ -95,7 +97,7 @@
 				<img id="mem_st_icon" alt="on" src="/img/status_icn/offline.png" class="st_icn">
 			</button>
 		</div>
-			<ul id="accountModal" class="modal-account d-none">
+			<ul id="accountModal" class="modal-account d-none" style="box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
 				<li class="user-area">
 					<p class="js-profile user-img"
 						style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;);"></p>
@@ -699,9 +701,17 @@
 		</div>
 	</article>
 	
-	<form id="frm" action="home.do"></form>
-	
+	<form id="sessionNull" action="home.do"></form>
+	<form id="leave" action="home.do"></form>
 	<script>
+	//세션 종료일때
+	$(function(){		
+		var memId = "${sessionScope.memId}"
+		if(memId == null || memId == ""){
+			sessionNull.submit();
+		}
+	});
+	
 	//회원상태 가져오기
 	$(function(){
 		var memId = "${sessionScope.memId}";
@@ -850,6 +860,7 @@
 			$("#pushAlamGroup").css("display", "none");
 			$("#mylock").css("display", "none");
 			$("#mySet").css("display", "block");
+			$("#accountModal").toggleClass("d-none");
 		});	
 		
 		$(".my-button-close-1").on("click", function() {
@@ -1093,7 +1104,7 @@
 				contentType: "application/json",
 				dataType: "json",
 				success: function(){
-					frm.submit();
+					leave.submit();
 				}
 			});
 		});

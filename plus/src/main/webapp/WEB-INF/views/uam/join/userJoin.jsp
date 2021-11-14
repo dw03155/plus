@@ -221,8 +221,8 @@
 				<div class="fl-header">
 
 					<h1>
-						<a href="/"><img id="headerLogoImg"
-							src="design2/img_login/bi_flow.png" style="cursor: pointer;"
+						<a href="home.do"><img id="headerLogoImg"
+							src="img_rn/memb2/plus_loing.png" style="cursor: pointer;"
 							alt="flow"></a>
 					</h1>
 
@@ -242,10 +242,9 @@
 							<div class="flk-msg-wrap">
 								<h3 class="font-Noto" data-langcode="H463">플러스 사용자 계정을 생성하세요</h3>
 								<h4 class="font-Noto">
-									<span data-langcode="H486">아래 정보들을 입력 후, 플러스 관리자로 시작할 수
-										있습니다.</span><br class="block"> <span style="color: #4c80d6;"
-										data-langcode="H487">URL 주소는 직원들을 초대할 때 이용할 수 있습니다.</span>
-								</h4>
+									<span data-langcode="H486">아래 정보들을 입력 후, 플러스 사용자로 시작할 수
+										있습니다.</span><br class="block">
+								</h4> 
 							</div>
 							<!-- //전체메시지 -->
 
@@ -454,9 +453,7 @@
 			$.ajax({
 				type : "post",
 				url : "joinMail.do",
-				data : {
-					email : email
-				},
+				data : {"email" : email},
 				/* dataType : "json", */
 				success: function(key){
 					

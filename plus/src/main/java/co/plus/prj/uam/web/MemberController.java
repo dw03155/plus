@@ -13,6 +13,7 @@ import java.util.Random;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import co.plus.prj.pnw.vo.PNWVO;
 import co.plus.prj.uam.service.MemberService;
 import co.plus.prj.uam.vo.MemberVO;
 import net.coobird.thumbnailator.Thumbnails;
@@ -102,6 +104,23 @@ public class MemberController {
 	@ResponseBody
 	public Map exCompanyInsert(@RequestBody MemberVO vo, Model model) {
 		service.exCompanyInsert(vo);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("member", vo);
+		return map;
+	}
+	//기존 회원가입폼(companyJoin에 입력한 url정보전달)
+	@RequestMapping(value="/guestCompanyInsert.do", method = RequestMethod.GET)
+	public String guestCompanyInsert(@RequestParam(required = false) String newCoUrl, Model model) {
+		model.addAttribute("exUrl",newCoUrl);
+		System.out.println(newCoUrl);
+		
+		return "uam/join/guestJoin";
+	}
+	//게스트 회사가입 회원가입완료
+	@RequestMapping(value="/guestInsert.do", method = RequestMethod.POST, consumes = "application/json")
+	@ResponseBody
+	public Map guestInsert(@RequestBody MemberVO vo, Model model) {
+		service.guestInsert(vo);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("member", vo);
 		return map;
@@ -249,6 +268,15 @@ public class MemberController {
 		service.memberOffline(vo);
 		return vo;
 	}
+	
+	//회사로고 가져오기
+	@GetMapping("/getLogo.do")
+	@ResponseBody
+	public MemberVO getLogo(@RequestParam(required=false) String coUrl, MemberVO vo) {
+		vo.setCoUrl(coUrl);
+		MemberVO logo = service.getLogo(vo);
+		return logo;
+	}
 		
 		
 	//회원 탈퇴
@@ -281,14 +309,26 @@ public class MemberController {
 	}
 	
 	
-	
 	//파일 업로드
 	@PostMapping("/uploadLogo.do")
 	@ResponseBody
-	public void uploadLogo(MultipartFile[] logoInput) {
-		
-		String path = "D:\\logo";
+	public Map uploadLogo(MultipartFile[] logoInput, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String path = "C:\\Users\\trund\\git\\plus\\plus\\src\\main\\webapp\\logo";
 		File Folder = new File(path);
+		String coUrl = (String) session.getAttribute("coUrl");
+		Random random = new Random();
+		String key = "";
+		
+		for(int i = 0; i<3; i++) {
+			int index = random.nextInt(25)+65;
+			key += (char)index;
+		}
+		int numIndex = random.nextInt(9999)+1000;
+		key += numIndex;
+		
+		String coUrlUni = coUrl+ "_" + key;
+		System.out.println(coUrlUni);
 		
 		if(!Folder.exists()) {
 			Folder.mkdir();
@@ -299,28 +339,24 @@ public class MemberController {
 		}
 		
 		File uploadFolder = Folder;
-				
 		
 		for(MultipartFile file : logoInput) {
-			String uploadFileName = file.getOriginalFilename();
-			File saveFile = new File(uploadFolder, uploadFileName);
+			String FileName = file.getOriginalFilename();
+			String uploadFileName = coUrlUni +"_"+ FileName;
+			File saveFile = new File(uploadFolder,uploadFileName);
 			
 			if(checkImageType(saveFile)) {  //이미지파일 썸네일 파일도 함께만든다.
 			
 					try {
 						file.transferTo(saveFile);  //파일저장
 					
-						File thumbnail = 
-								new File(uploadFolder, "s_" + uploadFileName);  //저장할 파일명만들기
-						Thumbnails.of(saveFile)
-								  .size(30,30)       //썸네일사이즈
-								  .toFile(thumbnail);  //앞에 저장한파일에서 사이즈를 줄이고 만든 파일명을 붙힌다.
-					
 					}catch(Exception e) {
 					e.printStackTrace();
 					}
 			}// 썸네일 end
 		}
+		map.put("key", coUrlUni);
+		return map;
 	}
 	
 	private boolean checkImageType(File file) {  //이미지파일인지 아닌지 비교
@@ -445,14 +481,14 @@ public class MemberController {
 	//엑셀서식다운
 	@SuppressWarnings("resource")
 	@GetMapping("/xlsxDonload.do")
-	public void download(HttpServletResponse response) throws FileNotFoundException {
+	public void download(HttpServletResponse response, HttpServletRequest request) throws FileNotFoundException {
 		try {
-			String path = "C:\\Users\\admin\\git\\plus\\plus\\src\\main\\webapp\\xlsxFile\\xlsxdownload\\플러스 엑설파일 양식.xlsx";
-			 
+			String path = "C:\\Users\\trund\\git\\plus\\plus\\src\\main\\webapp\\xlsxFile\\xlsxdownload\\플러스 회원일괄초대 엑셀입력 양식.xls";
+
 			File file = new File(path);
 			response.setHeader("Content-Transfer-Encoding", "binary");
-			 
 			FileInputStream fileInputStream = new FileInputStream(path);
+	
 			OutputStream out = response.getOutputStream();
 			
 			int read = 0;
@@ -466,6 +502,13 @@ public class MemberController {
 		}
 		 
 		 
+	}
+	//회원일괄 입력
+	@PutMapping("/AllMemberInsert2.do")
+	@ResponseBody
+	public MemberVO AllMemberInsert2(@RequestBody MemberVO vo) {
+		service.AllMemberInsert2(vo);
+		return vo;
 	}
 	
 	
@@ -490,6 +533,20 @@ public class MemberController {
 		service.coPrjPMChange(vo);
 		return vo;
 	}
+	//PM지정
+	@GetMapping("/prjUserList.do")
+	@ResponseBody
+	public List<MemberVO> prjUserList(MemberVO vo){
+		return service.prjUserList(vo);
+	}
+	//PM지정
+	@PutMapping("/coPrjUserChange.do")
+	@ResponseBody
+	public MemberVO coPrjUserChange(@RequestBody MemberVO vo) {
+		service.coPrjUserChange(vo);
+		return vo;
+	}
+	
 	
 	//공개키테고리
 	@GetMapping("/openPrjCategory.do")
@@ -522,8 +579,45 @@ public class MemberController {
 		return service.getCategoryList(vo);
 	}
 	
+	@GetMapping("/allFile.do")
+	public String allFile() {
+		return "home/allFile";
+	}
 	
+	@GetMapping("/taskFileList.do")
+	@ResponseBody
+	public List<PNWVO> taskFileList(PNWVO vo){
+		return service.taskFileList(vo);
+	}
+	@GetMapping("/textFileList.do")
+	@ResponseBody
+	public List<PNWVO> textFileList(PNWVO vo){
+		return service.textFileList(vo);
+	}
+	@GetMapping("/subTaskFileList.do")
+	@ResponseBody
+	public List<PNWVO> subTaskFileList(PNWVO vo){
+		return service.subTaskFileList(vo);
+	}
 	
+	//게스트 회원가입 URL발송
+	@RequestMapping(value="/userInviteMail.do", method = RequestMethod.POST)
+	@ResponseBody
+	public void guestInviteMail(String name, String coUrl, String email, HttpSession session,Model model) throws MessagingException {
+		String mailText = "<div style='height: 300px;'>"+"<p>"+name +"님이 게스트로 초대하셨습니다!</p>"+ "<h1>플러스에 가입해 보세요!</h1>" +
+							"<button style='padding: 10px 20px 10px 20px; background-color: #6449FC; color: white; border-radius: 5px; height: "
+							+ "60px; margin-top: 10px; margin-bottom: 10px; font-weight: bold; font-size: 15px;' "
+							+ "onclick='http://192.168.0.11/userJoin.do?newCoUrl="+ coUrl + "'>" +
+							"플러스가입하기</button>"+
+							"<p></p>" + "<div>";
+		MimeMessage mail = mailSender.createMimeMessage();
+		MimeMessageHelper message = new MimeMessageHelper(mail,true,"UTF-8");
+		message.setTo(email);
+		message.setSubject("플러스 초대");
+		message.setText(mailText,true);
+		mailSender.send(mail);
+		
+	}
 	
 }
 

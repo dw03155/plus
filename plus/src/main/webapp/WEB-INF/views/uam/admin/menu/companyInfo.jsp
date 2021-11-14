@@ -57,6 +57,7 @@
 						<input id="logoInput" name="logoInput" type="file" class="coInputTag" accept="image/jpeg,image/png,image/jpg">
 						<button id="logoIn" class="formIn" type="submit">로고등록</button>
 				</div>
+				<p style="color: silver; font-size: 12px; margin-top: 5px">권장사항-200*100px, 배경없는 PNG파일</p>
 				<div id="showfiles"></div>
 			</div>
 			<div class="section-2 middle-line js-project-section js-label-section">
@@ -113,8 +114,6 @@
 			formData.append("logoInput", files[i]);
 			coLogo = files[i].name;
 		}
-		var coLogoName = coUrl+'_'+coLogo;
-		var jsondata = {"coUrl": coUrl,"coLogo":coLogoName};
 			$.ajax({
 				url: 'uploadLogo.do',
 				processData: false,
@@ -122,9 +121,11 @@
 				data: formData,
 				type: 'POST',
 				success: function(result){
+					var $coUrlUni = result.key +"_"+ coLogo;
 					$("#logoInput").val();
 					$("#showfiles").empty();//<div>리셋
 					alert("Uploaded");
+					var jsondata = {"coUrl": coUrl,"coLogo":$coUrlUni};
 					$.ajax({
 						url: 'companyLogoUpdate.do',
 						type: 'put',

@@ -221,8 +221,8 @@
 				<div class="fl-header">
 
 					<h1>
-						<a href="/"><img id="headerLogoImg"
-							src="design2/img_login/bi_flow.png" style="cursor: pointer;"
+						<a href="home.do"><img id="headerLogoImg"
+							src="img_rn/memb2/plus_loing.png" style="cursor: pointer;"
 							alt="flow"></a>
 					</h1>
 
@@ -348,7 +348,7 @@
 											maxlength="" readonly="readonly" value="${newUrl}"
 											style="width: 100%;" data-langcode="H493"> <strong
 											id="domain"
-											style="position: absolute; left: 300px; top: 20px; font-size: 18px;">.flow.team</strong>
+											style="position: absolute; left: 300px; top: 20px; font-size: 18px;">.plus.team</strong>
 
 										<button type="button" class="btn-ok-text" data-langcode="H359">확인</button>
 										<button type="button" class="btn-clear-text"

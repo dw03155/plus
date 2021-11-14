@@ -2,7 +2,7 @@ package co.plus.prj.uam.service;
 
 import java.util.List;
 
-
+import co.plus.prj.pnw.vo.PNWVO;
 import co.plus.prj.uam.vo.MemberVO;
 
 public interface MemberService {
@@ -12,6 +12,8 @@ public interface MemberService {
 	public int newCompanyInsert(MemberVO member);
 	// 기존 회사 입력
 	public int exCompanyInsert(MemberVO member);
+	//게스트 가입
+	public int guestInsert(MemberVO member);
 	
 	//회사service
 	//회사url로 단일회사정보 가져오기
@@ -40,6 +42,9 @@ public interface MemberService {
 	public int memberOther(MemberVO vo);
 	public int memberNotdesk(MemberVO vo);
 	public int memberOffline(MemberVO vo);
+	
+	//회사 로고 가져오기
+	public MemberVO getLogo(MemberVO vo);
 	
 	//탈퇴
 	public int memberDelete(MemberVO vo);
@@ -76,9 +81,18 @@ public interface MemberService {
 	public List<MemberVO> getCoPrjInfo(MemberVO vo);
 	//pm해제
 	public int coPrjPMChange(MemberVO vo);
+	//pm검색
+	public List<MemberVO> prjUserList(MemberVO vo);
+	//pm지정
+	public int coPrjUserChange(MemberVO vo);
 
 	//카테고리 삭제
 	public int prjCategoryUpdate(MemberVO vo);
 	//카테고리 추가
 	public int categoryInsert(MemberVO vo);
+	
+	//파일 리스트
+	public List<PNWVO> textFileList(PNWVO vo);
+	public List<PNWVO> subTaskFileList(PNWVO vo);
+	public List<PNWVO> taskFileList(PNWVO vo);
 }

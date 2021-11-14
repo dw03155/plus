@@ -240,11 +240,10 @@
 
 							<!-- 전체메시지 -->
 							<div class="flk-msg-wrap">
-								<h3 class="font-Noto" data-langcode="H463">플러스 사용자 계정을 생성하세요</h3>
+								<h3 class="font-Noto" data-langcode="H463">플러스 게스트 계정을 생성하세요</h3>
 								<h4 class="font-Noto">
-									<span data-langcode="H486">아래 정보들을 입력 후, 플러스 관리자로 시작할 수
-										있습니다.</span><br class="block"> <span style="color: #4c80d6;"
-										data-langcode="H487">URL 주소는 직원들을 초대할 때 이용할 수 있습니다.</span>
+									<span data-langcode="H486">아래 정보들을 입력 후, 플러스 게스트로 시작할 수
+										있습니다.</span><br class="block">
 								</h4>
 							</div>
 							<!-- //전체메시지 -->
@@ -491,7 +490,7 @@
 			var pwd = $('input:password[name="pwd"]').val();
 			var coUrl = $('#coUrl').val();
 			$.ajax({
-				url : "exCompanyInsert.do",
+				url : "guestInsert.do",
 				method : "post",
 				/* data:JSON.stringify($("#frm").serializeObject()), */
 				data : JSON.stringify({
