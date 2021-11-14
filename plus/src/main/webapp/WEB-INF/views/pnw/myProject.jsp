@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>플러스(Plus)</title>
 <meta charset="UTF-8">
 <script>
 <!-- Id가 없을때 로그인화면으로 돌아감 -->
@@ -323,7 +324,7 @@
 			// 프로젝트 이동하기
 			$("#projectHomeLayer").find("li > a").click(function(e) {
 				e.preventDefault();
-				$(e.currentTarget).closest('form').submit();
+				$(e.currentTarget).closest("form").submit();
 			});
 		</script>
 </body>

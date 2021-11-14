@@ -35,8 +35,9 @@ public class PNWController {
 	@RequestMapping(value = "/openProject.do", method = RequestMethod.GET)
 	public String cProject(HttpSession session, Model model, PNWVO vo) {
 		vo.setMemId((String) session.getAttribute("memId"));
-		model.addAttribute("favorPrjs", service.favorMyPrj(vo));
-		model.addAttribute("noPrjs", service.noMyPrj(vo));
+		vo.setCoUrl((String) session.getAttribute("coUrl"));
+		model.addAttribute("ctgrys",service.ctgryList(vo));
+		model.addAttribute("prjs", service.openProject(vo));
 		return "pnw/openProject";
 
 	}
@@ -91,7 +92,7 @@ public class PNWController {
 	}
 	
 	// 스케쥴 메뉴
-	@RequestMapping(value = "/allSchedule.do",  method = RequestMethod.POST)
+	@RequestMapping(value = "/allSchedule.do",  method = RequestMethod.GET)
 	public String allSche(Model model, PNWVO vo) {
 		//model.addAttribute("sches",service.allSchedule(vo));
 		return "home/allSchedule"; 		

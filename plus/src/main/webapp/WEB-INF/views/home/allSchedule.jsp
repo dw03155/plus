@@ -58,8 +58,17 @@
 		events : [
 			{
 				title : 'all',
+				start : '2021-11-12'
+			},
+			{
+				title : 'all',
 				start : '2021-11-12',
 				end : '2021-11-13'
+			},
+			{
+				title : 'all',
+				start : '2021-11-12',
+				end : '2021-11-14'
 			}
 		]
 		});

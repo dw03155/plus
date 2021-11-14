@@ -91,6 +91,8 @@ public class PNWVO {
 	private String allCnt;			// 전체 참여자 수
 	private String tskCnt;			// 전체 업무 진행상황에 따른 개수
 	// 프로젝트 : 업무
-	private List<PNWVO> tsks;		// 업무탭
+	private List<PNWVO> tsks;		// 업무탭	
+	// 전체 프로젝트
+	private String partiYn;			// 프로젝트 참여여부 (참여중)
 	
 }

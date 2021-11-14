@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -798,7 +800,92 @@ to {
 	<script type="text/javascript">
 		var $memId = "${sessionScope.memId}";
 		var $coUrl = "${sessionScope.coUrl}";
+		
+		//전체 메뉴
+		//메뉴 클릭시 
+		$("#leftTask").find("ul li a").on("click", function(e) { // 새 프로젝트 팝업창 열기
+			$("#leftTask").find("ul li").removeClass("flow-active");
+			$(e.target).parent("li").addClass("flow-active");
+		});
+		
+		//새 프로젝트
+		$("#prjMake").on("click", function(e) { // 새 프로젝트 팝업창 열기
+			e.preventDefault();
+			$("#overlay").css("display", "block");
+			$("#prjMakeLayer").css("display", "block");
 
+			// 카테고리 정보 가져오기
+			$.ajax({
+				url : "ctgryList.do",
+				type : "post",
+				dataType : 'json',
+				data : {"coUrl" : $coUrl},
+				success : function(data) {
+					if (data != "") {
+						$("#ctgryIdSet").empty();
+						var $ctgryNull = $("<option>" + "선택" + "</option>").val("");
+						$("#ctgryIdSet").append($ctgryNull);
+						for (i = 0; i < data.length; i++) {
+							var $ctgry = $("<option>" + data[i].ctgryName+ "</option>").val(data[i].ctgryId);
+							$("#ctgryIdSet").append($ctgry);
+						} //end of for
+					} else if (data == "") {
+						$("#errorWrap").find("div:last").text("카테고리가 없습니다.");
+						$("#errorWrap").children("div").fadeIn(1000).delay(1500).fadeOut(1000);
+					} //end of elseif
+				} //end of function
+			}); //end of ajax
+		});// 새 프로젝트 팝업창 열기 End
+
+		$("#prjMakeLayer").find("button").on('click', function(e) { // 옵션 버튼 클릭시 active
+			$(e.target).toggleClass("active");
+
+			if ($("#cPrjSet").find("button").hasClass("active")) { // 회사프로젝트 설정
+				var $prjKnd = "C";
+			} else {
+				var $prjKnd = "N";
+			}
+			$("input[name='prjKnd']").val($prjKnd);
+
+			if ($("#prjAllSet").find("button").hasClass("active")) { // 전체공개 설정
+				var $prjOpenPerm = "all";
+			} else {
+				var $prjOpenPerm = "part";
+			}
+			$("input[name='prjOpenPerm']").val($prjOpenPerm);
+		});//옵션 버튼 클릭 End
+
+		$(".project-submit").on("click", function(e) { // 프로젝트 만들기 버튼 클릭
+			if ($("#prjTtlInput").val() == "") {
+				$("#errorWrap").find("div:last").text("제목을 입력하세요.");
+				$("#errorWrap").children("div").fadeIn(1000).delay(1500).fadeOut(1000);
+			} else {
+				e.preventDefault();
+				$.ajax({
+					url : "prjInsert.do",
+					type : "post",
+					dataType : 'json',
+					data : {
+						"prjKnd" : $("#prjKndSet").val(),
+						"prjTtl" : $("#prjTtlInput").val(),
+						"prjCntn" : $("#prjCntnInput").val(),
+						"prjOpenPerm" : $("#prjOpenPermSet").val(),
+						"ctgryId" : $("#ctgryIdSet").val(),
+						"coUrl" : $coUrl,
+						"MemId" : $memId
+					},
+					success : function(data) {
+						$("#successWrap").find("div:last").text("프로젝트가 생성되었습니다.");
+						$("#successWrap").children("div").fadeIn(1000).delay(1500).fadeOut(1000);
+
+						prjInsert.submit();
+					} //end of function
+				}); //end of ajax
+			} //end of else
+		});// 프로젝트 만들기 End
+		//새 프로젝트 End
+		
+		
 		//프로젝트 폴더 메뉴
 		$.ajax({ // 프로젝트 폴더 목록 부르기
 			url : "folderMenu.do",
@@ -881,82 +968,7 @@ to {
 		});
 		//프로젝트 폴더 메뉴 End
 
-		//새 프로젝트
-		$("#prjMake").on('click', function(e) { // 새 프로젝트 팝업창 열기
-			e.preventDefault();
-			$("#overlay").css("display", "block");
-			$("#prjMakeLayer").css("display", "block");
-
-			// 카테고리 정보 가져오기
-			$.ajax({
-				url : "ctgryList.do",
-				type : "post",
-				dataType : 'json',
-				data : {"coUrl" : $coUrl},
-				success : function(data) {
-					if (data != "") {
-						$("#ctgryIdSet").empty();
-						var $ctgryNull = $("<option>" + "선택" + "</option>").val("");
-						$("#ctgryIdSet").append($ctgryNull);
-						for (i = 0; i < data.length; i++) {
-							var $ctgry = $("<option>" + data[i].ctgryName+ "</option>").val(data[i].ctgryId);
-							$("#ctgryIdSet").append($ctgry);
-						} //end of for
-					} else if (data == "") {
-						$("#errorWrap").find("div:last").text("카테고리가 없습니다.");
-						$("#errorWrap").children("div").fadeIn(1000).delay(1500).fadeOut(1000);
-					} //end of elseif
-				} //end of function
-			}); //end of ajax
-		});// 새 프로젝트 팝업창 열기 End
-
-		$("#prjMakeLayer").find("button").on('click', function(e) { // 옵션 버튼 클릭시 active
-			$(e.target).toggleClass("active");
-
-			if ($("#cPrjSet").find("button").hasClass("active")) { // 회사프로젝트 설정
-				var $prjKnd = "C";
-			} else {
-				var $prjKnd = "N";
-			}
-			$("input[name='prjKnd']").val($prjKnd);
-
-			if ($("#prjAllSet").find("button").hasClass("active")) { // 전체공개 설정
-				var $prjOpenPerm = "all";
-			} else {
-				var $prjOpenPerm = "part";
-			}
-			$("input[name='prjOpenPerm']").val($prjOpenPerm);
-		});//옵션 버튼 클릭 End
-
-		$(".project-submit").on("click", function(e) { // 프로젝트 만들기 버튼 클릭
-			if ($("#prjTtlInput").val() == "") {
-				$("#errorWrap").find("div:last").text("제목을 입력하세요.");
-				$("#errorWrap").children("div").fadeIn(1000).delay(1500).fadeOut(1000);
-			} else {
-				e.preventDefault();
-				$.ajax({
-					url : "prjInsert.do",
-					type : "post",
-					dataType : 'json',
-					data : {
-						"prjKnd" : $("#prjKndSet").val(),
-						"prjTtl" : $("#prjTtlInput").val(),
-						"prjCntn" : $("#prjCntnInput").val(),
-						"prjOpenPerm" : $("#prjOpenPermSet").val(),
-						"ctgryId" : $("#ctgryIdSet").val(),
-						"coUrl" : $coUrl,
-						"MemId" : $memId
-					},
-					success : function(data) {
-						$("#successWrap").find("div:last").text("프로젝트가 생성되었습니다.");
-						$("#successWrap").children("div").fadeIn(1000).delay(1500).fadeOut(1000);
-
-						prjInsert.submit();
-					} //end of function
-				}); //end of ajax
-			} //end of else
-		});// 프로젝트 만들기 End
-		//새 프로젝트 End
+		
 	</script>
 
 
