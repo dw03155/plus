@@ -322,7 +322,7 @@
 										</div>
 									</div>
 								</div>
-								<input type="hidden" id="coUrl" value="${exUrl }">
+								<input type="hidden" id="coUrl" value="${coUrl }">
 
 								<!-- 약관동의체크 -->
 								<div class="terms-check">

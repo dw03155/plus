@@ -347,8 +347,8 @@ to {
 						<div class="invite-email-area scroll-mask">
 							<div class="invite-email-list " id="emailList">
 								<div class="input-email-type-wrap-1 emailItem">
-									<input type="text" class="input-email-type-1 emailItemInput"
-										placeholder="example@flow.team" data-valid="email"
+									<input id="guestEmail" type="text" class="input-email-type-1 emailItemInput"
+										placeholder="example@plus.team" data-valid="email"
 										maxlength="50" data-required-yn="Y"
 										data-empty-msg="이메일을 작성해주세요!"
 										data-over-msg="이메일은 50자이내로 작성해주세요!"
@@ -360,9 +360,7 @@ to {
 							<div class="flow-email-bottom-section-1">
 								<div id="inviteMsg" contenteditable="true"
 									class="flow-email-bottom-text-1">
-									<p>
-										플러스로 업무관리, 파일공유를 한 곳에서! <br>플러스로 초대합니다.
-									</p>
+									<textarea id="guestcontents" rows="30" cols="41" style="resize: none">플러스로 업무관리, 파일공유를 한 곳에서! 플러스로 초대합니다.</textarea>
 								</div>
 							</div>
 						</div>
@@ -1068,13 +1066,26 @@ to {
 			$("#inviteMainLayer").css("display", "none");
 		});
 		
-		
+		$('#guestsendInviteEmail').click(function(){
+			var coUrl = "${sessionScope.coUrl}";
+			var email = $('#guestEmail').val();
+			var contents = $('#guestcontents').val();
+			console.log(contents);
+			$.ajax({
+				type: "post",
+				url: "guestEmailPost.do",
+				data: {"email": email, "coUrl": coUrl, "contents":contents},
+				success: function(){
+					alert("초대메일을 발송했습니다.");
+				}
+			})
+		});
 		
 		//모달자동닫기
 		$(document).mouseup(function(e){
 			var inviteMainLayer = $('#inviteMainLayer');
 			var guestsendInviteEmlLayer = $('#guestsendInviteEmlLayer');
-		})
+		});
 		
 	</script>
 

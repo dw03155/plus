@@ -36,7 +36,6 @@ import org.springframework.web.multipart.MultipartFile;
 import co.plus.prj.pnw.vo.PNWVO;
 import co.plus.prj.uam.service.MemberService;
 import co.plus.prj.uam.vo.MemberVO;
-import net.coobird.thumbnailator.Thumbnails;
 
 @Controller
 public class MemberController {
@@ -108,23 +107,23 @@ public class MemberController {
 		map.put("member", vo);
 		return map;
 	}
-//	//게스트 회원가입폼(session에 입력한 url정보전달)
-//	@RequestMapping(value="/guestCompanyInsert.do", method = RequestMethod.GET)
-//	public String guestCompanyInsert(@RequestParam(required = false) String newCoUrl, Model model) {
-//		model.addAttribute("exUrl",newCoUrl);
-//		System.out.println(newCoUrl);
-//		
-//		return "uam/join/guestJoin";
-//	}
-//	//게스트 회사가입 회원가입완료
-//	@RequestMapping(value="/guestInsert.do", method = RequestMethod.POST, consumes = "application/json")
-//	@ResponseBody
-//	public Map guestInsert(@RequestBody MemberVO vo, Model model) {
-//		service.guestInsert(vo);
-//		HashMap<String, Object> map = new HashMap<String, Object>();
-//		map.put("member", vo);
-//		return map;
-//	}
+	//게스트 회원가입폼(session에 입력한 url정보전달)
+	@RequestMapping(value="/guestCompanyInsert.do", method = RequestMethod.GET)
+	public String guestCompanyInsert(@RequestParam(required = false) String coUrl, Model model) {
+		model.addAttribute("coUrl",coUrl);
+		System.out.println(coUrl);
+		
+		return "uam/join/guestJoin";
+	}
+	//게스트 회사가입 회원가입완료
+	@RequestMapping(value="/guestInsert.do", method = RequestMethod.POST, consumes = "application/json")
+	@ResponseBody
+	public Map guestInsert(@RequestBody MemberVO vo, Model model) {
+		service.guestInsert(vo);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("member", vo);
+		return map;
+	}
 	//회원가입 인증번호 메일발송
 	@RequestMapping(value="/joinMail.do", method = RequestMethod.POST)
 	@ResponseBody
@@ -535,17 +534,37 @@ public class MemberController {
 		String mailText = "<div style='height: 300px;'>"+"<p>플러스에 가입해 보세요!</p>" +
 							"<button style='padding: 10px 20px 10px 20px; background-color: #6449FC; color: white; border-radius: 5px; height: "
 							+ "60px; margin-top: 10px; margin-bottom: 10px; font-weight: bold; font-size: 15px;' "
-							+ "onclick='http://192.168.0.11/userJoin.do?newCoUrl="+ coUrl + "'>" +
+							+ "onclick='http://localhost/userJoin.do?newCoUrl="+ coUrl + "'>" +
 							"플러스가입하기</button>"+
 							"<p></p>" + "<div>";
 		MimeMessage mail = mailSender.createMimeMessage();
 		MimeMessageHelper message = new MimeMessageHelper(mail,true,"UTF-8");
 		message.setTo(email);
-		message.setSubject("플러스 초대");
+		message.setSubject("[플러스에 초대합니다]");
 		message.setText(mailText,true);
 		mailSender.send(mail);
 		
 	}
+	//게스트초대메일 발송
+	@PostMapping("/guestEmailPost.do")
+	@ResponseBody
+	public void guestEmailPost(String coUrl, String email, String contents) throws MessagingException {
+		System.out.println(contents);
+		String mailContnets = "<div style='height: 300px;'>"+"<p>플러스에 가입해 보세요!</p>" +
+								"<button style='padding: 10px 20px 10px 20px; background-color: #6449FC; color: white; border-radius: 5px; height: "
+								+ "60px; margin-top: 10px; margin-bottom: 10px; font-weight: bold; font-size: 15px;' "
+								+ "onclick='http://localhost/guestCompanyInsert.do?coUrl="+ coUrl + "'>" +
+								"플러스가입하기</button>"+"<p></p>" + "<div>"+"<br>"+
+								contents;
+		MimeMessage mail = mailSender.createMimeMessage();
+		MimeMessageHelper message = new MimeMessageHelper(mail, true, "UTF-8");
+		message.setTo(email);
+		message.setSubject("[플러스에 초대합니다]");
+		message.setText(mailContnets,true);
+		mailSender.send(mail);
+								
+	}
+	
 	//엑셀서식다운
 	@SuppressWarnings("resource")
 	@GetMapping("/xlsxDonload.do")
@@ -668,26 +687,6 @@ public class MemberController {
 		return service.subTaskFileList(vo);
 	}
 	
-	 //게스트 회원가입 URL발송
-	 /* 
-	 * @RequestMapping(value="/userInviteMail.do", method = RequestMethod.POST)
-	 * 
-	 * @ResponseBody public void guestInviteMail(String name, String coUrl, String
-	 * email, HttpSession session,Model model) throws MessagingException { String
-	 * mailText = "<div style='height: 300px;'>"+"<p>"+name +"님이 게스트로 초대하셨습니다!</p>"+
-	 * "<h1>플러스에 가입해 보세요!</h1>" +
-	 * "<button style='padding: 10px 20px 10px 20px; background-color: #6449FC; color: white; border-radius: 5px; height: "
-	 * +
-	 * "60px; margin-top: 10px; margin-bottom: 10px; font-weight: bold; font-size: 15px;' "
-	 * + "onclick='http://192.168.0.11/userJoin.do?newCoUrl="+ coUrl + "'>" +
-	 * "플러스가입하기</button>"+ "<p></p>" + "<div>"; MimeMessage mail =
-	 * mailSender.createMimeMessage(); MimeMessageHelper message = new
-	 * MimeMessageHelper(mail,true,"UTF-8"); message.setTo(email);
-	 * message.setSubject("플러스 초대"); message.setText(mailText,true);
-	 * mailSender.send(mail);
-	 * 
-	 * }
-	 */
 	
 }
 
