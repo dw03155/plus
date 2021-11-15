@@ -35,6 +35,8 @@ public interface MemberService {
 	public int coTelUpdate(MemberVO vo);
 	public int deptUpdate(MemberVO vo);
 	public int pwdUpdate(MemberVO vo);
+	public int memberImgUpdate(MemberVO vo);
+	public MemberVO getMemberImg(MemberVO vo);
 	
 	//회원상태 변경
 	public MemberVO memberStatus(MemberVO vo);

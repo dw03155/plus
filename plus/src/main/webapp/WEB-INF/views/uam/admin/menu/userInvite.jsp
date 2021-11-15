@@ -161,7 +161,7 @@
 				<input id="file" name="file" type="file" style="border: 1px;">
 				</form>
 				<button type="submit" id="fileUp" class="blueBtn" onclick="check()">추가</button>
-				<button id="xlsxDoun" onClick="location.href='/xlsxFile/xlsxdownload/플러스 회원일괄초대 엑셀입력 양식.xls'" value="플러스 회원일괄초대 엑셀입력 양식.xls" class="whiteBtn" type="button" style="width: 180px">엑셀파일 양식 다운로드</button>
+				<button id="xlsxDoun" onclick="location.href='/xlsxFile/xlsxdownload/플러스 회원일괄초대 엑셀입력 양식.xls'" value="플러스 회원일괄초대 엑셀입력 양식.xls" class="whiteBtn" type="button" style="width: 180px">엑셀파일 양식 다운로드</button>
 			</div>
 			<div class="contentsBox">
 			<div id="xlsxInfo">

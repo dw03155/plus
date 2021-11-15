@@ -108,23 +108,23 @@ public class MemberController {
 		map.put("member", vo);
 		return map;
 	}
-	//기존 회원가입폼(companyJoin에 입력한 url정보전달)
-	@RequestMapping(value="/guestCompanyInsert.do", method = RequestMethod.GET)
-	public String guestCompanyInsert(@RequestParam(required = false) String newCoUrl, Model model) {
-		model.addAttribute("exUrl",newCoUrl);
-		System.out.println(newCoUrl);
-		
-		return "uam/join/guestJoin";
-	}
-	//게스트 회사가입 회원가입완료
-	@RequestMapping(value="/guestInsert.do", method = RequestMethod.POST, consumes = "application/json")
-	@ResponseBody
-	public Map guestInsert(@RequestBody MemberVO vo, Model model) {
-		service.guestInsert(vo);
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("member", vo);
-		return map;
-	}
+//	//게스트 회원가입폼(session에 입력한 url정보전달)
+//	@RequestMapping(value="/guestCompanyInsert.do", method = RequestMethod.GET)
+//	public String guestCompanyInsert(@RequestParam(required = false) String newCoUrl, Model model) {
+//		model.addAttribute("exUrl",newCoUrl);
+//		System.out.println(newCoUrl);
+//		
+//		return "uam/join/guestJoin";
+//	}
+//	//게스트 회사가입 회원가입완료
+//	@RequestMapping(value="/guestInsert.do", method = RequestMethod.POST, consumes = "application/json")
+//	@ResponseBody
+//	public Map guestInsert(@RequestBody MemberVO vo, Model model) {
+//		service.guestInsert(vo);
+//		HashMap<String, Object> map = new HashMap<String, Object>();
+//		map.put("member", vo);
+//		return map;
+//	}
 	//회원가입 인증번호 메일발송
 	@RequestMapping(value="/joinMail.do", method = RequestMethod.POST)
 	@ResponseBody
@@ -189,6 +189,14 @@ public class MemberController {
 		MemberVO info = service.memberInfo(vo);
 		return info;
 	}
+//	//회원이미지 가져오기
+//	@GetMapping("/getMemberImg.do")
+//	@ResponseBody
+//	public MemberVO getMemberImg(@RequestParam(required=false) String memId, MemberVO vo) {
+//		vo.setCoUrl(memId);
+//		MemberVO memImg = service.getMemberImg(vo);
+//		return memImg;
+//	}
 	//회원이름 수정
 	@RequestMapping(value="/nameUpdate.do", method = RequestMethod.PUT, consumes = "application/json")
 	@ResponseBody
@@ -268,6 +276,12 @@ public class MemberController {
 		service.memberOffline(vo);
 		return vo;
 	}
+	@PutMapping("/memberImgUpdate.do")
+	@ResponseBody
+	public MemberVO memberImgUpdate(@RequestBody MemberVO vo) {
+		service.memberImgUpdate(vo);
+		return vo;
+	}
 	
 	//회사로고 가져오기
 	@GetMapping("/getLogo.do")
@@ -277,7 +291,7 @@ public class MemberController {
 		MemberVO logo = service.getLogo(vo);
 		return logo;
 	}
-		
+	
 		
 	//회원 탈퇴
 	@RequestMapping(value="/memberDelete.do", method = RequestMethod.PUT,  consumes = "application/json")
@@ -312,9 +326,11 @@ public class MemberController {
 	//파일 업로드
 	@PostMapping("/uploadLogo.do")
 	@ResponseBody
-	public Map uploadLogo(MultipartFile[] logoInput, HttpSession session) {
+	public Map uploadLogo(MultipartFile[] logoInput, HttpSession session, HttpServletRequest request) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		String path = "C:\\Users\\trund\\git\\plus\\plus\\src\\main\\webapp\\logo";
+		String root=request.getSession().getServletContext().getRealPath("/");
+		String path=root+"\\logo\\";
+		
 		File Folder = new File(path);
 		String coUrl = (String) session.getAttribute("coUrl");
 		Random random = new Random();
@@ -358,6 +374,58 @@ public class MemberController {
 		map.put("key", coUrlUni);
 		return map;
 	}
+	
+//	//이미지 업로드
+//		@PostMapping("/imgUpload.do")
+//		@ResponseBody
+//		public Map imgUpload(MultipartFile[] userImgFile, HttpSession session, HttpServletRequest request) {
+//			HashMap<String, Object> map = new HashMap<String, Object>();
+//			String root=request.getSession().getServletContext().getRealPath("/");
+//			String path=root+"\\userimg\\";
+//			
+//			File Folder = new File(path);
+//			String memId = (String) session.getAttribute("memId");
+//			Random random = new Random();
+//			String key = "";
+//			
+//			for(int i = 0; i<3; i++) {
+//				int index = random.nextInt(25)+65;
+//				key += (char)index;
+//			}
+//			int numIndex = random.nextInt(9999)+1000;
+//			key += numIndex;
+//			
+//			String memUni = memId+ "_" + key;
+//			System.out.println(memUni);
+//			
+//			if(!Folder.exists()) {
+//				Folder.mkdir();
+//				System.out.println("폴더를 생성합니다.");
+//				
+//			}else {
+//				System.out.println("폴더가 이미 있습니다.");
+//			}
+//			
+//			File uploadFolder = Folder;
+//			
+//			for(MultipartFile file : userImgFile) {
+//				String FileName = file.getOriginalFilename();
+//				String uploadFileName = memUni +"_"+ FileName;
+//				File saveFile = new File(uploadFolder,uploadFileName);
+//				
+//				if(checkImageType(saveFile)) {  //이미지파일 썸네일 파일도 함께만든다.
+//				
+//						try {
+//							file.transferTo(saveFile);  //파일저장
+//						
+//						}catch(Exception e) {
+//						e.printStackTrace();
+//						}
+//				}// 썸네일 end
+//			}
+//			map.put("key", memUni);
+//			return map;
+//		}
 	
 	private boolean checkImageType(File file) {  //이미지파일인지 아닌지 비교
 		try {

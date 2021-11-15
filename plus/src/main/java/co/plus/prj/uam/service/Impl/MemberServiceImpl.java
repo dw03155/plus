@@ -110,6 +110,17 @@ public class MemberServiceImpl implements MemberService {
 	public int pwdUpdate(MemberVO vo) {
 		return map.pwdUpdate(vo);
 	}
+	// 회원이미지 수정
+	@Override
+	public int memberImgUpdate(MemberVO vo) {
+		return map.memberImgUpdate(vo);
+	}
+	// 회원이미지 가져오기
+	@Override
+	public MemberVO getMemberImg(MemberVO vo) {
+		return map.getMemberImg(vo);
+	}
+	
 
 														//회원상태 변경
 	// 회원 현재 상태
@@ -285,6 +296,7 @@ public class MemberServiceImpl implements MemberService {
 	public List<PNWVO> subTaskFileList(PNWVO vo) {
 		return map.subTaskFileList(vo);
 	}
+	
 	
 	
 

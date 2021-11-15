@@ -269,13 +269,14 @@
 <script>
 
 	$('.pmList').click(function(){
+		$("#usermemList").children().remove();
 		var tr = $(this);
 		var prjId = tr.children().children().val();
 
 		getCoPrjInfo(prjId);
 		
+		$("#adminAdd").off('click');
 		$("#adminAdd").click(function(){
-			$("#usermemList").empty();
 			console.log(prjId);
 			$.ajax({
 				url: "prjUserList.do?prjId="+ prjId,
@@ -283,28 +284,29 @@
 				dataType: "json",
 				success: function(data){
 					console.log(data);
+					if(data != ""){
+						for(i=0; i<data.length; i++){
+							var $memId = data[i].memId;
+							var $name = data[i].name;
+							var $email = data[i].email;
+							var $dept = data[i].dept;
+							$('<tr>').append($('<td>').append($('<input type="hidden">').val($memId)))
+									 .append($('<td>').html($name))
+									 .append($('<td>').html($email))
+									 .append($('<td>').html($dept))
+									 .append($('<td>').html($('<a href="#" class="pmInsert">').html("[승인]")))
+									 .append($('<td>').append($('<input type="hidden">').val(prjId)))
+									 .appendTo("#usermemList")
+						}
+					}else{
+						$('<tr>').append($('<td colspan="6">').html("참여자가 없습니다."))
+								 .appendTo("#usermemList")
+					}
 					
-					$(".pmInsert").click(function(){
-						var pminsert = $(this);
-						var tr = pminsert.parent().parent();
-						var memId = tr.children().first().children().val();
-						var prjId = pminsert.parent().next().children().val();
-						var jsondata = {"memId":memId, "prjId": prjId};
-						$.ajax({
-							url: "coPrjUserChange.do",
-							method: "put",
-							data: JSON.stringify(jsondata),
-							contentType: "application/json",
-							dataType: "json",
-							success: function(){
-								tr.remove();
-							}
-						})
-					});
 					
 					}
 				});
-			})
+			});
 		});
 	
 	function getCoPrjInfo(prjId){
@@ -315,7 +317,7 @@
 			success: function(data){
 				$('#prjAdmin').empty();
 				if(data == ""){
-					$('<tr>').append($('<td style="colspan: 7">').html("관리자가 없습니다."))
+					$('<tr>').append($('<td style="colspan: 7">').html("관리자가 없습니다."));
 				}else{
 					PMlist(data);
 				}
@@ -365,31 +367,47 @@
 	};
 	
 	function usermemList(data){
-		if(data.length > 0){
-			for(i=0; i<data.length; i++){
-				var $memId = data[i].memId;
-				var $name = data[i].name;
-				var $email = data[i].email;
-				var $dept = data[i].dept;
-				$('<tr>').append($('<td>').append($('<input type="hidden">').val($memId)))
-						 .append($('<td>').html($name))
-						 .append($('<td>').html($email))
-						 .append($('<td>').html($dept))
-						 .append($('<td>').html($('<a href="#" class="pmInsert">').html("[승인]")))
-						 .append($('<td>').append($('<input type="hidden">').val(prjId)))
-						 .appendTo("#usermemList")
-			}
-		}else{
-			$('<tr>').append($('<td colspan="6">').html("참여자가 없습니다."));
+		for(i=0; i<data.length; i++){
+			var $memId = data[i].memId;
+			var $name = data[i].name;
+			var $email = data[i].email;
+			var $dept = data[i].dept;
+			$('<tr>').append($('<td>').append($('<input type="hidden">').val($memId)))
+					 .append($('<td>').html($name))
+					 .append($('<td>').html($email))
+					 .append($('<td>').html($dept))
+					 .append($('<td>').html($('<a href="#" class="pmInsert">').html("[승인]")))
+					 .append($('<td>').append($('<input type="hidden">').val(prjId)))
+					 .appendTo("#usermemList")
 		}
-		
 	};
+	
+	$(".pmInsert").click(function(){
+		var pminsert = $(this);
+		var tr = pminsert.parent().parent();
+		var memId = tr.children().first().children().val();
+		var prjId = pminsert.parent().next().children().val();
+		var jsondata = {"memId":memId, "prjId": prjId};
+		$.ajax({
+			url: "coPrjUserChange.do",
+			method: "put",
+			data: JSON.stringify(jsondata),
+			contentType: "application/json",
+			dataType: "json",
+			success: function(){
+				tr.remove();
+			}
+		})
+	});
+	
+	$("#memSerchX").click(function(){
+		$("#memberSerch").css("display","none");
+	});
+	
 	$("#adminAdd").click(function(){
 		$("#memberSerch").css("display","block");
 	});
-	$("#memSerchX").click(function(){
-		$("#memberSerch").css("display","none");
-	})
+	
 	$("#ctgCancel").click(function(){
 		$("#prjModal").css("display","none")
 	});

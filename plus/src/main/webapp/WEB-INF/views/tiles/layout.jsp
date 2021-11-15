@@ -319,7 +319,7 @@ to {
 										<span></span>
 									</div>
 									<div class="detail-popuplist-type-1">
-										<span>회사 직원 초대</span> <em>회사 직원 또는 조직도를 확인하고 초대할 수 있습니다.</em>
+										<span>회사 직원 초대</span> <em>회사 직원을 초대할 수 있습니다.</em>
 									</div>
 							</a></li>
 							<li id="openSendEml"><a href="#">
@@ -327,21 +327,21 @@ to {
 										<span></span>
 									</div>
 									<div class="detail-popuplist-type-1">
-										<span>이메일 초대장 발송</span> <em>초대장을 이메일로 발송할 수 있습니다.</em>
+										<span>게스트 초대</span> <em>초대장을 이메일로 발송할 수 있습니다.</em>
 									</div>
 							</a></li>
 						</ul>
 					</div>
 
-					<!-- 이메일 초대장 발송 -->
-					<div id="sendInviteEmlLayer"
+					<!-- 게스트 이메일 초대장 발송 -->
+					<div id="guestsendInviteEmlLayer"
 						class="send-invite-email name-type-seach-popup-type-1"
 						style="display: none">
 						<div class="name-type-seach-popup-header-type-1 margin-bottom-20">
 							<a href="#"><em class="returnMainBtn"></em></a> <span>이메일
 								초대장 발송</span>
 							<button class="btn-close closeInviteLayerBtn">
-								<i class="icons-close-1"></i>
+								<i id="guestLayerX" class="icons-close-1"></i>
 							</button>
 						</div>
 						<div class="invite-email-area scroll-mask">
@@ -368,9 +368,9 @@ to {
 						</div>
 						<div class="flow-pop-button-type-1">
 							<a href="#">
-								<div class="flow-pop-sub-button-1 returnMainBtn">취소</div>
+								<div id="cancleGuest" class="flow-pop-sub-button-1 returnMainBtn">취소</div>
 							</a> <a href="#">
-								<div id="sendInviteEmail" class="flow-pop-sub-button-2">초대</div>
+								<div id="guestsendInviteEmail" class="flow-pop-sub-button-2">초대</div>
 							</a>
 						</div>
 					</div>
@@ -1040,15 +1040,42 @@ to {
 			e.preventDefault();
 			$("#overlay").css("display", "block");
 			$("#sendInviteEmlLayer").css("display", "block");
-			$("#openInviteLayerBtn").css("display", "none");
 		});
 
 		$("#openSendEml a").on("click", function(e) { // 초대하기 > 이메일 초대장 발송
 			e.preventDefault();
 			$("#overlay").css("display", "block");
 			$("#sendInviteEmlLayer").css("display", "block");
-			$("#openInviteLayerBtn").css("display", "none");
 		});
+		
+		$('#openSendEml').on("click", function(e){
+			e.preventDefault();
+			$('#guestsendInviteEmlLayer').css("display","block");
+		});
+		
+		$("#guestLayerX").on('click', function(e){
+			e.preventDefault();
+			$('#guestsendInviteEmlLayer').css("display","none");
+		});
+		$("#cancleGuest").on('click', function(e){
+			e.preventDefault();
+			$('#guestsendInviteEmlLayer').css("display","none");
+		});
+		$('.closeInviteLayerBtn').on('click', function(e){
+			e.preventDefault();
+			$("#overlay").css("display", "none");
+			$("#inviteLayer").css("display", "none");
+			$("#inviteMainLayer").css("display", "none");
+		});
+		
+		
+		
+		//모달자동닫기
+		$(document).mouseup(function(e){
+			var inviteMainLayer = $('#inviteMainLayer');
+			var guestsendInviteEmlLayer = $('#guestsendInviteEmlLayer');
+		})
+		
 	</script>
 
 
