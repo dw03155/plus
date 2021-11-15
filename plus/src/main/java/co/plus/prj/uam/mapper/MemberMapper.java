@@ -112,5 +112,6 @@ public interface MemberMapper {
 	public List<PNWVO> textFileList(PNWVO vo);
 	public List<PNWVO> subTaskFileList(PNWVO vo);
 	public List<PNWVO> taskFileList(PNWVO vo);
+	public List<PNWVO> getFileList(PNWVO vo);
 	
 }
