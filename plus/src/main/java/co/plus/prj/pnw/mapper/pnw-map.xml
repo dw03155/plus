@@ -8,7 +8,7 @@
 		values (prjid.nextval, #{prjKnd}, #{prjTtl}, #{prjCntn}, #{prjOpenPerm}, #{ctgryId}, #{coUrl})
 	</insert>
 
-	<!-- 새 프로젝트 생성시 PM 생성-->
+	<!-- 새 프로젝트 : PM 삽입-->
 	<insert id="prjPMInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">
 		insert into prj_parti(prj_id, mem_id, prj_perm)
 		values ((select max(prj_id) from project), #{memId}, 'PM')
@@ -19,6 +19,7 @@
 		select ctgry_id, ctgry_name
 		from category
 		where co_url = #{coUrl}
+		order by ctgry_id asc
 	</select>
 
 	<!-- 내 프로젝트 : 즐겨찾기 -->
@@ -31,6 +32,7 @@
 			and a.prj_id = c.prj_id            
 			and b.mem_id = #{memId}
             and a.prj_id in(select prj_id from favorite d where d.mem_id = b.mem_id)
+        order by a.prj_id desc
 	</select>
 
 	<!-- 내 프로젝트 : 즐겨찾기X -->
@@ -43,43 +45,59 @@
 			and a.prj_id = c.prj_id            
 			and b.mem_id = #{memId}
             and a.prj_id not in(select prj_id from favorite d where d.mem_id = b.mem_id)
+        order by a.prj_id desc
 	</select>
 
 	<!-- 전체 프로젝트 -->
 	<select id="openProject" resultType="co.plus.prj.pnw.vo.PNWVO">
-		select a.prj_id, a.prj_ttl, b.mem_id, c.name, c.wkpo
+		select a.prj_id, a.prj_ttl, a.prj_cntn, b.mem_id, c.name, c.wkpo,
+    		(select count(*) from prj_parti where prj_id = a.prj_id) as partiCnt,
+    		(case when exists
+    				(select * from member where mem_id = #{memId} and co_url = #{coUrl} and mem_perm = 'GUEST')
+    				then 0 else 1 end) as partiyn
 		from project a, prj_parti b, member c 
-		where a.prj_knd ='C'
-            and a.prj_id = b. prj_id
-			and a.co_url = c.co_url
-            and a.co_url = #{coUrl}
-            and b.mem_id = c.mem_id
-            and b.prj_perm = 'PM'
-		union
-		select d.prj_id, d.prj_ttl, e.mem_id, f.name, f.wkpo
+    	where a.prj_knd ='C'
+        	and a.prj_id = b. prj_id
+        	and a.co_url = #{coUrl}
+        	and b.mem_id = c.mem_id
+        	and b.prj_perm = 'PM'
+        union
+		select d.prj_id, d.prj_ttl, d.prj_cntn, e.mem_id, f.name, f.wkpo,
+			(select count(*) from prj_parti where prj_id = d.prj_id) as partiCnt,
+        	(case when exists
+        			(select * from prj_parti where mem_id = #{memId} and prj_id = d.prj_id)
+        			then 1 else 0 end) as partiyn
 		from project d, prj_parti e, member f 
-		where d.prj_knd ='N'
-            and d.prj_id = e. prj_id
-			and d.co_url = f.co_url
+		where d.prj_knd = 'N'
+            and d.prj_id = e.prj_id
             and d.co_url = #{coUrl}
-            and e.mem_id = f.mem_id
-            and e.mem_id = #{memId}
+			and e.mem_id = f.mem_id
             and e.prj_perm = 'PM'
-			and d.prj_open_perm = 'part'
+            and d.prj_open_perm = 'all'
 		union
-		select g.prj_id, g.prj_ttl, h.mem_id, i.name, i.wkpo
-		from project g, prj_parti h, member i 
-		where g.prj_knd = 'N'
-            and g.prj_id = h.prj_id
-            and g.co_url = i.co_url
+		select g.prj_id, g.prj_ttl, g.prj_cntn, h.mem_id, i.name, i.wkpo,
+			(select count(*) from prj_parti where prj_id = g.prj_id) as partiCnt,
+        	(case when exists
+        			(select * from prj_parti where mem_id = #{memId} and prj_id = g.prj_id)
+        			then 1 else 0 end) as partiyn
+        from project g, prj_parti h, member i 
+		where g.prj_knd ='N'
+            and g.prj_id = h. prj_id
             and g.co_url = #{coUrl}
-			and h.mem_id = i.mem_id
+            and h.mem_id = i.mem_id
             and h.prj_perm = 'PM'
-            and g.prj_open_perm = 'all'
+			and g.prj_open_perm = 'part'
+            and #{memId} IN (select k.mem_id
+                       from project j, prj_parti k
+                       where j.prj_knd ='N'
+                           and j.prj_id = k. prj_id
+                           and j.co_url = #{coUrl}
+                           and j.prj_open_perm = 'part')
 		<!-- 프로젝트 명으로 검색 -->
 		<if test="prjTtl != null and prjTtl != ''">
 			and prj_ttl like '%' || #{prjTtl} || '%'
 		</if>
+        order by prj_id asc
 	</select>
 
 	<!-- 프로젝트 폴더 메뉴 -->
@@ -87,6 +105,17 @@
 		select fold_id, fold_name
 		from mem_prj_fold
 		where mem_id = #{memId}
+		order by fold_id asc
+	</select>
+	
+	<!-- 스케줄 메뉴 -->
+	<select id="allSchedule" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select a.*, b.*
+		from schedule a, task b, notice_writing c 
+		where a.noti_id = c.noti_id
+		and b.noti_id = c.noti_id
+		
+		and mem_id = #{memId}
 	</select>
 	
 	<!-- 프로젝트 폴더 조회 -->
@@ -97,6 +126,7 @@
 			and b.fold_id = c.fold_id 
 			and b.fold_id = #{foldId}
 			and c.mem_id = #{memId}
+		order by a.prj_id desc
 	</select>
 
 	<!-- 프로젝트 폴더 생성 -->
@@ -142,7 +172,7 @@
 	</delete>
 
 	<!-- 프로젝트 : 홈 -->
-	<select id="prjInfo" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 프로젝트 정보 -->
+	<select id="prjInfo" resultType="co.plus.prj.pnw.vo.PNWVO">			<!-- 프로젝트 정보 -->
 		select a.*, b.prj_color
       	from project a, prj_parti b
       	where a.prj_id = #{prjId}
@@ -150,14 +180,14 @@
   			and b.mem_id = #{memId}
 	</select>
 	
-	<select id="prjTskAllCount" resultType="int">		<!-- 업무 상태에 따른 갯수-->
+	<select id="prjTskAllCount" resultType="int">						<!-- 업무 전체 갯수(업무리포트) -->
 		select count(*)
 		from notice_writing
 		where prj_id = #{prjId}
 		and noti_knd='task'
 	</select>
 	
-	<select id="prjTskCount" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 업무 상태에 따른 갯수-->
+	<select id="prjTskCount" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 업무 상태에 따른 갯수(업무리포트)-->
 		select c.tsk_prgs, count(c.tsk_prgs) as tskCnt
 		from project a, notice_writing b, task c
 		where a.prj_id = #{prjId}
@@ -180,10 +210,11 @@
 			and c.noti_id = d.noti_id
             and a.mem_id = c.mem_id
 			and a.mem_id = b.mem_id
+		order by c.noti_id desc
 	</select>
 	
 	<select id="pnwAllList" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 전체 게시글 목록 -->
-		select c.*, a.name,
+		select c.*, a.name, a.wkpo, a.dept, a.co_url,
 			case when c.noti_knd = 'task' then (select tsk_prgs from task where noti_id = c.noti_id)
                 when c.noti_knd = 'subtask' then (select subtsk_prgs from subtask where noti_id = c.noti_id)
 				when c.noti_knd = 'schedule' then (select TO_CHAR(sche_dttm) from schedule where noti_id = c.noti_id)
@@ -198,6 +229,7 @@
 		<if test="notiTtl != null and notiTtl != ''">
 			and noti_ttl like '%' || #{notiTtl} || '%'
 		</if>
+		order by c.noti_id desc
 	</select>
 
 	<select id="prjPartiCnt" resultType="int">		<!-- 전체 참여자 수 -->
@@ -213,6 +245,7 @@
 			and a.mem_id = c.mem_id
 			and b.prj_id = #{prjId}
 			and b.prj_perm = 'PM'
+		order by a.mem_id asc
 	</select>
 
 	<select id="partiUser" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 참여자 목록 : USER -->
@@ -222,6 +255,7 @@
 			and a.mem_id = c.mem_id
 			and b.prj_id = #{prjId}
 			and b.prj_perm = 'USER'
+		order by a.mem_id asc
 	</select>
 
 	<select id="partiGuest" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 참여자 목록 : GUEST -->
@@ -231,6 +265,7 @@
 			and a.mem_id = c.mem_id
 			and b.prj_id = #{prjId}
 			and b.prj_perm = 'GUEST'
+		order by a.mem_id asc
 	</select>
 	<!-- <resultMap id="tskList" type="co.plus.prj.pnw.vo.PNWVO"> <result property="" 
 		/> <result property="" /> <result property="" /> <collection property="" 
@@ -246,6 +281,7 @@
 		where a.noti_id = b.noti_id
 			and c.prj_id = #{prjId}
 			and c.prj_id = b.prj_id
+		order by a.noti_id desc
 	</select>
 
 	<select id="tskNWList" resultType="co.plus.prj.pnw.vo.PNWVO"> <!-- ** -->
@@ -260,6 +296,7 @@
 		where a.noti_id = b.noti_id
 			and c.prj_id = #{prjId}
 			and c.prj_id = b.prj_id
+		order by noti_id desc
 	</select>
 
 	<!-- 프로젝트 : 일정 -->

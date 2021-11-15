@@ -600,9 +600,8 @@ public class MemberController {
 		return service.subTaskFileList(vo);
 	}
 	
-	/*
-	 * //게스트 회원가입 URL발송
-	 * 
+	 //게스트 회원가입 URL발송
+	 /* 
 	 * @RequestMapping(value="/userInviteMail.do", method = RequestMethod.POST)
 	 * 
 	 * @ResponseBody public void guestInviteMail(String name, String coUrl, String

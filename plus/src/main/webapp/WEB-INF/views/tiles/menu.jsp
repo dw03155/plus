@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,13 +10,13 @@
 <body>
 	<div id="leftTask" class="left-task active">
 		<div class="logo-area">
-			<a class="js-logo logo-box">
+			<a href="myProject.do" class="js-logo logo-box">
 				<h1 class="logo-1">
 					<img src="/img/plus.png?heigth:50" alt="flow" id="logoImg" />
 				</h1>
 			</a>
 		</div>
-		<a id="prjMake" href="" class="js-left-menu">
+		<a id="prjMake" href="" class="js-left-menu ">
 			<div id="projectMakeButton" class="new-project-1">
 				<div class="button-suport-1"></div>
 				새 프로젝트
