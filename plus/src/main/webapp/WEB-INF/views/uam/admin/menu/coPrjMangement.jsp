@@ -283,11 +283,7 @@
 				dataType: "json",
 				success: function(data){
 					console.log(data);
-					if(data.length > 0){
-						usermemList();
-					}else{
-						$('<tr>').append($('<td colspan="6">').html("참여자가 없습니다.")
-					}
+					
 					$(".pmInsert").click(function(){
 						var pminsert = $(this);
 						var tr = pminsert.parent().parent();
@@ -369,20 +365,25 @@
 	};
 	
 	function usermemList(data){
-		for(i=0; i<data.length; i++){
-			var $memId = data[i].memId;
-			var $name = data[i].name;
-			var $email = data[i].email;
-			var $dept = data[i].dept;
-			$('<tr>').append($('<td>').append($('<input type="hidden">').val($memId)))
-					 .append($('<td>').html($name))
-					 .append($('<td>').html($email))
-					 .append($('<td>').html($dept))
-					 .append($('<td>').html($('<a href="#" class="pmInsert">').html("[승인]")))
-					 .append($('<td>').append($('<input type="hidden">').val(prjId)))
-					 .appendTo("#usermemList")
+		if(data.length > 0){
+			for(i=0; i<data.length; i++){
+				var $memId = data[i].memId;
+				var $name = data[i].name;
+				var $email = data[i].email;
+				var $dept = data[i].dept;
+				$('<tr>').append($('<td>').append($('<input type="hidden">').val($memId)))
+						 .append($('<td>').html($name))
+						 .append($('<td>').html($email))
+						 .append($('<td>').html($dept))
+						 .append($('<td>').html($('<a href="#" class="pmInsert">').html("[승인]")))
+						 .append($('<td>').append($('<input type="hidden">').val(prjId)))
+						 .appendTo("#usermemList")
+			}
+		}else{
+			$('<tr>').append($('<td colspan="6">').html("참여자가 없습니다."));
 		}
-	];
+		
+	};
 	$("#adminAdd").click(function(){
 		$("#memberSerch").css("display","block");
 	});

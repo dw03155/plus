@@ -294,6 +294,7 @@
 				data: formData,
 				type: 'post',
 				success: function(data){
+				
 					alert("업로드")
 					if(data != ""){
 						$('#insertlist').empty();
@@ -311,6 +312,7 @@
 	};
 	
 	function fileView(data){
+			console.log(data);
 		for(i=0; i<data.length; i++){
 			var $email = data[i]["email"];
 			var $name = data[i]["name"];
@@ -336,7 +338,7 @@
 					for(j=0; j<fileTd.length; j++){		
 						for(k=0; k<fileTr.length; k++){
 							var fileVal = filevalue.eq(j).val();
-							console.log(fileVal);
+							//console.log(fileVal);
 							var fileSpan = $('input[name=view]').parent().eq(j);
 							var fileCheckBox = fileSpan.parents('tr').find('.fileCheck').eq(k);
 								if(fileVal == ''){
@@ -348,9 +350,9 @@
 						}
 					}
 				}
+			}
 				emailDuplicateCheck();
 				count();
-			}
 		
 		
 		

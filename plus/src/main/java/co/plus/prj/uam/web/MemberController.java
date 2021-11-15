@@ -600,24 +600,27 @@ public class MemberController {
 		return service.subTaskFileList(vo);
 	}
 	
-	//게스트 회원가입 URL발송
-	@RequestMapping(value="/userInviteMail.do", method = RequestMethod.POST)
-	@ResponseBody
-	public void guestInviteMail(String name, String coUrl, String email, HttpSession session,Model model) throws MessagingException {
-		String mailText = "<div style='height: 300px;'>"+"<p>"+name +"님이 게스트로 초대하셨습니다!</p>"+ "<h1>플러스에 가입해 보세요!</h1>" +
-							"<button style='padding: 10px 20px 10px 20px; background-color: #6449FC; color: white; border-radius: 5px; height: "
-							+ "60px; margin-top: 10px; margin-bottom: 10px; font-weight: bold; font-size: 15px;' "
-							+ "onclick='http://192.168.0.11/userJoin.do?newCoUrl="+ coUrl + "'>" +
-							"플러스가입하기</button>"+
-							"<p></p>" + "<div>";
-		MimeMessage mail = mailSender.createMimeMessage();
-		MimeMessageHelper message = new MimeMessageHelper(mail,true,"UTF-8");
-		message.setTo(email);
-		message.setSubject("플러스 초대");
-		message.setText(mailText,true);
-		mailSender.send(mail);
-		
-	}
+	/*
+	 * //게스트 회원가입 URL발송
+	 * 
+	 * @RequestMapping(value="/userInviteMail.do", method = RequestMethod.POST)
+	 * 
+	 * @ResponseBody public void guestInviteMail(String name, String coUrl, String
+	 * email, HttpSession session,Model model) throws MessagingException { String
+	 * mailText = "<div style='height: 300px;'>"+"<p>"+name +"님이 게스트로 초대하셨습니다!</p>"+
+	 * "<h1>플러스에 가입해 보세요!</h1>" +
+	 * "<button style='padding: 10px 20px 10px 20px; background-color: #6449FC; color: white; border-radius: 5px; height: "
+	 * +
+	 * "60px; margin-top: 10px; margin-bottom: 10px; font-weight: bold; font-size: 15px;' "
+	 * + "onclick='http://192.168.0.11/userJoin.do?newCoUrl="+ coUrl + "'>" +
+	 * "플러스가입하기</button>"+ "<p></p>" + "<div>"; MimeMessage mail =
+	 * mailSender.createMimeMessage(); MimeMessageHelper message = new
+	 * MimeMessageHelper(mail,true,"UTF-8"); message.setTo(email);
+	 * message.setSubject("플러스 초대"); message.setText(mailText,true);
+	 * mailSender.send(mail);
+	 * 
+	 * }
+	 */
 	
 }
 
