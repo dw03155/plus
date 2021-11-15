@@ -2,6 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%
+pageContext.setAttribute("replaceChar", "\n");
+%>
 
 <!-- 내 게시물 목록 -> 일정 상세보기(팝업) -->
 <div class="post-popup-header card-popup-header d-none"
@@ -91,9 +95,9 @@
 				<h4 class="js-post-title post-title ">${schedules.notiTtl}</h4>
 				<div class="schedule-period-area d-none" style="display: block">
 					<span class="schedule-period"><fmt:formatDate
-							pattern="yyyy-MM-dd (E) HH:mm:ss" value="${schedules.notiDttm}" /></span>
+							pattern="yyyy-MM-dd (E) HH:mm:ss" value="${schedules.scheBgnDt}" /></span>
 					<span class="schedule-period" style="display: inline-block"><fmt:formatDate
-							pattern="yyyy-MM-dd (E) HH:mm:ss" value="${schedules.scheDttm }" /></span>
+							pattern="yyyy-MM-dd (E) HH:mm:ss" value="${schedules.scheEndDt }" /></span>
 				</div>
 			</div>
 			<div class="post-state">
@@ -142,20 +146,10 @@
 								<i class="icon-post-worker"></i>
 							</div>
 							<div class="create-content-cell manager-btn-group">
-								<span class="js-manager-group manager-group"> <span
+								<span class="js-manager-group manager-group"></span> <span
 									class="js-registration participant-thumbnail attendee participate js-mouseover"
 									style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)">
-								</span> <input type="text"
-									class="js-worker-input worker-search-input d-none"
-									placeholder="참석자 추가">
-									<button type="button"
-										class="js-worker-button add-manager-button">참석자 변경</button>
-									<div id="attendanceCount" class="attendee-status"
-										style="display: block">
-										<span class="attendee-status-text participate"><span>참석</span><em>1</em></span>
-										<span class="attendee-status-text absence"><span>불참</span><em>0</em></span>
-										<span class="attendee-status-text undetermined"><span>미정</span><em>0</em></span>
-									</div>
+								</span>
 							</div></li>
 						<li style="display: table">
 							<div class="create-content-cell title manager">
@@ -193,6 +187,7 @@
 								<!-- <button id="videoButton" type="button"
 									class="add-manager-button ">화상 회의 추가</button> -->
 								<span id="videoSpan" data-vc-srno="0">
+								
 									<div id="zoomButton" class="video-conference-join" tabindex="0">
 										Zoom으로 참여하기
 										<button type="button" class="remove-button d-none">
@@ -204,6 +199,7 @@
 										<span class="link-copy"><i class="icons-copy"></i></span> 링크
 										복사
 									</div>
+								
 								</span>
 							</div>
 						</li>
@@ -221,7 +217,7 @@
 								<i class="icon-post-memo"></i>
 							</div>
 							<div class="create-content-cell memo">
-								<p class="memo-span" id="memoSpan">test</p>
+								<p class="memo-span" id="memoSpan">${fn:replace(schedules.scheCntn, replaceChar, "<br/>")}</p>
 								<div id="memoButton"
 									class="js-upload-area js-paste-layer memo d-none"
 									contenteditable="true" data-required-yn="Y"
@@ -229,15 +225,6 @@
 							</div>
 						</li>
 					</ul>
-				</div>
-				<div id="attendanceSelect"
-					class="attendance-button-group js-schedule-comp"
-					style="display: block">
-					<button class="attendance-button participate on"
-						data-status="participate">참석</button>
-					<button class="attendance-button absence " data-status="absence">불참</button>
-					<button class="attendance-button undetermined "
-						data-status="undetermined">미정</button>
 				</div>
 			</div>
 

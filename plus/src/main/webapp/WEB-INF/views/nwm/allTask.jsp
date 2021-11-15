@@ -160,11 +160,14 @@
 													<div class="task-item-cell task-name task-task_nm-cell ">
 														<div
 															class="js-post-title task-title ellipsis js-mouseover">
-															${dtasks.notiTtl } <em class="subtask-item"
+															${dtasks.notiTtl } 
+															<c:if test="${not empty dtasks.notiId2}">
+															<em class="subtask-item"
 																style="display: inline-block"> <i
-																class="icons-subtask"></i> <span class="subtask-number">하위업무갯수
-																	넣기</span>
+																class="icons-subtask"></i> <span class="subtask-number">
+																	</span>
 															</em>
+															</c:if>
 
 														</div>
 														<div class="js-post-title project-title"

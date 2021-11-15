@@ -127,7 +127,7 @@
 						<!-- 할일 항목 (반복) -->
 						<li class="todo-item"><c:forEach var="todos"
 								items="${todos }">
-								<div class="subtask-input-area todo-area ">
+								<div id="checkedOneBookmark" class="subtask-input-area todo-area ">
 									<p class="todo-text">
 										<a  href="#" class="icon-checkbox js-todo-checkbox"> <i
 											class="icons-check-2"></i>
@@ -175,7 +175,7 @@
 				<div class="post-bottom-area">
 					<div class="post-bottom-menu js-reaction-bookmark">
 						<div class="bottom-button-area">
-							<button class="js-post-bookmark post-bottom-button ">
+							<button id="checkTheBookmark"  class="js-post-bookmark post-bottom-button ">
 								<i class="icon-bookmark"></i> <span>북마크</span>
 							</button>
 						</div>
@@ -267,8 +267,8 @@
 	
 	
 	$(function(){
-		  $("li > div > p > a ").click(function() {
-		    $(".subtask-input-area todo-area").toggleClass("checked");
+		  $("#checkTheBookmark").click(function() {
+		    $("#checkedOneBookmark").addClass("checked");
 		  });
 		});​
 </script>

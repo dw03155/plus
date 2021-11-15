@@ -62,7 +62,9 @@ public class NoticeWritingController {
 	}
 
 	@RequestMapping("/myPostSubtsk.do") // 내 게시물 목록 -> 하위업무 상세보기(팝업)
-	public String myPostSubtsk(Model model, NoticeWritingVO vo) {
+	public String myPostSubtsk(HttpSession session, Model model, NoticeWritingVO vo) {
+		vo.setMemId((String) session.getAttribute("memId"));
+		model.addAttribute("subtasks", nwDao.bookMarkList(vo));
 		return "nwm/modal/myPostSubtsk";
 	}
 

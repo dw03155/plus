@@ -121,9 +121,6 @@
 											<c:if test="${notice.notiKnd=='task'}">
 												<c:set var="notiKnd" value="icons-task" />
 											</c:if>
-											<c:if test="${notice.notiKnd=='subtask'}">
-												<c:set var="notiKnd" value="icons-task" />
-											</c:if>
 											<c:if test="${notice.notiKnd=='todo'}">
 												<c:set var="notiKnd" value="icons-todo" />
 											</c:if>
@@ -140,11 +137,14 @@
 													<i class="icons-comment2"></i><span
 														class="js-post-comment-count">0</span>
 												</div>
-												<div class="post-list subtask" style="display: none">
-													<em class="subtask-item"> <i class="icons-subtask"></i>
-														<span class="subtask-number">0</span>
-													</em>
-												</div>
+													<c:if test="${notice.notiKnd == 'subtask'}">
+													<div class="post-list subtask" style="display: block">
+														<em class="subtask-item" style="display: inline-block">
+															<i class="icons-subtask"></i> <span
+															class="subtask-number"> </span>
+														</em>
+													</div>
+												</c:if>
 											</div>
 
 											<p class="search-text-type-3 contents-project">
@@ -185,9 +185,14 @@
 												</c:if>
 												<c:if test="${notice.notiKnd=='schedule'}">
 													<div class="p" style="display: inline-block">
-														<em class="date"><fmt:formatDate pattern="MM/dd "
-																value="${notice.notiDttm}" /></em> <span><fmt:formatDate
-																pattern="HH:mm" value="${notice.notiDttm}" /></span>
+														<em class="date"> <fmt:parseDate
+                                                                  value="${fn:substring(notice.addList, 0, 8)}" pattern="yy/MM/dd"
+                                                                  var="addDate" /> <fmt:formatDate
+                                                                  value="${addDate}" pattern="yy/MM/dd" /></em> <span>
+                                                               <fmt:parseDate pattern="yy/MM/dd"
+                                                                  value="${notice.addList}" var="addTime" /> <fmt:formatDate
+                                                                  value="${addTime}" pattern="HH:mm" />
+                                                            </span>
 													</div>
 												</c:if>
 												<c:if test="${notice.notiKnd=='todo'}">
@@ -400,18 +405,6 @@
 			} else if (notiKnd == "task") {
 				$.ajax({
 					url : "myPostTsk.do",
-					type : 'POST',
-					data : {
-						notiId : notiId
-					},
-					dataType : "html",
-					success : function(data) {
-						$("#modalBody").html(data);
-					}
-				});
-			} else if (notiKnd == "subtask") {
-				$.ajax({
-					url : "myPostSubtsk.do",
 					type : 'POST',
 					data : {
 						notiId : notiId

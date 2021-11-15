@@ -35,7 +35,7 @@ public class NoticeWritingVO {
 	//하위업무
 	private String subtskCnt; 		// 하위 업무 갯수
 	private String subtskPrgs;		// 하위 업무 상태
-	private String subtaskCntn;		// 하위 업무 내용
+	private String subtskCntn;		// 하위 업무 내용
 	private Date subtskBgnDt;		// 하위 업무 시작일
 	private Date subtskEndDt; 		// 하위 업무 마감일
 	private String subtskFile;		// 하위 업무 첨부 파일
@@ -53,6 +53,8 @@ public class NoticeWritingVO {
 	private String scheCntn;		// 일정 내용
 	private String schePl;			// 일정 장소
 	private Date scheDttm; 			// 일정 작성 일시
+	private Date scheBgnDt;			// 일정 시작일
+	private Date scheEndDt;			// 일정 마감일
 	 
 	private String addList;			// 게시글 부가정보
 	private String subtskTtl;   	// 하위업무제목
