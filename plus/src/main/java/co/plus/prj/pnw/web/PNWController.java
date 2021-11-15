@@ -84,6 +84,7 @@ public class PNWController {
 		map.put("project", vo);
 		return map;
 	}
+
 	// 프로젝트폴더 메뉴
 	@RequestMapping(value = "/folderMenu.do",  method = RequestMethod.POST)
 	@ResponseBody
@@ -93,8 +94,8 @@ public class PNWController {
 	
 	// 스케쥴 메뉴
 	@RequestMapping(value = "/allSchedule.do",  method = RequestMethod.GET)
-	public String allSche(Model model, PNWVO vo) {
-		//model.addAttribute("sches",service.allSchedule(vo));
-		return "home/allSchedule"; 		
+	@ResponseBody
+	public List<PNWVO> allSchedule(HttpSession session, Model model, PNWVO vo) {
+		return service.allSchedule(vo); 		
 	}
 }

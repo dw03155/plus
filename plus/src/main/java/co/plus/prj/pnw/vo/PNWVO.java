@@ -65,6 +65,7 @@ public class PNWVO {
 	private Date subtskBgnDt;		// 하위업무 시작일
 	private Date subtskEndDt;		// 하위업무 마감일
 	private String subtskCntn;		// 하위업무 내용
+	private String subtskFile;		// 하위업무 첨부파일
 	
 	// Todo
 	private String todoCntn;		// 할일 내용
