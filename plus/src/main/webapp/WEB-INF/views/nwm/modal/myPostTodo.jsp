@@ -127,9 +127,9 @@
 						<!-- 할일 항목 (반복) -->
 						<li class="todo-item"><c:forEach var="todos"
 								items="${todos }">
-								<div id="checkedOneBookmark" class="subtask-input-area todo-area ">
+								<div  class="subtask-input-area todo-area">
 									<p class="todo-text">
-										<a  href="#" class="icon-checkbox js-todo-checkbox"> <i
+										<a id="clickTodoChecked" href="#" class="icon-checkbox js-todo-checkbox"> <i
 											class="icons-check-2"></i>
 										</a> <span class="js-todo-text-area js-mouseover">${todos.todoCntn }</span>
 										<input
@@ -163,8 +163,7 @@
 										</span>
 
 									</div>
-									<button type="button" class="js-todo-remove-btn remove-button"
-										style="display: none"></button>
+								
 								</div>
 							</c:forEach></li>
 					</ul>
@@ -266,10 +265,10 @@
 	// 할일 체크 버튼
 	
 	
-	$(function(){
-		  $("#checkTheBookmark").click(function() {
-		    $("#checkedOneBookmark").addClass("checked");
+
+		  $(".js-todo-checkbox").click(function() {
+		    $(this).closest(".todo-area").addClass("checked");
 		  });
-		});​
+	​
 </script>
 

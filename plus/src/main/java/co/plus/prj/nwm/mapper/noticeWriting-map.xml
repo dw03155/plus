@@ -76,7 +76,14 @@
 	<!-- 전체 메뉴 -> 북마크 -->
 	<select id="bookMarkList"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select a.*,b.*,c.prj_ttl, d.name, d.co_url
+		select a.*,b.*,c.prj_ttl, d.name, d.co_url,
+		case when noti_knd = 'task' then ( select tsk_prgs from task where noti_id
+		= b.noti_id)
+		when noti_knd = 'schedule' then ( select TO_CHAR(sche_bgn_dt||','||sche_end_dt) from schedule
+		where noti_id = b.noti_id )
+		when noti_knd = 'todo' then ( select TO_CHAR(RATIO_TO_TODO(b.noti_id))
+		from dual )
+		end addlist
         from board a, bookmark b, project c, member d
         where a.noti_id = b.noti_id
         and a.prj_id = c.prj_id

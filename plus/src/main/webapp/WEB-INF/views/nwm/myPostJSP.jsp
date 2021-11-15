@@ -199,19 +199,6 @@
 													<span class="js-task-state js-todo-state state request"
 														style="display: inline-block">${notice.addList }%</span>
 												</c:if>
-												<!-- 할일 완료도  업무 진행상항 class="progress" 진행 /
-												class="request" 요청 / class="completion"완료 /
-												class="feedback"피드백  일정 -->
-												<!--
-									            <div class="fixed-value">
-									                <span class="state request" style="display:none" data>-1%</span>
-									                <span class="js-task-state state request" >요청</span>
-									                <div class="date-time" style="display:none" data>
-									                    <em class="date">-</em>
-									                    <span>-</span>
-									                </div>
-									            </div>
-									            -->
 											</div>
 										</div>
 									</li>
@@ -440,6 +427,8 @@
 				});
 			}
 		};
+		
+		
 	</script>
 
 

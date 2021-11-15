@@ -138,24 +138,118 @@
 									</div>
 									<div class="post-list-right">
 										<div class="post-list name">${bookmarks.name }</div>
-										<div class="post-list date"><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
-													value="${bookmarks.notiDttm}" /></div>
-										<!--
-            <div class="fixed-value">
-                <span class="state request" style="display:none" data>-1%</span>
-                <span class="js-task-state state " ></span>
-                <div class="date-time" style="display:none" data>
-                    <em class="date">11/05</em>
-                    <span>오전 04:40</span>
-                </div>
-            </div>
-            -->
+										<div class="post-list date">
+											<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+												value="${bookmarks.notiDttm}" />
+										</div>
+										
+										<!-- 글 종류에 따라 display :block-->
+										<div class="fixed-value">
+											<!-- 업무일 때 -->
+											<c:if test="${bookmarks.notiKnd=='task'}">
+												<c:if test="${notice.addList == 'withhold' }">
+													<span class="js-task-state state d-none hold"
+														style="display: block">보류</span>
+												</c:if>
+												<c:if test="${bookmarks.addList == 'progress' }">
+													<span class="js-task-state state d-none progress"
+														style="display: block">진행</span>
+												</c:if>
+												<c:if test="${bookmarks.addList == 'request' }">
+													<span class="js-task-state state d-none request"
+														style="display: block">요청</span>
+												</c:if>
+												<c:if test="${bookmarks.addList == 'complete' }">
+													<span class="js-task-state state d-none completion"
+														style="display: block">완료</span>
+												</c:if>
+												<c:if test="${bookmarks.addList == 'feedback' }">
+													<span class="js-task-state state d-none feedback"
+														style="display: block">피드백</span>
+												</c:if>
+											</c:if>
+											<c:if test="${bookmarks.notiKnd=='schedule'}">
+												<div class="p" style="display: inline-block">
+													<em class="date"> <fmt:parseDate
+															value="${fn:substring(bookmarks.addList, 0, 8)}"
+															pattern="yy/MM/dd" var="addDate" /> <fmt:formatDate
+															value="${addDate}" pattern="yy/MM/dd" /></em> <span> <fmt:parseDate
+															pattern="yy/MM/dd" value="${bookmarks.addList}"
+															var="addTime" /> <fmt:formatDate value="${addTime}"
+															pattern="HH:mm" />
+													</span>
+												</div>
+											</c:if>
+											<c:if test="${bookmarks.notiKnd=='todo'}">
+												<span class="js-task-state js-todo-state state request"
+													style="display: inline-block">${bookmarks.addList }%</span>
+											</c:if>
+										</div>
 									</div>
 								</li>
 							</c:forEach>
 						</ul>
 					</div>
 				</div>
+					
+					<!-- 내 게시물 검색 화면 -->
+				<!-- 검색시 display:block -->
+				
+					<div id="myPostSearch"
+						class="js-post-search-result all-search-section d-none me-post-wrap"
+						style="display: none">
+						<div class="all-search-container">
+							<div class="all-search-content">
+								<div id="postSearchArea" class="search-result-group">
+									<div class="search-title-area">
+										<span class="search-result-title">전체</span><span
+											id="allPostsSearchCount"
+											class="js-search-post-count search-result-count"
+											style="display: inline-block">${fn:length(bookmarks)}</span>
+									</div>
+									<ul id="allPostsSearchUl"
+										class="js-search-post-ul all-seach-list-type-1 scroll-mask">
+
+										<!-- 반복 시작 -->
+										<c:forEach var="bookmarks" items="${bookmarks }">
+											<c:if test="${bookmarks.notiKnd=='text'}">
+												<c:set var="notiKnd" value="icon-post-type write2" />
+											</c:if>
+											<c:if test="${bookmarks.notiKnd=='task'}">
+												<c:set var="notiKnd" value="icon-post-type task" />
+											</c:if>
+											<c:if test="${bookmarks.notiKnd=='todo'}">
+												<c:set var="notiKnd" value="icon-post-type todo" />
+											</c:if>
+											<c:if test="${bookmarks.notiKnd=='schedule'}">
+												<c:set var="notiKnd" value="icon-post-type schedule" />
+											</c:if>
+											<li id="allPostsSearchUl"
+												class="js-all-post-item post-search-item js-search-item  ${bookmarks.notiKnd}">
+												<!-- icon 태그 : icon-post-type write2(글), icon-post-type todo(할일), icon-post-type schedule(일정)-->
+												<i class="${notiKnd }"></i>
+												<div class="search-sub-text-wrap">
+													<a href="" class="search-text-type-3 contents-tit">
+														<p>
+															<span class="post-type">${bookmarks.notiKnd }</span>${bookmarks.notiTtl }
+														</p>
+													</a>
+													<p class="search-text-type-3 contents-project">
+														<span class="search-name ellipsis">${bookmarks.name }</span><span
+															class="date"><fmt:formatDate
+																pattern="yyyy-MM-dd HH:mm" value="${bookmarks.notiDttm}" /></span>
+														<em class="project-title ellipsis"><i
+															class="icons-project-1"></i>${bookmarks.prjTtl }</em>
+													</p>
+												</div>
+											</li>
+										</c:forEach>
+									</ul>
+									<!-- 반복 끝 -->
+								</div>
+							</div>
+						</div>
+					</div>
 
 			</div>
 		</div>
@@ -317,6 +411,15 @@
 				});
 			}
 		};
+		
+		//검색
+		  $("#allPostsSearchInput").keyup(function() {
+                var k = $(this).val();
+                console.log(k);
+                $("#myPostContent").hide();
+                $("#myPostSearch > li:contains('" + k + "')").shoW();
+            })
+        })
 	</script>
 </body>
 </html>
