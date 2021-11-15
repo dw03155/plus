@@ -110,12 +110,45 @@
 	
 	<!-- 스케줄 메뉴 -->
 	<select id="allSchedule" resultType="co.plus.prj.pnw.vo.PNWVO">
-		select a.*, b.*
-		from schedule a, task b, notice_writing c 
-		where a.noti_id = c.noti_id
-		and b.noti_id = c.noti_id
-		
-		and mem_id = #{memId}
+		select a.noti_id, a.noti_ttl, a.sche_bgn_dt as noti_bgn_dt, a.sche_end_dt as noti_end_dt, c.prj_id, c.prj_ttl,
+         		(case when exists (select * from prj_parti where mem_id = #{memId} and prj_id = c.prj_id)
+                        then (select prj_color from prj_parti where mem_id = #{memId} and prj_id = c.prj_id) 
+                		else (select prj_color from prj_parti where prj_perm = 'pm' and prj_id = c.prj_id) 
+                end) as prj_color
+		from schedule a, notice_writing b, project c
+		where a.noti_id = b.noti_id
+	        and b.prj_id = c.prj_id
+	        and c.co_url = #{coUrl}
+	        and c.prj_open_perm = 'all'
+		union
+		select d.noti_id, d.noti_ttl, d.sche_bgn_dt as noti_bgn_dt, d.sche_end_dt as noti_end_dt, f.prj_id, f.prj_ttl, g.prj_color
+		from schedule d, notice_writing e, project f, prj_parti g
+		where d.noti_id = e.noti_id
+	        and e.prj_id = f.prj_id
+	        and f.co_url = #{coUrl}
+	        and f.prj_open_perm = 'part'
+	        and f.prj_id = g.prj_id
+	        and g.mem_id = #{memId}
+		union
+		select h.noti_id, h.noti_ttl, h.tsk_bgn_dt as noti_bgn_dt, h.tsk_end_dt as noti_end_dt, j.prj_id, j.prj_ttl,
+		         (case when exists (select * from prj_parti where mem_id = #{memId} and prj_id = j.prj_id)
+                        then (select prj_color from prj_parti where mem_id = #{memId} and prj_id = j.prj_id) 
+                		else (select prj_color from prj_parti where prj_perm = 'pm' and prj_id = j.prj_id) 
+                 end) as prj_color
+		from task h, notice_writing i, project j
+		where h.noti_id = i.noti_id
+	        and i.prj_id = j.prj_id
+	        and j.co_url = #{coUrl}
+	        and j.prj_open_perm = 'all'
+		union
+		select k.noti_id, k.noti_ttl, k.tsk_bgn_dt as noti_bgn_dt, k.tsk_end_dt as noti_end_dt, m.prj_id, m.prj_ttl, n.prj_color
+        from task k, notice_writing l, project m, prj_parti n
+        where k.noti_id = l.noti_id
+	        and l.prj_id = m.prj_id
+	        and m.co_url = #{coUrl}
+	        and m.prj_open_perm = 'part'
+	        and m.prj_id = n.prj_id
+	        and n.mem_id = #{memId}
 	</select>
 	
 	<!-- 프로젝트 폴더 조회 -->
@@ -199,8 +232,7 @@
 	<select id="pnwPinList" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 상단고정 게시글 목록 -->
 		select c.*,
 			case when c.noti_knd = 'task' then (select tsk_prgs from task where noti_id = c.noti_id)
-				when c.noti_knd = 'subtask' then (select subtsk_prgs from subtask where noti_id = c.noti_id)
-				when c.noti_knd = 'schedule' then (select TO_CHAR(sche_dttm) from schedule where noti_id = c.noti_id)
+				when c.noti_knd = 'schedule' then (select TO_CHAR(sche_bgn_dt||','||sche_end_dt) from schedule where noti_id = c.noti_id)
 				when c.noti_knd = 'todo' then (select TO_CHAR(RATIO_TO_TODO(c.noti_id)) from dual)
 			end as addlist
 		from member a, prj_parti b, board c, pincette d
@@ -217,7 +249,7 @@
 		select c.*, a.name, a.wkpo, a.dept, a.co_url,
 			case when c.noti_knd = 'task' then (select tsk_prgs from task where noti_id = c.noti_id)
                 when c.noti_knd = 'subtask' then (select subtsk_prgs from subtask where noti_id = c.noti_id)
-				when c.noti_knd = 'schedule' then (select TO_CHAR(sche_dttm) from schedule where noti_id = c.noti_id)
+				when c.noti_knd = 'schedule' then (select TO_CHAR(sche_bgn_dt||','||sche_end_dt) from schedule where noti_id = c.noti_id)
 				when c.noti_knd = 'todo' then (select TO_CHAR(RATIO_TO_TODO(c.noti_id)) from dual)
 			end as addlist
 		from member a, prj_parti b, board c

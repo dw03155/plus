@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +18,7 @@
 
 			<span id="allCollectionCount"
 				class="js-collection-total-count js-collection-count top-task-num"
-				style="display: block">50</span>
+				style="display: block"> ${fn:length(nwLists)}</span>
 		</div>
 
 
@@ -53,33 +56,32 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		$.ajax({
-			url : "allSchedule.do",
-			type : "post",
-			dataType : 'json',
-			data : jsonData,
-			success : function(data) {
-				if (data != "") {
-					for (i=0; i<data.length; i++) {
-						data[i].d
-					}
-					$('#calendar').fullCalendar({
-
-						events : [ {
-							title : 'all',
-							start : '2021-11-12'
-						}, {
-							title : 'all',
-							start : '2021-11-12',
-							end : '2021-11-13'
-						}, {
-							title : 'all',
-							start : '2021-11-12',
-							end : '2021-11-14'
-						} ]
-					});
-				}
-			}
+		$('#calendar').fullCalendar({
+			events : [
+			<c:forEach var="nwList" items="${nwLists}">
+				{
+				title : '[${nwList.prjTtl}] ${nwList.notiTtl}',
+				<c:if test="${nwList.prjColor == }">
+				<c:set var="prjCol" value="" />
+				</c:if>
+				<c:if test="${nwList.prjColor == }">
+				<c:set var="prjCol" value="" />
+				</c:if>
+				<c:if test="${nwList.prjColor == }">
+				<c:set var="prjCol" value="" />
+				</c:if>
+				<c:if test="${nwList.prjColor == }">
+				<c:set var="prjCol" value="" />
+				</c:if>
+				<c:if test="${nwList.prjColor == }">
+				<c:set var="prjCol" value="" />
+				</c:if>
+				color : ${prjCol}
+				start : '<fmt:formatDate value="${nwList.notiBgnDt}" pattern="yyyy-MM-dd" />',
+				end : '<fmt:formatDate value="${nwList.notiEndDt}" pattern="yyyy-MM-dd" />'
+			},
+			</c:forEach>
+			]
 		});
 	</script>
 </body>

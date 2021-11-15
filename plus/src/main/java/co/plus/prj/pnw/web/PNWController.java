@@ -94,8 +94,10 @@ public class PNWController {
 	
 	// 스케쥴 메뉴
 	@RequestMapping(value = "/allSchedule.do",  method = RequestMethod.GET)
-	@ResponseBody
-	public List<PNWVO> allSchedule(HttpSession session, Model model, PNWVO vo) {
-		return service.allSchedule(vo); 		
+	public String allSchedule(HttpSession session, Model model, PNWVO vo) {
+		vo.setMemId((String) session.getAttribute("memId"));
+		vo.setCoUrl((String) session.getAttribute("coUrl"));
+		model.addAttribute("nwLists",service.allSchedule(vo));
+		return "home/allSchedule"; 		
 	}
 }

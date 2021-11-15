@@ -368,11 +368,11 @@
 													<c:if test="${pincette.notiKnd=='schedule'}">
 														<div class="date-time">
 															<em class="date"> <fmt:parseDate
-																	value="${pincette.addList}" pattern="YY/MM/dd"
+																	value="${fn:substring(pincette.addList, 0, 12)}" pattern="yy/MM/dd HH:mm"
 																	var="addDate" /> <fmt:formatDate value="${addDate}"
-																	pattern="MM/dd" />
-															</em> <span> <fmt:parseDate pattern="YY/MM/dd"
-																	value="${pincette.addList}" var="addTime" /> <fmt:formatDate
+																	pattern="yy/MM/dd" />
+															</em> <span> <fmt:parseDate pattern="yy/MM/dd HH:mm"
+																	value="${fn:substring(pincette.addList, 0, 12)}" var="addTime" /> <fmt:formatDate
 																	value="${addTime}" pattern="HH:mm" />
 															</span>
 														</div>
@@ -498,10 +498,10 @@
 																			<div class="js-schedule-state date-time d-none"
 																				style="display: block">
 																				<em class="date"> <fmt:parseDate
-																						value="${nwList.addList}" pattern="YY/MM/dd"
+																						value="${fn:substring(nwList.addList, 0, 8)}" pattern="yy/MM/dd"
 																						var="addDate" /> <fmt:formatDate
-																						value="${addDate}" pattern="MM/dd" /></em> <span>
-																					<fmt:parseDate pattern="YY/MM/dd"
+																						value="${addDate}" pattern="yy/MM/dd" /></em> <span>
+																					<fmt:parseDate pattern="yy/MM/dd"
 																						value="${nwList.addList}" var="addTime" /> <fmt:formatDate
 																						value="${addTime}" pattern="HH:mm" />
 																				</span>
@@ -808,7 +808,7 @@
 																								<div class="js-date-back-layer date-bg d-none"
 																									style="display: inline-block">
 																									<span class="js-pickr-text task-date"> <span
-																										class="js-date-text">2021-11-03 (수) 부터</span>
+																										class="js-date-text">{task.tskBgnDt}2021-11-03 (수) 부터</span>
 																									</span>
 																								</div>
 																							</div>
@@ -816,7 +816,7 @@
 																					</li>
 																					<li
 																						class="js-date-layer js-end-date-layer js-more-task-li d-none"
-																						style="display: inline-block" data="">
+																						style="display: inline-block">
 																						<div class="create-content-cell title">
 																							<i class="icon-post-date"></i>
 																						</div>
@@ -826,7 +826,7 @@
 																									style="display: inline-block">
 																									<span
 																										class="js-pickr-text task-date deadline-exceeded">
-																										<span class="js-date-text">2021-11-09
+																										<span class="js-date-text">{task.tskEndDt}2021-11-09
 																											(화) 까지</span>
 																									</span>
 																								</div>
@@ -983,8 +983,9 @@
 															</div>
 															<div class="post-card-footer js-comment-area">
 																<div class="comment-header">
+																<!-- on 시 보이기 -->
 																	<button type="button"
-																		class="js-remark-prev-button comment-more-button on">
+																		class="js-remark-prev-button comment-more-button">
 																		이전 댓글 더보기</button>
 																</div>
 																<ul class="post-comment-group">
@@ -996,9 +997,9 @@
 																		<div class="js-remark-view comment-container on ">
 																			<div class="comment-user-area">
 																				<div class="comment-user">
-																					<span class="user-name js-comment-user-name">오혜지</span>
+																					<span class="user-name js-comment-user-name">{reply.memId}</span>
 																					<span class="user-position"></span> <span
-																						class="record-date">2021-11-07 21:23</span>
+																						class="record-date">{reply.dttm}2021-11-07 21:23</span>
 																				</div>
 																				<div class="comment-writer-menu">
 																					<button type="button"
@@ -1012,7 +1013,7 @@
 																			<div class="js-remark-layer comment-content">
 																				<div class="comment-text-area">
 																					<div class="js-remark-text comment-text">
-																						<div>'보류' → '완료', 상태를 변경하였습니다.</div>
+																						<div>{reply.cntn}</div>
 																					</div>
 																				</div>
 																			</div>
@@ -1032,16 +1033,6 @@
 																						</i>
 																					</fieldset>
 																				</form>
-																				<ul
-																					class="js-remark-upload-file upload-document-group"></ul>
-																				<ul class="js-remark-upload-img comment-upload-img"></ul>
-																			</div>
-																			<div class="comment-like-area d-none">
-																				<div class="js-remark-like comment-like ">
-																					<span class="js-remark-like-button"><em
-																						class="txt-like">좋아요</em></span> <span
-																						class="js-remark-like-count comment-like-count ">0</span>
-																				</div>
 																			</div>
 																		</div>
 																	</li>
@@ -1052,7 +1043,7 @@
 																<div class="comment-thumbnail">
 																	<span class="thumbnail size40 radius16"
 																		style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"
-																		data=""></span>
+																		></span>
 																</div>
 																<form class="js-remark-form comment-container on ">
 																	<fieldset>
