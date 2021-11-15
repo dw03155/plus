@@ -6,7 +6,14 @@
 <meta charset="UTF-8">
 </head>
 <body>
-	<div>
+	<div id="leftTask" class="left-task active">
+		<div class="logo-area">
+			<a class="js-logo logo-box">
+				<h1 class="logo-1">
+					<img src="/img/plus.png?heigth:50" alt="flow" id="coLogoImg" />
+				</h1>
+			</a>
+		</div>
 		<ul id="leftScroll" class="menu-accordion-group scroll-mask">
             <li>
                 <div class="menu-accordion-button active left-menu-item" data-code="collect-more" style="color: white; font-size: 13px">
@@ -42,6 +49,21 @@
                     </ul>
                 </div>
             </li>
+		</ul>
+		<div
+			class="js-label-setting-layer setting-popup flow-small-layer-1 cursor-pointer"
+			id="folderMenu" style="display: none">
+			<div class="label-edit flow-name-size">
+				<i></i><a href="#"><span>수정</span></a>
+			</div>
+			<div class="label-delete flow-dash-icon">
+				<i></i><a href="#"><span>삭제</span></a>
+			</div>
+		</div>
+		<ul id="leftBottomUl" class="menu-group admin">
+				<li data-code="manageradmin" class="d-none left-menu-item"
+					style="display: block"><a id="managerAdmin"
+					href="myProject.do"><img src="/img/house-16.png" style="margin: 9px 5px">홈으로</a></li>
 		</ul>
 		</div>
 	<script type="text/javascript">
@@ -109,6 +131,20 @@
 				second : $labelItem.find(".js-label-name").text(),
 			})
 		}
+		$(function(){
+			var coUrl = "${sessionScope.coUrl}";
+			$.ajax({
+				url: "getLogo.do?coUrl="+coUrl,
+				type: "get",
+				datatype: "json",
+				success: function(data){
+					var $coLogo = data.coLogo;
+					var logoPath = "/logo/"+$coLogo+ "?heigth=50";
+					$("#coLogoImg").attr("src",logoPath);
+					console.log($coLogo);
+				}
+			})
+		})
 	</script>
 </body>
 </html>

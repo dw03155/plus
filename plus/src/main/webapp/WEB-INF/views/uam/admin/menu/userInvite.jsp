@@ -65,11 +65,12 @@
 		border-radius: 2px;
 		margin-top: 10px;
 	}
-	table{
+	#insertMemberList{
 		width: 100%;
 		border: 1px solid #D8D8D8;
 		border-collapse : collapse;
         left: 30px;
+        padding-bottom: 20px;
 	}
 	#memBtn{
 		height: 15px;
@@ -83,15 +84,15 @@
 		height: 30px; 
 		background-color: #F9F8FD
 	}
-	td{
+	#insertMemberList td{
 		text-align: center;
 		height: 25px;
 	}
-	#btnDiv{
+	#invitebtnDiv{
 		padding-top: 10px;
 		padding-bottom: 10px;
 		float: right;
-		width: 210px;
+		width: 118px;
 		right: 10%;
 	}
 	#xlxsInfo{
@@ -103,6 +104,9 @@
 	}
 	.redBox{
 		border: 1px solid red;
+	}
+	.blueBox{
+		border: 1px solid blue;
 	}
 	.normalBox{
 	}
@@ -130,8 +134,8 @@
 				<h2>전용 URL</h2>
 				<p>전용 URL 주소를 전달하여 회사 직원들을 참여시킬 수 있습니다.</p>
 				<div class="coInput">
-					<input id="coNameSer" name="coNameSer" type="text" required="required" class="coInputTag"/>
-					<button id="btn" class="formIn" type="button">복사</button>
+					<input id="coNameSer" name="coNameSer" type="text" required="required" class="coInputTag" readonly="readonly"/>
+					<button id="copybtn" class="formIn" type="button">복사</button>
 				</div>
 			</div>
 			<div class="contentsBox">
@@ -157,15 +161,16 @@
 				<input id="file" name="file" type="file" style="border: 1px;">
 				</form>
 				<button type="submit" id="fileUp" class="blueBtn" onclick="check()">추가</button>
-				<button id="xlsxDoun" onClick="location.href='xlsxDonload.do'" class="whiteBtn" type="button" style="width: 180px">엑셀파일 양식 다운로드</button>
+				<button id="xlsxDoun" onClick="location.href='/xlsxFile/xlsxdownload/플러스 회원일괄초대 엑셀입력 양식.xls'" value="플러스 회원일괄초대 엑셀입력 양식.xls" class="whiteBtn" type="button" style="width: 180px">엑셀파일 양식 다운로드</button>
 			</div>
 			<div class="contentsBox">
 			<div id="xlsxInfo">
-			<span>전체&nbsp;'<em id="allcnt"></em>'개 ('<em id="okcnt"></em>'개 등록가능,&nbsp;'</span><em style="color: red">
-			<em id="nocnt"></em>'개&nbsp;</em><span> 등록 불가능)</span>
-			<span><input type="checkbox">등록 불가능한 행 모아보기</span>
-			<div id="btnDiv">
-				<button class="whiteBtn" id="lineBtn">전체선택</button>
+			<span>전체&nbsp;'<em id="allcnt"></em>'개 ('
+			<em id="okcnt"></em>'개 등록가능,&nbsp;'
+			<em id="nocnt" style="color: red"></em>'개 등록 불가능, '
+			<em id="dulcnt"  style="color: blue"></em>'개 중복)</span>
+			<!-- <span><input type="checkbox">등록 불가능한 행 모아보기</span> -->
+			<div id="invitebtnDiv">
 				<button class="whiteBtn" id="lineDelBtn">삭제</button>
 				<button class="blueBtn" id="inBtn">등록</button>
 			</div>
@@ -183,6 +188,15 @@
 						</tr>
 					</thead>
 					<tbody id="insertlist">
+						<!-- <tr>
+							<td><input type="checkbox" class="fileCheck"></td>
+							<td><span><input name="view" value="박지민"></span></td>
+							<td><span><input name="view" value="riri@naver.com"></span></td>
+							<td><span><input name="view" value="01066568889"></span></td>
+							<td><span><input name="view" value="지각대장"></span></td>
+							<td><span><input name="view" value="대장"></span></td>
+							<td><span><input name="view" value="2105"></span></td>
+						</tr> -->
 					</tbody>
 				</table>
 			</div>
@@ -194,31 +208,67 @@
 		</div><!-- main-container end -->
 	
 	<script>
+	$(function(){
+		var courl = "${sessionScope.coUrl}";
+		var url = "http://192.168.0.3/userJoin.do?newCoUrl=" + courl;
+		$("#coNameSer").val(url);
+	})
 	
-	$('#inBtn').click(function(){
-		var fileCheck = $(".fileCheck:checked");
-		var coUrl = "${sessionScope.coUrl}";
-		fileCheck.each(function(i){
-			var tr = fileCheck.parent().parent().eq(i);
-			var td = tr.children();
-			var emailVal = td.eq(2).children().children().val();
+	$("#copybtn").click(function(){
+		$("#coNameSer").select();
+		var success = document.execCommand("copy");
+		if(success) {
+			alert("링크복사").fadeOut(1000);
+		}
+	})
+	
+	$('#lineDelBtn').click(function(){
+		if(confirm("회원을 삭제하시겠습니까?")){
+			var fileCheck = $(".fileCheck:checked");
+			fileCheck.each(function(i){
+				var tr = fileCheck.parent().parent();
+				tr.remove();
+				
+			})
+		}
+	});
 			
+	$('#inBtn').click(function(){
+		if(confirm("회원을 입력하시겠습니까?")){
+			var fileCheck = $(".fileCheck:checked");
+			var coUrl = "${sessionScope.coUrl}";
+			fileCheck.each(function(i){
+				var tr = fileCheck.parent().parent().eq(i);
+				var td = tr.children();
+				var emailVal = td.eq(2).children().children().val();
 				var name = td.eq(1).children().children().val();
 				var email = td.eq(2).children().children().val();
 				var persTel = td.eq(3).children().children().val();
 				var dept = td.eq(4).children().children().val();
 				var wkpo = td.eq(5).children().children().val();
 				var coTel = td.eq(6).children().children().val();
-				
 				var jsondata = {"coUrl":coUrl,"name":name,"email":email,"persTel":persTel,"dept":dept,"wkpo":wkpo,"coTel":coTel};
-				
-		})
+					
+				$.ajax({
+					url: "AllMemberInsert2.do",
+					method: "put",
+					data: JSON.stringify(jsondata),
+					contentType: "application/json",
+					dataType: "json",
+					success: function(data){
+						tr.remove();
+					}
+				})
+					
+			})
+		}
+		
 	})
 	
 	function checkFileType(filePath){
 		var fileFormat = filePath.split(".");
 		
-		if(fileFormat.indexOf("xls") > -1 || fileFormat.indexOf("xlsx") > -1){
+		if(fileFormat.indexOf("xls") > -1){
 			return true;
 		} else {
 			return false;
@@ -232,10 +282,10 @@
 			alert("파일을 선택해주세요.");
 			return false;
 		}else if (!checkFileType(file)){
-			alert("엑셀파일만 업로드하세요.");
+			alert("엑셀(xls)파일만 업로드하세요.");
 			return false;
 		}
-		if (confirm("엡로드하시겠습니까?")){
+		if (confirm("업로드하시겠습니까?")){
 			var formData = new FormData(document.excelUploadForm);
 			$.ajax({
 				url: "xlsxUplord.do",
@@ -286,6 +336,7 @@
 					for(j=0; j<fileTd.length; j++){		
 						for(k=0; k<fileTr.length; k++){
 							var fileVal = filevalue.eq(j).val();
+							console.log(fileVal);
 							var fileSpan = $('input[name=view]').parent().eq(j);
 							var fileCheckBox = fileSpan.parents('tr').find('.fileCheck').eq(k);
 								if(fileVal == ''){
@@ -293,16 +344,16 @@
 									fileCheckBox.attr("disabled",true);
 							}else{
 								fileSpan.attr("class","normalBox");
-								
 							}							
 						}
-					}	
+					}
 				}
-				
-		
+				emailDuplicateCheck();
+				count();
 			}
-			
-		count();
+		
+		
+		
 		
 		$('input[name=view]').on("change",function(){
 			var fileInput = $(this);
@@ -319,7 +370,7 @@
 			}else if( fileIn != "" && filenameval != "" && fileemailval != "" && filepersTelval != "" && filedeptval != "" && filewkpoval != "" && filecoTelval != ""){
 				checkBox.attr("disabled",false);
 			}
-			count();
+			
 			
 			$('input[name=view]').on("change",function(){
 				var fileInput = $(this);
@@ -329,35 +380,96 @@
 					fileInput.parent().attr("class","redBox");
 				}else{
 					fileInput.parent().attr("class","normalBox");
+					
 				}
 			});
+
 			
+			var arr = new Array();
+			var tr = $('#insertlist').children();
+			var answer = false;
+				result = [];
+			for(i=0; i<tr.length; i++){
+				
+				var emails = $('#insertlist').children().eq(i).children().eq(2).children().children().val();
+				arr.push(emails);
+				var data = arr;
+			}
+			
+			emailDuplicateCheck();
+			
+			count();
 		});
+
 		$("#checkth #allCheckBox").on('click',function(){
 			if($('#allCheckBox').prop("checked")){
 				$(".fileCheck:not(:disabled)").prop("checked",true);
 			}else{
-				$(".fileCheck:not(:disabled)").prop("checked",true);
+				$(".fileCheck:not(:disabled)").prop("checked",false);
 			}
 		});
 		
-		function emailcompareTest(){
-			
-			var tr = $('#insertlist').children().length;
-			for(i=1; i<tr; i++){
-				$('#insertlist').children().eq(i).find(".view").val();
-			}
+		
+	};
+	
+	function emailDuplicateCheck(){
+		var arr = new Array();
+		var tr = $('#insertlist').children();
+		var answer = false;
+		var	result = [];
+		for(i=0; i<tr.length; i++){
+			var emails = $('#insertlist').children().eq(i).children().eq(2).children().children().val();
+			arr.push(emails);
+			var data = arr;
 		}
+		function getData(arr){
+			for(i=0; i<arr.length; i++){
+			var value = data[i];
+			var chk = 0;
+				for(j=0; j<data.length; j++){
+					if(data[j].indexOf(value) != -1) chk++
+				}
+				if(chk> 1){
+					result.push(value);
+					for(m=0; m<tr.length; m++){
+						var emailDup = $('#insertlist').children().eq(m).children().eq(2).children().children();
+						var checkbox = emailDup.parents('tr').children().eq(0).children();
+						
+						for(n=0; n<result.length; n++){
+							if(result[n] == emailDup.val()){
+								console.log(result[n]);
+ 								emailDup.parent().attr("class","blueBox");
+								checkbox.attr("disabled",true);
+							}
+						}
+						
+					}
+					
+				}
+			}
+		return result;
+		}
+		
+		answer = getData(data).length > 0? true : false;
 	};
 		
 	function count(){			
 			var allcnt = $('#insertlist').children().length;
 			var nocnt = $(".redBox").parent().parent().length;
+			var dulcnt =$(".blueBox").parent().parent().length;
 			$('#allcnt').text(allcnt);
 			$("#nocnt").text(nocnt);
 			$("#okcnt").text(allcnt-nocnt);
+			$("#dulcnt").text(dulcnt);
 		
 		}
+	$("#checkth #allCheckBox").on('click',function(){
+		if($('#allCheckBox').prop("checked")){
+			$(".fileCheck:not(:disabled)").prop("checked",true);
+		}else{
+			$(".fileCheck:not(:disabled)").prop("checked",false);
+		}
+	});
 	
 			$("#send").on("click", function(){
 				$('#send').attr("class","js-tab-item active");
@@ -384,8 +496,6 @@
 						}
 					})
 			})
-			
-	
 			
 	
 	</script>

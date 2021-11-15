@@ -12,7 +12,7 @@
 		<div class="logo-area">
 			<a href="myProject.do" class="js-logo logo-box">
 				<h1 class="logo-1">
-					<img src="/img/plus.png?height=50" alt="flow" />
+					<img src="/img/plus.png?heigth:50" alt="flow" id="logoImg" />
 				</h1>
 			</a>
 		</div>
@@ -74,7 +74,7 @@
 							class="js-label-name js-mouseover ellipsis">마케팅</span>
 							<a href="#"
 							class="js-label-setting-button flow-dash-three">
-								<div></div>
+								<div style="height: "></div>
 								<div></div>
 								<div></div>
 						</a></li>
@@ -112,5 +112,21 @@
 			</ul>
 		</c:if>
 	</div>
+	<script>
+		$(function(){
+			var coUrl = "${sessionScope.coUrl}";
+			$.ajax({
+				url: "getLogo.do?coUrl="+coUrl,
+				type: "get",
+				datatype: "json",
+				success: function(data){
+					var $coLogo = data.coLogo;
+					var logoPath = "/logo/"+$coLogo+ "?heigth=50";
+					$("#logoImg").attr("src",logoPath);
+					console.log($coLogo);
+				}
+			})
+		})
+	</script>
 </body>
 </html>

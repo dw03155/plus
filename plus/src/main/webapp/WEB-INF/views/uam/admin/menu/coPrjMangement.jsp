@@ -106,13 +106,31 @@
     color: #555;
     display: none;
     align-content: center;
+    box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
+	.mem_serch_modal{
+	width: 700px;
+	height: 400px;
+    position: absolute;
+    top: 22%;
+    right: 28%;
+    z-index: 13;
+    background: #fff;
+    border: 1px solid #777;
+    border-radius: 8px;
+    font-size: 13px;
+    text-align: left;
+    color: #555;
+    display: none;
+    align-content: center;
+    box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	}
 	.model_heard{
 		height: 40px;
 		padding: 10px;
 		
 	}
-	#prj_model_x{
+	.prj_model_x{
 		float: right;
 		width: 15px;
 	}
@@ -133,7 +151,7 @@
 	<div class="main-container">
 		<div id="topSettingBar" class="main-header" style="height: 54px">
 			<div id="menuName" class="project-detail-header">
-				<h3 id="projectTitle" class="project-title ellipsis js-mouseover" style="margin-bottom: 10px;">회사 정보</h3>
+				<h3 id="projectTitle" class="project-title ellipsis js-mouseover" style="margin-bottom: 10px;">회사 프로젝트 관리</h3>
 			</div>
 		</div><!-- topSettionBar end -->
 		<div class="project-detail-top clearfix">
@@ -179,10 +197,11 @@
 					</tbody>
 				</table>
 			 </div><!-- usingMember end -->
+			 
 			 <div id="prjModal" class="prj_modal">	
 			<div class="model_heard">
 				<span style="font-size: 18px; font-weight: bold;">&nbsp;회사 프로젝트 정보</span>
-				<a href="#"><img id="prj_model_x" src="/img/ico/x_icn.png"></a>
+				<a href="#"></a>
 			</div>
 			<div align="center" style="margin-left: 10px; margin-right: 10px; height: 300px; overflow: scroll;">
 			<hr>
@@ -220,34 +239,79 @@
 				style="position: static; top: 500px; background-color: white; color: black; border: 1px solid silver;">취소</button>
 			</div>
 		</div>
+		
+		<div id="memberSerch" class="mem_serch_modal">
+			<div class="model_heard">
+				<span style="font-size: 18px; font-weight: bold;">&nbsp;사용자 검색</span>
+				<a href="#"><img class="prj_model_x" id="memSerchX" src="/img/ico/x_icn.png"></a>
+			</div>
+			<div align="center" style="margin-left: 10px; margin-right: 10px; height: 300px; overflow: scroll;">
+			<hr>
+				<div>
+					<table id="serchmem" border="1">
+					<thead class="prjInfothead">
+						<tr>
+							<th></th>
+							<th>관리자명</th>
+							<th>이메일</th>
+							<th>부서</th>
+							<th>관리자</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody id="usermemList" >
+					</tbody>
+				</table>
+				</div>
+			</div>
+		</div>
 	</div><!-- main-container end -->
 <script>
-
-function PMlist(data){
-	for(i=0; i<data.length; i++){
-		var $prjId = data[i].prjId;
-		var $prjTtl = data[i].prjTtl;
-		var $name = data[i].name;
-		var $memId = data[i].memId;
-		var $email = data[i].email;
-		var $dept = data[i].dept;
-		var $persTel = data[i].persTel;
-		$('#prjTTL').val($prjTtl);
-		$('<tr>').append($('<td>').append($('<input type=\'hidden\'>').val($memId)))
-				.append($('<td>').html($name))
-				.append($('<td>').html($email))
-				.append($('<td>').html($dept))
-				.append($('<td>').html($persTel))
-				.append($('<td>').append($('<a href="#" class="pmDel">').html("[해제]")))
-				.append($('<td>').append($('<input type=\'hidden\'>').val($prjId)))
-		 		.appendTo($('#prjAdmin'));
-	}//for end
-};
 
 	$('.pmList').click(function(){
 		var tr = $(this);
 		var prjId = tr.children().children().val();
 
+		getCoPrjInfo(prjId);
+		
+		$("#adminAdd").click(function(){
+			$("#usermemList").empty();
+			console.log(prjId);
+			$.ajax({
+				url: "prjUserList.do?prjId="+ prjId,
+				type: "Get",
+				dataType: "json",
+				success: function(data){
+					console.log(data);
+					if(data.length > 0){
+						usermemList();
+					}else{
+						$('<tr>').append($('<td colspan="6">').html("참여자가 없습니다.")
+					}
+					$(".pmInsert").click(function(){
+						var pminsert = $(this);
+						var tr = pminsert.parent().parent();
+						var memId = tr.children().first().children().val();
+						var prjId = pminsert.parent().next().children().val();
+						var jsondata = {"memId":memId, "prjId": prjId};
+						$.ajax({
+							url: "coPrjUserChange.do",
+							method: "put",
+							data: JSON.stringify(jsondata),
+							contentType: "application/json",
+							dataType: "json",
+							success: function(){
+								tr.remove();
+							}
+						})
+					});
+					
+					}
+				});
+			})
+		});
+	
+	function getCoPrjInfo(prjId){
 		$.ajax({
 			url: "getCoPrjInfo.do?prjId="+ prjId,
 			method: "get",
@@ -280,13 +344,51 @@ function PMlist(data){
 				});
 			}
 		})
+	};
+	
+	function PMlist(data){
+		for(i=0; i<data.length; i++){
+			var $prjId = data[i].prjId;
+			var $prjTtl = data[i].prjTtl;
+			var $name = data[i].name;
+			var $memId = data[i].memId;
+			var $email = data[i].email;
+			var $dept = data[i].dept;
+			var $persTel = data[i].persTel;
+			$('#prjTTL').val($prjTtl);
+			$('<tr>').append($('<td>').append($('<input type=\'hidden\'>').val($memId)))
+					.append($('<td>').html($name))
+					.append($('<td>').html($email))
+					.append($('<td>').html($dept))
+					.append($('<td>').html($persTel))
+					.append($('<td>').append($('<a href="#" class="pmDel">').html("[해제]")))
+					.append($('<td>').append($('<input type=\'hidden\'>').val($prjId)))
+			 		.appendTo($('#prjAdmin'));
+		}//for end
 		
-	});
+	};
 	
-	
-	$("#prj_model_x").click(function(){
-		$("#prjModal").css("display","none")
+	function usermemList(data){
+		for(i=0; i<data.length; i++){
+			var $memId = data[i].memId;
+			var $name = data[i].name;
+			var $email = data[i].email;
+			var $dept = data[i].dept;
+			$('<tr>').append($('<td>').append($('<input type="hidden">').val($memId)))
+					 .append($('<td>').html($name))
+					 .append($('<td>').html($email))
+					 .append($('<td>').html($dept))
+					 .append($('<td>').html($('<a href="#" class="pmInsert">').html("[승인]")))
+					 .append($('<td>').append($('<input type="hidden">').val(prjId)))
+					 .appendTo("#usermemList")
+		}
+	];
+	$("#adminAdd").click(function(){
+		$("#memberSerch").css("display","block");
 	});
+	$("#memSerchX").click(function(){
+		$("#memberSerch").css("display","none");
+	})
 	$("#ctgCancel").click(function(){
 		$("#prjModal").css("display","none")
 	});
