@@ -1272,24 +1272,19 @@
 
 	<script>
 		//업무리포트 토글
-		$("#taskReportToggleButton").on("click", function() {
+		$("#taskReportToggleButton").click(function() {
 			$("#taskReportToggleButton").toggleClass("off");
 			$("#doughnutChartLayer").toggle();
 		});
 
 		//게시글 토글
-		$(".list-item a").on(
-				"click",
-				function(e) {
-					e.preventDefault;
-					$(".list-item").css("display", "block");
-					$(".card-item").css("display", "none");
-					console.log($(e.currentTarget).closest().next());
-					$(e.currentTarget).closest(".list-item").css("display",
-							"none");
-					$(e.currentTarget).closest(".list-item").next().css(
-							"display", "block");
-				});
+		$(".list-item a").click(function(e) {
+			e.preventDefault;
+			$(".list-item").css("display", "block");
+			$(".card-item").css("display", "none");
+			$(e.currentTarget).closest(".list-item").css("display","none");
+			$(e.currentTarget).closest(".list-item").next().css("display", "block");
+		});
 	</script>
 </body>
 </html>
