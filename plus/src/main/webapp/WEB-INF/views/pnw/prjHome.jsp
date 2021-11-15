@@ -8,15 +8,18 @@
 <style>
 .parti_st {
 	display: inline-block;
-    width: 15px;
-    position: relative;
-    top: 27px;
-    left: -14px;
+	width: 15px;
+	position: relative;
+	top: 27px;
+	left: -14px;
+	position: relative;
+	top: 27px;
+	top: 27px;
 }
 </style>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>플러스(Plus)</title>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js"></script>
 <script>
@@ -295,7 +298,6 @@
 							</div>
 
 							<!-- 게시글 클릭시 a 태그에 class="highlight" -->
-
 							<!-- 상단고정 -->
 							<div id="projectPinArea"
 								class="detail-section fix-section d-none" style="display: block">
@@ -307,6 +309,8 @@
 										</h4>
 									</div>
 								</c:if>
+
+
 								<ul id="pinPostUl" class="pin-list fixed-list">
 									<c:forEach var="pincette" items="${pincettes}">
 										<li class="js-pin-item"><a href="#"> <!-- 글 class="icons-write2" 할일 class="icons-todo" 일정 class="icons-schedule"-->
@@ -426,11 +430,11 @@
 											<c:forEach var="nwList" items="${nwLists}">
 												<li id="myPcontent"
 													class="js-popup-before detail-item back-area">
-													<div class="js-post-nav list-item post-list-wrapper">
+													<!-- 리스트 타입 -->
+													<div class="js-post-nav list-item post-list-wrapper"
+														style="display: block">
 														<div class="fixed-list">
-															<a href="#"> <!-- 새로운 글 표시 --> <i
-																class="js-indication display-new-indication"
-																style="display: none"></i> <!-- 글 class="icons-write2" 할일 class="icons-todo" 일정 class="icons-schedule"-->
+															<a href="#"> <!-- 글 class="icons-write2" 할일 class="icons-todo" 일정 class="icons-schedule"-->
 																<c:if test="${nwList.notiKnd=='text'}">
 																	<c:set var="notiKindIcon" value="icons-write2" />
 																	<c:set var="notiKindSpan" value="글" />
@@ -513,6 +517,562 @@
 																</div>
 															</a>
 														</div>
+													</div> <!-- 포스트 타입 -->
+													<div class="js-post-nav card-item post-card-wrapper"
+														style="display: none">
+														<!-- highlight class 시 보라색 테두리 -->
+														<button type="button" class="post-popup-button left"></button>
+														<div class="post-card-header">
+															<div class="post-card-scroll">
+																<div class="card-header-top">
+																	<div class="post-author js-post-author">
+																		<span class="thumbnail size40 radius16"
+																			style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
+																		<dl class="post-author-info">
+																			<dt>
+																				<strong class="author ellipsis">${nwList.name}
+																					${nwList.wkpo}</strong> <em class="position ellipsis"
+																					style="display: inline"></em> <span class="date"><fmt:formatDate
+																						pattern="yyyy-MM-dd HH:mm"
+																						value="${nwList.notiDttm}" /></span> <span
+																					class="post-security"> <c:if
+																						test="${nwList.notiOpenPerm == 'pm'}">
+																						<i class="icons-lock js-mouseover"
+																							mouseover-text="프로젝트 관리자만"></i>
+																					</c:if> <c:if test="${nwList.notiOpenPerm == 'all'}">
+																						<i class="icons-person-7 js-mouseover"
+																							mouseover-text="전체공개"></i>
+																					</c:if>
+																				</span>
+																			</dt>
+																			<dd class="{personal-yn}">
+																				<strong class="company">${nwList.coUrl}</strong> <span
+																					class="team">{nwList.dept}</span>
+																			</dd>
+																		</dl>
+																	</div>
+																	<div>
+																		<div class="post-option">
+																			<button id="pinToTopBnt"
+																				class="js-pin-post fixed-btn js-pin-authority on"
+																				style="display: block">
+																				<!-- fixed-btn on class -->
+																				<span class="blind">상단 고정 등록</span>
+																			</button>
+																			<button class="js-setting-button set-btn"
+																				style="display: block">
+																				<span></span> <span></span> <span></span>
+																			</button>
+																			<ul
+																				class="js-setting-ul js-setting-layer setup-group d-none"
+																				style="display: none">
+																				<li class="js-setting-item" data-code="modify"
+																					style="display: block"><a href="#"> <i
+																						class="icons-write"></i>수정
+																				</a></li>
+																				<li class="js-setting-item" data-code="delete"
+																					style="display: block"><a href="#"> <i
+																						class="icons-delete-3"></i>삭제
+																				</a></li>
+																			</ul>
+																		</div>
+																	</div>
+																</div>
+
+																<div class="card-header-bottom ">
+																	<c:if test="${nwList.notiKnd == 'schedule'}">
+																		<div class="schedule-date">
+																			<strong class="schedule-month"><fmt:formatDate
+																					pattern="yyyy-MM" value="${nwList.notiDttm}" /></strong><strong
+																				class="schedule-day"><fmt:formatDate
+																					pattern="dd" value="${nwList.notiDttm}" /></strong>
+																		</div>
+																	</c:if>
+																	<div class="post-title-area">
+																		<c:if test="${nwList.notiKnd != 'schedule'}">
+																			<c:if test="${nwList.addList=='withhold'}">
+																				<c:set var="taskTtl" value="hold" />
+																			</c:if>
+																			<c:if test="${nwList.addList == 'complete'}">
+																				<c:set var="taskTtl" value="complete" />
+																			</c:if>
+																			<c:if
+																				test="${nwList.addList != 'withhold' and nwList.addList != 'complete'}">
+																				<c:set var="taskTtl" value="" />
+																			</c:if>
+																			<h4 class="js-post-title post-title ${taskTtl}">${nwList.notiTtl}</h4>
+																		</c:if>
+																		<c:if test="${nwList.notiKnd == 'schedule'}">
+																			<div class="schedule-period-area">
+																				<span class="schedule-period"><fmt:formatDate
+																						pattern="yyyy-MM-dd , HH:mm"
+																						value="${nwList.notiDttm}" /></span>
+																			</div>
+																		</c:if>
+																	</div>
+																	<div class="post-state">
+																		<span class="task-number d-inline-block"> 업무번호
+																			<em>${nwList.notiId}</em>
+																		</span>
+																	</div>
+																</div>
+																<div class="post-card-container">
+																	<c:if test="${nwList.notiKnd == 'text'}">
+																		<div id="originalPost" class="post-card-content "
+																			style="display: block">
+																			<div class="js-map-item url-preview map map-item"
+																				data-url="https://maps.google.com/?cid=17960805821623202136">
+																				<div class="sort-hide-area">
+																					<img
+																						src="https://maps.googleapis.com/maps/api/staticmap?center=35.8693336,128.5955796&amp;zoom=14&amp;size=646x220&amp;markers=color:blue|35.8693336,128.5955796&amp;key=AIzaSyADjbtMn46r9DGFyo_ZRz3c6fOXzuOKWCw"
+																						onerror="this.src='https://i.pinimg.com/236x/fc/7e/ce/fc7ece8e8ee1f5db97577a4622f33975--photo-icon-sad.jpg'">
+																				</div>
+
+																				<div class="url-preview-content">
+																					<em class="url-preview-title"><i
+																						class="icon-map"></i></em>
+																					<p class="url-preview-text">{text_pl}</p>
+																				</div>
+																			</div>
+
+																			<div class="js-post-file document-item file-item">
+																				<div class="extension-icon-area">
+																					<!-- etc 대신 pdf,txt,hwp,word,ppt, -->
+																					<i class="icon-extension etc"></i>
+																					<!-- 잠금파일일 경우에 block처리 요청 -->
+																				</div>
+																				<dl class="document-item-info">
+																					<dt class="js-file-title">
+																						<span class="document-title">MOCK_DATA.json</span><em
+																							class="document-extension"></em>
+																					</dt>
+																					<dd>106.41 KB</dd>
+																				</dl>
+																				<button type="button"
+																					class="js-down-btn document-download-button"
+																					style="display: block">
+																					<i class="icons-arrow_down"></i> <span
+																						class="blind">다운로드 버튼</span>
+																				</button>
+
+																			</div>
+																			<div>{text_cntn}</div>
+																		</div>
+																	</c:if>
+																	<c:if test="${nwList.notiKnd == 'schedule'}">
+																		<div id="originalPost" class="post-card-content "
+																			style="display: block">
+																			<div class="post-card-content js-schedule-comp"
+																				spellcheck="true">
+																				<ul class="create-content-group">
+																					<li class="js-attendance-layer">
+																						<div class="create-content-cell title manager">
+																							<i class="icon-post-worker"></i>
+																						</div>
+																						<div class="create-content-cell manager-btn-group">
+																							<span class="js-manager-group manager-group">
+																								<span
+																								class="js-registration participant-thumbnail attendee participate js-mouseover"
+																								style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"
+																								mouseover-text="{sche.memId}"></span>
+																							</span>
+																						</div>
+																					</li>
+																					<li style="display: table">
+																						<div class="create-content-cell title manager">
+																							<i class="icon-post-place"></i>
+																						</div>
+																						<div class="create-content-cell">
+																							<div id="urlPreview"
+																								class="url-preview-content schedule">
+																								<em class="url-preview-title"> <span
+																									class="ellipsis">{schePl}</span>
+																									<button type="button"
+																										class="js-place-span map-button"
+																										data-map-link="https://www.google.co.kr/maps/place/35.90216869999999,128.849098?q=%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%20%EA%B2%BD%EC%83%81%EB%B6%81%EB%8F%84%20%EA%B2%BD%EC%82%B0%EC%8B%9C%20%EC%A7%84%EB%9F%89%EC%9D%8D%20%EB%8C%80%EA%B5%AC%EB%8C%80%EB%A1%9C%20201"
+																										style="display: inline-block">지도보기</button>
+																								</em>
+																							</div>
+																							<div id="placeSpan"
+																								class="js-place-span url-preview map"
+																								data-map-link="https://www.google.co.kr/maps/place/35.90216869999999,128.849098?q=%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%20%EA%B2%BD%EC%83%81%EB%B6%81%EB%8F%84%20%EA%B2%BD%EC%82%B0%EC%8B%9C%20%EC%A7%84%EB%9F%89%EC%9D%8D%20%EB%8C%80%EA%B5%AC%EB%8C%80%EB%A1%9C%20201"
+																								style="display: inline-block">
+																								<div>
+																									<img id="mapImage"
+																										src="https://maps.googleapis.com/maps/api/staticmap?center=35.90216869999999,128.849098&amp;zoom=14&amp;size=646x220&amp;markers=color:blue|35.90216869999999,128.849098&amp;key=AIzaSyADjbtMn46r9DGFyo_ZRz3c6fOXzuOKWCw"
+																										alt="게시물 이미지">
+																								</div>
+																							</div>
+																						</div>
+																					</li>
+																					<li id="videoLi" style="display: none">
+																						<div class="create-content-cell title">
+																							<i class="icon-post-video"></i>
+																						</div>
+																						<div class="create-content-cell">
+																							<span id="videoSpan" data-vc-srno="0">
+																								<div id="zoomButton"
+																									class="video-conference-join" tabindex="0">
+																									Zoom으로 참여하기
+																									<button type="button"
+																										class="remove-button d-none">
+																										<i class="icon-post-cancel"></i>
+																									</button>
+																								</div>
+																								<div id="zoomUrlCopy"
+																									class="video-conference-join" tabindex="0">
+																									<span class="link-copy"><i
+																										class="icons-copy"></i></span> 링크 복사
+																								</div>
+																							</span>
+																						</div>
+																					</li>
+																					<li style="display: block">
+																						<div
+																							class="create-content-cell title manager memo">
+																							<i class="icon-post-memo"></i>
+																						</div>
+																						<div class="create-content-cell memo">
+																							<p class="memo-span" id="memoSpan">{sche_cntn}</p>
+																						</div>
+																					</li>
+																				</ul>
+																			</div>
+																		</div>
+																	</c:if>
+																	<!-- 업무 -->
+																	<c:if test="${nwList.notiKnd == 'task'}">
+																		<div id="summaryPost" class="post-card-content "
+																			style="display: block">
+																			<div class="js-task-option">
+																				<ul class="create-content-group">
+																					<li class="js-status-layer">
+																						<div class="create-content-cell title">
+																							<i class="icon-post-status"></i>
+																						</div>
+																						<div class="create-content-cell">
+																							<c:if test="${nwList.addList=='withhold'}">
+																								<c:set var="taskPrgSpan" value="hold" />
+																							</c:if>
+																							<c:if test="${nwList.addList=='progress'}">
+																								<c:set var="taskPrgSpan" value="progress" />
+																							</c:if>
+																							<c:if test="${nwList.addList=='request'}">
+																								<c:set var="taskPrgSpan" value="request" />
+																							</c:if>
+																							<c:if test="${nwList.addList=='feedback'}">
+																								<c:set var="taskPrgSpan" value="feedback" />
+																							</c:if>
+																							<c:if test="${nwList.addList=='complete'}">
+																								<c:set var="taskPrgSpan" value="completion" />
+																							</c:if>
+																							<div
+																								class="js-task-state state-button-group clearfix ${taskPrgSpan}">
+																								<button type="button"
+																									class="js-stts task-state-button request">요청</button>
+																								<button type="button"
+																									class="js-stts task-state-button progress">진행</button>
+																								<button type="button"
+																									class="js-stts task-state-button feedback">피드백</button>
+																								<button type="button"
+																									class="js-stts task-state-button completion">완료</button>
+																								<button type="button"
+																									class="js-stts task-state-button hold">보류</button>
+																							</div>
+																						</div>
+																					</li>
+																					<li
+																						class="js-task-worker-layer js-more-task-li d-none"
+																						style="display: table">
+																						<div class="create-content-cell title manager">
+																							<i class="icon-post-worker"></i>
+																						</div>
+																						<div class="create-content-cell manager-btn-group">
+																							<span class="js-workers manager-group"> <span
+																								class="js-registration manager-item"> <span
+																									class="js-worker-profile thumbnail"
+																									style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
+																									<span class="js-registration-name">{task.mem_id}</span>
+																							</span>
+																							</span>
+																						</div>
+																					</li>
+																					<li
+																						class="js-date-layer js-start-date-layer js-more-task-li d-none"
+																						style="display: inline-block">
+																						<div class="create-content-cell title">
+																							<i class="icon-post-date"></i>
+																						</div>
+																						<div class="js-date-option create-content-cell">
+																							<div class="js-pickr-layer js-start-flatpickr">
+																								<div class="js-date-back-layer date-bg d-none"
+																									style="display: inline-block">
+																									<span class="js-pickr-text task-date"> <span
+																										class="js-date-text">2021-11-03 (수) 부터</span>
+																									</span>
+																								</div>
+																							</div>
+																						</div>
+																					</li>
+																					<li
+																						class="js-date-layer js-end-date-layer js-more-task-li d-none"
+																						style="display: inline-block" data="">
+																						<div class="create-content-cell title">
+																							<i class="icon-post-date"></i>
+																						</div>
+																						<div class="js-date-option create-content-cell">
+																							<div class="js-pickr-layer js-end-flatpickr">
+																								<div class="js-date-back-layer date-bg d-none"
+																									style="display: inline-block">
+																									<span
+																										class="js-pickr-text task-date deadline-exceeded">
+																										<span class="js-date-text">2021-11-09
+																											(화) 까지</span>
+																									</span>
+																								</div>
+																							</div>
+																						</div>
+																					</li>
+																				</ul>
+																			</div>
+																			<div>{task.cntn}</div>
+																		</div>
+
+
+																		<div id="summaryFoldArea" class="content-fold"
+																			style="display: block">
+																			<div class="subtask-space">
+																				<div class="js-subtask-area subtask-wrap">
+																					<div class="subtask-header">
+																						<span class="subtask-title"> <i
+																							class="icons-subtask"></i>하위업무<em
+																							class="js-subtask-count subtask-count">0</em>
+																						</span>
+																					</div>
+																					<ul class="js-subtask-ul subtask-list ui-sortable"
+																						style="display: block">
+																						<li id="subtask-{COLABO_COMMT_SRNO}"
+																							class="js-subtask-li {status-class}">
+																							<div class="subtask-input-area">
+																								<i class="drag-button"> <span class="blind">Move</span>
+																								</i>
+																								<div
+																									class="js-subtask-status-layer js-subtask-layer subtask-status-area">
+																									<button type="button"
+																										class="js-subtask-status-button js-task-state subtask-button subtask-status {status_code}">{status_text}</button>
+																									<ul
+																										class="js-status-setting-layer subtask-status-list"
+																										style="display: none">
+																										<li>
+																											<div
+																												class="js-status-setting-button subtask-status request"
+																												data_status_code="0">요청</div>
+																										</li>
+																										<li>
+																											<div
+																												class="js-status-setting-button subtask-status progress"
+																												data_status_code="1">진행</div>
+																										</li>
+																										<li>
+																											<div
+																												class="js-status-setting-button subtask-status feedback"
+																												data_status_code="4">피드백</div>
+																										</li>
+																										<li>
+																											<div
+																												class="js-status-setting-button subtask-status completion"
+																												data_status_code="2">완료</div>
+																										</li>
+																										<li>
+																											<div
+																												class="js-status-setting-button subtask-status hold"
+																												data_status_code="3">보류</div>
+																										</li>
+																									</ul>
+																								</div>
+																								<div class="subtask-input">
+																									<p class="subtask-title js-mouseover">{TASK_NM}</p>
+																									<input
+																										class="subtask-title js-subtask-input js-mouseover"
+																										tab-code="input" maxlength="50"
+																										data-empty-msg="하위 업무 제목을 입력하세요!"
+																										data-required-yn="Y" value="{TASK_NM}">
+																									<span class="subtask-comment"{remark_display}><i
+																										class="icons-comment2"></i><span
+																										class="js-subtask-remark-count">{REMARK_CNT}</span></span>
+																								</div>
+																								<ul class="js-subtask-menu subtask-menu">
+																									<li
+																										class="js-subtask-date-layer subtask-menu-date js-date-tooltip {mouseover-class}"
+																										tab-code="date"
+																										mouseover-text="{mouseover-date}"
+																										data_start_dt="{START_DT}"
+																										data_end_dt="{END_DT}">
+																										<div class="js-pickr-layer">
+																											<input type="hidden"
+																												class="js-subtask-date-input" type="text"
+																												readonly="readonly">
+																											<div class="subtask-date-input-div">
+																												<button type="button"
+																													class="js-subtask-date-button subtask-button create-icon-box small {date_off}"
+																													tab-code="date"{date_button_display}>
+																													<span> <i class="icons-calendar"></i>
+																													</span>
+																												</button>
+																												<span
+																													class="js-subtask-date-text js-flatpicker subtask-date d-none {dead-line-class}"{date_text_display}>{end_dt_text}</span>
+																											</div>
+																										</div>
+																									</li>
+																									<li
+																										class="subtask-menu-worker js-subtask-worker-layer js-mouseover"
+																										tab-code="worker"
+																										data_worker_id_list="{worker_id_list}"
+																										data_worker_name_list="{worker_name_list}"
+																										data_worker_profile_list="{data_worker_profile_list}"
+																										mouseover-text="{mouseover-worker}">
+																										<button type="button"
+																											class="js-worker-button subtask-button manager js-worker-box create-icon-box small {worker_off}"
+																											tab-code="worker"{worker_button_display}>
+																											<span> <i class="icons-person-6 small"></i>
+																											</span>
+																										</button>
+																										<button type="button"
+																											class="js-worker-button subtask-button manager js-worker-thumb create-icon-box small d-none"
+																											tab-code="worker"{worker_icon_display}>
+																											<span class="subtask-manager-area"> <span
+																												class="js-thumb-image thumbnail"{thumbnail_image}></span>
+																												<span class="subtask-manager-number d-none"{worker_count_display}>{worker_count}</span>
+																											</span>
+																										</button>
+																									</li>
+																								</ul>
+																								<button type="button"
+																									class="subtask-register-btn off">
+																									<span class="blind">등록</span>
+																								</button>
+																								<button type="button"
+																									class="js-subtask-remove remove-button"{remove_display}>
+																									<span class="blind">삭제</span>
+																								</button>
+																							</div>
+																						</li>
+																					</ul>
+																				</div>
+																			</div>
+																		</div>
+																	</c:if>
+
+																	<div class="post-bottom-area">
+																		<div class="post-bottom-menu js-reaction-bookmark">
+																			<div class="bottom-button-area">
+																				<button class="js-post-bookmark post-bottom-button ">
+																					<!-- on 추가 -->
+																					<i class="icon-bookmark"></i> <span>북마크</span>
+																				</button>
+																			</div>
+																		</div>
+																		<div class="cmt-read-wr">
+																			<div class="comment-count-area">
+																				<span>댓글</span> <span class="comment-count">6</span>
+																			</div>
+																		</div>
+																	</div>
+																	<!-- //post-card-container -->
+																</div>
+															</div>
+															<div class="post-card-footer js-comment-area">
+																<div class="comment-header">
+																	<button type="button"
+																		class="js-remark-prev-button comment-more-button on">
+																		이전 댓글 더보기</button>
+																</div>
+																<ul class="post-comment-group">
+																	<li class="remark-item">
+																		<div class="comment-thumbnail js-comment-thumbnail">
+																			<span class="thumbnail size40 radius16"
+																				style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
+																		</div>
+																		<div class="js-remark-view comment-container on ">
+																			<div class="comment-user-area">
+																				<div class="comment-user">
+																					<span class="user-name js-comment-user-name">오혜지</span>
+																					<span class="user-position"></span> <span
+																						class="record-date">2021-11-07 21:23</span>
+																				</div>
+																				<div class="comment-writer-menu">
+																					<button type="button"
+																						class="js-remark-update js-remark-edit-button comment-writer-button on">
+																						수정</button>
+																					<button type="button"
+																						class="js-remark-delete js-remark-edit-button comment-writer-button on">
+																						삭제</button>
+																				</div>
+																			</div>
+																			<div class="js-remark-layer comment-content">
+																				<div class="comment-text-area">
+																					<div class="js-remark-text comment-text">
+																						<div>'보류' → '완료', 상태를 변경하였습니다.</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="js-remark-edit comment-container">
+																			<div class="js-remark-layer comment-content modify">
+																				<form class="js-remark-form comment-text-area">
+																					<fieldset>
+																						<legend class="blind">댓글 입력</legend>
+																						<div
+																							class="js-remark-area js-paste-layer comment-input"
+																							contenteditable="true"
+																							placeholder="줄바꿈은 Shift + Enter / 입력은 Enter 입니다."></div>
+																						<input type="hidden" class="comment-upload-input">
+																						<i class="icons-link"> <span class="blind">업로드
+																								버튼</span>
+																						</i>
+																					</fieldset>
+																				</form>
+																				<ul
+																					class="js-remark-upload-file upload-document-group"></ul>
+																				<ul class="js-remark-upload-img comment-upload-img"></ul>
+																			</div>
+																			<div class="comment-like-area d-none">
+																				<div class="js-remark-like comment-like ">
+																					<span class="js-remark-like-button"><em
+																						class="txt-like">좋아요</em></span> <span
+																						class="js-remark-like-count comment-like-count ">0</span>
+																				</div>
+																			</div>
+																		</div>
+																	</li>
+																</ul>
+															</div>
+															<div
+																class="js-remark-layer js-edit-layer comment-input-wrap">
+																<div class="comment-thumbnail">
+																	<span class="thumbnail size40 radius16"
+																		style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"
+																		data=""></span>
+																</div>
+																<form class="js-remark-form comment-container on ">
+																	<fieldset>
+																		<legend class="blind">댓글 입력</legend>
+																		<div
+																			class="js-remark-area js-paste-layer comment-input"
+																			contenteditable="true"
+																			placeholder="줄바꿈은 Shift + Enter / 입력은 Enter 입니다."></div>
+																		<input type="hidden" class="comment-upload-input">
+																		<label mouseover-text="파일 첨부"
+																			class="js-remark-upload-button comment-upload-button js-mouseover">
+																			<i class="icons-link"> <span class="blind">업로드
+																					버튼</span>
+																		</i>
+																		</label>
+																	</fieldset>
+																</form>
+															</div>
+														</div>
+														<button type="button" class="post-popup-button right"></button>
 													</div>
 												</li>
 											</c:forEach>
@@ -598,8 +1158,8 @@
 															<dl class="post-author-info">
 																<dt>
 																	<strong class="js-participant-name author ellipsis">${user.name}
-																		<c:if test="${sessionScope.name eq pm.name}">(나)</c:if></strong>
-																	<em class="position ellipsis">${user.wkpo}</em>
+																		<c:if test="${sessionScope.name eq pm.name}">(나)</c:if>
+																	</strong> <em class="position ellipsis">${user.wkpo}</em>
 																</dt>
 																<dd>
 																	<strong class="company">${user.coUrl}</strong> <span
@@ -625,12 +1185,13 @@
 																class="js-participant-profile thumbnail size40 radius16"
 																style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
 															<img id="mem_st_icon" alt="on"
-																src="/img/status_icn/${guest.memSt}.png" class="parti_st">
+																src="/img/status_icn/${guest.memSt}.png"
+																class="parti_st">
 															<dl class="post-author-info">
 																<dt>
 																	<strong class="js-participant-name author ellipsis">${guest.name}
-																		<c:if test="${sessionScope.name eq pm.name}">(나)</c:if></strong>
-																	<em class="position ellipsis">${guest.wkpo}</em>
+																		<c:if test="${sessionScope.name eq pm.name}">(나)</c:if>
+																	</strong> <em class="position ellipsis">${guest.wkpo}</em>
 																</dt>
 																<dd>
 																	<strong class="company">${guest.coUrl}</strong> <span
@@ -713,59 +1274,31 @@
 						</div>
 					</div>
 				</div>
-
-
-				<div id="pinPostItem" class="d-none">
-					<li id="pin-{post-srno}" class="js-pin-item"
-						data-post-srno="{post-srno}" data-project-srno="{colabo-srno}">
-						<a href="#">
-							<div class="fixed-kind">
-								<i class="icons-{post-gb}"></i> <span>{post-name}</span>
-							</div>
-							<p class="js-post-title fixed-text {complete-yn}">{title}</p>
-							<div class="fixed-value">
-								<span class="js-task-state js-todo-state {status-code}">{status}</span>
-								<div class="date-time {schedule-yn}">
-									<em class="date">{start-date}</em> <span>{start-time}</span>
-								</div>
-							</div>
-					</a>
-					</li>
-				</div>
-				<div id="mentionItem" class="d-none">
-					<li id="{id}-mention" class="js-mention-item participant-item"
-						data-user-id="{id}">
-						<div class="post-author">
-							<span class="thumbnail size40 radius16" {profile}=""></span>
-							<dl class="post-author-info">
-								<dt>
-									<strong class="author">{name}</strong> <em>{position}</em>
-								</dt>
-								<dd class="{personal-yn}">
-									<strong class="company">{company}</strong> <span class="team">{team}</span>
-								</dd>
-							</dl>
-						</div>
-					</li>
-				</div>
-
-
-				<div id="inviteItem" class="d-none">
-					<div class="invite-text-area">
-						<span>{first-contents}</span> <span>{date}</span> <span
-							class="invite-time">{rgsn-dttmdate}</span>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
 
 
 	<script>
+		//업무리포트 토글
 		$("#taskReportToggleButton").on("click", function() {
 			$("#taskReportToggleButton").toggleClass("off");
 			$("#doughnutChartLayer").toggle();
 		});
+
+		//게시글 토글
+		$(".list-item a").on(
+				"click",
+				function(e) {
+					e.preventDefault;
+					$(".list-item").css("display", "block");
+					$(".card-item").css("display", "none");
+					console.log($(e.currentTarget).closest().next());
+					$(e.currentTarget).closest(".list-item").css("display",
+							"none");
+					$(e.currentTarget).closest(".list-item").next().css(
+							"display", "block");
+				});
 	</script>
 </body>
 </html>

@@ -46,10 +46,6 @@ public class PNWServiceImpl implements PNWService {
 	public List<PNWVO> allSchedule(PNWVO vo) { // 스케줄
 		return map.allSchedule(vo);
 	}
-	@Override
-	public List<PNWVO> allFile(PNWVO vo) { // 파일함
-		return map.allFile(vo);
-	}
 	
 	@Override
 	public List<PNWVO> folderMenu(PNWVO vo) { // 프로젝트 폴더 메뉴

@@ -54,6 +54,7 @@
 	    color: #555;
 	    display: none;
 	    align-content: center;
+	    box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	}
 	.model_heard{
 		height: 30px;

@@ -59,11 +59,21 @@
 	
 	<!-- 기존회사 회원입력 -->
 	<insert id="exCompanyInsert1" parameterType="co.plus.prj.uam.vo.MemberVO">
-		INSERT INTO MEMBER(MEM_ID, EMAIL, PWD, NAME, CO_url)
-		VALUES (MEMID.nextval, #{email}, #{pwd}, #{name}, #{coUrl})
+		INSERT INTO MEMBER(MEM_ID, EMAIL, PWD, NAME, CO_url,acc_st)
+		VALUES (MEMID.nextval, #{email}, #{pwd}, #{name}, #{coUrl},'using')
 	</insert>
 	<!-- 회원상태 테이블 추가 -->
 	<insert id="exCompanyInsert2" parameterType="co.plus.prj.uam.vo.MemberVO">  		
+		INSERT INTO mem_status(mem_id, mem_st)
+		VALUES ((select max(mem_id) from member), 'offline')
+	</insert>
+	<!-- 기존회사 회원입력 -->
+	<insert id="guestInsert2" parameterType="co.plus.prj.uam.vo.MemberVO">
+		INSERT INTO MEMBER(MEM_ID, EMAIL, PWD, NAME, CO_url,MEM_PERM,acc_st)
+		VALUES (MEMID.nextval, #{email}, #{pwd}, #{name}, #{coUrl},'GUEST', 'using')
+	</insert>
+	<!-- 회원상태 테이블 추가 -->
+	<insert id="guestInsert" parameterType="co.plus.prj.uam.vo.MemberVO">  		
 		INSERT INTO mem_status(mem_id, mem_st)
 		VALUES ((select max(mem_id) from member), 'offline')
 	</insert>
@@ -107,6 +117,12 @@
 		set pwd = #{pwd}
 		where mem_id = #{memId}
 	</update>
+	<!-- 회사로고 가져오기 -->
+	<select id="getLogo" resultType="co.plus.prj.uam.vo.MemberVO">
+		select co_logo
+		from company
+		where co_url = #{coUrl}
+	</select>
 	
 	<!-- 회원상태 표시 -->
 	<select id="memberStatus" resultType="co.plus.prj.uam.vo.MemberVO">
@@ -134,8 +150,6 @@
 		set mem_st = 'offline'
 		where mem_id = #{memId}
 	</update>
-
-																						<!-- 탈퇴(계정상태 변환) -->
 	<update id="memberDelete" parameterType="co.plus.prj.uam.vo.MemberVO">
 		update member 
 		set acc_st = 'notused'
@@ -240,7 +254,7 @@
 		        (select count(mem_id) from prj_parti where prj_id = a.prj_id) as memCnt, 
 		        (select count(*) from notice_writing where a.prj_id = prj_id) as notiCnt
 		from project a
-		where a.co_url = #{coUrl} 
+		where a.co_url = #{coUrl}  
 		group by a.prj_id, a.prj_ttl
 	</select>
 	<!-- 회사 프로젝트 상세조회 -->
@@ -256,7 +270,18 @@
 		set prj_perm = 'USER'
 		where mem_id = #{memId} and prj_id = #{prjId}
 	</update>
+	<update id="coPrjUserChange" parameterType="co.plus.prj.uam.vo.MemberVO">
+		UPDATE prj_parti 
+		set prj_perm = 'PM'
+		where mem_id = #{memId} and prj_id = #{prjId}
+	</update>
+	<select id="prjUserList" resultType="co.plus.prj.uam.vo.MemberVO">
+		select a.mem_id, a.name, a.email, a.dept, a.pers_Tel
+        from member a, prj_parti b
+        where prj_perm = 'USER' and a.mem_id = b.mem_id and b.prj_id = #{prjId}
+	</select>
 	
+																							<!-- 카테고리관리 -->
 	<!-- 카테고리 확인 -->
 	<select id="getCategoryList" resultType="co.plus.prj.uam.vo.MemberVO">
 		select a.ctgry_id, a.ctgry_name, count(prj_id) as cnt
@@ -281,7 +306,37 @@
 		insert into category values(CTGRYID.nextval,#{ctgryName},#{coUrl})
 	</insert>
 	
-	
+	<!-- 첨부파일 모아보기 -->
+	<select id="textFileList" resultType="co.plus.prj.pnw.vo.PNWVO">
+		SELECT DISTINCT c.TXT_FILE, b.NOTI_ID, a.NAME, a.MEM_ID, f.PRJ_ID, f.PRJ_TTL
+		FROM  MEMBER a, NOTICE_WRITING b,TEXT C, PROJECT f, prj_parti g
+		WHERE c.noti_id = b.noti_id
+		      and b.prj_id = f.prj_id
+		      and f.prj_id = g.prj_id
+		      and a.co_url = f.co_url
+		      and c.TXT_FILE is not null
+		      and a.mem_id = #{memId}
+	</select>
+	<select id="subTaskFileList" resultType="co.plus.prj.pnw.vo.PNWVO">
+		SELECT DISTINCT e.SUBTSK_FILE, b.NOTI_ID, a.NAME, a.MEM_ID, f.PRJ_ID, f.PRJ_TTL
+		FROM  MEMBER a, NOTICE_WRITING b, SUBTASK e, PROJECT f, prj_parti g
+		WHERE e.noti_id = b.noti_id
+		      and b.prj_id = f.prj_id
+		      and f.prj_id = g.prj_id
+		      and a.co_url = f.co_url
+		      and e.subtsk_file is not null 
+		      and a.mem_id = #{memId}
+	</select>
+	<select id="taskFileList" resultType="co.plus.prj.pnw.vo.PNWVO">
+		SELECT DISTINCT d.TSK_FILE, b.NOTI_ID, a.NAME, a.MEM_ID, f.PRJ_ID, f.PRJ_TTL
+		FROM  MEMBER a, NOTICE_WRITING b, TASK d, PROJECT f, prj_parti g
+		WHERE d.noti_id = b.noti_id
+		      and b.prj_id = f.prj_id
+		      and f.prj_id = g.prj_id
+		      and a.co_url = f.co_url
+		      and d.TSK_FILE is not null
+		      and a.mem_id = #{memId}
+	</select>
 	
 	
 	

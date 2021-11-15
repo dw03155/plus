@@ -54,7 +54,7 @@ public class ExcelController {
 		
 		Sheet worksheet = workbook.getSheetAt(0);
 		//worksheet.getPhysicalNumberOfRows()
-		for (int i = 1; i<101; i++) {
+		for (int i = 2; i<102; i++) {
 			 Row row = worksheet.getRow(i);
 			 if (row != null) {			 
 				 ExcelData data = new ExcelData();

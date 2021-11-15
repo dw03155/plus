@@ -65,6 +65,7 @@ public class PNWVO {
 	private Date subtskBgnDt;		// 하위업무 시작일
 	private Date subtskEndDt;		// 하위업무 마감일
 	private String subtskCntn;		// 하위업무 내용
+	private String subtskFile;		// 하위업무 첨부파일
 	
 	// Todo
 	private String todoCntn;		// 할일 내용
@@ -91,6 +92,8 @@ public class PNWVO {
 	private String allCnt;			// 전체 참여자 수
 	private String tskCnt;			// 전체 업무 진행상황에 따른 개수
 	// 프로젝트 : 업무
-	private List<PNWVO> tsks;		// 업무탭
+	private List<PNWVO> tsks;		// 업무탭	
+	// 전체 프로젝트
+	private String partiYn;			// 프로젝트 참여여부 (참여중)
 	
 }

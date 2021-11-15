@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.plus.prj.pnw.vo.PNWVO;
 import co.plus.prj.uam.mapper.MemberMapper;
 import co.plus.prj.uam.service.MemberService;
 import co.plus.prj.uam.vo.MemberVO;
@@ -33,6 +34,11 @@ public class MemberServiceImpl implements MemberService {
 	public int exCompanyInsert(MemberVO member) {
 		map.exCompanyInsert1(member);
 		return map.exCompanyInsert2(member);
+	}
+	@Override
+	public int guestInsert(MemberVO member) {
+		map.guestInsert2(member);
+		return map.guestInsert(member);
 	}
 	// 회사Url
 	@Override
@@ -62,6 +68,12 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO memberInfo(MemberVO vo) {
 		return map.memberInfo(vo);
 	}
+	// 회사로고 가져오기
+	@Override
+	public MemberVO getLogo(MemberVO vo) {
+		return map.getLogo(vo);
+	}
+	
 
 	// 회원 이름 수정
 	@Override
@@ -223,6 +235,16 @@ public class MemberServiceImpl implements MemberService {
 	public int coPrjPMChange(MemberVO vo) {
 		return map.coPrjPMChange(vo);
 	}
+	// pm검색 
+	@Override
+	public List<MemberVO> prjUserList(MemberVO vo) {
+		return map.prjUserList(vo);
+	}
+	// pm지정
+	@Override
+	public int coPrjUserChange(MemberVO vo) {
+		return map.coPrjUserChange(vo);
+	}
 	
 														// 사용자 일괄 등록
 	// 사용자 일괄 등록
@@ -249,6 +271,23 @@ public class MemberServiceImpl implements MemberService {
 		return map.categoryInsert(vo);
 	}
 	
+														//파일리스트
+	// 게시글, 업무, 하위업무 파일 리스트
+	@Override
+	public List<PNWVO> taskFileList(PNWVO vo) {
+		return map.taskFileList(vo);
+	}
+	@Override
+	public List<PNWVO> textFileList(PNWVO vo) {
+		return map.textFileList(vo);
+	}
+	@Override
+	public List<PNWVO> subTaskFileList(PNWVO vo) {
+		return map.subTaskFileList(vo);
+	}
+	
+	
+
 	
 
 	

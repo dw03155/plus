@@ -216,7 +216,9 @@ button.fc-state-down {
   border-radius: 4px;
 }
 .fc-icon-left-single-arrow:after,
-.fc-icon-right-single-arrow:after {
+.fc-icon-right-single-arrow:after,
+.fc-icon-right-double-arrow:after,
+.fc-icon-right-double-arrow:after {
   font-weight: 500;
   color: #555;
 }
@@ -240,7 +242,9 @@ button.fc-state-down {
 .fc-prev-button .fc-icon {
   margin: 0;
 }
-.fc-icon-left-single-arrow:after {
+.fc-icon-left-single-arrow:after,
+.fc-icon-left-double-arrow:after,
+.fc-icon-right-double-arrow:after{
   left: -2px;
 }
 .fc-icon-right-single-arrow:after {

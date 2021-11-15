@@ -53,15 +53,33 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		$('#calendar').fullCalendar({
-				   
-		events : [
-			{
-				title : 'all',
-				start : '2021-11-12',
-				end : '2021-11-13'
+		$.ajax({
+			url : "allSchedule.do",
+			type : "post",
+			dataType : 'json',
+			data : jsonData,
+			success : function(data) {
+				if (data != "") {
+					for (i=0; i<data.length; i++) {
+						data[i].d
+					}
+					$('#calendar').fullCalendar({
+
+						events : [ {
+							title : 'all',
+							start : '2021-11-12'
+						}, {
+							title : 'all',
+							start : '2021-11-12',
+							end : '2021-11-13'
+						}, {
+							title : 'all',
+							start : '2021-11-12',
+							end : '2021-11-14'
+						} ]
+					});
+				}
 			}
-		]
 		});
 	</script>
 </body>

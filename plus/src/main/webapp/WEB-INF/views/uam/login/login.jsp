@@ -120,13 +120,10 @@
 		    background-color: #f2f3f4;
 	}
 </style>
-
 </head>
 <body>
 <!-- top -->
 	<div class="signup_top">
-
-	<form id="sessionOk" action="myProject.do"></form>
 		<a href="/index.act"><img src="img_rn/memb2/plus_loing.png"
 			alt="flow"></a>
 		<h2 id="title" data-langcode="H76">로그인</h2>
@@ -169,7 +166,7 @@
 					target="flowTem" class="txt_b" data-langcode="H85">개인정보 취급방침</a><span
 					lang="df">에 동의합니다.</span>
 			</div>
-			<div class="error_txt" style="display: none; margin-bottom: -10px;"
+			<div style="display: none; margin-bottom: -10px;"
 				data-langcode="H364">이메일주소를 확인할 수 없습니다. 다시 확인해주세요.</div>
 			<div id="AUTO_LOGIN" style="display: block; margin-bottom: 60px;">
 
@@ -206,7 +203,7 @@
 	</div>
 	
 	<script>
-		
+	
 	</script>
 </body>
 </html>
