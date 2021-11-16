@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,13 +41,12 @@
 					</a></li>
 				</ul>
 				<div id="totalEditSelect" class="menu-text-popup-1">
-					<span class="select-count"></span> <em class="select-clear">선택취소</em>
+					<span class="select-count">0개 프로젝트가 선택되었습니다.</span> <em class="select-clear">선택취소</em>
 				</div>
 			</div>
 			<a href="#" id="editBarCloseButton"
 				class="main-container-close-button-1"></a>
 		</div>
-
 
 		<!-- 프로젝트 홈 메인 -->
 		<div id="topSettingBar" class="main-header">
@@ -75,7 +75,7 @@
 								class="js-project-order-layer menu-popup-layer-1"
 								style="display: none">
 								<ul class="menu-popup-t-1">
-									<li class="order-item"><i></i><span>최신순</span></li>
+									<li class="order-item on"><i></i><span>최신순</span></li>
 									<li class="order-item"><i></i><span>오름차순(ㄱ~ㅎ)</span></li>
 									<li class="order-item"><i></i><span>내림차순 (ㅎ~ㄱ)</span></li>
 								</ul>
@@ -112,8 +112,7 @@
 											<form action="prjHome.do" method="post">
 												<li class="project-item ui-state-default"><a href="#">
 														<input name="prjId" type="hidden"
-														value="${favorPrj.prjId}" />
-														<!-- 체크버튼 flow-content-chk-1  li태그 active 추가(갯수 셀때, li 값 넘길때)-->
+														value="${favorPrj.prjId}" /> <!-- 체크버튼 flow-content-chk-1  li태그 active 추가(갯수 셀때, li 값 넘길때)-->
 														<button class="edit-check flow-content-chk"
 															style="display: none"></button>
 														<div
@@ -320,11 +319,52 @@
 				$("#ListArea").css("display", "block");
 				$("#BoardArea").css("display", "none");
 			});
-
-			// 프로젝트 이동하기
+			
+			// 프로젝트 색상설정, 폴더설정 메뉴
+			$("#totalProjectEditButton").click(function(e){ // 열기
+				e.preventDefault();
+				$("#totalProjectEditBar").css("display", "block");
+				$(".edit-check").css("display", "block");
+			});
+			
+			
+			// 프로젝트 설정 메뉴 열려있을 때 체크버튼 클릭하기 / 프로젝트 이동하기
 			$("#projectHomeLayer").find("li > a").click(function(e) {
 				e.preventDefault();
-				$(e.currentTarget).closest("form").submit();
+				if($("#totalProjectEditBar").css("display") == "block"){ //프로젝트 색상설정, 폴더설정 메뉴 열려있을 때
+					if($(e.currentTarget).find(".edit-check").hasClass("flow-content-chk")){ // 체크 안했을 때
+						$(e.currentTarget).find(".edit-check").removeClass("flow-content-chk");
+						$(e.currentTarget).find(".edit-check").addClass("flow-content-chk-1");
+						$(e.currentTarget).closest("li").addClass("active");
+					}else {															 		// 체크 했을 때
+						$(e.currentTarget).find(".edit-check").addClass("flow-content-chk");
+						$(e.currentTarget).find(".edit-check").removeClass("flow-content-chk-1");
+						$(e.currentTarget).closest("li").removeClass("active");
+					}
+					var checkCnt = $(".flow-content-chk-1").length; // 프로젝트 선택 후 개수세기
+					$("#totalEditSelect span").empty();
+					$("#totalEditSelect span").text(checkCnt+"개 프로젝트가 선택되었습니다.");
+				}else{
+					$(e.currentTarget).closest("form").submit(); // 프로젝트 이동하기
+				}
+			});
+			
+			$("#editBarCloseButton").click(function(e){ // 닫기
+				e.preventDefault();
+				$("#totalProjectEditBar").css("display", "none");
+				$(".edit-check").css("display", "none");
+			});
+			
+			// 프로젝트 정렬
+			$("#projectOrderButton").click(function(e){ // 열기
+				e.preventDefault();
+				$("#projectOrderList").css("display", "block");
+			});
+			
+			$(".order-item").click(function(e){ // 선택한 후 닫기
+				$(".order-item").removeClass("on");
+				$(e.currentTarget).addClass("on");
+				$("#projectOrderList").css("display", "none");
 			});
 		</script>
 </body>

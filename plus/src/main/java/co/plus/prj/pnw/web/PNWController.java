@@ -100,4 +100,6 @@ public class PNWController {
 		model.addAttribute("nwLists",service.allSchedule(vo));
 		return "home/allSchedule"; 		
 	}
+	
+	
 }
