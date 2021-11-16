@@ -1046,19 +1046,23 @@ to {
 			$("#sendInviteEmlLayer").css("display", "block");
 		});
 		
+		//게스트초대창 열기
 		$('#openSendEml').on("click", function(e){
 			e.preventDefault();
 			$('#guestsendInviteEmlLayer').css("display","block");
 		});
-		
+		//게스트초대창 닫기
 		$("#guestLayerX").on('click', function(e){
 			e.preventDefault();
 			$('#guestsendInviteEmlLayer').css("display","none");
 		});
+		//게스트초대창 닫기
 		$("#cancleGuest").on('click', function(e){
 			e.preventDefault();
 			$('#guestsendInviteEmlLayer').css("display","none");
 		});
+		
+		//초대창 다 닫기
 		$('.closeInviteLayerBtn').on('click', function(e){
 			e.preventDefault();
 			$("#overlay").css("display", "none");
@@ -1066,6 +1070,7 @@ to {
 			$("#inviteMainLayer").css("display", "none");
 		});
 		
+		//게스트 메일발송
 		$('#guestsendInviteEmail').click(function(){
 			var coUrl = "${sessionScope.coUrl}";
 			var email = $('#guestEmail').val();
@@ -1080,13 +1085,7 @@ to {
 				}
 			})
 		});
-		
-		//모달자동닫기
-		$(document).mouseup(function(e){
-			var inviteMainLayer = $('#inviteMainLayer');
-			var guestsendInviteEmlLayer = $('#guestsendInviteEmlLayer');
-		});
-		
+
 	</script>
 
 

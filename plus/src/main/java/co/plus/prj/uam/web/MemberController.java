@@ -531,11 +531,10 @@ public class MemberController {
 	@RequestMapping(value="/userInviteMail.do", method = RequestMethod.POST)
 	@ResponseBody
 	public void userInviteMail(String coUrl, String email, HttpSession session,Model model) throws MessagingException {
-		String mailText = "<div style='height: 300px;'>"+"<p>플러스에 가입해 보세요!</p>" +
+		String mailText = "<div style='height: 300px;'>"+"<p>플러스에 가입해 보세요!</p>" +"<a href='http://localhost/userJoin.do?newCoUrl="+coUrl+"'>"+
 							"<button style='padding: 10px 20px 10px 20px; background-color: #6449FC; color: white; border-radius: 5px; height: "
-							+ "60px; margin-top: 10px; margin-bottom: 10px; font-weight: bold; font-size: 15px;' "
-							+ "onclick='http://localhost/userJoin.do?newCoUrl="+ coUrl + "'>" +
-							"플러스가입하기</button>"+
+							+ "60px; margin-top: 10px; margin-bottom: 10px; font-weight: bold; font-size: 15px;'>" +
+							"플러스가입하기</button>"+"</a>"+
 							"<p></p>" + "<div>";
 		MimeMessage mail = mailSender.createMimeMessage();
 		MimeMessageHelper message = new MimeMessageHelper(mail,true,"UTF-8");
@@ -549,14 +548,12 @@ public class MemberController {
 	@PostMapping("/guestEmailPost.do")
 	@ResponseBody
 	public void guestEmailPost(String coUrl, String email, String contents) throws MessagingException {
-		System.out.println(contents);
-		String mailContnets = "<div style='height: 300px;'>"+"<p>플러스에 가입해 보세요!</p>" +
+		String mailContnets = "<div style='height: 300px;'>"+"<p>플러스에 가입해 보세요!</p>" +"<a href='http://localhost/guestCompanyInsert.do?coUrl="+coUrl+"'>"+
 								"<button style='padding: 10px 20px 10px 20px; background-color: #6449FC; color: white; border-radius: 5px; height: "
-								+ "60px; margin-top: 10px; margin-bottom: 10px; font-weight: bold; font-size: 15px;' "
-								+ "onclick='http://localhost/guestCompanyInsert.do?coUrl="+ coUrl + "'>" +
-								"플러스가입하기</button>"+"<p></p>" + "<div>"+"<br>"+
-								contents;
-		MimeMessage mail = mailSender.createMimeMessage();
+								+ "60px; margin-top: 10px; margin-bottom: 10px; font-weight: bold; font-size: 15px;'>" +
+								"플러스가입하기</button>"+"</a>"+"<p></p>" + "<div>"+"<br>"+ contents;
+		System.out.println(mailContnets);
+		MimeMessage mail = mailSender.createMimeMessage(); 
 		MimeMessageHelper message = new MimeMessageHelper(mail, true, "UTF-8");
 		message.setTo(email);
 		message.setSubject("[플러스에 초대합니다]");

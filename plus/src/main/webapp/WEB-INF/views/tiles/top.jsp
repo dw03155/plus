@@ -1190,6 +1190,11 @@
 							$("#pwdInput").toggleClass("d-none");
 							$("#pwdUpdateForm").toggleClass("d-none");
 							$("#pwdUpdateSussacc").css("display","block");
+							hiddenpwd.val();
+							myPwd.val();
+							pwd.val();
+							newPwd.val();
+							
 						}
 					});
 				}else{
