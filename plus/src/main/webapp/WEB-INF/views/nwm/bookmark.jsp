@@ -351,7 +351,7 @@
 				$("#write, #task, #sche, #todo").removeClass("on");
 				var count = $("#myPostContentUl").find('li:visible').length;
 				console.log(count + "====");
-				$(".count-number").html("${fn:length(notices)}");
+				$(".count-number").html("${fn:length(bookmarks)}");
 			});
 		}
 
