@@ -156,7 +156,7 @@ pageContext.setAttribute("replaceChar", "\n");
 									class="js-registration manager-item"> <span
 										class="js-worker-profile thumbnail"
 										style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
-										<span class="js-registration-name">${tasks.memId }</span>
+										<span class="js-registration-name">${tasks.name }</span>
 								</span>
 								</span> 
 							</div>

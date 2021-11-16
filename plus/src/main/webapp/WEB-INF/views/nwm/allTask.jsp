@@ -37,6 +37,7 @@
 			<span id="allCollectionCount"
 				class="js-collection-total-count js-collection-count top-task-num"
 				style="display: block">&nbsp;${fn:length(tasks)}</span>
+
 		</div>
 
 		<!-- 전체 업무 페이지 -->
@@ -123,6 +124,7 @@
 											<span class="project-title">${task.prjTtl}</span>
 											
 											<!-- 갯수 -->
+								
 											<span class="project-task-count">${fn:length(task.taskDetail)}</span>
 											
 											
@@ -188,7 +190,7 @@
 													</div>
 													<div class="js-workers task-item-cell task-worker_nm-cell ">
 														<span class="js-mouseover"> <span
-															class="js-worker-name manager ellipsis">${dtasks.memId}</span>
+															class="js-worker-name manager ellipsis">${dtasks.name}</span>
 															<span class="js-worker-count"></span>
 														</span>
 													</div>
@@ -419,20 +421,7 @@
 			});
 		};
 
-		// 전체 업무 목록 정렬 (선택 -> toggle)
 		
-		
-		$("#selectNum").click(function() {
-			if (!$("#num").hasClass("descend")) {
-				$("#num").addClass("descend");
-
-			} else if ($("#num").hasClass("descend")) {
-				$("#num").click(function(e) {
-					$("#num").removeClass("descend");
-					$(e.currentTarget).addClass("ascend");
-				});
-			}
-		});
 	</script>
 
 
