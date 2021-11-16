@@ -24,13 +24,5 @@
 		 <definition name="*/*/*" extends="blank">
      		 <put-attribute name="main" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
   		 </definition>
-  		 
-  		 <!-- 파일타일즈 -->
-  		 <definition template="/WEB-INF/views/tiles/file/filelayout.jsp" name="fileLayout">
-  		 	<put-attribute name="fileMenu" value="/WEB-INF/views/tiles/file/fileMeun.jsp" />
-  		 	<put-attribute name="fileTop" value="/WEB-INF/views/tiles/top.jsp"/>
-  		 </definition>
-  		 <definition name="home/allFile" extends="fileLayout">
-  		 	<put-attribute name="fileMain" value="/WEB-INF/views/home/allFile.jsp" />
-  		 </definition>
+
        </tiles-definitions>

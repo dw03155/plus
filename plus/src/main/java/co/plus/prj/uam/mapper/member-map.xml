@@ -117,11 +117,21 @@
 		set pwd = #{pwd}
 		where mem_id = #{memId}
 	</update>
+	<update id="memberImgUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update member 
+		set mem_img = #{memImg}
+		where mem_id = #{memId}
+	</update>
 	<!-- 회사로고 가져오기 -->
 	<select id="getLogo" resultType="co.plus.prj.uam.vo.MemberVO">
 		select co_logo
 		from company
 		where co_url = #{coUrl}
+	</select>
+	<select id="getMemberImg" resultType="co.plus.prj.uam.vo.MemberVO">
+		select mem_img
+		from Member
+		where mem_id = #{memId}
 	</select>
 	
 	<!-- 회원상태 표시 -->

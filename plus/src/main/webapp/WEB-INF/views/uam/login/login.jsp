@@ -121,7 +121,7 @@
 	}
 </style>
 </head>
-<body>
+<body style="overflow: hidden;">
 <!-- top -->
 	<div class="signup_top">
 		<a href="/index.act"><img src="img_rn/memb2/plus_loing.png"

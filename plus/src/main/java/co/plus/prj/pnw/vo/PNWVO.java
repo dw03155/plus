@@ -74,7 +74,8 @@ public class PNWVO {
 	private String todoId;			// 할일 번호
 	
 	// Schedule
-	private Date scheDttm; 			// 일정 작성 일시
+	private Date scheBgnDt; 		// 일정 시작일
+	private Date scheEndDt; 		// 일정 마감일
 	private String schePl;			// 일정 장소
 	private String scheCntn;		// 일정 내용
 	 
@@ -95,5 +96,7 @@ public class PNWVO {
 	private List<PNWVO> tsks;		// 업무탭	
 	// 전체 프로젝트
 	private String partiYn;			// 프로젝트 참여여부 (참여중)
-	
+	// 캘린더
+	private Date notiBgnDt;			// 캘린더 시작일
+	private Date notiEndDt;			// 캘린더 마감일
 }

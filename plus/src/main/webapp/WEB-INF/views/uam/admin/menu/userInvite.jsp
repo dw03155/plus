@@ -161,7 +161,7 @@
 				<input id="file" name="file" type="file" style="border: 1px;">
 				</form>
 				<button type="submit" id="fileUp" class="blueBtn" onclick="check()">추가</button>
-				<button id="xlsxDoun" onClick="location.href='/xlsxFile/xlsxdownload/플러스 회원일괄초대 엑셀입력 양식.xls'" value="플러스 회원일괄초대 엑셀입력 양식.xls" class="whiteBtn" type="button" style="width: 180px">엑셀파일 양식 다운로드</button>
+				<button id="xlsxDoun" onclick="location.href='/xlsxFile/xlsxdownload/플러스 회원일괄초대 엑셀입력 양식.xls'" value="플러스 회원일괄초대 엑셀입력 양식.xls" class="whiteBtn" type="button" style="width: 180px">엑셀파일 양식 다운로드</button>
 			</div>
 			<div class="contentsBox">
 			<div id="xlsxInfo">
@@ -294,6 +294,7 @@
 				data: formData,
 				type: 'post',
 				success: function(data){
+				
 					alert("업로드")
 					if(data != ""){
 						$('#insertlist').empty();
@@ -311,6 +312,7 @@
 	};
 	
 	function fileView(data){
+			console.log(data);
 		for(i=0; i<data.length; i++){
 			var $email = data[i]["email"];
 			var $name = data[i]["name"];
@@ -336,7 +338,7 @@
 					for(j=0; j<fileTd.length; j++){		
 						for(k=0; k<fileTr.length; k++){
 							var fileVal = filevalue.eq(j).val();
-							console.log(fileVal);
+							//console.log(fileVal);
 							var fileSpan = $('input[name=view]').parent().eq(j);
 							var fileCheckBox = fileSpan.parents('tr').find('.fileCheck').eq(k);
 								if(fileVal == ''){
@@ -348,9 +350,9 @@
 						}
 					}
 				}
+			}
 				emailDuplicateCheck();
 				count();
-			}
 		
 		
 		
