@@ -8,7 +8,7 @@
 <body>
 	<div id="leftTask" class="left-task active">
 		<div class="logo-area">
-			<a class="js-logo logo-box">
+			<a  href="myProject.do" class="js-logo logo-box">
 				<h1 class="logo-1">
 					<img src="/img/plus.png?heigth:50" alt="flow" id="coLogoImg" />
 				</h1>

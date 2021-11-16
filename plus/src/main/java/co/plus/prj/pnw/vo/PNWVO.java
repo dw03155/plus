@@ -99,4 +99,6 @@ public class PNWVO {
 	// 캘린더
 	private Date notiBgnDt;			// 캘린더 시작일
 	private Date notiEndDt;			// 캘린더 마감일
+	// 파일
+	private String notiFile;		// 게시글 파일
 }

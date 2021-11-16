@@ -46,6 +46,7 @@ public class PNWController {
 	@RequestMapping(value = "/prjHome.do", method = RequestMethod.POST)
 	public String prjHome(HttpSession session, Model model, PNWVO vo) {
 		vo.setMemId((String) session.getAttribute("memId"));
+		vo.setCoUrl((String) session.getAttribute("coUrl"));
 		Map <String, Object> result = service.prjHome(vo);
 		model.addAttribute("prjInfo", result.get("prjInfo"));
 		model.addAttribute("tskAllCnt", result.get("tskAllCnt"));

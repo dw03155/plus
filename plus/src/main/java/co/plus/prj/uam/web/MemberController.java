@@ -124,6 +124,29 @@ public class MemberController {
 		map.put("member", vo);
 		return map;
 	}
+	@GetMapping("/passUserJoinForm.do")
+	public String passUserJoinForm() {
+		return "uam/join/passUserJoinForm";
+	}
+	//회원 정보가져오기(팝업)
+	@RequestMapping(value = "/getUserMailCheck.do", method = RequestMethod.GET)
+	@ResponseBody
+	public MemberVO getUserMailCheck(@RequestParam("email") String email, MemberVO vo,Model model) {
+		System.out.println(email);
+		vo.setEmail(email);
+		MemberVO info = service.getUserMailCheck(vo);
+		System.out.println(info);
+		return info;
+		
+	}
+	//엑셀가입 회원 비밀번호 입력
+	@PutMapping("/userPwdUpdate.do")
+	@ResponseBody
+	public int userPwdUpdate(@RequestBody MemberVO vo) {
+		return service.userPwdUpdate(vo);
+	}
+	
+	
 	//회원가입 인증번호 메일발송
 	@RequestMapping(value="/joinMail.do", method = RequestMethod.POST)
 	@ResponseBody
@@ -322,7 +345,7 @@ public class MemberController {
 	}
 	
 	
-	//파일 업로드
+	//로고 파일 업로드
 	@PostMapping("/uploadLogo.do")
 	@ResponseBody
 	public Map uploadLogo(MultipartFile[] logoInput, HttpSession session, HttpServletRequest request) {
@@ -374,57 +397,57 @@ public class MemberController {
 		return map;
 	}
 	
-//	//이미지 업로드
-//		@PostMapping("/imgUpload.do")
-//		@ResponseBody
-//		public Map imgUpload(MultipartFile[] userImgFile, HttpSession session, HttpServletRequest request) {
-//			HashMap<String, Object> map = new HashMap<String, Object>();
-//			String root=request.getSession().getServletContext().getRealPath("/");
-//			String path=root+"\\userimg\\";
-//			
-//			File Folder = new File(path);
-//			String memId = (String) session.getAttribute("memId");
-//			Random random = new Random();
-//			String key = "";
-//			
-//			for(int i = 0; i<3; i++) {
-//				int index = random.nextInt(25)+65;
-//				key += (char)index;
-//			}
-//			int numIndex = random.nextInt(9999)+1000;
-//			key += numIndex;
-//			
-//			String memUni = memId+ "_" + key;
-//			System.out.println(memUni);
-//			
-//			if(!Folder.exists()) {
-//				Folder.mkdir();
-//				System.out.println("폴더를 생성합니다.");
-//				
-//			}else {
-//				System.out.println("폴더가 이미 있습니다.");
-//			}
-//			
-//			File uploadFolder = Folder;
-//			
-//			for(MultipartFile file : userImgFile) {
-//				String FileName = file.getOriginalFilename();
-//				String uploadFileName = memUni +"_"+ FileName;
-//				File saveFile = new File(uploadFolder,uploadFileName);
-//				
-//				if(checkImageType(saveFile)) {  //이미지파일 썸네일 파일도 함께만든다.
-//				
-//						try {
-//							file.transferTo(saveFile);  //파일저장
-//						
-//						}catch(Exception e) {
-//						e.printStackTrace();
-//						}
-//				}// 썸네일 end
-//			}
-//			map.put("key", memUni);
-//			return map;
-//		}
+	//이미지 업로드
+		@PostMapping("/imgUpload.do")
+		@ResponseBody
+		public Map imgUpload(MultipartFile[] userImgFile, HttpSession session, HttpServletRequest request) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			String root=request.getSession().getServletContext().getRealPath("/");
+			String path=root+"\\userimg\\";
+			
+			File Folder = new File(path);
+			String memId = (String) session.getAttribute("memId");
+			Random random = new Random();
+			String key = "";
+			
+			for(int i = 0; i<3; i++) {
+				int index = random.nextInt(25)+65;
+				key += (char)index;
+			}
+			int numIndex = random.nextInt(9999)+1000;
+			key += numIndex;
+			
+			String memUni = memId+ "_" + key;
+			System.out.println(memUni);
+			
+			if(!Folder.exists()) {
+				Folder.mkdir();
+				System.out.println("폴더를 생성합니다.");
+				
+			}else {
+				System.out.println("폴더가 이미 있습니다.");
+			}
+			
+			File uploadFolder = Folder;
+			
+			for(MultipartFile file : userImgFile) {
+				String FileName = file.getOriginalFilename();
+				String uploadFileName = memUni +"_"+ FileName;
+				File saveFile = new File(uploadFolder,uploadFileName);
+				
+				if(checkImageType(saveFile)) {  //이미지파일 썸네일 파일도 함께만든다.
+				
+						try {
+							file.transferTo(saveFile);  //파일저장
+						
+						}catch(Exception e) {
+						e.printStackTrace();
+						}
+				}// 썸네일 end
+			}
+			map.put("key", memUni);
+			return map;
+		}
 	
 	private boolean checkImageType(File file) {  //이미지파일인지 아닌지 비교
 		try {
@@ -531,11 +554,10 @@ public class MemberController {
 	@RequestMapping(value="/userInviteMail.do", method = RequestMethod.POST)
 	@ResponseBody
 	public void userInviteMail(String coUrl, String email, HttpSession session,Model model) throws MessagingException {
-		String mailText = "<div style='height: 300px;'>"+"<p>플러스에 가입해 보세요!</p>" +
+		String mailText = "<div style='height: 300px;'>"+"<p>플러스에 가입해 보세요!</p>" +"<a href='http://localhost/userJoin.do?newCoUrl="+coUrl+"'>"+
 							"<button style='padding: 10px 20px 10px 20px; background-color: #6449FC; color: white; border-radius: 5px; height: "
-							+ "60px; margin-top: 10px; margin-bottom: 10px; font-weight: bold; font-size: 15px;' "
-							+ "onclick='http://localhost/userJoin.do?newCoUrl="+ coUrl + "'>" +
-							"플러스가입하기</button>"+
+							+ "60px; margin-top: 10px; margin-bottom: 10px; font-weight: bold; font-size: 15px;'>" +
+							"플러스가입하기</button>"+"</a>"+
 							"<p></p>" + "<div>";
 		MimeMessage mail = mailSender.createMimeMessage();
 		MimeMessageHelper message = new MimeMessageHelper(mail,true,"UTF-8");
@@ -549,14 +571,12 @@ public class MemberController {
 	@PostMapping("/guestEmailPost.do")
 	@ResponseBody
 	public void guestEmailPost(String coUrl, String email, String contents) throws MessagingException {
-		System.out.println(contents);
-		String mailContnets = "<div style='height: 300px;'>"+"<p>플러스에 가입해 보세요!</p>" +
+		String mailContnets = "<div style='height: 300px;'>"+"<p>플러스에 가입해 보세요!</p>" +"<a href='http://localhost/guestCompanyInsert.do?coUrl="+coUrl+"'>"+
 								"<button style='padding: 10px 20px 10px 20px; background-color: #6449FC; color: white; border-radius: 5px; height: "
-								+ "60px; margin-top: 10px; margin-bottom: 10px; font-weight: bold; font-size: 15px;' "
-								+ "onclick='http://localhost/guestCompanyInsert.do?coUrl="+ coUrl + "'>" +
-								"플러스가입하기</button>"+"<p></p>" + "<div>"+"<br>"+
-								contents;
-		MimeMessage mail = mailSender.createMimeMessage();
+								+ "60px; margin-top: 10px; margin-bottom: 10px; font-weight: bold; font-size: 15px;'>" +
+								"플러스가입하기</button>"+"</a>"+"<p></p>" + "<div>"+"<br>"+ contents;
+		System.out.println(mailContnets);
+		MimeMessage mail = mailSender.createMimeMessage(); 
 		MimeMessageHelper message = new MimeMessageHelper(mail, true, "UTF-8");
 		message.setTo(email);
 		message.setSubject("[플러스에 초대합니다]");
@@ -631,6 +651,13 @@ public class MemberController {
 	@ResponseBody
 	public MemberVO coPrjUserChange(@RequestBody MemberVO vo) {
 		service.coPrjUserChange(vo);
+		return vo;
+	}
+	//회사제목수정
+	@PutMapping("/prjNameUpdate.do")
+	@ResponseBody
+	public MemberVO prjNameUpdate(@RequestBody MemberVO vo) {
+		service.prjNameUpdate(vo);
 		return vo;
 	}
 	

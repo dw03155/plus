@@ -61,6 +61,10 @@
         	and a.co_url = #{coUrl}
         	and b.mem_id = c.mem_id
         	and b.prj_perm = 'PM'
+        <!-- 프로젝트 명으로 검색 -->
+		<if test="prjTtl != null and prjTtl != ''">
+			and a.prj_ttl like '%' || #{prjTtl} || '%'
+		</if>
         union
 		select d.prj_id, d.prj_ttl, d.prj_cntn, e.mem_id, f.name, f.wkpo,
 			(select count(*) from prj_parti where prj_id = d.prj_id) as partiCnt,
@@ -74,6 +78,10 @@
 			and e.mem_id = f.mem_id
             and e.prj_perm = 'PM'
             and d.prj_open_perm = 'all'
+        <!-- 프로젝트 명으로 검색 -->
+		<if test="prjTtl != null and prjTtl != ''">
+			and d.prj_ttl like '%' || #{prjTtl} || '%'
+		</if>
 		union
 		select g.prj_id, g.prj_ttl, g.prj_cntn, h.mem_id, i.name, i.wkpo,
 			(select count(*) from prj_parti where prj_id = g.prj_id) as partiCnt,
@@ -95,7 +103,7 @@
                            and j.prj_open_perm = 'part')
 		<!-- 프로젝트 명으로 검색 -->
 		<if test="prjTtl != null and prjTtl != ''">
-			and prj_ttl like '%' || #{prjTtl} || '%'
+			and g.prj_ttl like '%' || #{prjTtl} || '%'
 		</if>
         order by prj_id asc
 	</select>
@@ -171,46 +179,53 @@
 	<!-- 프로젝트 폴더 수정 ** -->
 	<update id="prjFoldUpdate" parameterType="co.plus.prj.pnw.vo.PNWVO">
 		update mem_prj_fold
-		set foldId = #{foldId}, foldName = #{foldName}, memId = #{memId}
+		set foldName = #{foldName}
+		where fold_id = #{foldId}
+			and mem_id = #{memId} 
 	</update>
 
 	<!-- 프로젝트 폴더 삭제 ** -->
 	<delete id="prjFoldDelete" parameterType="co.plus.prj.pnw.vo.PNWVO">
 		delete from mem_prj_fold
-		where foldId = #{foldId}
+		where fold_id = #{foldId} and mem_id = #{memId}
 	</delete>
 
 	<!-- 프로젝트 색상 설정 -->
 	<update id="prjColor" parameterType="co.plus.prj.pnw.vo.PNWVO">
 		update prj_parti
-		set prj_color = #{prj_color}
+		set prj_color = #{prjColor}
+		where prj_id = #{prjId}
+			and mem_id = #{memId}
 	</update>
 	
 	<!-- 프로젝트 폴더 설정 **-->
 	<insert id="prjFoldSet" parameterType="co.plus.prj.pnw.vo.PNWVO">
 		insert into prj_fold
-		values (#{fold_id}, #{prj_id})
+		values (#{foldId}, #{prjId})
 	</insert>
 	
 	<!-- 프로젝트 수정 **-->
 	<update id="prjUpdate" parameterType="co.plus.prj.pnw.vo.PNWVO">
 		update project
-		set prj_ttl = #{prj_ttl}, prj_open_perm = #{prj_open_perm}, ctgry_id = #{ctgry_id}
+		set prj_ttl = #{prjTtl}, prj_open_perm = #{prjOpenPerm}, ctgry_id = #{ctgryId}
+		where prj_id = #{prjId}
 	</update>
 	
 	<!-- 프로젝트 삭제 -->
 	<delete id="prjDelete" parameterType="co.plus.prj.pnw.vo.PNWVO">
-		delete project
-		set prj_id = #{prj_id}
+		delete from project
+		where prj_id = #{prjId}
 	</delete>
 
 	<!-- 프로젝트 : 홈 -->
 	<select id="prjInfo" resultType="co.plus.prj.pnw.vo.PNWVO">			<!-- 프로젝트 정보 -->
-		select a.*, b.prj_color
-      	from project a, prj_parti b
-      	where a.prj_id = #{prjId}
-   			and a.prj_id = b.prj_id
-  			and b.mem_id = #{memId}
+		select a.*,
+			 (case when exists (select * from prj_parti where mem_id = #{memId} and prj_id = a.prj_id)
+                   then (select prj_color from prj_parti where mem_id = #{memId} and prj_id = a.prj_id) 
+                   else (select prj_color from prj_parti where prj_perm = 'pm' and prj_id = a.prj_id) 
+                end) as prj_color
+		from project a
+		where a.prj_id = #{prjId}
 	</select>
 	
 	<select id="prjTskAllCount" resultType="int">						<!-- 업무 전체 갯수(업무리포트) -->
@@ -230,11 +245,11 @@
 	</select>
 	
 	<select id="pnwPinList" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 상단고정 게시글 목록 -->
-		select c.*,
-			case when c.noti_knd = 'task' then (select tsk_prgs from task where noti_id = c.noti_id)
-				when c.noti_knd = 'schedule' then (select TO_CHAR(sche_bgn_dt||','||sche_end_dt) from schedule where noti_id = c.noti_id)
+		select c.*, a.*,
+			(case when c.noti_knd = 'task' then (select tsk_prgs from task where noti_id = c.noti_id)
+				when c.noti_knd = 'schedule' then (select TO_CHAR(sche_bgn_dt, 'yy/mm/dd hh24:mi')||','||TO_CHAR(sche_end_dt, 'yy/mm/dd hh24:mi') from schedule where noti_id = c.noti_id)
 				when c.noti_knd = 'todo' then (select TO_CHAR(RATIO_TO_TODO(c.noti_id)) from dual)
-			end as addlist
+			end) as addlist
 		from member a, prj_parti b, board c, pincette d
 		where c.prj_id = #{prjId}
 			and b.prj_id = c.prj_id
@@ -246,12 +261,11 @@
 	</select>
 	
 	<select id="pnwAllList" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 전체 게시글 목록 -->
-		select c.*, a.name, a.wkpo, a.dept, a.co_url,
-			case when c.noti_knd = 'task' then (select tsk_prgs from task where noti_id = c.noti_id)
-                when c.noti_knd = 'subtask' then (select subtsk_prgs from subtask where noti_id = c.noti_id)
-				when c.noti_knd = 'schedule' then (select TO_CHAR(sche_bgn_dt||','||sche_end_dt) from schedule where noti_id = c.noti_id)
+		select c.*, a.*,
+			(case when c.noti_knd = 'task' then (select tsk_prgs from task where noti_id = c.noti_id)
+				when c.noti_knd = 'schedule' then (select TO_CHAR(sche_bgn_dt, 'yy/mm/dd hh24:mi')||','||TO_CHAR(sche_end_dt, 'yy/mm/dd hh24:mi') from schedule where noti_id = c.noti_id)
 				when c.noti_knd = 'todo' then (select TO_CHAR(RATIO_TO_TODO(c.noti_id)) from dual)
-			end as addlist
+			end) as addlist
 		from member a, prj_parti b, board c
 		where c.prj_id = #{prjId}
 			and b.prj_id = c.prj_id
@@ -259,7 +273,7 @@
 			and a.mem_id = b.mem_id
 		<!-- 프로젝트 명으로 검색 -->
 		<if test="notiTtl != null and notiTtl != ''">
-			and noti_ttl like '%' || #{notiTtl} || '%'
+			and c.noti_ttl like '%' || #{notiTtl} || '%'
 		</if>
 		order by c.noti_id desc
 	</select>

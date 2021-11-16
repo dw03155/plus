@@ -381,8 +381,10 @@
 		$("#emailCheck").mouseout(function(){
 			$("#emailModal").css("display","none");
 		});
+		
 		$("#emailCheck").click(function(){
 			var email = $('input:text[name="email"]').val();
+			if(email != ""){
 			$('#emailPaste').val(email);
 			$.ajax({
 				url: "getMailCheck.do?email=" + email,
@@ -417,6 +419,9 @@
 					});
 				}
 			});
+			}else{
+				alert("이메일을 입력하세요");
+			}
 			
 		});
 
@@ -459,7 +464,6 @@
 					
 					alert(email + "로 인증메일이 발송되었습니다.");
 					isCertification = true;
-					console.log(key);
 					
 					$("#joinNum").off("change keyup paste");
 					$("#joinNum").on("change keyup paste", function(){

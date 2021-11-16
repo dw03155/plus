@@ -259,6 +259,8 @@ to {
 				<!-- 입력 오류 시 display: block -->
 			</div>
 			<button id="JoinBtn" class="btn-join">회사 참여하기</button>
+			<br>
+			<a href="passUserJoinForm.do" ><p style="margin-top: 20px">이미 등록된 회원인가요?</p></a>
 		</div>
 		<!-- /기존회사참여 -->
 		
@@ -295,7 +297,6 @@ to {
 				if(coUrl == ""){
 					alert("URL을 입력하세요");
 				}else{
-					console.log(coUrl)
 					$.ajax({
 						url : "getCompany.do?coUrl=" + coUrl,
 						type : "get",
@@ -304,7 +305,6 @@ to {
 						//contentType: "application/json",
 						dataType : "json",
 						success : function(data) {
-							console.log(data);
 							/* var $coLogo = data.coLogo; */
 							var $coUrl = data.coUrl;
 							var $coName = data.coName;
@@ -326,7 +326,6 @@ to {
 							}
 						},
 						error : function(reject) {
-							console.log(reject);
 							$('#checkJoinPopup').attr('class',
 								'flow-all-background-1');
 								$('#companyName').text('해당 회사가 존재하지않습니다');

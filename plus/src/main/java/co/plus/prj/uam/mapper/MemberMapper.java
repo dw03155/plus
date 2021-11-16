@@ -21,6 +21,10 @@ public interface MemberMapper {
 	//게스트 가입
 	public int guestInsert2(MemberVO member);
 	public int guestInsert(MemberVO member);
+	//엑셀가입 회원 정보
+	public MemberVO getUserMailCheck(MemberVO member);
+	//엑셀가입 회원 비밀번호 업데이트
+	public int userPwdUpdate(MemberVO vo);
 	
 	//회사mapper
 	//회사url로 단일회사정보 가져오기
@@ -85,6 +89,8 @@ public interface MemberMapper {
 	public int adminDel(MemberVO vo);
 	//관리자 지정
 	public int userDel(MemberVO vo);
+	//회사프로젝트명 수정
+	public int prjNameUpdate(MemberVO vo);
 	
 	//사용자 일괄 등록
 	public int AllMemberInsert1(MemberVO vo);
@@ -112,5 +118,6 @@ public interface MemberMapper {
 	public List<PNWVO> textFileList(PNWVO vo);
 	public List<PNWVO> subTaskFileList(PNWVO vo);
 	public List<PNWVO> taskFileList(PNWVO vo);
+	public List<PNWVO> getFileList(PNWVO vo);
 	
 }
