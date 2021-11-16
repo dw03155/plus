@@ -124,6 +124,29 @@ public class MemberController {
 		map.put("member", vo);
 		return map;
 	}
+	@GetMapping("/passUserJoinForm.do")
+	public String passUserJoinForm() {
+		return "uam/join/passUserJoinForm";
+	}
+	//회원 정보가져오기(팝업)
+	@RequestMapping(value = "/getUserMailCheck.do", method = RequestMethod.GET)
+	@ResponseBody
+	public MemberVO getUserMailCheck(@RequestParam("email") String email, MemberVO vo,Model model) {
+		System.out.println(email);
+		vo.setEmail(email);
+		MemberVO info = service.getUserMailCheck(vo);
+		System.out.println(info);
+		return info;
+		
+	}
+	//엑셀가입 회원 비밀번호 입력
+	@PutMapping("/userPwdUpdate.do")
+	@ResponseBody
+	public int userPwdUpdate(@RequestBody MemberVO vo) {
+		return service.userPwdUpdate(vo);
+	}
+	
+	
 	//회원가입 인증번호 메일발송
 	@RequestMapping(value="/joinMail.do", method = RequestMethod.POST)
 	@ResponseBody
@@ -322,7 +345,7 @@ public class MemberController {
 	}
 	
 	
-	//파일 업로드
+	//로고 파일 업로드
 	@PostMapping("/uploadLogo.do")
 	@ResponseBody
 	public Map uploadLogo(MultipartFile[] logoInput, HttpSession session, HttpServletRequest request) {
@@ -628,6 +651,13 @@ public class MemberController {
 	@ResponseBody
 	public MemberVO coPrjUserChange(@RequestBody MemberVO vo) {
 		service.coPrjUserChange(vo);
+		return vo;
+	}
+	//회사제목수정
+	@PutMapping("/prjNameUpdate.do")
+	@ResponseBody
+	public MemberVO prjNameUpdate(@RequestBody MemberVO vo) {
+		service.prjNameUpdate(vo);
 		return vo;
 	}
 	

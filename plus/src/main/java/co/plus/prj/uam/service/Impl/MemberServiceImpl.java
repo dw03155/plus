@@ -45,6 +45,16 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO getCompany(MemberVO vo) {
 		return map.getCompany(vo);
 	}
+	//엑셀가입 회원 정보
+	@Override
+	public MemberVO getUserMailCheck(MemberVO vo) {
+		return map.getUserMailCheck(vo);
+	}
+	// 엑셀가입 비밀번호 업데이트
+	@Override
+	public int userPwdUpdate(MemberVO vo) {
+		return map.userPwdUpdate(vo);
+	}
 
 														//로그인
 	//로그인시 회원 정보 업데이트
@@ -256,6 +266,11 @@ public class MemberServiceImpl implements MemberService {
 	public int coPrjUserChange(MemberVO vo) {
 		return map.coPrjUserChange(vo);
 	}
+	// 회사프로젝트명 수정
+	@Override
+	public int prjNameUpdate(MemberVO vo) {
+		return map.prjNameUpdate(vo);
+	}
 	
 														// 사용자 일괄 등록
 	// 사용자 일괄 등록
@@ -296,6 +311,7 @@ public class MemberServiceImpl implements MemberService {
 	public List<PNWVO> subTaskFileList(PNWVO vo) {
 		return map.subTaskFileList(vo);
 	}
+	
 	
 	
 	

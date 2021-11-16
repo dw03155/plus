@@ -67,7 +67,8 @@
 		INSERT INTO mem_status(mem_id, mem_st)
 		VALUES ((select max(mem_id) from member), 'offline')
 	</insert>
-	<!-- 기존회사 회원입력 -->
+	
+	<!-- 게스트 회원입력 -->
 	<insert id="guestInsert2" parameterType="co.plus.prj.uam.vo.MemberVO">
 		INSERT INTO MEMBER(MEM_ID, EMAIL, PWD, NAME, CO_url,MEM_PERM,acc_st)
 		VALUES (MEMID.nextval, #{email}, #{pwd}, #{name}, #{coUrl},'GUEST', 'using')
@@ -78,7 +79,21 @@
 		VALUES ((select max(mem_id) from member), 'offline')
 	</insert>
 	
-																						<!-- 회원정보수정(회원마이페이지) -->
+	<!-- 엑셀로 가입된 유저 메일 확인 -->
+	<select id="getUserMailCheck" resultType="co.plus.prj.uam.vo.MemberVO">
+		select a.email, a.name, b.co_name
+		from member a, company b
+		where a.co_url = b.co_url
+			 and pwd is null
+			 and email = #{email}
+	</select>
+	<!-- 엑셀로 가입된 유저 비밀번호 업데이트 -->
+	<update id="userPwdUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update Member
+		set pwd = #{pwd}
+		where email = #{email}
+	</update>
+																					<!-- 회원정보수정(회원마이페이지) -->
 	<!-- 회원정보 가져오기 -->
 	<select id="memberInfo" resultType="co.plus.prj.uam.vo.MemberVO">
 		select a.mem_id, a.email, a.pwd, a.name, a.wkpo
@@ -290,6 +305,10 @@
         from member a, prj_parti b
         where prj_perm = 'USER' and a.mem_id = b.mem_id and b.prj_id = #{prjId}
 	</select>
+	<update id="prjNameUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update project set prj_ttl = #{prjTtl}
+		where prj_id = #{prjId}
+	</update>
 	
 																							<!-- 카테고리관리 -->
 	<!-- 카테고리 확인 -->

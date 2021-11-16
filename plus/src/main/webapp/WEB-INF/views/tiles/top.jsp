@@ -1107,6 +1107,8 @@
 		});
 					
 		$("#noPersTelUpdate").on("click",function(){ 
+			$("#persTelInput").toggleClass("d-none");
+			$("#persTelUpdateForm").toggleClass("d-none");
 		});
 		$("#persTelUpdate").on("click", function(){
 			var persTel = $("#editor_persTel").val();

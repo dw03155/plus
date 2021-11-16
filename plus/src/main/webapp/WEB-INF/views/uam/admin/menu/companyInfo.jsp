@@ -141,7 +141,7 @@
 					})
 				},
 				error: function(){
-					alert("파일의 용량이 너무 큽니다.")
+					alert("파일을 입력해주세요")
 				}
 			}); //end of $.ajax
 		
