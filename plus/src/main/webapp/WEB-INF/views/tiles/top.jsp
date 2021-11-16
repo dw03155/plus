@@ -28,7 +28,7 @@
 }
 
 .my-left-style {
-	width: 20%;
+	width: 15%;
 	float: left;
 	box-sizing: border-box;
 }
@@ -140,8 +140,8 @@
 				</li>
 	
 				<li id="statusChange" class="user-status"><i class="icon-status"></i> 상태 변경</li>
-				<li id="topProfile" class="user-profile"><i class="icons-person-3"></i> 내 프로필</li>
-				<li id="mySettingOpenButton"><i class="icons-set"></i> 환경설정</li>
+				<!-- <li id="topProfile" class="user-profile"><i class="icons-person-3"></i> 내 프로필</li> -->
+				<li id="mySettingOpenButton"><i class="icons-set"></i> 마이페이지</li>
 				<li id="logoutBtn" onclick="location.href='logout.do'"><i class="icons-logout"></i> 로그아웃</li>
 			</ul>
 			<ul id="status" class="st_modal">
@@ -164,16 +164,16 @@
 								<img id="memImgBig">
 								<a id="editorProfilePhotoBtn" href="#" class="my-button-1"></a>
 							</div>
-							<span id="accountSetting" class="js-my-setting-title">환경설정</span>
+							<span id="accountSetting" class="js-my-setting-title">마이페이지</span>
 						</div>
 
 						<!-- 환경설정 메뉴 -->
-						<div class="my-left-style">
+						<!-- <div class="my-left-style">
 							<ul class="my-popup-left-header" id="mySettingLeftMenu">
 								<li id="myPageBtn" class="js-my-setting-left" style="color: #6449FC"><a id="accountSettingBtn"
 									href="#">마이페이지</a></li>
 							</ul>
-						</div>
+						</div> -->
 
 						<!-- 환경설정 메뉴내용 -->
 						<div id="accountSettingLayer" class="js-my-scroll-layer">

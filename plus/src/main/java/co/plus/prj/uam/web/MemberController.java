@@ -397,57 +397,57 @@ public class MemberController {
 		return map;
 	}
 	
-//	//이미지 업로드
-//		@PostMapping("/imgUpload.do")
-//		@ResponseBody
-//		public Map imgUpload(MultipartFile[] userImgFile, HttpSession session, HttpServletRequest request) {
-//			HashMap<String, Object> map = new HashMap<String, Object>();
-//			String root=request.getSession().getServletContext().getRealPath("/");
-//			String path=root+"\\userimg\\";
-//			
-//			File Folder = new File(path);
-//			String memId = (String) session.getAttribute("memId");
-//			Random random = new Random();
-//			String key = "";
-//			
-//			for(int i = 0; i<3; i++) {
-//				int index = random.nextInt(25)+65;
-//				key += (char)index;
-//			}
-//			int numIndex = random.nextInt(9999)+1000;
-//			key += numIndex;
-//			
-//			String memUni = memId+ "_" + key;
-//			System.out.println(memUni);
-//			
-//			if(!Folder.exists()) {
-//				Folder.mkdir();
-//				System.out.println("폴더를 생성합니다.");
-//				
-//			}else {
-//				System.out.println("폴더가 이미 있습니다.");
-//			}
-//			
-//			File uploadFolder = Folder;
-//			
-//			for(MultipartFile file : userImgFile) {
-//				String FileName = file.getOriginalFilename();
-//				String uploadFileName = memUni +"_"+ FileName;
-//				File saveFile = new File(uploadFolder,uploadFileName);
-//				
-//				if(checkImageType(saveFile)) {  //이미지파일 썸네일 파일도 함께만든다.
-//				
-//						try {
-//							file.transferTo(saveFile);  //파일저장
-//						
-//						}catch(Exception e) {
-//						e.printStackTrace();
-//						}
-//				}// 썸네일 end
-//			}
-//			map.put("key", memUni);
-//			return map;
-//		}
+	//이미지 업로드
+		@PostMapping("/imgUpload.do")
+		@ResponseBody
+		public Map imgUpload(MultipartFile[] userImgFile, HttpSession session, HttpServletRequest request) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			String root=request.getSession().getServletContext().getRealPath("/");
+			String path=root+"\\userimg\\";
+			
+			File Folder = new File(path);
+			String memId = (String) session.getAttribute("memId");
+			Random random = new Random();
+			String key = "";
+			
+			for(int i = 0; i<3; i++) {
+				int index = random.nextInt(25)+65;
+				key += (char)index;
+			}
+			int numIndex = random.nextInt(9999)+1000;
+			key += numIndex;
+			
+			String memUni = memId+ "_" + key;
+			System.out.println(memUni);
+			
+			if(!Folder.exists()) {
+				Folder.mkdir();
+				System.out.println("폴더를 생성합니다.");
+				
+			}else {
+				System.out.println("폴더가 이미 있습니다.");
+			}
+			
+			File uploadFolder = Folder;
+			
+			for(MultipartFile file : userImgFile) {
+				String FileName = file.getOriginalFilename();
+				String uploadFileName = memUni +"_"+ FileName;
+				File saveFile = new File(uploadFolder,uploadFileName);
+				
+				if(checkImageType(saveFile)) {  //이미지파일 썸네일 파일도 함께만든다.
+				
+						try {
+							file.transferTo(saveFile);  //파일저장
+						
+						}catch(Exception e) {
+						e.printStackTrace();
+						}
+				}// 썸네일 end
+			}
+			map.put("key", memUni);
+			return map;
+		}
 	
 	private boolean checkImageType(File file) {  //이미지파일인지 아닌지 비교
 		try {
