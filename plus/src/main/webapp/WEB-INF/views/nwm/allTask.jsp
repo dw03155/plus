@@ -36,7 +36,7 @@
 
 			<span id="allCollectionCount"
 				class="js-collection-total-count js-collection-count top-task-num"
-				style="display: block">&nbsp;${fn:length(tasks)}</span>
+				style="display: block"></span>
 
 		</div>
 

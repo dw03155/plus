@@ -222,7 +222,7 @@ pageContext.setAttribute("replaceChar", "\n");
 						<div class="subtask-header">
 
 							<span class="subtask-title"> <i class="icons-subtask"></i>하위업무<em
-								class="js-subtask-count subtask-count">${fn:length(tasks.subtskTtl)}</em>
+								class="js-subtask-count subtask-count">1</em>
 							</span>
 
 
