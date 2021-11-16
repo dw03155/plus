@@ -344,6 +344,8 @@
 					var checkCnt = $(".flow-content-chk-1").length; // 프로젝트 선택 후 개수세기
 					$("#totalEditSelect span").empty();
 					$("#totalEditSelect span").text(checkCnt+"개 프로젝트가 선택되었습니다.");
+					
+					{}
 				}else{
 					$(e.currentTarget).closest("form").submit(); // 프로젝트 이동하기
 				}
@@ -351,21 +353,13 @@
 			
 			$("#editBarCloseButton").click(function(e){ // 닫기
 				e.preventDefault();
+				$("#totalEditSelect span").text("0개 프로젝트가 선택되었습니다.");
 				$("#totalProjectEditBar").css("display", "none");
+				$(".edit-check").addClass("flow-content-chk").removeClass("flow-content-chk-1");
+				$("#projectHomeLayer li").removeClass("active");
 				$(".edit-check").css("display", "none");
 			});
 			
-			// 프로젝트 정렬
-			$("#projectOrderButton").click(function(e){ // 열기
-				e.preventDefault();
-				$("#projectOrderList").css("display", "block");
-			});
-			
-			$(".order-item").click(function(e){ // 선택한 후 닫기
-				$(".order-item").removeClass("on");
-				$(e.currentTarget).addClass("on");
-				$("#projectOrderList").css("display", "none");
-			});
 		</script>
 </body>
 </html>
