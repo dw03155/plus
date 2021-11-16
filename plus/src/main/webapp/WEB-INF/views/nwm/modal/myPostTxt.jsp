@@ -121,9 +121,16 @@ pageContext.setAttribute("replaceChar", "\n");
 						</span>
 					</div>
 					<div class="bottom-button-area">
-						<button class="js-post-bookmark post-bottom-button ">
+					<c:if test="${texts.bmyn == '1' }">
+						<button class="js-post-bookmark post-bottom-button on">
 							<i class="icon-bookmark"></i> <span>북마크</span>
 						</button>
+					</c:if>
+					<c:if test="${texts.bmyn == '0' }">
+						<button class="js-post-bookmark post-bottom-button">
+							<i class="icon-bookmark"></i> <span>북마크</span>
+						</button>
+					</c:if>
 					</div>
 				</div>
 			</div>

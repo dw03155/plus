@@ -252,11 +252,12 @@
 	});
 	
 	// 할일 체크 버튼
-	  $(".js-todo-checkbox").click(function(e) {
-		e.preventDefault();
-	    $(e.currentTarget).closest(".todo-area").addClass("checked");
-	    $(e.currentTarget).closest(".todo-area").css("background","#00b2ff");
+	  $().on("click", ".js-todo-checkbox", function(){
+		  e.preventDefault();
+		  $(e.currentTarget).closest(".todo-area").addClass("checked");
+		  $(e.currentTarget).closest(".todo-area").css("background","#00b2ff");  
 	  });
+	  
 	​
 </script>
 

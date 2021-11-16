@@ -58,5 +58,7 @@ public class NoticeWritingVO {
 	 
 	private String addList;			// 게시글 부가정보
 	private String subtskTtl;   	// 하위업무제목
+	
+	private String bmyn;			// 북마크 유무
 
 }

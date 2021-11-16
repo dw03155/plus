@@ -112,7 +112,11 @@
 	<!-- 내 게시물 목록 -> 글 상세보기(팝업) -->
 	<select id="myPostTxt"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name
+		 select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name, 
+        (case when exists(select * from bookmark where noti_id =a.noti_id and mem_id = #{memId})
+            then 1
+            else 0
+            end) as bmyn
 		from 	text a, project b, board c, member d
 		where 	a.noti_id = c.noti_id 
 		and 	b.prj_id = c.prj_id
@@ -133,8 +137,8 @@
 		        	on c.prj_id = d.prj_id
 		        inner join member e
 		        	on c.mem_id = e.mem_id
-        where a.noti_id = #{notiId}
-	</select>
+        where a.noti_id = #{notiId}	
+        </select>
 	
 	<!-- 내 게시물 목록 -> 하위업무 상세보기(팝업) -->
 	<select id="myPostSubtsk"
