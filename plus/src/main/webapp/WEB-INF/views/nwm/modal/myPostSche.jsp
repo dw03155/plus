@@ -194,12 +194,6 @@ pageContext.setAttribute("replaceChar", "\n");
 											<i class="icon-post-cancel"></i>
 										</button>
 									</div>
-									<div id="zoomUrlCopy" class="video-conference-join"
-										tabindex="0">
-										<span class="link-copy"><i class="icons-copy"></i></span> 링크
-										복사
-									</div>
-								
 								</span>
 							</div>
 						</li>
@@ -241,15 +235,6 @@ pageContext.setAttribute("replaceChar", "\n");
 						</button>
 					</div>
 				</div>
-				<div class="cmt-read-wr">
-					<div class="comment-count-area">
-						<span>댓글</span> <span class="comment-count">0</span>
-					</div>
-					<div class="js-read-check-button read-confirmation">
-						<span>읽음</span> <span class="confirmation-number">1</span>
-					</div>
-				</div>
-
 			</div>
 			<!-- //post-card-container -->
 		</div>
