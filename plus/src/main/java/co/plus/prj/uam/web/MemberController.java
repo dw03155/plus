@@ -211,14 +211,14 @@ public class MemberController {
 		MemberVO info = service.memberInfo(vo);
 		return info;
 	}
-//	//회원이미지 가져오기
-//	@GetMapping("/getMemberImg.do")
-//	@ResponseBody
-//	public MemberVO getMemberImg(@RequestParam(required=false) String memId, MemberVO vo) {
-//		vo.setCoUrl(memId);
-//		MemberVO memImg = service.getMemberImg(vo);
-//		return memImg;
-//	}
+	//회원이미지 가져오기
+	@GetMapping("/getMemberImg.do")
+	@ResponseBody
+	public MemberVO getMemberImg(@RequestParam(required=false) String memId, MemberVO vo) {
+		vo.setCoUrl(memId);
+		MemberVO memImg = service.getMemberImg(vo);
+		return memImg;
+	}
 	//회원이름 수정
 	@RequestMapping(value="/nameUpdate.do", method = RequestMethod.PUT, consumes = "application/json")
 	@ResponseBody

@@ -45,7 +45,7 @@
 	<!-- 어드민회원입력 -->
 	<insert id="newCompanyInsert1" parameterType="co.plus.prj.uam.vo.MemberVO">
 		INSERT INTO MEMBER(MEM_ID, EMAIL, PWD, NAME, CO_url,MEM_PERM,acc_st)
-		VALUES (MEMID.nextval, #{email}, #{pwd}, #{name}, #{coUrl}, 'ADMIN', 'using')
+		VALUES (MEMID.nextval, #{email}, #{pwd}, #{name}, #{coUrl}, 'admin', 'using')
 	</insert>
 	<insert id="newCompanyInsert2" parameterType="co.plus.prj.uam.vo.MemberVO">
 		INSERT INTO company(co_name, co_url)
@@ -71,7 +71,7 @@
 	<!-- 게스트 회원입력 -->
 	<insert id="guestInsert2" parameterType="co.plus.prj.uam.vo.MemberVO">
 		INSERT INTO MEMBER(MEM_ID, EMAIL, PWD, NAME, CO_url,MEM_PERM,acc_st)
-		VALUES (MEMID.nextval, #{email}, #{pwd}, #{name}, #{coUrl},'GUEST', 'using')
+		VALUES (MEMID.nextval, #{email}, #{pwd}, #{name}, #{coUrl},'guest', 'using')
 	</insert>
 	<!-- 회원상태 테이블 추가 -->
 	<insert id="guestInsert" parameterType="co.plus.prj.uam.vo.MemberVO">  		
@@ -199,7 +199,7 @@
 	   	<![CDATA[
 	   	select mem_id, name, dept, wkpo, pers_tel, acc_st, mem_perm, email
 		from member
-		where co_url = #{coUrl} and acc_st = 'using' and mem_perm <> 'GUEST'
+		where co_url = #{coUrl} and acc_st = 'using' and mem_perm <> 'guest'
 		]]>
 	</select>
 	<!-- 정상 사용자 삭제 -->
@@ -209,12 +209,12 @@
 	</update>
 	<!-- 관리자 사용자로 변경 -->
 	<update id="adminDel" parameterType="co.plus.prj.uam.vo.MemberVO">
-		update member set mem_perm = 'USER'
+		update member set mem_perm = 'user'
 		where mem_id = #{memId}
 	</update>
 	<!-- 사용자 관리자로 변경 -->
 	<update id="userDel" parameterType="co.plus.prj.uam.vo.MemberVO">
-		update member set mem_perm = 'ADMIN'
+		update member set mem_perm = 'admin'
 		where mem_id = #{memId}
 	</update>
 	
@@ -232,7 +232,7 @@
 		<![CDATA[
 		select mem_id, name, dept, wkpo, pers_tel, acc_st, mem_perm, email
 		from member
-		where co_url = #{coUrl} and acc_st = 'outstand' and mem_perm <> 'GUEST'
+		where co_url = #{coUrl} and acc_st = 'outstand' and mem_perm <> 'guest'
 		]]>
 	</select>
 	<update id="outstandIn" parameterType="co.plus.prj.uam.vo.MemberVO">
@@ -249,7 +249,7 @@
 		<![CDATA[
 		select mem_id, name, dept, wkpo, pers_tel, acc_st, mem_perm, email
 		from member
-		where co_url = #{coUrl} and mem_perm = 'GUEST' and acc_st <> 'notused'
+		where co_url = #{coUrl} and mem_perm = 'guest' and acc_st <> 'notused'
 		]]>
 	</select>
 	<update id="guestIn" parameterType="co.plus.prj.uam.vo.MemberVO">
@@ -275,7 +275,7 @@
 	<!-- 회사프로젝트 관리 -->
 	<select id="getCoPrjList" resultType="co.plus.prj.uam.vo.MemberVO">
 		select a.prj_id, a.prj_ttl, 
-		        (select count(prj_perm) from prj_parti where prj_perm = 'PM' and prj_id = a.prj_id) as pmCnt, 
+		        (select count(prj_perm) from prj_parti where prj_perm = 'pm' and prj_id = a.prj_id) as pmCnt, 
 		        (select count(mem_id) from prj_parti where prj_id = a.prj_id) as memCnt, 
 		        (select count(*) from notice_writing where a.prj_id = prj_id) as notiCnt
 		from project a
@@ -287,23 +287,23 @@
 		select a.mem_id, a.name, a.email, a.dept, a.pers_Tel, c.prj_ttl, c.prj_id
 		from member a, prj_parti b, project c
 		where a.mem_id = b.mem_id and b.prj_id = c.prj_id 
-        and b.prj_perm = 'PM' and c.prj_id = #{prjId}
+        and b.prj_perm = 'pm' and c.prj_id = #{prjId}
 	</select>
 	<!-- 프로젝트 관리자 수정 -->
 	<update id="coPrjPMChange" parameterType="co.plus.prj.uam.vo.MemberVO">
 		UPDATE prj_parti 
-		set prj_perm = 'USER'
+		set prj_perm = 'user'
 		where mem_id = #{memId} and prj_id = #{prjId}
 	</update>
 	<update id="coPrjUserChange" parameterType="co.plus.prj.uam.vo.MemberVO">
 		UPDATE prj_parti 
-		set prj_perm = 'PM'
+		set prj_perm = 'pm'
 		where mem_id = #{memId} and prj_id = #{prjId}
 	</update>
 	<select id="prjUserList" resultType="co.plus.prj.uam.vo.MemberVO">
 		select a.mem_id, a.name, a.email, a.dept, a.pers_Tel
         from member a, prj_parti b
-        where prj_perm = 'USER' and a.mem_id = b.mem_id and b.prj_id = #{prjId}
+        where prj_perm = 'user' and a.mem_id = b.mem_id and b.prj_id = #{prjId}
 	</select>
 	<update id="prjNameUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">
 		update project set prj_ttl = #{prjTtl}
