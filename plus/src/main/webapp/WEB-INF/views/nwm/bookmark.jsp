@@ -127,7 +127,17 @@
 											<c:if test="${bookmarks.notiKnd=='schedule'}">
 												<c:set var="notiKnd" value="icons-schedule" />
 											</c:if>
-											<i class="${notiKnd }"></i> <span class="post-type">${bookmarks.notiKnd}</span>
+											<i class="${notiKnd }"></i> 
+											<c:if test="${bookmarks.notiKnd=='text'}">
+													<c:set  var="notiKnd" value="글"/>
+												</c:if> <c:if test="${bookmarks.notiKnd=='task'}">
+													<c:set var="notiKnd" value="업무" />
+												</c:if> <c:if test="${bookmarks.notiKnd=='todo'}">
+													<c:set var="notiKnd" value="할 일" />
+												</c:if> <c:if test="${bookmarks.notiKnd=='schedule'}">
+													<c:set var="notiKnd" value="일정" />
+												</c:if>
+											<span class="post-type ${notiKnd}">${notiKnd}</span>
 										</div>
 										<div class="search-sub-text-wrap">
 											<div class="contents-cmt">

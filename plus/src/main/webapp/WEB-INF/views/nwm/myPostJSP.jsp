@@ -127,7 +127,17 @@
 											<c:if test="${notice.notiKnd=='schedule'}">
 												<c:set var="notiKnd" value="icons-schedule" />
 											</c:if>
-											<i class="${notiKnd }"></i> <span class="post-type">${notice.notiKnd}</span>
+											<i class="${notiKnd}"></i> 
+												<c:if test="${notice.notiKnd=='text'}">
+													<c:set  var="notiKnd" value="글"/>
+												</c:if> <c:if test="${notice.notiKnd=='task'}">
+													<c:set var="notiKnd" value="업무" />
+												</c:if> <c:if test="${notice.notiKnd=='todo'}">
+													<c:set var="notiKnd" value="할 일" />
+												</c:if> <c:if test="${notice.notiKnd=='schedule'}">
+													<c:set var="notiKnd" value="일정" />
+												</c:if>
+											<span class="post-type ${notiKnd}">${notiKnd}</span>
 										</div>
 										<div class="search-sub-text-wrap">
 											<div class="contents-cmt">
@@ -137,7 +147,7 @@
 													<i class="icons-comment2"></i><span
 														class="js-post-comment-count">0</span>
 												</div>
-													<c:if test="${notice.notiKnd == 'subtask'}">
+												<c:if test="${notice.notiKnd == 'subtask'}">
 													<div class="post-list subtask" style="display: block">
 														<em class="subtask-item" style="display: inline-block">
 															<i class="icons-subtask"></i> <span
@@ -186,13 +196,13 @@
 												<c:if test="${notice.notiKnd=='schedule'}">
 													<div class="p" style="display: inline-block">
 														<em class="date"> <fmt:parseDate
-                                                                  value="${fn:substring(notice.addList, 0, 8)}" pattern="yy/MM/dd"
-                                                                  var="addDate" /> <fmt:formatDate
-                                                                  value="${addDate}" pattern="yy/MM/dd" /></em> <span>
-                                                               <fmt:parseDate pattern="yy/MM/dd"
-                                                                  value="${notice.addList}" var="addTime" /> <fmt:formatDate
-                                                                  value="${addTime}" pattern="HH:mm" />
-                                                            </span>
+																value="${fn:substring(notice.addList, 0, 8)}"
+																pattern="yy/MM/dd" var="addDate" /> <fmt:formatDate
+																value="${addDate}" pattern="yy/MM/dd" /></em> <span>
+															<fmt:parseDate pattern="yy/MM/dd"
+																value="${notice.addList}" var="addTime" /> <fmt:formatDate
+																value="${addTime}" pattern="HH:mm" />
+														</span>
 													</div>
 												</c:if>
 												<c:if test="${notice.notiKnd=='todo'}">
@@ -277,7 +287,7 @@
 			$("#filterBtn").addClass("active");
 			$("#filterSelect").toggle();
 		});
-		
+
 		// 전체
 		$("#all").button().click(function(event) {
 			$("#write, #task, #sche, #todo").removeClass("on");
@@ -286,7 +296,7 @@
 			var count = $("#myPostContentUl").find('li:visible').length;
 			console.log(count + "");
 		});
-		
+
 		// 글
 		$("#write").button();
 		$("#write").click(function(event) {
@@ -298,9 +308,9 @@
 			var count = $("#myPostContentUl").find('li:visible').length;
 			console.log(count + "====");
 			$(".count-number").html(count);
-			
+
 		});
-		
+
 		// 업무
 		$("#task").button();
 		$("#task").click(function(event) {
@@ -312,9 +322,9 @@
 			var count = $("#myPostContentUl").find('li:visible').length;
 			console.log(count + "====");
 			$(".count-number").html(count);
-			
+
 		});
-		
+
 		// 일정
 		$("#sche").button();
 		$("#sche").click(function(event) {
@@ -327,7 +337,7 @@
 			console.log(count + "====");
 			$(".count-number").html(count);
 		});
-		
+
 		// 할일
 		$("#todo").button();
 		$("#todo").click(function(event) {
@@ -427,8 +437,6 @@
 				});
 			}
 		};
-		
-		
 	</script>
 
 
