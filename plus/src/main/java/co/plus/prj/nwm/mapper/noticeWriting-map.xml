@@ -15,7 +15,7 @@
 		from 	member a, board b, project c
 		where 	b.prj_id = c.prj_id
         and 	a.mem_id = b.mem_id
-        and    b.noti_knd <![CDATA[<>]]> 'subtask'
+        and     b.noti_knd <![CDATA[<>]]> 'subtask'
 		and 	a.mem_id = ${memId}
 		<if test="notiTtl != null and notiTtl != ''">
 			and noti_ttl like '%' || #{notiTtl} || '%'
@@ -89,6 +89,7 @@
         and a.prj_id = c.prj_id
         and a.mem_id = d.mem_id
         and c.co_url = d.co_url
+        and a.noti_knd <![CDATA[<>]]> 'subtask'
         and b.mem_id = #{memId}
 		<!-- 북마크 -> 게시물 명으로 검색 -->
 		<if test="notiTtl != null and notiTtl != ''">

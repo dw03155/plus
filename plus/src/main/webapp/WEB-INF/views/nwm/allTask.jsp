@@ -37,6 +37,7 @@
 			<span id="allCollectionCount"
 				class="js-collection-total-count js-collection-count top-task-num"
 				style="display: block">&nbsp;${fn:length(tasks)}</span>
+
 		</div>
 
 		<!-- 전체 업무 페이지 -->
@@ -114,13 +115,19 @@
 							<!-- 전체 목록 화면 -->
 							<ul id="taskListProjectItem"
 								class="js-all-task-ul all-task-content layer-scroll padding-zero scroll-mask scroll-for-ie">
-								<c:forEach var="task" items="${tasks }" varStatus="status">
+								<c:forEach var="task" items="${tasks}" varStatus="status">
 									<li class="js-gubun-li">
+											
+											<c:if test="${fn:length(task.taskDetail) != 0}">
 										<div id="main" class="js-gubun-button all-task-project">
 											<!-- active 클래스 추가시  -->
-											<span class="project-title">${task.prjTtl }</span>
+											<span class="project-title">${task.prjTtl}</span>
+											
 											<!-- 갯수 -->
+								
 											<span class="project-task-count">${fn:length(task.taskDetail)}</span>
+											
+											
 										</div> <!-- 프로젝트 안 업무 목록 -->
 										<ul id="allTskContentUl"
 											class="js-inner-task project-inner-task active"
@@ -183,7 +190,7 @@
 													</div>
 													<div class="js-workers task-item-cell task-worker_nm-cell ">
 														<span class="js-mouseover"> <span
-															class="js-worker-name manager ellipsis">${dtasks.memId}</span>
+															class="js-worker-name manager ellipsis">${dtasks.name}</span>
 															<span class="js-worker-count"></span>
 														</span>
 													</div>
@@ -211,7 +218,9 @@
 												</li>
 											</c:forEach>
 										</ul> <!-- style="display: none" --> <!-- li 태그 넣기 : 상세보기시에는 class="highlight" 추가-->
+									</c:if>
 									</li>
+											
 								</c:forEach>
 							</ul>
 
@@ -412,20 +421,7 @@
 			});
 		};
 
-		// 전체 업무 목록 정렬 (선택 -> toggle)
 		
-		
-		$("#selectNum").click(function() {
-			if (!$("#num").hasClass("descend")) {
-				$("#num").addClass("descend");
-
-			} else if ($("#num").hasClass("descend")) {
-				$("#num").click(function(e) {
-					$("#num").removeClass("descend");
-					$(e.currentTarget).addClass("ascend");
-				});
-			}
-		});
 	</script>
 
 

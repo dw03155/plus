@@ -156,7 +156,7 @@ pageContext.setAttribute("replaceChar", "\n");
 									class="js-registration manager-item"> <span
 										class="js-worker-profile thumbnail"
 										style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
-										<span class="js-registration-name">${tasks.memId }</span>
+										<span class="js-registration-name">${tasks.name }</span>
 								</span>
 								</span> 
 							</div>
@@ -171,11 +171,6 @@ pageContext.setAttribute("replaceChar", "\n");
 							</div>
 							<div class="js-date-option create-content-cell">
 								<div class="js-pickr-layer js-start-flatpickr">
-									<!-- <label id="addBgnDateBtn" type="button" class="js-date-label add-manager-button"
-										style="display: inline-block"> <input id="datepicker"
-										class="js-pickr-date flatpickr-input ie-pickr" type="text"
-										placeholder="시작일 추가" readonly="readonly" value="">
-									</label> -->
 									<div class="js-date-back-layer date-bg d-none"
 										style="display: inline-block">
 										<span class="js-pickr-text task-date"> <span
@@ -195,11 +190,6 @@ pageContext.setAttribute("replaceChar", "\n");
 							</div>
 							<div class="js-date-option create-content-cell">
 								<div class="js-pickr-layer js-end-flatpickr">
-									<!-- <label id="addEndDateBtn" type="button" class="js-date-label add-manager-button"
-										style="display: inline-block"> <input
-										class="js-pickr-date flatpickr flatpickr-input ie-pickr"
-										type="text" placeholder="마감일 추가" readonly="readonly" value="">
-									</label> -->
 									<div class="js-date-back-layer date-bg d-none"
 										style="display: inline-block">
 										<span class="js-pickr-text task-date "> <span
@@ -232,7 +222,7 @@ pageContext.setAttribute("replaceChar", "\n");
 						<div class="subtask-header">
 
 							<span class="subtask-title"> <i class="icons-subtask"></i>하위업무<em
-								class="js-subtask-count subtask-count">1</em>
+								class="js-subtask-count subtask-count">${fn:length(tasks.subtskTtl)}</em>
 							</span>
 
 
@@ -464,24 +454,13 @@ pageContext.setAttribute("replaceChar", "\n");
 		});
 	});
 
-	//업무  항목추가입력 버튼 누르면 나오는 것
-	$("#addTskDetail")
-			.click(
-					function() {
-						$(this).css("display", "none");
-						$(".js-more-task-li d-none").css("display", "block");
-						$(".js-start-date-layer js-more-task-li d-none").css(
-								"display", "block");
-						$(".js-end-date-layer js-more-task-li d-none").css(
-								"display", "block");
-						$(".js-priority-layer js-more-task-li").css("display",
-								"block");
-						$(".js-more-task-li").css("display", "block");
-					});
 
 	// 하위업무 생성
 	$("#addSubtskBtn").click(function() {
 		$("#addSubtsk").toggle();
+		$("#subtskStatusBtn").click(function () {
+			$("#subtskChange").toggle();
+		});
 
 	});
 

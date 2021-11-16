@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,11 +25,12 @@
 		</div>
 	</div>
 
+	<!-- <div class="js-post-nav card-item post-card-wrapper write2  side"></div> -->
 
+	<!-- 내 게시물 -->
 	<div class="main-container">
 		<div id="topSettingBar" class="main-header">
-			<div id="mainTop" class="title-1 d-none" data-code="bookmark"
-				style="display: block;">
+			<div id="mainTop" class="title-1" style="display: block">
 				<div>북마크</div>
 			</div>
 		</div>
@@ -40,164 +40,181 @@
 			<div id="allPostsLayer" class="me-post-wrap layer-scroll d-none"
 				style="display: block;">
 
-				<!-- 북마크 게시물 검색창 -->
+				<!-- 내 게시물 검색창 -->
 				<div class="my-search-area">
 					<div class="project-search-area all-file-header-type-3">
-						<div class="project-search">
-							<i class="icons-search"></i> <input id="allPostsSearchInput"
-								type="text" placeholder="검색어를 입력해주세요!"
-								class="project-search-input" autocomplete="off" maxlength="50">
-							<!-- 검색화면시 돌아가기 display:block-->
-							<button type="button"
+						<form name="frm" method="post">
+							<div class="project-search">
+								<i class="icons-search"></i> <input id="notiTtl" name="notiTtl"
+									type="text" placeholder="검색어를 입력해주세요!"
+									class="project-search-input" autocomplete="off" maxlength="50">
+								<input type="hidden" value="" name="mId" id="memId">
+							</div>
+						</form>
+						<!-- 검색화면시 돌아가기 display:block-->
+						<c:if test="${not empty param.notiTtl }">
+							<button id="backBtn" type="button"
 								class="js-search-back-button js-all-posts-back result-back-button d-none"
-								style="display: none;">
+								style="display: block">
 								<i class="icons-back"></i> 돌아가기
 							</button>
-						</div>
+						</c:if>
 					</div>
 				</div>
 
-				<!-- 북마크 게시물 -->
-				<div class="small-style-wrap-2">
-					<div class="feed-content me-content">
-						<div class="search-title-area">
-							<span id="allPostsFilterTitle" class="search-result-title">전체</span>
-							<!--전체 + 갯수 카운트-->
-							<span id="postCount" class="count-number">${fn:length(bookmarks)}</span>
-							<!--필터링 후 취소 버튼 노출 -->
-							<span id="cancleFilter" class="js-filter-reset filter-reset"
-								style="display: none;">취소</span>
-							<!--필터-->
-							<div id="allPostsFilter" class="me-filter-area"
-								style="display: block;">
-								<button id="filterBtn" type="button"
-									class="js-all-posts-filter-button filter-button">필터</button>
-								<ul id="filterSelect"
-									class="js-all-posts-filter-layer check-menu-popup my-popup"
-									style="display: none; position: absolute; top: 24px; right: 0;">
-									<li>
-										<div id="all"
-											class="js-tmpl-type js-total-tmpl-type check-menu-item on"
-											data-code="">전체</div>
-									</li>
-									<li>
-										<div id="write" class="js-tmpl-type check-menu-item"
-											data-code="1">글</div>
-									</li>
-									<li>
-										<div id="task" class="js-tmpl-type check-menu-item"
-											data-code="4">업무</div>
-									</li>
-									<li>
-										<div id="sche" class="js-tmpl-type check-menu-item"
-											data-code="3">일정</div>
-									</li>
-									<li>
-										<div id="todo" class="js-tmpl-type check-menu-item"
-											data-code="2">할일</div>
-									</li>
-								</ul>
+				<!-- 내 게시물 화면 -->
+				<c:if test="${ empty param.notiTtl }">
+					<div class="small-style-wrap-2" style="display: block;">
+						<div class="feed-content me-content">
+							<div class="search-title-area">
+								<span id="allPostsFilterTitle" class="search-result-title">전체</span>
+								<!--전체 + 갯수 카운트-->
+								<span class="count-number">${fn:length(bookmarks)}</span>
+								<!-- 필터 선택 후 취소 버튼 노출 display: inline-block -->
+								<span id="cancleFilter" class="js-filter-reset filter-reset"
+									style="display: none;">취소</span>
+								<!--필터-->
+								<div id="allPostsFilter" class="me-filter-area"
+									style="display: block;">
+									<button id="filterBtn" type="button"
+										class="js-all-posts-filter-button filter-button">필터</button>
+									<ul id="filterSelect"
+										class="js-all-posts-filter-layer check-menu-popup my-popup"
+										style="display: none; position: absolute; top: 24px; right: 0;">
+										<li>
+											<div id="all"
+												class="js-tmpl-type js-total-tmpl-type check-menu-item on"
+												data-code="">전체</div>
+										</li>
+										<li>
+											<div id="write" class="js-tmpl-type check-menu-item"
+												data-code="1">글</div>
+										</li>
+										<li>
+											<div id="task" class="js-tmpl-type check-menu-item"
+												data-code="4">업무</div>
+										</li>
+										<li>
+											<div id="sche" class="js-tmpl-type check-menu-item"
+												data-code="3">일정</div>
+										</li>
+										<li>
+											<div id="todo" class="js-tmpl-type check-menu-item"
+												data-code="2">할일</div>
+										</li>
+									</ul>
+								</div>
 							</div>
-						</div>
+							<ul id="myPostContentUl"
+								class="all-seach-list-type-1 post-group scroll-mask">
 
-						<ul id="myPostContentUl"
-							class="all-seach-list-type-1 post-group scroll-mask">
-
-							<!-- 반복 시작 -->
-							<c:forEach var="bookmarks" items="${bookmarks }">
-								<li id="myPostContent"
-									class="js-all-post-item post-search-item post-list-wrapper ${bookmarks.notiKnd}"
-									data-notiid="${bookmarks.notiId }"
-									data-kind="${bookmarks.notiKnd }">
-									<div class="fixed-kind">
-										<c:if test="${bookmarks.notiKnd=='text'}">
-											<c:set var="notiKnd" value="icons-write2" />
-										</c:if>
-										<c:if test="${bookmarks.notiKnd=='task'}">
-											<c:set var="notiKnd" value="icons-task" />
-										</c:if>
-										<c:if test="${bookmarks.notiKnd=='todo'}">
-											<c:set var="notiKnd" value="icons-todo" />
-										</c:if>
-										<c:if test="${bookmarks.notiKnd=='schedule'}">
-											<c:set var="notiKnd" value="icons-schedule" />
-										</c:if>
-										<i class="${notiKnd }"></i> <span class="post-type">${bookmarks.notiKnd}</span>
-									</div>
-									<div class="search-sub-text-wrap">
-										<div class="contents-cmt">
-											<p class="search-text-type-3 contents-tit">${bookmarks.notiTtl }</p>
-											<div class="post-list comment" style="display: none">
-												<i class="icons-comment2"></i> <span
-													class="js-post-comment-count"></span>
-											</div>
-										</div>
-										<p class="search-text-type-3 contents-project">
-											<em class="ellipsis"><i class="seach-type-2"></i>${bookmarks.prjTtl}</em>
-										</p>
-									</div>
-									<div class="post-list-right">
-										<div class="post-list name">${bookmarks.name }</div>
-										<div class="post-list date">
-											<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
-												value="${bookmarks.notiDttm}" />
-										</div>
-										
-										<!-- 글 종류에 따라 display :block-->
-										<div class="fixed-value">
-											<!-- 업무일 때 -->
-											<c:if test="${bookmarks.notiKnd=='task'}">
-												<c:if test="${notice.addList == 'withhold' }">
-													<span class="js-task-state state d-none hold"
-														style="display: block">보류</span>
-												</c:if>
-												<c:if test="${bookmarks.addList == 'progress' }">
-													<span class="js-task-state state d-none progress"
-														style="display: block">진행</span>
-												</c:if>
-												<c:if test="${bookmarks.addList == 'request' }">
-													<span class="js-task-state state d-none request"
-														style="display: block">요청</span>
-												</c:if>
-												<c:if test="${bookmarks.addList == 'complete' }">
-													<span class="js-task-state state d-none completion"
-														style="display: block">완료</span>
-												</c:if>
-												<c:if test="${bookmarks.addList == 'feedback' }">
-													<span class="js-task-state state d-none feedback"
-														style="display: block">피드백</span>
-												</c:if>
+								<!-- 반복 시작 -->
+								<c:forEach var="bookmarks" items="${bookmarks}">
+									<li
+										class="js-all-post-item post-search-item post-list-wrapper ${bookmarks.notiKnd}"
+										data-notiid="${bookmarks.notiId }" data-kind="${bookmarks.notiKnd}">
+										<div class="fixed-kind">
+											<!-- 글 class="icons-write2" 할일 class="icons-todo" 일정 class="icons-schedule"-->
+											<c:if test="${bookmarks.notiKnd=='text'}">
+												<c:set var="notiKnd" value="icons-write2" />
 											</c:if>
-											<c:if test="${bookmarks.notiKnd=='schedule'}">
-												<div class="p" style="display: inline-block">
-													<em class="date"> <fmt:parseDate
-															value="${fn:substring(bookmarks.addList, 0, 8)}"
-															pattern="yy/MM/dd" var="addDate" /> <fmt:formatDate
-															value="${addDate}" pattern="yy/MM/dd" /></em> <span> <fmt:parseDate
-															pattern="yy/MM/dd" value="${bookmarks.addList}"
-															var="addTime" /> <fmt:formatDate value="${addTime}"
-															pattern="HH:mm" />
-													</span>
-												</div>
+											<c:if test="${bookmarks.notiKnd=='task'}">
+												<c:set var="notiKnd" value="icons-task" />
 											</c:if>
 											<c:if test="${bookmarks.notiKnd=='todo'}">
-												<span class="js-task-state js-todo-state state request"
-													style="display: inline-block">${bookmarks.addList }%</span>
+												<c:set var="notiKnd" value="icons-todo" />
 											</c:if>
+											<c:if test="${bookmarks.notiKnd=='schedule'}">
+												<c:set var="notiKnd" value="icons-schedule" />
+											</c:if>
+											<i class="${notiKnd }"></i> <span class="post-type">${bookmarks.notiKnd}</span>
 										</div>
-									</div>
-								</li>
-							</c:forEach>
-						</ul>
+										<div class="search-sub-text-wrap">
+											<div class="contents-cmt">
+												<p class="search-text-type-3 contents-tit">${bookmarks.notiTtl }</p>
+												<!-- 댓글 있으면 표시-->
+												<div class="post-list comment" style="display: none">
+													<i class="icons-comment2"></i><span
+														class="js-post-comment-count">0</span>
+												</div>
+													<c:if test="${bookmarks.notiKnd == 'subtask'}">
+													<div class="post-list subtask" style="display: block">
+														<em class="subtask-item" style="display: inline-block">
+															<i class="icons-subtask"></i> <span
+															class="subtask-number"> </span>
+														</em>
+													</div>
+												</c:if>
+											</div>
+
+											<p class="search-text-type-3 contents-project">
+												<em class="ellipsis"><i class="seach-type-2"></i>${bookmarks.prjTtl }</em>
+											</p>
+										</div>
+										<div class="post-list-right">
+											<div class="post-list name">${bookmarks.name }</div>
+											<div class="post-list date">
+												<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+													value="${bookmarks.notiDttm}" />
+											</div>
+
+											<!-- 글 종류에 따라 display :block-->
+											<div class="fixed-value">
+												<!-- 업무일 때 -->
+												<c:if test="${bookmarks.notiKnd=='task'}">
+													<c:if test="${bookmarks.addList == 'withhold' }">
+														<span class="js-task-state state d-none hold"
+															style="display: block">보류</span>
+													</c:if>
+													<c:if test="${bookmarks.addList == 'progress' }">
+														<span class="js-task-state state d-none progress"
+															style="display: block">진행</span>
+													</c:if>
+													<c:if test="${bookmarks.addList == 'request' }">
+														<span class="js-task-state state d-none request"
+															style="display: block">요청</span>
+													</c:if>
+													<c:if test="${bookmarks.addList == 'complete' }">
+														<span class="js-task-state state d-none completion"
+															style="display: block">완료</span>
+													</c:if>
+													<c:if test="${bookmarks.addList == 'feedback' }">
+														<span class="js-task-state state d-none feedback"
+															style="display: block">피드백</span>
+													</c:if>
+												</c:if>
+												<c:if test="${bookmarks.notiKnd=='schedule'}">
+													<div class="p" style="display: inline-block">
+														<em class="date"> <fmt:parseDate
+                                                                  value="${fn:substring(bookmarks.addList, 0, 8)}" pattern="yy/MM/dd"
+                                                                  var="addDate" /> <fmt:formatDate
+                                                                  value="${addDate}" pattern="yy/MM/dd" /></em> <span>
+                                                               <fmt:parseDate pattern="yy/MM/dd"
+                                                                  value="${bookmarks.addList}" var="addTime" /> <fmt:formatDate
+                                                                  value="${addTime}" pattern="HH:mm" />
+                                                            </span>
+													</div>
+												</c:if>
+												<c:if test="${bookmarks.notiKnd=='todo'}">
+													<span class="js-task-state js-todo-state state request"
+														style="display: inline-block">${bookmarks.addList }%</span>
+												</c:if>
+											</div>
+										</div>
+									</li>
+								</c:forEach>
+								<!-- 반복 끝 -->
+							</ul>
+						</div>
 					</div>
-				</div>
-					
-					<!-- 내 게시물 검색 화면 -->
+				</c:if>
+
+				<!-- 내 게시물 검색 화면 -->
 				<!-- 검색시 display:block -->
-				
+				<c:if test="${not empty param.notiTtl }">
 					<div id="myPostSearch"
 						class="js-post-search-result all-search-section d-none me-post-wrap"
-						style="display: none">
+						style="display: block">
 						<div class="all-search-container">
 							<div class="all-search-content">
 								<div id="postSearchArea" class="search-result-group">
@@ -250,34 +267,17 @@
 							</div>
 						</div>
 					</div>
-
+				</c:if>
 			</div>
 		</div>
 	</div>
-
 	<script>
-		// 북마크 모달창 (팝업)
-		$("#myPostContentUl > li").click(function(e) {
-			if ($(e.currentTarget).hasClass("highlight")) {
-				console.log($(e.currentTarget));
-				$(e.currentTarget).removeClass("highlight");
-				$("#postPopup").css("display", "none");
-			} else if (!$(e.currentTarget).hasClass("highlight")) {
-				$("#myPostContentUl > li").removeClass("highlight");
-				$(e.currentTarget).addClass("highlight");
-				$("#postPopup").css("display", "block");
-
-				popUpDatail($(this));
-
-			}
-		});
-
 		// 게시글 종류 필터
 		$("#filterBtn").on("click", function() {
 			$("#filterBtn").addClass("active");
 			$("#filterSelect").toggle();
 		});
-
+		
 		// 전체
 		$("#all").button().click(function(event) {
 			$("#write, #task, #sche, #todo").removeClass("on");
@@ -286,7 +286,7 @@
 			var count = $("#myPostContentUl").find('li:visible').length;
 			console.log(count + "");
 		});
-
+		
 		// 글
 		$("#write").button();
 		$("#write").click(function(event) {
@@ -298,9 +298,9 @@
 			var count = $("#myPostContentUl").find('li:visible').length;
 			console.log(count + "====");
 			$(".count-number").html(count);
-
+			
 		});
-
+		
 		// 업무
 		$("#task").button();
 		$("#task").click(function(event) {
@@ -312,9 +312,9 @@
 			var count = $("#myPostContentUl").find('li:visible').length;
 			console.log(count + "====");
 			$(".count-number").html(count);
-
+			
 		});
-
+		
 		// 일정
 		$("#sche").button();
 		$("#sche").click(function(event) {
@@ -327,7 +327,7 @@
 			console.log(count + "====");
 			$(".count-number").html(count);
 		});
-
+		
 		// 할일
 		$("#todo").button();
 		$("#todo").click(function(event) {
@@ -354,6 +354,22 @@
 				$(".count-number").html("${fn:length(bookmarks)}");
 			});
 		}
+
+		// 모달창 (팝업)
+		$("#myPostContentUl > li").click(function(e) {
+			if ($(e.currentTarget).hasClass("highlight")) {
+				console.log($(e.currentTarget));
+				$(e.currentTarget).removeClass("highlight");
+				$("#postPopup").css("display", "none");
+			} else if (!$(e.currentTarget).hasClass("highlight")) {
+				$("#myPostContentUl > li").removeClass("highlight");
+				$(e.currentTarget).addClass("highlight");
+				$("#postPopup").css("display", "block");
+
+				popUpDatail($(this));
+
+			}
+		});
 
 		// 모달창 호출 (ajax)
 		function popUpDatail(li) {
@@ -412,14 +428,9 @@
 			}
 		};
 		
-		//검색
-		  $("#allPostsSearchInput").keyup(function() {
-                var k = $(this).val();
-                console.log(k);
-                $("#myPostContent").hide();
-                $("#myPostSearch > li:contains('" + k + "')").shoW();
-            })
-        })
+		
 	</script>
+
+
 </body>
 </html>
