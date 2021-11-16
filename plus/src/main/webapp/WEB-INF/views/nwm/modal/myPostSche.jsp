@@ -229,8 +229,10 @@ pageContext.setAttribute("replaceChar", "\n");
 						<span class="emoji-count-area"> <span class="emoji-count"></span>
 						</span>
 					</div>
+					<!-- 북마크 표시 -->
 					<div class="bottom-button-area">
-						<button class="js-post-bookmark post-bottom-button ">
+					
+						<button class="js-post-bookmark post-bottom-button on">
 							<i class="icon-bookmark"></i> <span>북마크</span>
 						</button>
 					</div>

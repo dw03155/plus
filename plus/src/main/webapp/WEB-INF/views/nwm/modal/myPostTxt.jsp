@@ -120,6 +120,8 @@ pageContext.setAttribute("replaceChar", "\n");
 						<span class="emoji-count-area"> <span class="emoji-count"></span>
 						</span>
 					</div>
+					
+					<!-- 북마크 표시 -->
 					<div class="bottom-button-area">
 					<c:if test="${texts.bmyn == '1' }">
 						<button class="js-post-bookmark post-bottom-button on">
