@@ -11,7 +11,7 @@
 	<!-- 새 프로젝트 : PM 삽입-->
 	<insert id="prjPMInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">
 		insert into prj_parti(prj_id, mem_id, prj_perm)
-		values ((select max(prj_id) from project), #{memId}, 'PM')
+		values ((select max(prj_id) from project), #{memId}, 'pm')
 	</insert>
 
 	<!-- 메뉴 : 카테고리 이름 출력-->
@@ -53,14 +53,14 @@
 		select a.prj_id, a.prj_ttl, a.prj_cntn, b.mem_id, c.name, c.wkpo,
     		(select count(*) from prj_parti where prj_id = a.prj_id) as partiCnt,
     		(case when exists
-    				(select * from member where mem_id = #{memId} and co_url = #{coUrl} and mem_perm = 'GUEST')
+    				(select * from member where mem_id = #{memId} and co_url = #{coUrl} and mem_perm = 'guest')
     				then 0 else 1 end) as partiyn
 		from project a, prj_parti b, member c 
     	where a.prj_knd ='C'
         	and a.prj_id = b. prj_id
         	and a.co_url = #{coUrl}
         	and b.mem_id = c.mem_id
-        	and b.prj_perm = 'PM'
+        	and b.prj_perm = 'pm'
         <!-- 프로젝트 명으로 검색 -->
 		<if test="prjTtl != null and prjTtl != ''">
 			and a.prj_ttl like '%' || #{prjTtl} || '%'
@@ -76,7 +76,7 @@
             and d.prj_id = e.prj_id
             and d.co_url = #{coUrl}
 			and e.mem_id = f.mem_id
-            and e.prj_perm = 'PM'
+            and e.prj_perm = 'pm'
             and d.prj_open_perm = 'all'
         <!-- 프로젝트 명으로 검색 -->
 		<if test="prjTtl != null and prjTtl != ''">
@@ -93,7 +93,7 @@
             and g.prj_id = h. prj_id
             and g.co_url = #{coUrl}
             and h.mem_id = i.mem_id
-            and h.prj_perm = 'PM'
+            and h.prj_perm = 'pm'
 			and g.prj_open_perm = 'part'
             and #{memId} IN (select k.mem_id
                        from project j, prj_parti k
@@ -290,7 +290,7 @@
 		where a.mem_id = b.mem_id
 			and a.mem_id = c.mem_id
 			and b.prj_id = #{prjId}
-			and b.prj_perm = 'PM'
+			and b.prj_perm = 'pm'
 		order by a.mem_id asc
 	</select>
 
@@ -300,7 +300,7 @@
 		where a.mem_id = b.mem_id
 			and a.mem_id = c.mem_id
 			and b.prj_id = #{prjId}
-			and b.prj_perm = 'USER'
+			and b.prj_perm = 'user'
 		order by a.mem_id asc
 	</select>
 
@@ -310,7 +310,7 @@
 		where a.mem_id = b.mem_id
 			and a.mem_id = c.mem_id
 			and b.prj_id = #{prjId}
-			and b.prj_perm = 'GUEST'
+			and b.prj_perm = 'guest'
 		order by a.mem_id asc
 	</select>
 	<!-- <resultMap id="tskList" type="co.plus.prj.pnw.vo.PNWVO"> <result property="" 
@@ -401,26 +401,6 @@
 
 	<!-- 게시글 삭제 -->
 	<delete id="nwDelete" parameterType="co.plus.prj.pnw.vo.PNWVO">
-			select * from text
-	</delete>
-
-	<!-- 댓글 목록 -->
-	<select id="replyList" resultType="co.plus.prj.pnw.vo.PNWVO">
-			select * from text
-	</select>
-
-	<!-- 댓글 입력 -->
-	<insert id="replyInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">
-			select * from text
-	</insert>
-
-	<!-- 댓글 수정 -->
-	<update id="replyUpdate" parameterType="co.plus.prj.pnw.vo.PNWVO">
-			select * from text
-	</update>
-
-	<!-- 댓글 삭제 -->
-	<delete id="replyDelete" parameterType="co.plus.prj.pnw.vo.PNWVO">
 			select * from text
 	</delete>
 
