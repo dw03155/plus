@@ -764,7 +764,7 @@
 			datatype: "json",
 			success: function(data){
 				var $memImg = data.memImg;
-				var imgPath = "/userImg/"+$memImg + "?heigth=50";
+				var imgPath = "/userimg/"+$memImg + "?heigth=50";
 				$("#memImgSomini").attr("src",imgPath);
 				$("#memImgmini").attr("src",imgPath);
 				$("#memImgBig").attr("src",imgPath);
@@ -879,7 +879,7 @@
 								datatype: "json",
 								success: function(data){
 									var $memImg = data.memImg;
-									var imgPath = "/userImg/"+$memImg + "?heigth=50";
+									var imgPath = "/userimg/"+$memImg + "?heigth=50";
 									$("#memImgSomini").attr("src",imgPath);
 									$("#memImgmini").attr("src",imgPath);
 									$("#memImgBig").attr("src",imgPath);
@@ -1200,6 +1200,9 @@
 			if (hiddenpwd != myPwd){
 				$("#message").text("현재 비밀번호가 일치하지않습니다.")
 						     .css("color","red");
+			}else if(pwd == "" || newPwd == ""){
+				$("#message").text("새로운 비밀번호를 입력해주세요.")
+			     			.css("color","red");
 			}else{
 				if(pwd == newPwd){
 					$.ajax({
