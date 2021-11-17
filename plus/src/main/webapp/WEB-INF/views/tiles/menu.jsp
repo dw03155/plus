@@ -42,7 +42,7 @@
 				</div>
 				<div class="menu-accordion" style="display: block">
 					<ul class="menu-accordion-list">
-						<c:if test="${memPerm ne 'GUEST'}">
+						<c:if test="${memPerm ne 'guest'}">
 							<li data-code="task" class="left-menu-item"><a
 								href="allTask.do"><i class="ico-task"></i>전체 업무</a></li>
 							<li data-code="schd" class="left-menu-item"><a

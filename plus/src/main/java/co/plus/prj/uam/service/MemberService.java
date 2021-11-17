@@ -80,7 +80,6 @@ public interface MemberService {
 	public int prjNameUpdate(MemberVO vo);
 	
 	//사용자 일괄 등록
-	public int AllMemberInsert1(MemberVO vo);
 	public int AllMemberInsert2(MemberVO vo);
 	
 	//회사프로젝트list
