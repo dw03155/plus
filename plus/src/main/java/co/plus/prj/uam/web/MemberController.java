@@ -507,6 +507,8 @@ public class MemberController {
 	@PutMapping("/AllMemberInsert2.do")
 	@ResponseBody
 	public MemberVO AllMemberInsert2(@RequestBody MemberVO vo) {
+		System.out.println("일괄등록 vo : " + vo);
+		service.AllMemberInsert1(vo);
 		service.AllMemberInsert2(vo);
 		return vo;
 	}

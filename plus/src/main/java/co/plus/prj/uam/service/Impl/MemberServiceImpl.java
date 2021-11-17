@@ -250,8 +250,10 @@ public class MemberServiceImpl implements MemberService {
 	// 사용자 일괄 등록
 	@Override
 	public int AllMemberInsert2(MemberVO vo) {
-		map.AllMemberInsert1(vo);
-		return map.AllMemberInsert2(vo);
+		/* map.AllMemberInsert1(vo); */
+		int a = map.AllMemberInsert2(vo);
+		return a;
+		
 	}
 														//카테고리
 	// 공개 카테고리 조회
@@ -284,6 +286,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<PNWVO> subTaskFileList(PNWVO vo) {
 		return map.subTaskFileList(vo);
+	}
+	@Override
+	public int AllMemberInsert1(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return map.AllMemberInsert1(vo);
 	}
 	
 	

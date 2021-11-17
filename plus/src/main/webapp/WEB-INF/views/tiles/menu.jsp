@@ -104,7 +104,7 @@
 			</div>
 		</div>
 		<!-- 관리자 메뉴 -->
-		<c:if test="${memPerm eq 'ADMIN'}">
+		<c:if test="${memPerm eq 'admin'}">
 			<ul id="leftBottomUl" class="menu-group admin">
 				<li data-code="manageradmin" class="d-none left-menu-item"
 					style="display: block"><a id="managerAdmin"
