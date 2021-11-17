@@ -2,11 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<!DOCTYPE html>
-<html>
-<head>
-<title>플러스(Plus)</title>
-<meta charset="UTF-8">
+
 <script>
 <!-- Id가 없을때 로그인화면으로 돌아감 -->
 	var memId = "${sessionScope.memId}";
@@ -16,8 +12,6 @@
 		}
 	});
 </script>
-</head>
-<body>
 	<div class="main-container">
 		<form id="sessionNo" action="home.do"></form>
 
@@ -71,15 +65,7 @@
 					<div class="home-menu-right">
 						<a href="#" id="projectOrderButton"
 							class="js-project-order-button project-order-button">
-							<div id="projectOrderList"
-								class="js-project-order-layer menu-popup-layer-1"
-								style="display: none">
-								<ul class="menu-popup-t-1">
-									<li class="order-item on"><i></i><span>최신순</span></li>
-									<li class="order-item"><i></i><span>오름차순(ㄱ~ㅎ)</span></li>
-									<li class="order-item"><i></i><span>내림차순 (ㅎ~ㄱ)</span></li>
-								</ul>
-							</div> <i class="menu-select-icon-type-3"></i>
+							<i class="menu-select-icon-type-3"></i>
 							<div class="menu-select-icon-type-4-text">정렬</div>
 						</a> <a href="#" id="totalProjectEditButton"
 							class="project-edit-button">
@@ -109,10 +95,11 @@
 											<p class="project-class">즐겨찾기</p>
 										</div>
 										<c:forEach var="favorPrj" items="${favorPrjs}">
+													<li class="project-item ui-state-default"><a href="#">
 											<form action="prjHome.do" method="post">
-												<li class="project-item ui-state-default"><a href="#">
-														<input name="prjId" type="hidden"
-														value="${favorPrj.prjId}" /> <!-- 체크버튼 flow-content-chk-1  li태그 active 추가(갯수 셀때, li 값 넘길때)-->
+												<input name="prjId" type="hidden" value="${favorPrj.prjId}" />
+													</form>
+														<!-- 체크버튼 flow-content-chk-1  li태그 active 추가(갯수 셀때, li 값 넘길때)-->
 														<button class="edit-check flow-content-chk"
 															style="display: none"></button>
 														<div
@@ -150,7 +137,6 @@
 															</div>
 														</div>
 												</a></li>
-											</form>
 										</c:forEach>
 									</c:if>
 									<c:if test="${not empty noPrjs}">
@@ -159,8 +145,10 @@
 											<p class="project-class join">참여중</p>
 										</div>
 										<c:forEach var="noPrj" items="${noPrjs}">
-											<form action="prjHome.do" method="post">
 												<li class="project-item ui-state-default"><a href="">
+											<form action="prjHome.do" method="post">
+												<input name="prjId" type="hidden" value="${noPrj.prjId}" />
+													</form>
 														<!-- 업데이트된 글 개수 --> <input name="prjId" type="hidden"
 														value="${noPrj.prjId}" /> <!-- 체크버튼 -->
 														<button class="edit-check flow-content-chk"
@@ -200,7 +188,6 @@
 															</div>
 														</div>
 												</a></li>
-											</form>
 										</c:forEach>
 									</c:if>
 								</ul>
@@ -215,9 +202,10 @@
 										<p class="project-class">즐겨찾기</p>
 									</div>
 									<c:forEach var="favorPrj" items="${favorPrjs}">
-										<form action="prjHome.do" method="post">
-											<input name="prjId" type="hidden" value="${favorPrj.prjId}" />
 											<li class="project-item ui-state-default"><a href="">
+										<form action="prjHome.do" method="post">
+												<input name="prjId" type="hidden" value="${favorPrj.prjId}" />
+													</form>
 													<!-- 체크버튼 -->
 													<button class="edit-check flow-content-chk d-none"
 														style="display: none"></button>
@@ -250,7 +238,6 @@
 														</c:if>
 													</div>
 											</a></li>
-										</form>
 									</c:forEach>
 								</c:if>
 								<c:if test="${not empty noPrjs}">
@@ -259,9 +246,10 @@
 										<p class="project-class join">참여중</p>
 									</div>
 									<c:forEach var="noPrj" items="${noPrjs}">
-										<form action="prjHome.do" method="post">
-											<input name="prjId" type="hidden" value="${noPrj.prjId}" />
 											<li class="project-item ui-state-default"><a href="">
+											<form action="prjHome.do" method="post">
+												<input name="prjId" type="hidden" value="${noPrj.prjId}" />
+													</form>
 													<!-- 체크버튼 -->
 													<button class="edit-check flow-content-chk d-none"
 														style="display: none"></button>
@@ -294,7 +282,6 @@
 														</c:if>
 													</div>
 											</a></li>
-										</form>
 									</c:forEach>
 								</c:if>
 							</ul>
@@ -304,7 +291,7 @@
 			</div>
 		</div>
 
-		<script>
+	<script>
 			// 바둑판 타입 리스트
 			$("#BoardTypeButton").click(function() {
 				$("#BoardTypeButton").addClass("on");
@@ -328,6 +315,42 @@
 			});
 			
 			
+			//별 클릭시 
+			$("project-star").click(function(e){
+				e.preventDefault();
+				e.stopPropagation();
+				e.stopImmediatePropagation();
+				
+				if($(e.target).hasClass("flow-content-star-un")){
+					$(e.target).removeClass("flow-content-star-un");
+					$(e.target).addClass("flow-content-star");
+					$.ajax({
+						url : "prjFavorite.do",
+						type : "post",
+						dataType : 'json',
+						data : {"prjId" : $(e.target).closest("li").prev().val(), "memId" : $memId },
+						success : function(data) {
+							$("#successWrap").find("div:last").text("수정되었습니다.");
+							$("#successWrap").children("div").fadeIn(1000).delay(1500).fadeOut(1000);
+						}
+					});
+				}else{
+					$(e.target).addClass("flow-content-star-un");
+					$(e.target).removeClass("flow-content-star");
+					$.ajax({
+						url : "prjNoFavor.do",
+						type : "post",
+						dataType : 'json',
+						data : {"prjId" : $(e.target).closest("li").prev().val(), "memId" : $memId },
+						success : function(data) {
+							$("#successWrap").find("div:last").text("수정되었습니다.");
+							$("#successWrap").children("div").fadeIn(1000).delay(1500).fadeOut(1000);
+						}
+					});
+				}	
+			});
+			
+			
 			// 프로젝트 설정 메뉴 열려있을 때 체크버튼 클릭하기 / 프로젝트 이동하기
 			$("#projectHomeLayer").find("li > a").click(function(e) {
 				e.preventDefault();
@@ -336,6 +359,20 @@
 						$(e.currentTarget).find(".edit-check").removeClass("flow-content-chk");
 						$(e.currentTarget).find(".edit-check").addClass("flow-content-chk-1");
 						$(e.currentTarget).closest("li").addClass("active");
+						
+						$(".select-clear").click(function(){ // 선택취소 클릭 시
+							$(".edit-check").removeClass("flow-content-chk-1");
+							$(".edit-check").addClass("flow-content-chk");
+						});
+						
+						$().on("click", '#delete', function() { // 삭제버튼 클릭 시
+							var chk_id = [];
+							$(".chk:checked").each(function(){
+								var id = $(this).val();
+								chk_id.push(id);
+							});
+							location.href="delete.do?id="+chk_id;
+						});
 					}else {															 		// 체크 했을 때
 						$(e.currentTarget).find(".edit-check").addClass("flow-content-chk");
 						$(e.currentTarget).find(".edit-check").removeClass("flow-content-chk-1");
@@ -344,10 +381,9 @@
 					var checkCnt = $(".flow-content-chk-1").length; // 프로젝트 선택 후 개수세기
 					$("#totalEditSelect span").empty();
 					$("#totalEditSelect span").text(checkCnt+"개 프로젝트가 선택되었습니다.");
-					
-					{}
 				}else{
-					$(e.currentTarget).closest("form").submit(); // 프로젝트 이동하기
+					console.log(e.currentTarget);
+					$(e.currentTarget).children("form").submit(); // 프로젝트 이동하기
 				}
 			});
 			
@@ -361,5 +397,3 @@
 			});
 			
 		</script>
-</body>
-</html>
