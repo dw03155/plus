@@ -130,6 +130,18 @@
 						dataType: "json",
 						success: function(){
 							alert("로고를 변경했습니다");
+							var coUrl = "${sessionScope.coUrl}";
+							$.ajax({
+								url: "getLogo.do?coUrl="+coUrl,
+								type: "get",
+								datatype: "json",
+								success: function(data){
+									var $coLogo = data.coLogo;
+									var logoPath = "/logo/"+$coLogo+ "?heigth=50";
+									$("#coLogoImg").attr("src",logoPath);
+									console.log($coLogo);
+								}
+							})
 						},
 						error:function(){
 							alert(${message });

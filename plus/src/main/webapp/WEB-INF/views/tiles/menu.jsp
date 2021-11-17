@@ -2,8 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!DOCTYPE html>
-<html>
 <head>
 <meta charset="UTF-8">
 </head>
@@ -12,7 +10,7 @@
 		<div class="logo-area">
 			<a href="myProject.do" class="js-logo logo-box">
 				<h1 class="logo-1">
-					<img src="/img/plus.png?heigth:50" alt="flow" id="logoImg" />
+					<img src="/img/plus.png?heigth:50" alt="flow" id="logoImg"/>
 				</h1>
 			</a>
 		</div>
