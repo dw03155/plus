@@ -56,15 +56,14 @@ public class NoticeWritingVO {
 	private Date scheBgnDt;			// 일정 시작일
 	private Date scheEndDt;			// 일정 마감일
 	
-	
-	// 댓글
-	private String repId;			// 댓글 번호
-	private String 
-	
 	private String addList;			// 게시글 부가정보
 	private String subtskTtl;   	// 하위업무제목
 	
+	// YN
 	private String bmyn;			// 북마크 유무
 	private String subtskyn;		// 하위업무 유뮤
+	
 
+	private String prjColor; 		// 프로젝트 색상
 }
+

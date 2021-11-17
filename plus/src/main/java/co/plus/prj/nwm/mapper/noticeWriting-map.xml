@@ -128,6 +128,19 @@
 		and 	c.noti_id = #{notiId}
 	</select>
 	
+	
+	<!-- 프로젝트 색 표시 -->
+	<select id="prjColorMyPost" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select  p.prj_ttl,
+		(case when exists (select * from prj_parti where mem_id = #{memId} and prj_id = a.prj_id)
+                        then (select prj_color from prj_parti where mem_id = #{memId} and prj_id = a.prj_id) 
+                		else (select prj_color from prj_parti where prj_perm = 'pm' and prj_id = a.prj_id) 
+                end) as prj_color
+		from  	board a , project p
+		where  a.noti_id = #{notiId}
+		and 	p.prj_id = a.prj_id
+	</select> 
+	
 	<!-- 내 게시물 목록 -> 업무 상세보기(팝업) -->
 	<select id="myPostTsk"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
@@ -158,7 +171,7 @@
 	<select id="myPostSche"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
 		select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, d.name, c.noti_dttm,
-		(case when exists(select * from bookmark where noti_id =a.noti_id and mem_id = #{memId})
+		(case when exists(select * from bookmark where noti_id =a.noti_id and mem_id = a.mem_id)
             then 1
             else 0
             end) as bmyn

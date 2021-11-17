@@ -11,7 +11,7 @@ pageContext.setAttribute("replaceChar", "\n");
 <div class="post-popup-header card-popup-header d-none"
 	style="display: block;">
 	<h3 class="card-popup-title">
-		<i id="projectTitleColor" class="project-color color-code-4"></i> <span
+		<i id="projectTitleColor" class="project-color color-code-${prjcolorsche.prjColor}"></i> <span
 			class="js-project-title-button">${schedules.prjTtl}</span> <span
 			class="subtask-title up-task-title js-up-task-button"
 			data-up-task-project-srno="" data-up-task-post-srno=""

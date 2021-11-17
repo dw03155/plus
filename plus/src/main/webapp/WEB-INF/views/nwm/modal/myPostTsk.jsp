@@ -15,7 +15,7 @@ pageContext.setAttribute("replaceChar", "\n");
 
 	<!-- 게시물 제목 -->
 	<h3 class="card-popup-title">
-		<i id="projectTitleColor" class="project-color color-code-4"></i> <span
+		<i id="projectTitleColor" class="project-color color-code-${prjcolortsk.prjColor}"></i> <span
 			class="js-project-title-button">${tasks.prjTtl}</span> <span
 			class="subtask-title up-task-title js-up-task-button"> </span>
 	</h3>

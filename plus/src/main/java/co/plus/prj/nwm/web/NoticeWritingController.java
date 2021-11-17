@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.plus.prj.nwm.service.NoticeWritingService;
 import co.plus.prj.nwm.vo.NoticeWritingVO;
+import co.plus.prj.pnw.vo.PNWVO;
 
 @Controller
 public class NoticeWritingController {
@@ -27,6 +28,7 @@ public class NoticeWritingController {
 	@RequestMapping("/detailTaskList.do") // 전체 업무 목록 내 항목들 출력
 	String detailTaskList(HttpSession session, Model model, NoticeWritingVO vo) {
 		vo.setCoUrl((String) session.getAttribute("coUrl"));
+		System.out.println(vo);
 		model.addAttribute("dtasks", nwDao.detailTaskList(vo));
 		return "nwm/allTask";
 	}
@@ -49,27 +51,31 @@ public class NoticeWritingController {
 	public String myPostTxt(HttpSession session, Model model, NoticeWritingVO vo) {
 		vo.setMemId((String) session.getAttribute("memId"));
 		model.addAttribute("texts", nwDao.myPostTxt(vo));
+	    model.addAttribute("prjcolortxt", nwDao.prjColorMyPost(vo)); 
 		return "nwm/modal/myPostTxt";
 	}
 
 	@RequestMapping("/myPostTsk.do") // 내 게시물 목록 -> 업무 상세보기(팝업)
 	public String myPostTsk(HttpSession session, Model model, NoticeWritingVO vo) {
+		vo.setMemId((String) session.getAttribute("memId"));
 		vo.setCoUrl((String) session.getAttribute("coUrl"));
 		model.addAttribute("tasks", nwDao.myPostTsk(vo));
+		model.addAttribute("prjcolortsk", nwDao.prjColorMyPost(vo));
 		return "nwm/modal/myPostTsk";
 	}
 
 	@RequestMapping("/myPostSubtsk.do") // 내 게시물 목록 -> 하위업무 상세보기(팝업)
 	public String myPostSubtsk(HttpSession session, Model model, NoticeWritingVO vo) {
 		vo.setMemId((String) session.getAttribute("memId"));
-		model.addAttribute("subtasks", nwDao.myPostSubtsk(vo));
+		model.addAttribute("subtasks", nwDao.bookMarkList(vo));
 		return "nwm/modal/myPostSubtsk";
 	}
 
 	@RequestMapping("/myPostSche.do") // 내 게시물 목록 -> 일정 상세보기(팝업)
-	public String myPostSche(HttpSession session,Model model, NoticeWritingVO vo) {
+	public String myPostSche(HttpSession session, Model model, NoticeWritingVO vo) {
 		vo.setMemId((String) session.getAttribute("memId"));
 		model.addAttribute("schedules", nwDao.myPostSche(vo));
+		model.addAttribute("prjcolorsche", nwDao.prjColorMyPost(vo));
 		return "nwm/modal/myPostSche";
 	}
 
@@ -77,6 +83,7 @@ public class NoticeWritingController {
 	public String myPostTodo(HttpSession session, Model model, NoticeWritingVO vo) {
 		vo.setMemId((String) session.getAttribute("memId"));
 		model.addAttribute("todos", nwDao.myPostTodo(vo));
+		model.addAttribute("prjcolortodo", nwDao.prjColorMyPost(vo));
 		return "nwm/modal/myPostTodo";
 	}
 

@@ -11,7 +11,7 @@ pageContext.setAttribute("replaceChar", "\n");
 <div class="post-popup-header card-popup-header d-none"
 	style="display: block;">
 	<h3 class="card-popup-title">
-		<i id="projectTitleColor" class="project-color color-code-4"></i> <span
+		<i id="projectTitleColor" class="project-color color-code-${prjcolortxt.prjColor}"></i> <span
 			class="js-project-title-button">${texts.prjTtl}</span> <span
 			class="subtask-title up-task-title js-up-task-button"> </span>
 	</h3>
@@ -58,8 +58,9 @@ pageContext.setAttribute("replaceChar", "\n");
 							</button>
 						<input name="prjId" type="hidden" value="${texts.prjId }">
 					</form>
+					<!-- 상단 고정 -->
 					<button id="pinToTopBnt"
-						class="js-pin-post fixed-btn js-pin-authority "
+						class="js-pin-post fixed-btn js-pin-authority"
 						style="display: block">
 						<!-- fixed-btn on class -->
 						<span class="blind">상단 고정 등록</span>
@@ -115,21 +116,26 @@ pageContext.setAttribute("replaceChar", "\n");
 
 			<div class="post-bottom-area">
 				<div class="post-bottom-menu js-reaction-bookmark">
-					
-					<!-- 북마크 표시 -->
+					<div class="js-emoji-group-layer emoji-area">
+						<ul class="emoji-group"></ul>
+						<span class="emoji-count-area"> <span class="emoji-count"></span>
+						</span>
+					</div>
 					<div class="bottom-button-area">
-					<c:if test="${texts.bmyn == '1' }">
-						<button class="js-post-bookmark post-bottom-button on">
+						<button class="js-post-bookmark post-bottom-button ">
 							<i class="icon-bookmark"></i> <span>북마크</span>
 						</button>
-					</c:if>
-					<c:if test="${texts.bmyn == '0' }">
-						<button class="js-post-bookmark post-bottom-button">
-							<i class="icon-bookmark"></i> <span>북마크</span>
-						</button>
-					</c:if>
 					</div>
 				</div>
+				<div class="cmt-read-wr">
+					<div class="comment-count-area">
+						<span>댓글</span> <span class="comment-count">0</span>
+					</div>
+					<div class="js-read-check-button read-confirmation">
+						<span>읽음</span> <span class="confirmation-number">2</span>
+					</div>
+				</div>
+
 			</div>
 			<!-- //post-card-container -->
 		</div>
@@ -176,7 +182,7 @@ pageContext.setAttribute("replaceChar", "\n");
 	// 모달창 닫기 버튼
 	$(".btn-close").click(function() {
 		$("#postPopup").css("display", "none");
-		$(".text").removeClass("highlight");
+		$(".task-item").removeClass("highlight");
 	});
 	
 	// 더보기 버튼 (수정, 삭제)

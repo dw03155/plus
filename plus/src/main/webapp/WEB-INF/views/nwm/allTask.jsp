@@ -5,13 +5,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<!DOCTYPE html>
-<html>
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
 </head>
-<body>
+
 	<!-- 전체 업무 상세보기 (모달창) -->
 	<div class="back-area temp-popup" tabindex="0" id="postPopup"
 		data-code="VIEW" style="display: none;">
@@ -425,6 +423,3 @@
 		
 	</script>
 
-
-</body>
-</html>

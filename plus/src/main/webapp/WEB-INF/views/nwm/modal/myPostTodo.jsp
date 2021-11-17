@@ -12,7 +12,7 @@
 		style="display: block;">
 		<h3 class="card-popup-title">
 			<c:forEach var="todos[i]" items="${todos }" begin="0" end="0">
-				<i id="projectTitleColor" class="project-color color-code-4"></i>
+				<i id="projectTitleColor" class="project-color color-code-${prjcolortodo.prjColor}"></i>
 				<span class="js-project-title-button">${todos[0].prjTtl }</span>
 				<span class="subtask-title up-task-title js-up-task-button">
 				</span>
