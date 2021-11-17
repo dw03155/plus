@@ -403,7 +403,7 @@ public class MemberController {
 		public Map imgUpload(MultipartFile[] userImgFile, HttpSession session, HttpServletRequest request) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			String root=request.getSession().getServletContext().getRealPath("/");
-			String path=root+"\\userimg\\";
+			String path=root+"\\userImg\\";
 			
 			File Folder = new File(path);
 			String memId = (String) session.getAttribute("memId");

@@ -747,7 +747,7 @@
 			sessionNull.submit();
 		}
 	}); */
-	/* $(function(){
+	 $(function(){
 		var memId = "${sessionScope.memId}";
 		$.ajax({
 			url: "getMemberImg.do?memId="+memId,
@@ -762,7 +762,7 @@
 				console.log($memImg);
 			}
 		})
-	}) */
+	}) 
 	
 	//회원상태 가져오기
 	$(function(){
@@ -826,15 +826,15 @@
 		});
 	});
 	
-	/* $('#editorProfilePhotoBtn').on("click",function(){
+	 $('#editorProfilePhotoBtn').on("click",function(){
 		$('#userImg').css('display','block');
 		
 	});
 	$('#userImgX').on("click",function(){
 		$('#userImg').css("display","none");
-	}); */
+	}); 
 	
-	/* //파일 업로드
+	 //파일 업로드
 	$("#userImgBtn").on("click",function(e){
 		var formData = new FormData();
 		var fileName = null;
@@ -877,7 +877,7 @@
 			}); //end of $.ajax
 		
 		
-	}); */
+	});
 	
 	//모달 자동 닫기
 		 $(document).mouseup(function (e){
