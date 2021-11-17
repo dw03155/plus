@@ -132,7 +132,7 @@
 			<button type="button" id="accountTopButton" class="btn-profile">
 				<span id="ProfileImg" class="profile-area"
 					style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;); overflow: hidden;">
-					<img id="memImgSomini" style="height: 100%;  border-radius: 4px; transform: translate(50, 50); object-fit: cover">
+					<img id="memImgSomini" style="height: 100%; width: 100%; border-radius: 4px; transform: translate(50, 50); object-fit: cover">
 					</span>
 				<img id="mem_st_icon" alt="on" src="/img/status_icn/offline.png" class="st_icn">
 			</button>
@@ -141,7 +141,7 @@
 				<li class="user-area">
 					<p class="js-profile user-img"
 						style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;);  overflow: hidden;">
-						<img id="memImgmini" style="height: 100%; border-radius: 4px; transform: translate(50, 50); object-fit: cover">
+						<img id="memImgmini" style="height: 100%; width: 100%; border-radius: 4px; transform: translate(50, 50); object-fit: cover">
 						</p>
 					<div class="user-info">
 						<strong id="sessionName" class="js-user-name js-mouseover">${sessionScope.name}</strong> <span>이용중</span>
@@ -170,7 +170,7 @@
 						<div class="my-layer-header-1">
 							<a href="#" id="mySettingPopupCloseBtn" class="my-button-close-1"></a>
 							<div id="myPicture" class="my-prop-picture" style="overflow: hidden;">
-									<img id="memImgBig" style="height: 100%; border-radius: 4px; transform: translate(50, 50); object-fit: cover">
+									<img id="memImgBig" style="height: 100%; width: 100%; border-radius: 4px; transform: translate(50, 50); object-fit: cover">
 							</div>
 								<a id="editorProfilePhotoBtn" href="#" class="my-button-1" style="left: 111px; bottom: -67px;"></a>
 							<span id="accountSetting" class="js-my-setting-title">마이페이지</span>
@@ -765,7 +765,7 @@
 			datatype: "json",
 			success: function(data){
 				var $memImg = data.memImg;
-				var imgPath = "/userimg/"+$memImg + "?heigth=50";
+				var imgPath = "/userImg/"+$memImg + "?heigth=50";
 				$("#memImgSomini").attr("src",imgPath);
 				$("#memImgmini").attr("src",imgPath);
 				$("#memImgBig").attr("src",imgPath);
@@ -885,7 +885,7 @@
 								datatype: "json",
 								success: function(data){
 									var $memImg = data.memImg;
-									var imgPath = "/userimg/"+$memImg + "?heigth=50";
+									var imgPath = "/userImg/"+$memImg + "?heigth=50";
 									$("#memImgSomini").attr("src",imgPath);
 									$("#memImgmini").attr("src",imgPath);
 									$("#memImgBig").attr("src",imgPath);
