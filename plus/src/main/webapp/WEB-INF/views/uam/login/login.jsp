@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html>
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="No-Cache">
@@ -15,7 +13,6 @@
 <meta name="url" content="https://flow.team/login.act" >
 <meta name="conn" content="" >
 <meta name="theme-color" content="#5f5ab9">
-<title>플로우(flow) - 대한민국 NO.1 올인원 협업툴</title>
 <meta name="description" content="프로젝트관리, 업무관리, 메신저, 화상회의, 파일공유&보관, 간트차트, 일정관리까지! 재택근무, 원격근무, 리모트워크, 비대면 업무환경을 구축해 보세요. 지금 무료로 시작하세요." >
 <meta name="keywords" content="프로젝트관리, 업무관리, 사내메신저, 업무메신저, 업무용메신저, 기업메신저, 기업메신져, 협업, 협업툴, 협업툴추천, 협업툴순위, 국내협업툴, 협업도구, 협업툴비교, 일정관리, 업무관리, 그룹웨어, 스마트워크, 리모트워크, 바우처, 바우처지원, 중소기업바우처, 중소기업지원사업, 비대면바우처">
 
@@ -206,4 +203,3 @@
 	
 	</script>
 </body>
-</html>
