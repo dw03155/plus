@@ -25,7 +25,6 @@
 		</div>
 	</div>
 
-	<!-- <div class="js-post-nav card-item post-card-wrapper write2  side"></div> -->
 
 	<!-- 내 게시물 -->
 	<div class="main-container">
@@ -46,7 +45,7 @@
 						<form name="frm" method="post">
 							<div class="project-search">
 								<i class="icons-search"></i> <input id="notiTtl" name="notiTtl"
-									type="text" placeholder="검색어를 입력해주세요!"
+									type="text" placeholder="검색어를 입력해주세요"
 									class="project-search-input" autocomplete="off" maxlength="50">
 								<input type="hidden" value="" name="mId" id="memId">
 							</div>
@@ -63,7 +62,7 @@
 				</div>
 
 				<!-- 내 게시물 화면 -->
-				<c:if test="${ empty param.notiTtl }">
+				<c:if test="${ empty param.notiTtl }"> 
 					<div class="small-style-wrap-2" style="display: block;">
 						<div class="feed-content me-content">
 							<div class="search-title-area">
@@ -147,9 +146,17 @@
 													<i class="icons-comment2"></i><span
 														class="js-post-comment-count">0</span>
 												</div>
-												<c:if test="${notice.notiKnd == 'subtask'}">
+												<c:if test="${notice.subtskyn == '1'}">
 													<div class="post-list subtask" style="display: block">
 														<em class="subtask-item" style="display: inline-block">
+															<i class="icons-subtask"></i> <span
+															class="subtask-number"> </span>
+														</em>
+													</div>
+												</c:if>
+												<c:if test="${notice.subtskyn == '0'}">
+													<div class="post-list subtask" style="display: none">
+														<em class="subtask-item" style="display: none">
 															<i class="icons-subtask"></i> <span
 															class="subtask-number"> </span>
 														</em>
@@ -221,7 +228,7 @@
 
 				<!-- 내 게시물 검색 화면 -->
 				<!-- 검색시 display:block -->
-				<c:if test="${not empty param.notiTtl }">
+				<c:if test="${not empty param.notiTtl }"> 
 					<div id="myPostSearch"
 						class="js-post-search-result all-search-section d-none me-post-wrap"
 						style="display: block">
@@ -232,12 +239,11 @@
 										<span class="search-result-title">전체</span><span
 											id="allPostsSearchCount"
 											class="js-search-post-count search-result-count"
-											style="display: inline-block">${fn:length(notices)}</span>
+											style="display: inline-block">&nbsp;${fn:length(notices)}</span>
 									</div>
 									<ul id="allPostsSearchUl"
 										class="js-search-post-ul all-seach-list-type-1 scroll-mask">
 
-										<!-- 반복 시작 -->
 										<c:forEach var="notices" items="${notices }">
 											<c:if test="${notices.notiKnd=='text'}">
 												<c:set var="notiKnd" value="icon-post-type write2" />
@@ -251,8 +257,12 @@
 											<c:if test="${notices.notiKnd=='schedule'}">
 												<c:set var="notiKnd" value="icon-post-type schedule" />
 											</c:if>
-											<li id="allPostsSearchUl"
-												class="js-all-post-item post-search-item js-search-item  ${notices.notiKnd}">
+											
+											<!-- 반복 시작 -->
+											<li 
+												class="js-all-post-item post-search-item js-search-item  ${notices.notiKnd}"
+												
+										data-notiid="${notices.notiId }" data-kind="${notices.notiKnd}">
 												<!-- icon 태그 : icon-post-type write2(글), icon-post-type todo(할일), icon-post-type schedule(일정)-->
 												<i class="${notiKnd }"></i>
 												<div class="search-sub-text-wrap">
@@ -277,7 +287,7 @@
 							</div>
 						</div>
 					</div>
-				</c:if>
+				 </c:if> 
 			</div>
 		</div>
 	</div>
@@ -294,7 +304,6 @@
 			$("#all").addClass("on");
 			$(".text, .task, .schedule, .todo").show();
 			var count = $("#myPostContentUl").find('li:visible').length;
-			console.log(count + "");
 		});
 
 		// 글
@@ -306,7 +315,6 @@
 			$(".task, .schedule, .todo").hide();
 			removeFiller();
 			var count = $("#myPostContentUl").find('li:visible').length;
-			console.log(count + "====");
 			$(".count-number").html(count);
 
 		});
@@ -320,7 +328,6 @@
 			$(".text, .schedule, .todo").hide();
 			removeFiller()
 			var count = $("#myPostContentUl").find('li:visible').length;
-			console.log(count + "====");
 			$(".count-number").html(count);
 
 		});
@@ -334,7 +341,6 @@
 			$(".task, .text, .todo").hide();
 			removeFiller()
 			var count = $("#myPostContentUl").find('li:visible').length;
-			console.log(count + "====");
 			$(".count-number").html(count);
 		});
 
@@ -347,7 +353,6 @@
 			$(".task, .schedule, .text").hide();
 			removeFiller()
 			var count = $("#myPostContentUl").find('li:visible').length;
-			console.log(count + "====");
 			$(".count-number").html(count);
 		});
 
@@ -360,7 +365,6 @@
 				$("#cancleFilter").hide();
 				$("#write, #task, #sche, #todo").removeClass("on");
 				var count = $("#myPostContentUl").find('li:visible').length;
-				console.log(count + "====");
 				$(".count-number").html("${fn:length(notices)}");
 			});
 		}
@@ -368,7 +372,6 @@
 		// 내 게시물 모달창 (팝업)
 		$("#myPostContentUl > li").click(function(e) {
 			if ($(e.currentTarget).hasClass("highlight")) {
-				console.log($(e.currentTarget));
 				$(e.currentTarget).removeClass("highlight");
 				$("#postPopup").css("display", "none");
 			} else if (!$(e.currentTarget).hasClass("highlight")) {
@@ -381,6 +384,20 @@
 			}
 		});
 
+		$("#allPostsSearchUl > li").click(function(e){
+			if ($(e.currentTarget).hasClass("highlight")) {
+				$(e.currentTarget).removeClass("highlight");
+				$("#postPopup").css("display", "none");
+			} else if (!$(e.currentTarget).hasClass("highlight")) {
+				$("#allPostsSearchUl > li").removeClass("highlight");
+				$(e.currentTarget).addClass("highlight");
+				$("#postPopup").css("display", "block");
+
+				popUpDatail($(this));
+
+			}
+		});
+		
 		// 모달창 호출 (ajax)
 		function popUpDatail(li) {
 
@@ -437,6 +454,8 @@
 				});
 			}
 		};
+		
+		
 	</script>
 
 

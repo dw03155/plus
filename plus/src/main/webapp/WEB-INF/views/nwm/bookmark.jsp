@@ -147,7 +147,7 @@
 													<i class="icons-comment2"></i><span
 														class="js-post-comment-count">0</span>
 												</div>
-													<c:if test="${bookmarks.notiKnd == 'subtask'}">
+													<c:if test="${bookmarks.subtskyn == '1'}">
 													<div class="post-list subtask" style="display: block">
 														<em class="subtask-item" style="display: inline-block">
 															<i class="icons-subtask"></i> <span
@@ -232,7 +232,7 @@
 										<span class="search-result-title">전체</span><span
 											id="allPostsSearchCount"
 											class="js-search-post-count search-result-count"
-											style="display: inline-block">${fn:length(bookmarks)}</span>
+											style="display: inline-block">&nbsp;${fn:length(bookmarks)}</span>
 									</div>
 									<ul id="allPostsSearchUl"
 										class="js-search-post-ul all-seach-list-type-1 scroll-mask">
@@ -251,7 +251,7 @@
 											<c:if test="${bookmarks.notiKnd=='schedule'}">
 												<c:set var="notiKnd" value="icon-post-type schedule" />
 											</c:if>
-											<li id="allPostsSearchUl"
+											<li 
 												class="js-all-post-item post-search-item js-search-item  ${bookmarks.notiKnd}">
 												<!-- icon 태그 : icon-post-type write2(글), icon-post-type todo(할일), icon-post-type schedule(일정)-->
 												<i class="${notiKnd }"></i>
@@ -381,6 +381,21 @@
 			}
 		});
 
+
+		$("#allPostsSearchUl > li").click(function(e){
+			if ($(e.currentTarget).hasClass("highlight")) {
+				$(e.currentTarget).removeClass("highlight");
+				$("#postPopup").css("display", "none");
+			} else if (!$(e.currentTarget).hasClass("highlight")) {
+				$("#allPostsSearchUl > li").removeClass("highlight");
+				$(e.currentTarget).addClass("highlight");
+				$("#postPopup").css("display", "block");
+
+				popUpDatail($(this));
+
+			}
+		});
+		
 		// 모달창 호출 (ajax)
 		function popUpDatail(li) {
 

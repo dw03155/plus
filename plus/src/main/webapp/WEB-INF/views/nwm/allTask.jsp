@@ -50,11 +50,12 @@
 					<div class="allTaskLayer full-width small-style-wrap-2 d-none"
 						style="display: block;">
 						<div class="btns-wr">
+						<!-- 검색 -->
 							<div class="project-search-area all-file-header-type-3">
 								<div class="project-search">
 									<form name="frm" method="post">
-										<i class="icons-search"></i> <input type="text" name="notiTtl"
-											id="notiTtl" placeholder="업무명을 검색하세요!" autocomplete="off"
+										<i class="icons-search"></i> <input type="text" name="prjTtl"
+											id="prjTtl" placeholder="업무명을 검색하세요!" autocomplete="off"
 											maxlength="20"
 											class="js-task-search-input project-search-input">
 									</form>
@@ -398,8 +399,8 @@
 				$("#allTskContentUl > li").removeClass("highlight");
 				$(e.currentTarget).addClass("highlight");
 				$("#postPopup").css("display", "block");
-
 				tskPopUpDetail($(this));
+
 			}
 		});
 

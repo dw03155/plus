@@ -229,12 +229,19 @@ pageContext.setAttribute("replaceChar", "\n");
 						<span class="emoji-count-area"> <span class="emoji-count"></span>
 						</span>
 					</div>
+					
 					<!-- 북마크 표시 -->
 					<div class="bottom-button-area">
-					
+					<c:if test="${schedules.bmyn == '1' }">
 						<button class="js-post-bookmark post-bottom-button on">
 							<i class="icon-bookmark"></i> <span>북마크</span>
 						</button>
+					</c:if>
+					<c:if test="${schedules.bmyn == '0' }">
+						<button class="js-post-bookmark post-bottom-button">
+							<i class="icon-bookmark"></i> <span>북마크</span>
+						</button>
+					</c:if>
 					</div>
 				</div>
 			</div>
@@ -289,7 +296,7 @@ pageContext.setAttribute("replaceChar", "\n");
 	// 모달창 닫기 버튼
 	$(".btn-close").click(function() {
 		$("#postPopup").css("display", "none");
-		$(".task-item").removeClass("highlight");
+		$(".schedule").removeClass("highlight");
 	});
 
 	// 더보기 버튼 (수정, 삭제)

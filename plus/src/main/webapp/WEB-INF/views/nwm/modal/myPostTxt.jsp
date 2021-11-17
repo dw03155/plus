@@ -115,11 +115,6 @@ pageContext.setAttribute("replaceChar", "\n");
 
 			<div class="post-bottom-area">
 				<div class="post-bottom-menu js-reaction-bookmark">
-					<div class="js-emoji-group-layer emoji-area">
-						<ul class="emoji-group"></ul>
-						<span class="emoji-count-area"> <span class="emoji-count"></span>
-						</span>
-					</div>
 					
 					<!-- 북마크 표시 -->
 					<div class="bottom-button-area">
@@ -181,7 +176,7 @@ pageContext.setAttribute("replaceChar", "\n");
 	// 모달창 닫기 버튼
 	$(".btn-close").click(function() {
 		$("#postPopup").css("display", "none");
-		$(".task-item").removeClass("highlight");
+		$(".text").removeClass("highlight");
 	});
 	
 	// 더보기 버튼 (수정, 삭제)

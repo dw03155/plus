@@ -235,15 +235,15 @@
 	// 모달창 닫기 버튼
 	$(".btn-close").click(function() {
 		$("#postPopup").css("display", "none");
-		$(".task-item").removeClass("highlight");
+		$(".todo").removeClass("highlight");
 	});
 
 	// 더보기 버튼 (수정, 삭제)
-	$(function() {
+	
 		$("#moreSettingMyTodoBtn").click(function() {
 			$("#groupSettingTodoBtn").toggle();
 		});
-	});
+	
 
 	// 글 자세히 보기 
 	$("#postOptions").find("div > button").click(function(e) {
@@ -252,7 +252,7 @@
 	});
 	
 	// 할일 체크 버튼
-	  $().on("click", ".js-todo-checkbox", function(){
+	  $(".subtask-input-area todo-area").on("click", ".js-todo-checkbox", function(){
 		  e.preventDefault();
 		  $(e.currentTarget).closest(".todo-area").addClass("checked");
 		  $(e.currentTarget).closest(".todo-area").css("background","#00b2ff");  
