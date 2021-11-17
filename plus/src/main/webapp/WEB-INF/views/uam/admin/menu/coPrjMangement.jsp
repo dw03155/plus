@@ -207,13 +207,28 @@
 			<hr>
 				<table style="border: 1px solid; border-color: white; margin: 10px 0 10px 0;">
 					<tr>
-						<td style="text-align: left;">프로젝트명</td>
-						<td style="text-align: left;"><span id="inputBorder">
-						<input type="text" id="prjTTL" name="prjTTL" style="width: 450px"></span></td>
+						<td style="text-align: left;" width="100px">프로젝트명</td>
+						<td style="text-align: left;" width="410px">
+							<span id="inputBorder">
+								<input type="text" id="prjTTL" name="prjTTL" style="width: 400px">
+							</span>
+						</td>
+						<td style="text-align: left;">
+							<a href="#"><img id="prjNameUpdateBtn" src="/img/ico/edit_icon.png" width="20px"></a>
+							<div id="updateBtns" style="display: none">
+								<a href="#">
+									<div id="noprjNameUpdate" class="my-button-cc cancel-change" style="margin-top: 0">취소</div>
+								</a><a href="#">
+									<div id="prjNameUpdate" class="js-account-set-button my-button-ok" gubun="7" style="margin-top: 0">확인</div>
+								</a>
+							</div>
+						</td>
 					</tr>
+					
 					<tr>
 						<td style="text-align: left;">관리자</td>
 						<td style="text-align: left;"><input type="button" id="adminAdd" name="adminAdd" value="추가"></td>
+						<td></td>
 					</tr>
 				</table>
 				<div>
@@ -234,9 +249,7 @@
 				</div>
 			</div>
 			<div align="center">
-				<button type="button" id="ctgDel" class="blueBtn" style="position: static; top: 500px">확인</button>
-				<button type="button" id="ctgCancel" class="blueBtn" 
-				style="position: static; top: 500px; background-color: white; color: black; border: 1px solid silver;">취소</button>
+				<button type="button" id="prjTtlUpdateBtn" class="blueBtn" style="position: static; top: 500px">확인</button>
 			</div>
 		</div>
 		
@@ -267,27 +280,53 @@
 		</div>
 	</div><!-- main-container end -->
 <script>
+	$('#prjNameUpdateBtn').click(function(){
+		$('#updateBtns').css("display","block");
+		$('#prjNameUpdateBtn').css("display","none");
+	})
+	$('#noprjNameUpdate').click(function(){
+		$('#updateBtns').css("display","none");
+		$('#prjNameUpdateBtn').css("display","block");
+	})
+	
+	
 
 	$('.pmList').click(function(){
+		$("#usermemList").children().remove();
 		var tr = $(this);
 		var prjId = tr.children().children().val();
 
 		getCoPrjInfo(prjId);
 		
+		$("#adminAdd").off('click');
 		$("#adminAdd").click(function(){
-			$("#usermemList").empty();
 			console.log(prjId);
+			$("#usermemList").empty();
 			$.ajax({
 				url: "prjUserList.do?prjId="+ prjId,
 				type: "Get",
 				dataType: "json",
 				success: function(data){
 					console.log(data);
-					if(data.length > 0){
-						usermemList();
+					if(data != ""){
+						for(i=0; i<data.length; i++){
+							var $memId = data[i].memId;
+							var $name = data[i].name;
+							var $email = data[i].email;
+							var $dept = data[i].dept;
+							$('<tr>').append($('<td>').append($('<input type="hidden">').val($memId)))
+									 .append($('<td>').html($name))
+									 .append($('<td>').html($email))
+									 .append($('<td>').html($dept))
+									 .append($('<td>').html($('<a href="#" class="pmInsert">').html("[승인]")))
+									 .append($('<td>').append($('<input type="hidden">').val(prjId)))
+									 .appendTo("#usermemList")
+						}
 					}else{
-						$('<tr>').append($('<td colspan="6">').html("참여자가 없습니다.")
+						$('<tr>').append($('<td colspan="6">').html("참여자가 없습니다."))
+								 .appendTo("#usermemList")
 					}
+					$(".pmInsert").off("click");
 					$(".pmInsert").click(function(){
 						var pminsert = $(this);
 						var tr = pminsert.parent().parent();
@@ -304,11 +343,29 @@
 								tr.remove();
 							}
 						})
-					});
+					})
 					
 					}
 				});
+			});
+		$('#prjNameUpdate').off("click");
+		$('#prjNameUpdate').click(function(){
+			var prjTTL = $('#prjTTL').val();
+			var jsdata = {"prjTtl": prjTTL, "prjId": prjId};
+			$.ajax({
+				url: "prjNameUpdate.do",
+				data: JSON.stringify(jsdata),
+				contentType: "application/json",
+				datatype: "json",
+				method: "put",
+				success: function(){
+					$('#updateBtns').css("display","none");
+					$('#prjNameUpdateBtn').css("display","block");
+					alert("프로젝트제목이 수정됐습니다.");
+				}
 			})
+		})
+		
 		});
 	
 	function getCoPrjInfo(prjId){
@@ -319,7 +376,7 @@
 			success: function(data){
 				$('#prjAdmin').empty();
 				if(data == ""){
-					$('<tr>').append($('<td style="colspan: 7">').html("관리자가 없습니다."))
+					$('<tr>').append($('<td style="colspan: 7">').html("관리자가 없습니다."));
 				}else{
 					PMlist(data);
 				}
@@ -382,14 +439,35 @@
 					 .append($('<td>').append($('<input type="hidden">').val(prjId)))
 					 .appendTo("#usermemList")
 		}
-	];
+	};
+	
+	$(".pmInsert").click(function(){
+		var pminsert = $(this);
+		var tr = pminsert.parent().parent();
+		var memId = tr.children().first().children().val();
+		var prjId = pminsert.parent().next().children().val();
+		var jsondata = {"memId":memId, "prjId": prjId};
+		$.ajax({
+			url: "coPrjUserChange.do",
+			method: "put",
+			data: JSON.stringify(jsondata),
+			contentType: "application/json",
+			dataType: "json",
+			success: function(){
+				tr.remove();
+			}
+		})
+	});
+	
+	$("#memSerchX").click(function(){
+		$("#memberSerch").css("display","none");
+	});
+	
 	$("#adminAdd").click(function(){
 		$("#memberSerch").css("display","block");
 	});
-	$("#memSerchX").click(function(){
-		$("#memberSerch").css("display","none");
-	})
-	$("#ctgCancel").click(function(){
+	
+	$('#prjTtlUpdateBtn').click(function(){
 		$("#prjModal").css("display","none")
 	});
 	

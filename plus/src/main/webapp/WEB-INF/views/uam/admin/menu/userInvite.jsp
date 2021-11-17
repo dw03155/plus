@@ -161,7 +161,7 @@
 				<input id="file" name="file" type="file" style="border: 1px;">
 				</form>
 				<button type="submit" id="fileUp" class="blueBtn" onclick="check()">추가</button>
-				<button id="xlsxDoun" onClick="location.href='/xlsxFile/xlsxdownload/플러스 회원일괄초대 엑셀입력 양식.xls'" value="플러스 회원일괄초대 엑셀입력 양식.xls" class="whiteBtn" type="button" style="width: 180px">엑셀파일 양식 다운로드</button>
+				<button id="xlsxDoun" onclick="location.href='/xlsxFile/xlsxdownload/플러스 회원일괄초대 엑셀입력 양식.xls'" value="플러스 회원일괄초대 엑셀입력 양식.xls" class="whiteBtn" type="button" style="width: 180px">엑셀파일 양식 다운로드</button>
 			</div>
 			<div class="contentsBox">
 			<div id="xlsxInfo">
@@ -208,12 +208,14 @@
 		</div><!-- main-container end -->
 	
 	<script>
+	//회사 URL 기존회사 회원가입주소에 넣기
 	$(function(){
 		var courl = "${sessionScope.coUrl}";
-		var url = "http://192.168.0.3/userJoin.do?newCoUrl=" + courl;
+		var url = "http://localhost/userJoin.do?newCoUrl=" + courl;
 		$("#coNameSer").val(url);
 	})
 	
+	//기존회사 회원가입주소 복사
 	$("#copybtn").click(function(){
 		$("#coNameSer").select();
 		var success = document.execCommand("copy");
@@ -221,7 +223,7 @@
 			alert("링크복사").fadeOut(1000);
 		}
 	})
-	
+	//체크한 회원삭제
 	$('#lineDelBtn').click(function(){
 		if(confirm("회원을 삭제하시겠습니까?")){
 			var fileCheck = $(".fileCheck:checked");
@@ -232,7 +234,8 @@
 			})
 		}
 	});
-			
+	
+	//회원입력
 	$('#inBtn').click(function(){
 		if(confirm("회원을 입력하시겠습니까?")){
 			var fileCheck = $(".fileCheck:checked");
@@ -257,8 +260,8 @@
 					contentType: "application/json",
 					dataType: "json",
 					success: function(data){
-						console.log("success");
 						$('#insertlist').children().remove();
+
 					}
 				});
 					
@@ -267,17 +270,8 @@
 		
 	})
 	
-	function checkFileType(filePath){
-		var fileFormat = filePath.split(".");
-		
-		if(fileFormat.indexOf("xls") > -1){
-			return true;
-		} else {
-			return false;
-		}
-	}
 
-	
+	//파일 형식확인하고 파일 페이지에 업로드
 	function check(){
 		var file = $('#file').val();
 		if (file == "" || file == null){
@@ -296,6 +290,7 @@
 				data: formData,
 				type: 'post',
 				success: function(data){
+				
 					alert("업로드")
 					if(data != ""){
 						$('#insertlist').empty();
@@ -311,8 +306,19 @@
 			})
 		}
 	};
-	
+	//엑셀파일타입 확인
+	function checkFileType(filePath){
+		var fileFormat = filePath.split(".");
+		
+		if(fileFormat.indexOf("xls") > -1){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	//업로드한 엑셀파일 테이블에 올리기
 	function fileView(data){
+			console.log(data);
 		for(i=0; i<data.length; i++){
 			var $email = data[i]["email"];
 			var $name = data[i]["name"];
@@ -334,11 +340,11 @@
 				var fileTd = $('.fileCheck').parent().nextAll();
 				var fileTr = $('#insertlist').children();
 				var filevalue = $('input[name=view]');
-				
+					//비어있는 값 체크
 					for(j=0; j<fileTd.length; j++){		
 						for(k=0; k<fileTr.length; k++){
 							var fileVal = filevalue.eq(j).val();
-							console.log(fileVal);
+							//console.log(fileVal);
 							var fileSpan = $('input[name=view]').parent().eq(j);
 							var fileCheckBox = fileSpan.parents('tr').find('.fileCheck').eq(k);
 								if(fileVal == ''){
@@ -350,13 +356,13 @@
 						}
 					}
 				}
+			}
 				emailDuplicateCheck();
 				count();
-			}
 		
 		
 		
-		
+		//input 변화 감지
 		$('input[name=view]').on("change",function(){
 			var fileInput = $(this);
 			var checkBox = fileInput.parents('tr').find('.fileCheck');
@@ -402,18 +408,11 @@
 			
 			count();
 		});
-
-		$("#checkth #allCheckBox").on('click',function(){
-			if($('#allCheckBox').prop("checked")){
-				$(".fileCheck:not(:disabled)").prop("checked",true);
-			}else{
-				$(".fileCheck:not(:disabled)").prop("checked",false);
-			}
-		});
+		
 		
 		
 	};
-	
+	//이메일 중복체크
 	function emailDuplicateCheck(){
 		var arr = new Array();
 		var tr = $('#insertlist').children();
@@ -454,7 +453,7 @@
 		
 		answer = getData(data).length > 0? true : false;
 	};
-		
+	//모든행, 입력가능행, 중복행 카운트	
 	function count(){			
 			var allcnt = $('#insertlist').children().length;
 			var nocnt = $(".redBox").parent().parent().length;
@@ -465,6 +464,7 @@
 			$("#dulcnt").text(dulcnt);
 		
 		}
+	//체크박스 올클릭(비활성화된 체크박스제외)
 	$("#checkth #allCheckBox").on('click',function(){
 		if($('#allCheckBox').prop("checked")){
 			$(".fileCheck:not(:disabled)").prop("checked",true);
@@ -473,31 +473,33 @@
 		}
 	});
 	
-			$("#send").on("click", function(){
-				$('#send').attr("class","js-tab-item active");
-				$('#allSend').attr("class","js-tab-item");
-				$('#sendLayer').css("display","block");
-				$('#allSendLayer').css("display","none");
-			});
-			$("#allSend").on("click", function(){
-				$('#allSend').attr("class","js-tab-item active");
-				$('#send').attr("class","js-tab-item");
-				$('#allSendLayer').css("display","block");
-				$('#sendLayer').css("display","none");
-			});
-			
-			$('#emailInputBtn').click(function(){
-				var coUrl = "${sessionScope.coUrl}";
-				var email = $("#emailInput1").val();
-					$.ajax({
-						type: "post",
-						url: "userInviteMail.do",
-						data:{"email":email, "coUrl":coUrl},
-						success:function(){
-							alert(email + "로 인증메일이 발송되었습니다.");
-						}
-					})
+	//
+	$("#send").on("click", function(){
+		$('#send').attr("class","js-tab-item active");
+		$('#allSend').attr("class","js-tab-item");
+		$('#sendLayer').css("display","block");
+		$('#allSendLayer').css("display","none");
+	});
+	//
+	$("#allSend").on("click", function(){
+		$('#allSend').attr("class","js-tab-item active");
+		$('#send').attr("class","js-tab-item");
+		$('#allSendLayer').css("display","block");
+		$('#sendLayer').css("display","none");
+	});
+	
+	$('#emailInputBtn').click(function(){
+		var coUrl = "${sessionScope.coUrl}";
+		var email = $("#emailInput1").val();
+			$.ajax({
+				type: "post",
+				url: "userInviteMail.do",
+				data:{"email":email, "coUrl":coUrl},
+				success:function(){
+					alert(email + "로 인증메일이 발송되었습니다.");
+				}
 			})
+	})
 			
 	
 	</script>

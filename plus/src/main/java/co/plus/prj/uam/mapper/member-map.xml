@@ -67,7 +67,8 @@
 		INSERT INTO mem_status(mem_id, mem_st)
 		VALUES ((select max(mem_id) from member), 'offline')
 	</insert>
-	<!-- 기존회사 회원입력 -->
+	
+	<!-- 게스트 회원입력 -->
 	<insert id="guestInsert2" parameterType="co.plus.prj.uam.vo.MemberVO">
 		INSERT INTO MEMBER(MEM_ID, EMAIL, PWD, NAME, CO_url,MEM_PERM,acc_st)
 		VALUES (MEMID.nextval, #{email}, #{pwd}, #{name}, #{coUrl},'GUEST', 'using')
@@ -78,7 +79,21 @@
 		VALUES ((select max(mem_id) from member), 'offline')
 	</insert>
 	
-																						<!-- 회원정보수정(회원마이페이지) -->
+	<!-- 엑셀로 가입된 유저 메일 확인 -->
+	<select id="getUserMailCheck" resultType="co.plus.prj.uam.vo.MemberVO">
+		select a.email, a.name, b.co_name
+		from member a, company b
+		where a.co_url = b.co_url
+			 and pwd is null
+			 and email = #{email}
+	</select>
+	<!-- 엑셀로 가입된 유저 비밀번호 업데이트 -->
+	<update id="userPwdUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update Member
+		set pwd = #{pwd}
+		where email = #{email}
+	</update>
+																					<!-- 회원정보수정(회원마이페이지) -->
 	<!-- 회원정보 가져오기 -->
 	<select id="memberInfo" resultType="co.plus.prj.uam.vo.MemberVO">
 		select a.mem_id, a.email, a.pwd, a.name, a.wkpo
@@ -117,11 +132,21 @@
 		set pwd = #{pwd}
 		where mem_id = #{memId}
 	</update>
+	<update id="memberImgUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update member 
+		set mem_img = #{memImg}
+		where mem_id = #{memId}
+	</update>
 	<!-- 회사로고 가져오기 -->
 	<select id="getLogo" resultType="co.plus.prj.uam.vo.MemberVO">
 		select co_logo
 		from company
 		where co_url = #{coUrl}
+	</select>
+	<select id="getMemberImg" resultType="co.plus.prj.uam.vo.MemberVO">
+		select mem_img
+		from Member
+		where mem_id = #{memId}
 	</select>
 	
 	<!-- 회원상태 표시 -->
@@ -280,6 +305,10 @@
         from member a, prj_parti b
         where prj_perm = 'USER' and a.mem_id = b.mem_id and b.prj_id = #{prjId}
 	</select>
+	<update id="prjNameUpdate" parameterType="co.plus.prj.uam.vo.MemberVO">
+		update project set prj_ttl = #{prjTtl}
+		where prj_id = #{prjId}
+	</update>
 	
 																							<!-- 카테고리관리 -->
 	<!-- 카테고리 확인 -->
@@ -307,7 +336,7 @@
 	</insert>
 	
 	<!-- 첨부파일 모아보기 -->
-	<select id="textFileList" resultType="co.plus.prj.pnw.vo.PNWVO">
+	<!-- <select id="textFileList" resultType="co.plus.prj.pnw.vo.PNWVO">
 		SELECT DISTINCT c.TXT_FILE, b.NOTI_ID, a.NAME, a.MEM_ID, f.PRJ_ID, f.PRJ_TTL
 		FROM  MEMBER a, NOTICE_WRITING b,TEXT C, PROJECT f, prj_parti g
 		WHERE c.noti_id = b.noti_id
@@ -336,6 +365,28 @@
 		      and a.co_url = f.co_url
 		      and d.TSK_FILE is not null
 		      and a.mem_id = #{memId}
+	</select> -->
+	<select id="getFileList" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select a.prj_ttl, a.prj_open_perm, b.noti_open_perm, c.txt_file as noti_file, d.name
+		from project a, notice_writing b, text c, member d
+		where a.prj_id = b.prj_id
+		and b.noti_id = c.noti_id
+		and b.mem_id = d.mem_id
+		and a.co_url = ${coUrl}
+		union
+		select e.prj_ttl, e.prj_open_perm, f.noti_open_perm, g.tsk_file as noti_file, h.name
+		from project e, notice_writing f, task g, member h
+		where e.prj_id = f.prj_id
+		and f.noti_id = g.noti_id
+		and f.mem_id = h.mem_id
+		and e.co_url = ${coUrl}
+		union
+		select j.prj_ttl, j.prj_open_perm, k.noti_open_perm, l.subtsk_file as noti_file, m.name
+		from project j, notice_writing k, subtask l, member m
+		where j.prj_id = k.prj_id
+		and k.noti_id = l.noti_id
+		and k.mem_id = m.mem_id
+		and j.co_url = ${coUrl}
 	</select>
 	
 	

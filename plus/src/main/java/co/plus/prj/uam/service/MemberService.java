@@ -14,7 +14,10 @@ public interface MemberService {
 	public int exCompanyInsert(MemberVO member);
 	//게스트 가입
 	public int guestInsert(MemberVO member);
-	
+	//엑셀가입 회원 정보
+	public MemberVO getUserMailCheck(MemberVO member);
+	//엑셀가입 회원 비밀번호 업데이트
+	public int userPwdUpdate(MemberVO vo);	
 	//회사service
 	//회사url로 단일회사정보 가져오기
 	public MemberVO getCompany(MemberVO vo);
@@ -35,6 +38,8 @@ public interface MemberService {
 	public int coTelUpdate(MemberVO vo);
 	public int deptUpdate(MemberVO vo);
 	public int pwdUpdate(MemberVO vo);
+	public int memberImgUpdate(MemberVO vo);
+	public MemberVO getMemberImg(MemberVO vo);
 	
 	//회원상태 변경
 	public MemberVO memberStatus(MemberVO vo);
@@ -71,6 +76,8 @@ public interface MemberService {
 	public int adminDel(MemberVO vo);
 	//관리자 지정
 	public int userDel(MemberVO vo);
+	//회사프로젝트명 수정
+	public int prjNameUpdate(MemberVO vo);
 	
 	//사용자 일괄 등록
 	public int AllMemberInsert1(MemberVO vo);

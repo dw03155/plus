@@ -55,11 +55,8 @@
 										<div class="js-sort-file all-file-list-name-type-4" style="width: 25%">
 											<span class="all-file-list-sort ">프로젝트명<em></em></span>
 										</div>
-										<div class="js-sort-file all-file-list-name-type-4" style="width: 39%">
+										<div class="js-sort-file all-file-list-name-type-4" style="width: 49%">
 											<span class="all-file-list-sort ">파일명<em></em></span>
-										</div>
-										<div class="js-sort-file all-file-list-name-type-4" style="width: 11%">
-											<span class="all-file-list-sort">용량<em></em></span>
 										</div>
 										<div class="js-sort-file all-file-list-name-type-2" style="width: 23%;">
 											<span class="all-file-list-sort">등록자<em></em></span>
@@ -67,12 +64,7 @@
 									</li>
 								</ul>
 								<ul id="fileLayerUl" class="js-file-list-layer layer-scroll file-select-wrap scroll-mask">
-									<li class="js-file-list js-selectable ui-selectee no-external">
-							           <div class="fileInfo" align="center" style="width: 25%;">프로젝트제목</div>
-							           <div class="fileInfo" align="center" style="width: 39%;">파일명</div>
-							           <div class="fileInfo" align="center" style="width: 11%;">용량</div>
-							           <div class="fileInfo" align="center" style="width: 23%;">등록자</div>
-							        </li>
+									
 								</ul>
 									
 						</div>
@@ -127,18 +119,18 @@
 				dataType: "json",
 				success: function(data){
 					if(data != ""){
-						var $tskFile = data.tskFile;
-						var $notiId = data.notiId;
-						var $name = data.name;
-						var $memId = data.memId;
-						var $prjId = data.prjId;
-						var $prjTtl = data.prjTtl;
-					console.log(data);
 						for(i=0; i<data.length; i++){
+						var $tskFile = data[i].tskFile;
+						var $notiId = data[i].notiId;
+						var $name = data[i].name;
+						var $memId = data[i].memId;
+						var $prjId = data[i].prjId;
+						var $prjTtl = data[i].prjTtl;
+					console.log(data);
 							$('<li class="js-file-list js-selectable ui-selectee no-external">')
-									 .append($('<div class="fileInfo" align="center" style="width: 25%;">').text($tskFile))
-									 .append($('<div class="fileInfo" align="center" style="width: 39%;">').text($prjTtl))
-									 .append($('<div class="fileInfo" align="center" style="width: 11%;">').text("용량"))
+									 .append($('<div class="fileInfo" align="center" style="width: 25%;">').text($prjTtl))
+									 .append($('<div name="filesDown" class="fileInfo" align="center" style="width: 49%;">').text($tskFile)
+											 .append($('<a class="fileslocation" >')))
 									 .append($('<div class="fileInfo" align="center" style="width: 23%;">').text($name))
 									 .appendTo("#fileLayerUl")
 						}
@@ -153,21 +145,25 @@
 				dataType: "json",
 				success: function(result){
 					if(result != ""){
-						var $txtFile = result.txtFile;
-						var $notiId = result.notiId;
-						var $name = result.name;
-						var $memId = result.memId;
-						var $prjId = result.prjId;
-						var $prjTtl = result.prjTtl;
-							console.log(result);
 						for(i=0; i<result.length; i++){
+						var $txtFile = result[i].txtFile;
+						var $notiId = result[i].notiId;
+						var $name = result[i].name;
+						var $memId = result[i].memId;
+						var $prjId = result[i].prjId;
+						var $prjTtl = result[i].prjTtl;
+							console.log(result);
+							console.log(location);
 							$('<li class="js-file-list js-selectable ui-selectee no-external">')
-									 .append($('<div class="fileInfo" align="center" style="width: 25%;">').text($txtFile))
-									 .append($('<div class="fileInfo" align="center" style="width: 39%;">').text($prjTtl))
-									 .append($('<div class="fileInfo" align="center" style="width: 11%;">').text("용량"))
+									 .append($('<div class="fileInfo" align="center" style="width: 25%;">').text($prjTtl))
+									 .append($('<div name="filesDown" class="fileInfo" align="center" style="width: 49%;">').text($txtFile)
+											 .append($('<a class="fileslocation" >')))
 									 .append($('<div class="fileInfo" align="center" style="width: 23%;">').text($name))
 									 .appendTo("#fileLayerUl")
+							console.log($('.fileslocation')); 
+							
 						}
+						
 					}
 					
 				}
@@ -179,20 +175,37 @@
 				dataType: "json",
 				success: function(value){
 					if(value != ""){
-					 	var $txtFile = data.txtFile;
-						var $tskFile = data.tskFile;
-						var $notiId = data.notiId;
-						var $name = data.name;
-						var $memId = data.memId;
-						var $prjId = data.prjId;
-						var $prjTtl = data.prjTtl;
+						for(i=0; i<result.length; i++){
+						var $tskFile = data[i].subtskFile;
+						var $notiId = data[i].notiId;
+						var $name = data[i].name;
+						var $memId = data[i].memId;
+						var $prjId = data[i].prjId;
+						var $prjTtl = data[i].prjTtl;
+							$('<li class="js-file-list js-selectable ui-selectee no-external">')
+									 .append($('<div class="fileInfo" align="center" style="width: 25%;">').text($prjTtl))
+									 .append($('<div name="filesDown" class="fileInfo" align="center" style="width: 49%;">').text($subtskFile)
+											 .append($('<a class="fileslocation" >')))
+									 .append($('<div class="fileInfo" align="center" style="width: 23%;">').text($name))
+									 .appendTo("#fileLayerUl")
+						}
 						
-							console.log(value);
 					}
 					
 				}
 			});//subTaskFileList
+			
+		$('.fileInfo').click(function(){
+			var fileInfo = $(this);
+			console.log(location);
+			var link = fileInfo.children();
+			link.herf = /uploadFiles/+fileInfo.text();
+			link.click();
+			
+		});
 		})// list end
+		
+
 	</script>
 </body>
 </html>

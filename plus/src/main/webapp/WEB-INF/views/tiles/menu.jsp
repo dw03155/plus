@@ -47,8 +47,8 @@
 								href="allTask.do"><i class="ico-task"></i>전체 업무</a></li>
 							<li data-code="schd" class="left-menu-item"><a
 								href="allSchedule.do"><i class="ico-schedule"></i>캘린더</a></li>
-							<li data-code="file" class="left-menu-item"><a
-								href="allFile.do"><i class="ico-filebox"></i>파일함</a></li>
+							<!-- <li data-code="file" class="left-menu-item"><a
+								href="allFile.do"><i class="ico-filebox"></i>파일함</a></li> -->
 						</c:if>
 						<li data-code="bookmark" class="left-menu-item"><a
 							href="bookmark.do"><i class="ico-bookmark"></i>북마크</a></li>

@@ -194,11 +194,15 @@
 					</ul>
 					<div class="project-search-area all-file-header-type-3">
 						<i class="icons-search"></i>
+						<form name="frm" method="post">
 						<div class="project-search">
 							<input id="projectSearchInput" type="text"
 								placeholder="검색어를 입력해주세요" class="project-search-input"
 								autocomplete="off" maxlength="50" />
 						</div>
+						<input type="hidden" id="memId" value="${sessionScope.memId}">
+								<input type="hidden" id="coUrl" value="${sessionScope.coUrl}">
+						</form>
 					</div>
 				</div>
 
@@ -232,7 +236,9 @@
 												<div class="taks-report">
 													<!-- chart -->
 													<div class="donut-chart-area">
-														<canvas id="myChart" width="100" height="100"></canvas>
+														<div class="donut-chart">
+															<canvas id="myChart" width="100" height="100"></canvas>
+														</div>
 													</div>
 													<ul id="taskReportLayer" class="donut-chart-list">
 														<li><c:forEach var="tskPrgsCnt"
@@ -261,8 +267,8 @@
 																	class="chart-info-label"></i> <span
 																	class="chart-info-text">${tskText}<em>${tskPrgsCnt.tskCnt}</em></span>
 																	<span class="chart-info-percent"> <fmt:formatNumber
-																			type="number"
-																			value="${tskPrgsCnt.tskCnt / tskAllCnt * 100}" />%
+																			type="percent"
+																			value="${tskPrgsCnt.tskCnt / tskAllCnt}" />
 																</span>
 																</span>
 															</c:forEach></li>
@@ -367,13 +373,10 @@
 													<!-- 일정일 때 -->
 													<c:if test="${pincette.notiKnd=='schedule'}">
 														<div class="date-time">
-															<em class="date"> <fmt:parseDate
-																	value="${fn:substring(pincette.addList, 0, 12)}" pattern="yy/MM/dd HH:mm"
-																	var="addDate" /> <fmt:formatDate value="${addDate}"
-																	pattern="yy/MM/dd" />
-															</em> <span> <fmt:parseDate pattern="yy/MM/dd HH:mm"
-																	value="${fn:substring(pincette.addList, 0, 12)}" var="addTime" /> <fmt:formatDate
-																	value="${addTime}" pattern="HH:mm" />
+															<em class="date">${fn:substring(pincette.addList, 0, 8)}</em>
+															<span>${fn:substring(pincette.addList, 9, 14)} <%-- <fmt:parseDate pattern="yy/MM/dd HH:mm"
+																	value="${fn:substring(pincette.addList, 9, 16)}" var="addTime" /> <fmt:formatDate
+																	value="${addTime}" pattern="HH:mm" /> --%>
 															</span>
 														</div>
 													</c:if>
@@ -402,19 +405,19 @@
 										</button>
 										<ul class="js-feed-filter-layer check-menu-popup d-none">
 											<li>
-												<div class="check-menu-item on">전체</div>
+												<div id="allNW" class="check-menu-item on">전체</div>
 											</li>
 											<li>
-												<div class="check-menu-item">글</div>
+												<div id="txtNW" class="check-menu-item">글</div>
 											</li>
 											<li>
-												<div class="check-menu-item">업무</div>
+												<div id="tskNW" class="check-menu-item">업무</div>
 											</li>
 											<li>
-												<div class="check-menu-item">일정</div>
+												<div id="scheNW"  class="check-menu-item">일정</div>
 											</li>
 											<li>
-												<div class="check-menu-item">할 일</div>
+												<div id="todoNW" class="check-menu-item">할 일</div>
 											</li>
 										</ul>
 									</div>
@@ -497,13 +500,12 @@
 																		<c:if test="${nwList.notiKnd=='schedule'}">
 																			<div class="js-schedule-state date-time d-none"
 																				style="display: block">
-																				<em class="date"> <fmt:parseDate
-																						value="${fn:substring(nwList.addList, 0, 8)}" pattern="yy/MM/dd"
-																						var="addDate" /> <fmt:formatDate
-																						value="${addDate}" pattern="yy/MM/dd" /></em> <span>
-																					<fmt:parseDate pattern="yy/MM/dd"
-																						value="${nwList.addList}" var="addTime" /> <fmt:formatDate
-																						value="${addTime}" pattern="HH:mm" />
+																				<em class="date">${fn:substring(nwList.addList, 0, 8)}</em>
+																				<span>${fn:substring(nwList.addList, 9, 14)}
+																					<%--${fn:substring(nwList.addList, 3, 14)}, ${fn:substring(nwList.addList, 18, 29)} --%>
+																					<%-- <fmt:parseDate pattern="yy/MM/dd"
+																						value="${fn:substring(nwList.addList, 9, 16)}" var="addTime" /> <fmt:formatDate
+																						value="${addTime}" pattern="HH:mm" /> --%>
 																				</span>
 																			</div>
 																		</c:if>
@@ -547,7 +549,7 @@
 																			</dt>
 																			<dd class="{personal-yn}">
 																				<strong class="company">${nwList.coUrl}</strong> <span
-																					class="team">{nwList.dept}</span>
+																					class="team">${nwList.dept}</span>
 																			</dd>
 																		</dl>
 																	</div>
@@ -631,7 +633,7 @@
 																				<div class="url-preview-content">
 																					<em class="url-preview-title"><i
 																						class="icon-map"></i></em>
-																					<p class="url-preview-text">{text_pl}</p>
+																					<p class="url-preview-text">{txtPl}</p>
 																				</div>
 																			</div>
 
@@ -656,7 +658,7 @@
 																				</button>
 
 																			</div>
-																			<div>{text_cntn}</div>
+																			<div>{txtCntn}</div>
 																		</div>
 																	</c:if>
 																	<c:if test="${nwList.notiKnd == 'schedule'}">
@@ -733,7 +735,7 @@
 																							<i class="icon-post-memo"></i>
 																						</div>
 																						<div class="create-content-cell memo">
-																							<p class="memo-span" id="memoSpan">{sche_cntn}</p>
+																							<p class="memo-span" id="memoSpan">{scheCntn}</p>
 																						</div>
 																					</li>
 																				</ul>
@@ -792,7 +794,7 @@
 																								class="js-registration manager-item"> <span
 																									class="js-worker-profile thumbnail"
 																									style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
-																									<span class="js-registration-name">{task.mem_id}</span>
+																									<span class="js-registration-name">{task.memId}</span>
 																							</span>
 																							</span>
 																						</div>
@@ -808,7 +810,8 @@
 																								<div class="js-date-back-layer date-bg d-none"
 																									style="display: inline-block">
 																									<span class="js-pickr-text task-date"> <span
-																										class="js-date-text">{task.tskBgnDt}2021-11-03 (수) 부터</span>
+																										class="js-date-text">{task.tskBgnDt}2021-11-03
+																											(수) 부터</span>
 																									</span>
 																								</div>
 																							</div>
@@ -983,7 +986,7 @@
 															</div>
 															<div class="post-card-footer js-comment-area">
 																<div class="comment-header">
-																<!-- on 시 보이기 -->
+																	<!-- on 시 보이기 -->
 																	<button type="button"
 																		class="js-remark-prev-button comment-more-button">
 																		이전 댓글 더보기</button>
@@ -999,7 +1002,8 @@
 																				<div class="comment-user">
 																					<span class="user-name js-comment-user-name">{reply.memId}</span>
 																					<span class="user-position"></span> <span
-																						class="record-date">{reply.dttm}2021-11-07 21:23</span>
+																						class="record-date">{reply.dttm}2021-11-07
+																						21:23</span>
 																				</div>
 																				<div class="comment-writer-menu">
 																					<button type="button"
@@ -1042,8 +1046,7 @@
 																class="js-remark-layer js-edit-layer comment-input-wrap">
 																<div class="comment-thumbnail">
 																	<span class="thumbnail size40 radius16"
-																		style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"
-																		></span>
+																		style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
 																</div>
 																<form class="js-remark-form comment-container on ">
 																	<fieldset>
@@ -1070,7 +1073,8 @@
 											<!-- 반복 끝 -->
 										</ul>
 									</c:if>
-									<c:if test="${fn:length(nwLists) == 0}">
+									<c:if
+										test="${fn:length(nwLists) == 0 and prjInfo.prjKnd == 'N'}">
 										<div id="noDetailData" class="detail-data-none">
 											<img src="/flow-renewal/assets/images/none_member.png"
 												alt="함께할 멤버들을 지금 초대해 보세요!">
@@ -1079,6 +1083,15 @@
 											</p>
 											<button id="noDetailDataBnt" type="button"
 												class="data-none-button invite">초대하기</button>
+										</div>
+									</c:if>
+									<c:if
+										test="${fn:length(nwLists) == 0 and prjInfo.prjKnd == 'C'}">
+										<div id="noDetailData" class="detail-data-none">
+											<img src="/flow-renewal/assets/images/none_member.png">
+											<p class="none-text">
+												아직 작성하신 게시글이 없습니다<br> 게시글을 지금 작성해 보세요!
+											</p>
 										</div>
 									</c:if>
 								</div>
@@ -1272,24 +1285,85 @@
 
 	<script>
 		//업무리포트 토글
-		$("#taskReportToggleButton").on("click", function() {
+		$("#taskReportToggleButton").click(function() {
 			$("#taskReportToggleButton").toggleClass("off");
 			$("#doughnutChartLayer").toggle();
 		});
 
 		//게시글 토글
-		$(".list-item a").on(
-				"click",
-				function(e) {
+		$(".list-item a").click(function(e) {
 					e.preventDefault;
 					$(".list-item").css("display", "block");
 					$(".card-item").css("display", "none");
-					console.log($(e.currentTarget).closest().next());
 					$(e.currentTarget).closest(".list-item").css("display",
 							"none");
 					$(e.currentTarget).closest(".list-item").next().css(
 							"display", "block");
 				});
+
+			// 게시글 종류 필터
+			$("#feedTypeButton button").click(function() {
+				$(".js-feed-filter-button").addClass("active");
+				$(".js-feed-filter-layer").toggle();
+			});
+			
+			// 전체
+			$("#allNW").click(function(e) { // 전체 필터
+				$(".filter-reset").hide();
+				$(".check-menu-item").removeClass("on");
+				$("#allNW").addClass("on");
+				$("#detailUl li").show();
+				$(".js-feed-filter-button").removeClass("active");
+				$(".js-feed-filter-layer").toggle();
+			});
+			
+			$("#txtNW").click(function(e) { // 글 필터
+				$(".filter-reset").show();
+				$(".check-menu-item").removeClass("on");
+				$("#txtNW").addClass("on");
+				$("#detailUl li").hide();
+				$(".icons-write2").closest("li").show();
+				$(".js-feed-filter-button").removeClass("active");
+				$(".js-feed-filter-layer").toggle();
+			});
+			
+			$("#tskNW").click(function(e) { // 업무 필터
+				$(".filter-reset").show();
+				$(".check-menu-item").removeClass("on");
+				$("#tskNW").addClass("on");
+				$("#detailUl li").hide();
+				$(".icons-task").closest("li").show();
+				$(".js-feed-filter-button").removeClass("active");
+				$(".js-feed-filter-layer").toggle();
+			});
+			
+			$("#scheNW").click(function(e) { // 일정 필터
+				$(".filter-reset").show();
+				$(".check-menu-item").removeClass("on");
+				$("#scheNW").addClass("on");
+				$("#detailUl li").hide();
+				$(".icons-schedule").closest("li").show();
+				$(".js-feed-filter-button").removeClass("active");
+				$(".js-feed-filter-layer").toggle();
+			});
+
+			$("#todoNW").click(function(e) { // 할일 필터
+				$(".filter-reset").show();
+				$(".check-menu-item").removeClass("on");
+				$("#todoNW").addClass("on");
+				$("#detailUl li").hide();
+				$(".icons-todo").closest("li").show();
+				$(".js-feed-filter-button").removeClass("active");
+				$(".js-feed-filter-layer").toggle();
+				
+			});
+			
+			$(".filter-reset").click(function(){ // 필터 취소
+				$(".filter-reset").hide();
+				$(".check-menu-item").removeClass("on");
+				$("#allNW").addClass("on");
+				$("#detailUl li").show();
+			});
 	</script>
 </body>
 </html>

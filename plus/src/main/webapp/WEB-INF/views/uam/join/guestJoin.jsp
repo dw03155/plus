@@ -322,7 +322,7 @@
 										</div>
 									</div>
 								</div>
-								<input type="hidden" id="coUrl" value="${exUrl }">
+								<input type="hidden" id="coUrl" value="${coUrl }">
 
 								<!-- 약관동의체크 -->
 								<div class="terms-check">
@@ -383,40 +383,45 @@
 		});
 		$("#emailCheck").click(function(){
 			var email = $('input:text[name="email"]').val();
-			$('#emailPaste').val(email);
-			$.ajax({
-				url: "getMailCheck.do?email=" + email,
-				type: "get",
-				dataType: "json",
-				success: function(data){
-					var $email = data.email;
-					if($email == email){
-						alert("이미 존재하는 이메일입니다.")
-					}
-				},
-				error:function(){
-					$("#email_ok_Msg").css("display","block");
-					$("#email_msg").css("display","none");
-					$("#joinTry2").css("display","block");
-					$("#joinTry1").css("display","none");
-					$("#emailCheck").css("display","none");
-					$("#emailCheckOk").css("display","block");
-					$("<input type=\'hidden\' id=\'emailPaste\'>")
-					
-					$("#email").off("propertychange change keyup paste input")
-					$("#email").on("propertychange change keyup paste input",function(){
-						if($("#email").val()!=$('#emailPaste').val()){
-							$("#joinTry2").css("display","none");
-							$("#joinTry1").css("display","block");
-							$("#emailCheck").css("display","block");
-							$("#emailCheckOk").css("display","none");
-							$("#email_msg").css("display","block");
-							$("#email_ok_Msg").css("display","none");
+			if(email != ""){
+					$('#emailPaste').val(email);
+				$.ajax({
+					url: "getMailCheck.do?email=" + email,
+					type: "get",
+					dataType: "json",
+					success: function(data){
+						var $email = data.email;
+						if($email == email){
+							alert("이미 존재하는 이메일입니다.")
 						}
-
-					});
-				}
-			});
+					},
+					error:function(){
+						$("#email_ok_Msg").css("display","block");
+						$("#email_msg").css("display","none");
+						$("#joinTry2").css("display","block");
+						$("#joinTry1").css("display","none");
+						$("#emailCheck").css("display","none");
+						$("#emailCheckOk").css("display","block");
+						$("<input type=\'hidden\' id=\'emailPaste\'>")
+						
+						$("#email").off("propertychange change keyup paste input")
+						$("#email").on("propertychange change keyup paste input",function(){
+							if($("#email").val()!=$('#emailPaste').val()){
+								$("#joinTry2").css("display","none");
+								$("#joinTry1").css("display","block");
+								$("#emailCheck").css("display","block");
+								$("#emailCheckOk").css("display","none");
+								$("#email_msg").css("display","block");
+								$("#email_ok_Msg").css("display","none");
+							}
+	
+						});
+					}
+				});
+			}else{
+				alert("이메일을 입력하세요");
+			}
+			
 			
 		});
 

@@ -36,7 +36,6 @@ import org.springframework.web.multipart.MultipartFile;
 import co.plus.prj.pnw.vo.PNWVO;
 import co.plus.prj.uam.service.MemberService;
 import co.plus.prj.uam.vo.MemberVO;
-import net.coobird.thumbnailator.Thumbnails;
 
 @Controller
 public class MemberController {
@@ -108,11 +107,11 @@ public class MemberController {
 		map.put("member", vo);
 		return map;
 	}
-	//기존 회원가입폼(companyJoin에 입력한 url정보전달)
+	//게스트 회원가입폼(session에 입력한 url정보전달)
 	@RequestMapping(value="/guestCompanyInsert.do", method = RequestMethod.GET)
-	public String guestCompanyInsert(@RequestParam(required = false) String newCoUrl, Model model) {
-		model.addAttribute("exUrl",newCoUrl);
-		System.out.println(newCoUrl);
+	public String guestCompanyInsert(@RequestParam(required = false) String coUrl, Model model) {
+		model.addAttribute("coUrl",coUrl);
+		System.out.println(coUrl);
 		
 		return "uam/join/guestJoin";
 	}
@@ -125,6 +124,29 @@ public class MemberController {
 		map.put("member", vo);
 		return map;
 	}
+	@GetMapping("/passUserJoinForm.do")
+	public String passUserJoinForm() {
+		return "uam/join/passUserJoinForm";
+	}
+	//회원 정보가져오기(팝업)
+	@RequestMapping(value = "/getUserMailCheck.do", method = RequestMethod.GET)
+	@ResponseBody
+	public MemberVO getUserMailCheck(@RequestParam("email") String email, MemberVO vo,Model model) {
+		System.out.println(email);
+		vo.setEmail(email);
+		MemberVO info = service.getUserMailCheck(vo);
+		System.out.println(info);
+		return info;
+		
+	}
+	//엑셀가입 회원 비밀번호 입력
+	@PutMapping("/userPwdUpdate.do")
+	@ResponseBody
+	public int userPwdUpdate(@RequestBody MemberVO vo) {
+		return service.userPwdUpdate(vo);
+	}
+	
+	
 	//회원가입 인증번호 메일발송
 	@RequestMapping(value="/joinMail.do", method = RequestMethod.POST)
 	@ResponseBody
@@ -189,6 +211,14 @@ public class MemberController {
 		MemberVO info = service.memberInfo(vo);
 		return info;
 	}
+//	//회원이미지 가져오기
+//	@GetMapping("/getMemberImg.do")
+//	@ResponseBody
+//	public MemberVO getMemberImg(@RequestParam(required=false) String memId, MemberVO vo) {
+//		vo.setCoUrl(memId);
+//		MemberVO memImg = service.getMemberImg(vo);
+//		return memImg;
+//	}
 	//회원이름 수정
 	@RequestMapping(value="/nameUpdate.do", method = RequestMethod.PUT, consumes = "application/json")
 	@ResponseBody
@@ -268,6 +298,12 @@ public class MemberController {
 		service.memberOffline(vo);
 		return vo;
 	}
+	@PutMapping("/memberImgUpdate.do")
+	@ResponseBody
+	public MemberVO memberImgUpdate(@RequestBody MemberVO vo) {
+		service.memberImgUpdate(vo);
+		return vo;
+	}
 	
 	//회사로고 가져오기
 	@GetMapping("/getLogo.do")
@@ -277,7 +313,7 @@ public class MemberController {
 		MemberVO logo = service.getLogo(vo);
 		return logo;
 	}
-		
+	
 		
 	//회원 탈퇴
 	@RequestMapping(value="/memberDelete.do", method = RequestMethod.PUT,  consumes = "application/json")
@@ -309,12 +345,14 @@ public class MemberController {
 	}
 	
 	
-	//파일 업로드
+	//로고 파일 업로드
 	@PostMapping("/uploadLogo.do")
 	@ResponseBody
-	public Map uploadLogo(MultipartFile[] logoInput, HttpSession session) {
+	public Map uploadLogo(MultipartFile[] logoInput, HttpSession session, HttpServletRequest request) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		String path = "C:\\Users\\trund\\git\\plus\\plus\\src\\main\\webapp\\logo";
+		String root=request.getSession().getServletContext().getRealPath("/");
+		String path=root+"\\logo\\";
+		
 		File Folder = new File(path);
 		String coUrl = (String) session.getAttribute("coUrl");
 		Random random = new Random();
@@ -358,6 +396,58 @@ public class MemberController {
 		map.put("key", coUrlUni);
 		return map;
 	}
+	
+	//이미지 업로드
+		@PostMapping("/imgUpload.do")
+		@ResponseBody
+		public Map imgUpload(MultipartFile[] userImgFile, HttpSession session, HttpServletRequest request) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			String root=request.getSession().getServletContext().getRealPath("/");
+			String path=root+"\\userimg\\";
+			
+			File Folder = new File(path);
+			String memId = (String) session.getAttribute("memId");
+			Random random = new Random();
+			String key = "";
+			
+			for(int i = 0; i<3; i++) {
+				int index = random.nextInt(25)+65;
+				key += (char)index;
+			}
+			int numIndex = random.nextInt(9999)+1000;
+			key += numIndex;
+			
+			String memUni = memId+ "_" + key;
+			System.out.println(memUni);
+			
+			if(!Folder.exists()) {
+				Folder.mkdir();
+				System.out.println("폴더를 생성합니다.");
+				
+			}else {
+				System.out.println("폴더가 이미 있습니다.");
+			}
+			
+			File uploadFolder = Folder;
+			
+			for(MultipartFile file : userImgFile) {
+				String FileName = file.getOriginalFilename();
+				String uploadFileName = memUni +"_"+ FileName;
+				File saveFile = new File(uploadFolder,uploadFileName);
+				
+				if(checkImageType(saveFile)) {  //이미지파일 썸네일 파일도 함께만든다.
+				
+						try {
+							file.transferTo(saveFile);  //파일저장
+						
+						}catch(Exception e) {
+						e.printStackTrace();
+						}
+				}// 썸네일 end
+			}
+			map.put("key", memUni);
+			return map;
+		}
 	
 	private boolean checkImageType(File file) {  //이미지파일인지 아닌지 비교
 		try {
@@ -464,20 +554,37 @@ public class MemberController {
 	@RequestMapping(value="/userInviteMail.do", method = RequestMethod.POST)
 	@ResponseBody
 	public void userInviteMail(String coUrl, String email, HttpSession session,Model model) throws MessagingException {
-		String mailText = "<div style='height: 300px;'>"+"<p>플러스에 가입해 보세요!</p>" +
+		String mailText = "<div style='height: 300px;'>"+"<p>플러스에 가입해 보세요!</p>" +"<a href='http://localhost/userJoin.do?newCoUrl="+coUrl+"'>"+
 							"<button style='padding: 10px 20px 10px 20px; background-color: #6449FC; color: white; border-radius: 5px; height: "
-							+ "60px; margin-top: 10px; margin-bottom: 10px; font-weight: bold; font-size: 15px;' "
-							+ "onclick='http://192.168.0.11/userJoin.do?newCoUrl="+ coUrl + "'>" +
-							"플러스가입하기</button>"+
+							+ "60px; margin-top: 10px; margin-bottom: 10px; font-weight: bold; font-size: 15px;'>" +
+							"플러스가입하기</button>"+"</a>"+
 							"<p></p>" + "<div>";
 		MimeMessage mail = mailSender.createMimeMessage();
 		MimeMessageHelper message = new MimeMessageHelper(mail,true,"UTF-8");
 		message.setTo(email);
-		message.setSubject("플러스 초대");
+		message.setSubject("[플러스에 초대합니다]");
 		message.setText(mailText,true);
 		mailSender.send(mail);
 		
 	}
+	//게스트초대메일 발송
+	@PostMapping("/guestEmailPost.do")
+	@ResponseBody
+	public void guestEmailPost(String coUrl, String email, String contents) throws MessagingException {
+		String mailContnets = "<div style='height: 300px;'>"+"<p>플러스에 가입해 보세요!</p>" +"<a href='http://localhost/guestCompanyInsert.do?coUrl="+coUrl+"'>"+
+								"<button style='padding: 10px 20px 10px 20px; background-color: #6449FC; color: white; border-radius: 5px; height: "
+								+ "60px; margin-top: 10px; margin-bottom: 10px; font-weight: bold; font-size: 15px;'>" +
+								"플러스가입하기</button>"+"</a>"+"<p></p>" + "<div>"+"<br>"+ contents;
+		System.out.println(mailContnets);
+		MimeMessage mail = mailSender.createMimeMessage(); 
+		MimeMessageHelper message = new MimeMessageHelper(mail, true, "UTF-8");
+		message.setTo(email);
+		message.setSubject("[플러스에 초대합니다]");
+		message.setText(mailContnets,true);
+		mailSender.send(mail);
+								
+	}
+	
 	//엑셀서식다운
 	@SuppressWarnings("resource")
 	@GetMapping("/xlsxDonload.do")
@@ -548,6 +655,13 @@ public class MemberController {
 		service.coPrjUserChange(vo);
 		return vo;
 	}
+	//회사제목수정
+	@PutMapping("/prjNameUpdate.do")
+	@ResponseBody
+	public MemberVO prjNameUpdate(@RequestBody MemberVO vo) {
+		service.prjNameUpdate(vo);
+		return vo;
+	}
 	
 	
 	//공개키테고리
@@ -602,26 +716,6 @@ public class MemberController {
 		return service.subTaskFileList(vo);
 	}
 	
-	 //게스트 회원가입 URL발송
-	 /* 
-	 * @RequestMapping(value="/userInviteMail.do", method = RequestMethod.POST)
-	 * 
-	 * @ResponseBody public void guestInviteMail(String name, String coUrl, String
-	 * email, HttpSession session,Model model) throws MessagingException { String
-	 * mailText = "<div style='height: 300px;'>"+"<p>"+name +"님이 게스트로 초대하셨습니다!</p>"+
-	 * "<h1>플러스에 가입해 보세요!</h1>" +
-	 * "<button style='padding: 10px 20px 10px 20px; background-color: #6449FC; color: white; border-radius: 5px; height: "
-	 * +
-	 * "60px; margin-top: 10px; margin-bottom: 10px; font-weight: bold; font-size: 15px;' "
-	 * + "onclick='http://192.168.0.11/userJoin.do?newCoUrl="+ coUrl + "'>" +
-	 * "플러스가입하기</button>"+ "<p></p>" + "<div>"; MimeMessage mail =
-	 * mailSender.createMimeMessage(); MimeMessageHelper message = new
-	 * MimeMessageHelper(mail,true,"UTF-8"); message.setTo(email);
-	 * message.setSubject("플러스 초대"); message.setText(mailText,true);
-	 * mailSender.send(mail);
-	 * 
-	 * }
-	 */
 	
 }
 

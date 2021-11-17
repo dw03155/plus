@@ -28,7 +28,7 @@
 }
 
 .my-left-style {
-	width: 20%;
+	width: 15%;
 	float: left;
 	box-sizing: border-box;
 }
@@ -69,6 +69,35 @@
 .statusStyle:hover{
 	color: #6449FC;
 }
+.ctgry_del_modal{
+	width: 400px;
+	height: 200px;
+    position: absolute;
+    top: 35%;
+    right: 45%;
+    z-index: 13;
+    background: #fff;
+    border: 1px solid #777;
+    border-radius: 8px;
+    font-size: 13px;
+    text-align: left;
+    color: #555;
+    display: none;
+    align-content: center;
+}
+.model_heard{
+	height: 30px;
+	padding: 10px;
+	
+}
+#ctgry_model_x{
+	float: right;
+	width: 15px;
+}
+#userImgX{
+	float: right;
+	width: 15px;
+}
 </style>
 
 </head>
@@ -93,22 +122,26 @@
 			<!-- 회원상태표시 -->
 			<button type="button" id="accountTopButton" class="btn-profile">
 				<span id="ProfileImg" class="profile-area"
-					style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;);"></span>
+					style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;);">
+					<img id="memImgSomini">
+					</span>
 				<img id="mem_st_icon" alt="on" src="/img/status_icn/offline.png" class="st_icn">
 			</button>
 		</div>
 			<ul id="accountModal" class="modal-account d-none" style="box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
 				<li class="user-area">
 					<p class="js-profile user-img"
-						style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;);"></p>
+						style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;);">
+						<img id="memImgmini">
+						</p>
 					<div class="user-info">
 						<strong id="sessionName" class="js-user-name js-mouseover">${sessionScope.name}</strong> <span>이용중</span>
 					</div>
 				</li>
 	
 				<li id="statusChange" class="user-status"><i class="icon-status"></i> 상태 변경</li>
-				<li id="topProfile" class="user-profile"><i class="icons-person-3"></i> 내 프로필</li>
-				<li id="mySettingOpenButton"><i class="icons-set"></i> 환경설정</li>
+				<!-- <li id="topProfile" class="user-profile"><i class="icons-person-3"></i> 내 프로필</li> -->
+				<li id="mySettingOpenButton"><i class="icons-set"></i> 마이페이지</li>
 				<li id="logoutBtn" onclick="location.href='logout.do'"><i class="icons-logout"></i> 로그아웃</li>
 			</ul>
 			<ul id="status" class="st_modal">
@@ -119,7 +152,7 @@
 			</ul>
 		</div>
 	</header>
-
+		
 	<div id="MySettiong" class="flow-all-background-1 zx-9 d-block" style="display: none">
 		<div class="flow-project-make-1">
 			<div class="flow-project-make-2">
@@ -128,22 +161,19 @@
 						<div class="my-layer-header-1">
 							<a href="#" id="mySettingPopupCloseBtn" class="my-button-close-1"></a>
 							<div id="myPicture" class="my-prop-picture">
+								<img id="memImgBig">
 								<a id="editorProfilePhotoBtn" href="#" class="my-button-1"></a>
 							</div>
-							<span id="accountSetting" class="js-my-setting-title">환경설정</span>
+							<span id="accountSetting" class="js-my-setting-title">마이페이지</span>
 						</div>
 
 						<!-- 환경설정 메뉴 -->
-						<div class="my-left-style">
+						<!-- <div class="my-left-style">
 							<ul class="my-popup-left-header" id="mySettingLeftMenu">
 								<li id="myPageBtn" class="js-my-setting-left" style="color: #6449FC"><a id="accountSettingBtn"
 									href="#">마이페이지</a></li>
-								<li id="pushAlamBtn" class="js-my-setting-left"><a id="preferencesBtn"
-									href="#">알림</a></li>
-								<li id="lookBtn" class="js-my-setting-left"><a id="deviceManagementBtn"
-									href="#">잠금설정</a></li>
 							</ul>
-						</div>
+						</div> -->
 
 						<!-- 환경설정 메뉴내용 -->
 						<div id="accountSettingLayer" class="js-my-scroll-layer">
@@ -522,20 +552,26 @@
 							</a>
 						</div>
 
-						<div id="editorProfilePhoto" class="my-popup-pro-1-1 d-none">
-							<a id="changeProfilePhotoBtn" href="#"> <span> <i
-									class="icons-picture"></i> 사진 변경
-							</span>
-							</a> <a id="removeProfilePhotoBtn" href="#"> <span> <i
-									class="icons-delete-2"></i> 삭제
-							</span>
-							</a>
-						</div>
 						<a href="#" id="mySettingPopupCloseBtn" class="my-button-close-1"></a>
 					</div>
 				</div>
 			</div>
 		</div>
+		
+		<div id="userImg" class="ctgry_del_modal" 
+		style="box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); z-index: 100px;  top: 40%; right: 36%;">	
+				<div class="model_heard">
+					<a href="#"><img id="userImgX" src="/img/ico/x_icn.png"></a>
+				</div>
+				<div align="center" style="margin: 25px; 0px;">
+					<h2>프로필 이미지를 선택하세요.</h2>
+					<p><input type="file" id="userImgFile" accept="image/jpeg,image/png,image/jpg"></p>
+				</div>
+				<div align="center">
+					<button type="button" id="userImgBtn" class="blueBtn" style="position: static; background-color: #6449FC" >확인</button>
+				</div>
+		</div>	
+		
 	</div>
 
 
@@ -704,13 +740,29 @@
 	<form id="sessionNull" action="home.do"></form>
 	<form id="leave" action="home.do"></form>
 	<script>
-	//세션 종료일때
+	/* //세션 종료일때
 	$(function(){		
 		var memId = "${sessionScope.memId}"
 		if(memId == null || memId == ""){
 			sessionNull.submit();
 		}
-	});
+	}); */
+	/* $(function(){
+		var memId = "${sessionScope.memId}";
+		$.ajax({
+			url: "getMemberImg.do?memId="+memId,
+			type: "get",
+			datatype: "json",
+			success: function(data){
+				var $memImg = data.memImg;
+				var imgPath = "/userimg/"+$memImg + "?heigth=50";
+				$("#memImgSomini").attr("src",imgPath);
+				$("#memImgmini").attr("src",imgPath);
+				$("#memImgBig").attr("src",imgPath);
+				console.log($memImg);
+			}
+		})
+	}) */
 	
 	//회원상태 가져오기
 	$(function(){
@@ -774,16 +826,73 @@
 		});
 	});
 	
+	/* $('#editorProfilePhotoBtn').on("click",function(){
+		$('#userImg').css('display','block');
+		
+	});
+	$('#userImgX').on("click",function(){
+		$('#userImg').css("display","none");
+	}); */
+	
+	/* //파일 업로드
+	$("#userImgBtn").on("click",function(e){
+		var formData = new FormData();
+		var fileName = null;
+		var memId = "${sessionScope.memId}";
+		var userImgFile = $("#userImgFile");
+		var files = userImgFile[0].files;
+		for(var i= 0; i<files.length; i++){
+			formData.append("userImgFile", files[i]);
+			fileName = files[i].name;
+		}
+			$.ajax({
+				url: 'imgUpload.do',
+				processData: false,
+				contentType: false,
+				data: formData,
+				type: 'POST',
+				success: function(result){
+					var $memImg = result.key +"_"+ fileName;
+					var memId = "${sessionScope.memId}";
+					$("#userImgFile").val();
+					alert("Uploaded");
+					var jsondata = {"memId": memId,"memImg":$memImg};
+					$.ajax({
+						url: 'memberImgUpdate.do',
+						type: 'put',
+						data: JSON.stringify(jsondata),
+						contentType: "application/json",
+						dataType: "json",
+						success: function(){
+							alert("프로필을를 변경했습니다");
+						},
+						error:function(){
+							alert(${message });
+						}
+					})
+				},
+				error: function(){
+					alert("파일의 용량이 너무 큽니다.")
+				}
+			}); //end of $.ajax
+		
+		
+	}); */
+	
 	//모달 자동 닫기
 		 $(document).mouseup(function (e){
 			var MySettiong = $("#MySettiong");
 			var userSetting = $("#userSetting");
+			var status = $("#status");
 			if(userSetting.has(e.target).length === 0){
 				$("#status").css("display", "none");
 				$("#accountModal").attr("class", "modal-account d-none");
 			}
 			if(MySettiong.has(e.target).length === 0){
 				MySettiong.css("display", "none");
+			}
+			if(status.has(e.target).length !== 0){
+				$("#status").css("display", "none");
 			}
 		});
 	
@@ -853,6 +962,7 @@
 			}
 		});
 	});
+
 		
 	//화면에 출력, 회원정보 가져오기		
 		$("#mySettingOpenButton").on("click", function() {
@@ -861,6 +971,8 @@
 			$("#mylock").css("display", "none");
 			$("#mySet").css("display", "block");
 			$("#accountModal").toggleClass("d-none");
+			$("#status").css("display", "none");
+			$("#accountModal").attr("class", "modal-account d-none");
 		});	
 		
 		$(".my-button-close-1").on("click", function() {
@@ -995,6 +1107,8 @@
 		});
 					
 		$("#noPersTelUpdate").on("click",function(){ 
+			$("#persTelInput").toggleClass("d-none");
+			$("#persTelUpdateForm").toggleClass("d-none");
 		});
 		$("#persTelUpdate").on("click", function(){
 			var persTel = $("#editor_persTel").val();
@@ -1078,6 +1192,11 @@
 							$("#pwdInput").toggleClass("d-none");
 							$("#pwdUpdateForm").toggleClass("d-none");
 							$("#pwdUpdateSussacc").css("display","block");
+							hiddenpwd.val();
+							myPwd.val();
+							pwd.val();
+							newPwd.val();
+							
 						}
 					});
 				}else{

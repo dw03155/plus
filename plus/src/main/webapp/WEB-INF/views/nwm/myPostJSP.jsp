@@ -8,62 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("#filterBtn").on("click", function() {
-			$("#filterBtn").addClass("active");
-			$("#filterSelect").toggle();
-		});
-		// 버튼 생성과 이벤트 핸들러 추가를 분리합니다.
-		$("#all").button().click(function(event) {
-			$("#write, #task, #sche, #todo").removeClass("on");
-			$("#all").addClass("on");
-			$(".text, .task, .schedule, .todo").show();
-			var count = $("#myPostContentUl").find('li:visible').length;
-			console.log(count + "");
-		});
 
-		$("#write").button();
-		$("#write").click(function(event) {
-			$("#all, #task, #sche, #todo").removeClass("on");
-			$("#write").addClass("on");
-			$(".text").show();
-			$(".task, .schedule, .todo").hide();
-			var count = $("#myPostContentUl").find('li:visible').length;
-			console.log(count + "====");
-		});
-
-		$("#task").button();
-		$("#task").click(function(event) {
-			var count = $("#myPostContentUl").find('li:visible').length;
-			console.log(count + "====");
-			$("#all, #write, #sche, #todo").removeClass("on");
-			$("#task").addClass("on");
-			$(".task").show();
-			$(".text, .schedule, .todo").hide();
-		});
-
-		$("#sche").button();
-		$("#sche").click(function(event) {
-			var count = $("#myPostContentUl").find('li:visible').length;
-			console.log(count + "====");
-			$("#all, #task, #write, #todo").removeClass("on");
-			$("#sche").addClass("on");
-			$(".schedule").show();
-			$(".task, .text, .todo").hide();
-		});
-
-		$("#todo").button();
-		$("#todo").click(function(event) {
-			var count = $("#myPostContentUl").find('li:visible').length;
-			console.log(count + "====");
-			$("#all, #task, #sche, #write").removeClass("on");
-			$("#todo").addClass("on");
-			$(".todo").show();
-			$(".task, .schedule, .text").hide();
-		});
-	});
-</script>
 </head>
 <body>
 	<!-- 전체 업무 상세보기 (모달창) -->
@@ -176,9 +121,6 @@
 											<c:if test="${notice.notiKnd=='task'}">
 												<c:set var="notiKnd" value="icons-task" />
 											</c:if>
-											<c:if test="${notice.notiKnd=='subtask'}">
-												<c:set var="notiKnd" value="icons-task" />
-											</c:if>
 											<c:if test="${notice.notiKnd=='todo'}">
 												<c:set var="notiKnd" value="icons-todo" />
 											</c:if>
@@ -195,11 +137,14 @@
 													<i class="icons-comment2"></i><span
 														class="js-post-comment-count">0</span>
 												</div>
-												<div class="post-list subtask" style="display: none">
-													<em class="subtask-item"> <i class="icons-subtask"></i>
-														<span class="subtask-number">0</span>
-													</em>
-												</div>
+													<c:if test="${notice.notiKnd == 'subtask'}">
+													<div class="post-list subtask" style="display: block">
+														<em class="subtask-item" style="display: inline-block">
+															<i class="icons-subtask"></i> <span
+															class="subtask-number"> </span>
+														</em>
+													</div>
+												</c:if>
 											</div>
 
 											<p class="search-text-type-3 contents-project">
@@ -215,41 +160,45 @@
 
 											<!-- 글 종류에 따라 display :block-->
 											<div class="fixed-value">
+												<!-- 업무일 때 -->
 												<c:if test="${notice.notiKnd=='task'}">
-													<span class="js-task-state state d-none hold"
-														style="display: none">보류</span>
-													<span class="js-task-state state d-none progress"
-														style="display: none">진행</span>
-													<span class="js-task-state state d-none request"
-														style="display: none">요청</span>
-													<span class="js-task-state state d-none completion"
-														style="display: none">완료</span>
-													<span class="js-task-state state d-none feedback"
-														style="display: none">피드백</span>
+													<c:if test="${notice.addList == 'withhold' }">
+														<span class="js-task-state state d-none hold"
+															style="display: block">보류</span>
+													</c:if>
+													<c:if test="${notice.addList == 'progress' }">
+														<span class="js-task-state state d-none progress"
+															style="display: block">진행</span>
+													</c:if>
+													<c:if test="${notice.addList == 'request' }">
+														<span class="js-task-state state d-none request"
+															style="display: block">요청</span>
+													</c:if>
+													<c:if test="${notice.addList == 'complete' }">
+														<span class="js-task-state state d-none completion"
+															style="display: block">완료</span>
+													</c:if>
+													<c:if test="${notice.addList == 'feedback' }">
+														<span class="js-task-state state d-none feedback"
+															style="display: block">피드백</span>
+													</c:if>
 												</c:if>
 												<c:if test="${notice.notiKnd=='schedule'}">
 													<div class="p" style="display: inline-block">
-														<em class="date"><fmt:formatDate pattern="MM/dd "
-																value="${notice.notiDttm}" /></em> <span><fmt:formatDate
-																pattern="HH:mm" value="${notice.notiDttm}" /></span>
+														<em class="date"> <fmt:parseDate
+                                                                  value="${fn:substring(notice.addList, 0, 8)}" pattern="yy/MM/dd"
+                                                                  var="addDate" /> <fmt:formatDate
+                                                                  value="${addDate}" pattern="yy/MM/dd" /></em> <span>
+                                                               <fmt:parseDate pattern="yy/MM/dd"
+                                                                  value="${notice.addList}" var="addTime" /> <fmt:formatDate
+                                                                  value="${addTime}" pattern="HH:mm" />
+                                                            </span>
 													</div>
 												</c:if>
 												<c:if test="${notice.notiKnd=='todo'}">
-													<span class="state request" style="display: inline-block">50%</span>
+													<span class="js-task-state js-todo-state state request"
+														style="display: inline-block">${notice.addList }%</span>
 												</c:if>
-												<!-- 할일 완료도  업무 진행상항 class="progress" 진행 /
-												class="request" 요청 / class="completion"완료 /
-												class="feedback"피드백  일정 -->
-												<!--
-									            <div class="fixed-value">
-									                <span class="state request" style="display:none" data>-1%</span>
-									                <span class="js-task-state state request" >요청</span>
-									                <div class="date-time" style="display:none" data>
-									                    <em class="date">-</em>
-									                    <span>-</span>
-									                </div>
-									            </div>
-									            -->
 											</div>
 										</div>
 									</li>
@@ -322,13 +271,93 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- 내 게시물 모달창 JS -->
 	<script>
+		// 게시글 종류 필터
+		$("#filterBtn").on("click", function() {
+			$("#filterBtn").addClass("active");
+			$("#filterSelect").toggle();
+		});
+		
+		// 전체
+		$("#all").button().click(function(event) {
+			$("#write, #task, #sche, #todo").removeClass("on");
+			$("#all").addClass("on");
+			$(".text, .task, .schedule, .todo").show();
+			var count = $("#myPostContentUl").find('li:visible').length;
+			console.log(count + "");
+		});
+		
+		// 글
+		$("#write").button();
+		$("#write").click(function(event) {
+			$("#all, #task, #sche, #todo").removeClass("on");
+			$("#write").addClass("on");
+			$(".text").show();
+			$(".task, .schedule, .todo").hide();
+			removeFiller();
+			var count = $("#myPostContentUl").find('li:visible').length;
+			console.log(count + "====");
+			$(".count-number").html(count);
+			
+		});
+		
+		// 업무
+		$("#task").button();
+		$("#task").click(function(event) {
+			$("#all, #write, #sche, #todo").removeClass("on");
+			$("#task").addClass("on");
+			$(".task").show();
+			$(".text, .schedule, .todo").hide();
+			removeFiller()
+			var count = $("#myPostContentUl").find('li:visible').length;
+			console.log(count + "====");
+			$(".count-number").html(count);
+			
+		});
+		
+		// 일정
+		$("#sche").button();
+		$("#sche").click(function(event) {
+			$("#all, #task, #write, #todo").removeClass("on");
+			$("#sche").addClass("on");
+			$(".schedule").show();
+			$(".task, .text, .todo").hide();
+			removeFiller()
+			var count = $("#myPostContentUl").find('li:visible').length;
+			console.log(count + "====");
+			$(".count-number").html(count);
+		});
+		
+		// 할일
+		$("#todo").button();
+		$("#todo").click(function(event) {
+			$("#all, #task, #sche, #write").removeClass("on");
+			$("#todo").addClass("on");
+			$(".todo").show();
+			$(".task, .schedule, .text").hide();
+			removeFiller()
+			var count = $("#myPostContentUl").find('li:visible').length;
+			console.log(count + "====");
+			$(".count-number").html(count);
+		});
+
+		// 필터 설정 취소
+		function removeFiller() {
+			$("#cancleFilter").show();
+			$("#cancleFilter").click(function() {
+				$("#all").addClass("on");
+				$(".text, .task, .schedule, .todo").show();
+				$("#cancleFilter").hide();
+				$("#write, #task, #sche, #todo").removeClass("on");
+				var count = $("#myPostContentUl").find('li:visible').length;
+				console.log(count + "====");
+				$(".count-number").html("${fn:length(notices)}");
+			});
+		}
+
 		// 내 게시물 모달창 (팝업)
 		$("#myPostContentUl > li").click(function(e) {
 			if ($(e.currentTarget).hasClass("highlight")) {
-				console.log("ddd===========================");
 				console.log($(e.currentTarget));
 				$(e.currentTarget).removeClass("highlight");
 				$("#postPopup").css("display", "none");
@@ -398,6 +427,8 @@
 				});
 			}
 		};
+		
+		
 	</script>
 
 

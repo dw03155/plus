@@ -20,11 +20,15 @@
 				</div>
 				<div class="open-search-area">
 					<div class="project-search-area all-file-header-type-3">
+						<form name="frm" method="post">
 						<div class="project-search">
-							<i class="icons-search"></i> <input id="openProjectSearchInput"
+							<i class="icons-search"></i> <input id="openProjectSearchInput" name="prjTtl"
 								type="text" placeholder="프로젝트명으로 검색해주세요"
 								class="project-search-input" autocomplete="off" maxlength="50">
+								<input type="hidden" id="memId" value="${sessionScope.memId}">
+								<input type="hidden" id="coUrl" value="${sessionScope.coUrl}">
 						</div>
+						</form>
 					</div>
 				</div>
 				<div class="main-sub-header">
@@ -40,8 +44,7 @@
 								</li>
 								<c:forEach var="ctgry" items="${ctgrys}">
 									<li class="category-item">
-										<button type="button" class="public-project-item"
-											ctgryId="${ctgry.ctgryId}">${ctgry.ctgryName}</button>
+										<button type="button" class="public-project-item">${ctgry.ctgryName}</button>
 									</li>
 								</c:forEach>
 							</ul>
@@ -59,6 +62,8 @@
 								class="section-list-1 project-list-setion">
 								<c:forEach var="prj" items="${prjs}">
 									<form action="prjHome.do" method="post">
+									<input type="hidden" id="memId" value="${sessionScope.memId}">
+									<input type="hidden" id="coUrl" value="${sessionScope.coUrl}">
 										<input name="prjId" type="hidden" value="${prj.prjId}" />
 										<li class="project-item"><a href="#">
 												<div class="project-wr">
@@ -90,7 +95,7 @@
 			$(e.currentTarget).closest("form").submit();
 		});
 
-		// 프로젝트 카테고리
+		// 프로젝트 카테고리 선택
 		$("#openProjectCategory").find("button").on("click", function(e) {
 			$("#openProjectCategory").find("button").removeClass("active");
 			$(e.target).addClass("active");

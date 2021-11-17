@@ -319,7 +319,7 @@ to {
 										<span></span>
 									</div>
 									<div class="detail-popuplist-type-1">
-										<span>회사 직원 초대</span> <em>회사 직원 또는 조직도를 확인하고 초대할 수 있습니다.</em>
+										<span>회사 직원 초대</span> <em>회사 직원을 초대할 수 있습니다.</em>
 									</div>
 							</a></li>
 							<li id="openSendEml"><a href="#">
@@ -327,28 +327,28 @@ to {
 										<span></span>
 									</div>
 									<div class="detail-popuplist-type-1">
-										<span>이메일 초대장 발송</span> <em>초대장을 이메일로 발송할 수 있습니다.</em>
+										<span>게스트 초대</span> <em>초대장을 이메일로 발송할 수 있습니다.</em>
 									</div>
 							</a></li>
 						</ul>
 					</div>
 
-					<!-- 이메일 초대장 발송 -->
-					<div id="sendInviteEmlLayer"
+					<!-- 게스트 이메일 초대장 발송 -->
+					<div id="guestsendInviteEmlLayer"
 						class="send-invite-email name-type-seach-popup-type-1"
 						style="display: none">
 						<div class="name-type-seach-popup-header-type-1 margin-bottom-20">
 							<a href="#"><em class="returnMainBtn"></em></a> <span>이메일
 								초대장 발송</span>
 							<button class="btn-close closeInviteLayerBtn">
-								<i class="icons-close-1"></i>
+								<i id="guestLayerX" class="icons-close-1"></i>
 							</button>
 						</div>
 						<div class="invite-email-area scroll-mask">
 							<div class="invite-email-list " id="emailList">
 								<div class="input-email-type-wrap-1 emailItem">
-									<input type="text" class="input-email-type-1 emailItemInput"
-										placeholder="example@flow.team" data-valid="email"
+									<input id="guestEmail" type="text" class="input-email-type-1 emailItemInput"
+										placeholder="example@plus.team" data-valid="email"
 										maxlength="50" data-required-yn="Y"
 										data-empty-msg="이메일을 작성해주세요!"
 										data-over-msg="이메일은 50자이내로 작성해주세요!"
@@ -360,17 +360,15 @@ to {
 							<div class="flow-email-bottom-section-1">
 								<div id="inviteMsg" contenteditable="true"
 									class="flow-email-bottom-text-1">
-									<p>
-										플러스로 업무관리, 파일공유를 한 곳에서! <br>플러스로 초대합니다.
-									</p>
+									<textarea id="guestcontents" rows="30" cols="41" style="resize: none">플러스로 업무관리, 파일공유를 한 곳에서! 플러스로 초대합니다.</textarea>
 								</div>
 							</div>
 						</div>
 						<div class="flow-pop-button-type-1">
 							<a href="#">
-								<div class="flow-pop-sub-button-1 returnMainBtn">취소</div>
+								<div id="cancleGuest" class="flow-pop-sub-button-1 returnMainBtn">취소</div>
 							</a> <a href="#">
-								<div id="sendInviteEmail" class="flow-pop-sub-button-2">초대</div>
+								<div id="guestsendInviteEmail" class="flow-pop-sub-button-2">초대</div>
 							</a>
 						</div>
 					</div>
@@ -1040,15 +1038,54 @@ to {
 			e.preventDefault();
 			$("#overlay").css("display", "block");
 			$("#sendInviteEmlLayer").css("display", "block");
-			$("#openInviteLayerBtn").css("display", "none");
 		});
 
 		$("#openSendEml a").on("click", function(e) { // 초대하기 > 이메일 초대장 발송
 			e.preventDefault();
 			$("#overlay").css("display", "block");
 			$("#sendInviteEmlLayer").css("display", "block");
-			$("#openInviteLayerBtn").css("display", "none");
 		});
+		
+		//게스트초대창 열기
+		$('#openSendEml').on("click", function(e){
+			e.preventDefault();
+			$('#guestsendInviteEmlLayer').css("display","block");
+		});
+		//게스트초대창 닫기
+		$("#guestLayerX").on('click', function(e){
+			e.preventDefault();
+			$('#guestsendInviteEmlLayer').css("display","none");
+		});
+		//게스트초대창 닫기
+		$("#cancleGuest").on('click', function(e){
+			e.preventDefault();
+			$('#guestsendInviteEmlLayer').css("display","none");
+		});
+		
+		//초대창 다 닫기
+		$('.closeInviteLayerBtn').on('click', function(e){
+			e.preventDefault();
+			$("#overlay").css("display", "none");
+			$("#inviteLayer").css("display", "none");
+			$("#inviteMainLayer").css("display", "none");
+		});
+		
+		//게스트 메일발송
+		$('#guestsendInviteEmail').click(function(){
+			var coUrl = "${sessionScope.coUrl}";
+			var email = $('#guestEmail').val();
+			var contents = $('#guestcontents').val();
+			console.log(contents);
+			$.ajax({
+				type: "post",
+				url: "guestEmailPost.do",
+				data: {"email": email, "coUrl": coUrl, "contents":contents},
+				success: function(){
+					alert("초대메일을 발송했습니다.");
+				}
+			})
+		});
+
 	</script>
 
 

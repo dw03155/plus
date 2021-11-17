@@ -44,31 +44,7 @@ td{
 		margin-left: 5px;
 		top: 86px;
 	}
-.ctgry_del_modal{
-	width: 400px;
-	height: 200px;
-    position: absolute;
-    top: 35%;
-    right: 45%;
-    z-index: 13;
-    background: #fff;
-    border: 1px solid #777;
-    border-radius: 8px;
-    font-size: 13px;
-    text-align: left;
-    color: #555;
-    display: none;
-    align-content: center;
-}
-.model_heard{
-	height: 30px;
-	padding: 10px;
-	
-}
-#ctgry_model_x{
-	float: right;
-	width: 15px;
-}
+
 .categoty-input{
 	width: 100%;
     height: 34px;
@@ -134,7 +110,7 @@ td{
 					</tbody>
 				</table>
 			 </div><!-- usingMember end -->
-		<div id="ctgModal" class="ctgry_del_modal" >	
+		<div id="ctgModal" class="ctgry_del_modal" style="box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">	
 			<div class="model_heard">
 				<a href="#"><img id="ctgry_model_x" src="/img/ico/x_icn.png"></a>
 			</div>

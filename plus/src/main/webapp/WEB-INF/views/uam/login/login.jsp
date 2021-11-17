@@ -121,7 +121,7 @@
 	}
 </style>
 </head>
-<body>
+<body style="overflow: hidden;">
 <!-- top -->
 	<div class="signup_top">
 		<a href="/index.act"><img src="img_rn/memb2/plus_loing.png"
@@ -179,7 +179,7 @@
 		  </div>
 		 </form>
 		<div id="REG_3" class="forgot_pw">
-			<a data-langcode="H372">비밀번호를 잊어버리셨나요?</a>
+			<!-- <a data-langcode="H372">비밀번호를 잊어버리셨나요?</a> -->
 		</div>
 	</div>
 	

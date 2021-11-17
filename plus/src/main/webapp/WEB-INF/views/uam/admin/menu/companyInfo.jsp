@@ -48,7 +48,7 @@
 				<p class="project-class join">회사명</p>
 				<div class="coInput">
 					<input id="coNameSer" name="coNameSer" type="text" required="required" class="coInputTag"/>
-					<button id="btn" class="formIn" type="button">변경</button>
+					<button id="chengebtn" class="formIn" type="button">변경</button>
 				</div>
 			</div>
 			<div class="section-2 middle-line js-project-section js-label-section">
@@ -79,7 +79,7 @@
 		})
 		
 	});		
-	$("#btn").on("click", function(){
+	$("#chengebtn").on("click", function(){
 		var coUrl = "${sessionScope.coUrl}";
 		var coName = $("#coNameSer").val();
 		var jsondata = {"coUrl": coUrl,"coName":coName};
@@ -141,7 +141,7 @@
 					})
 				},
 				error: function(){
-					alert("파일의 용량이 너무 큽니다.")
+					alert("파일을 입력해주세요")
 				}
 			}); //end of $.ajax
 		

@@ -2,6 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%
+pageContext.setAttribute("replaceChar", "\n");
+%>
 
 <!-- 내 게시물 목록 -> 일정 상세보기(팝업) -->
 <div class="post-popup-header card-popup-header d-none"
@@ -29,9 +33,18 @@
 						<strong class="author ellipsis">${schedules.name }</strong> <em
 							class="position ellipsis" style="display: inline"></em> <span
 							class="date"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
-								value="${schedules.notiDttm}" /></span> <span class="post-security">
-							<i class="icons-person-7 js-mouseover" mouseover-text="전체 공개"></i>
-						</span>
+								value="${schedules.notiDttm}" /></span>
+
+						<!-- 게시물 공개 여부 -->
+						<c:if test="${schedules.notiOpenPerm == 'all'}">
+							<span class="post-security"> <i
+								class="icons-person-7 js-mouseover" mouseover-text="전체 공개"></i>
+							</span>
+						</c:if>
+						<c:if test="${schedules.notiOpenPerm == 'pm'}">
+							<span class="post-security"> <i
+								class="icons-lock js-mouseover" mouseover-text="프로젝트 관리자만"></i></span>
+						</c:if>
 					</dt>
 					<dd class="d-none">
 
@@ -74,21 +87,21 @@
 		<div class="card-header-bottom ">
 			<div class="schedule-date">
 				<strong class="schedule-month"><fmt:formatDate
-							pattern="yyyy-MM" value="${schedules.notiDttm}" /></strong><strong
-					class="schedule-day"><fmt:formatDate
-							pattern="dd" value="${schedules.notiDttm}" /></strong>
+						pattern="yyyy-MM" value="${schedules.notiDttm}" /></strong><strong
+					class="schedule-day"><fmt:formatDate pattern="dd"
+						value="${schedules.notiDttm}" /></strong>
 			</div>
 			<div class="post-title-area">
-				<h4 class="js-post-title post-title ">schedules.notiTtl </h4>
+				<h4 class="js-post-title post-title ">${schedules.notiTtl}</h4>
 				<div class="schedule-period-area d-none" style="display: block">
 					<span class="schedule-period"><fmt:formatDate
-							pattern="yyyy-MM-dd (E) HH:mm:ss" value="${schedules.notiDttm}" /></span>
+							pattern="yyyy-MM-dd (E) HH:mm:ss" value="${schedules.scheBgnDt}" /></span>
 					<span class="schedule-period" style="display: inline-block"><fmt:formatDate
-							pattern="yyyy-MM-dd (E) HH:mm:ss" value="${schedules.scheDttm }" /></span>
+							pattern="yyyy-MM-dd (E) HH:mm:ss" value="${schedules.scheEndDt }" /></span>
 				</div>
 			</div>
 			<div class="post-state">
-				<span class="task-number d-none"> 업무번호 <em>${schedules.notiId }</em>
+				<span class="task-number d-inline-block"> 업무번호 <em>${schedules.notiId}</em>
 				</span>
 			</div>
 		</div>
@@ -133,20 +146,10 @@
 								<i class="icon-post-worker"></i>
 							</div>
 							<div class="create-content-cell manager-btn-group">
-								<span class="js-manager-group manager-group"> <span
+								<span class="js-manager-group manager-group"></span> <span
 									class="js-registration participant-thumbnail attendee participate js-mouseover"
 									style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)">
-								</span> <input type="text"
-									class="js-worker-input worker-search-input d-none"
-									placeholder="참석자 추가">
-									<button type="button"
-										class="js-worker-button add-manager-button">참석자 변경</button>
-									<div id="attendanceCount" class="attendee-status"
-										style="display: block" >
-										<span class="attendee-status-text participate"><span>참석</span><em>1</em></span>
-										<span class="attendee-status-text absence"><span>불참</span><em>0</em></span>
-										<span class="attendee-status-text undetermined"><span>미정</span><em>0</em></span>
-									</div>
+								</span>
 							</div></li>
 						<li style="display: table">
 							<div class="create-content-cell title manager">
@@ -161,7 +164,7 @@
 											대구광역시 복현2동</span>
 										<button type="button" class="js-place-span map-button"
 											data-map-link="https://www.google.co.kr/maps/place/35.900017,128.619996?q=%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%20%EB%8C%80%EA%B5%AC%EA%B4%91%EC%97%AD%EC%8B%9C%20%EB%B3%B5%ED%98%842%EB%8F%99"
-											style="display: inline-block" >지도보기</button>
+											style="display: inline-block">지도보기</button>
 									</em>
 								</div>
 								<div id="placeSpan" class="js-place-span url-preview map"
@@ -170,20 +173,21 @@
 									<div>
 										<img id="mapImage"
 											src="https://maps.googleapis.com/maps/api/staticmap?center=35.900017,128.619996&amp;zoom=14&amp;size=646x220&amp;markers=color:blue|35.900017,128.619996&amp;key=AIzaSyADjbtMn46r9DGFyo_ZRz3c6fOXzuOKWCw"
-											 alt="게시물 이미지">
+											alt="게시물 이미지">
 									</div>
 									<input id="LOCATION" type="hidden">
 								</div>
 							</div>
 						</li>
-						<li id="videoLi" style="display: none" >
+						<li id="videoLi" style="display: block">
 							<div class="create-content-cell title">
 								<i class="icon-post-video"></i>
 							</div>
 							<div class="create-content-cell">
-								<button id="videoButton" type="button"
-									class="add-manager-button ">화상 회의 추가</button>
+								<!-- <button id="videoButton" type="button"
+									class="add-manager-button ">화상 회의 추가</button> -->
 								<span id="videoSpan" data-vc-srno="0">
+								
 									<div id="zoomButton" class="video-conference-join" tabindex="0">
 										Zoom으로 참여하기
 										<button type="button" class="remove-button d-none">
@@ -195,10 +199,11 @@
 										<span class="link-copy"><i class="icons-copy"></i></span> 링크
 										복사
 									</div>
+								
 								</span>
 							</div>
 						</li>
-						<li style="display: none" >
+						<li style="display: none">
 							<div class="create-content-cell title">
 								<i class="icon-post-alarm"></i>
 							</div>
@@ -207,12 +212,12 @@
 									id="alarmButton" class="alarm-select d-none"></select>
 							</div>
 						</li>
-						<li style="display: block" >
+						<li style="display: block">
 							<div class="create-content-cell title manager memo">
 								<i class="icon-post-memo"></i>
 							</div>
 							<div class="create-content-cell memo">
-								<p class="memo-span" id="memoSpan">test</p>
+								<p class="memo-span" id="memoSpan">${fn:replace(schedules.scheCntn, replaceChar, "<br/>")}</p>
 								<div id="memoButton"
 									class="js-upload-area js-paste-layer memo d-none"
 									contenteditable="true" data-required-yn="Y"
@@ -220,15 +225,6 @@
 							</div>
 						</li>
 					</ul>
-				</div>
-				<div id="attendanceSelect"
-					class="attendance-button-group js-schedule-comp"
-					style="display: block" >
-					<button class="attendance-button participate on"
-						data-status="participate">참석</button>
-					<button class="attendance-button absence " data-status="absence">불참</button>
-					<button class="attendance-button undetermined "
-						data-status="undetermined">미정</button>
 				</div>
 			</div>
 

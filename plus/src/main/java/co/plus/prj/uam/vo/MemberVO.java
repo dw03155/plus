@@ -16,6 +16,7 @@ public class MemberVO {
 		private String memPerm;			//회원권한
 		private String accSt;			//회원계정생태
 		private String coUrl;			//회사URL
+		private String memImg;			//회원이미지
 		
 		//company
 		private String coName;			//회사이름
