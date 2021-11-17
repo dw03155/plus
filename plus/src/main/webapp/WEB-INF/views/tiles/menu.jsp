@@ -28,7 +28,7 @@
 					id="leftProjectHomeCount"
 					class="js-project-home-count project-total-count d-none"></em>
 			</a></li>
-			<c:if test="${memPerm ne 'GUEST'}">
+			<c:if test="${memPerm ne 'guest'}">
 				<li data-code="open" class="left-menu-item"><a
 					href="openProject.do"><i class="ico-search"></i>전체 프로젝트 </a></li>
 			</c:if>
