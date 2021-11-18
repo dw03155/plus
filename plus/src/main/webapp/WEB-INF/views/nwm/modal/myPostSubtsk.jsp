@@ -17,10 +17,10 @@ pageContext.setAttribute("replaceChar", "\n");
 	<!-- 게시물 제목 -->
 	<h3 class="card-popup-title">
 		<i id="projectTitleColor" class="project-color color-code-4"></i> <span
-			class="js-project-title-button">subtasks.prjTtl</span> <span
+			class="js-project-title-button">${subtasks.prjTtl}</span> <span
 			class="subtask-title up-task-title js-up-task-button"> </span>
 	</h3>
-	<button  class="btn-close card-popup-close">
+	<button id="subtskCloseBtn"  class="btn-close card-popup-close">
 		<i class="icons-close-1"></i>
 	</button>
 </div>
@@ -33,7 +33,7 @@ pageContext.setAttribute("replaceChar", "\n");
 					style="background-image: url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
 				<dl class="post-author-info">
 					<dt>
-						<strong class="author ellipsis">subtasks.name</strong> <em
+						<strong class="author ellipsis">${subtasks.name}</strong> <em
 							class="position ellipsis" style="display: inline-block"></em> <span
 							class="date">subtasks.notiDttm</span>
 
@@ -226,7 +226,7 @@ pageContext.setAttribute("replaceChar", "\n");
 				</div>
 
 				<!-- 업무 내용 -->
-				<div>${fn:replace(subtasks.subtskCntn, replaceChar, "<br/>")}</div>
+				<%-- <div>${fn:replace(subtasks.subtskCntn, replaceChar, "<br/>")}</div> --%>
 			</div>
 
 			<button id="postMoreButton" type="button"
@@ -237,7 +237,7 @@ pageContext.setAttribute("replaceChar", "\n");
 
 <script>
 	// 모달창 닫기 버튼
-	$(".btn-close").click(function() {
+	$("#subtskCloseBtn").click(function() {
 		$("#postPopup").css("display", "none");
 		$(".task-item").removeClass("highlight");
 	});

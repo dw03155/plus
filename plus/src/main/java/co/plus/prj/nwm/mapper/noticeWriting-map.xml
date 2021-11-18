@@ -11,12 +11,16 @@
 		where noti_id = b.noti_id )
 		when noti_knd = 'todo' then ( select TO_CHAR(RATIO_TO_TODO(b.noti_id))
 		from dual )
-		end addlist
+		end addlist,
+         (case when exists(select * from subtask where noti_id2 = b.noti_id)
+            then 1
+            else 0
+            end) as subtskyn
 		from 	member a, board b, project c
 		where 	b.prj_id = c.prj_id
         and 	a.mem_id = b.mem_id
         and     b.noti_knd <![CDATA[<>]]> 'subtask'
-		and 	a.mem_id = ${memId}
+		and 	a.mem_id = #{memId}
 		<if test="notiTtl != null and notiTtl != ''">
 			and noti_ttl like '%' || #{notiTtl} || '%'
 		</if>
@@ -39,7 +43,6 @@
 		SELECT 	a.prj_id, a.prj_ttl
 		FROM 	project a, prj_parti b
 		where 	a.prj_knd = 'N'
-		
 		and 	a.prj_id = b.prj_id
 		and 	b.mem_id = #{memId}
 		and 	a.co_url = #{coUrl}
@@ -50,6 +53,9 @@
 		and 	c.prj_open_perm = 'all'
 		and 	c.prj_id = d.prj_id
 		and 	c.co_url = #{coUrl}
+		<if test="prjTtl != null and prjTtl != ''">
+			and prj_ttl like '%' || #{prjTtl} || '%'
+		</if>
 	</select>
 
 	<select id="detailTaskList" resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
@@ -61,13 +67,6 @@
         inner join member m
         on e.mem_id = m.mem_id
         where g.prj_id = #{prjId}
-        
-		<!-- select  e.*, f.name, g.noti_dttm
-		from 	task e, member f, board g
-		WHERE 	e.mem_id = f.mem_id
-		and 	e.noti_id = g.noti_id
-        and     g.prj_id = #{prjId} -->
-		<!-- 업무 ->ㅣ 업무 명으로 검색 -->
 		<if test="notiTtl != null and notiTtl != ''">
 			and noti_ttl like '%' || #{notiTtl} || '%'
 		</if>
@@ -83,7 +82,11 @@
 		where noti_id = b.noti_id )
 		when noti_knd = 'todo' then ( select TO_CHAR(RATIO_TO_TODO(b.noti_id))
 		from dual )
-		end addlist
+		end addlist,
+         (case when exists(select * from subtask where noti_id2 = b.noti_id)
+            then 1
+            else 0
+            end) as subtskyn
         from board a, bookmark b, project c, member d
         where a.noti_id = b.noti_id
         and a.prj_id = c.prj_id
@@ -112,7 +115,11 @@
 	<!-- 내 게시물 목록 -> 글 상세보기(팝업) -->
 	<select id="myPostTxt"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name
+		 select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name, 
+        (case when exists(select * from bookmark where noti_id =a.noti_id and mem_id = #{memId})
+            then 1
+            else 0
+            end) as bmyn
 		from 	text a, project b, board c, member d
 		where 	a.noti_id = c.noti_id 
 		and 	b.prj_id = c.prj_id
@@ -120,6 +127,19 @@
 		and 	c.mem_id = d.mem_id
 		and 	c.noti_id = #{notiId}
 	</select>
+	
+	
+	<!-- 프로젝트 색 표시 -->
+	<select id="prjColorMyPost" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select  p.prj_ttl,
+		(case when exists (select * from prj_parti where mem_id = #{memId} and prj_id = a.prj_id)
+                        then (select prj_color from prj_parti where mem_id = #{memId} and prj_id = a.prj_id) 
+                		else (select prj_color from prj_parti where prj_perm = 'pm' and prj_id = a.prj_id) 
+                end) as prj_color
+		from  	board a , project p
+		where  a.noti_id = #{notiId}
+		and 	p.prj_id = a.prj_id
+	</select> 
 	
 	<!-- 내 게시물 목록 -> 업무 상세보기(팝업) -->
 	<select id="myPostTsk"
@@ -133,8 +153,8 @@
 		        	on c.prj_id = d.prj_id
 		        inner join member e
 		        	on c.mem_id = e.mem_id
-        where a.noti_id = #{notiId}
-	</select>
+        where a.noti_id = #{notiId}	
+        </select>
 	
 	<!-- 내 게시물 목록 -> 하위업무 상세보기(팝업) -->
 	<select id="myPostSubtsk"
@@ -150,7 +170,11 @@
 	<!-- 내 게시물 목록 -> 일정 상세보기(팝업) -->
 	<select id="myPostSche"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, d.name, c.noti_dttm
+		select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, d.name, c.noti_dttm,
+		(case when exists(select * from bookmark where noti_id =a.noti_id and mem_id = a.mem_id)
+            then 1
+            else 0
+            end) as bmyn
 		from 	schedule a, project b, board c, member d
 		where 	a.noti_id = c.noti_id 
 		and 	b.prj_id = c.prj_id
@@ -162,7 +186,11 @@
 	<!-- 내 게시물 목록 -> 할일 상세보기(팝업) -->
 	<select id="myPostTodo"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name
+		select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name,
+		(case when exists(select * from bookmark where mem_id =a.mem_id)
+            then 1
+            else 0
+            end) as bmyn
 		from 	todo a, project b, board c, member d
 		where 	a.noti_id = c.noti_id 
 		and 	b.prj_id = c.prj_id

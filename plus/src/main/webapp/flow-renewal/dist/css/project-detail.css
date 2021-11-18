@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /*
 * Prefixed by https://autoprefixer.github.io
 * PostCSS: v7.0.29,
@@ -196,7 +195,7 @@
 }
 .document-item.create-box .upload-img{
   border: 0;
-  margin: 0 auto;
+  /*margin: 0 auto;*/
 }
 .create-box:hover {
   background: #f8f7ff;
@@ -1720,6 +1719,27 @@
   padding: 15px 30px 0;
 }
 
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .post-card-content {
+    word-break: keep-all;
+    word-wrap: break-word;
+  }
+
+  /* 익스에서 Italic 폰트 적용안되는 현상 */
+  .post-card-content em,
+  .js-upload-area em{
+    font-style: italic;
+  }
+
+  .post-card-content em.document-extension,
+  .post-card-content em.url-preview-title,
+  .js-upload-area em.document-extension,
+  .js-upload-area em.url-preview-title{
+    font-style: normal;
+  }
+}
+
+
 .post-card-content>.post-card-content{
   padding: 0;
 }
@@ -1847,6 +1867,7 @@
   text-overflow: ellipsis;
   margin: 0;
   font-size: 18px;
+  font-weight: bold;
   vertical-align: middle;
   word-break: break-word;
 }
@@ -1930,6 +1951,9 @@
 .url-preview img {
   width: 100%;
   border-radius: 0;
+  max-height: 300px;
+  object-position: 0% 15%;
+  object-fit: cover;
 }
 
 .url-preview.map .url-preview-content {
@@ -2235,6 +2259,9 @@
   position: absolute;
   right: 10px;
 }
+.file-item.ui-sortable-helper .delete-button {
+  display: none !important;
+}
 .post-media:hover,
 .post-media:focus{
   color: #6449fc;
@@ -2274,6 +2301,9 @@
 .document-item-info dd {
   color: #999;
   font-family: Roboto;
+}
+.file-item.ui-sortable-helper .extension-icon-area {
+  width: 39px;
 }
 .extension-icon-area {
   position: relative;
@@ -2858,7 +2888,7 @@
   color: #6449fc;
 }
 
-.chat-txt:hover .urllink.blue {
+.chat-txt .urllink.blue:hover {
   text-decoration: underline;
 }
 
@@ -2915,6 +2945,19 @@
   position: absolute;
   top: 8px;
   right: 10px;
+  width: 28px;
+  height: 28px;
+  line-height: 25px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.comment-recording-button {
+  position: absolute;
+  top: 8px;
+  right: 45px;
   width: 28px;
   height: 28px;
   line-height: 25px;
@@ -3472,6 +3515,7 @@
   box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   min-height: 651px;
+  max-height: calc(100vh - 40px);
 }
 .create-post-header {
   position: relative;
@@ -3658,6 +3702,7 @@
 .write + .share-contents .create-post-content[contenteditable="true"],
 .write2 + .create-post-container .create-post-content[contenteditable="true"] {
   min-height: 32vh;
+  max-height: 77vh;
   padding: 20px 30px 0;
 }
 .create-post-content {
@@ -3695,6 +3740,9 @@
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   color: #fff;
+}
+.create-box:hover .delete-button {
+  display: block;
 }
 .create-box .delete-button {
   position: absolute;
@@ -3900,13 +3948,14 @@
 .create-post-container {
   overflow-y: auto;
   overflow-x: hidden;
+  max-height: calc(100vh - 200px);
 }
 
 /* IE 대응을 위한 코드 */
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
   .create-post-container{
     min-height: 45vh;
-    max-height: calc(100vh - 274px);
+    max-height: calc(100vh - 204px);
     padding-bottom: 60px;
   }
 }
@@ -4007,14 +4056,21 @@
 .subtask-menu .all-seach-popup-sub-button-2 {
   width: 100%;
 }
+
 .create-content-cell.title {
   vertical-align: top;
+  box-sizing: content-box;
   width: 20px;
-  padding: 7px 40px 0 0;
+  padding: 7px 20px 0 0;
   color: #555;
   font-weight: bold;
   font-size: 14px;
 }
+
+/*.js-start-date-layer .create-content-cell.title,*/
+/*.js-end-date-layer .create-content-cell.title{*/
+/*  padding-right: 20px;*/
+/*}*/
 
 .worker-search-input{
   margin-top: 5px;
@@ -4916,8 +4972,8 @@
 .icon-normal {
   display: inline-block;
   width: 16px;
-  height: 2px;
-  background-position: -82px -82px;
+  height: 32px;
+  background-position: -82px -66px;
   vertical-align: middle;
 }
 .icon-subtask-level.lv3,
@@ -4981,6 +5037,7 @@
 .priority-group .priority-button {
   display: block;
   margin: 0 auto;
+  width: 42px;
   font-size: 13px;
   color: #555;
 }
@@ -5114,7 +5171,7 @@
 }
 .create-content-area .document-item {
   cursor: pointer;
-  border: 1px solid #ddd;
+  /*border: 1px solid #ddd;*/
 }
 .create-content-area .document-item:hover {
   background: #f8f7ff;
@@ -5488,12 +5545,14 @@
   top: 15px;
   right: 5px;
 }
-.post-card-wrapper .todo-text {
+.post-card-wrapper .todo-text span {
   width: 453px;
   padding: 6px 0;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  position: absolute;
+  line-height: 14px;
 }
 .todo-text {
   display: inline-block;
@@ -6722,6 +6781,29 @@
   padding: 12px 17px 12px 10px;
   overflow: hidden;
   border-bottom: 1px solid #eee;
+}
+
+.history-group li.active{
+  background-color: #EFEBFF;
+  border: 1px solid #6449fc;
+  border-radius: 10px;
+}
+
+.history-group li.active .all-text-wrap-type-2,
+.history-group li.active .all-text-wrap-type-2+.all-text-wrap-type-3{
+  color: #6449fc;
+}
+
+.history-group li > .all-text-wrap-type-1{
+  width: calc(100% - 674px);
+}
+
+.history-group li > .all-text-wrap-type-1 > .all-text-wrap-type-3{
+  color: #7163C3;
+}
+
+.history-group li > .all-text-wrap-type-1 > .all-text-wrap-type-3>span{
+  color: #777;
 }
 
 .prevent-events{
