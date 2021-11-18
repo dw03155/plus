@@ -30,10 +30,25 @@ public class PNWController {
 		return "pnw/myProject";
 
 	}
-
-	// 전체 프로젝트(**)
+	// 즐겨찾기 추가
+	@RequestMapping(value = "/prjFavorite.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String prjFavorite(HttpSession session, Model model, PNWVO vo) {
+		service.prjFavorite(vo);
+		return "redirect:myProject.do";
+	}
+	// 즐겨찾기 삭제
+	@RequestMapping(value = "/prjNoFavor.do", method = RequestMethod.DELETE)
+	@ResponseBody
+	public String prjNoFavor(HttpSession session, Model model, PNWVO vo) {
+		service.prjNoFavor(vo);
+		return "redirect:myProject.do";
+	}
+	
+	
+	// 전체 프로젝트
 	@RequestMapping(value = "/openProject.do", method = RequestMethod.GET)
-	public String cProject(HttpSession session, Model model, PNWVO vo) {
+	public String openProject(HttpSession session, Model model, PNWVO vo) {
 		vo.setMemId((String) session.getAttribute("memId"));
 		vo.setCoUrl((String) session.getAttribute("coUrl"));
 		model.addAttribute("ctgrys",service.ctgryList(vo));
@@ -41,8 +56,18 @@ public class PNWController {
 		return "pnw/openProject";
 
 	}
+	
+	// 즐겨찾기 프로젝트
+	@RequestMapping(value = "/favoriteProject.do", method = RequestMethod.GET)
+	public String favoriteProject(HttpSession session, Model model, PNWVO vo) {
+		vo.setMemId((String) session.getAttribute("memId"));
+		model.addAttribute("joinPrjs", service.joinPrj(vo));
+		model.addAttribute("noJoinPrjs", service.noJoinPrj(vo));
+		return "pnw/favoriteProject";
 
-	// 프로젝트 홈탭
+	}
+	
+		// 프로젝트 홈탭
 	@RequestMapping(value = "/prjHome.do", method = RequestMethod.POST)
 	public String prjHome(HttpSession session, Model model, PNWVO vo) {
 		vo.setMemId((String) session.getAttribute("memId"));
@@ -102,5 +127,28 @@ public class PNWController {
 		return "home/allSchedule"; 		
 	}
 	
+	// 프로젝트 폴더 생성하기
+	@RequestMapping(value = "/prjFoldInsert.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String prjFoldInsert(HttpSession session, Model model, PNWVO vo) {
+		service.prjFoldInsert(vo);
+		return "redirect:folderMenu.do";
+	}
+	
+	// 프로젝트 폴더명 수정하기
+	@RequestMapping(value = "/prjFoldUpdate.do", method = RequestMethod.PUT)
+	@ResponseBody
+	public String prjFoldUpdate(HttpSession session, Model model, PNWVO vo) {
+		service.prjFoldUpdate(vo);
+		return "redirect:folderMenu.do";
+	}
+	
+	// 프로젝트 색깔 수정하기
+	@RequestMapping(value = "/prjColorUpdate", method = RequestMethod.PUT)
+	@ResponseBody
+	public String prjColorUpdate(HttpSession session, Model model, PNWVO vo) {
+		service.prjColorUpdate(vo);
+		return "redirect:myProject.do";
+	}
 	
 }

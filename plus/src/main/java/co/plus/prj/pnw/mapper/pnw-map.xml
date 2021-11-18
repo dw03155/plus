@@ -24,7 +24,7 @@
 
 	<!-- 내 프로젝트 : 즐겨찾기 -->
 	<select id="favorMyPrj" resultType="co.plus.prj.pnw.vo.PNWVO">
-		select b.mem_id, a.prj_id, a.prj_ttl, c.prj_color, a.prj_knd, a.prj_open_perm,
+		select a.prj_id, a.prj_ttl, c.prj_color, a.prj_knd, a.prj_open_perm,
 			(select count(*) from prj_parti where prj_id = a.prj_id) as partiCnt
 		from project a, member b, prj_parti c
 		where a.co_url = b.co_url        
@@ -37,7 +37,7 @@
 
 	<!-- 내 프로젝트 : 즐겨찾기X -->
 	<select id="noMyPrj" resultType="co.plus.prj.pnw.vo.PNWVO">
-		select b.mem_id, a.prj_id, a.prj_ttl, c.prj_color, a.prj_knd, a.prj_open_perm,
+		select a.prj_id, a.prj_ttl, c.prj_color, a.prj_knd, a.prj_open_perm,
 			(select count(*) from prj_parti where prj_id = a.prj_id) as partiCnt
 		from project a, member b, prj_parti c
 		where a.co_url = b.co_url        
@@ -47,6 +47,25 @@
             and a.prj_id not in(select prj_id from favorite d where d.mem_id = b.mem_id)
         order by a.prj_id desc
 	</select>
+
+	<!-- 즐겨찾기 추가 -->
+	<insert id="prjFavorite"  parameterType="co.plus.prj.pnw.vo.PNWVO">
+		insert into favorite
+		values(#{memId}, #{prjId})
+	</insert>
+	
+	<!-- 즐겨찾기 삭제 -->
+	<delete id="prjNoFavor" parameterType="co.plus.prj.pnw.vo.PNWVO">
+		delete from favorite
+		where mem_id = #{memId} and prj_id = #{prjId}
+	</delete>
+
+	<!-- 프로젝트 색깔 변경 -->
+	<update id="prjColorUpdate" parameterType="co.plus.prj.pnw.vo.PNWVO">
+		update favorite
+		set prj_color = #{prjColor}
+		where mem_id = #{memId} and prj_id = #{prjId}
+	</update>
 
 	<!-- 전체 프로젝트 -->
 	<select id="openProject" resultType="co.plus.prj.pnw.vo.PNWVO">
@@ -107,7 +126,33 @@
 		</if>
         order by prj_id asc
 	</select>
+	
+	
+	<!-- 즐겨찾기 : 참여 -->
+	<select id="joinPrj" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select a.*, c.prj_color, (select count(*) from prj_parti where prj_id = a.prj_id) as partiCnt
+		from project a, favorite b, prj_parti c
+		where b.mem_id = #{memId}
+			and b.mem_id = c.mem_id
+            and a.prj_id = b.prj_id
+    		and a.prj_id = c.prj_id
+        order by a.prj_id desc
+	</select>
 
+	<!-- 즐겨찾기 : 참여X -->
+	<select id="noJoinPrj" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select a.*, (select count(*) from prj_parti where prj_id = a.prj_id) as partiCnt,
+				(case when exists (select * from prj_parti where mem_id = #{memId} and prj_id = a.prj_id)
+                        then (select prj_color from prj_parti where mem_id = #{memId} and prj_id = a.prj_id) 
+                		else (select prj_color from prj_parti where prj_perm = 'pm' and prj_id = a.prj_id) 
+                end) as prj_color
+		from project a, favorite b
+		where exists <![CDATA[(select * from prj_parti
+            		 where mem_id <> #{memId} and prj_id = b.prj_id)]]>
+   			 and a.prj_id = b.prj_id 
+        order by a.prj_id desc
+	</select>
+	
 	<!-- 프로젝트 폴더 메뉴 -->
 	<select id="folderMenu" resultType="co.plus.prj.pnw.vo.PNWVO">
 		select fold_id, fold_name

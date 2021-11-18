@@ -171,7 +171,7 @@ to {
 		<!-- //새 프로젝트 -->
 
 		<!-- 프로젝트 색상창 style-->
-		<div class="flow-all-background-1 back-area temp-popup" tabindex="0"
+		<div id="prjColorSet" class="flow-all-background-1 back-area temp-popup" tabindex="0"
 			style="display: none">
 			<div class="flow-project-make-1 back-area">
 				<div class="flow-project-make-2 back-area contents">
@@ -183,18 +183,18 @@ to {
 							<div class="flow-category-option-3">
 								<ul id="selectColorTypes" class="select-color-group">
 									<!--선택시 li태그 project-color-check-active-1 추가 -->
-									<li class="color-item project-color-type-5"><a href="#"><em></em></a></li>
-									<li class="color-item project-color-type-11"><a href="#"><em></em></a></li>
-									<li class="color-item project-color-type-1"><a href="#"><em></em></a></li>
-									<li class="color-item project-color-type-10"><a href="#"><em></em></a></li>
-									<li class="color-item project-color-type-2"><a href="#"><em></em></a></li>
-									<li class="color-item project-color-type-7"><a href="#"><em></em></a></li>
-									<li class="color-item project-color-type-9"><a href="#"><em></em></a></li>
-									<li class="color-item project-color-type-6"><a href="#"><em></em></a></li>
-									<li class="color-item project-color-type-3"><a href="#"><em></em></a></li>
-									<li class="color-item project-color-type-4"><a href="#"><em></em></a></li>
-									<li class="color-item project-color-type-8"><a href="#"><em></em></a></li>
-									<li class="color-item project-color-type-0"><a href="#"><em></em></a></li>
+									<li class="color-item project-color-type-5" value="5"><a href="#"><em></em></a></li>
+									<li class="color-item project-color-type-11" value="11"><a href="#"><em></em></a></li>
+									<li class="color-item project-color-type-1" value="1"><a href="#"><em></em></a></li>
+									<li class="color-item project-color-type-10" value="10"><a href="#"><em></em></a></li>
+									<li class="color-item project-color-type-2" value="2"><a href="#"><em></em></a></li>
+									<li class="color-item project-color-type-7" value="7"><a href="#"><em></em></a></li>
+									<li class="color-item project-color-type-9" value="9"><a href="#"><em></em></a></li>
+									<li class="color-item project-color-type-6" value="6"><a href="#"><em></em></a></li>
+									<li class="color-item project-color-type-3" value="3"><a href="#"><em></em></a></li>
+									<li class="color-item project-color-type-4" value="4"><a href="#"><em></em></a></li>
+									<li class="color-item project-color-type-8" value="8"><a href="#"><em></em></a></li>
+									<li class="color-item project-color-type-0" value="0"><a href="#"><em></em></a></li>
 								</ul>
 							</div>
 							<div class="flow-pop-button-type-1 margin-bottom-20">
@@ -976,12 +976,14 @@ to {
 			e.preventDefault();
 			$("#overlay").css("display", "none");
 			$("#overlay").children("div").css("display", "none");
+			$("#selectColorTypes li").removeClass("project-color-check-active-1");
 		});
 
 		$(".back-area").on("click", function(e) { // 팝업 닫기3(팝업창 외에 검은 바탕 클릭시)
 			if ($(e.target).hasClass("back-area")) {
 				$("#overlay").css("display", "none");
 				$("#overlay").children("div").css("display", "none");
+				$("#selectColorTypes li").removeClass("project-color-check-active-1");
 			}
 		});
 

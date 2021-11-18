@@ -28,11 +28,11 @@
 					id="leftProjectHomeCount"
 					class="js-project-home-count project-total-count d-none"></em>
 			</a></li>
-			<c:if test="${memPerm ne 'GUEST'}">
+			<c:if test="${memPerm ne 'guest'}">
 				<li data-code="open" class="left-menu-item"><a
 					href="openProject.do"><i class="ico-search"></i>전체 프로젝트 </a></li>
 			</c:if>
-			<li data-code="star" class="left-menu-item"><a href="#"><i
+			<li data-code="star" class="left-menu-item"><a href="favoriteProject.do"><i
 					class="ico-favorite"></i>즐겨찾기</a></li>
 		</ul>
 		<ul id="leftScroll" class="menu-accordion-group scroll-mask">
@@ -42,13 +42,11 @@
 				</div>
 				<div class="menu-accordion" style="display: block">
 					<ul class="menu-accordion-list">
-						<c:if test="${memPerm ne 'GUEST'}">
+						<c:if test="${memPerm ne 'guest'}">
 							<li data-code="task" class="left-menu-item"><a
 								href="allTask.do"><i class="ico-task"></i>전체 업무</a></li>
 							<li data-code="schd" class="left-menu-item"><a
 								href="allSchedule.do"><i class="ico-schedule"></i>캘린더</a></li>
-							<!-- <li data-code="file" class="left-menu-item"><a
-								href="allFile.do"><i class="ico-filebox"></i>파일함</a></li> -->
 						</c:if>
 						<li data-code="bookmark" class="left-menu-item"><a
 							href="bookmark.do"><i class="ico-bookmark"></i>북마크</a></li>
@@ -104,7 +102,7 @@
 			</div>
 		</div>
 		<!-- 관리자 메뉴 -->
-		<c:if test="${memPerm eq 'ADMIN'}">
+		<c:if test="${memPerm eq 'admin'}">
 			<ul id="leftBottomUl" class="menu-group admin">
 				<li data-code="manageradmin" class="d-none left-menu-item"
 					style="display: block"><a id="managerAdmin"

@@ -12,7 +12,12 @@ public interface PNWMapper {
 		List<PNWVO> ctgryList(PNWVO vo);	// 새 프로젝트 : 카테고리 목록 가져오기
 		List<PNWVO> favorMyPrj(PNWVO vo);	// 내 프로젝트(즐겨찾기)
 		List<PNWVO> noMyPrj(PNWVO vo);		// 내 프로젝트(즐겨찾기x)
+		int prjFavorite(PNWVO vo);			// 즐겨찾기 추가
+		int prjNoFavor(PNWVO vo);			// 즐겨찾기 삭제
+		int prjColorUpdate(PNWVO vo);		// 프로젝트 색상 변경
 		List<PNWVO> openProject(PNWVO vo);	// 회사 프로젝트(전체공개 프로젝트)
+		List<PNWVO> joinPrj(PNWVO vo);		// 즐겨찾기(참여)
+		List<PNWVO> noJoinPrj(PNWVO vo);	// 즐겨찾기(참여X)
 		List<PNWVO> allSchedule(PNWVO vo);	// 스케줄
 	
 		List<PNWVO> folderMenu(PNWVO vo);	// 프로젝트 폴더 메뉴

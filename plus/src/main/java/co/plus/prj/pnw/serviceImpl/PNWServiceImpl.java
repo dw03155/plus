@@ -38,8 +38,33 @@ public class PNWServiceImpl implements PNWService {
 	}
 
 	@Override
+	public int prjFavorite(PNWVO vo) { // 즐겨찾기 추가
+		return map.prjFavorite(vo);
+	}
+	
+	@Override
+	public int prjNoFavor(PNWVO vo) { // 즐겨찾기 삭제
+		return map.prjFavorite(vo);
+	}
+	
+	@Override
+	public int prjColorUpdate(PNWVO vo) { // 즐겨찾기 삭제
+		return map.prjColorUpdate(vo);
+	}
+	
+	@Override
 	public List<PNWVO> openProject(PNWVO vo) { // 전체 프로젝트
 		return map.openProject(vo);
+	}
+	
+	@Override
+	public List<PNWVO> joinPrj(PNWVO vo) { // 즐겨찾기 (참여)
+		return map.joinPrj(vo);
+	}
+	
+	@Override
+	public List<PNWVO> noJoinPrj(PNWVO vo) { // 즐겨찾기 (참여X)
+		return map.noJoinPrj(vo);
 	}
 	
 	@Override
