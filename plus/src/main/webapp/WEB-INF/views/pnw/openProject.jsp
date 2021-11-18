@@ -8,6 +8,16 @@
 <head>
 <meta charset="UTF-8">
 <title>플러스(Plus)</title>
+<style>
+.open-back-button {
+    position: absolute;
+    top: 87px;
+    left: 410px;
+    font-weight: 500;
+    font-size: 13px;
+    color: #777;
+}
+</style>
 </head>
 <body>
 	<div class="main-container">
@@ -20,7 +30,7 @@
 				</div>
 				<div class="open-search-area">
 					<div class="project-search-area all-file-header-type-3">
-						<form name="frm" method="post">
+						<form name="openProject" method="post">
 						<div class="project-search">
 							<i class="icons-search"></i> <input id="openProjectSearchInput" name="prjTtl"
 								type="text" placeholder="프로젝트명으로 검색해주세요"
@@ -29,6 +39,13 @@
 								<input type="hidden" id="coUrl" value="${sessionScope.coUrl}">
 						</div>
 						</form>
+						<c:if test="${not empty param.prjTtl }">
+							<button type="button"
+								class="js-search-back-button js-all-posts-back open-back-button d-none"
+								style="display: block">
+								<i class="icons-back"></i> 돌아가기
+							</button>
+						</c:if>
 					</div>
 				</div>
 				<div class="main-sub-header">
@@ -44,6 +61,7 @@
 								</li>
 								<c:forEach var="ctgry" items="${ctgrys}">
 									<li class="category-item">
+										<input type="hidden" value="${ctgry.ctgryId}">
 										<button type="button" class="public-project-item">${ctgry.ctgryName}</button>
 									</li>
 								</c:forEach>
@@ -62,9 +80,10 @@
 								class="section-list-1 project-list-setion">
 								<c:forEach var="prj" items="${prjs}">
 									<form action="prjHome.do" method="post">
-									<input type="hidden" id="memId" value="${sessionScope.memId}">
-									<input type="hidden" id="coUrl" value="${sessionScope.coUrl}">
+									<input type="hidden" name="memId" value="${sessionScope.memId}">
+									<input type="hidden" name="coUrl" value="${sessionScope.coUrl}">
 										<input name="prjId" type="hidden" value="${prj.prjId}" />
+										<input type="hidden" name="prjCtgryId" value="${prj.ctgryId}">
 										<li class="project-item"><a href="#">
 												<div class="project-wr">
 													<span class="project-ttl">${prj.prjTtl}</span>
@@ -99,6 +118,29 @@
 		$("#openProjectCategory").find("button").on("click", function(e) {
 			$("#openProjectCategory").find("button").removeClass("active");
 			$(e.target).addClass("active");
+			var $ctgryId = $(e.target).prev("input").val();
+			var $allPrj = $("#allCtgry");
+			console.log($(e.target));
+			console.log($allPrj);
+			if($(e.target).text() == "전체"){
+				$(".project-item").show();
+			}else {
+				for(i=0; i<$(".project-item").length; i++) {
+					var $prjCtgryId = $("input[name='prjCtgryId']").eq(i).val();
+					if($prjCtgryId == $ctgryId){
+						$("input[name='prjCtgryId']").eq(i).next().show();
+					}else{
+						$("input[name='prjCtgryId']").eq(i).next().hide();
+					}
+				}
+			}
+			$("#openProjectTotalCount").empty();
+			$("#openProjectTotalCount").html($("#openProjectList").find('li:visible').length);
+		});
+		
+		//검색결과 돌아가기
+		$(".open-back-button").click(function(){
+			window.location.reload();
 		});
 	</script>
 </body>

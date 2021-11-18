@@ -15,6 +15,7 @@ public interface PNWMapper {
 		int prjFavorite(PNWVO vo);			// 즐겨찾기 추가
 		int prjNoFavor(PNWVO vo);			// 즐겨찾기 삭제
 		int prjColorUpdate(PNWVO vo);		// 프로젝트 색상 변경
+		int prjFolderSet(PNWVO vo);			// 프로젝트 폴더 설정
 		List<PNWVO> openProject(PNWVO vo);	// 회사 프로젝트(전체공개 프로젝트)
 		List<PNWVO> joinPrj(PNWVO vo);		// 즐겨찾기(참여)
 		List<PNWVO> noJoinPrj(PNWVO vo);	// 즐겨찾기(참여X)
@@ -36,6 +37,7 @@ public interface PNWMapper {
 		List<PNWVO> prjTskCount(PNWVO vo);	// 프로젝트 홈탭 : 업무 상태별 갯수
 		List<PNWVO> pnwPinList(PNWVO vo);	// 프로젝트 홈탭 : 상단고정 게시글 목록
 		List<PNWVO> pnwAllList(PNWVO vo);	// 프로젝트 홈탭 : 전체 게시글 목록
+		List<PNWVO> allEmploys(PNWVO vo);	// 프로젝트 참여자 초대
 		int prjPartiCnt(PNWVO vo);			// 프로젝트 홈탭 : 전체 참여자 수
 		List<PNWVO> prjPartiList(PNWVO vo);	// 프로젝트 홈탭 : 전체 참여자 목록
 		List<PNWVO> partiPM(PNWVO vo);		// 프로젝트 홈탭 : PM 참여자 목록
@@ -55,10 +57,5 @@ public interface PNWMapper {
 		int todoInsert(PNWVO vo);			// 할일 입력
 		int todoUpdate(PNWVO vo);			// 할일 수정
 		int nwDelete(PNWVO vo);				// 게시글 삭제
-		
-		List<PNWVO> replyList(PNWVO vo);	// 댓글 목록
-		int replyInsert(PNWVO vo);			// 댓글 생성
-		int replyUpdate(PNWVO vo);			// 댓글 수정
-		int replyDelete(PNWVO vo);			// 댓글 삭제
 
 }

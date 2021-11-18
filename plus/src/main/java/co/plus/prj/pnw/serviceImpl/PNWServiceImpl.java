@@ -44,12 +44,17 @@ public class PNWServiceImpl implements PNWService {
 	
 	@Override
 	public int prjNoFavor(PNWVO vo) { // 즐겨찾기 삭제
-		return map.prjFavorite(vo);
+		return map.prjNoFavor(vo);
 	}
 	
 	@Override
 	public int prjColorUpdate(PNWVO vo) { // 즐겨찾기 삭제
 		return map.prjColorUpdate(vo);
+	}
+	
+	@Override
+	public int prjFolderSet(PNWVO vo) { // 폴더 설정
+		return map.prjFolderSet(vo);
 	}
 	
 	@Override
@@ -111,7 +116,13 @@ public class PNWServiceImpl implements PNWService {
 	public PNWVO prjInfo(PNWVO vo) { // 프로젝트 홈탭 : 프로젝트 정보
 		return map.prjInfo(vo);
 	}
-
+	
+	@Override
+	public List<PNWVO> allEmploys(PNWVO vo) { // 프로젝트 홈탭 : 참여자초대
+		return map.allEmploys(vo);
+	}
+	
+	@Override
 	public List<PNWVO> prjTskCount(PNWVO vo) { // 프로젝트 홈탭 : 도넛차트
 		return map.prjTskCount(vo);
 	}
@@ -165,6 +176,7 @@ public class PNWServiceImpl implements PNWService {
 		result.put("pms", map.partiPM(vo));
 		result.put("users", map.partiUser(vo));
 		result.put("guests", map.partiGuest(vo));
+		result.put("particis", map.prjPartiList(vo));
 		return result;
 	}
 
@@ -177,11 +189,6 @@ public class PNWServiceImpl implements PNWService {
 	@Override
 	public List<PNWVO> prjSche(PNWVO vo) { // 프로젝트 일정탭
 		return map.scheList(vo); // 일정 게시글 목록
-	}
-
-	@Override
-	public List<PNWVO> prjFile(PNWVO vo) { // 프로젝트 파일탭
-		return map.fileList(vo);
 	}
 
 	@Override
@@ -227,21 +234,6 @@ public class PNWServiceImpl implements PNWService {
 	@Override
 	public int nwDelete(PNWVO vo) { // 게시글 삭제
 		return map.nwDelete(vo);
-	}
-
-	@Override
-	public int replyInsert(PNWVO vo) { // 댓글 생성
-		return map.replyInsert(vo);
-	}
-
-	@Override
-	public int replyUpdate(PNWVO vo) { // 댓글 수정
-		return map.replyUpdate(vo);
-	}
-
-	@Override
-	public int replyDelete(PNWVO vo) { // 댓글 삭제
-		return map.replyDelete(vo);
 	}
 
 }

@@ -32,6 +32,7 @@ public class PNWVO {
 	
 	// MemStatus
 	private String memSt;			// 회원상태
+	
 	// NoticeWriting
 	private String notiId;			// 게시글 번호
 	private String notiKnd;			// 게시글 종류
@@ -84,16 +85,15 @@ public class PNWVO {
 	private String repCntn;			// 댓글 내용
 	private Date repDttm;			// 댓글 일시
 	
-	// Bookmark
-	
-	// Finset
+	// Favorite
+	private String favorYn;			// 즐겨찾기 유무
 	
 	// 프로젝트 : 홈
 	private String addList;			// 게시글 부가정보
 	private String allCnt;			// 전체 참여자 수
 	private String tskCnt;			// 전체 업무 진행상황에 따른 개수
 	// 프로젝트 : 업무
-	private List<PNWVO> tsks;		// 업무탭	
+	private List<PNWVO> tskNW;		// 업무탭	
 	// 전체 프로젝트
 	private String partiYn;			// 프로젝트 참여여부 (참여중)
 	// 캘린더
