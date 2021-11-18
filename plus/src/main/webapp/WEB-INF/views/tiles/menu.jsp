@@ -16,12 +16,14 @@
 				</h1>
 			</a>
 		</div>
+		<c:if test="${memPerm ne 'guest'}">
 		<a id="prjMake" href="" class="js-left-menu ">
 			<div id="projectMakeButton" class="new-project-1">
 				<div class="button-suport-1"></div>
 				새 프로젝트
 			</div>
 		</a>
+		</c:if>
 		<ul id="leftMenuUl" class="menu-group js-left-menu mgt-20">
 			<li data-code="main" class="left-menu-item"><a
 				href="myProject.do"> <i class="ico-home"></i>내 프로젝트 <em
@@ -72,7 +74,7 @@
 							class="js-label-name js-mouseover ellipsis">마케팅</span>
 							<a href="#"
 							class="js-label-setting-button flow-dash-three">
-								<div style="height: "></div>
+								<div></div>
 								<div></div>
 								<div></div>
 						</a></li>

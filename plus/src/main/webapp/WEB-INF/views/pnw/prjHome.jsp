@@ -189,8 +189,6 @@
 						<li class="js-tab-item active"><a>홈</a></li>
 						<li class="js-tab-item"><a>업무</a></li>
 						<li class="js-tab-item"><a>캘린더</a></li>
-						<li class="js-tab-item"><a>파일</a></li>
-						<li class="js-tab-item"><a>히스토리</a></li>
 					</ul>
 					<div class="project-search-area all-file-header-type-3">
 						<i class="icons-search"></i>
@@ -1299,71 +1297,75 @@
 							"none");
 					$(e.currentTarget).closest(".list-item").next().css(
 							"display", "block");
-				});
+		});
 
-			// 게시글 종류 필터
-			$("#feedTypeButton button").click(function() {
-				$(".js-feed-filter-button").addClass("active");
-				$(".js-feed-filter-layer").toggle();
-			});
-			
-			// 전체
-			$("#allNW").click(function(e) { // 전체 필터
-				$(".filter-reset").hide();
-				$(".check-menu-item").removeClass("on");
-				$("#allNW").addClass("on");
-				$("#detailUl li").show();
-				$(".js-feed-filter-button").removeClass("active");
-				$(".js-feed-filter-layer").toggle();
-			});
-			
-			$("#txtNW").click(function(e) { // 글 필터
-				$(".filter-reset").show();
-				$(".check-menu-item").removeClass("on");
-				$("#txtNW").addClass("on");
-				$("#detailUl li").hide();
-				$(".icons-write2").closest("li").show();
-				$(".js-feed-filter-button").removeClass("active");
-				$(".js-feed-filter-layer").toggle();
-			});
-			
-			$("#tskNW").click(function(e) { // 업무 필터
-				$(".filter-reset").show();
-				$(".check-menu-item").removeClass("on");
-				$("#tskNW").addClass("on");
-				$("#detailUl li").hide();
-				$(".icons-task").closest("li").show();
-				$(".js-feed-filter-button").removeClass("active");
-				$(".js-feed-filter-layer").toggle();
-			});
-			
-			$("#scheNW").click(function(e) { // 일정 필터
-				$(".filter-reset").show();
-				$(".check-menu-item").removeClass("on");
-				$("#scheNW").addClass("on");
-				$("#detailUl li").hide();
-				$(".icons-schedule").closest("li").show();
-				$(".js-feed-filter-button").removeClass("active");
-				$(".js-feed-filter-layer").toggle();
-			});
+		// 게시글 종류 필터
+		$("#feedTypeButton button").click(function() {
+			$(".js-feed-filter-button").addClass("active");
+			$(".js-feed-filter-layer").toggle();
+		});
+		
+		// 전체
+		$("#allNW").click(function(e) { // 전체 필터
+			$(".filter-reset").hide();
+			$(".check-menu-item").removeClass("on");
+			$("#allNW").addClass("on");
+			$("#detailUl li").show();
+			$(".js-feed-filter-button").removeClass("active");
+			$(".js-feed-filter-layer").toggle();
+		});
+		
+		$("#txtNW").click(function(e) { // 글 필터
+			$(".filter-reset").show();
+			$(".check-menu-item").removeClass("on");
+			$("#txtNW").addClass("on");
+			$("#detailUl li").hide();
+			$(".icons-write2").closest("li").show();
+			$(".js-feed-filter-button").removeClass("active");
+			$(".js-feed-filter-layer").toggle();
+		});
+		
+		$("#tskNW").click(function(e) { // 업무 필터
+			$(".filter-reset").show();
+			$(".check-menu-item").removeClass("on");
+			$("#tskNW").addClass("on");
+			$("#detailUl li").hide();
+			$(".icons-task").closest("li").show();
+			$(".js-feed-filter-button").removeClass("active");
+			$(".js-feed-filter-layer").toggle();
+		});
+		
+		$("#scheNW").click(function(e) { // 일정 필터
+			$(".filter-reset").show();
+			$(".check-menu-item").removeClass("on");
+			$("#scheNW").addClass("on");
+			$("#detailUl li").hide();
+			$(".icons-schedule").closest("li").show();
+			$(".js-feed-filter-button").removeClass("active");
+			$(".js-feed-filter-layer").toggle();
+		});
 
-			$("#todoNW").click(function(e) { // 할일 필터
-				$(".filter-reset").show();
-				$(".check-menu-item").removeClass("on");
-				$("#todoNW").addClass("on");
-				$("#detailUl li").hide();
-				$(".icons-todo").closest("li").show();
-				$(".js-feed-filter-button").removeClass("active");
-				$(".js-feed-filter-layer").toggle();
-				
-			});
+		$("#todoNW").click(function(e) { // 할일 필터
+			$(".filter-reset").show();
+			$(".check-menu-item").removeClass("on");
+			$("#todoNW").addClass("on");
+			$("#detailUl li").hide();
+			$(".icons-todo").closest("li").show();
+			$(".js-feed-filter-button").removeClass("active");
+			$(".js-feed-filter-layer").toggle();
 			
-			$(".filter-reset").click(function(){ // 필터 취소
-				$(".filter-reset").hide();
-				$(".check-menu-item").removeClass("on");
-				$("#allNW").addClass("on");
-				$("#detailUl li").show();
-			});
+		});
+		
+		$(".filter-reset").click(function(){ // 필터 취소
+			$(".filter-reset").hide();
+			$(".check-menu-item").removeClass("on");
+			$("#allNW").addClass("on");
+			$("#detailUl li").show();
+		});
+		
+		$(".js-tab-item").click(function(){
+			
+		});
 	</script>
 </body>
 </html>

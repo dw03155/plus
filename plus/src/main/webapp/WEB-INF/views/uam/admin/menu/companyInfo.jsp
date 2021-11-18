@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>플러스(PLUS)</title>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <style>
 	#coNameUpdateBtn{
 		width: 80px;

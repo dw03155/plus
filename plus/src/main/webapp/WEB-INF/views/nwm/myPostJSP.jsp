@@ -7,8 +7,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
 </head>
 <body>
 	<!-- 전체 업무 상세보기 (모달창) -->

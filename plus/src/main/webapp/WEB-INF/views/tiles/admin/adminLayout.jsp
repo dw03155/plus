@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>플러스(PLUS)</title>
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="No-Cache">
 <meta http-equiv="Pragma" content="No-Cache">

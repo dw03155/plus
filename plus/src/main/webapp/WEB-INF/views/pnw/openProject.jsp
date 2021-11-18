@@ -7,7 +7,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>플러스(Plus)</title>
 <style>
 .open-back-button {
     position: absolute;

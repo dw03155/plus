@@ -5,8 +5,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>플러스(PLUS)</title>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <style type="text/css">
 	table{
 		width: 95%;
