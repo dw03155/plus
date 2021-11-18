@@ -15,7 +15,7 @@ pageContext.setAttribute("replaceChar", "\n");
 
 	<!-- 게시물 제목 -->
 	<h3 class="card-popup-title">
-		<i id="projectTitleColor" class="project-color color-code-4"></i> <span
+		<i id="projectTitleColor" class="project-color color-code-${prjcolortsk.prjColor}"></i> <span
 			class="js-project-title-button">${tasks.prjTtl}</span> <span
 			class="subtask-title up-task-title js-up-task-button"> </span>
 	</h3>
@@ -86,7 +86,7 @@ pageContext.setAttribute("replaceChar", "\n");
 			</div>
 		</div>
 
-		<!-- 게시물 내용 -->
+		<!-- 하위업무 내용 -->
 		<div class="card-header-bottom ">
 			<div class="post-title-area">
 				<h4 class="js-post-title post-title ">${tasks.notiTtl}</h4>
@@ -222,7 +222,7 @@ pageContext.setAttribute("replaceChar", "\n");
 						<div class="subtask-header">
 
 							<span class="subtask-title"> <i class="icons-subtask"></i>하위업무<em
-								class="js-subtask-count subtask-count">${fn:length(tasks.subtskTtl)}</em>
+								class="js-subtask-count subtask-count"></em>
 							</span>
 
 
@@ -232,7 +232,7 @@ pageContext.setAttribute("replaceChar", "\n");
 						</ul>
 						<div class="subtask-bottom js-subtask-edit-layer"
 							style="display: block">
-							<div class="subtask-registered-area js-subtask-edit-area">
+							<div class="subtask-registered-area js-subtask-edit-area" data-notiid="${tasks.notiId}" >
 									<c:if test="${not empty tasks.subtskTtl }">
 								<div class="subtask-input-area js-subtask-li">
 										<div
@@ -363,8 +363,6 @@ pageContext.setAttribute("replaceChar", "\n");
 											<span class="blind">Register</span>
 										</button>
 									</div>
-									<p class="subtask-close-text subtask-reset-text"
-										style="display: block">취소하려면 Esc 키를 누르세요.</p>
 								</div>
 							</div>
 
@@ -381,20 +379,13 @@ pageContext.setAttribute("replaceChar", "\n");
 			<div class="post-bottom-area">
 				<div class="post-bottom-menu js-reaction-bookmark">
 					<div class="bottom-button-area">
-						<button class="js-post-bookmark post-bottom-button ">
+						
+						<button class="js-post-bookmark post-bottom-button">
 							<i class="icon-bookmark"></i> <span>북마크</span>
 						</button>
+					
 					</div>
 				</div>
-				<div class="cmt-read-wr">
-					<div class="comment-count-area">
-						<span>댓글</span> <span class="comment-count">0</span>
-					</div>
-					<div class="js-read-check-button read-confirmation">
-						<span>읽음</span> <span class="confirmation-number">2</span>
-					</div>
-				</div>
-
 			</div>
 			<!-- //post-card-container -->
 		</div>
@@ -444,7 +435,8 @@ pageContext.setAttribute("replaceChar", "\n");
 	// 모달창 닫기 버튼
 	$(".btn-close").click(function() {
 		$("#postPopup").css("display", "none");
-		$(".task-item").removeClass("highlight");
+		$(".task").removeClass("highlight");
+		$("#allTskContentUl > li").removeClass("highlight");
 	});
 
 	//더보기 버튼 (수정, 삭제)
@@ -467,21 +459,30 @@ pageContext.setAttribute("replaceChar", "\n");
 	// 업무 자세히 보기
 	$("#postOptions").find("div > button").click(function(e) {
 		e.preventDefault();
-
 		$(e.currentTarget).closest('form').submit();
 	});
 
 	// 하위 업무 상세보기 (팝업)
-	$("#subtskDetailBtn").click(function() {
-
+	$(".js-subtask-li").click(function() {
+		popUpSubtask($(this));
+	});
+	
+	function popUpSubtask(div){
+		
+	 var notiId = div.data("notiid");
+	 console.log(notiId + "_______");
+		
+		
 		$.ajax({
 			url : "myPostSubtsk.do",
 			type : "POST",
-			data : "JSON",
+			data : {
+				notiId : notiId
+			},
 			dataType : "html",
 			success : function(data) {
 				$("#modalBody").html(data);
 			}
 		});
-	});
+	}
 </script>

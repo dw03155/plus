@@ -5,12 +5,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<!DOCTYPE html>
-<html>
+
 <head>
-<meta charset="UTF-8">
+
 </head>
-<body>
+
 	<!-- 전체 업무 상세보기 (모달창) -->
 	<div class="back-area temp-popup" tabindex="0" id="postPopup"
 		data-code="VIEW" style="display: none;">
@@ -35,7 +34,7 @@
 
 			<span id="allCollectionCount"
 				class="js-collection-total-count js-collection-count top-task-num"
-				style="display: block">&nbsp;${fn:length(tasks)}</span>
+				style="display: block"></span>
 
 		</div>
 
@@ -49,11 +48,12 @@
 					<div class="allTaskLayer full-width small-style-wrap-2 d-none"
 						style="display: block;">
 						<div class="btns-wr">
+						<!-- 검색 -->
 							<div class="project-search-area all-file-header-type-3">
 								<div class="project-search">
 									<form name="frm" method="post">
-										<i class="icons-search"></i> <input type="text" name="notiTtl"
-											id="notiTtl" placeholder="업무명을 검색하세요!" autocomplete="off"
+										<i class="icons-search"></i> <input type="text" name="prjTtl"
+											id="prjTtl" placeholder="업무명을 검색하세요!" autocomplete="off"
 											maxlength="20"
 											class="js-task-search-input project-search-input">
 									</form>
@@ -397,8 +397,8 @@
 				$("#allTskContentUl > li").removeClass("highlight");
 				$(e.currentTarget).addClass("highlight");
 				$("#postPopup").css("display", "block");
-
 				tskPopUpDetail($(this));
+
 			}
 		});
 
@@ -423,6 +423,3 @@
 		
 	</script>
 
-
-</body>
-</html>

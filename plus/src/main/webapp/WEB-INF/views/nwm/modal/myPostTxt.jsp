@@ -11,7 +11,7 @@ pageContext.setAttribute("replaceChar", "\n");
 <div class="post-popup-header card-popup-header d-none"
 	style="display: block;">
 	<h3 class="card-popup-title">
-		<i id="projectTitleColor" class="project-color color-code-4"></i> <span
+		<i id="projectTitleColor" class="project-color color-code-${prjcolortxt.prjColor}"></i> <span
 			class="js-project-title-button">${texts.prjTtl}</span> <span
 			class="subtask-title up-task-title js-up-task-button"> </span>
 	</h3>
@@ -58,8 +58,9 @@ pageContext.setAttribute("replaceChar", "\n");
 							</button>
 						<input name="prjId" type="hidden" value="${texts.prjId }">
 					</form>
+					<!-- 상단 고정 -->
 					<button id="pinToTopBnt"
-						class="js-pin-post fixed-btn js-pin-authority "
+						class="js-pin-post fixed-btn js-pin-authority"
 						style="display: block">
 						<!-- fixed-btn on class -->
 						<span class="blind">상단 고정 등록</span>

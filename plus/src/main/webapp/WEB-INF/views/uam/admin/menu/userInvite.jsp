@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!DOCTYPE html>
-<html>
 <head>
-<title>플러스(PLUS)</title>
-<meta charset="UTF-8">
 <style type="text/css">
 	.inviteInfo{
 		padding: 20px;
@@ -171,8 +167,8 @@
 			<em id="dulcnt"  style="color: blue"></em>'개 중복)</span>
 			<!-- <span><input type="checkbox">등록 불가능한 행 모아보기</span> -->
 			<div id="invitebtnDiv">
-				<button class="whiteBtn" id="lineDelBtn">삭제</button>
-				<button class="blueBtn" id="inBtn">등록</button>
+				<button class="whiteBtn" id="lineDelBtn" type="button">삭제</button>
+				<button class="blueBtn" id="inBtn" type="button">등록</button>
 			</div>
 			</div>
 				<table id="insertMemberList" border="1">
@@ -241,6 +237,7 @@
 			var fileCheck = $(".fileCheck:checked");
 			var coUrl = "${sessionScope.coUrl}";
 			fileCheck.each(function(i){
+				console.log(i);
 				var tr = fileCheck.parent().parent().eq(i);
 				var td = tr.children();
 				var emailVal = td.eq(2).children().children().val();
@@ -251,7 +248,7 @@
 				var wkpo = td.eq(5).children().children().val();
 				var coTel = td.eq(6).children().children().val();
 				var jsondata = {"coUrl":coUrl,"name":name,"email":email,"persTel":persTel,"dept":dept,"wkpo":wkpo,"coTel":coTel};
-					
+				console.log(jsondata);	
 				$.ajax({
 					url: "AllMemberInsert2.do",
 					method: "put",
@@ -259,9 +256,10 @@
 					contentType: "application/json",
 					dataType: "json",
 					success: function(data){
-						fileCheck.parent().parent().eq(i).remove();
+						$('#insertlist').children().remove();
+
 					}
-				})
+				});
 					
 			})
 		}

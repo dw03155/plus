@@ -3,12 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<!DOCTYPE html>
-<html>
+
 <head>
-<meta charset="UTF-8">
+
 </head>
-<body>
 	<!-- 전체 업무 상세보기 (모달창) -->
 	<div class="back-area temp-popup" tabindex="0" id="postPopup"
 		style="display: none;">
@@ -125,7 +123,17 @@
 											<c:if test="${bookmarks.notiKnd=='schedule'}">
 												<c:set var="notiKnd" value="icons-schedule" />
 											</c:if>
-											<i class="${notiKnd }"></i> <span class="post-type">${bookmarks.notiKnd}</span>
+											<i class="${notiKnd }"></i> 
+											<c:if test="${bookmarks.notiKnd=='text'}">
+													<c:set  var="notiKnd" value="글"/>
+												</c:if> <c:if test="${bookmarks.notiKnd=='task'}">
+													<c:set var="notiKnd" value="업무" />
+												</c:if> <c:if test="${bookmarks.notiKnd=='todo'}">
+													<c:set var="notiKnd" value="할 일" />
+												</c:if> <c:if test="${bookmarks.notiKnd=='schedule'}">
+													<c:set var="notiKnd" value="일정" />
+												</c:if>
+											<span class="post-type ${notiKnd}">${notiKnd}</span>
 										</div>
 										<div class="search-sub-text-wrap">
 											<div class="contents-cmt">
@@ -135,7 +143,7 @@
 													<i class="icons-comment2"></i><span
 														class="js-post-comment-count">0</span>
 												</div>
-													<c:if test="${bookmarks.notiKnd == 'subtask'}">
+													<c:if test="${bookmarks.subtskyn == '1'}">
 													<div class="post-list subtask" style="display: block">
 														<em class="subtask-item" style="display: inline-block">
 															<i class="icons-subtask"></i> <span
@@ -220,7 +228,7 @@
 										<span class="search-result-title">전체</span><span
 											id="allPostsSearchCount"
 											class="js-search-post-count search-result-count"
-											style="display: inline-block">${fn:length(bookmarks)}</span>
+											style="display: inline-block">&nbsp;${fn:length(bookmarks)}</span>
 									</div>
 									<ul id="allPostsSearchUl"
 										class="js-search-post-ul all-seach-list-type-1 scroll-mask">
@@ -239,7 +247,7 @@
 											<c:if test="${bookmarks.notiKnd=='schedule'}">
 												<c:set var="notiKnd" value="icon-post-type schedule" />
 											</c:if>
-											<li id="allPostsSearchUl"
+											<li 
 												class="js-all-post-item post-search-item js-search-item  ${bookmarks.notiKnd}">
 												<!-- icon 태그 : icon-post-type write2(글), icon-post-type todo(할일), icon-post-type schedule(일정)-->
 												<i class="${notiKnd }"></i>
@@ -369,6 +377,21 @@
 			}
 		});
 
+
+		$("#allPostsSearchUl > li").click(function(e){
+			if ($(e.currentTarget).hasClass("highlight")) {
+				$(e.currentTarget).removeClass("highlight");
+				$("#postPopup").css("display", "none");
+			} else if (!$(e.currentTarget).hasClass("highlight")) {
+				$("#allPostsSearchUl > li").removeClass("highlight");
+				$(e.currentTarget).addClass("highlight");
+				$("#postPopup").css("display", "block");
+
+				popUpDatail($(this));
+
+			}
+		});
+		
 		// 모달창 호출 (ajax)
 		function popUpDatail(li) {
 
@@ -430,5 +453,3 @@
 	</script>
 
 
-</body>
-</html>

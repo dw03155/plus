@@ -12,7 +12,7 @@
 		style="display: block;">
 		<h3 class="card-popup-title">
 			<c:forEach var="todos[i]" items="${todos }" begin="0" end="0">
-				<i id="projectTitleColor" class="project-color color-code-4"></i>
+				<i id="projectTitleColor" class="project-color color-code-${prjcolortodo.prjColor}"></i>
 				<span class="js-project-title-button">${todos[0].prjTtl }</span>
 				<span class="subtask-title up-task-title js-up-task-button">
 				</span>
@@ -123,15 +123,16 @@
 							<!-- style="width:20%" -->
 						</div>
 					</div>
-					<ul id="todoUl" class="js-todo-component todo-group">
+					<ul class="js-todo-component todo-group">
 						<!-- 할일 항목 (반복) -->
-						<li class="todo-item"><c:forEach var="todos"
+						<c:forEach var="todo"
 								items="${todos }">
+								<li class="todo-item">
 								<div  class="subtask-input-area todo-area">
 									<p class="todo-text">
-										<a id="clickTodoChecked" href="#" class="icon-checkbox js-todo-checkbox"> <i
+										<a href="#" class="icon-checkbox js-todo-checkbox"> <i
 											class="icons-check-2"></i>
-										</a> <span class="js-todo-text-area js-mouseover">${todos.todoCntn }</span>
+										</a> <span class="js-todo-text-area js-mouseover">${todo.todoCntn }</span>
 										<input
 											class="todoContents js-mouseover js-close-check js-todo-content-input"
 											data-gubun="newTodo" placeholder="할일을 입력하세요." value="테스트"
@@ -165,7 +166,8 @@
 									</div>
 								
 								</div>
-							</c:forEach></li>
+								</li>
+							</c:forEach>
 					</ul>
 
 					<span id="todoRgsrInfo" style="display: none"></span>
@@ -179,15 +181,6 @@
 							</button>
 						</div>
 					</div>
-					<div class="cmt-read-wr">
-						<div class="comment-count-area">
-							<span>댓글</span> <span class="comment-count">1</span>
-						</div>
-						<div class="js-read-check-button read-confirmation">
-							<span>읽음</span> <span class="confirmation-number">2</span>
-						</div>
-					</div>
-
 				</div>
 				<!-- //post-card-container -->
 			</div>
@@ -242,33 +235,29 @@
 	// 모달창 닫기 버튼
 	$(".btn-close").click(function() {
 		$("#postPopup").css("display", "none");
-		$(".task-item").removeClass("highlight");
+		$(".todo").removeClass("highlight");
 	});
 
 	// 더보기 버튼 (수정, 삭제)
-	$(function() {
+	
 		$("#moreSettingMyTodoBtn").click(function() {
 			$("#groupSettingTodoBtn").toggle();
 		});
-	});
+	
 
 	// 글 자세히 보기 
 	$("#postOptions").find("div > button").click(function(e) {
 		e.preventDefault();
-		console.log(e.currentTarget);
-		console.log($(e.currentTarget).parent('form'));
-		console.log($(e.currentTarget).parents('form'));
-		console.log($(e.currentTarget).closest('form'));
 		$(e.currentTarget).closest('form').submit();
 	});
 	
 	// 할일 체크 버튼
-	
-	
-
-		  $(".js-todo-checkbox").click(function() {
-		    $(this).closest(".todo-area").addClass("checked");
-		  });
+	  $(".subtask-input-area todo-area").on("click", ".js-todo-checkbox", function(){
+		  e.preventDefault();
+		  $(e.currentTarget).closest(".todo-area").addClass("checked");
+		  $(e.currentTarget).closest(".todo-area").css("background","#00b2ff");  
+	  });
+	  
 	​
 </script>
 

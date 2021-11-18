@@ -2,11 +2,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html>
 <head>
-<meta charset="UTF-8">
 <style>
+.blueBtn{
+		position: absolute;
+		padding: 6px 15px 6px 15px;
+		background-color: #5882FA;
+		color: white;
+		border-radius: 3px;
+		margin-left: 5px;
+		top: 85px;
+	}
 .model {
 	width: 850px;
 	height: 55.5vh;
@@ -104,7 +110,7 @@
 	<header class="header">
 		<div id="userSetting">
 		<div id="rightTopMenu" class="top-btns">
-			<button type="button" id="chattingTopButton"
+			<!-- <button type="button" id="chattingTopButton"
 				class="btn-chatting js-mouseover
             js-button-tooltip"
 				mouseover-text="채팅">
@@ -117,12 +123,12 @@
 				mouseover-text="알림">
 				<i class="icon-alarm"></i> <i id="alarmTopCount" class="label-alarm"
 					style="display: none"></i>
-			</button>
+			</button> -->
 			<!-- 회원상태표시 -->
 			<button type="button" id="accountTopButton" class="btn-profile">
 				<span id="ProfileImg" class="profile-area"
-					style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;);">
-					<img id="memImgSomini">
+					style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;); overflow: hidden;">
+					<img id="memImgSomini" style="height: 100%; width: 100%; border-radius: 4px; transform: translate(50, 50); object-fit: cover">
 					</span>
 				<img id="mem_st_icon" alt="on" src="/img/status_icn/offline.png" class="st_icn">
 			</button>
@@ -130,8 +136,8 @@
 			<ul id="accountModal" class="modal-account d-none" style="box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
 				<li class="user-area">
 					<p class="js-profile user-img"
-						style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;);">
-						<img id="memImgmini">
+						style="background-image: url(&quot;flow-renewal/assets/images/profile-default.png&quot;), url(&quot;flow-renewal/assets/images/profile-default.png&quot;);  overflow: hidden;">
+						<img id="memImgmini" style="height: 100%; width: 100%; border-radius: 4px; transform: translate(50, 50); object-fit: cover">
 						</p>
 					<div class="user-info">
 						<strong id="sessionName" class="js-user-name js-mouseover">${sessionScope.name}</strong> <span>이용중</span>
@@ -159,10 +165,10 @@
 					<div class="my-layer-header">
 						<div class="my-layer-header-1">
 							<a href="#" id="mySettingPopupCloseBtn" class="my-button-close-1"></a>
-							<div id="myPicture" class="my-prop-picture">
-								<img id="memImgBig">
-								<a id="editorProfilePhotoBtn" href="#" class="my-button-1"></a>
+							<div id="myPicture" class="my-prop-picture" style="overflow: hidden;">
+									<img id="memImgBig" style="height: 100%; width: 100%; border-radius: 4px; transform: translate(50, 50); object-fit: cover">
 							</div>
+								<a id="editorProfilePhotoBtn" href="#" class="my-button-1" style="left: 111px; bottom: -67px;"></a>
 							<span id="accountSetting" class="js-my-setting-title">마이페이지</span>
 						</div>
 
@@ -176,7 +182,7 @@
 
 						<!-- 환경설정 메뉴내용 -->
 						<div id="accountSettingLayer" class="js-my-scroll-layer">
-							<div class="my-right-style adjust">
+							<div class="my-right-style adjust" style="height: 670px;">
 								<div id="mySet" style="display: none">
 									<ul>
 										<li class="edit-input js-email-set adjust">
@@ -746,7 +752,8 @@
 			sessionNull.submit();
 		}
 	}); */
-	/* $(function(){
+
+	$(function(){
 		var memId = "${sessionScope.memId}";
 		$.ajax({
 			url: "getMemberImg.do?memId="+memId,
@@ -754,14 +761,15 @@
 			datatype: "json",
 			success: function(data){
 				var $memImg = data.memImg;
-				var imgPath = "/userimg/"+$memImg + "?heigth=50";
+				var imgPath = "/userImg/"+$memImg + "?heigth=50";
 				$("#memImgSomini").attr("src",imgPath);
 				$("#memImgmini").attr("src",imgPath);
 				$("#memImgBig").attr("src",imgPath);
-				console.log($memImg);
 			}
 		})
-	}) */
+
+	}) 
+
 	
 	//회원상태 가져오기
 	$(function(){
@@ -825,15 +833,18 @@
 		});
 	});
 	
-	/* $('#editorProfilePhotoBtn').on("click",function(){
+
+	 $('#editorProfilePhotoBtn').on("click",function(){
 		$('#userImg').css('display','block');
 		
 	});
 	$('#userImgX').on("click",function(){
 		$('#userImg').css("display","none");
-	}); */
+	}); 
+
 	
-	/* //파일 업로드
+
+	//파일 업로드
 	$("#userImgBtn").on("click",function(e){
 		var formData = new FormData();
 		var fileName = null;
@@ -864,6 +875,19 @@
 						dataType: "json",
 						success: function(){
 							alert("프로필을를 변경했습니다");
+							$.ajax({
+								url: "getMemberImg.do?memId="+memId,
+								type: "get",
+								datatype: "json",
+								success: function(data){
+									var $memImg = data.memImg;
+									var imgPath = "/userImg/"+$memImg + "?heigth=50";
+									$("#memImgSomini").attr("src",imgPath);
+									$("#memImgmini").attr("src",imgPath);
+									$("#memImgBig").attr("src",imgPath);
+									$('#userImg').css("display","none");
+								}
+							})
 						},
 						error:function(){
 							alert(${message });
@@ -871,12 +895,12 @@
 					})
 				},
 				error: function(){
-					alert("파일의 용량이 너무 큽니다.")
+					alert("이미지를 선택해주세요");
 				}
 			}); //end of $.ajax
 		
 		
-	}); */
+	});
 	
 	//모달 자동 닫기
 		 $(document).mouseup(function (e){
@@ -1178,6 +1202,9 @@
 			if (hiddenpwd != myPwd){
 				$("#message").text("현재 비밀번호가 일치하지않습니다.")
 						     .css("color","red");
+			}else if(pwd == "" || newPwd == ""){
+				$("#message").text("새로운 비밀번호를 입력해주세요.")
+			     			.css("color","red");
 			}else{
 				if(pwd == newPwd){
 					$.ajax({
