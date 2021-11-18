@@ -24,7 +24,7 @@
 
 	<!-- 내 프로젝트 : 즐겨찾기 -->
 	<select id="favorMyPrj" resultType="co.plus.prj.pnw.vo.PNWVO">
-		select b.mem_id, a.prj_id, a.prj_ttl, c.prj_color, a.prj_knd, a.prj_open_perm,
+		select a.prj_id, a.prj_ttl, c.prj_color, a.prj_knd, a.prj_open_perm,
 			(select count(*) from prj_parti where prj_id = a.prj_id) as partiCnt
 		from project a, member b, prj_parti c
 		where a.co_url = b.co_url        
@@ -37,7 +37,7 @@
 
 	<!-- 내 프로젝트 : 즐겨찾기X -->
 	<select id="noMyPrj" resultType="co.plus.prj.pnw.vo.PNWVO">
-		select b.mem_id, a.prj_id, a.prj_ttl, c.prj_color, a.prj_knd, a.prj_open_perm,
+		select a.prj_id, a.prj_ttl, c.prj_color, a.prj_knd, a.prj_open_perm,
 			(select count(*) from prj_parti where prj_id = a.prj_id) as partiCnt
 		from project a, member b, prj_parti c
 		where a.co_url = b.co_url        
@@ -48,9 +48,34 @@
         order by a.prj_id desc
 	</select>
 
+	<!-- 즐겨찾기 추가 -->
+	<insert id="prjFavorite"  parameterType="co.plus.prj.pnw.vo.PNWVO">
+		insert into favorite
+		values(#{memId}, #{prjId})
+	</insert>
+	
+	<!-- 즐겨찾기 삭제 -->
+	<delete id="prjNoFavor" parameterType="co.plus.prj.pnw.vo.PNWVO">
+		delete from favorite
+		where mem_id = #{memId} and prj_id = #{prjId}
+	</delete>
+
+	<!-- 프로젝트 색깔 변경 -->
+	<update id="prjColorUpdate" parameterType="co.plus.prj.pnw.vo.PNWVO">
+		update prj_parti
+		set prj_color = #{prjColor}
+		where mem_id = #{memId} and prj_id = #{prjId}
+	</update>
+	
+	<!-- 프로젝트 폴더 변경 -->
+	<insert id="prjFolderSet" parameterType="co.plus.prj.pnw.vo.PNWVO">
+		insert into prj_fold
+		values(#{foldId}, #{prjId})
+	</insert>
+
 	<!-- 전체 프로젝트 -->
 	<select id="openProject" resultType="co.plus.prj.pnw.vo.PNWVO">
-		select a.prj_id, a.prj_ttl, a.prj_cntn, b.mem_id, c.name, c.wkpo,
+		select a.prj_id, a.prj_ttl, a.prj_cntn, a.ctgry_id, b.mem_id, c.name, c.wkpo,
     		(select count(*) from prj_parti where prj_id = a.prj_id) as partiCnt,
     		(case when exists
     				(select * from member where mem_id = #{memId} and co_url = #{coUrl} and mem_perm = 'guest')
@@ -66,7 +91,7 @@
 			and a.prj_ttl like '%' || #{prjTtl} || '%'
 		</if>
         union
-		select d.prj_id, d.prj_ttl, d.prj_cntn, e.mem_id, f.name, f.wkpo,
+		select d.prj_id, d.prj_ttl, d.prj_cntn, d.ctgry_id, e.mem_id, f.name, f.wkpo,
 			(select count(*) from prj_parti where prj_id = d.prj_id) as partiCnt,
         	(case when exists
         			(select * from prj_parti where mem_id = #{memId} and prj_id = d.prj_id)
@@ -83,7 +108,7 @@
 			and d.prj_ttl like '%' || #{prjTtl} || '%'
 		</if>
 		union
-		select g.prj_id, g.prj_ttl, g.prj_cntn, h.mem_id, i.name, i.wkpo,
+		select g.prj_id, g.prj_ttl, g.prj_cntn, g.ctgry_id, h.mem_id, i.name, i.wkpo,
 			(select count(*) from prj_parti where prj_id = g.prj_id) as partiCnt,
         	(case when exists
         			(select * from prj_parti where mem_id = #{memId} and prj_id = g.prj_id)
@@ -107,7 +132,34 @@
 		</if>
         order by prj_id asc
 	</select>
+	
+	
+	<!-- 즐겨찾기 : 참여 -->
+	<select id="joinPrj" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select a.*, c.prj_color, (select count(*) from prj_parti where prj_id = a.prj_id) as partiCnt
+		from project a, favorite b, prj_parti c
+		where b.mem_id = #{memId}
+			and b.mem_id = c.mem_id
+            and a.prj_id = b.prj_id
+    		and a.prj_id = c.prj_id
+        order by a.prj_id desc
+	</select>
 
+	<!-- 즐겨찾기 : 참여X -->
+	<select id="noJoinPrj" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select a.*, (select count(*) from prj_parti where prj_id = a.prj_id) as partiCnt,
+				(case when exists (select * from prj_parti where mem_id = #{memId} and prj_id = a.prj_id)
+                        then (select prj_color from prj_parti where mem_id = #{memId} and prj_id = a.prj_id) 
+                		else (select prj_color from prj_parti where prj_perm = 'pm' and prj_id = a.prj_id) 
+                end) as prj_color
+		from project a, favorite b
+		where not exists (select * from prj_parti
+            		 where mem_id = #{memId} and prj_id = b.prj_id)
+             and b.mem_id = #{memId}
+   			 and a.prj_id = b.prj_id 
+        order by a.prj_id desc
+	</select>
+	
 	<!-- 프로젝트 폴더 메뉴 -->
 	<select id="folderMenu" resultType="co.plus.prj.pnw.vo.PNWVO">
 		select fold_id, fold_name
@@ -173,7 +225,7 @@
 	<!-- 프로젝트 폴더 생성 -->
 	<insert id="prjFoldInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">
 		insert into mem_prj_fold
-		values (#{foldId}, #{foldName}, #{memId})
+		values (foldid.nextval, #{foldName}, #{memId})
 	</insert>
 
 	<!-- 프로젝트 폴더 수정 ** -->
@@ -223,9 +275,18 @@
 			 (case when exists (select * from prj_parti where mem_id = #{memId} and prj_id = a.prj_id)
                    then (select prj_color from prj_parti where mem_id = #{memId} and prj_id = a.prj_id) 
                    else (select prj_color from prj_parti where prj_perm = 'pm' and prj_id = a.prj_id) 
-                end) as prj_color
+                end) as prj_color,
+             (case when exists (select * from favorite where mem_id = #{memId} and prj_id = a.prj_id)
+                 then 1 else 0
+            end) as favoryn
 		from project a
 		where a.prj_id = #{prjId}
+	</select>
+	
+	<select id="allEmploys" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select a.*
+		from member a
+		where a.mem_id not in (select mem_id from prj_parti where prj_id = {prjId});
 	</select>
 	
 	<select id="prjTskAllCount" resultType="int">						<!-- 업무 전체 갯수(업무리포트) -->
@@ -282,6 +343,14 @@
 		select count(*)
 		from prj_parti
 		where prj_id = #{prjId}
+	</select>
+	
+	<select id="prjPartiList" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 전체 참여자 수 -->
+		select a.mem_id, a.name, a.wkpo, a.co_url, a.dept, b.prj_perm
+		from member a, prj_parti b
+		where a.mem_id = b.mem_id
+			and b.prj_id = #{prjId}
+		order by a.mem_id asc
 	</select>
 	
 	<select id="partiPM" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 참여자 목록 : PM -->
@@ -352,11 +421,6 @@
 		where a.noti_id = b.noti_id
 			and c.prj_id = #{prjId}
 			and c.prj_id = b.prj_id
-	</select>
-
-	<!-- 프로젝트 : 파일 -->
-	<select id="fileList" resultType="co.plus.prj.pnw.vo.PNWVO">
-			select * from text
 	</select>
 
 	<!-- 글 입력 -->

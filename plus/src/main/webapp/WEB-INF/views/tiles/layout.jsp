@@ -41,30 +41,17 @@
 
 
 <style type="text/css">
-@
--webkit-keyframes rotate {from { -webkit-transform:rotate(0deg);
-	
+@-webkit-keyframes rotate {
+	from {-webkit-transform:rotate(0deg);}
+	to {-webkit-transform: rotate(360deg);}
 }
-
-to {
-	-webkit-transform: rotate(360deg);
-}
-
-}
-@
-keyframes rotate {from { transform:rotate(0deg);
-	
-}
-
-to {
-	transform: rotate(360deg);
-}
-
+@keyframes rotate {
+from {transform:rotate(0deg);}
+to {transform: rotate(360deg);}
 }
 .category-name {
 	positon: relative;
 }
-
 .category-name:hover {
 	color: #6449FC;
 }
@@ -113,7 +100,7 @@ to {
 								</div>
 
 								<div class="flow-content-3">옵션</div>
-								<c:if test="${memPerm eq 'ADMIN'}">
+								<c:if test="${memPerm eq 'admin'}">
 									<div id="cPrjSet" class="open-yn check-setting flow-content-4">
 										<input type="hidden" id="prjKndSet" name="prjKndSet" value="N" />
 										<a> <em></em> 회사 프로젝트 설정
@@ -171,7 +158,7 @@ to {
 		<!-- //새 프로젝트 -->
 
 		<!-- 프로젝트 색상창 style-->
-		<div class="flow-all-background-1 back-area temp-popup" tabindex="0"
+		<div id="prjColorSet" class="flow-all-background-1 back-area temp-popup" tabindex="0"
 			style="display: none">
 			<div class="flow-project-make-1 back-area">
 				<div class="flow-project-make-2 back-area contents">
@@ -183,18 +170,18 @@ to {
 							<div class="flow-category-option-3">
 								<ul id="selectColorTypes" class="select-color-group">
 									<!--선택시 li태그 project-color-check-active-1 추가 -->
-									<li class="color-item project-color-type-5"><a href="#"><em></em></a></li>
-									<li class="color-item project-color-type-11"><a href="#"><em></em></a></li>
-									<li class="color-item project-color-type-1"><a href="#"><em></em></a></li>
-									<li class="color-item project-color-type-10"><a href="#"><em></em></a></li>
-									<li class="color-item project-color-type-2"><a href="#"><em></em></a></li>
-									<li class="color-item project-color-type-7"><a href="#"><em></em></a></li>
-									<li class="color-item project-color-type-9"><a href="#"><em></em></a></li>
-									<li class="color-item project-color-type-6"><a href="#"><em></em></a></li>
-									<li class="color-item project-color-type-3"><a href="#"><em></em></a></li>
-									<li class="color-item project-color-type-4"><a href="#"><em></em></a></li>
-									<li class="color-item project-color-type-8"><a href="#"><em></em></a></li>
-									<li class="color-item project-color-type-0"><a href="#"><em></em></a></li>
+									<li class="color-item project-color-type-5" value="5"><a href="#"><em></em></a></li>
+									<li class="color-item project-color-type-11" value="11"><a href="#"><em></em></a></li>
+									<li class="color-item project-color-type-1" value="1"><a href="#"><em></em></a></li>
+									<li class="color-item project-color-type-10" value="10"><a href="#"><em></em></a></li>
+									<li class="color-item project-color-type-2" value="2"><a href="#"><em></em></a></li>
+									<li class="color-item project-color-type-7" value="7"><a href="#"><em></em></a></li>
+									<li class="color-item project-color-type-9" value="9"><a href="#"><em></em></a></li>
+									<li class="color-item project-color-type-6" value="6"><a href="#"><em></em></a></li>
+									<li class="color-item project-color-type-3" value="3"><a href="#"><em></em></a></li>
+									<li class="color-item project-color-type-4" value="4"><a href="#"><em></em></a></li>
+									<li class="color-item project-color-type-8" value="8"><a href="#"><em></em></a></li>
+									<li class="color-item project-color-type-0" value="0"><a href="#"><em></em></a></li>
 								</ul>
 							</div>
 							<div class="flow-pop-button-type-1 margin-bottom-20">
@@ -207,7 +194,7 @@ to {
 			</div>
 		</div>
 
-		<!-- 프로젝트 폴더명 style-->
+		<!-- 프로젝트 폴더 만들기-->
 		<div id=prjFolderMake
 			class="flow-all-background-1 back-area temp-popup" tabindex="0"
 			style="display: none">
@@ -219,12 +206,14 @@ to {
 								class="close-event flow-close-type-1"></a>
 						</div>
 						<div class="flow-content">
+						<form id="prjFolderInsert" name="prjFolderInsert" action="prjFoldInsert.do">
 							<div class="flow-content-input-1">
-								<input class="popup-input" type="text"
+								<input id="foldTtlInsert" name="foldTtlInsert" class="popup-input" type="text"
 									placeholder="프로젝트 폴더명 (필수)" maxlength="50" data-required-yn="Y"
 									data-empty-msg="프로젝트 폴더명을 입력해주세요."
 									data-over-msg="50자 이내로 입력하세요.">
 							</div>
+						</form>							
 							<div class="flow-pop-button-type-1">
 								<a href="#">
 									<div class="flow-pop-sub-button-1 cancel-event">취소</div>
@@ -238,7 +227,7 @@ to {
 			</div>
 		</div>
 
-		<!-- 프로젝트 폴더명 style-->
+		<!-- 프로젝트 폴더명 수정하기 -->
 		<div id=prjFolderUpdate
 			class="flow-all-background-1 back-area temp-popup" tabindex="0"
 			style="display: none">
@@ -250,12 +239,15 @@ to {
 								class="close-event flow-close-type-1"></a>
 						</div>
 						<div class="flow-content">
+						<form id="prjFolderUpdate" name="prjFolderUpdate" action="prjFoldUpdate.do">
 							<div class="flow-content-input-1">
-								<input class="popup-input" type="text" placeholder=""
+								<input type="hidden" value="" id="prjFoldId" name="prjFoldId">
+								<input id="foldTtlUpdate" name="foldTtlUpdate" class="popup-input" type="text" placeholder="프로젝트 폴더명 (필수)"
 									maxlength="50" data-required-yn="Y"
 									data-empty-msg="프로젝트 폴더명을 입력해주세요."
 									data-over-msg="50자 이내로 입력하세요.">
 							</div>
+							</form>
 							<div class="flow-pop-button-type-1">
 								<a href="#">
 									<div class="flow-pop-sub-button-1 cancel-event">취소</div>
@@ -306,11 +298,9 @@ to {
 				<div class="flow-project-make-2">
 					<div id="inviteMainLayer" class="detail-popup-type-1"
 						style="display: none; height: 220px;">
-						<div id="copyLinkAlam" class="detail-alarm-type-1 d-none">초대링크를
-							클립보드에 복사했습니다.</div>
 						<div class="detail-popup-header-1">
 							<span id="inviteTitle" class="invite-title ellipsis"><i
-								class="project-color color-code-9"></i></span> <a
+								class="project-color color-code-${prjInfo.prjColor}"></i>${prjInfo.prjTtl}</span> <a
 								class="closeInviteLayerBtn" href="#"><em></em></a>
 						</div>
 						<ul id="inviteUl">
@@ -319,7 +309,7 @@ to {
 										<span></span>
 									</div>
 									<div class="detail-popuplist-type-1">
-										<span>회사 직원 초대</span> <em>회사 직원을 초대할 수 있습니다.</em>
+										<span>참여자 초대</span> <em>회사 직원을 초대할 수 있습니다.</em>
 									</div>
 							</a></li>
 							<li id="openSendEml"><a href="#">
@@ -373,97 +363,135 @@ to {
 						</div>
 					</div>
 
-					<div id="teamInviteLayer" class="name-type-seach-popup-type-1"
-						style="display: none">
-						<div class="name-type-seach-popup-header-type-1">
-							<a href="#"><em class="returnMainBtn"></em></a> <span
-								id="teamInviteHeader">회사 직원 초대</span>
-							<button class="btn-close closeInviteLayerBtn">
-								<i class="icons-close-1"></i>
-							</button>
-						</div>
-						<div class="all-setup-type-2">
-							<i class="icons-search"></i> <input type="text"
-								id="teamInviteSearch" class="coperate-input-type-1"
-								placeholder="이름 소속 연락처 내선 검색" autocomplete="off">
-						</div>
-						<div id="teamInviteMenu" class="team-wrap-invite-type-1">
-							<a id="memberMenu" href="#">
-								<div class="team-job-invite-type-1">구성원</div>
-							</a> <a id="orgChartMenu" href="#">
-								<div class="team-job-invite-type-1">조직도</div>
-							</a>
-						</div>
-						<div class="coperate-icon-list-type-1" style="display: block;">
-							<ul id="selectMemberList">
-							</ul>
-						</div>
-						<div id="teamInviteArea"
-							class="group-tree-wrap-1 coperate-section-position-fix-1 scroll-mask">
-							<ul id="inviteOrgChart" class="d-none">
-							</ul>
-							<ul id="inviteMemberList"
-								class="participants-list invite-member-list">
-							</ul>
-						</div>
-						<div id="inviteEmplArea"
-							class="sub-drag-section-2 invite-empl-area coperate-section-position-fix-1"
-							style="display: none">
-							<div class="line-fixed-section-1"></div>
-							<div class="sub-drag-header-type-2">
-								<span id="emplList-dvsnName"></span> <span id="resultSearch"
-									class="empl-search-text d-none">검색 결과</span> <a
-									id="emplAreaCloseBtn" href="#" class="group-close-type-1"></a>
-							</div>
-							<div class="sub-drag-picture-section-1">
-								<div id="existEmplData" style="display: none">
-									<ul id="organizationChart-emplList">
-									</ul>
-								</div>
-								<div id="nullEmplData" class="null-empl-search"
-									style="display: none">
-									<div class="group-sub-null-type-1"></div>
-									<span>검색 결과가 없습니다.</span>
-								</div>
-							</div>
-						</div>
-						<div class="flow-pop-button-type-1">
-							<a href="#">
-								<div class="flow-pop-sub-button-1 returnMainBtn">취소</div>
-							</a> <a href="#">
-								<div id="submitInvite" class="flow-pop-sub-button-2">확인</div>
-							</a>
-						</div>
-					</div>
+
+					<!-- 참여자 초대 -->
+					<section id="invitePopup" class="js-dimmed-area imaginary-place js-new-invitation-popup" style="display: none;">
+					    <div id="teamInviteLayer" class="project-invite-popup" style="display: block;">
+					        <div class="project-invite-popup-header">
+					            <a href="#"><em class="returnMainBtn js-back-menu" style="display: inline-block;"></em></a>
+					            <span id="teamInviteHeader">참여자 초대</span>
+					            <button class="btn-close closeInviteLayerBtn"><i class="icons-close-1"></i></button>
+					        </div>
+					        <div class="project-invite-popup-body clearfix">
+					            <ul class="project-invite-popup-navi" style="display: inherit;">
+					                <li class="js-employees on">임직원</li>
+					                <li class="js-partners">외부인</li>
+					            </ul>
+					            <div id="teamInviteArea" class="group-tree-wrap-1 js-group-tree-wrap side-contents">
+					
+					                <div id="orgInviteSearch" class="project-invite-search">
+					                    <i class="icons-search"></i>
+					                    <input type="text" id="inviteSearchArea" autocomplete="off" class="project-invite-popup-search-input" placeholder="이름">
+					                </div>
+					
+					                <div class="project-invite-employee-case d-none">
+					                    <div class="group-tree-wrap-1 coperate-section-position-fix-1 js-group-tree-wrap d-none">
+					                        <div class="loading-area scroll-mask d-none">
+					                            <div class="loading type2">
+					                                <i class="circle"></i>
+					                                <i class="circle"></i>
+					                                <i class="circle"></i>
+					                                <i class="circle"></i>
+					                                <i class="circle"></i>
+					                            </div>
+					                        </div>
+					
+					                        <ul id="inviteOrgChart" class="project-invite-orgChart scroll-mask" style="display: block !important"></ul>
+					                    </div>
+					
+					                    <div class="group-list-wrap d-none">
+					                        <div class="loading-area scroll-mask d-none">
+					                            <div class="loading type2">
+					                                <i class="circle"></i>
+					                                <i class="circle"></i>
+					                                <i class="circle"></i>
+					                                <i class="circle"></i>
+					                                <i class="circle"></i>
+					                            </div>
+					                        </div>
+					
+					                        <ul id="inviteGroup" class="group-list d-none">
+					                        <li>안녕</li>
+					                        </ul>
+					                    </div>
+					                </div>
+					
+					                <div class="project-invite-ouside-case scroll-mask">
+					                    
+					                        <div class="loading-area scroll-mask d-none">
+					                            <div class="loading type2">
+					                                <i class="circle"></i>
+					                                <i class="circle"></i>
+					                                <i class="circle"></i>
+					                                <i class="circle"></i>
+					                                <i class="circle"></i>
+					                            </div>
+					                        </div>
+					
+					                        <div class="project-invite-only-list-wrap sub-drag-picture-section-1">
+					                        <div id="membersListForInvitation">
+					                            <ul class="project-invite-choiceList layer-scroll padding-zero scroll-mask scroll-for-ie" scroll-direction="0">
+					                             <c:forEach var="employ" items="${employs}">
+												    <li class="js-member-item ">
+												        <div class="my-check-2 js-select-Btn"></div>
+												        <div class="post-author">
+												            <span class="js-profile thumbnail size40 radius16" style="background-image:url(/flow-renewal/assets/images/profile-default.png), url(/flow-renewal/assets/images/profile-default.png)"></span>
+												            <dl class="post-author-info">
+												                <dt>
+												                    <strong class="author">${employ.name}</strong>
+												                    <em>${employ.wkpo}</em>
+												                </dt>
+												                <dd>
+												                    <strong class="company">${employ.coUrl}</strong>
+												                    <span class="team">${employ.dept}</span>
+												                </dd>
+												            </dl>
+												        </div>
+												    </li>
+												    </c:forEach>
+					                            </ul>
+					                        </div>
+					
+					                        <div id="nullEmplData" class="null-empl-search" style="display: none;">
+					                            <div class="null-wr">
+					                                <div class="group-sub-null-type-1"></div>
+					                                <span>검색 결과가 없습니다.</span>
+					                            </div>
+					                        </div>
+					
+					                        
+					                        <p class="invite-blank-txt" style="margin-top: auto;margin-bottom: auto;">사용자가 존재하지 않습니다.</p>
+					                    </div>
+					                </div>
+					            </div>
+					
+					            <div class="project-invite-memberList coperate-icon-list-type-1">
+					                <div class="project-invite-selected-num" style="display: none;">
+					                    <span id="countFinalElement"></span>
+					                    <button id="removeAllElements">전체 삭제</button>
+					                </div>
+					                <p id="blankInviteTarget" class="right-blank-txt">대상을 선택해주세요.</p>
+					
+					                <ul id="inviteTargetList"></ul>
+					            </div>
+					
+					        </div>
+					        <div class="project-invite-popup-footer">
+					            <div class="flow-pop-button-type-1">
+					                <a href="#">
+					                    <div class="flow-pop-sub-button-1 returnMainBtn">취소</div>
+					                </a>
+					                <a href="#">
+					                    <div id="inviteMembers" class="flow-pop-sub-button-2">초대하기</div>
+					                </a>
+					            </div>
+					        </div>
+					
+					    </div>
+					</section>
 				</div>
 			</div>
 		</div>
-		<div id="tempEmailItem" style="display: none">
-			<div class="input-email-type-wrap-1 emailItem">
-				<input type="text" class="input-email-type-1 emailItemInput"
-					placeholder="example@flow.team" data-valid="email" maxlength="50"
-					data-required-yn="Y" data-empty-msg="이메일을 작성해주세요!"
-					data-over-msg="이메일은 50자이내로 작성해주세요!"
-					data-un-valid-msg="올바른 이메일을 작성해주세요!"> <a
-					class="deleteEmail" href="#"></a>
-			</div>
-		</div>
-		<div id="selectMemberItem" style="display: none">
-			<li rcvr_cd="{rcvr-cd}" rcvr_gb="{rcvr-gb}" id="{id}"><i
-				{profile}=""></i> <a href="#"> <span
-					class="member-name ellipsis">{name}</span>
-			</a> <a href="#"> <em class="deleteMemberItem"></em>
-			</a></li>
-		</div>
-		<div id="selectDvsnItem" style="display: none">
-			<li rcvr_cd="{rcvr-cd}" rcvr_gb="{rcvr-gb}" id="{id}"><a
-				href="#"> <span class="member-name ellipsis">{dvsn_name}</span>
-			</a> <a href="#"> <em class="deleteMemberItem"></em>
-			</a></li>
-		</div>
-
-
-
 
 
 
@@ -475,9 +503,6 @@ to {
 					<div id="allSendienceLayer" class="project-invite-popup-1">
 						<div class="name-type-seach-popup-header-type-1">
 							<span>참여자 관리</span>
-							<button class="js-sendience-service-helper js-mouseover">
-								<i class="icons-help"></i>
-							</button>
 							<button id="closeButton" class="btn-close">
 								<i class="icons-close-1"></i>
 							</button>
@@ -490,12 +515,49 @@ to {
 						<div
 							class="sub-drag-picture-section-1 overflow-scroll-type-1  scroll-mask">
 							<ul id="allSendienceUl" class="all-sendience-ul">
+							<c:forEach var="partici" items="${particis}">
+							    <li class="js-participant-item">
+							        <div class="post-author">
+							            <span class="js-profile thumbnail size40 radius16"></span>
+							            <dl class="post-author-info">
+							                <dt>
+							                    <strong id="name" class="author">${partici.name}</strong>
+							                    <em></em>
+							                </dt>
+							                <dd style="display:block">
+							                    <strong class="company">${partici.coUrl}</strong>
+							                    <span class="team">${partici.dept}</span>
+							                </dd>
+							            </dl>
+							        </div>
+							        <c:if test="${partici.prjPerm == 'pm'}">
+							   		<a href="#" class="admin-invite-button-1 manager-badge"><span>관리자</span></a>
+							   		</c:if>
+							        <div id="selectMemberBtn" class="my-check-2" style="display: none;"></div>
+							        <c:if test="${sessionScope.memId == partici.memId and partici.prjPerm == 'pm'}">
+							        <a id="plusBtn" href="#" class="project-invite-plus-1">
+							            <div class="project-invite-plus-circle-1"></div>
+							            <div class="project-invite-plus-circle-2"></div>
+							            <div></div>
+							        </a>
+							        <div id="plusPopup" class="project-invite-sub-popup-1 plus-popup" style="display:none">
+							            <a id="export" href="#">
+							                <div class="invite-active-type-1">내보내기</div>
+							            </a>
+							            <a id="managerBtn" href="#">
+							                <div>관리자로 지정</div>
+							            </a>
+							        </div>
+							        </c:if>
+							    </li>
+							    </c:forEach>
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		
 		<!-- 글 삭제 style-->
 		<div class="flow-all-background-1 back-area temp-popup" tabindex="0"
 			style="display: none">
@@ -514,7 +576,7 @@ to {
 				</div>
 			</div>
 		</div>
-
+		
 		<!-- 두번창 띄우기 style-->
 		<div class="flow-all-background-1 back-area temp-popup" tabindex="0"
 			style="display: none">
@@ -541,8 +603,8 @@ to {
 			</div>
 		</div>
 
-		<!--  내 프로젝트에서 프로젝트 폴더 설정 style-->
-		<div class="flow-all-background-1 back-area temp-popup" tabindex="0"
+		<!--  프로젝트 폴더 설정-->
+		<div id="prjFolderSet" class="flow-all-background-1 back-area temp-popup" tabindex="0"
 			style="display: none">
 			<div class="flow-project-make-1 back-area">
 				<div class="flow-project-make-2 back-area contents">
@@ -552,26 +614,7 @@ to {
 								class="close-event flow-close-type-1"></a>
 						</div>
 						<ul class="js-label-ul label-set-group scroll-mask">
-							<li class="label-item">
-								<div class="label-set-item">
-									<span class="label-item-text ellipsis">마케팅</span>
-									<!--check시 class="flow-content-check-type-2" -->
-									<a href="#" class="js-check-label flow-content-check-type-1"></a>
-								</div>
-							</li>
-							<li class="label-item">
-								<div class="label-set-item">
-									<span class="label-item-text ellipsis">마케팅</span> <a href="#"
-										class="js-check-label flow-content-check-type-1"></a>
-								</div>
-							</li>
-
-							<li class="label-item">
-								<div class="label-set-item">
-									<span class="label-item-text ellipsis">디자인</span> <a href="#"
-										class="js-check-label flow-content-check-type-1"></a>
-								</div>
-							</li>
+							
 						</ul>
 						<div class="flow-pop-button-type-2">
 							<a href="#">
@@ -584,66 +627,6 @@ to {
 				</div>
 			</div>
 		</div>
-
-
-
-
-		<!-- 사용자 프로필 style-->
-		<div class="flow-all-background-1 back-area temp-popup" tabindex="0"
-			style="display: none">
-			<div class="flow-project-make-1 back-area">
-				<div class="flow-project-make-2 back-area contents">
-					<div class="profile-popup js-profile-popup d-none"
-						style="display: block">
-						<div class="profile-header">
-							<div class="profile-header-dimmed-layer"></div>
-							<button class="btn-close">
-								<i class="icons-close-1"></i>
-							</button>
-						</div>
-						<div class="name-card">
-							<!--프로필 사진 미설정 시 default 클래스 추가-->
-							<i class="profile-image js-profile-image default"></i>
-							<div class="info">
-								<p class="info-box">
-									<span class="name ellipsis">{name}</span> <span
-										class="position">{wkpo}</span>
-								</p>
-								<p class="info-box">
-									<span class="company">{coUrl}</span> <span class="department">{dept}</span>
-								</p>
-							</div>
-						</div>
-						<div class="contact-section">
-							<ul class="contact-contents">
-								<li class="status js-user-status"><i class="icon-status"></i>
-									상태 설정</li>
-								<li><em><i class="profile-mail js-user-email"></i></em> <span>{email}</span>
-								</li>
-								<li><em><i class="profile-phone js-user-phone"></i></em> <span>{persTel}</span>
-								</li>
-								<li><em><i class="profile-tell js-user-call"></i></em> <span>{coTel}</span>
-								</li>
-							</ul>
-						</div>
-						<div class="btn-wr">
-							<button class="btn-chat js-btn-chat">
-								채팅 <i></i>
-							</button>
-							<button class="btn-modi js-btn-modi">
-								정보수정 <i></i>
-							</button>
-							<button class="btn-video js-btn-video">
-								화상 회의 <i></i>
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-
 
 		<!-- 로딩페이지(circle) style-->
 		<div class="flow-all-background-1 back-area temp-popup" tabindex="0"
@@ -690,37 +673,6 @@ to {
 			</div>
 		</div>
 
-
-		<!-- 파일 업로드 style-->
-		<div class="flow-all-background-1 back-area temp-popup" tabindex="0"
-			style="display: none">
-			<div class="flow-project-make-1 back-area">
-				<div class="flow-project-make-2 back-area contents">
-					<div class="image-send-popup flow-project-popup-6">
-						<div class="flow-project-header-1"></div>
-						<div class="contents">
-							<div class="flow-content-text">
-								<p class="popup-cont">
-									<em class="d-block">파일을 전송하시겠습니까?</em> <span class="file-info"
-										id="fileInfo"></span> <span class="file-count" id="fileCount"></span>
-								</p>
-								<div class="js-checkbox-area check-box">
-									<input class="js-checkbox-input" type="checkbox"> <label
-										class="js-checkbox-label"></label> 이미지 묶어보내기
-								</div>
-							</div>
-							<div class="flow-pop-button-type-1">
-								<a href="#"><div
-										class="js-cancel-btn flow-pop-sub-button-1 cancel-event">취소</div></a>
-								<a href="#"><div
-										class="js-submit-btn flow-pop-sub-button-2 submit-event">확인</div></a>
-							</div>
-							<div class="flow-secondary-submit secondary-submit-event"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 	<!-- //팝업창 화면 -->
 
@@ -804,288 +756,243 @@ to {
 
 
 
-	<script type="text/javascript">
+<script type="text/javascript">
 		var $memId = "${sessionScope.memId}";
 		var $coUrl = "${sessionScope.coUrl}";
 
 		//전체 메뉴
 		//메뉴 클릭시 
-		$("#leftTask").find("ul li a").on("click", function(e) { // 새 프로젝트 팝업창 열기
+		$("#leftTask").find("ul li a").click(function(e) { // 새 프로젝트 팝업창 열기
 			$("#leftTask").find("ul li").removeClass("flow-active");
 			$(e.target).parent("li").addClass("flow-active");
 		});
 
 		//새 프로젝트
-		$("#prjMake").on(
-				"click",
-				function(e) { // 새 프로젝트 팝업창 열기
-					e.preventDefault();
-					$("#overlay").css("display", "block");
-					$("#prjMakeLayer").css("display", "block");
+		$("#prjMake").click(function(e) { // 새 프로젝트 팝업창 열기
+			e.preventDefault();
+			$("#overlay").css("display", "block");
+			$("#prjMakeLayer").css("display", "block");
 
-					// 카테고리 정보 가져오기
-					$.ajax({
-						url : "ctgryList.do",
-						type : "post",
-						dataType : 'json',
-						data : {
-							"coUrl" : $coUrl
-						},
-						success : function(data) {
-							if (data != "") {
-								$("#ctgryIdSet").empty();
-								var $ctgryNull = $(
-										"<option>" + "선택" + "</option>")
-										.val("");
-								$("#ctgryIdSet").append($ctgryNull);
-								for (i = 0; i < data.length; i++) {
-									var $ctgry = $(
-											"<option>" + data[i].ctgryName
-													+ "</option>").val(
-											data[i].ctgryId);
-									$("#ctgryIdSet").append($ctgry);
-								} //end of for
-							} else if (data == "") {
-								$("#errorWrap").find("div:last").text(
-										"카테고리가 없습니다.");
-								$("#errorWrap").children("div").fadeIn(1000)
-										.delay(1500).fadeOut(1000);
-							} //end of elseif
-						} //end of function
-					}); //end of ajax
-				});// 새 프로젝트 팝업창 열기 End
-
-		$("#prjMakeLayer").find("button").on('click', function(e) { // 옵션 버튼 클릭시 active
+			// 카테고리 정보 가져오기
+			$.ajax({
+				url : "ctgryList.do",
+				type : "post",
+				dataType : 'json',
+				data : {"coUrl" : $coUrl},
+				success : function(data) {
+					if (data != "") {
+						$("#ctgryIdSet").empty();
+						var $ctgryNull = $("<option>" + "선택" + "</option>").val("");
+						$("#ctgryIdSet").append($ctgryNull);
+						for (i = 0; i < data.length; i++) {
+							var $ctgry = $("<option>" + data[i].ctgryName+ "</option>").val(data[i].ctgryId);
+							$("#ctgryIdSet").append($ctgry);
+						} //end of for
+					} else if (data == "") {
+						$("#errorWrap").find("div:last").text("카테고리가 없습니다.");
+						$("#errorWrap").children("div").fadeIn(1000).delay(1500).fadeOut(1000);
+					} //end of elseif
+				} //end of function
+			}); //end of ajax
+		});// 새 프로젝트 팝업창 열기 End
+	
+		$("#prjMakeLayer").find("button").on("click", function(e) { // 옵션 버튼 클릭시 active
 			$(e.target).toggleClass("active");
-
+	
 			if ($("#cPrjSet").find("button").hasClass("active")) { // 회사프로젝트 설정
-				var $prjKnd = "C";
+				$("#prjKndSet").val("C");
 			} else {
-				var $prjKnd = "N";
+				$("#prjKndSet").val("N");
 			}
-			$("input[name='prjKnd']").val($prjKnd);
-
+	
 			if ($("#prjAllSet").find("button").hasClass("active")) { // 전체공개 설정
-				var $prjOpenPerm = "all";
+				$("#prjOpenPermSet").val("all");
 			} else {
-				var $prjOpenPerm = "part";
+				$("#prjOpenPermSet").val("part");
 			}
-			$("input[name='prjOpenPerm']").val($prjOpenPerm);
 		});//옵션 버튼 클릭 End
 
-		$(".project-submit").on(
-				"click",
-				function(e) { // 프로젝트 만들기 버튼 클릭
-					if ($("#prjTtlInput").val() == "") {
-						$("#errorWrap").find("div:last").text("제목을 입력하세요.");
-						$("#errorWrap").children("div").fadeIn(1000)
-								.delay(1500).fadeOut(1000);
-					} else {
-						e.preventDefault();
-						$.ajax({
-							url : "prjInsert.do",
-							type : "post",
-							dataType : 'json',
-							data : {
-								"prjKnd" : $("#prjKndSet").val(),
-								"prjTtl" : $("#prjTtlInput").val(),
-								"prjCntn" : $("#prjCntnInput").val(),
-								"prjOpenPerm" : $("#prjOpenPermSet").val(),
-								"ctgryId" : $("#ctgryIdSet").val(),
-								"coUrl" : $coUrl,
-								"MemId" : $memId
-							},
-							success : function(data) {
-								$("#successWrap").find("div:last").text(
-										"프로젝트가 생성되었습니다.");
-								$("#successWrap").children("div").fadeIn(1000)
-										.delay(1500).fadeOut(1000);
-
-								prjInsert.submit();
-							} //end of function
-						}); //end of ajax
-					} //end of else
-				});// 프로젝트 만들기 End
-		//새 프로젝트 End
-
-		//프로젝트 폴더 메뉴
-		$
-				.ajax({ // 프로젝트 폴더 목록 부르기
-					url : "folderMenu.do",
+		$(".project-submit").click(function(e) { // 프로젝트 만들기 버튼 클릭
+			if ($("#prjTtlInput").val() == "") {
+				$("#errorWrap").find("div:last").text("제목을 입력하세요.");
+				$("#errorWrap").children("div").fadeIn(1000).delay(1500).fadeOut(1000);
+			} else {
+				e.preventDefault();
+				$.ajax({
+					url : "prjInsert.do",
 					type : "post",
 					dataType : 'json',
 					data : {
+						"prjKnd" : $("#prjKndSet").val(),
+						"prjTtl" : $("#prjTtlInput").val(),
+						"prjCntn" : $("#prjCntnInput").val(),
+						"prjOpenPerm" : $("#prjOpenPermSet").val(),
+						"ctgryId" : $("#ctgryIdSet").val(),
+						"coUrl" : $coUrl,
 						"memId" : $memId
 					},
 					success : function(data) {
-						if (data != "") {
-							$("#allFolderUl").empty();
-							for (i = 0; i < data.length; i++) {
-								$("#allFolderUl")
-										.append(
-												$("<li />")
-														.addClass("label-item")
-														.append(
-																$("<input />")
-																		.attr(
-																				"type",
-																				"hidden")
-																		.val(
-																				data[i].foldId),
-																$("<i />")
-																		.addClass(
-																				"ico-label"),
-																$("<span />")
-																		.addClass(
-																				"js-label-name js-mouseover ellipsis")
-																		.text(
-																				data[i].foldName),
-																$("<a />")
-																		.attr(
-																				"href",
-																				"javascript:void(0)")
-																		.attr(
-																				"onclick",
-																				"FolderSetting(e)")
-																		.attr(
-																				"folderNo",
-																				data[i].foldId)
-																		.addClass(
-																				"js-label-setting-button flow-dash-three")
-																		.append(
-																				$('<div />'),
-																				$('<div />'),
-																				$('<div />'))));
-							} //end of for
-						} //end of if
+						$("#successWrap").find("div:last").text("프로젝트가 생성되었습니다.");
+						$("#successWrap").children("div").fadeIn(1000).delay(1500).fadeOut(1000);
+
+						prjInsert.submit();
 					} //end of function
 				}); //end of ajax
+			} //end of else
+		});// 프로젝트 만들기 End
+		//새 프로젝트 End
 
-		$(".menu-accordion-button").on("click", function(e) { // 프로젝트 폴더 toggle
+		//프로젝트 폴더
+		$.ajax({ // 프로젝트 폴더 목록 부르기
+			url : "folderMenu.do",
+			type : "post",
+			dataType : 'json',
+			data : {"memId" : $memId},
+			success : function(data) {
+				if (data != "") {
+					$("#allFolderUl").empty();
+					for (i = 0; i < data.length; i++) {
+						$("#allFolderUl").append( // 메뉴의 폴더
+								$("<li />").addClass("label-item").append(
+								$("<input />").attr("type","hidden").val(data[i].foldId),
+								$("<i />").addClass("ico-label"),
+								$("<span />").addClass("js-label-name js-mouseover ellipsis").text(data[i].foldName),
+								$("<a />").data("fold-id", data[i].foldId).attr("href","javascript:void(0)").addClass("js-label-setting-button flow-dash-three").attr("onclick","FolderMenu(this)")
+										.append($('<div />'),$('<div />'),$('<div />'))));
+						
+						$(".label-set-group").append( //팝업창 폴더
+								$("<li />").addClass("label-item").append(
+								$("<input />").attr("type","hidden").val(data[i].foldId),
+								$("<div />").addClass("label-set-item").append(
+									$("<span />").addClass("label-item-text ellipsis").text(data[i].foldName),
+									$("<a />").attr("href","#").addClass("js-check-label flow-content-check-type-1"))));
+					} //end of for
+				} //end of if
+			} //end of function
+		}); //end of ajax
+		
+		$(".menu-accordion-button").click(function(e) { // 프로젝트 폴더 toggle
 			$(e.target).toggleClass("active");
 			$(e.target).next().toggle();
 		});
-
-		$(".cancel-event").on("click", function(e) { // 팝업 닫기1
+		
+		$(".cancel-event").click(function(e) { // 팝업 닫기1
 			e.preventDefault();
 			$("#overlay").css("display", "none");
 			$("#overlay").children("div").css("display", "none");
 		});
 
-		$(".close-event").on("click", function(e) { // 팝업 닫기2
+		$(".close-event").click(function(e) { // 팝업 닫기2
 			e.preventDefault();
 			$("#overlay").css("display", "none");
 			$("#overlay").children("div").css("display", "none");
 		});
 
-		$(".back-area").on("click", function(e) { // 팝업 닫기3(팝업창 외에 검은 바탕 클릭시)
+		$(".btn-close").click(function(e) { // 팝업 닫기3
+			e.preventDefault();
+			$("#overlay").css("display", "none");
+			$("#overlay").children("div").css("display", "none");
+			$("#inviteLayer").css("display", "none");
+			$("#inviteMainLayer").css("display", "none");
+			$('#guestsendInviteEmlLayer').css("display","none");
+			$('#teamInviteLayer').css("display","none");
+			
+		});
+		
+		$(".back-area").click(function(e) { // 팝업 닫기4(팝업창 외에 검은 바탕 클릭시)
 			if ($(e.target).hasClass("back-area")) {
 				$("#overlay").css("display", "none");
 				$("#overlay").children("div").css("display", "none");
 			}
 		});
 
-		$("#allLabelLeftButton button").on("click", function() { // 프로젝트 폴더 만들기 팝업 열기
+		$("#allLabelLeftButton button").click(function() { // 프로젝트 폴더 만들기 팝업 열기
 			$("#overlay").css("display", "block");
 			$("#prjFolderMake").css("display", "block");
 		});
 
-		$("#prjFolderMake .submit-event").on(
-				"click",
-				function(e) { // 프로젝트 폴더 만들기
-					e.preventDefault();
-					if ($("#prjFolderMake input").val() == "") {
-						$("#errorWrap").find("div:last").text("폴더명을 입력하세요.");
-						$("#errorWrap").children("div").fadeIn(1000)
-								.delay(1500).fadeOut(1000);
-					} else {
-
+		$("#prjFolderMake .submit-event").click(function(e) { // 프로젝트 폴더 만들기
+			e.preventDefault();
+			if ($("#prjFolderMake input").val() == "") {
+				$("#errorWrap").find("div:last").text("폴더명을 입력하세요.");
+				$("#errorWrap").children("div").fadeIn(1000).delay(1500).fadeOut(1000);
+			} else {
+				$.ajax({
+					url: "prjFoldInsert.do",
+					type: "post",
+					datatype: "json",
+					data: {
+						"memId": $memId,
+						"foldName" : $("#foldTtlInsert").val()
+						},
+					success: function(data){
+						$("#successWrap").find("div:last").text("프로젝트 폴더가 생성되었습니다.");
+						$("#successWrap").children("div").fadeIn(1000).delay(1500).fadeOut(1000);
+						prjFolderInsert.submit();
+						location.reload();
 					}
 				});
-
-		function FolderSetting(e) {
-			console.log(e.target);
-			console.log(e.currentTarget);
-		}
-
-		/* $("").on("click", function() { // 프로젝트 폴더명 수정하기 팝업 열기
-			$("#overlay").css("display", "block");
-			$("#prjFolderUpdate").css("display", "block");
-		}); */
-
-		$("#prjFolderUpdate .submit-event").on(
-				"click",
-				function(e) { // 프로젝트 폴더 수정하기
-					e.preventDefault();
-					if ($("#prjFolderUpdate input").val() == "") {
-						$("#errorWrap").find("div:last").text("폴더명을 입력하세요.");
-						$("#errorWrap").children("div").fadeIn(1000)
-								.delay(1500).fadeOut(1000);
-					} else {
-
-					}
-				});
+			}
+		});
 		//프로젝트 폴더 메뉴 End
 
-		// 프로젝트 홈
-		$("#openInviteLayerBtn").on("click", function() { // 초대하기 버튼 클릭
+		// 초대하기
+		$("#openInviteLayerBtn").click(function() { // 초대하기 버튼 클릭
 			$("#overlay").css("display", "block");
 			$("#inviteLayer").css("display", "block");
 			$("#inviteMainLayer").css("display", "block");
 		});
-
-		$("#inviteUl a").on("click", function(e) { // 초대하기 > 참여자 초대
+		
+		$("#openTeamInvite").click(function(e) { // 초대하기 > 회사 직원 초대
 			e.preventDefault();
 			$("#overlay").css("display", "block");
-			$("#sendInviteEmlLayer").css("display", "block");
+			$("#invitePopup").css("display", "block");
 		});
 
-		$("#openSendEml a").on("click", function(e) { // 초대하기 > 이메일 초대장 발송
+		$("#openSendEml a").click(function(e) { // 초대하기 > 이메일 초대장 발송
 			e.preventDefault();
 			$("#overlay").css("display", "block");
 			$("#sendInviteEmlLayer").css("display", "block");
 		});
 		
-		//게스트초대창 열기
-		$('#openSendEml').on("click", function(e){
+		$('#openSendEml').on("click", function(e){ // 초대메일 열기
 			e.preventDefault();
 			$('#guestsendInviteEmlLayer').css("display","block");
 		});
-		//게스트초대창 닫기
-		$("#guestLayerX").on('click', function(e){
+
+		$(".returnMainBtn").on('click', function(e){ // 닫기
 			e.preventDefault();
 			$('#guestsendInviteEmlLayer').css("display","none");
-		});
-		//게스트초대창 닫기
-		$("#cancleGuest").on('click', function(e){
-			e.preventDefault();
-			$('#guestsendInviteEmlLayer').css("display","none");
+			$('#teamInviteLayer').css("display","none");
 		});
 		
-		//초대창 다 닫기
-		$('.closeInviteLayerBtn').on('click', function(e){
+		$('.closeInviteLayerBtn').on('click', function(e){ // 초대장 다 닫기
 			e.preventDefault();
 			$("#overlay").css("display", "none");
 			$("#inviteLayer").css("display", "none");
 			$("#inviteMainLayer").css("display", "none");
 		});
 		
-		//게스트 메일발송
-		$('#guestsendInviteEmail').click(function(){
-			var coUrl = "${sessionScope.coUrl}";
+		$('#guestsendInviteEmail').click(function(){ //게스트 메일발송
 			var email = $('#guestEmail').val();
 			var contents = $('#guestcontents').val();
-			console.log(contents);
 			$.ajax({
 				type: "post",
 				url: "guestEmailPost.do",
-				data: {"email": email, "coUrl": coUrl, "contents":contents},
+				data: {"email": email, "coUrl": $coUrl, "contents":contents},
 				success: function(){
-					alert("초대메일을 발송했습니다.");
+					$("#successWrap").find("div:last").text("초대메일을 발송했습니다.");
+					$("#successWrap").children("div").fadeIn(1000).delay(1500).fadeOut(1000);
 				}
-			})
+			});
 		});
-
+	//게스트 초대 끝
+	
+	//프로젝트 홈
+	$("#allSendienceBtn").click(function(e) { // 참여자 관리
+		$("#overlay").css("display", "block");
+		$("#allSendiencePopup").css("display", "block");
+	});//참여자 전체보기
 	</script>
 
 
