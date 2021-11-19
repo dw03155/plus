@@ -84,6 +84,9 @@ public class PNWVO {
 	private String bmkYn;			// 북마크 유무
 	private String subtskyn;		// 하위업무 유무
 	
+	// Pincette
+	private String pinYn;			// 핀셋 유무
+	
 	// Favorite
 	private String favorYn;			// 즐겨찾기 유무
 	

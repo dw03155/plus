@@ -428,7 +428,7 @@
 	<select id="txtNW"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
 		 select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name, 
-        		(case when exists(select * from bookmark where noti_id = a.noti_id and mem_id = a.mem_id)
+        		(case when exists(select * from bookmark where noti_id = a.noti_id and mem_id = #{memId})
             		then 1 else 0 end) as bmkYn,
 		        (case when exists(select * from pincette where prj_id = #{prjId} and noti_id = a.noti_id)
 					then 1 else 0 end) as PinYn	
@@ -442,8 +442,8 @@
 	
 	<!-- 업무 게시글 클릭 -->
 	<select id="tskNW" resultType="co.plus.prj.pnw.vo.PNWVO">
-		select a.*,b.noti_ttl as subtsk_ttl, b.subtsk_prgs, b.subtsk_bgn_dt, b.subtsk_end_dt, b.mem_id, c.noti_open_perm, c.noti_dttm, d.prj_id, d.prj_ttl, e.name
-				(case when exists(select * from bookmark where noti_id = a.noti_id and mem_id = a.mem_id)
+		select a.*,b.noti_ttl as subtsk_ttl, b.subtsk_prgs, b.subtsk_bgn_dt, b.subtsk_end_dt, b.mem_id, c.noti_open_perm, c.noti_dttm, d.prj_id, d.prj_ttl, e.name,
+				(case when exists(select * from bookmark where noti_id = a.noti_id and mem_id = #{memId})
 		            then 1 else 0 end) as bmkYn,
 		        (case when exists(select * from pincette where prj_id = #{prjId} and noti_id = a.noti_id)
 					then 1 else 0 end) as PinYn	
@@ -458,7 +458,7 @@
 	<!-- 하위업무 게시글 클릭 -->
 	<select id="subtskNW" resultType="co.plus.prj.pnw.vo.PNWVO">
 		select a.*, b.name, c.subtsk_cntn, p.prj_ttl,
-				(case when exists(select * from bookmark where noti_id = a.noti_id and mem_id = a.mem_id)
+				(case when exists(select * from bookmark where noti_id = a.noti_id and mem_id = #{memId})
 		            then 1 else 0 end) as bmkYn,
 		        (case when exists(select * from pincette where prj_id = #{prjId} and noti_id = a.noti_id)
 					then 1 else 0 end) as PinYn	
@@ -472,9 +472,9 @@
 	<!-- 일정 게시글 클릭 -->
 	<select id="scheNW" resultType="co.plus.prj.pnw.vo.PNWVO">
 		select a.*, b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, d.name, c.noti_dttm,
-				(case when exists(select * from bookmark where noti_id = a.noti_id and mem_id = a.mem_id)
+				(case when exists(select * from bookmark where noti_id = a.noti_id and mem_id = #{memId})
 		            then 1 else 0 end) as bmkYn,
-		        (case when exists(select * from pincette where prj_id = #{prjId} and noti_id = a.noti_id)
+		        (case when exists(select * from pincette where prj_id = b.prj_id and noti_id = a.noti_id)
 					then 1 else 0 end) as PinYn	
 		from schedule a, project b, board c, member d
 		where a.noti_id = c.noti_id 
@@ -487,7 +487,7 @@
 	<!-- 내 게시물 목록 -> 할일 상세보기(팝업) -->
 	<select id="TodoNW" resultType="co.plus.prj.pnw.vo.PNWVO">
 		select a.*, b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name,
-				(case when exists(select * from bookmark where mem_id = a.mem_id)
+				(case when exists(select * from bookmark where mem_id = #{memId})
 					then 1 else 0 end) as bmkYn,
 				(case when exists(select * from pincette where prj_id = b.prj_id)
 					then 1 else 0 end) as PinYn	

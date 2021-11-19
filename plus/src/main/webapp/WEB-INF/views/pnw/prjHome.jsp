@@ -169,10 +169,14 @@
 						</div>
 					</div>
 				</div>
-				<button id="openInviteLayerBtn" type="button"
-					class="project-invite-button color-code-${prjInfo.prjColor}">
-					<i class="icons-invite"></i>초대하기
-				</button>
+				<c:forEach var="pm" items="${pms}">
+					<c:if test="${sessionScope.memId == pm.memId}">
+						<button id="openInviteLayerBtn" type="button"
+							class="project-invite-button color-code-${prjInfo.prjColor}">
+							<i class="icons-invite"></i>초대하기
+						</button>
+					</c:if>
+				</c:forEach>
 			</div>
 		</div>
 		
@@ -440,6 +444,7 @@
 														style="display: block">
 														<div class="fixed-list">
 															<a href="#" id="${nwList.notiId}"> <!-- 글 class="icons-write2" 할일 class="icons-todo" 일정 class="icons-schedule"-->
+																<input type="hidden" value="${nwList.notiId}">
 																<c:if test="${nwList.notiKnd=='text'}">
 																	<c:set var="notiKindIcon" value="icons-write2" />
 																	<c:set var="notiKindSpan" value="글" />
@@ -521,7 +526,10 @@
 																</div>
 															</a>
 														</div>
-													</div> <!-- 포스트 타입 -->
+													</div>
+													
+													
+													<!-- 포스트 타입 -->
 													<div class="js-post-nav card-item post-card-wrapper"
 														style="display: none">
 														<!-- highlight class 시 보라색 테두리 -->
@@ -558,7 +566,7 @@
 																	<div>
 																		<div class="post-option">
 																			<button id="pinToTopBnt"
-																				class="js-pin-post fixed-btn js-pin-authority on"
+																				class="js-pin-post fixed-btn js-pin-authority"
 																				style="display: block">
 																				<!-- fixed-btn on class -->
 																				<span class="blind">상단 고정 등록</span>
@@ -631,42 +639,6 @@
 																	<c:if test="${nwList.notiKnd == 'text'}">
 																		<div id="originalPost" class="post-card-content "
 																			style="display: block">
-																			<div class="js-map-item url-preview map map-item"
-																				data-url="https://maps.google.com/?cid=17960805821623202136">
-																				<div class="sort-hide-area">
-																					<img
-																						src="https://maps.googleapis.com/maps/api/staticmap?center=35.8693336,128.5955796&amp;zoom=14&amp;size=646x220&amp;markers=color:blue|35.8693336,128.5955796&amp;key=AIzaSyADjbtMn46r9DGFyo_ZRz3c6fOXzuOKWCw"
-																						onerror="this.src='https://i.pinimg.com/236x/fc/7e/ce/fc7ece8e8ee1f5db97577a4622f33975--photo-icon-sad.jpg'">
-																				</div>
-
-																				<div class="url-preview-content">
-																					<em class="url-preview-title"><i
-																						class="icon-map"></i></em>
-																					<p class="url-preview-text">{txtPl}</p>
-																				</div>
-																			</div>
-
-																			<div class="js-post-file document-item file-item">
-																				<div class="extension-icon-area">
-																					<!-- etc 대신 pdf,txt,hwp,word,ppt, -->
-																					<i class="icon-extension etc"></i>
-																					<!-- 잠금파일일 경우에 block처리 요청 -->
-																				</div>
-																				<dl class="document-item-info">
-																					<dt class="js-file-title">
-																						<span class="document-title">MOCK_DATA.json</span><em
-																							class="document-extension"></em>
-																					</dt>
-																					<dd>106.41 KB</dd>
-																				</dl>
-																				<button type="button"
-																					class="js-down-btn document-download-button"
-																					style="display: block">
-																					<i class="icons-arrow_down"></i> <span
-																						class="blind">다운로드 버튼</span>
-																				</button>
-
-																			</div>
 																			<div>{txtCntn}</div>
 																		</div>
 																	</c:if>
@@ -852,7 +824,7 @@
 																			<div class="tsk-cntn">{task.cntn}</div>
 																		</div>
 
-
+			
 																		<div id="summaryFoldArea" class="content-fold"
 																			style="display: block">
 																			<div class="subtask-space">
@@ -868,10 +840,7 @@
 																						<li id="subtask-{COLABO_COMMT_SRNO}"
 																							class="js-subtask-li {status-class}">
 																							<div class="subtask-input-area">
-																								<i class="drag-button"> <span class="blind">Move</span>
-																								</i>
-																								<div
-																									class="js-subtask-status-layer js-subtask-layer subtask-status-area">
+																								<div class="js-subtask-status-layer js-subtask-layer subtask-status-area">
 																									<button type="button"
 																										class="js-subtask-status-button js-task-state subtask-button subtask-status {status_code}">{status_text}</button>
 																									<ul
@@ -917,33 +886,24 @@
 																								</div>
 																								<ul class="js-subtask-menu subtask-menu">
 																									<li
-																										class="js-subtask-date-layer subtask-menu-date js-date-tooltip {mouseover-class}"
-																										tab-code="date"
-																										mouseover-text="{mouseover-date}"
-																										data_start_dt="{START_DT}"
-																										data_end_dt="{END_DT}">
+																										class="js-subtask-date-layer subtask-menu-date js-date-tooltip {mouseover-class}">
 																										<div class="js-pickr-layer">
 																											<input type="hidden"
 																												class="js-subtask-date-input" type="text"
 																												readonly="readonly">
 																											<div class="subtask-date-input-div">
 																												<button type="button"
-																													class="js-subtask-date-button subtask-button create-icon-box small {date_off}"
-																													tab-code="date"{date_button_display}>
+																													class="js-subtask-date-button subtask-button create-icon-box small {date_off}">
 																													<span> <i class="icons-calendar"></i>
 																													</span>
 																												</button>
 																												<span
-																													class="js-subtask-date-text js-flatpicker subtask-date d-none {dead-line-class}"{date_text_display}>{end_dt_text}</span>
+																													class="js-subtask-date-text js-flatpicker subtask-date d-none {dead-line-class}">{end_dt_text}</span>
 																											</div>
 																										</div>
 																									</li>
 																									<li
 																										class="subtask-menu-worker js-subtask-worker-layer js-mouseover"
-																										tab-code="worker"
-																										data_worker_id_list="{worker_id_list}"
-																										data_worker_name_list="{worker_name_list}"
-																										data_worker_profile_list="{data_worker_profile_list}"
 																										mouseover-text="{mouseover-worker}">
 																										<button type="button"
 																											class="js-worker-button subtask-button manager js-worker-box create-icon-box small {worker_off}"
@@ -1222,22 +1182,105 @@
 				$(e.currentTarget).closest(".list-item").css("display","none");
 				$(e.currentTarget).closest(".list-item").next().css("display", "block");
 				
+				$notiId = $(e.currentTarget).find("input").val();
+				console.log($notiId);
+				
 				if("${nwList.notiKnd == 'text'}"){ // 글일때
 					$.ajax({
 						url : "txtNW.do",
 						type : "post",
 						dataType : "json",
 						data : {
-							"notiId" : $(".task-number em").text()
+							"notiId" : $notiId,
+							"prjId" : $("#detailSettingProjectSrno").text(),
+							"memId" : $memId
+						},
+						success : function(data) {
+							$(".tsk-cntn").text(data.tskCntn);
+							if(data.pinYn == '0'){
+								$("#pinToTopBnt").removeClass(on); 
+							}else if(data.pinYn == '1'){
+								$("#pinToTopBnt").addClass(on);
+							}
+						}
+					});
+				
+				}else if("${nwList.notiKnd == 'task'}"){ // 업무일때
+					$.ajax({
+						url : "tskNW.do",
+						type : "post",
+						dataType : "json",
+						data : {
+							"notiId" : $notiId,
+							"prjId" : $("#detailSettingProjectSrno").text(),
+							"memId" : $memId
 						},
 						success : function(data) {
 							$(".js-registration-name").text(data.name);
 							$(".js-start-date-layer").find(".js-date-text").text(data.tskBgnDt);
 							$(".js-end-date-layer").find(".js-date-text").text(data.tskEndDt);
-							$(".tsk-cntn").text(data.tskCntn);
+							$(".js-task-option .tsk-cntn").text(data.tskCntn);
+							if(data.subtskTtl != null){
+								$(".subtask-input p").text(data.subtskTtl);
+								if(data.subtskPrgs == 'request'){
+									$(".js-subtask-status-button").addClass("request").text("요청");
+								}else if(data.subtskPrgs == 'progress'){
+									$(".js-subtask-status-button").addClass("progress").text("진행");
+								}else if(data.subtskPrgs == 'feedback'){
+									$(".js-subtask-status-button").addClass("feedback").text("피드백");
+								}else if(data.subtskPrgs == 'complete'){
+									$(".js-subtask-status-button").addClass("completion").text("완료");
+								}else if(data.subtskPrgs == 'complete'){
+									$(".js-subtask-status-button").addClass("withhold").text("보류");
+								}
+								$(".tsk-cntn").text(data.subtskEndDt);
+							}else{
+								$("#summaryFoldArea").css("display","none");
+							}
+							if(data.pinYn == '0'){
+								$("#pinToTopBnt").removeClass(on); 
+							}else if(data.pinYn == '1'){
+								$("#pinToTopBnt").addClass(on);
+							}
+						}
+					});
+				
+				}else if("${nwList.notiKnd == 'schedule'}"){ // 업무일때
+					$.ajax({
+						url : "scheNW.do",
+						type : "post",
+						dataType : "json",
+						data : {
+							"notiId" : $notiId,
+							"prjId" : $("#detailSettingProjectSrno").text(),
+							"memId" : $memId
+						},
+						success : function(data) {
+							$('.js-manager-group .js-registration').mouseover(function(){
+								$(this).text(data.memId);
+							});
+							$("#urlPreview span").text(data.schePl);
+							$("#memoSpan").text(data.scheCntn);
+							$(".js-task-option .tsk-cntn").text(data.tskCntn);
 							$(".subtask-input p").text(data.subtskTtl);
-							$(".tsk-cntn").text(data.subtskCntn);
-							
+							if(data.subtskPrgs == 'request'){
+								$(".js-subtask-status-button").addClass("request").text("요청");
+							}else if(data.subtskPrgs == 'progress'){
+								$(".js-subtask-status-button").addClass("progress").text("진행");
+							}else if(data.subtskPrgs == 'feedback'){
+								$(".js-subtask-status-button").addClass("feedback").text("피드백");
+							}else if(data.subtskPrgs == 'complete'){
+								$(".js-subtask-status-button").addClass("completion").text("완료");
+							}else if(data.subtskPrgs == 'withhold'){
+								$(".js-subtask-status-button").addClass("hold").text("보류");
+							}
+							$(".tsk-cntn").text(data.subtskEndDt);
+							if(data.pinYn == '0'){
+								$("#pinToTopBnt").removeClass(on); 
+							}else if(data.pinYn == '1'){
+								$("#pinToTopBnt").addClass(on);
+							}
+						
 						}
 					});
 				}
