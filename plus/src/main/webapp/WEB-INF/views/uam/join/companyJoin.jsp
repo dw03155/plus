@@ -203,7 +203,7 @@ to {
 
 		<!-- 기존회사참여 -->
 		<div id="companyJoinMain" class="login-wrap invite-login">
-			<div class="login-text">기존회사 참여</div>
+			<div class="login-text">회사 URL 입력</div>
 			<div class="login-company">이미 회사에서 플로우를 사용하고 있다면 회사 URL을 입력하여
 				함께하세요.</div>
 			<div class="join-contents">

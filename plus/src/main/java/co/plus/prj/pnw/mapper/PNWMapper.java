@@ -2,6 +2,7 @@ package co.plus.prj.pnw.mapper;
 
 import java.util.List;
 
+import co.plus.prj.nwm.vo.NoticeWritingVO;
 import co.plus.prj.pnw.vo.PNWVO;
 
 public interface PNWMapper {
@@ -46,8 +47,14 @@ public interface PNWMapper {
 		List<PNWVO> tskPrgList(PNWVO vo);	// 프로젝트 업무탭 (업무 진행상태 리스트)
 		List<PNWVO> tskNWList(PNWVO vo);	// 프로젝트 업무탭 (업무 게시글 리스트(아코디언))
 		List<PNWVO> scheList(PNWVO vo);		// 프로젝트 일정탭
-		List<PNWVO> fileList(PNWVO vo);		// 프로젝트 파일탭
 	
+		PNWVO txtNW(PNWVO vo); 			// 프로젝트 홈탭 : 글 상세보기
+		PNWVO tskNW(PNWVO vo); 			// 프로젝트 홈탭 : 업무 상세보기
+		PNWVO subtskNW(PNWVO vo); 		// 프로젝트 홈탭 : 하위업무 상세보기
+		PNWVO scheNW(PNWVO vo); 		// 프로젝트 홈탭 : 일정 상세보기
+		List<PNWVO> TodoNW(PNWVO vo); 	// 프로젝트 홈탭 : 할일 상세보기
+		
+		
 		int txtInsert(PNWVO vo);			// 글 입력
 		int txtUpdate(PNWVO vo);			// 글 수정
 		int tskInsert(PNWVO vo);			// 업무 입력

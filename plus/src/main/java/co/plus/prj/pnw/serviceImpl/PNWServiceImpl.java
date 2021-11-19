@@ -192,6 +192,32 @@ public class PNWServiceImpl implements PNWService {
 	}
 
 	@Override
+	public PNWVO txtNW(PNWVO vo) { // 프로젝트 홈탭 : 글 상세보기
+		return map.txtNW(vo); 
+	}
+	
+	@Override
+	public PNWVO tskNW(PNWVO vo) { // 프로젝트 홈탭 : 업무 상세보기
+		return map.tskNW(vo); 
+	}
+	
+	@Override
+	public PNWVO subtskNW(PNWVO vo) { // 프로젝트 홈탭 : 하위업무 상세보기
+		return map.subtskNW(vo); 
+	}
+	
+	@Override
+	public PNWVO scheNW(PNWVO vo) {	// 프로젝트 홈탭 : 일정 상세보기
+		return map.scheNW(vo); 
+	}
+	
+	@Override
+	public List<PNWVO> TodoNW(PNWVO vo){ // 프로젝트 홈탭 : 할일 상세보기
+		return map.TodoNW(vo); 
+	}
+	
+	
+	@Override
 	public int txtInsert(PNWVO vo) { // 글 입력
 		return map.txtInsert(vo);
 	}
