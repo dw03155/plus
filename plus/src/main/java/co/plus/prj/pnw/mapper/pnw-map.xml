@@ -382,6 +382,7 @@
 			and b.prj_perm = 'guest'
 		order by a.mem_id asc
 	</select>
+	
 	<!-- <resultMap id="tskList" type="co.plus.prj.pnw.vo.PNWVO"> <result property="" 
 		/> <result property="" /> <result property="" /> <collection property="" 
 		/> </resultMap> <select id="tskPrgList" resultMap="tskList"> select a.* from 
@@ -422,6 +423,82 @@
 			and c.prj_id = #{prjId}
 			and c.prj_id = b.prj_id
 	</select>
+	
+	<!-- 글 게시글 클릭 -->
+	<select id="txtNW"
+		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
+		 select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name, 
+        		(case when exists(select * from bookmark where noti_id = a.noti_id and mem_id = a.mem_id)
+            		then 1 else 0 end) as bmkYn,
+		        (case when exists(select * from pincette where prj_id = #{prjId} and noti_id = a.noti_id)
+					then 1 else 0 end) as PinYn	
+		from text a, project b, board c, member d
+		where a.noti_id = c.noti_id 
+			and b.prj_id = c.prj_id
+			and b.co_url = d.co_url
+			and c.mem_id = d.mem_id
+			and c.noti_id = #{notiId}
+	</select>
+	
+	<!-- 업무 게시글 클릭 -->
+	<select id="tskNW" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select a.*,b.noti_ttl as subtsk_ttl, b.subtsk_prgs, b.subtsk_bgn_dt, b.subtsk_end_dt, b.mem_id, c.noti_open_perm, c.noti_dttm, d.prj_id, d.prj_ttl, e.name
+				(case when exists(select * from bookmark where noti_id = a.noti_id and mem_id = a.mem_id)
+		            then 1 else 0 end) as bmkYn,
+		        (case when exists(select * from pincette where prj_id = #{prjId} and noti_id = a.noti_id)
+					then 1 else 0 end) as PinYn	
+		from task a LEFT OUTER JOIN subtask b
+		on a.noti_id = b.noti_id2
+		     inner join board c on a.noti_id = c.noti_id
+		     inner join project d on c.prj_id = d.prj_id
+		     inner join member e on c.mem_id = e.mem_id
+		where a.noti_id = #{notiId}	
+        </select>
+	
+	<!-- 하위업무 게시글 클릭 -->
+	<select id="subtskNW" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select a.*, b.name, c.subtsk_cntn, p.prj_ttl,
+				(case when exists(select * from bookmark where noti_id = a.noti_id and mem_id = a.mem_id)
+		            then 1 else 0 end) as bmkYn,
+		        (case when exists(select * from pincette where prj_id = #{prjId} and noti_id = a.noti_id)
+					then 1 else 0 end) as PinYn	
+		from board a, member b, subtask c, project p
+		where a.mem_id = b.mem_id
+			and a.noti_id = c.noti_id
+		    and a.prj_id = p.prj_id
+			and	a.noti_id = #{notiId}
+	</select>
+	
+	<!-- 일정 게시글 클릭 -->
+	<select id="scheNW" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select a.*, b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, d.name, c.noti_dttm,
+				(case when exists(select * from bookmark where noti_id = a.noti_id and mem_id = a.mem_id)
+		            then 1 else 0 end) as bmkYn,
+		        (case when exists(select * from pincette where prj_id = #{prjId} and noti_id = a.noti_id)
+					then 1 else 0 end) as PinYn	
+		from schedule a, project b, board c, member d
+		where a.noti_id = c.noti_id 
+			and b.prj_id = c.prj_id
+			and b.co_url = d.co_url
+			and c.mem_id = d.mem_id
+			and c.noti_id = #{notiId}
+	</select>
+	
+	<!-- 내 게시물 목록 -> 할일 상세보기(팝업) -->
+	<select id="TodoNW" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select a.*, b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name,
+				(case when exists(select * from bookmark where mem_id = a.mem_id)
+					then 1 else 0 end) as bmkYn,
+				(case when exists(select * from pincette where prj_id = b.prj_id)
+					then 1 else 0 end) as PinYn	
+		from todo a, project b, board c, member d
+		where a.noti_id = c.noti_id 
+			and b.prj_id = c.prj_id
+			and b.co_url = d.co_url
+			and c.mem_id = d.mem_id
+	        and c.noti_id = #{notiId}
+	</select>
+
 
 	<!-- 글 입력 -->
 	<insert id="txtInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">

@@ -67,6 +67,7 @@ public class PNWVO {
 	private Date subtskEndDt;		// 하위업무 마감일
 	private String subtskCntn;		// 하위업무 내용
 	private String subtskFile;		// 하위업무 첨부파일
+	private String subtskTtl;		// 상위업무와 같이 볼 때
 	
 	// Todo
 	private String todoCntn;		// 할일 내용
@@ -80,10 +81,8 @@ public class PNWVO {
 	private String schePl;			// 일정 장소
 	private String scheCntn;		// 일정 내용
 	 
-	// Reply
-	private String repId;			// 댓글 번호
-	private String repCntn;			// 댓글 내용
-	private Date repDttm;			// 댓글 일시
+	private String bmkYn;			// 북마크 유무
+	private String subtskyn;		// 하위업무 유무
 	
 	// Favorite
 	private String favorYn;			// 즐겨찾기 유무

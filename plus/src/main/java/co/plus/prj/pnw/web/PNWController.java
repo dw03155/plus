@@ -127,7 +127,7 @@ public class PNWController {
 		vo.setMemId((String) session.getAttribute("memId"));
 		vo.setCoUrl((String) session.getAttribute("coUrl"));
 		model.addAttribute("nwLists",service.allSchedule(vo));
-		return "home/allSchedule"; 		
+		return "pnw/allSchedule"; 		
 	}
 	
 	// 프로젝트 폴더 생성하기
@@ -154,9 +154,40 @@ public class PNWController {
 		return "redirect:myProject.do";
 	}
 	
+	// 프로젝트 폴더 선택하기
 	@RequestMapping("/prjFolderSet.do")
 	@ResponseBody
 	public int prjFolderSet(HttpSession session, Model model, PNWVO vo) {
 		return service.prjFolderSet(vo);
+	}
+	
+	@RequestMapping("/txtNW.do")
+	@ResponseBody
+	public PNWVO txtNW(HttpSession session, Model model, PNWVO vo) {
+		return service.txtNW(vo);
+	}
+	
+	@RequestMapping("/tskNW.do")
+	@ResponseBody
+	public PNWVO tskNW(HttpSession session, Model model, PNWVO vo) {
+		return service.tskNW(vo);
+	}
+	
+	@RequestMapping("/subtskNW.do")
+	@ResponseBody
+	public PNWVO subtskNW(HttpSession session, Model model, PNWVO vo) {
+		return service.subtskNW(vo);
+	}
+	
+	@RequestMapping("/scheNW.do")
+	@ResponseBody
+	public PNWVO scheNW(HttpSession session, Model model, PNWVO vo) {
+		return service.scheNW(vo);
+	}
+	
+	@RequestMapping("/TodoNW.do")
+	@ResponseBody
+	public List<PNWVO> TodoNW(HttpSession session, Model model, PNWVO vo) {
+		return service.TodoNW(vo);
 	}
 }

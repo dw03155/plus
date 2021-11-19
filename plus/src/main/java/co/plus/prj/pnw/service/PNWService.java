@@ -47,6 +47,13 @@ public interface PNWService {
 	List<PNWVO> prjTsk(PNWVO vo);		// 프로젝트 업무탭
 	List<PNWVO> prjSche(PNWVO vo);		// 프로젝트 일정탭
 	
+	PNWVO txtNW(PNWVO vo); 			// 프로젝트 홈탭 : 글 상세보기
+	PNWVO tskNW(PNWVO vo); 			// 프로젝트 홈탭 : 업무 상세보기
+	PNWVO subtskNW(PNWVO vo); 		// 프로젝트 홈탭 : 하위업무 상세보기
+	PNWVO scheNW(PNWVO vo); 		// 프로젝트 홈탭 : 일정 상세보기
+	List<PNWVO> TodoNW(PNWVO vo); 	// 프로젝트 홈탭 : 할일 상세보기
+
+	
 	int txtInsert(PNWVO vo);			// 글 생성
 	int txtUpdate(PNWVO vo);			// 글 수정
 	int tskInsert(PNWVO vo);			// 업무 생성
