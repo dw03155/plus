@@ -382,7 +382,7 @@ pageContext.setAttribute("replaceChar", "\n");
 				<div class="post-bottom-menu js-reaction-bookmark">
 					<div class="bottom-button-area">
 						
-						<button class="js-post-bookmark post-bottom-button on">
+						<button class="js-post-bookmark post-bottom-button">
 							<i class="icon-bookmark"></i> <span>북마크</span>
 						</button>
 					

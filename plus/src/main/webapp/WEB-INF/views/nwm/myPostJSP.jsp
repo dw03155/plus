@@ -232,7 +232,7 @@
 										<span class="search-result-title">전체</span><span
 											id="allPostsSearchCount"
 											class="js-search-post-count search-result-count"
-											style="display: inline-block">${fn:length(notices)}</span>
+											style="display: inline-block">&nbsp;${fn:length(notices)}</span>
 									</div>
 									<ul id="allPostsSearchUl"
 										class="js-search-post-ul all-seach-list-type-1 scroll-mask">

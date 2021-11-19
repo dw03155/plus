@@ -14,8 +14,7 @@ pageContext.setAttribute("replaceChar", "\n");
 		<i id="projectTitleColor" class="project-color color-code-4"></i> <span
 			class="js-project-title-button">${schedules.prjTtl}</span> <span
 			class="subtask-title up-task-title js-up-task-button"
-			data-up-task-project-srno="" data-up-task-post-srno=""
-			data-up-task-srno=""> </span>
+			> </span>
 	</h3>
 	<button class="btn-close card-popup-close">
 		<i class="icons-close-1"></i>
@@ -232,7 +231,7 @@ pageContext.setAttribute("replaceChar", "\n");
 					<!-- 북마크 표시 -->
 					<div class="bottom-button-area">
 					
-						<button class="js-post-bookmark post-bottom-button on">
+						<button class="js-post-bookmark post-bottom-button">
 							<i class="icon-bookmark"></i> <span>북마크</span>
 						</button>
 					</div>
