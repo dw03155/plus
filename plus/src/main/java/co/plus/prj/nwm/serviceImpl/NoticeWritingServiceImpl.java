@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import co.plus.prj.nwm.mapper.NoticeWritingMapper;
 import co.plus.prj.nwm.service.NoticeWritingService;
 import co.plus.prj.nwm.vo.NoticeWritingVO;
+import co.plus.prj.pnw.vo.PNWVO;
 
 @Service
 public class NoticeWritingServiceImpl implements NoticeWritingService {
@@ -69,5 +70,11 @@ public class NoticeWritingServiceImpl implements NoticeWritingService {
 		// 내 게시물 목록 -> 할일 상세보기(팝업)
 		return map.myPostTodo(vo);
 	}
+	@Override public PNWVO prjColorMyPost(NoticeWritingVO vo) { 
+		// 프로젝트 제목 -> 색 (팝업)
+		return map.prjColorMyPost(vo);
+	}
+	
+	 
 
 }

@@ -3,6 +3,7 @@ package co.plus.prj.nwm.mapper;
 import java.util.List;
 
 import co.plus.prj.nwm.vo.NoticeWritingVO;
+import co.plus.prj.pnw.vo.PNWVO;
 
 public interface NoticeWritingMapper {
 
@@ -23,4 +24,7 @@ public interface NoticeWritingMapper {
 	List<NoticeWritingVO> bookMarkList(NoticeWritingVO vo);			// 전체 메뉴 -> 북마크
 	NoticeWritingVO bookMarkSelect(NoticeWritingVO vo);				// 북마크 -> 북마크 상세보기(팝업)
 
-}
+	//프로젝트 색깔 모달 
+	PNWVO prjColorMyPost(NoticeWritingVO vo); // 제목 프로젝트 색깔 받기
+	
+	}
