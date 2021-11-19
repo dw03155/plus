@@ -139,7 +139,7 @@
 				<h2>이메일 초대</h2>
 				<p>직원들의 이메일 주소를 입력하여 바로 초대할 수 있습니다.</p>
 					<input type="text" id="emailInput1" class="emailInput" placeholder="example@gmail.com"/>
-					<button id="emailInputBtn" class="blueBtn" type="button">전송</button>
+					<button id="emailInputBtn" class="blueBtn" type="button" style="top: 390px; left: 24px;">전송</button>
 				</div>
 			</div>
 		</div>
@@ -156,7 +156,7 @@
 				<form id="excelUploadForm" name="excelUploadForm" action="xlsxUplord.do" method="post" enctype="multipart/form-data" style="display: inline;">
 				<input id="file" name="file" type="file" style="border: 1px;">
 				</form>
-				<button type="submit" id="fileUp" class="blueBtn" onclick="check()">추가</button>
+				<button type="submit" id="fileUp" class="blueBtn" onclick="check()" style="top: 261px; left: 225px">추가</button>
 				<button id="xlsxDoun" onclick="location.href='/xlsxFile/xlsxdownload/플러스 회원일괄초대 엑셀입력 양식.xls'" value="플러스 회원일괄초대 엑셀입력 양식.xls" class="whiteBtn" type="button" style="width: 180px">엑셀파일 양식 다운로드</button>
 			</div>
 			<div class="contentsBox">
@@ -168,7 +168,7 @@
 			<!-- <span><input type="checkbox">등록 불가능한 행 모아보기</span> -->
 			<div id="invitebtnDiv">
 				<button class="whiteBtn" id="lineDelBtn" type="button">삭제</button>
-				<button class="blueBtn" id="inBtn" type="button">등록</button>
+				<button id="inBtn" type="button" style="padding: 6px 15px 6px 15px;	background-color: #5882FA;	color: white;	border-radius: 2px;	margin-top: 10px;">등록</button>
 			</div>
 			</div>
 				<table id="insertMemberList" border="1">
