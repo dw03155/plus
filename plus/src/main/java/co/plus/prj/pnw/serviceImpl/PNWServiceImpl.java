@@ -38,8 +38,38 @@ public class PNWServiceImpl implements PNWService {
 	}
 
 	@Override
+	public int prjFavorite(PNWVO vo) { // 즐겨찾기 추가
+		return map.prjFavorite(vo);
+	}
+	
+	@Override
+	public int prjNoFavor(PNWVO vo) { // 즐겨찾기 삭제
+		return map.prjNoFavor(vo);
+	}
+	
+	@Override
+	public int prjColorUpdate(PNWVO vo) { // 즐겨찾기 삭제
+		return map.prjColorUpdate(vo);
+	}
+	
+	@Override
+	public int prjFolderSet(PNWVO vo) { // 폴더 설정
+		return map.prjFolderSet(vo);
+	}
+	
+	@Override
 	public List<PNWVO> openProject(PNWVO vo) { // 전체 프로젝트
 		return map.openProject(vo);
+	}
+	
+	@Override
+	public List<PNWVO> joinPrj(PNWVO vo) { // 즐겨찾기 (참여)
+		return map.joinPrj(vo);
+	}
+	
+	@Override
+	public List<PNWVO> noJoinPrj(PNWVO vo) { // 즐겨찾기 (참여X)
+		return map.noJoinPrj(vo);
 	}
 	
 	@Override
@@ -86,7 +116,13 @@ public class PNWServiceImpl implements PNWService {
 	public PNWVO prjInfo(PNWVO vo) { // 프로젝트 홈탭 : 프로젝트 정보
 		return map.prjInfo(vo);
 	}
-
+	
+	@Override
+	public List<PNWVO> allEmploys(PNWVO vo) { // 프로젝트 홈탭 : 참여자초대
+		return map.allEmploys(vo);
+	}
+	
+	@Override
 	public List<PNWVO> prjTskCount(PNWVO vo) { // 프로젝트 홈탭 : 도넛차트
 		return map.prjTskCount(vo);
 	}
@@ -140,6 +176,7 @@ public class PNWServiceImpl implements PNWService {
 		result.put("pms", map.partiPM(vo));
 		result.put("users", map.partiUser(vo));
 		result.put("guests", map.partiGuest(vo));
+		result.put("particis", map.prjPartiList(vo));
 		return result;
 	}
 
@@ -155,10 +192,31 @@ public class PNWServiceImpl implements PNWService {
 	}
 
 	@Override
-	public List<PNWVO> prjFile(PNWVO vo) { // 프로젝트 파일탭
-		return map.fileList(vo);
+	public PNWVO txtNW(PNWVO vo) { // 프로젝트 홈탭 : 글 상세보기
+		return map.txtNW(vo); 
 	}
-
+	
+	@Override
+	public PNWVO tskNW(PNWVO vo) { // 프로젝트 홈탭 : 업무 상세보기
+		return map.tskNW(vo); 
+	}
+	
+	@Override
+	public PNWVO subtskNW(PNWVO vo) { // 프로젝트 홈탭 : 하위업무 상세보기
+		return map.subtskNW(vo); 
+	}
+	
+	@Override
+	public PNWVO scheNW(PNWVO vo) {	// 프로젝트 홈탭 : 일정 상세보기
+		return map.scheNW(vo); 
+	}
+	
+	@Override
+	public List<PNWVO> TodoNW(PNWVO vo){ // 프로젝트 홈탭 : 할일 상세보기
+		return map.TodoNW(vo); 
+	}
+	
+	
 	@Override
 	public int txtInsert(PNWVO vo) { // 글 입력
 		return map.txtInsert(vo);
@@ -202,21 +260,6 @@ public class PNWServiceImpl implements PNWService {
 	@Override
 	public int nwDelete(PNWVO vo) { // 게시글 삭제
 		return map.nwDelete(vo);
-	}
-
-	@Override
-	public int replyInsert(PNWVO vo) { // 댓글 생성
-		return map.replyInsert(vo);
-	}
-
-	@Override
-	public int replyUpdate(PNWVO vo) { // 댓글 수정
-		return map.replyUpdate(vo);
-	}
-
-	@Override
-	public int replyDelete(PNWVO vo) { // 댓글 삭제
-		return map.replyDelete(vo);
 	}
 
 }

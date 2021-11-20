@@ -11,7 +11,7 @@
 	<!-- 새 프로젝트 : PM 삽입-->
 	<insert id="prjPMInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">
 		insert into prj_parti(prj_id, mem_id, prj_perm)
-		values ((select max(prj_id) from project), #{memId}, 'PM')
+		values ((select max(prj_id) from project), #{memId}, 'pm')
 	</insert>
 
 	<!-- 메뉴 : 카테고리 이름 출력-->
@@ -24,7 +24,7 @@
 
 	<!-- 내 프로젝트 : 즐겨찾기 -->
 	<select id="favorMyPrj" resultType="co.plus.prj.pnw.vo.PNWVO">
-		select b.mem_id, a.prj_id, a.prj_ttl, c.prj_color, a.prj_knd, a.prj_open_perm,
+		select a.prj_id, a.prj_ttl, c.prj_color, a.prj_knd, a.prj_open_perm,
 			(select count(*) from prj_parti where prj_id = a.prj_id) as partiCnt
 		from project a, member b, prj_parti c
 		where a.co_url = b.co_url        
@@ -37,7 +37,7 @@
 
 	<!-- 내 프로젝트 : 즐겨찾기X -->
 	<select id="noMyPrj" resultType="co.plus.prj.pnw.vo.PNWVO">
-		select b.mem_id, a.prj_id, a.prj_ttl, c.prj_color, a.prj_knd, a.prj_open_perm,
+		select a.prj_id, a.prj_ttl, c.prj_color, a.prj_knd, a.prj_open_perm,
 			(select count(*) from prj_parti where prj_id = a.prj_id) as partiCnt
 		from project a, member b, prj_parti c
 		where a.co_url = b.co_url        
@@ -48,25 +48,50 @@
         order by a.prj_id desc
 	</select>
 
+	<!-- 즐겨찾기 추가 -->
+	<insert id="prjFavorite"  parameterType="co.plus.prj.pnw.vo.PNWVO">
+		insert into favorite
+		values(#{memId}, #{prjId})
+	</insert>
+	
+	<!-- 즐겨찾기 삭제 -->
+	<delete id="prjNoFavor" parameterType="co.plus.prj.pnw.vo.PNWVO">
+		delete from favorite
+		where mem_id = #{memId} and prj_id = #{prjId}
+	</delete>
+
+	<!-- 프로젝트 색깔 변경 -->
+	<update id="prjColorUpdate" parameterType="co.plus.prj.pnw.vo.PNWVO">
+		update prj_parti
+		set prj_color = #{prjColor}
+		where mem_id = #{memId} and prj_id = #{prjId}
+	</update>
+	
+	<!-- 프로젝트 폴더 변경 -->
+	<insert id="prjFolderSet" parameterType="co.plus.prj.pnw.vo.PNWVO">
+		insert into prj_fold
+		values(#{foldId}, #{prjId})
+	</insert>
+
 	<!-- 전체 프로젝트 -->
 	<select id="openProject" resultType="co.plus.prj.pnw.vo.PNWVO">
-		select a.prj_id, a.prj_ttl, a.prj_cntn, b.mem_id, c.name, c.wkpo,
+		select a.prj_id, a.prj_ttl, a.prj_cntn, a.ctgry_id, b.mem_id, c.name, c.wkpo,
     		(select count(*) from prj_parti where prj_id = a.prj_id) as partiCnt,
     		(case when exists
-    				(select * from member where mem_id = #{memId} and co_url = #{coUrl} and mem_perm = 'GUEST')
+    				(select * from member where mem_id = #{memId} and co_url = #{coUrl} and mem_perm = 'guest')
     				then 0 else 1 end) as partiyn
 		from project a, prj_parti b, member c 
     	where a.prj_knd ='C'
         	and a.prj_id = b. prj_id
         	and a.co_url = #{coUrl}
         	and b.mem_id = c.mem_id
-        	and b.prj_perm = 'PM'
+        	and b.prj_perm = 'pm'
         <!-- 프로젝트 명으로 검색 -->
 		<if test="prjTtl != null and prjTtl != ''">
 			and a.prj_ttl like '%' || #{prjTtl} || '%'
 		</if>
         union
-		select d.prj_id, d.prj_ttl, d.prj_cntn, e.mem_id, f.name, f.wkpo,
+		select d.prj_id, d.prj_ttl, d.prj_cntn, d.ctgry_id, e.mem_id, f.name, f.wkpo,
 			(select count(*) from prj_parti where prj_id = d.prj_id) as partiCnt,
         	(case when exists
         			(select * from prj_parti where mem_id = #{memId} and prj_id = d.prj_id)
@@ -76,14 +101,14 @@
             and d.prj_id = e.prj_id
             and d.co_url = #{coUrl}
 			and e.mem_id = f.mem_id
-            and e.prj_perm = 'PM'
+            and e.prj_perm = 'pm'
             and d.prj_open_perm = 'all'
         <!-- 프로젝트 명으로 검색 -->
 		<if test="prjTtl != null and prjTtl != ''">
 			and d.prj_ttl like '%' || #{prjTtl} || '%'
 		</if>
 		union
-		select g.prj_id, g.prj_ttl, g.prj_cntn, h.mem_id, i.name, i.wkpo,
+		select g.prj_id, g.prj_ttl, g.prj_cntn, g.ctgry_id, h.mem_id, i.name, i.wkpo,
 			(select count(*) from prj_parti where prj_id = g.prj_id) as partiCnt,
         	(case when exists
         			(select * from prj_parti where mem_id = #{memId} and prj_id = g.prj_id)
@@ -93,7 +118,7 @@
             and g.prj_id = h. prj_id
             and g.co_url = #{coUrl}
             and h.mem_id = i.mem_id
-            and h.prj_perm = 'PM'
+            and h.prj_perm = 'pm'
 			and g.prj_open_perm = 'part'
             and #{memId} IN (select k.mem_id
                        from project j, prj_parti k
@@ -107,7 +132,34 @@
 		</if>
         order by prj_id asc
 	</select>
+	
+	
+	<!-- 즐겨찾기 : 참여 -->
+	<select id="joinPrj" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select a.*, c.prj_color, (select count(*) from prj_parti where prj_id = a.prj_id) as partiCnt
+		from project a, favorite b, prj_parti c
+		where b.mem_id = #{memId}
+			and b.mem_id = c.mem_id
+            and a.prj_id = b.prj_id
+    		and a.prj_id = c.prj_id
+        order by a.prj_id desc
+	</select>
 
+	<!-- 즐겨찾기 : 참여X -->
+	<select id="noJoinPrj" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select a.*, (select count(*) from prj_parti where prj_id = a.prj_id) as partiCnt,
+				(case when exists (select * from prj_parti where mem_id = #{memId} and prj_id = a.prj_id)
+                        then (select prj_color from prj_parti where mem_id = #{memId} and prj_id = a.prj_id) 
+                		else (select prj_color from prj_parti where prj_perm = 'pm' and prj_id = a.prj_id) 
+                end) as prj_color
+		from project a, favorite b
+		where not exists (select * from prj_parti
+            		 where mem_id = #{memId} and prj_id = b.prj_id)
+             and b.mem_id = #{memId}
+   			 and a.prj_id = b.prj_id 
+        order by a.prj_id desc
+	</select>
+	
 	<!-- 프로젝트 폴더 메뉴 -->
 	<select id="folderMenu" resultType="co.plus.prj.pnw.vo.PNWVO">
 		select fold_id, fold_name
@@ -173,7 +225,7 @@
 	<!-- 프로젝트 폴더 생성 -->
 	<insert id="prjFoldInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">
 		insert into mem_prj_fold
-		values (#{foldId}, #{foldName}, #{memId})
+		values (foldid.nextval, #{foldName}, #{memId})
 	</insert>
 
 	<!-- 프로젝트 폴더 수정 ** -->
@@ -223,9 +275,18 @@
 			 (case when exists (select * from prj_parti where mem_id = #{memId} and prj_id = a.prj_id)
                    then (select prj_color from prj_parti where mem_id = #{memId} and prj_id = a.prj_id) 
                    else (select prj_color from prj_parti where prj_perm = 'pm' and prj_id = a.prj_id) 
-                end) as prj_color
+                end) as prj_color,
+             (case when exists (select * from favorite where mem_id = #{memId} and prj_id = a.prj_id)
+                 then 1 else 0
+            end) as favoryn
 		from project a
 		where a.prj_id = #{prjId}
+	</select>
+	
+	<select id="allEmploys" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select a.*
+		from member a
+		where a.mem_id not in (select mem_id from prj_parti where prj_id = {prjId});
 	</select>
 	
 	<select id="prjTskAllCount" resultType="int">						<!-- 업무 전체 갯수(업무리포트) -->
@@ -284,13 +345,21 @@
 		where prj_id = #{prjId}
 	</select>
 	
+	<select id="prjPartiList" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 전체 참여자 수 -->
+		select a.mem_id, a.name, a.wkpo, a.co_url, a.dept, b.prj_perm
+		from member a, prj_parti b
+		where a.mem_id = b.mem_id
+			and b.prj_id = #{prjId}
+		order by a.mem_id asc
+	</select>
+	
 	<select id="partiPM" resultType="co.plus.prj.pnw.vo.PNWVO">		<!-- 참여자 목록 : PM -->
 		select a.mem_id, a.name, a.wkpo, a.co_url, a.dept, b.prj_perm, c.mem_st
 		from member a, prj_parti b, mem_status c
 		where a.mem_id = b.mem_id
 			and a.mem_id = c.mem_id
 			and b.prj_id = #{prjId}
-			and b.prj_perm = 'PM'
+			and b.prj_perm = 'pm'
 		order by a.mem_id asc
 	</select>
 
@@ -300,7 +369,7 @@
 		where a.mem_id = b.mem_id
 			and a.mem_id = c.mem_id
 			and b.prj_id = #{prjId}
-			and b.prj_perm = 'USER'
+			and b.prj_perm = 'user'
 		order by a.mem_id asc
 	</select>
 
@@ -310,9 +379,10 @@
 		where a.mem_id = b.mem_id
 			and a.mem_id = c.mem_id
 			and b.prj_id = #{prjId}
-			and b.prj_perm = 'GUEST'
+			and b.prj_perm = 'guest'
 		order by a.mem_id asc
 	</select>
+	
 	<!-- <resultMap id="tskList" type="co.plus.prj.pnw.vo.PNWVO"> <result property="" 
 		/> <result property="" /> <result property="" /> <collection property="" 
 		/> </resultMap> <select id="tskPrgList" resultMap="tskList"> select a.* from 
@@ -353,11 +423,82 @@
 			and c.prj_id = #{prjId}
 			and c.prj_id = b.prj_id
 	</select>
-
-	<!-- 프로젝트 : 파일 -->
-	<select id="fileList" resultType="co.plus.prj.pnw.vo.PNWVO">
-			select * from text
+	
+	<!-- 글 게시글 클릭 -->
+	<select id="txtNW"
+		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
+		 select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name, 
+        		(case when exists(select * from bookmark where noti_id = a.noti_id and mem_id = #{memId})
+            		then 1 else 0 end) as bmkYn,
+		        (case when exists(select * from pincette where prj_id = #{prjId} and noti_id = a.noti_id)
+					then 1 else 0 end) as PinYn	
+		from text a, project b, board c, member d
+		where a.noti_id = c.noti_id 
+			and b.prj_id = c.prj_id
+			and b.co_url = d.co_url
+			and c.mem_id = d.mem_id
+			and c.noti_id = #{notiId}
 	</select>
+	
+	<!-- 업무 게시글 클릭 -->
+	<select id="tskNW" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select a.*,b.noti_ttl as subtsk_ttl, b.subtsk_prgs, b.subtsk_bgn_dt, b.subtsk_end_dt, b.mem_id, c.noti_open_perm, c.noti_dttm, d.prj_id, d.prj_ttl, e.name,
+				(case when exists(select * from bookmark where noti_id = a.noti_id and mem_id = #{memId})
+		            then 1 else 0 end) as bmkYn,
+		        (case when exists(select * from pincette where prj_id = #{prjId} and noti_id = a.noti_id)
+					then 1 else 0 end) as PinYn	
+		from task a LEFT OUTER JOIN subtask b
+		on a.noti_id = b.noti_id2
+		     inner join board c on a.noti_id = c.noti_id
+		     inner join project d on c.prj_id = d.prj_id
+		     inner join member e on c.mem_id = e.mem_id
+		where a.noti_id = #{notiId}	
+        </select>
+	
+	<!-- 하위업무 게시글 클릭 -->
+	<select id="subtskNW" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select a.*, b.name, c.subtsk_cntn, p.prj_ttl,
+				(case when exists(select * from bookmark where noti_id = a.noti_id and mem_id = #{memId})
+		            then 1 else 0 end) as bmkYn,
+		        (case when exists(select * from pincette where prj_id = #{prjId} and noti_id = a.noti_id)
+					then 1 else 0 end) as PinYn	
+		from board a, member b, subtask c, project p
+		where a.mem_id = b.mem_id
+			and a.noti_id = c.noti_id
+		    and a.prj_id = p.prj_id
+			and	a.noti_id = #{notiId}
+	</select>
+	
+	<!-- 일정 게시글 클릭 -->
+	<select id="scheNW" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select a.*, b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, d.name, c.noti_dttm,
+				(case when exists(select * from bookmark where noti_id = a.noti_id and mem_id = #{memId})
+		            then 1 else 0 end) as bmkYn,
+		        (case when exists(select * from pincette where prj_id = b.prj_id and noti_id = a.noti_id)
+					then 1 else 0 end) as PinYn	
+		from schedule a, project b, board c, member d
+		where a.noti_id = c.noti_id 
+			and b.prj_id = c.prj_id
+			and b.co_url = d.co_url
+			and c.mem_id = d.mem_id
+			and c.noti_id = #{notiId}
+	</select>
+	
+	<!-- 내 게시물 목록 -> 할일 상세보기(팝업) -->
+	<select id="TodoNW" resultType="co.plus.prj.pnw.vo.PNWVO">
+		select a.*, b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name,
+				(case when exists(select * from bookmark where mem_id = #{memId})
+					then 1 else 0 end) as bmkYn,
+				(case when exists(select * from pincette where prj_id = b.prj_id)
+					then 1 else 0 end) as PinYn	
+		from todo a, project b, board c, member d
+		where a.noti_id = c.noti_id 
+			and b.prj_id = c.prj_id
+			and b.co_url = d.co_url
+			and c.mem_id = d.mem_id
+	        and c.noti_id = #{notiId}
+	</select>
+
 
 	<!-- 글 입력 -->
 	<insert id="txtInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">
@@ -401,26 +542,6 @@
 
 	<!-- 게시글 삭제 -->
 	<delete id="nwDelete" parameterType="co.plus.prj.pnw.vo.PNWVO">
-			select * from text
-	</delete>
-
-	<!-- 댓글 목록 -->
-	<select id="replyList" resultType="co.plus.prj.pnw.vo.PNWVO">
-			select * from text
-	</select>
-
-	<!-- 댓글 입력 -->
-	<insert id="replyInsert" parameterType="co.plus.prj.pnw.vo.PNWVO">
-			select * from text
-	</insert>
-
-	<!-- 댓글 수정 -->
-	<update id="replyUpdate" parameterType="co.plus.prj.pnw.vo.PNWVO">
-			select * from text
-	</update>
-
-	<!-- 댓글 삭제 -->
-	<delete id="replyDelete" parameterType="co.plus.prj.pnw.vo.PNWVO">
 			select * from text
 	</delete>
 

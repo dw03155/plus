@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!DOCTYPE html>
-<html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <style type="text/css">
 	.inviteInfo{
 		padding: 20px;
@@ -143,7 +139,7 @@
 				<h2>이메일 초대</h2>
 				<p>직원들의 이메일 주소를 입력하여 바로 초대할 수 있습니다.</p>
 					<input type="text" id="emailInput1" class="emailInput" placeholder="example@gmail.com"/>
-					<button id="emailInputBtn" class="blueBtn" type="button">전송</button>
+					<button id="emailInputBtn" class="blueBtn" type="button" style="top: 390px; left: 24px;">전송</button>
 				</div>
 			</div>
 		</div>
@@ -160,7 +156,7 @@
 				<form id="excelUploadForm" name="excelUploadForm" action="xlsxUplord.do" method="post" enctype="multipart/form-data" style="display: inline;">
 				<input id="file" name="file" type="file" style="border: 1px;">
 				</form>
-				<button type="submit" id="fileUp" class="blueBtn" onclick="check()">추가</button>
+				<button type="submit" id="fileUp" class="blueBtn" onclick="check()" style="top: 261px; left: 225px">추가</button>
 				<button id="xlsxDoun" onclick="location.href='/xlsxFile/xlsxdownload/플러스 회원일괄초대 엑셀입력 양식.xls'" value="플러스 회원일괄초대 엑셀입력 양식.xls" class="whiteBtn" type="button" style="width: 180px">엑셀파일 양식 다운로드</button>
 			</div>
 			<div class="contentsBox">
@@ -171,8 +167,8 @@
 			<em id="dulcnt"  style="color: blue"></em>'개 중복)</span>
 			<!-- <span><input type="checkbox">등록 불가능한 행 모아보기</span> -->
 			<div id="invitebtnDiv">
-				<button class="whiteBtn" id="lineDelBtn">삭제</button>
-				<button class="blueBtn" id="inBtn">등록</button>
+				<button class="whiteBtn" id="lineDelBtn" type="button">삭제</button>
+				<button id="inBtn" type="button" style="padding: 6px 15px 6px 15px;	background-color: #5882FA;	color: white;	border-radius: 2px;	margin-top: 10px;">등록</button>
 			</div>
 			</div>
 				<table id="insertMemberList" border="1">
@@ -241,6 +237,7 @@
 			var fileCheck = $(".fileCheck:checked");
 			var coUrl = "${sessionScope.coUrl}";
 			fileCheck.each(function(i){
+				console.log(i);
 				var tr = fileCheck.parent().parent().eq(i);
 				var td = tr.children();
 				var emailVal = td.eq(2).children().children().val();
@@ -251,7 +248,7 @@
 				var wkpo = td.eq(5).children().children().val();
 				var coTel = td.eq(6).children().children().val();
 				var jsondata = {"coUrl":coUrl,"name":name,"email":email,"persTel":persTel,"dept":dept,"wkpo":wkpo,"coTel":coTel};
-					
+				console.log(jsondata);	
 				$.ajax({
 					url: "AllMemberInsert2.do",
 					method: "put",
@@ -259,9 +256,10 @@
 					contentType: "application/json",
 					dataType: "json",
 					success: function(data){
-						fileCheck.parent().parent().eq(i).remove();
+						$('#insertlist').children().remove();
+
 					}
-				})
+				});
 					
 			})
 		}

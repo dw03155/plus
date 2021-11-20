@@ -17,7 +17,7 @@
 			</div>
 			<span id="allCollectionCount"
 				class="js-collection-total-count js-collection-count top-task-num"
-				style="display: block">${fn:length(nwLists)}</span>
+				style="display: block">&nbsp;${fn:length(nwLists)}</span>
 		</div>
 
 
@@ -31,15 +31,6 @@
 					<div class="allCalendarLayer full-width small-style-wrap-2 d-none"
 						style="display: block">
 						<div class="all-schedule">
-							<div class="btns-wr">
-								<div class="project-search-area all-file-header-type-3">
-									<div class="project-search">
-										<i class="icons-search"></i> <input type="text"
-											placeholder="일정 제목을 검색해주세요!"
-											class="js-calendar-search-input project-search-input">
-									</div>
-								</div>
-							</div>
 							<div class="all-calendar-wrap">
 								<div class="all-calendar-wrap">
 									<!-- calendar -->

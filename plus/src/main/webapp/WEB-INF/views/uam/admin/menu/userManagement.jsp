@@ -2,11 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <style type="text/css">
 	table{
 		width: 95%;
@@ -127,10 +123,10 @@
 							<td>${usings.wkpo }</td>
 							<td>${usings.email }</td>
 							<td>${usings.persTel }</td>
-							<c:if test="${usings.memPerm eq 'ADMIN'}">
+							<c:if test="${usings.memPerm eq 'admin'}">
 							<td>관리자<em class="adminDel" style="color: red; cursor: pointer;">[관리자해제]</em></td>
 							</c:if>
-							<c:if test="${usings.memPerm eq 'USER'}">
+							<c:if test="${usings.memPerm eq 'user'}">
 							<td>사용자<em class="userDel" style="color: blue;  cursor: pointer;">[관리자지정]</em></td>
 							</c:if>
 							<td><input type='checkbox' name="usingCheck" value="${usings.memId }"></td>
@@ -192,13 +188,13 @@
 							<td>${notuseds.name }</td>
 							<td>${notuseds.email }</td>
 							<td>${notuseds.persTel }</td>
-							<c:if test="${notuseds.memPerm eq 'USER' }">
+							<c:if test="${notuseds.memPerm eq 'user' }">
 							<td>사원</td>
 							</c:if>
-							<c:if test="${notuseds.memPerm eq 'ADMIN' }">
+							<c:if test="${notuseds.memPerm eq 'admin' }">
 							<td>관리자</td>
 							</c:if>
-							<c:if test="${notuseds.memPerm eq 'GUEST' }">
+							<c:if test="${notuseds.memPerm eq 'guest' }">
 							<td>게스트</td>
 							</c:if>
 						</tr>
