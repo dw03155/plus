@@ -144,7 +144,11 @@
 	<!-- 내 게시물 목록 -> 업무 상세보기(팝업) -->
 	<select id="myPostTsk"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-		select a.*,b.noti_ttl as subtskTtl, b.subtsk_prgs, b.subtsk_end_dt, b.mem_id, c.noti_open_perm, c.noti_dttm, d.prj_id, d.prj_ttl, e.name
+		 select a.*,b.noti_ttl as subtskTtl, b.subtsk_prgs, b.subtsk_end_dt, b.mem_id, c.noti_open_perm, c.noti_dttm, d.prj_id, d.prj_ttl, e.name,
+        (case when exists(select * from bookmark where noti_id =a.noti_id)
+            then 1
+            else 0
+            end) as bmyn
         from task a LEFT OUTER JOIN subtask b
        		on a.noti_id = b.noti_id2
 		        inner join board c
@@ -171,7 +175,7 @@
 	<select id="myPostSche"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
 		select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, d.name, c.noti_dttm,
-		(case when exists(select * from bookmark where noti_id =a.noti_id and mem_id = a.mem_id)
+		(case when exists(select * from bookmark where noti_id =a.noti_id)
             then 1
             else 0
             end) as bmyn
@@ -187,7 +191,7 @@
 	<select id="myPostTodo"
 		resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
 		select  a.* , b.co_url, b.prj_id, b.prj_ttl, c.noti_open_perm, c.noti_dttm, d.name,
-		(case when exists(select * from bookmark where mem_id =a.mem_id)
+		(case when exists(select * from bookmark where noti_id =a.noti_id)
             then 1
             else 0
             end) as bmyn

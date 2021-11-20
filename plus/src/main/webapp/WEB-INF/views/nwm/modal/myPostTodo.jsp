@@ -175,13 +175,23 @@
 
 				<div class="post-bottom-area">
 					<div class="post-bottom-menu js-reaction-bookmark">
-						<div class="bottom-button-area">
-							<button id="checkTheBookmark"  class="js-post-bookmark post-bottom-button ">
-								<i class="icon-bookmark"></i> <span>북마크</span>
-							</button>
-						</div>
+						<!-- 북마크 표시 -->
+					<div class="bottom-button-area">
+
+					<c:if test="${todos[0].bmyn == '1' }">
+						<button class="js-post-bookmark post-bottom-button on">
+							<i class="icon-bookmark"></i> <span>북마크</span>
+						</button>
+					</c:if>
+					<c:if test="${todos[0].bmyn == '0' }">
+						<button class="js-post-bookmark post-bottom-button">
+							<i class="icon-bookmark"></i> <span>북마크</span>
+						</button>
+					</c:if>
+					</div>
 					</div>
 				</div>
+				
 				<!-- //post-card-container -->
 			</div>
 

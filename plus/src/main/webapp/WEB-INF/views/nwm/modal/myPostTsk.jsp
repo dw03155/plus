@@ -378,12 +378,19 @@ pageContext.setAttribute("replaceChar", "\n");
 
 			<div class="post-bottom-area">
 				<div class="post-bottom-menu js-reaction-bookmark">
+					<!-- 북마크 표시 -->
 					<div class="bottom-button-area">
-						
+
+					<c:if test="${tasks.bmyn == '1' }">
+						<button class="js-post-bookmark post-bottom-button on">
+							<i class="icon-bookmark"></i> <span>북마크</span>
+						</button>
+					</c:if>
+					<c:if test="${tasks.bmyn == '0' }">
 						<button class="js-post-bookmark post-bottom-button">
 							<i class="icon-bookmark"></i> <span>북마크</span>
 						</button>
-					
+					</c:if>
 					</div>
 				</div>
 			</div>

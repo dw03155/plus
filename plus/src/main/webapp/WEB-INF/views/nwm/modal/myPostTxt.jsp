@@ -121,18 +121,19 @@ pageContext.setAttribute("replaceChar", "\n");
 						<span class="emoji-count-area"> <span class="emoji-count"></span>
 						</span>
 					</div>
+					<!-- 북마크 표시 -->
 					<div class="bottom-button-area">
-						<button class="js-post-bookmark post-bottom-button ">
+
+					<c:if test="${texts.bmyn == '1' }">
+						<button class="js-post-bookmark post-bottom-button on">
 							<i class="icon-bookmark"></i> <span>북마크</span>
 						</button>
-					</div>
-				</div>
-				<div class="cmt-read-wr">
-					<div class="comment-count-area">
-						<span>댓글</span> <span class="comment-count">0</span>
-					</div>
-					<div class="js-read-check-button read-confirmation">
-						<span>읽음</span> <span class="confirmation-number">2</span>
+					</c:if>
+					<c:if test="${texts.bmyn == '0' }">
+						<button class="js-post-bookmark post-bottom-button">
+							<i class="icon-bookmark"></i> <span>북마크</span>
+						</button>
+					</c:if>
 					</div>
 				</div>
 
@@ -182,7 +183,7 @@ pageContext.setAttribute("replaceChar", "\n");
 	// 모달창 닫기 버튼
 	$(".btn-close").click(function() {
 		$("#postPopup").css("display", "none");
-		$(".task-item").removeClass("highlight");
+		$(".text").removeClass("highlight");
 	});
 	
 	// 더보기 버튼 (수정, 삭제)
