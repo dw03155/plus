@@ -189,7 +189,7 @@
 													</div>
 													<div class="js-workers task-item-cell task-worker_nm-cell ">
 														<span class="js-mouseover"> <span
-															class="js-worker-name manager ellipsis">${dtasks.name}</span>
+															class="js-worker-name manager ellipsis">${dtasks.writer}</span>
 															<span class="js-worker-count"></span>
 														</span>
 													</div>

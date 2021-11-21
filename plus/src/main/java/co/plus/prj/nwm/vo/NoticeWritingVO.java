@@ -65,5 +65,6 @@ public class NoticeWritingVO {
 	
 
 	private String prjColor; 		// 프로젝트 색상
+	private String writer;			// 업무 작성자
 }
 

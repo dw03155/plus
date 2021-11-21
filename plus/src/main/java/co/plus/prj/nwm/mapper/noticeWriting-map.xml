@@ -59,14 +59,24 @@
 	</select>
 
 	<select id="detailTaskList" resultType="co.plus.prj.nwm.vo.NoticeWritingVO">
-	select e.*, s.noti_id2, g.noti_dttm, m.name
+	select e.*, s.noti_id2, g.noti_dttm, m.name, n.name as writer
         from task e LEFT OUTER JOIN subtask s
         on e.noti_id = s.noti_id2
         inner join board g
         on e.noti_id = g.noti_id
         inner join member m
         on e.mem_id = m.mem_id
-        where g.prj_id = #{prjId}
+        inner join member n
+        on g.mem_id = n.mem_id
+        where g.prj_id =#{prjId} 
+	<!-- select e.*, s.noti_id2, g.noti_dttm, m.name
+        from task e LEFT OUTER JOIN subtask s
+        on e.noti_id = s.noti_id2
+        inner join board g
+        on e.noti_id = g.noti_id
+        inner join member m
+        on e.mem_id = m.mem_id
+        where g.prj_id = #{prjId} -->
 		<if test="notiTtl != null and notiTtl != ''">
 			and noti_ttl like '%' || #{notiTtl} || '%'
 		</if>
