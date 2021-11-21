@@ -800,16 +800,19 @@ to {transform: rotate(360deg);}
 		$("#prjMakeLayer").find("button").on("click", function(e) { // 옵션 버튼 클릭시 active
 			$(e.target).toggleClass("active");
 	
-			if ($("#cPrjSet").find("button").hasClass("active")) { // 회사프로젝트 설정
-				$("#prjKndSet").val("C");
-			} else {
-				$("#prjKndSet").val("N");
-			}
-	
-			if ($("#prjAllSet").find("button").hasClass("active")) { // 전체공개 설정
+			if ($("#cPrjSet").find("button").hasClass("active")) { 
+				$("#prjKndSet").val("C"); // 회사프로젝트 설정
+				$("#prjAllSet").find("button").addClass("active"); // 전체공개 설정
 				$("#prjOpenPermSet").val("all");
 			} else {
-				$("#prjOpenPermSet").val("part");
+				$("#prjKndSet").val("N");	//일반 프로젝트 설정
+				
+				if ($("#prjAllSet").find("button").hasClass("active")) { // 전체공개 설정
+					$("#prjOpenPermSet").val("all");
+				} else {
+					$("#prjOpenPermSet").val("part");
+				}
+				
 			}
 		});//옵션 버튼 클릭 End
 
